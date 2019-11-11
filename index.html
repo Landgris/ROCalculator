@@ -3,6 +3,8 @@
     <head>
         <title>RO Calculator</title>
         <script src="https://unpkg.com/vue"></script>
+        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+        <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     </head>
     <body>
         <div id = "app">
@@ -33,6 +35,21 @@
                         vm.message = res; // 5. Change View Model
                     });
             }
+        </script>
+        
+        <div id="app2">
+                <el-button @click="visible = true">Element Button</el-button>
+                <el-dialog :visible.sync="visible" title="Hello world">
+                <p>Try Element</p>
+                </el-dialog>
+        </div>
+        <script>
+            new Vue({
+                el: '#app2',
+                data: function() {
+                return { visible: false }
+                }
+            })
         </script>
     <body>
 </html>
