@@ -10,15 +10,15 @@
     <body>
         <script>
             var vm = new Vue({
-                el:'app',
+                el:'#app',
                 data:{
                     message: "local data",
                 },
                 methods:{
                     getRemoteMessage()
                     {
-                        Promise.resolve("Get Remote Data").
-                        then((res)=>{
+                        Promise.resolve("Get Remote Data")
+                        .then((res)=>{
                             this.message = res;
                         });
                     }
