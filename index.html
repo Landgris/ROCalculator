@@ -8,6 +8,10 @@
         <script src="https://unpkg.com/vue"></script>
     </head>
     <body>
+        <div id = "app">
+            <p>{{message}}</p>
+            <button v-on:click="getRemoteMessage">Click</button>
+        </div>
         <script>
             var vm = new Vue({
                 el:'#app',
@@ -25,9 +29,5 @@
                 }
             });
         </script>
-        <div id = "app">
-            <p>{{message}}</p>
-            <button v-on:click="getRemoteMessage">Click</button>
-        </div>
     <body>
 </html>
