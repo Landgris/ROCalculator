@@ -12,6 +12,12 @@
             <button v-on:click="getRemoteMessage">Click</button>
         </div>
         <button onclick="clickButton()">Outside Button</button>
+        <div id="app2">
+                <el-button @click="visible = true">Element Button</el-button>
+                <el-dialog :visible.sync="visible" title="Hello world">
+                <p>Try Element</p>
+                </el-dialog>
+        </div>
         <script>
             var vm = new Vue({
                 el:'#app',
@@ -29,27 +35,19 @@
                 }
             });
 
-            function clickButton() {    // 2. trigger event in Vue instance
-                Promise.resolve("Get remote data by outside button.") // 3. Get data asynchronously
-                    .then((res) => {    // 4. Return result
-                        vm.message = res; // 5. Change View Model
-                    });
-            }
-        </script>
-        
-        <div id="app2">
-                <el-button @click="visible = true">Element Button</el-button>
-                <el-dialog :visible.sync="visible" title="Hello world">
-                <p>Try Element</p>
-                </el-dialog>
-        </div>
-        <script>
             new Vue({
                 el: '#app2',
                 data: function() {
                 return { visible: false }
                 }
             })
+
+            function clickButton() {    // 2. trigger event in Vue instance
+                Promise.resolve("Get remote data by outside button.") // 3. Get data asynchronously
+                    .then((res) => {    // 4. Return result
+                        vm.message = res; // 5. Change View Model
+                    });
+            }
         </script>
     <body>
 </html>

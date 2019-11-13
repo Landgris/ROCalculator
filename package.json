@@ -1,0 +1,22 @@
+{
+  "name": "rocalculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Landgris/ROCalculator.git"
+  },
+  "author": "Landgris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Landgris/ROCalculator/issues"
+  },
+  "homepage": "https://github.com/Landgris/ROCalculator#readme",
+  "dependencies": {
+    "element-ui": "^2.12.0"
+  }
+}
