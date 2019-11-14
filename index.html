@@ -1,16 +1,17 @@
-
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>RO Calculator</title>
-        <script src="https://unpkg.com/vue"></script>
-        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-        <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
-    </head>
-    <body>
-        
-        <!-- <div id = "app">
+<head>
+    <meta charset="utf-8" />
+    <title>RO Calculator</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+
+<body>
+
+    <!-- <div id = "app">
             <p>{{message}}</p>
             <button v-on:click="getRemoteMessage">Click</button>
         </div>
@@ -21,44 +22,44 @@
                 <p>Try Element</p>
                 </el-dialog>
         </div> -->
-        
-        <div id="Equipment" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
-            <el-dialog  id="EquipEffectDia" 
-                        :visible.sync="EquipEffectDialogVisible" 
-                        title="Select Effect">
-            <p>Effect dialogue</p>
-            </el-dialog>
 
+    <div id="Equipment" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+        <el-dialog id="EquipEffectDia" :visible.sync="EquipEffectDialogVisible" title="Select Effect">
+            <p>Effect dialogue</p>
+        </el-dialog>
+
+        <div>
+            <el-input v-model="input" placeholder="裝備名稱"></el-input>
+            <el-button v-on:click="OpenEquipEffectDialog" type="primary" plain>+</el-button>
             <div>
-                <el-input v-model="input" placeholder="裝備名稱"></el-input>
-                <el-button v-on:click="OpenEquipEffectDialog" 
-                type="primary" plain>+</el-button>
-            <div>
-            <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
-                <span>{{somthing}}<span>
-            </div>
-            <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
-                <span>效果2<span>
+                <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+                    <span>{{somthing}}<span>
+                </div>
+                <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+                    <span>效果2<span>
+                </div>
             </div>
         </div>
-        <!-- <script type="text/javascript" src="js/Test.js"></script> -->
-        <script>
-            var equipmentvue = new Vue({
-                el: '#Equipment',
-                data: 
-                {
-                    input: "yoyo",
-                    somthing: 1,
-                    EquipEffectDialogVisible: false,
-                },
-                methods:{
-                    OpenEquipEffectDialog()
-                    {
-                        this.EquipEffectDialogVisible = true;
-                        this.somthing++;
-                    }
+    </div>
+    <!-- <script type="text/javascript" src="js/Test.js"></script> -->
+    <script>
+        var equipmentvue = new Vue({
+            el: '#Equipment',
+            data:
+            {
+                input: "yoyo",
+                somthing: 1,
+                EquipEffectDialogVisible: false,
+            },
+            methods: {
+                OpenEquipEffectDialog() {
+                    this.EquipEffectDialogVisible = true;
+                    this.somthing++;
                 }
-            })
-        </script>
-    <body>
+            }
+        })
+    </script>
+
+<body>
+
 </html>
