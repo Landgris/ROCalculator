@@ -32,7 +32,7 @@
             <div>
                 <el-input v-model="input" placeholder="裝備名稱"></el-input>
                 <el-button v-on:click="OpenEquipEffectDialog" 
-                click="visible = true" type="primary" plain>+</el-button>
+                type="primary" plain>+</el-button>
             <div>
             <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
                 <span>{{somthing}}<span>
@@ -49,6 +49,7 @@
                 {
                     input: "yoyo",
                     somthing: 1,
+                    EquipEffectDialogVisible: false,
                 },
                 methods:{
                     OpenEquipEffectDialog()
@@ -58,17 +59,6 @@
                     }
                 }
             })
-
-            var EquipEffectDiaVue = new Vue({
-                el: '#EquipEffectDia',
-                data() {
-                    return {
-                        EquipEffectDialogVisible: false,
-                    }
-                }
-            })
-
-            EquipEffectDiaVue.EquipEffectDialogVisible = false;
         </script>
     <body>
 </html>
