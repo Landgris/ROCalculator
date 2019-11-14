@@ -15,7 +15,7 @@
         </div>
         <button onclick="clickButton()">Outside Button</button>
         <div id="app2">
-                <el-button @click="visible = true">Element Button</el-button>
+                <el-button @click="visible = true" type="primary" plain>Element Button</el-button>
                 <el-dialog :visible.sync="visible" title="Hello world">
                 <p>Try Element</p>
                 </el-dialog>
