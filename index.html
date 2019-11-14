@@ -29,25 +29,34 @@
         </el-dialog>
 
         <div>
-            <el-input v-model="input" placeholder="裝備名稱"></el-input>
+            <el-input v-model="EuqipNameInput" placeholder="裝備名稱"></el-input>
             <el-button v-on:click="OpenEquipEffectDialog" type="primary" plain>+</el-button>
             <div>
                 <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
                     <span>{{somthing}}<span>
                 </div>
-                <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
-                    <span>效果2<span>
-                </div>
+                <Effect-Item></Effect-Item>
+                <Effect-Item></Effect-Item>
             </div>
         </div>
     </div>
     <!-- <script type="text/javascript" src="js/Test.js"></script> -->
     <script>
+        Vue.component('Effect-Item', {
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button @click="count++">You clicked me {{ count }} times.</button>'
+            // template: '<div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;"><span>效果2<span></div>'
+        })
+
         var equipmentvue = new Vue({
             el: '#Equipment',
             data:
             {
-                input: "yoyo",
+                EuqipNameInput: "yoyo",
                 somthing: 1,
                 EquipEffectDialogVisible: false,
             },
@@ -58,8 +67,9 @@
                 }
             }
         })
+
     </script>
 
-<body>
+    <body>
 
 </html>
