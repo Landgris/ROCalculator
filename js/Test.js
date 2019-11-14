@@ -42,7 +42,7 @@ new Vue({
 export default {
   data() {
     return {
-      input: ''
+      input: ""
     }
   }
 }
