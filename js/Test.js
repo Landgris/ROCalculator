@@ -35,6 +35,6 @@ new Vue({
     el: '#Equipment',
     data: function() 
     {
-        return { EquipmentEffectDialog: false }
+        return { visible: false }
     }
 })
