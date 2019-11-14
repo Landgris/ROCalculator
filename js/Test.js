@@ -31,10 +31,19 @@ function clickButton() {    // 2. trigger event in Vue instance
 }
 
 
-new Vue({
+var equipmentvue = new Vue({
     el: '#Equipment',
-    data: function() 
+    data: 
     {
-        return { visible: false }
+        somthing: 1,
+    },
+    methods:{
+        OpenEquipEffectDialog()
+        {
+            this.visible = true;
+            this.somthing++;
+        }
     }
 })
+
+equipmentvue.visible = false;
