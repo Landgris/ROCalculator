@@ -35,6 +35,7 @@ var equipmentvue = new Vue({
     el: '#Equipment',
     data: 
     {
+        input: "yo",
         somthing: 1,
     },
     methods:{
