@@ -38,3 +38,11 @@ new Vue({
         return { visible: false }
     }
 })
+
+export default {
+  data() {
+    return {
+      input: ''
+    }
+  }
+}
