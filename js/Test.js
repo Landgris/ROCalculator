@@ -29,3 +29,12 @@ function clickButton() {    // 2. trigger event in Vue instance
             vm.message = res; // 5. Change View Model
         });
 }
+
+
+new Vue({
+    el: '#Equipment',
+    data: function() 
+    {
+        return { EquipmentEffectDialog: false }
+    }
+})
