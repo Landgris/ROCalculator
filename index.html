@@ -23,14 +23,16 @@
         </div> -->
         
         <div id="Equipment" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+            <el-dialog  id="EquipEffectDia" 
+                        :visible.sync="EquipEffectDialogVisible" 
+                        title="Select Effect">
+            <p>Effect element</p>
+            </el-dialog>
+
             <div>
                 <el-input v-model="input" placeholder="裝備名稱"></el-input>
                 <el-button v-on:click="OpenEquipEffectDialog" 
-                @close="CloseEquipEffectDialog"
                 click="visible = true" type="primary" plain>+</el-button>
-                <el-dialog :visible.sync="visible" title="Select Effect">
-                <p>Effect element</p>
-                </el-dialog>
             <div>
             <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
                 <span>{{somthing}}<span>

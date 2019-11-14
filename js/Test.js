@@ -35,20 +35,25 @@ var equipmentvue = new Vue({
     el: '#Equipment',
     data: 
     {
-        input: "yo",
+        input: "yoyo",
         somthing: 1,
     },
     methods:{
         OpenEquipEffectDialog()
         {
-            this.visible = true;
+            this.EquipEffectDialogVisible = true;
             this.somthing++;
-        },
-        CloseEquipEffectDialog()
-        {
-            this.visible = false;
         }
     }
 })
 
-equipmentvue.visible = false;
+var EquipEffectDiaVue = new Vue({
+    el: '#EquipEffectDia',
+    data() {
+        return {
+            EquipEffectDialogVisible: false,
+        }
+    }
+})
+
+EquipEffectDiaVue.EquipEffectDialogVisible = false;
