@@ -26,7 +26,7 @@
             <el-dialog  id="EquipEffectDia" 
                         :visible.sync="EquipEffectDialogVisible" 
                         title="Select Effect">
-            <p>Effect element</p>
+            <p>Effect dialogue</p>
             </el-dialog>
 
             <div>
@@ -41,6 +41,34 @@
                 <span>效果2<span>
             </div>
         </div>
-        <script type="text/javascript" src="js/Test.js"></script>
+        <!-- <script type="text/javascript" src="js/Test.js"></script> -->
+        <script>
+            var equipmentvue = new Vue({
+                el: '#Equipment',
+                data: 
+                {
+                    input: "yoyo",
+                    somthing: 1,
+                },
+                methods:{
+                    OpenEquipEffectDialog()
+                    {
+                        this.EquipEffectDialogVisible = true;
+                        this.somthing++;
+                    }
+                }
+            })
+
+            var EquipEffectDiaVue = new Vue({
+                el: '#EquipEffectDia',
+                data() {
+                    return {
+                        EquipEffectDialogVisible: false,
+                    }
+                }
+            })
+
+            EquipEffectDiaVue.EquipEffectDialogVisible = false;
+        </script>
     <body>
 </html>
