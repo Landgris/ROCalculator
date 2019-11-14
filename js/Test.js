@@ -43,6 +43,10 @@ var equipmentvue = new Vue({
             this.visible = true;
             this.somthing++;
         }
+        CloseEquipEffectDialog()
+        {
+            this.visible = false;
+        }
     }
 })
 

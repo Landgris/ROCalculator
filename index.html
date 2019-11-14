@@ -25,7 +25,9 @@
         <div id="Equipment" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
             <div>
                 <el-input v-model="input" placeholder="裝備名稱"></el-input>
-                <el-button v-on:click="OpenEquipEffectDialog" click="visible = true" type="primary" plain>+</el-button>
+                <el-button v-on:click="OpenEquipEffectDialog" 
+                v-o
+                click="visible = true" type="primary" plain>+</el-button>
                 <el-dialog :visible.sync="visible" title="Select Effect">
                 <p>Effect element</p>
                 </el-dialog>
