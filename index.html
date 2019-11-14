@@ -26,7 +26,7 @@
             <div>
                 <el-input v-model="input" placeholder="裝備名稱"></el-input>
                 <el-button v-on:click="OpenEquipEffectDialog" 
-                v-on:close="CloseEquipEffectDialog"
+                @close="CloseEquipEffectDialog"
                 click="visible = true" type="primary" plain>+</el-button>
                 <el-dialog :visible.sync="visible" title="Select Effect">
                 <p>Effect element</p>
