@@ -20,9 +20,9 @@
     <div class="Equipment" id="equipment">
         <el-input v-model="equipname" placeholder="裝備名稱"></el-input>
         <div class="Input" id="equipinput">
-            <el-select value-key="value" v-model="input.EffectType" v-on:change="onSelectedDrug"
+            <el-select value-key="id" v-model="input.EffectType" v-on:change="onSelectedDrug" 
                 placeholder="Select Effect">
-                <el-option v-for="item in types" :key="item.value" :label="item.label" :value="item.value">
+                <el-option v-for="item in types" :key="item.id" :label="item.label" :value="item">
                 </el-option>
             </el-select>
             <el-input v-model="input.EffectNumber" placeholder="Effect Value"></el-input>
@@ -41,16 +41,15 @@
     <script>
         evue = new Vue({
             el: '#equipment',
-            name: 'PhoneNumberLine',
             data: {
                 equipname: '',
                 contacts: [],
                 blockRemoval: true,
                 types: [
-                    { label: 'ATK', value: 'ATK' },
-                    { label: 'ATK%', value: 'ATKPercent' },
-                    { label: 'Matk', value: 'Matk' },
-                    { label: 'Matk%', value: 'MatkPercent' }
+                    { label: 'ATK', id: 'ATK' },
+                    { label: 'ATK%', id: 'ATKPercent' },
+                    { label: 'Matk', id: 'Matk' },
+                    { label: 'Matk%', id: 'MatkPercent' }
                 ],
                 input: {
                     EffectType: this.types,
@@ -59,22 +58,23 @@
             },
             methods: {
                 AddEffect() {
-                    let obj = {};
-                    obj = this.types.find((item) => {
-                        return item.value === this.input.EffectType;
-                    });
+                    // let obj = {};
+                    // obj = this.types.find((item)=>{
+                    //     return item.id === this.input.EffectType;
+                    // });
+                    // console.log(obj.id);
                     this.contacts.push({
                         EffectNumber: this.input.EffectNumber,
-                        EffectType: this.input.EffectType,
+                        EffectType: this.input.EffectType.label,
                     })
-                    console.log("AddEffect " + obj.label + "/" + this.input.EffectNumber);
+                    console.log("AddEffect Type: " + this.input.EffectType + " /" + this.input.EffectNumber);
                 },
                 RemoveEffect(index) {
                     console.log("RemoveEffect: " + index);
                 },
-                onSelectedDrug(types) {
-                    console.log("onSelectedDrug " + types);
-                    this.input.EffectType = types;
+                onSelectedDrug(item) {
+                    console.log("onSelectedDrug " + item.label);
+                    //this.input.EffectType = item.label;
                 },
             },
             mounted() {
