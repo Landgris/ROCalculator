@@ -15,7 +15,7 @@
     </style> -->
     <style>
         .el-row {
-            margin-bottom: 20px;
+            margin-bottom: 5px;
         }
 
         .el-col {
@@ -49,38 +49,39 @@
 <body>
 
     <el-container>
-    <div class="Equipment" id="equipment">
-        <el-row>
-            <el-col :span="24">
-                <el-input v-model="equipname" placeholder="裝備名稱"></el-input>
-            </el-col>
-        </el-row>
-        <el-row>
-            <div class="Input" id="equipinput">
-                <el-col :span="12">
+        <div class="Equipment" id="equipment">
+            <el-form :inline="true" label-width="100px">
+                <el-form-item>
+                    <el-input v-model="equipname" placeholder="裝備名稱"></el-input>
+                </el-form-item>
+            </el-form>
+            <el-form class="Input" id="equipinput" :inline="true">
+                <el-form-item>
                     <el-select value-key="id" v-model="input.EffectType" v-on:change="onSelectedDrug"
-                        placeholder="Select Effect">
+                        placeholder="選擇效果">
                         <el-option v-for="item in types" :key="item.id" :label="item.label" :value="item">
                         </el-option>
                     </el-select>
-                </el-col>
-                <el-col :span="6">
-                    <el-input v-model="input.EffectNumber" placeholder="Effect Value"></el-input>
-                </el-col>
-                <el-col :span="6">
+                </el-form-item>
+                <el-form-item>
+                    <el-input v-model="input.EffectNumber" placeholder="效果參數"></el-input>
+                </el-form-item>
+                <el-form-item>
                     <el-button v-on:click="AddEffect" type="primary" plain>+</el-button>
-                </el-col>
-            </div>
-        </el-row>
-        <div class="Item" v-for="(item, index) in contacts" v-bind:key="item.types">
-            <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
-                <span class="EffectType">{{ item.EffectType}}</span>
-                <span>/</span>
-                <span class="EffectNumber">{{ item.EffectNumber}}</span>
-                <el-button v-on:click="RemoveEffect" type="primary" plain>-</el-button>
-            </div>
+                </el-form-item>
+            </el-form>
+            <el-form size="small">
+                <div class="Item bg-purple-light" v-for="(item, index) in contacts" v-bind:key="item.types">
+                    <el-form :inline="true" label-width="50px">
+                        <el-form-item><span class="EffectType">{{ item.EffectType}}</span></el-form-item>
+                        <el-form-item><span class="EffectNumber">{{ item.EffectNumber}}</span></el-form-item>
+                        <el-form-item>
+                            <el-button v-on:click="RemoveEffect(item)" type="primary" plain>-</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </el-form>
         </div>
-    </div>
     </el-container>
 
     <script>
@@ -108,14 +109,23 @@
                     //     return item.id === this.input.EffectType;
                     // });
                     // console.log(obj.id);
+                    if( this.contacts.length >0 )
+                    {
+                        let index = this.contacts.filter(function(x){ return this.input.EffectType===x.EffectType; } );
+                        console.log(index);
+                    }
                     this.contacts.push({
                         EffectNumber: this.input.EffectNumber,
                         EffectType: this.input.EffectType.label,
                     })
                     console.log("AddEffect Type: " + this.input.EffectType + " /" + this.input.EffectNumber);
                 },
-                RemoveEffect(index) {
-                    console.log("RemoveEffect: " + index);
+                RemoveEffect(item) {
+                    console.log("RemoveEffect: " + item);
+                    var index = this.contacts.indexOf(item)
+                    if (index !== -1) {
+                        this.contacts.splice(index, 1)
+                    }
                 },
                 onSelectedDrug(item) {
                     console.log("onSelectedDrug " + item.label);
@@ -124,6 +134,10 @@
             },
             mounted() {
                 console.log("mounted");
+                // this.contacts.push({
+                //     EffectNumber: 'TestNumber',
+                //     EffectType: 'TestType',
+                // })
             }
         })
     </script>
