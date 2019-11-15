@@ -31,28 +31,39 @@
         <div>
             <el-input v-model="EuqipNameInput" placeholder="裝備名稱"></el-input>
             <el-button v-on:click="OpenEquipEffectDialog" type="primary" plain>+</el-button>
-            <div>
-                <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
-                    <span>{{somthing}}<span>
+            <span>{{somthing}}<span>
+                <div>
+                    <effectitem-component></effectitem-component>
+                    <effectitem-component></effectitem-component>
+                    <effectitem-component></effectitem-component>
                 </div>
-                <Effect-Item></Effect-Item>
-                <Effect-Item></Effect-Item>
+        </div>
+
+        <div class="EffectItemList" id="examplevue">
+            <div class="Item" v-for="item in lines" >
+                <span class="EffectName">{{ item.EffectName}}</span>
+                <span class="EffectType">{{ item.types}}</span>
             </div>
         </div>
     </div>
     <!-- <script type="text/javascript" src="js/Test.js"></script> -->
+    <script type="text/x-template" id="effect-item-template">
+        <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+            <span>效果2</span>
+        </div>
+    </script>
+
     <script>
-        Vue.component('Effect-Item', {
+        Vue.component('effectitem-component', {
             data: function () {
                 return {
                     count: 0
                 }
             },
-            template: '<button @click="count++">You clicked me {{ count }} times.</button>'
-            // template: '<div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;"><span>效果2<span></div>'
+            template: '#effect-item-template'
         })
 
-        var equipmentvue = new Vue({
+        var EquipmentVue = new Vue({
             el: '#Equipment',
             data:
             {
@@ -68,6 +79,59 @@
             }
         })
 
+    </script>
+    
+        
+    <div id="examplevue">
+
+    </div>
+    <script>
+        evue = new Vue({
+            el: '#examplevue',
+            name: 'PhoneNumberLine',
+            data:{
+                lines: [],
+                blockRemoval: true,
+                types: [
+                    {
+                        label: 'Home', value: 'home'
+                    }, {
+                        label: 'Work', value: 'work'
+                    }, {
+                        label: 'Mobile', value: 'mobile'
+                    }, {
+                        label: 'Fax', value: 'fax'
+                    }
+                ],
+                input:{
+                    EffetName:''
+                }
+            },
+            watch: {
+                lines() {
+                    this.blockRemoval = this.lines.length <= 1
+                }
+            },
+            methods: {
+                addLine() {
+                    let checkEmptyLines = this.lines.filter(line => line.number === null)
+                    if (checkEmptyLines.length >= 1 && this.lines.length > 0) return
+                    this.lines.push({
+                        EffetName: null,
+                        types: null
+                    })
+                    console.log("addLine");
+                },
+                removeLine(lineId) {
+                    if (!this.blockRemoval) this.lines.splice(lineId, 1)
+                console.log("yoyo3");
+                }
+            },
+            mounted() {
+                console.log("mounted");
+                this.addLine()
+            }
+        })
     </script>
 
     <body>
