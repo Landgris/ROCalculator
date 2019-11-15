@@ -7,129 +7,78 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
+    <!-- <style type="text/css">
+        #equipinput {
+            display: inline;
+            padding: 0 20px;
+        }
+    </style> -->
 </head>
 
 <body>
 
-    <!-- <div id = "app">
-            <p>{{message}}</p>
-            <button v-on:click="getRemoteMessage">Click</button>
+    <div class="Equipment" id="equipment">
+        <el-input v-model="equipname" placeholder="裝備名稱"></el-input>
+        <div class="Input" id="equipinput">
+            <el-select value-key="value" v-model="input.EffectType" v-on:change="onSelectedDrug"
+                placeholder="Select Effect">
+                <el-option v-for="item in types" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+            </el-select>
+            <el-input v-model="input.EffectNumber" placeholder="Effect Value"></el-input>
+            <el-button v-on:click="AddEffect" type="primary" plain>+</el-button>
         </div>
-        <button onclick="clickButton()">Outside Button</button>
-        <div id="app2">
-                <el-button @click="visible = true" type="primary" plain>Element Button</el-button>
-                <el-dialog :visible.sync="visible" title="Hello world">
-                <p>Try Element</p>
-                </el-dialog>
-        </div> -->
-
-    <div id="Equipment" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
-        <el-dialog id="EquipEffectDia" :visible.sync="EquipEffectDialogVisible" title="Select Effect">
-            <p>Effect dialogue</p>
-        </el-dialog>
-
-        <div>
-            <el-input v-model="EuqipNameInput" placeholder="裝備名稱"></el-input>
-            <el-button v-on:click="OpenEquipEffectDialog" type="primary" plain>+</el-button>
-            <span>{{somthing}}<span>
-                <div>
-                    <effectitem-component></effectitem-component>
-                    <effectitem-component></effectitem-component>
-                    <effectitem-component></effectitem-component>
-                </div>
-        </div>
-
-        <div class="EffectItemList" id="examplevue">
-            <div class="Item" v-for="item in lines" >
-                <span class="EffectName">{{ item.EffectName}}</span>
-                <span class="EffectType">{{ item.types}}</span>
+        <div class="Item" v-for="(item, index) in contacts" v-bind:key="item.types">
+            <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+                <span class="EffectType">{{ item.EffectType}}</span>
+                <span>/</span>
+                <span class="EffectNumber">{{ item.EffectNumber}}</span>
+                <el-button v-on:click="RemoveEffect" type="primary" plain>-</el-button>
             </div>
         </div>
     </div>
-    <!-- <script type="text/javascript" src="js/Test.js"></script> -->
-    <script type="text/x-template" id="effect-item-template">
-        <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
-            <span>效果2</span>
-        </div>
-    </script>
 
-    <script>
-        Vue.component('effectitem-component', {
-            data: function () {
-                return {
-                    count: 0
-                }
-            },
-            template: '#effect-item-template'
-        })
-
-        var EquipmentVue = new Vue({
-            el: '#Equipment',
-            data:
-            {
-                EuqipNameInput: "yoyo",
-                somthing: 1,
-                EquipEffectDialogVisible: false,
-            },
-            methods: {
-                OpenEquipEffectDialog() {
-                    this.EquipEffectDialogVisible = true;
-                    this.somthing++;
-                }
-            }
-        })
-
-    </script>
-    
-        
-    <div id="examplevue">
-
-    </div>
     <script>
         evue = new Vue({
-            el: '#examplevue',
+            el: '#equipment',
             name: 'PhoneNumberLine',
-            data:{
-                lines: [],
+            data: {
+                equipname: '',
+                contacts: [],
                 blockRemoval: true,
                 types: [
-                    {
-                        label: 'Home', value: 'home'
-                    }, {
-                        label: 'Work', value: 'work'
-                    }, {
-                        label: 'Mobile', value: 'mobile'
-                    }, {
-                        label: 'Fax', value: 'fax'
-                    }
+                    { label: 'ATK', value: 'ATK' },
+                    { label: 'ATK%', value: 'ATKPercent' },
+                    { label: 'Matk', value: 'Matk' },
+                    { label: 'Matk%', value: 'MatkPercent' }
                 ],
-                input:{
-                    EffetName:''
-                }
-            },
-            watch: {
-                lines() {
-                    this.blockRemoval = this.lines.length <= 1
+                input: {
+                    EffectType: this.types,
+                    EffectNumber: ''
                 }
             },
             methods: {
-                addLine() {
-                    let checkEmptyLines = this.lines.filter(line => line.number === null)
-                    if (checkEmptyLines.length >= 1 && this.lines.length > 0) return
-                    this.lines.push({
-                        EffetName: null,
-                        types: null
+                AddEffect() {
+                    let obj = {};
+                    obj = this.types.find((item) => {
+                        return item.value === this.input.EffectType;
+                    });
+                    this.contacts.push({
+                        EffectNumber: this.input.EffectNumber,
+                        EffectType: this.input.EffectType,
                     })
-                    console.log("addLine");
+                    console.log("AddEffect " + obj.label + "/" + this.input.EffectNumber);
                 },
-                removeLine(lineId) {
-                    if (!this.blockRemoval) this.lines.splice(lineId, 1)
-                console.log("yoyo3");
-                }
+                RemoveEffect(index) {
+                    console.log("RemoveEffect: " + index);
+                },
+                onSelectedDrug(types) {
+                    console.log("onSelectedDrug " + types);
+                    this.input.EffectType = types;
+                },
             },
             mounted() {
                 console.log("mounted");
-                this.addLine()
             }
         })
     </script>

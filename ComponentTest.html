@@ -1,0 +1,79 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>RO Calculator</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+
+<body>
+    <!-- <div id = "app">
+            <p>{{message}}</p>
+            <button v-on:click="getRemoteMessage">Click</button>
+        </div>
+        <button onclick="clickButton()">Outside Button</button>
+        <div id="app2">
+                <el-button @click="visible = true" type="primary" plain>Element Button</el-button>
+                <el-dialog :visible.sync="visible" title="Hello world">
+                <p>Try Element</p>
+                </el-dialog>
+        </div> -->
+
+    <div id="Equipment" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+        <el-dialog id="EquipEffectDia" :visible.sync="EquipEffectDialogVisible" title="Select Effect">
+            <p>Effect dialogue</p>
+        </el-dialog>
+
+        <div>
+            <el-input v-model="EuqipNameInput" placeholder="裝備名稱"></el-input>
+            <el-button v-on:click="OpenEquipEffectDialog" type="primary" plain>+</el-button>
+            <span>{{somthing}}<span>
+                    <div>
+                        <effectitem-component></effectitem-component>
+                        <effectitem-component></effectitem-component>
+                        <effectitem-component></effectitem-component>
+                    </div>
+        </div>
+    </div>
+    <!-- <script type="text/javascript" src="js/Test.js"></script> -->
+    <script type="text/x-template" id="effect-item-template">
+        <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+            <span>效果2</span>
+        </div>
+    </script>
+
+    <script>
+        Vue.component('effectitem-component', {
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            template: '#effect-item-template'
+        })
+
+        var EquipmentVue = new Vue({
+            el: '#Equipment',
+            data:
+            {
+                EuqipNameInput: "yoyo",
+                somthing: 1,
+                EquipEffectDialogVisible: false,
+            },
+            methods: {
+                OpenEquipEffectDialog() {
+                    this.EquipEffectDialogVisible = true;
+                    this.somthing++;
+                }
+            }
+        })
+
+    </script>
+
+
+    <body>
+
+</html>
