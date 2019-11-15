@@ -13,21 +13,65 @@
             padding: 0 20px;
         }
     </style> -->
+    <style>
+        .el-row {
+            margin-bottom: 20px;
+        }
+
+        .el-col {
+            border-radius: 4px;
+        }
+
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+
+        .bg-purple {
+            background: #d3dce6;
+        }
+
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+
+        .row-bg {
+            padding: 10px 0;
+            background-color: #f9fafc;
+        }
+    </style>
 </head>
 
 <body>
 
+    <el-container>
     <div class="Equipment" id="equipment">
-        <el-input v-model="equipname" placeholder="裝備名稱"></el-input>
-        <div class="Input" id="equipinput">
-            <el-select value-key="id" v-model="input.EffectType" v-on:change="onSelectedDrug" 
-                placeholder="Select Effect">
-                <el-option v-for="item in types" :key="item.id" :label="item.label" :value="item">
-                </el-option>
-            </el-select>
-            <el-input v-model="input.EffectNumber" placeholder="Effect Value"></el-input>
-            <el-button v-on:click="AddEffect" type="primary" plain>+</el-button>
-        </div>
+        <el-row>
+            <el-col :span="24">
+                <el-input v-model="equipname" placeholder="裝備名稱"></el-input>
+            </el-col>
+        </el-row>
+        <el-row>
+            <div class="Input" id="equipinput">
+                <el-col :span="12">
+                    <el-select value-key="id" v-model="input.EffectType" v-on:change="onSelectedDrug"
+                        placeholder="Select Effect">
+                        <el-option v-for="item in types" :key="item.id" :label="item.label" :value="item">
+                        </el-option>
+                    </el-select>
+                </el-col>
+                <el-col :span="6">
+                    <el-input v-model="input.EffectNumber" placeholder="Effect Value"></el-input>
+                </el-col>
+                <el-col :span="6">
+                    <el-button v-on:click="AddEffect" type="primary" plain>+</el-button>
+                </el-col>
+            </div>
+        </el-row>
         <div class="Item" v-for="(item, index) in contacts" v-bind:key="item.types">
             <div style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
                 <span class="EffectType">{{ item.EffectType}}</span>
@@ -37,6 +81,7 @@
             </div>
         </div>
     </div>
+    </el-container>
 
     <script>
         evue = new Vue({
