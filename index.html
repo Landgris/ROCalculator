@@ -90,7 +90,6 @@
             data: {
                 equipname: '',
                 contacts: [],
-                blockRemoval: true,
                 types: [
                     { label: 'ATK', id: 'ATK' },
                     { label: 'ATK%', id: 'ATKPercent' },
@@ -111,7 +110,9 @@
                     // console.log(obj.id);
                     if( this.contacts.length >0 )
                     {
-                        let index = this.contacts.filter(function(x){ return this.input.EffectType===x.EffectType; } );
+                        var index = this.contacts.filter(function(x){ return this.input.EffectType===x.EffectType; } );
+                        //var index2 = this.contacts.filter((x)=>this.input.EffectType.label===x.EffectType.label );
+                        //this.contacts.find
                         console.log(index);
                     }
                     this.contacts.push({
