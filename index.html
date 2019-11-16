@@ -15,7 +15,7 @@
     </style> -->
     <style>
         .el-row {
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .el-col {
@@ -48,41 +48,83 @@
 
 <body>
 
-    <el-container>
-        <div class="Equipment" id="equipment">
-            <el-form :inline="true" label-width="100px">
-                <el-form-item>
-                    <el-input v-model="equipname" placeholder="裝備名稱"></el-input>
-                </el-form-item>
-            </el-form>
-            <el-form class="Input" id="equipinput" :inline="true">
-                <el-form-item>
-                    <el-select value-key="id" v-model="input.EffectType" v-on:change="onSelectedDrug"
-                        placeholder="選擇效果">
-                        <el-option v-for="item in types" :key="item.id" :label="item.label" :value="item">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item>
-                    <el-input v-model="input.EffectNumber" v-on:keyup.enter.native="AddEffect" placeholder="效果參數"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button v-on:click="AddEffect" type="primary" plain>+</el-button>
-                </el-form-item>
-            </el-form>
-            <el-form size="small">
-                <div class="Item bg-purple-light" v-for="(item, index) in contacts" v-bind:key="item.types">
-                    <el-form :inline="true" label-width="50px">
-                        <el-form-item><span class="EffectType">{{ item.EffectType.label }}</span></el-form-item>
-                        <el-form-item><span class="EffectNumber">{{ item.EffectNumber }}</span></el-form-item>
-                        <el-form-item>
-                            <el-button v-on:click="RemoveEffect(item)" type="primary" plain>-</el-button>
-                        </el-form-item>
-                    </el-form>
+    <el-container style="height: 500px; border: 1px solid #eee">
+        <el-header>
+        </el-header>
+        <el-main>
+            <div id="equipment" style="width:300px; height:400px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
+
+                <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist">
+                    <div class="Equipment">
+                        <el-row>
+                            <el-col :span="4">
+                                <div>
+                                    <span>{{item.id}}</span>
+                                </div>
+                            </el-col>
+                            <el-col :span="20">
+                                <div class="grid-content bg-purple-dark">
+                                    <el-input v-model="equipspartlist[eqindex].equipname" placeholder="裝備名稱"></el-input>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="6">
+                            <el-col :span="11">
+                                <div class="grid-content bg-purple">
+                                    <el-select value-key="id" v-model="equipspartlist[eqindex].EffectType"
+                                        v-on:change="onSelectedDrug" placeholder="選擇效果">
+                                        <el-option v-for="item in types" :key="item.id" :label="item.label"
+                                            :value="item">
+                                        </el-option>
+                                    </el-select>
+                                </div>
+                            </el-col>
+                            <el-col :span="8">
+                                <div class="grid-content bg-purple-light">
+                                    <el-input v-model="equipspartlist[eqindex].EffectNumber"
+                                        v-on:keyup.enter.native="AddEffect(eqindex)" placeholder="效果參數">
+                                    </el-input>
+                                </div>
+                            </el-col>
+                            <el-col :span="5">
+                                <div>
+                                    <el-button v-on:click="AddEffect(eqindex)" icon="el-icon-circle-plus-outline"
+                                        type="success" plain>
+                                    </el-button>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="24">
+                                <el-row>
+                                    <div class="Item bg-purple-light"
+                                        v-for="(item, index) in equipspartlist[eqindex].effectlist"
+                                        v-bind:key="item.types">
+                                        <el-row class="grid-content bg-purple-light" :gutter="6">
+                                            <el-col :span="11" justify="center">
+                                                <span class="EffectType">{{ item.EffectType.label }}</span>
+                                            </el-col>
+                                            <el-col :span="8" justify="center">
+                                                <span class="EffectNumber">{{ item.EffectNumber }}</span>
+                                            </el-col>
+                                            <el-col :span="5" justify="center">
+                                                <el-button v-on:click="RemoveEffect(eqindex, index)"
+                                                    icon="el-icon-remove-outline" type="success" plain></el-button>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-row>
+                            </el-col>
+                        </el-row>
+                    </div>
                 </div>
-            </el-form>
-        </div>
+            </div>
+        </el-main>
+        <el-footer>
+        </el-footer>
     </el-container>
+
+
 
     <script>
         evue = new Vue({
@@ -90,6 +132,16 @@
             data: {
                 equipname: '',
                 contacts: [],
+                equipspartlist: [
+                    { id: 'helm', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                    { id: 'armor', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                    { id: 'weaponl', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                    { id: 'weaponr', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                    { id: 'robe', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                    { id: 'shoes', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                    { id: 'ass1', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                    { id: 'ass2', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                ],
                 types: [
                     { label: 'ATK', id: 'ATK' },
                     { label: 'ATK%', id: 'ATKPercent' },
@@ -102,30 +154,41 @@
                 }
             },
             methods: {
-                AddEffect() {
-                    if( this.contacts.length > 0 )
-                    {
-                        var index = this.contacts.findIndex(x=>this.input.EffectType.label===x.EffectType.label);
+                AddEffect(eqindex) {
+                    if( this.equipspartlist[eqindex].EffectNumber === '' ) { return; }
 
-                        if( index > -1 )
-                        {
-                            this.contacts[index] = { EffectNumber:this.input.EffectNumber, EffectType:this.input.EffectType };
-                            console.log("CoverEffect: " + this.contacts[index].EffectType + " /" + this.contacts[index].EffectNumber);
-                            this.$set(this.contacts, index, {EffectNumber:this.input.EffectNumber, EffectType:this.input.EffectType})
+                    if (this.equipspartlist[eqindex].effectlist.length > 0) {
+                        var index = this.equipspartlist[eqindex].effectlist.findIndex(x => this.equipspartlist[eqindex].EffectType.label === x.EffectType.label);
+
+                        if (index > -1) {
+                            this.equipspartlist[eqindex].effectlist[index] = {
+                                EffectNumber: this.equipspartlist[eqindex].EffectNumber,
+                                EffectType: this.equipspartlist[eqindex].EffectType
+                            };
+                            console.log("CoverEffect: " + this.equipspartlist[eqindex].effectlist[index].EffectType + " /" + this.equipspartlist[eqindex].effectlist[index].EffectNumber);
+
+                            this.$set(this.equipspartlist[eqindex].effectlist,
+                                index,
+                                {
+                                    EffectNumber: this.equipspartlist[eqindex].effectlist[index].EffectNumber,
+                                    EffectType: this.equipspartlist[eqindex].effectlist[index].EffectType
+                                })
+                            this.equipspartlist[eqindex].EffectNumber = '';
                             return;
                         }
                     }
-                    this.contacts.push({
-                        EffectNumber: this.input.EffectNumber,
-                        EffectType: this.input.EffectType,
+                    this.equipspartlist[eqindex].effectlist.push({
+                        EffectNumber: this.equipspartlist[eqindex].EffectNumber,
+                        EffectType: this.equipspartlist[eqindex].EffectType,
                     })
-                    console.log("AddEffect: " + this.input.EffectType + " /" + this.input.EffectNumber);
+                    console.log("AddEffect: " + this.equipspartlist[eqindex].EffectType + " /" + this.equipspartlist[eqindex].EffectNumber);
+                    this.equipspartlist[eqindex].EffectNumber = '';
                 },
-                RemoveEffect(item) {
-                    console.log("RemoveEffect: " + item);
-                    var index = this.contacts.indexOf(item)
-                    if (index !== -1) {
-                        this.contacts.splice(index, 1)
+                RemoveEffect(eqindex, index) {
+                    console.log("RemoveEffect: [" + eqindex + "] " + index);
+                    //var index = this.equipspartlist[eqindex].indexOf(item)
+                    if (index >= 0) {
+                        this.equipspartlist[eqindex].effectlist.splice(index, 1)
                     }
                 },
                 onSelectedDrug(item) {
@@ -134,7 +197,10 @@
             },
             mounted() {
                 console.log("mounted");
-                this.input.EffectType = this.types[0];
+                for (i = 0; i < this.equipspartlist.length; i++) 
+                {
+                    this.equipspartlist[i].EffectType = this.types[0];
+                }
             }
         })
     </script>
