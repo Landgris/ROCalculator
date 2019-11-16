@@ -64,7 +64,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="input.EffectNumber" placeholder="效果參數"></el-input>
+                    <el-input v-model="input.EffectNumber" v-on:keyup.enter.native="AddEffect" placeholder="效果參數"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button v-on:click="AddEffect" type="primary" plain>+</el-button>
@@ -73,8 +73,8 @@
             <el-form size="small">
                 <div class="Item bg-purple-light" v-for="(item, index) in contacts" v-bind:key="item.types">
                     <el-form :inline="true" label-width="50px">
-                        <el-form-item><span class="EffectType">{{ item.EffectType}}</span></el-form-item>
-                        <el-form-item><span class="EffectNumber">{{ item.EffectNumber}}</span></el-form-item>
+                        <el-form-item><span class="EffectType">{{ item.EffectType }}</span></el-form-item>
+                        <el-form-item><span class="EffectNumber">{{ item.EffectNumber }}</span></el-form-item>
                         <el-form-item>
                             <el-button v-on:click="RemoveEffect(item)" type="primary" plain>-</el-button>
                         </el-form-item>
@@ -97,29 +97,29 @@
                     { label: 'Matk%', id: 'MatkPercent' }
                 ],
                 input: {
-                    EffectType: this.types,
+                    EffectType: '',
                     EffectNumber: ''
                 }
             },
             methods: {
                 AddEffect() {
-                    // let obj = {};
-                    // obj = this.types.find((item)=>{
-                    //     return item.id === this.input.EffectType;
-                    // });
-                    // console.log(obj.id);
-                    if( this.contacts.length >0 )
+                    if( this.contacts.length > 0 )
                     {
-                        var index = this.contacts.filter(function(x){ return this.input.EffectType===x.EffectType; } );
-                        //var index2 = this.contacts.filter((x)=>this.input.EffectType.label===x.EffectType.label );
-                        //this.contacts.find
-                        console.log(index);
+                        var index = this.contacts.findIndex(x=>this.input.EffectType.label===x.EffectType.label);
+
+                        if( index > -1 )
+                        {
+                            this.contacts[index] = { EffectNumber:this.input.EffectNumber, EffectType:this.input.EffectType };
+                            console.log("CoverEffect: " + this.contacts[index].EffectType + " /" + this.contacts[index].EffectNumber);
+                            this.$set(this.contacts, index, {EffectNumber:this.input.EffectNumber, EffectType:this.input.EffectType})
+                            return;
+                        }
                     }
                     this.contacts.push({
                         EffectNumber: this.input.EffectNumber,
-                        EffectType: this.input.EffectType.label,
+                        EffectType: this.input.EffectType,
                     })
-                    console.log("AddEffect Type: " + this.input.EffectType + " /" + this.input.EffectNumber);
+                    console.log("AddEffect: " + this.input.EffectType + " /" + this.input.EffectNumber);
                 },
                 RemoveEffect(item) {
                     console.log("RemoveEffect: " + item);
@@ -139,6 +139,7 @@
                 //     EffectNumber: 'TestNumber',
                 //     EffectType: 'TestType',
                 // })
+                this.input.EffectType = this.types[0];
             }
         })
     </script>
