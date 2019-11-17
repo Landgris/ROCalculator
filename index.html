@@ -6,6 +6,7 @@
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.bootcss.com/linq.js/2.2.0.2/linq.js"></script>
 
     <!-- <style type="text/css">
         #equipinput {
@@ -43,115 +44,127 @@
             padding: 10px 0;
             background-color: #f9fafc;
         }
+
+        .effectline {
+            line-height: 3;
+            margin: auto;
+        }
+
+        .boxborder{
+            padding: 5px 5px;
+            border:1px solid #d7dae2;
+            border-radius: 4px;
+            min-height: 100px;
+        }
     </style>
 </head>
 
 <body>
-
-    <el-container style="height: 500px; border: 1px solid #eee">
+    <el-container>
         <el-header>
         </el-header>
         <el-main id="equipment">
-                <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" title="選擇效果">
-                        <el-row :gutter="6">
-                            <el-col :span="11">
-                                <div class="grid-content bg-purple">
-                                    <el-select value-key="id" v-model="effectdialogue.EffectType"
-                                        v-on:change="onSelectedDrug" placeholder="選擇效果">
-                                        <el-option v-for="item in types" :key="item.id" :label="item.label"
-                                            :value="item">
-                                        </el-option>
-                                    </el-select>
-                                </div>
-                            </el-col>
-                            <el-col :span="8">
-                                <div class="grid-content bg-purple-light">
-                                    <el-input v-model="effectdialogue.EffectNumber"
-                                        v-on:keyup.enter.native="AddEffect" placeholder="效果參數">
-                                    </el-input>
-                                </div>
-                            </el-col>
-                            <el-col :span="5">
-                                <div>
-                                    <el-button v-on:click="AddEffect" icon="el-icon-circle-plus-outline"
-                                        type="success" plain>
-                                    </el-button>
-                                </div>
-                            </el-col>
-                        </el-row>
-                </el-dialog>
-            <div style="width:300px; height:400px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
-
-                <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist">
-                    <div class="Equipment">
-                        <el-row>
-                            <el-col :span="4">
-                                <div>
-                                    <span>{{item.id}}</span>
-                                </div>
-                            </el-col>
-                            <el-col :span="15">
-                                <div class="grid-content bg-purple-dark">
-                                    <el-input v-model="equipspartlist[eqindex].equipname" placeholder="裝備名稱"></el-input>
-                                </div>
-                            </el-col>
-                            <el-col :span="5">
-                            <el-button v-on:click="OpenEffectDialogue(eqindex)" icon="el-icon-circle-plus-outline"
-                                type="success" plain>
+            <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" title="選擇效果">
+                <el-row :gutter="6">
+                    <el-col :span="11">
+                        <div class="grid-content bg-purple">
+                            <el-select value-key="id" v-model="effectdialogue.EffectType" v-on:change="onSelectedDrug"
+                                placeholder="選擇效果">
+                                <el-option v-for="item in effecttypelist" :key="item.id" :label="item.label"
+                                    :value="item">
+                                </el-option>
+                            </el-select>
+                        </div>
+                    </el-col>
+                    <el-col :span="8">
+                        <div class="grid-content bg-purple-light">
+                            <el-input v-model="effectdialogue.EffectNumber" v-on:keyup.enter.native="AddEffect"
+                                placeholder="效果參數">
+                            </el-input>
+                        </div>
+                    </el-col>
+                    <el-col :span="5">
+                        <div>
+                            <el-button v-on:click="AddEffect" icon="el-icon-circle-plus-outline" type="success" plain>
                             </el-button>
-                        </el-col>
-                        </el-row>
-                        <!-- <el-row :gutter="6">
-                            <el-col :span="11">
-                                <div class="grid-content bg-purple">
-                                    <el-select value-key="id" v-model="equipspartlist[eqindex].EffectType"
-                                        v-on:change="onSelectedDrug" placeholder="選擇效果">
-                                        <el-option v-for="item in types" :key="item.id" :label="item.label"
-                                            :value="item">
-                                        </el-option>
-                                    </el-select>
-                                </div>
-                            </el-col>
-                            <el-col :span="8">
-                                <div class="grid-content bg-purple-light">
-                                    <el-input v-model="equipspartlist[eqindex].EffectNumber"
-                                        v-on:keyup.enter.native="AddEffect(eqindex)" placeholder="效果參數">
-                                    </el-input>
-                                </div>
-                            </el-col>
-                            <el-col :span="5">
-                                <div>
-                                    <el-button v-on:click="AddEffect(eqindex)" icon="el-icon-circle-plus-outline"
-                                        type="success" plain>
-                                    </el-button>
-                                </div>
-                            </el-col>
-                        </el-row> -->
-                        <el-row>
-                            <el-col :span="24">
-                                <el-row>
-                                    <div class="Item bg-purple-light"
-                                        v-for="(item, index) in equipspartlist[eqindex].effectlist"
-                                        v-bind:key="item.types">
-                                        <el-row class="grid-content bg-purple-light" :gutter="6">
-                                            <el-col :span="11" justify="center">
-                                                <span class="EffectType">{{ item.EffectType.label }}</span>
-                                            </el-col>
-                                            <el-col :span="8" justify="center">
-                                                <span class="EffectNumber">{{ item.EffectNumber }}</span>
-                                            </el-col>
-                                            <el-col :span="5" justify="center">
-                                                <el-button v-on:click="RemoveEffect(eqindex, index)"
-                                                    icon="el-icon-remove-outline" type="success" plain></el-button>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-row>
-                            </el-col>
-                        </el-row>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-dialog>
+
+            <el-row>
+                <el-col :span="24">
+                    <div class="effectline grid-content bg-purple-dark" type="flex" align="middle" justify="center">
+                        <span>RO Calculator</span>
                     </div>
-                </div>
-            </div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="8">
+                    <div class="boxborder">
+                        <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist">
+                            <div class="Equipment">
+                                <el-row class="effectline" type="flex" align="middle">
+                                    <el-col :span="4">
+                                        <div>
+                                            <span>{{item.id}}</span>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="15">
+                                        <div>
+                                            <el-input v-model="equipspartlist[eqindex].equipname" placeholder="裝備名稱">
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="5">
+                                        <el-button v-on:click="OpenEffectDialogue(eqindex)"
+                                            icon="el-icon-circle-plus-outline" type="success" plain>
+                                        </el-button>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="24">
+                                        <el-row>
+                                            <div v-for="(item, index) in equipspartlist[eqindex].effectlist"
+                                                v-bind:key="item.effecttypelist">
+                                                <el-row class="bg-purple" type="flex" align="middle"
+                                                    justify="end">
+                                                    <el-col :span="6">
+                                                        <span
+                                                            class="effectline EffectType">{{ item.EffectType.label }}</span>
+                                                    </el-col>
+                                                    <el-col :span="2">
+                                                        <span>+</span>
+                                                    </el-col>
+                                                    <el-col :span="4">
+                                                        <span
+                                                            class="effectline EffectNumber">{{ item.EffectNumber }}</span>
+                                                    </el-col>
+                                                    <el-col :span="5">
+                                                        <el-button class="effectline"
+                                                            v-on:click="RemoveEffect(eqindex, index)"
+                                                            icon="el-icon-remove-outline" type="success" plain>
+                                                        </el-button>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+
+                <el-col :span="8">
+                    <div style=" box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
+
+                        <div class="boxborder">
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+
         </el-main>
         <el-footer>
         </el-footer>
@@ -163,30 +176,50 @@
         evue = new Vue({
             el: '#equipment',
             data: {
-                EquipEffectDialogVisible: false,
-                EquipSelectId:'',
+                EquipSelectId: '',
                 equipspartlist: [
-                    { id: 'helm', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
-                    { id: 'armor', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
-                    { id: 'weaponl', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
-                    { id: 'weaponr', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
-                    { id: 'robe', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
-                    { id: 'shoes', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
-                    { id: 'acc1', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
-                    { id: 'acc2', equipname: '', effectlist: [], EffectType: '', EffectNumber: '' },
+                    { id: 'helm', equipname: '', effectlist: [] },
+                    { id: 'armor', equipname: '', effectlist: [] },
+                    { id: 'weaponl', equipname: '', effectlist: [] },
+                    { id: 'weaponr', equipname: '', effectlist: [] },
+                    { id: 'robe', equipname: '', effectlist: [] },
+                    { id: 'shoes', equipname: '', effectlist: [] },
+                    { id: 'acc1', equipname: '', effectlist: [] },
+                    { id: 'acc2', equipname: '', effectlist: [] },
                 ],
-                types: [
-                    { label: 'ATK', id: 'ATK' },
-                    { label: 'ATK%', id: 'ATKPercent' },
-                    { label: 'Matk', id: 'Matk' },
-                    { label: 'Matk%', id: 'MatkPercent' }
+                effecttypelist: [
+                    { label: 'ATK', id: 'ATK', totalvalue:'' },
+                    { label: 'ATK%', id: 'ATKPercent', totalvalue:'' },
+                    { label: 'Matk', id: 'Matk', totalvalue:'' },
+                    { label: 'Matk%', id: 'MatkPercent', totalvalue:'' },
+                    { label: '種族%', id: 'RacePercent', totalvalue:'' },
+                    { label: '體型%', id: 'SizePercent', totalvalue:'' },
+                    { label: '屬性%', id: 'ElementalPercent', totalvalue:'' },
+                    { label: '階級%', id: 'LevelPercent', totalvalue:'' },
+                    { label: '爆傷%', id: 'CriDamagePercent', totalvalue:'' },
+                    { label: '遠傷%', id: 'RangedDamagePercent', totalvalue:'' },
+                    { label: '無視防禦%', id: 'BypassDEFPercent', totalvalue:'' }
                 ],
+                EquipEffectDialogVisible: false,
                 effectdialogue: {
                     EffectType: '',
                     EffectNumber: ''
                 }
             },
             methods: {
+                CombineAttribute()
+                {
+                    //var ree = this.equipspartlist.where(x=>x.effectlist.where(e=>e.EffectType==='ATK').sum(e=>e.EffectNumber));
+                    var ree = this.equipspartlist.filter(
+                        function(x){
+                            var y = x.effectlist.filter(
+                                function(e){ 
+                                    return e.EffectType==='ATK';
+                                }); 
+                            return y.length > 0;
+                        })
+                    console.log(ree);
+                },
                 AddEffect() {
                     if (this.effectdialogue.EffectNumber === '') { return; }
 
@@ -218,6 +251,7 @@
                     console.log("AddEffect: " + this.effectdialogue.EffectType + " /" + this.effectdialogue.EffectNumber);
                     this.effectdialogue.EffectNumber = '';
                     this.EquipEffectDialogVisible = false;
+                    this.CombineAttribute();
                 },
                 RemoveEffect(eqindex, index) {
                     console.log("RemoveEffect: [" + eqindex + "] " + index);
@@ -229,20 +263,18 @@
                 onSelectedDrug(item) {
                     console.log("onSelectedDrug " + item.label);
                 },
-                OpenEffectDialogue(eqindex)
-                {
-                    console.log("OpenDialogue " + eqindex );
+                OpenEffectDialogue(eqindex) {
+                    console.log("OpenDialogue " + eqindex);
                     this.EquipEffectDialogVisible = true;
                     this.EquipSelectId = eqindex;
                 },
-                CloseEffectDialogue()
-                {
+                CloseEffectDialogue() {
                     this.EquipSelectId = '';
                 }
             },
             mounted() {
                 console.log("mounted");
-                this.effectdialogue.EffectType = this.types[0];
+                this.effectdialogue.EffectType = this.effecttypelist[0];
             }
         })
     </script>
