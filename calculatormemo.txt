@@ -1,0 +1,16 @@
+Calculation
+
+Cast Time (seconds) = VCT + FCT
+VCT (seconds) = BaseVCT × (1 − SQRT[{DEX × 2 + INT} ÷ 530]) × (1 − Sum_VCTReduc ÷ 100)
+FCT (seconds) = (BaseFCT - Sum_FCT) × (1 − Max_FCTReduc ÷ 100)
+
+BaseVCT = Base Variable Cast Time of a skill.
+BaseFCT = Base Fixed Cast Time of a skill.
+Sum_VCTReduc = Sum of reductions for Variable Cast Time, like Suffragium, Magic Strings, Isilla Card effect or Kathrene Keyon Card.
+Sum_FCT = Sum of all effects that directly subtract from Fixed Cast Time (or add to it, like Mandragora Howling).
+Max_FCTReduc = Highest reduction modifier of Fixed Cast Time (for example: if both Sacrament (50%) and Radius (20%) are active, only Sacrament will work)
+
+
+
+
+
