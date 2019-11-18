@@ -128,14 +128,14 @@
                                             <div v-for="(item, index) in equipspartlist[eqindex].effectlist"
                                                 v-bind:key="item.effecttypelist">
                                                 <el-row class="bg-purple" type="flex" align="middle" justify="end">
-                                                    <el-col :span="6">
+                                                    <el-col :span="9">
                                                         <span
                                                             class="effectline EffectType">{{ item.EffectType.label }}</span>
                                                     </el-col>
-                                                    <el-col :span="2">
+                                                    <el-col :span="1">
                                                         <span>+</span>
                                                     </el-col>
-                                                    <el-col :span="4">
+                                                    <el-col :span="2">
                                                         <span
                                                             class="effectline EffectNumber">{{ item.EffectNumber }}</span>
                                                     </el-col>
@@ -159,6 +159,21 @@
                     <div style=" box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
 
                         <div class="boxborder">
+                                <el-row>
+                                        <el-col :span="24">
+                                            <el-row>
+                                                <div v-for="(item, id) in this.effecttypelist"
+                                                    v-bind:key="item.id">
+                                                    <el-row class="bg-purple" type="flex" align="middle" justify="center">
+                                                        <el-col :span="10">
+                                                            <span
+                                                                class="effectline">{{ item.label }} + {{ item.totalvalue }}</span>
+                                                        </el-col>
+                                                    </el-row>
+                                                </div>
+                                            </el-row>
+                                        </el-col>
+                                    </el-row>
                         </div>
                     </div>
                 </el-col>
@@ -207,18 +222,36 @@
             },
             methods: {
                 CombineAttribute() {
+                    this.effecttypelist.forEach(element => {
 
-                    console.log("------");
+                        var result = Enumerable.from(this.equipspartlist)
+                            .where("($.effectlist).some(function (x) { return x.EffectType.id == '" + element.id + "'; })")
+                            .select("Number($.effectlist[0].EffectNumber)")
+                            .sum();
+                        element.totalvalue = result;
+                    });
+                    /*
+                    //全身裝的 ATK 效果加總
+                    //方法一
+                    var idd = 'ATK'
                     var ef = Enumerable
                         .from(this.equipspartlist)
-                        .where(function(e){ return e.effectlist.find(x=> x.EffectType.id == 'ATK'); })
+                        .where(function(e){ return e.effectlist.find(x=> x.EffectType.id == idd); })
                         //.select("value, index => value.effectlist.filter(x => x.EffectType.id == 'ATK')")
                         .select(function(x){
-                            var xx = x.effectlist.filter(x => x.EffectType.id == 'ATK')
-                            return Number(xx[0].EffectNumber);
+                            return Number(x.effectlist[0].EffectNumber);
                         })
                         .sum();
                     console.log(ef);
+                    
+                    //方法2 參考 https://stackoverflow.com/questions/33739726/linq-js-get-subitems
+                    var result = Enumerable.from(this.equipspartlist)
+                        .where("($.effectlist).some(function (x) { return x.EffectType.id == 'ATK'; })")
+                        .select("Number($.effectlist[0].EffectNumber)")
+                        .sum();
+
+                    console.log("result:" + result);
+                    */
                 },
                 AddEffect() {
                     if (this.effectdialogue.EffectNumber === '') { return; }
@@ -259,6 +292,7 @@
                     //var index = this.equipspartlist[eqindex].indexOf(item)
                     if (index >= 0) {
                         this.equipspartlist[eqindex].effectlist.splice(index, 1)
+                        this.CombineAttribute();
                     }
                 },
                 onSelectedDrug(item) {
@@ -276,21 +310,6 @@
             mounted() {
                 console.log("mounted");
                 this.effectdialogue.EffectType = this.effecttypelist[0];
-                var jsonArray = [
-                    { "user": { "id": 100, "screen_name": "d_linq" }, "text": "to objects" },
-                    { "user": { "id": 130, "screen_name": "c_bill" }, "text": "g" },
-                    { "user": { "id": 155, "screen_name": "b_mskk" }, "text": "kabushiki kaisha" },
-                    { "user": { "id": 301, "screen_name": "a_xbox" }, "text": "halo reach" }
-                ]
-                // ["b_mskk:kabushiki kaisha", "c_bill:g", "d_linq:to objects"]
-                var queryResult = Enumerable.from(jsonArray)
-                    .where(function (x) { return x.user.id < 200 })
-                    .orderBy(function (x) { return x.user.screen_name })
-                    .select(function (x) { return x.user.screen_name + ':' + x.text })
-                    .toArray();
-                queryResult.forEach(function (i) {
-                    console.log(i);
-                });
 
             }
         })
