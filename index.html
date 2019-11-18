@@ -6,7 +6,7 @@
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <script src="https://cdn.bootcss.com/linq.js/2.2.0.2/linq.js"></script>
+    <script src="https://unpkg.com/linq"></script>
 
     <!-- <style type="text/css">
         #equipinput {
@@ -50,9 +50,9 @@
             margin: auto;
         }
 
-        .boxborder{
+        .boxborder {
             padding: 5px 5px;
-            border:1px solid #d7dae2;
+            border: 1px solid #d7dae2;
             border-radius: 4px;
             min-height: 100px;
         }
@@ -127,8 +127,7 @@
                                         <el-row>
                                             <div v-for="(item, index) in equipspartlist[eqindex].effectlist"
                                                 v-bind:key="item.effecttypelist">
-                                                <el-row class="bg-purple" type="flex" align="middle"
-                                                    justify="end">
+                                                <el-row class="bg-purple" type="flex" align="middle" justify="end">
                                                     <el-col :span="6">
                                                         <span
                                                             class="effectline EffectType">{{ item.EffectType.label }}</span>
@@ -188,17 +187,17 @@
                     { id: 'acc2', equipname: '', effectlist: [] },
                 ],
                 effecttypelist: [
-                    { label: 'ATK', id: 'ATK', totalvalue:'' },
-                    { label: 'ATK%', id: 'ATKPercent', totalvalue:'' },
-                    { label: 'Matk', id: 'Matk', totalvalue:'' },
-                    { label: 'Matk%', id: 'MatkPercent', totalvalue:'' },
-                    { label: '種族%', id: 'RacePercent', totalvalue:'' },
-                    { label: '體型%', id: 'SizePercent', totalvalue:'' },
-                    { label: '屬性%', id: 'ElementalPercent', totalvalue:'' },
-                    { label: '階級%', id: 'LevelPercent', totalvalue:'' },
-                    { label: '爆傷%', id: 'CriDamagePercent', totalvalue:'' },
-                    { label: '遠傷%', id: 'RangedDamagePercent', totalvalue:'' },
-                    { label: '無視防禦%', id: 'BypassDEFPercent', totalvalue:'' }
+                    { label: 'ATK', id: 'ATK', totalvalue: '' },
+                    { label: 'ATK%', id: 'ATKPercent', totalvalue: '' },
+                    { label: 'Matk', id: 'Matk', totalvalue: '' },
+                    { label: 'Matk%', id: 'MatkPercent', totalvalue: '' },
+                    { label: '種族%', id: 'RacePercent', totalvalue: '' },
+                    { label: '體型%', id: 'SizePercent', totalvalue: '' },
+                    { label: '屬性%', id: 'ElementalPercent', totalvalue: '' },
+                    { label: '階級%', id: 'LevelPercent', totalvalue: '' },
+                    { label: '爆傷%', id: 'CriDamagePercent', totalvalue: '' },
+                    { label: '遠傷%', id: 'RangedDamagePercent', totalvalue: '' },
+                    { label: '無視防禦%', id: 'BypassDEFPercent', totalvalue: '' }
                 ],
                 EquipEffectDialogVisible: false,
                 effectdialogue: {
@@ -207,18 +206,19 @@
                 }
             },
             methods: {
-                CombineAttribute()
-                {
-                    //var ree = this.equipspartlist.where(x=>x.effectlist.where(e=>e.EffectType==='ATK').sum(e=>e.EffectNumber));
-                    var ree = this.equipspartlist.filter(
-                        function(x){
-                            var y = x.effectlist.filter(
-                                function(e){ 
-                                    return e.EffectType==='ATK';
-                                }); 
-                            return y.length > 0;
+                CombineAttribute() {
+
+                    console.log("------");
+                    var ef = Enumerable
+                        .from(this.equipspartlist)
+                        .where(function(e){ return e.effectlist.find(x=> x.EffectType.id == 'ATK'); })
+                        //.select("value, index => value.effectlist.filter(x => x.EffectType.id == 'ATK')")
+                        .select(function(x){
+                            var xx = x.effectlist.filter(x => x.EffectType.id == 'ATK')
+                            return Number(xx[0].EffectNumber);
                         })
-                    console.log(ree);
+                        .sum();
+                    console.log(ef);
                 },
                 AddEffect() {
                     if (this.effectdialogue.EffectNumber === '') { return; }
@@ -241,6 +241,7 @@
                                 })
                             this.effectdialogue.EffectNumber = '';
                             this.EquipEffectDialogVisible = false;
+                            this.CombineAttribute();
                             return;
                         }
                     }
@@ -275,6 +276,22 @@
             mounted() {
                 console.log("mounted");
                 this.effectdialogue.EffectType = this.effecttypelist[0];
+                var jsonArray = [
+                    { "user": { "id": 100, "screen_name": "d_linq" }, "text": "to objects" },
+                    { "user": { "id": 130, "screen_name": "c_bill" }, "text": "g" },
+                    { "user": { "id": 155, "screen_name": "b_mskk" }, "text": "kabushiki kaisha" },
+                    { "user": { "id": 301, "screen_name": "a_xbox" }, "text": "halo reach" }
+                ]
+                // ["b_mskk:kabushiki kaisha", "c_bill:g", "d_linq:to objects"]
+                var queryResult = Enumerable.from(jsonArray)
+                    .where(function (x) { return x.user.id < 200 })
+                    .orderBy(function (x) { return x.user.screen_name })
+                    .select(function (x) { return x.user.screen_name + ':' + x.text })
+                    .toArray();
+                queryResult.forEach(function (i) {
+                    console.log(i);
+                });
+
             }
         })
     </script>
