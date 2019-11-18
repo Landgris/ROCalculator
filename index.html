@@ -208,22 +208,23 @@
                                     <span>副手持武</span>
                                 </el-col>
                                 <el-col :span="5">
-                                    <el-switch v-model="lefthandweapon" v-on:change="ComputeAtttibute" active-color="#13ce66" inactive-color="#ff4949">
+                                    <el-switch v-model="lefthandweapon" v-on:change="ComputeAtttibute"
+                                        active-color="#13ce66" inactive-color="#ff4949">
                                     </el-switch>
                                 </el-col>
                             </el-row>
-                            <el-row  class="effectline" :gutter="4" type="flex" align="middle">
-                                    <el-col :span="12">
-                                        <span>武器ATK: </span>
-                                    </el-col>
-                                    <el-col :span="12">
-                                        <div class="grid-content bg-purple-light">
-                                            <el-input v-model="weapon.ATK" v-on:input="ComputeAtttibute"
-                                                placeholder="武器ATK">
-                                            </el-input>
-                                        </div>
-                                    </el-col>
-                                </el-row>
+                            <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                <el-col :span="12">
+                                    <span>武器ATK: </span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <div class="grid-content bg-purple-light">
+                                        <el-input v-model="weapon.ATK" v-on:input="ComputeAtttibute"
+                                            placeholder="武器ATK">
+                                        </el-input>
+                                    </div>
+                                </el-col>
+                            </el-row>
                             <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
                                 <el-col :span="24">
                                     <span>精鍊Atk/Matk: {{weapon.refineatk}}</span>
@@ -321,10 +322,18 @@
                             </el-row>
                         </div>
                     </el-row>
-                    
+
                     <el-row>
-                    <div class="boxborder Attribute">
-                        <el-row class="statusbox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                        <div class="boxborder">
+                            Option
+                        </div>
+                    </el-row>
+                </el-col>
+                <el-col :span="6">
+                    <el-row>
+                        <div class="boxborder Attribute">
+                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                style="height:40px;">
                                 <el-col class="bg-purple-light" :span="10">
                                     <span>素質ATK(前):</span>
                                 </el-col>
@@ -332,13 +341,6 @@
                                     <span>{{attritube.StatusATK}}</span>
                                 </el-col>
                             </el-row>
-                    </div>
-                    </el-row>
-                </el-col>
-                <el-col :span="6">
-                    <el-row>
-                        <div class="boxborder">
-                            ???
                         </div>
                     </el-row>
                 </el-col>
@@ -416,7 +418,7 @@
                 ],
                 weapon: { type: '', sizefix: '', level: '', ATK: 0, refinelevel: 0, refineatk: 0, refineatk2: 0 },
                 status: {
-                    Level: 0,
+                    Level: 1,
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
                     STR_Add: 0, AGI_Add: 0, VIT_Add: 0, INT_Add: 0, DEX_Add: 0, LUK_Add: 0,
                     STR_Total: 0, AGI_Total: 0, VIT_Total: 0, INT_Total: 0, DEX_Total: 0, LUK_Total: 0,
@@ -434,7 +436,10 @@
 
                         var result = Enumerable.from(this.equipspartlist)
                             .where("($.effectlist).some(function (x) { return x.EffectType.id == '" + element.id + "'; })")
-                            .select("Number($.effectlist[0].EffectNumber)")
+                            .select(function (x) {
+                                var xx = x.effectlist.filter(x => x.EffectType.id == (element.id.toString()))
+                                return Number(xx[0].EffectNumber);
+                            })
                             .sum();
                         element.totalvalue = result;
                     });
@@ -563,7 +568,7 @@
                         TempSTR = this.status.DEX_Total;
                         TempDEX = this.status.STR_Total;
                     }
-                    var amu = this.lefthandweapon?1:2;
+                    var amu = this.lefthandweapon ? 1 : 2;
                     this.attritube.StatusATK = Math.floor(this.status.Level / 4 + TempSTR + TempDEX / 5 + this.status.LUK_Total / 3) * amu;
 
 
@@ -572,8 +577,10 @@
             mounted() {
                 console.log("mounted");
                 this.effectdialogue.EffectType = this.effecttypelist[0];
-                this.weapon = {type:this.weapontypelist[0], level:this.weaponlevellist[0],
-                    ATK:0, refinelevel:0};
+                this.weapon = {
+                    type: this.weapontypelist[0], level: this.weaponlevellist[0],
+                    ATK: 0, refinelevel: 0
+                };
                 this.ChangeWeapon();
             }
         })
