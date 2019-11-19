@@ -112,7 +112,7 @@
             <el-row :gutter="2">
                 <el-col :span="6">
                     <el-row>
-                        <div class="boxborder">
+                        <div class="boxborder EquipBlock">
                             <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist">
                                 <div class="Equipment">
                                     <el-row class="effectline" type="flex" align="middle">
@@ -167,7 +167,7 @@
                         </div>
                     </el-row>
                     <el-row>
-                        <div class="boxborder bg-purple-light">
+                        <div class="boxborder WeaponBlock bg-purple-light">
                             <el-row :gutter="4" type="flex" align="middle">
                                 <el-col :span="12">
                                     <div class="grid-content bg-purple">
@@ -324,21 +324,136 @@
                     </el-row>
 
                     <el-row>
-                        <div class="boxborder">
-                            Option
+                        <div class="boxborder EnemyBlock">
+
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle"
+                                justify="end">
+                                <el-col :span="24">
+                                    <div class="grid-content bg-purple">
+                                        <el-select value-key="id" v-model="enemyattribute" v-on:change="onSelectEnemy"
+                                            placeholder="選擇敵方">
+                                            <el-option v-for="item in enemylist" :key="item.id" :label="item.name"
+                                                :value="item">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle"
+                                justify="end">
+                                <el-col :span="7">
+                                    <span>敵方屬性</span>
+                                </el-col>
+                                <el-col :span="6">
+                                    <div class="grid-content bg-purple">
+                                        <el-select v-model="enemyattribute.elemental"
+                                            v-on:change="ComputElementalPercent" placeholder="敵方屬性">
+                                            <el-option v-for="item in elementtypelist" :key="item.id"
+                                                :label="item.label" :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </el-col>
+                                <el-col :span="5">
+                                    <span>Lv</span>
+                                </el-col>
+                                <el-col :span="6">
+                                    <div class="grid-content bg-purple">
+                                        <el-select value-key="id" v-model="enemyattribute.elementallevel"
+                                            v-on:change="ComputElementalPercent" placeholder="屬性等級">
+                                            <el-option v-for="item in elementlevel" :key="item.id" :label="item.id"
+                                                :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </el-col>
+                            </el-row>
+
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                <el-col class="textcenter">前 DEF</el-col>
+                                <el-col>
+                                    <el-input v-model="enemyattribute.StatusDEF" v-on:input="onChangeEnemyStatus"
+                                        placeholder="前 DEF">
+                                    </el-input>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                <el-col class="textcenter">後 DEF</el-col>
+                                <el-col>
+                                    <el-input v-model="enemyattribute.WeaponDEF" v-on:input="onChangeEnemyStatus"
+                                        placeholder="後 DEF">
+                                    </el-input>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                <el-col class="textcenter">前 MDEF</el-col>
+                                <el-col>
+                                    <el-input v-model="enemyattribute.StatusMDEF" v-on:input="onChangeEnemyStatus"
+                                        placeholder="前 MDEF">
+                                    </el-input>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                <el-col class="textcenter">後 MDEF</el-col>
+                                <el-col>
+                                    <el-input v-model="enemyattribute.WeaponMDEF" v-on:input="onChangeEnemyStatus"
+                                        placeholder="後 MDEF">
+                                    </el-input>
+                                </el-col>
+                            </el-row>
                         </div>
                     </el-row>
+
+                    <el-row>
+                        <div class="boxborder OptionBlock">
+                            <el-row class="statusbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col :span="12">
+                                    <span>攻擊屬性</span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <div class="grid-content bg-purple">
+                                        <el-select value-key="id" v-model="element.attack"
+                                            v-on:change="ComputElementalPercent" placeholder="攻擊屬性">
+                                            <el-option v-for="item in elementtypelist" :key="item.id"
+                                                :label="item.label" :value="item">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </div>
+                    </el-row>
+
                 </el-col>
+
                 <el-col :span="6">
                     <el-row>
                         <div class="boxborder Attribute">
                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                 style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10">
-                                    <span>素質ATK(前):</span>
+                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <span>素質Atk(前):</span>
                                 </el-col>
                                 <el-col :span="6">
                                     <span>{{attritube.StatusATK}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                style="height:40px;">
+                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <span>素質Matk(前):</span>
+                                </el-col>
+                                <el-col :span="6">
+                                    <span>{{attritube.StatusMATK}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                style="height:40px;">
+                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <span>屬性倍率:</span>
+                                </el-col>
+                                <el-col :span="6">
+                                    <span>{{element.percent}} %</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -427,8 +542,73 @@
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0, DEF: 0, MDEF: 0,
                     ASPD: 0, CRI: 0, VCT: 0, FCT: 0, HIT: 0
-                }
-
+                },
+                element: {
+                    attack: 0, percent: 0
+                },
+                elementtypelist: [
+                    { id: 0, label: '無' },
+                    { id: 1, label: '火' },
+                    { id: 2, label: '水' },
+                    { id: 3, label: '風' },
+                    { id: 4, label: '地' },
+                    { id: 5, label: '毒' },
+                    { id: 6, label: '聖' },
+                    { id: 7, label: '暗' },
+                    { id: 8, label: '念' },
+                    { id: 9, label: '不死' }
+                ],
+                elementlevel: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
+                elementalmap: [
+                    100, 100, 100, 100, 100, 100, 100, 100, 70, 100,
+                    100, 25, 90, 100, 150, 100, 75, 100, 100, 125,
+                    100, 150, 25, 90, 100, 100, 75, 100, 100, 100,
+                    100, 100, 175, 25, 90, 100, 75, 100, 100, 100,
+                    100, 90, 100, 150, 25, 100, 75, 100, 100, 100,
+                    100, 125, 100, 125, 125, 0, 75, 50, 100, -25,
+                    100, 100, 100, 100, 100, 100, 0, 125, 100, 150,
+                    100, 100, 100, 100, 100, 50, 125, 0, 100, -25,
+                    70, 100, 100, 100, 100, 100, 75, 75, 125, 100,
+                    100, 100, 100, 100, 100, 50, 100, 0, 100, 0,
+                    100, 100, 100, 100, 100, 100, 100, 100, 50, 100,
+                    100, 0, 80, 100, 175, 100, 50, 75, 100, 150,
+                    100, 175, 0, 80, 100, 100, 50, 75, 100, 100,
+                    100, 100, 175, 0, 80, 100, 50, 75, 100, 100,
+                    100, 80, 100, 175, 0, 100, 50, 75, 100, 100,
+                    100, 125, 75, 125, 125, 0, 50, 25, 75, -50,
+                    100, 100, 100, 100, 100, 100, -25, 150, 100, 175,
+                    100, 100, 100, 100, 100, 25, 150, -25, 100, -50,
+                    50, 75, 75, 75, 75, 75, 50, 50, 150, 125,
+                    100, 75, 75, 75, 75, 25, 125, 0, 100, 0,
+                    100, 100, 100, 100, 100, 100, 100, 100, 0, 100,
+                    100, -25, 70, 100, 200, 100, 25, 50, 100, 175,
+                    100, 200, -25, 70, 100, 100, 25, 50, 100, 125,
+                    100, 100, 200, -25, 70, 100, 25, 50, 100, 100,
+                    100, 70, 100, 200, -25, 100, 25, 50, 100, 75,
+                    100, 100, 50, 100, 100, 0, 25, 0, 50, -75,
+                    100, 100, 100, 100, 100, 125, -50, 175, 100, 200,
+                    100, 100, 100, 100, 100, 0, 175, -50, 100, -75,
+                    0, 50, 50, 50, 50, 50, 25, 25, 175, 150,
+                    100, 50, 50, 50, 50, 0, 150, 0, 100, 0,
+                    100, 100, 100, 100, 100, 100, 100, 100, 0, 100,
+                    100, -50, 60, 100, 200, 75, 0, 25, 100, 200,
+                    100, 200, -50, 60, 100, 75, 0, 25, 100, 150,
+                    100, 100, 200, -50, 60, 75, 0, 25, 100, 100,
+                    100, 60, 100, 200, -50, 75, 0, 25, 100, 50,
+                    100, 75, 25, 75, 75, 0, 0, -25, 25, -100,
+                    100, 75, 75, 75, 75, 125, -100, 200, 100, 200,
+                    100, 75, 75, 75, 75, -25, 200, -100, 100, -100,
+                    0, 25, 25, 25, 25, 25, 0, 0, 200, 175,
+                    100, 25, 25, 25, 25, -25, 175, 0, 100, 0
+                ],
+                enemyattribute: {
+                    name: '',
+                    level: 0, hp: 0, VIT: 0, INT: 0,
+                    elemental: 0, elementallevel: 1, size: '',
+                    StatusDEF: 0, WeaponDEF: 0,
+                    StatusMDEF: 0, WeaponMDEF: 0,
+                },
+                enemylist: [],
             },
             methods: {
                 CombineEquipsAttribute() {
@@ -451,8 +631,9 @@
                         .from(this.equipspartlist)
                         .where(function(e){ return e.effectlist.find(x=> x.EffectType.id == idd); })
                         //.select("value, index => value.effectlist.filter(x => x.EffectType.id == 'ATK')")
-                        .select(function(x){
-                            return Number(x.effectlist[0].EffectNumber);
+                        .select(function (x) {
+                            var xx = x.effectlist.filter(x => x.EffectType.id == (element.id.toString()))
+                            return Number(xx[0].EffectNumber);
                         })
                         .sum();
                     console.log(ef);
@@ -560,8 +741,18 @@
                     this.status.LUK_Total = Number(this.status.LUK) + Number(this.status.LUK_Add);
                     this.ComputeAtttibute();
                 },
+                ComputElementalPercent() {
+                    var count = this.elementtypelist.length;
+                    var _base = (this.element.attack.id) * count;
+                    var _enemy = this.enemyattribute.elemental;
+                    var _level = (this.enemyattribute.elementallevel - 1) * count * count
+                    var idx = this.elementalmap[_base + _enemy + _level];
+                    this.element.percent = idx;
+                },
                 ComputeAtttibute() {
                     // Math.ceil 進位  Math.floor 捨去 Math.round 4捨5入
+                    this.attritube.StatusMATK = Math.floor(this.status.INT_Total * 1.5 + this.status.LUK_Total / 3 + this.status.Level / 4 + this.status.DEX_Total / 5);
+
                     var TempSTR = this.status.STR_Total;
                     var TempDEX = this.status.DEX_Total;
                     if (this.weapon.type.id === 'Bows' || this.weapon.type.id === 'Instruments' || this.weapon.type.id === 'Whips' || this.weapon.type.id === 'Guns') {
@@ -570,7 +761,19 @@
                     }
                     var amu = this.lefthandweapon ? 1 : 2;
                     this.attritube.StatusATK = Math.floor(this.status.Level / 4 + TempSTR + TempDEX / 5 + this.status.LUK_Total / 3) * amu;
+                },
+                onChangeEnemyStatus() {
 
+                },
+                onSelectEnemy(item) {
+                    // 拿資料 傳值就好
+                    //https://wcc723.github.io/javascript/2017/12/10/javascript-reference/
+                    this.enemyattribute = Object.assign({}, item);
+                    console.log("onSelectEnemy: " + this.enemyattribute.elemental);
+                },
+                initenemylist() {
+                    this.enemylist[0] = { id: 0, name: '自訂', level: 1, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0 };
+                    this.enemylist[1] = { id: 1, name: '龍蛋', level: 150, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120 };
 
                 }
             },
@@ -582,8 +785,21 @@
                     ATK: 0, refinelevel: 0
                 };
                 this.ChangeWeapon();
+                this.element.attack = this.elementtypelist[0];
+                this.initenemylist();
+                this.enemyattribute = this.enemylist[0];
+                this.ComputElementalPercent();
             }
+
         })
+
+        evue.$watch('enemyattribute', function (newB, oldB) {
+            console.log("Watch enemyattribute ");
+                this.ComputElementalPercent();
+        }, {
+            deep: true
+        });
+        
     </script>
 
     <body>
