@@ -63,6 +63,13 @@
             min-height: 10px;
         }
 
+        .optionbox {
+            border: 1px solid #d7dae2;
+            border-radius: 2px;
+            min-height: 40px;
+            text-align: center;
+        }
+
         .textcenter {
             text-align: center;
         }
@@ -225,6 +232,42 @@
                                     </div>
                                 </el-col>
                             </el-row>
+                            <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                <el-col :span="12">
+                                    <span>武器MATK: </span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <div class="grid-content bg-purple-light">
+                                        <el-input v-model="weapon.MATK" v-on:input="ComputeAtttibute"
+                                            placeholder="武器MATK">
+                                        </el-input>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                <el-col :span="12">
+                                    <span>箭矢ATK: </span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <div class="grid-content bg-purple-light">
+                                        <el-input v-model="weapon.ArrowATK" v-on:input="ComputeAtttibute"
+                                            placeholder="箭矢ATK">
+                                        </el-input>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                <el-col :span="12">
+                                    <span>砲彈ATK: </span>
+                                </el-col>
+                                <el-col :span="12">
+                                    <div class="grid-content bg-purple-light">
+                                        <el-input v-model="weapon.BulletATK" v-on:input="ComputeAtttibute"
+                                            placeholder="砲彈ATK">
+                                        </el-input>
+                                    </div>
+                                </el-col>
+                            </el-row>
                             <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
                                 <el-col :span="24">
                                     <span>精鍊Atk/Matk: {{weapon.refineatk}}</span>
@@ -327,9 +370,9 @@
                         <div class="boxborder EnemyBlock">
 
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle"
-                                justify="end">
+                                justify="center">
                                 <el-col :span="24">
-                                    <div class="grid-content bg-purple">
+                                    <div class="grid-content">
                                         <el-select value-key="id" v-model="enemyattribute" v-on:change="onSelectEnemy"
                                             placeholder="選擇敵方">
                                             <el-option v-for="item in enemylist" :key="item.id" :label="item.name"
@@ -341,7 +384,7 @@
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle"
                                 justify="end">
-                                <el-col :span="7">
+                                <el-col class="textcenter" :span="7">
                                     <span>敵方屬性</span>
                                 </el-col>
                                 <el-col :span="6">
@@ -354,7 +397,7 @@
                                         </el-select>
                                     </div>
                                 </el-col>
-                                <el-col :span="5">
+                                <el-col class="textcenter" :span="5">
                                     <span>Lv</span>
                                 </el-col>
                                 <el-col :span="6">
@@ -369,6 +412,19 @@
                                 </el-col>
                             </el-row>
 
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle"
+                                justify="end">
+                                <el-col :span="12" class="textcenter">體型</el-col>
+                                <el-col :span="12">
+                                    <div class="grid-content bg-purple">
+                                        <el-select value-key="id" v-model="enemyattribute.size" placeholder="體型">
+                                            <el-option v-for="item in sizetypelist" :key="item.id" :label="item.label"
+                                                :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                </el-col>
+                            </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                 <el-col class="textcenter">前 DEF</el-col>
                                 <el-col>
@@ -407,7 +463,7 @@
                     <el-row>
                         <div class="boxborder OptionBlock">
                             <el-row class="statusbox" :gutter="4" type="flex" align="middle" justify="end">
-                                <el-col :span="12">
+                                <el-col class="textcenter" :span="12">
                                     <span>攻擊屬性</span>
                                 </el-col>
                                 <el-col :span="12">
@@ -419,6 +475,46 @@
                                             </el-option>
                                         </el-select>
                                     </div>
+                                </el-col>
+                            </el-row>
+                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col class="textcenter" :span="12">
+                                    <span>騎乘</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-switch v-model="option.Riding" v-on:change="ComputeSizefix"
+                                        active-color="#13ce66" inactive-color="#ff4949">
+                                    </el-switch>
+                                </el-col>
+                            </el-row>
+                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col class="textcenter" :span="12">
+                                    <span>無視體型攻擊</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-switch v-model="option.WeaponPerfection" v-on:change="ComputeSizefix"
+                                        active-color="#13ce66" inactive-color="#ff4949">
+                                    </el-switch>
+                                </el-col>
+                            </el-row>
+                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col class="textcenter" :span="12">
+                                    <span>打擊強化</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-switch v-model="option.Striking" v-on:change="ComputeAtttibute"
+                                        active-color="#13ce66" inactive-color="#ff4949">
+                                    </el-switch>
+                                </el-col>
+                            </el-row>
+                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col class="textcenter" :span="12">
+                                    <span>點穴-反</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-switch v-model="option.GentleTouchCharge" v-on:change="ComputeAtttibute"
+                                        active-color="#13ce66" inactive-color="#ff4949">
+                                    </el-switch>
                                 </el-col>
                             </el-row>
                         </div>
@@ -454,6 +550,15 @@
                                 </el-col>
                                 <el-col :span="6">
                                     <span>{{element.percent}} %</span>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                style="height:40px;">
+                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <span>體型倍率:</span>
+                                </el-col>
+                                <el-col :span="6">
+                                    <span>{{computeattribute.sizefix}} %</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -531,7 +636,11 @@
                     { id: 3, label: '三級武器', upgradeatk: 5, saferefine: 5, overatk: 8 },
                     { id: 4, label: '四級武器', upgradeatk: 7, saferefine: 4, overatk: 14 }
                 ],
-                weapon: { type: '', sizefix: '', level: '', ATK: 0, refinelevel: 0, refineatk: 0, refineatk2: 0 },
+                weapon: {
+                    type: '', sizefix: '', level: '',
+                    ATK: 0, MATK: 0, ArrowATK: 0, BulletATK: 0,
+                    refinelevel: 0, refineatk: 0, refineatk2: 0
+                },
                 status: {
                     Level: 1,
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
@@ -543,6 +652,11 @@
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0, DEF: 0, MDEF: 0,
                     ASPD: 0, CRI: 0, VCT: 0, FCT: 0, HIT: 0
                 },
+                sizetypelist: [
+                    { id: 0, label: '小型' },
+                    { id: 1, label: '中型' },
+                    { id: 2, label: '大型' },
+                ],
                 element: {
                     attack: 0, percent: 0
                 },
@@ -609,6 +723,38 @@
                     StatusMDEF: 0, WeaponMDEF: 0,
                 },
                 enemylist: [],
+                option:
+                {
+                    MaximizePower: false,       //武器值最大化
+                    WeaponPerfection: false,    //無視體型攻擊
+                    Riding: false,              //騎乘
+                    MagnumBreak: false,         //怒爆
+                    EnchantDeadlyPoison: false,  //致命塗毒
+                    VENOMIMPRESS: false,            //毒耐性弱化
+                    Striking: false,            //打擊強化
+                    GentleTouchCharge: false,   //點穴-反
+                },
+                computeattribute:
+                {
+                    floatatk: 0,
+                    elementalpercent: 0,
+                    sizefix: 0,
+                    MagnumPoison: 0,    //怒爆致毒
+
+                    atkc0_min: 0,//武器基礎ATK x [ 1 + ( STR ÷ 200 ) - ( 武器等級 x 0.05 ) 
+                    atkc0_max: 0,//武器基礎ATK x [ 1 + ( STR ÷ 200 ) + ( 武器等級 x 0.05 ) 
+                    atkc1: 0,   // atkc0 + 精煉ATK  + 特殊技能加值打擊強化、點穴(半) )
+                    atkc2: 0,   //(atkc1 x 體形修正 + 箭矢ATK)
+                    atkc3: 0,   //(atkc2 x ( 1 + 怒爆20％ 或  致命塗毒25%(二選一)  x  屬性表 ) x (1 + 霸氣% + 武器ATK%)+ 卡裝ATK))
+                    atkc4: 0,   //x 本身( 1 + 階級ATK% ) x ( 1 + 種族ATK% ) x (1 + 體型ATK% ) x ( 1 + 屬性ATK% 毒耐性弱化50% ) x ( 致命塗毒300% )
+                    //x 對方( 1 - 體型減傷% ) x ( 1 - 階級減傷% ) x ( 1 - 攻擊屬性減傷% ) x ( 1 - 怪物屬性減傷% )
+                    //+ 砲彈ATK
+                    atkc5: 0,   //x 屬性倍率 + 素質ATK x 2+ 修煉ATK + 武器強悍
+                    atkc6: 0,   //x 本身 ( 1 + 遠距增傷% ) x ( 1 +暴擊增傷卡裝% ) x 對方 ( 1 -  遠距減傷% ) x ( 1 - 種族減傷%) x ( 1 - 暴擊減傷%)
+                    atkc7: 0,   //x 本身(1+ ( 技能倍率% - 1 ) + 集中攻擊25% + 凶砍25% + 凶砍最大值100% + 狂怒之槍200% ) x ( 1 + 技能增傷的卡裝%) x ( 1+技能增傷的技能% + 高階拳刃修鍊20% )
+                    //x 對方 ( ( 4000 + 後DEF ) ÷ ( 4000 + 10 x 後DEF ) ) - 前DEF
+
+                }
             },
             methods: {
                 CombineEquipsAttribute() {
@@ -728,6 +874,7 @@
                     this.weapon.sizefix = '小 ' + this.weapon.type.sizefix.small + '% / 中 ' +
                         this.weapon.type.sizefix.middle + '% / 大 ' + this.weapon.type.sizefix.big + '%';
                     this.ComputRefineATK();
+                    this.ComputeSizefix();
                 },
                 onChangeRefineLevel() {
                     this.ComputRefineATK();
@@ -741,13 +888,36 @@
                     this.status.LUK_Total = Number(this.status.LUK) + Number(this.status.LUK_Add);
                     this.ComputeAtttibute();
                 },
-                ComputElementalPercent() {
+                getElementalPercent(attackelementalid, enemyelemental, enemyelementlevel) {
                     var count = this.elementtypelist.length;
-                    var _base = (this.element.attack.id) * count;
-                    var _enemy = this.enemyattribute.elemental;
-                    var _level = (this.enemyattribute.elementallevel - 1) * count * count
-                    var idx = this.elementalmap[_base + _enemy + _level];
-                    this.element.percent = idx;
+                    var _base = attackelementalid * count;
+                    var _enemy = enemyelemental;
+                    var _level = (enemyelementlevel - 1) * count * count
+                    var percent = this.elementalmap[_base + _enemy + _level];
+                    return percent;
+                },
+                ComputElementalPercent() {
+                    this.element.percent = this.getElementalPercent(
+                        this.element.attack.id,
+                        this.enemyattribute.elemental,
+                        this.enemyattribute.elementallevel);
+                },
+                ComputeSizefix() {
+                    if (this.option.WeaponPerfection || this.option.Riding) {
+                        this.computeattribute.sizefix = 100;
+                        return;
+                    }
+                    switch (this.enemyattribute.size) {
+                        case 0:
+                            this.computeattribute.sizefix = this.weapon.type.sizefix.small;
+                            break;
+                        case 1:
+                            this.computeattribute.sizefix = this.weapon.type.sizefix.middle;
+                            break;
+                        case 2:
+                            this.computeattribute.sizefix = this.weapon.type.sizefix.big;
+                            break;
+                    }
                 },
                 ComputeAtttibute() {
                     // Math.ceil 進位  Math.floor 捨去 Math.round 4捨5入
@@ -774,6 +944,8 @@
                 initenemylist() {
                     this.enemylist[0] = { id: 0, name: '自訂', level: 1, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0 };
                     this.enemylist[1] = { id: 1, name: '龍蛋', level: 150, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120 };
+                    this.enemylist[2] = { id: 2, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 180, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100 };
+                    this.enemylist[3] = { id: 3, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 160, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100 };
 
                 }
             },
@@ -782,7 +954,8 @@
                 this.effectdialogue.EffectType = this.effecttypelist[0];
                 this.weapon = {
                     type: this.weapontypelist[0], level: this.weaponlevellist[0],
-                    ATK: 0, refinelevel: 0
+                    ATK: 0, MATK: 0, ArrowATK: 0, BulletATK: 0,
+                    refinelevel: 0
                 };
                 this.ChangeWeapon();
                 this.element.attack = this.elementtypelist[0];
@@ -795,11 +968,12 @@
 
         evue.$watch('enemyattribute', function (newB, oldB) {
             console.log("Watch enemyattribute ");
-                this.ComputElementalPercent();
+            this.ComputElementalPercent();
+            this.ComputeSizefix();
         }, {
             deep: true
         });
-        
+
     </script>
 
     <body>
