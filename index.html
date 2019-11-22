@@ -670,7 +670,7 @@
 
                             <el-collapse>
                                 <el-collapse-item>
-                                    <template slot="title">一般<i class="header-icon el-icon-info"></i></template>
+                                    <template slot="title" >一般<i class="textcenter"></i></template>
 
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
@@ -850,6 +850,27 @@
                                         </el-col>
                                         <el-col v-else class="textcenter" :span="10">
                                             <span>{{computeattribute.atkc8_max}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                            <span>普攻傷害</span>
+                                        </el-col>
+                                        <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalattack_min}}~{{computeattribute.normalattack_max}}</span>
+                                        </el-col>
+                                        <el-col v-else class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalattack_max}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                            <span>普攻爆傷</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalcritical}}</span>
                                         </el-col>
                                     </el-row>
 
@@ -1116,6 +1137,9 @@
                     //x 對方 ( ( 4000 + 後DEF ) ÷ ( 4000 + 10 x 後DEF ) ) - 前DEF
                     atkc7_max: 0,
 
+                    normalattack_min: 0,
+                    normalattack_max: 0,
+                    normalcritical: 0,
 
                     atkc8_min: 0,// x ( 1 + 技能增傷的卡裝%) x ( 1 + 技能增傷的技能% )
                     atkc8_max: 0,
@@ -1404,6 +1428,8 @@
                     this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc5_min, para_ranged);
                     this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc5_max, para_ranged);
 
+                    this.computeattribute.normalattack_min = this.computeattribute.atkc6_min;
+                    this.computeattribute.normalattack_max = this.computeattribute.atkc6_max;
 
                     var para8 = Number(this.option.SkillPercent / 100);
                     para8 += this.option.Concentration ? this.option.ConcentrationValue : 0;
@@ -1422,11 +1448,16 @@
                     this.option.enemydef = (para9 * 100).toFixed(2);
                     this.computeattribute.atkc7_min = Math.floor(this.computeattribute.atkc7_min * para9) - Number(this.enemyattribute.StatusDEF);
                     this.computeattribute.atkc7_max = Math.floor(this.computeattribute.atkc7_max * para9) - Number(this.enemyattribute.StatusDEF);
+                    this.computeattribute.normalattack_min = Math.floor(this.computeattribute.normalattack_min * para9) - Number(this.enemyattribute.StatusDEF);
+                    this.computeattribute.normalattack_max = Math.floor(this.computeattribute.normalattack_max * para9) - Number(this.enemyattribute.StatusDEF);
 
                     var para_crid = Number(1) + Number(this.effecttypelist.find(x => x.id == 'CriDamagePercent').totalvalue) / 100;
-                    if (this.option.Critical) para_crid += Number(this.option.CriticalValue / 100);
                     this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc7_min, para_crid);
                     this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc7_max, para_crid);
+                    this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1)+Number(this.option.CriticalValue / 100));
+                    this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1)+Number(this.option.CriticalValue / 100));
+                    this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalattack_max, para_crid);
+                    this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalattack_max, Number(1)+Number(this.option.CriticalValue / 100));
 
                     this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
