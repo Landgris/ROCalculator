@@ -1686,7 +1686,7 @@
                     }
                 },
                 onRemoveEquipSave(saveid) {
-                    if (index >= 0) {
+                    if (saveid > -1) {
                         this.StoreDB_Equip.splice(saveid, 1)
                         this.SaveEquipDB();
                     }
