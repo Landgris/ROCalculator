@@ -85,10 +85,11 @@
 
 <body>
     <el-container id="equipment">
-        <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" title="選擇效果">
-            <el-row :gutter="6">
+        <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" width="33%">
+            <span slot="title">增加 <b>{{EquipSelectLabel}}</b> 裝備效果</span>
+            <el-row class="bg-purple" :gutter="6">
                 <el-col :span="11">
-                    <div class="grid-content bg-purple">
+                    <div>
                         <el-select value-key="id" v-model="effectdialogue.EffectType" v-on:change="onSelectedDrug"
                             placeholder="選擇效果">
                             <el-option v-for="item in effecttypelist" :key="item.id" :label="item.label" :value="item">
@@ -97,7 +98,7 @@
                     </div>
                 </el-col>
                 <el-col :span="8">
-                    <div class="grid-content bg-purple-light">
+                    <div>
                         <el-input v-model="effectdialogue.EffectNumber" v-on:keyup.enter.native="AddEffect"
                             placeholder="效果參數">
                         </el-input>
@@ -105,10 +106,53 @@
                 </el-col>
                 <el-col :span="5">
                     <div>
-                        <el-button v-on:click="AddEffect" icon="el-icon-circle-plus-outline" type="success" plain>
+                        <el-button v-on:click="AddEffect" type="success" plain>
+                            確定
                         </el-button>
                     </div>
                 </el-col>
+            </el-row>
+        </el-dialog>
+        <el-dialog :visible.sync="EquipDBDialogVisible" width="50%">
+            <span slot="title">載入裝備資料</span>
+            <el-row :gutter="6">
+                    <el-row class="effectline" :gutter="4" type="flex" align="middle" style="height:40px;">
+                            <el-col class="textcenter" :span="4" style="text-align: right;">
+                                <span class="">部位</span>
+                            </el-col>
+                            <el-col class="textcenter">
+                                <span class="">裝備名字</span>
+                            </el-col>
+                            <el-col :span="4"> 
+                            </el-col>
+                            <el-col :span="6"> 
+                            </el-col>
+                            <el-col :span="5"> 
+                            </el-col>
+                    </el-row>
+                <div v-for="(item, index) in StoreDB_Equip" v-bind:key="item.uuid">
+                    <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle" style="height:40px;">
+                        
+                        <el-col class="textcenter" :span="4" style="text-align: right;">
+                            <span class="EffectType">{{ item.equip.label }}</span>
+                        </el-col>
+                        <el-col class="textcenter" >
+                            <span class="">{{ item.equip.equipname }}</span>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-button v-on:click="onRemoveEquipSave(index)" type="danger" size="mini">
+                                刪除
+                            </el-button>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-button v-on:click="onLoadEquipSave(index)" type="success" type="primary" size="small">
+                                載入
+                            </el-button>
+                        </el-col>
+                        <el-col :span="5">
+                        </el-col>
+                    </el-row>
+                </div>
             </el-row>
         </el-dialog>
         <el-header>
@@ -121,7 +165,6 @@
             </el-row>
         </el-header>
         <el-main>
-
             <el-row :gutter="2">
                 <el-col :span="8">
                     <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
@@ -188,7 +231,6 @@
                             </el-row>
                         </div>
                     </el-row>
-
                     <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
                         <el-col class="textcenter" :span="10">
                             <span class="textcenter">敵方</span>
@@ -210,7 +252,7 @@
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col :span="3" class="textcenter" ><span>屬性</span>
+                                <el-col :span="3" class="textcenter"><span>屬性</span>
                                 </el-col>
                                 <el-col :span="5">
                                     <div class="grid-content bg-purple">
@@ -222,7 +264,7 @@
                                         </el-select>
                                     </div>
                                 </el-col>
-                                <el-col :span="4" class="textcenter" ><span>屬性等級</span>
+                                <el-col :span="4" class="textcenter"><span>屬性等級</span>
                                 </el-col>
                                 <el-col :span="3">
                                     <div class="grid-content bg-purple">
@@ -328,7 +370,7 @@
                                 <el-collapse>
                                     <el-collapse-item>
                                         <template slot="title" align="center">
-                                                <div class="textcenter">劍士</div>
+                                            <div class="textcenter">劍士</div>
                                         </template>
 
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
@@ -498,6 +540,11 @@
                         <el-col class="textcenter" :span="10">
                             <span class="textcenter">裝備</span>
                         </el-col>
+                        <el-col class="textcenter" :span="6" style="text-align: right;">
+                            <el-button v-on:click="OpenEquipDBDialogDialogue">
+                                載入
+                            </el-button>
+                        </el-col>
                     </el-row>
                     <el-row>
                         <div class="boxborder EquipBlock">
@@ -612,7 +659,7 @@
                                         </el-select>
                                     </div>
                                 </el-col>
-                                <el-col class="textcenter" :span="12">  
+                                <el-col class="textcenter" :span="12">
                                     <el-checkbox v-model="lefthandweapon" label="副手持武" border></el-checkbox>
                                 </el-col>
                             </el-row>
@@ -931,14 +978,14 @@
 
         </el-main>
         <el-footer>
-                <el-row>
-                    <el-col>
-                        <div class="bg-purple" type="flex" align="middle" justify="center">
-                            Copyright(c) Landgris</br>
-                            <a  target="_blank" href="https://twitter.com/Landgris" >Twitter</a>
-                        </div>
-                    </el-col>
-                </el-row>
+            <el-row>
+                <el-col>
+                    <div class="bg-purple" type="flex" align="middle" justify="center">
+                        Copyright(c) Landgris</br>
+                        <a target="_blank" href="https://twitter.com/Landgris">Twitter</a>
+                    </div>
+                </el-col>
+            </el-row>
         </el-footer>
     </el-container>
 
@@ -949,7 +996,9 @@
             el: '#equipment',
             data: {
                 StoreDB_Equip: [],
+                EquipDBDialogVisible: false,
                 EquipSelectId: '',
+                EquipSelectLabel: '',
                 equipspartlist: [
                     { id: 'helm', label: '頭飾', equipname: '', effectlist: [] },
                     { id: 'armor', label: '衣服', equipname: '', effectlist: [] },
@@ -1302,6 +1351,7 @@
                     console.log("OpenDialogue " + eqindex);
                     this.EquipEffectDialogVisible = true;
                     this.EquipSelectId = eqindex;
+                    this.EquipSelectLabel = this.equipspartlist[eqindex].label;
                 },
                 CloseEffectDialogue() {
                     this.EquipSelectId = '';
@@ -1614,11 +1664,50 @@
                 },
                 onSaveEquip(epidx) {
                     if (this.equipspartlist[epidx].equipname == '') return;
-                    this.StoreDB_Equip.push(this.equipspartlist[epidx]);
-
+                    this.StoreDB_Equip.push({ uuid: this._uuid(), equip: this.equipspartlist[epidx] });
+                    this.SaveEquipDB();
+                },
+                OpenEquipDBDialogDialogue() {
+                    this.EquipDBDialogVisible = true;
+                    if (localStorage.getItem('StoreDB_Equip')) {
+                        try {
+                            this.StoreDB_Equip = JSON.parse(localStorage.getItem('StoreDB_Equip'));
+                            Enumerable.from(this.StoreDB_Equip).orderBy(x => x.equip.id);
+                        } catch (e) {
+                            console.log("catch e:" + e);
+                        }
+                    }
+                },
+                onLoadEquipSave(saveid) {
+                    var idx = this.equipspartlist.findIndex(x => x.id == this.StoreDB_Equip[saveid].equip.id);
+                    if (idx > -1) {
+                        this.equipspartlist[idx] = this.StoreDB_Equip[saveid].equip;
+                        this.CombineEquipsAttribute();
+                    }
+                },
+                onRemoveEquipSave(saveid) {
+                    if (index >= 0) {
+                        this.StoreDB_Equip.splice(saveid, 1)
+                        this.SaveEquipDB();
+                    }
+                },
+                SaveEquipDB() {
                     const parsed = JSON.stringify(this.StoreDB_Equip);
                     localStorage.setItem('StoreDB_Equip', parsed);
                 },
+                // 產生唯一碼 給存檔使用
+                // https://cythilya.github.io/2017/03/12/uuid/
+                _uuid() {
+                    var d = Date.now();
+                    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+                        d += performance.now(); //use high-precision timer if available
+                    }
+                    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                        var r = (d + Math.random() * 16) % 16 | 0;
+                        d = Math.floor(d / 16);
+                        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+                    });
+                }
             },
             mounted() {
                 console.log("mounted");
