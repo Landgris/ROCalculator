@@ -299,25 +299,25 @@
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" span="12">技能倍率</el-col>
-                                <el-col span="8">
+                                <el-col class="textcenter" :span="12">技能倍率</el-col>
+                                <el-col :span="8">
                                     <el-input v-model="option.SkillPercent" v-on:input="onOptionSkill"
                                         placeholder="Skill %">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter" span="4">%</el-col>
+                                <el-col class="textcenter" :span="4">%</el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" span="12">裝備技能傷害增加</el-col>
-                                <el-col span="8">
+                                <el-col class="textcenter" :span="12">裝備技能傷害增加</el-col>
+                                <el-col :span="8">
                                     <el-input v-model="option.EquipSkillAddDamage" v-on:input="onOptionSkill"
                                         placeholder="Skill %">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter" span="4">%</el-col>
+                                <el-col class="textcenter" :span="4">%</el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter">武器修練</el-col>
+                                <el-col class="textcenter">武器修練ATK增加</el-col>
                                 <el-col>
                                     <el-input v-model="option.WeaponMasteryATK" v-on:input="onOptionWeaponMastery"
                                         placeholder="ATK">
@@ -931,6 +931,14 @@
 
         </el-main>
         <el-footer>
+                <el-row>
+                    <el-col>
+                        <div class="bg-purple" type="flex" align="middle" justify="center">
+                            Copyright(c) Landgris</br>
+                            <a  target="_blank" href="https://twitter.com/Landgris" >Twitter</a>
+                        </div>
+                    </el-col>
+                </el-row>
         </el-footer>
     </el-container>
 
