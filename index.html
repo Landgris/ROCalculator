@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="https://unpkg.com/linq"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 
     <!-- <style type="text/css">
         #equipinput {
@@ -160,6 +161,76 @@
                 </div>
             </el-row>
         </el-dialog>
+        <el-dialog :visible.sync="StatusDBDialogVisible" width="100%">
+            <span slot="title">角色清單</span>
+            <el-row :gutter="6">
+                <div style="padding: 0px 5px;">
+                    <el-row class="optionbox effectline bg-purple" :gutter="4" type="flex" align="middle"
+                        style="height:40px;">
+                        <el-col class="textcenter">
+                            <span>目前素質</span>
+                        </el-col>
+                    </el-row>
+                    <el-row class="optionbox effectline bg-purple" :gutter="4" type="flex" align="middle"
+                        style="height:40px;">
+                        <el-col :span="8">
+                            <span>存檔名字</span>
+                        </el-col>
+                        <el-col class="textcenter" :span="8">
+                            <el-input v-model="StatusName" v-on:keyup.enter.native="AddEffect"
+                                placeholder="要儲存的角色名字">
+                            </el-input>
+                        </el-col>
+                        <el-col class="textcenter">
+                            <span class="">{{StatusBulidString}}</span>
+                        </el-col>
+                        <el-col class="textcenter" :span="5">
+                            <el-tooltip class="item" effect="dark" content="儲存" placement="right">
+                                <el-button v-on:click="onSaveStatus" icon="el-icon-collection-tag">
+                                    儲存角色素質
+                                </el-button>
+                            </el-tooltip>
+                        </el-col>
+                    </el-row>
+                </div>
+                <div style="padding: 5px 5px;">
+                    <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle" style="height:40px;">
+                        <el-col class="textcenter" :span="8">
+                            <span class=""><b>角色名字</b></span>
+                        </el-col>
+                        <el-col class="textcenter">
+                            <span class=""><b>素質</b></span>
+                        </el-col>
+                        <el-col :span="10">
+                            </el-col>
+                    </el-row>
+                </div>
+                <div v-for="(item, index) in StoreDB_Status" v-bind:key="item.uuid">
+                    <div style="padding: 2px 5px;">
+                        <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle">
+
+                            <el-col class="textcenter" :span="8">
+                                <span>{{ item.name }}</span>
+                            </el-col>
+                            <el-col class="textcenter">
+                                <span class="">{{ item.statusstring }}</span>
+                            </el-col>
+                            <el-col :span="4">
+                                <el-button v-on:click="onRemoveStatusSave(index)" icon="el-icon-delete" type="danger"
+                                    size="mini">
+                                </el-button>
+                            </el-col>
+                            <el-col :span="6">
+                                <el-button v-on:click="onLoadStatusSave(index)" icon="el-icon-check" type="success"
+                                    type="primary" size="small">
+                                    載入
+                                </el-button>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </div>
+            </el-row>
+        </el-dialog>
         <el-header>
             <el-row>
                 <el-col :span="24">
@@ -173,8 +244,18 @@
             <el-row :gutter="2">
                 <el-col :span="8">
                     <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                        <el-col class="textcenter" :span="6">
+                            <span class="textcenter"> </span>
+                        </el-col>
                         <el-col class="textcenter" :span="10">
                             <span class="textcenter">角色素質</span>
+                        </el-col>
+                        <el-col class="textcenter" :span="6" style="text-align: right;">
+                            <el-tooltip class="item" effect="dark" content="讀取已經儲存的素質" placement="left">
+                                <el-button v-on:click="OpenStatusDBDialogDialogue" size="small">
+                                    角色清單
+                                </el-button>
+                            </el-tooltip>
                         </el-col>
                     </el-row>
                     <el-row>
@@ -182,57 +263,57 @@
                             <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
                                 <el-col class="textcenter">Level</el-col>
                                 <el-col>
-                                    <el-input v-model="status.Level" v-on:input="onChaneStatus" placeholder="Level">
+                                    <el-input v-model="status.Level" v-on:input="onOption" placeholder="Level">
                                     </el-input>
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
                                 <el-col class="textcenter">STR</el-col>
                                 <el-col>
-                                    <el-input v-model="status.STR" v-on:input="onChaneStatus" placeholder="STR">
+                                    <el-input v-model="status.STR" v-on:input="onOption" placeholder="STR">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter">{{status.STR_Total}}</el-col>
+                                <el-col class="textcenter">{{status_total.STR}}</el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
                                 <el-col class="textcenter">AGI</el-col>
                                 <el-col>
-                                    <el-input v-model="status.AGI" v-on:input="onChaneStatus" placeholder="AGI">
+                                    <el-input v-model="status.AGI" v-on:input="onOption" placeholder="AGI">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter">{{status.AGI_Total}}</el-col>
+                                <el-col class="textcenter">{{status_total.AGI}}</el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
                                 <el-col class="textcenter">VIT</el-col>
                                 <el-col>
-                                    <el-input v-model="status.VIT" v-on:input="onChaneStatus" placeholder="VIT">
+                                    <el-input v-model="status.VIT" v-on:input="onOption" placeholder="VIT">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter">{{status.VIT_Total}}</el-col>
+                                <el-col class="textcenter">{{status_total.VIT}}</el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
                                 <el-col class="textcenter">INT</el-col>
                                 <el-col>
-                                    <el-input v-model="status.INT" v-on:input="onChaneStatus" placeholder="INT">
+                                    <el-input v-model="status.INT" v-on:input="onOption" placeholder="INT">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter">{{status.INT_Total}}</el-col>
+                                <el-col class="textcenter">{{status_total.INT}}</el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
                                 <el-col class="textcenter">DEX</el-col>
                                 <el-col>
-                                    <el-input v-model="status.DEX" v-on:input="onChaneStatus" placeholder="DEX">
+                                    <el-input v-model="status.DEX" v-on:input="onOption" placeholder="DEX">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter">{{status.DEX_Total}}</el-col>
+                                <el-col class="textcenter">{{status_total.DEX}}</el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
                                 <el-col class="textcenter">LUK</el-col>
                                 <el-col>
-                                    <el-input v-model="status.LUK" v-on:input="onChaneStatus" placeholder="LUK">
+                                    <el-input v-model="status.LUK" v-on:input="onOption" placeholder="LUK">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter">{{status.LUK_Total}}</el-col>
+                                <el-col class="textcenter">{{status_total.LUK}}</el-col>
                             </el-row>
                         </div>
                     </el-row>
@@ -1094,6 +1175,10 @@
         evue = new Vue({
             el: '#equipment',
             data: {
+                StoreDB_Status: [],
+                StatusDBDialogVisible: false,
+                StatusName: '',
+                StatusBulidString: '',
                 StoreDB_Equip: [],
                 EquipDBDialogVisible: false,
                 EquipSelectId: '',
@@ -1178,10 +1263,16 @@
                 },
                 status: {
                     Level: 1,
-                    STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
-                    STR_Add: 0, AGI_Add: 0, VIT_Add: 0, INT_Add: 0, DEX_Add: 0, LUK_Add: 0,
-                    STR_Total: 0, AGI_Total: 0, VIT_Total: 0, INT_Total: 0, DEX_Total: 0, LUK_Total: 0,
+                    STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0
                 },
+                status_add: {
+                    STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
+                },
+                status_add_init: {},
+                status_total: {
+                    STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
+                },
+                status_total_init: {},
                 attritube: {
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0, DEF: 0, MDEF: 0,
@@ -1503,12 +1594,12 @@
                     this.ComputRefineATK();
                 },
                 onChaneStatus() {
-                    this.status.STR_Total = Number(this.status.STR) + Number(this.status.STR_Add);
-                    this.status.AGI_Total = Number(this.status.AGI) + Number(this.status.AGI_Add);
-                    this.status.VIT_Total = Number(this.status.VIT) + Number(this.status.VIT_Add);
-                    this.status.INT_Total = Number(this.status.INT) + Number(this.status.INT_Add);
-                    this.status.DEX_Total = Number(this.status.DEX) + Number(this.status.DEX_Add);
-                    this.status.LUK_Total = Number(this.status.LUK) + Number(this.status.LUK_Add);
+                    this.status_total.STR = Number(this.status.STR) + Number(this.status_add.STR);
+                    this.status_total.AGI = Number(this.status.AGI) + Number(this.status_add.AGI);
+                    this.status_total.VIT = Number(this.status.VIT) + Number(this.status_add.VIT);
+                    this.status_total.INT = Number(this.status.INT) + Number(this.status_add.INT);
+                    this.status_total.DEX = Number(this.status.DEX) + Number(this.status_add.DEX);
+                    this.status_total.LUK = Number(this.status.LUK) + Number(this.status_add.LUK);
                     this.ComputeATKAtttibute();
                 },
                 getElementalPercent(attackelementalid, enemyelemental, enemyelementlevel) {
@@ -1544,16 +1635,16 @@
                 },
                 ComputeATKAtttibute() {
                     // Math.ceil 進位  Math.floor 捨去 Math.round 4捨5入
-                    this.attritube.StatusMATK = Math.floor(this.status.INT_Total * 1.5 + this.status.LUK_Total / 3 + this.status.Level / 4 + this.status.DEX_Total / 5);
+                    this.attritube.StatusMATK = Math.floor(this.status_total.INT * 1.5 + this.status_total.LUK / 3 + this.status.Level / 4 + this.status_total.DEX / 5);
 
-                    var TempSTR = this.status.STR_Total;
-                    var TempDEX = this.status.DEX_Total;
+                    var TempSTR = this.status_total.STR;
+                    var TempDEX = this.status_total.DEX;
                     if (this.weapon.type.id === 'Bows' || this.weapon.type.id === 'Instruments' || this.weapon.type.id === 'Whips' || this.weapon.type.id === 'Guns') {
-                        TempSTR = this.status.DEX_Total;
-                        TempDEX = this.status.STR_Total;
+                        TempSTR = this.status_total.DEX;
+                        TempDEX = this.status_total.STR;
                     }
                     var amu = this.lefthandweapon ? 1 : 1;
-                    this.attritube.StatusATK = Math.floor(this.status.Level / 4 + TempSTR + TempDEX / 5 + this.status.LUK_Total / 3) * amu;
+                    this.attritube.StatusATK = Math.floor(this.status.Level / 4 + TempSTR + TempDEX / 5 + this.status_total.LUK / 3) * amu;
 
                     var para1 = TempSTR / 200;
                     var para2 = this.weapon.level.id * 0.05
@@ -1567,7 +1658,7 @@
                     }
                     var para4 = 0;
                     if (this.option.GentleTouchCharge) {
-                        para4 = (this.status.STR_Total / 2 + this.status.DEX_Total / 4) * 5 / 5;
+                        para4 = (this.status_total.STR / 2 + this.status_total.DEX / 4) * 5 / 5;
                     }
 
                     this.computeattribute.atkc1_min = Number(this.computeattribute.atkc0_min) + Number(this.weapon.refineatk) + para3 + para4;
@@ -1754,21 +1845,16 @@
                 },
                 onOption() {
 
-                    this.status["STR_Add"]=0;
-                    this.status["AGI_Add"]=0;
-                    this.status["VIT_Add"]=0;
-                    this.status["INT_Add"]=0;
-                    this.status["DEX_Add"]=0;
-                    this.status["LUK_Add"]=0;
+                    this.status_add = Object.assign({}, this.status_add_init);
 
-                    this.attritube["DEF"]=0;
-                    this.attritube["MDEF"]=0;
-                    this.attritube["ASPD"]=0;
-                    this.attritube["AspdPercent"]=0;
-                    this.attritube["CRI"]=0;
-                    this.attritube["VCT"]=0;
-                    this.attritube["FCT"]=0;
-                    this.attritube["HIT"]=0;
+                    this.attritube["DEF"] = 0;
+                    this.attritube["MDEF"] = 0;
+                    this.attritube["ASPD"] = 0;
+                    this.attritube["AspdPercent"] = 0;
+                    this.attritube["CRI"] = 0;
+                    this.attritube["VCT"] = 0;
+                    this.attritube["FCT"] = 0;
+                    this.attritube["HIT"] = 0;
 
                     // 怒爆
                     if (this.option.MagnumBreak) {
@@ -1787,40 +1873,40 @@
                     }
                     // 心神
                     if (this.option.AttentionConcentrate) {
-                        var _Dex = Math.floor(this.status.DEX_Total * Number(this.option.AttentionConcentrateValue / 100));
-                        this.status.DEX_Add += _Dex;
-                        var _Agi = Math.floor(this.status.AGI_Total * Number(this.option.AttentionConcentrateValue / 100));
-                        this.status.AGI_Add += _Agi;
+                        var _Dex = Math.floor(this.status_total.DEX * Number(this.option.AttentionConcentrateValue / 100));
+                        this.status_add.DEX += _Dex;
+                        var _Agi = Math.floor(this.status_total.AGI * Number(this.option.AttentionConcentrateValue / 100));
+                        this.status_add.AGI += _Agi;
                     }
                     // 狙殺
                     if (this.option.TrueSight) {
-                        
-                        this.status.STR_Add += 5;
-                        this.status.AGI_Add += 5;
-                        this.status.VIT_Add += 5;
-                        this.status.INT_Add += 5;
-                        this.status.DEX_Add += 5;
-                        this.status.LUK_Add += 5;
+
+                        this.status_add.STR += 5;
+                        this.status_add.AGI += 5;
+                        this.status_add.VIT += 5;
+                        this.status_add.INT += 5;
+                        this.status_add.DEX += 5;
+                        this.status_add.LUK += 5;
                         this.attritube.CRI += 10;
-                        
+
                     }
                     // 打強
                     this.attritube.CRI += this.option.Striking ? 5 : 0;
                     // 加速
                     if (this.option.IncreaseAgility) {
-                        this.status.AGI_Add += 12;
+                        this.status_add.AGI += 12;
                         this.attritube.AspdPercent += this.option.IncreaseAgilityValue;
                     }
                     // 天賜
                     if (this.option.Blessing) {
-                        this.status.STR_Add += 10;
-                        this.status.INT_Add += 10;
-                        this.status.DEX_Add += 10;
+                        this.status_add.STR += 10;
+                        this.status_add.INT += 10;
+                        this.status_add.DEX += 10;
                     }
                     // 點穴
                     if (this.option.GentleTouchCharge) {
-                        var _p = this.status.AGI_Total * 5 / 60;
-                        var _m = 200 / this.status.INT_Total * 5;
+                        var _p = this.status_total.AGI * 5 / 60;
+                        var _m = 200 / this.status_total.INT * 5;
                         this.attritube.AspdPercent += _p;
                         this.attritube.MDEF += _m;
                     }
@@ -1885,6 +1971,48 @@
                     const parsed = JSON.stringify(this.StoreDB_Equip);
                     localStorage.setItem('StoreDB_Equip', parsed);
                 },
+
+                onSaveStatus() {
+                    // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
+                    // let copy = $.extend(true, {}, obj); //使用 jquery.extend
+                    // JSON.parse(JSON.stringify(this.)) 
+                    this.StoreDB_Status.push({
+                        uuid: this._uuid(), name: this.StatusName
+                        , statusstring: this.StatusBulidString
+                        , status: JSON.parse(JSON.stringify(this.status))
+                    });
+                    this.SaveStatusDB();
+                },
+                OpenStatusDBDialogDialogue() {
+                    this.StatusDBDialogVisible = true;
+                    this.StatusBulidString = '';
+                    for (const [key, value] of Object.entries(this.status)) {
+                        this.StatusBulidString += key + ":" + value + "/";
+                    }
+                    this.StatusBulidString = this.StatusBulidString.slice(0, this.StatusBulidString.length-1);
+                    if (localStorage.getItem('StoreDB_Status')) {
+                        try {
+                            this.StoreDB_Status = JSON.parse(localStorage.getItem('StoreDB_Status'));
+                        } catch (e) {
+                            console.log("catch e:" + e);
+                        }
+                    }
+                },
+                onLoadStatusSave(saveid) {
+                    this.status = Object.assign({}, this.StoreDB_Status[saveid].status);
+                    this.StatusName = this.StoreDB_Status[saveid].name;
+                    this.onOption();
+                },
+                onRemoveStatusSave(saveid) {
+                    if (saveid > -1) {
+                        this.StoreDB_Status.splice(saveid, 1)
+                        this.SaveStatusDB();
+                    }
+                },
+                SaveStatusDB() {
+                    const parsed = JSON.stringify(this.StoreDB_Status);
+                    localStorage.setItem('StoreDB_Status', parsed);
+                },
                 // 產生唯一碼 給存檔使用
                 // https://cythilya.github.io/2017/03/12/uuid/
                 _uuid() {
@@ -1912,7 +2040,8 @@
                 this.initenemylist();
                 this.enemyattribute = this.enemylist[0];
                 this.ComputElementalPercent();
-
+                this.status_add_init = Object.assign({}, this.status_add);
+                this.status_totla_init = Object.assign({}, this.status_total);
             }
 
         })
