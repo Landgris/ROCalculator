@@ -8,7 +8,6 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="https://unpkg.com/linq"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-
     <!-- <style type="text/css">
         #equipinput {
             display: inline;
@@ -45,9 +44,22 @@
             padding: 10px 0;
             background-color: #f9fafc;
         }
+        .ROCalTitle{
+            height:50px; 
+            position: relative;
+            color: white;
+            background: #303133;
+            border-radius: 4px;
+        }
+        .ROCalFooter{
+            height:35px; 
+            color: white;
+            background: #303133;
+            border-radius: 4px;
+        }
 
         .bodycol-container {
-            height: calc(100vh - (50px + 30px + 8px));
+            height: calc(100vh - (50px + 35px + 8px));
         }
 
         .effectline {
@@ -84,12 +96,19 @@
             border-radius: 2px;
             min-height: 40px;
             text-align: center;
+            background: #606266;
+            color: white;
+        }
+
+        a:visited, a:link {
+            text-decoration: none !important;
+            color: white;
         }
     </style>
 </head>
 
 <body>
-    <div id="equipment" style="padding: 0px 0px;">
+    <div id="App">
         <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" width="33%">
             <span slot="title">增加 <b>{{EquipSelectLabel}}</b> 裝備效果</span>
             <el-row class="bg-purple" :gutter="6">
@@ -235,11 +254,11 @@
             </el-row>
         </el-dialog>
         <!-- header -->
-        <div style="height:50px; position: relative;" >
+        <div class="ROCalTitle">
             <el-row>
                 <el-col :span="24">
-                    <div class="effectline grid-content bg-purple-dark" type="flex" align="middle" justify="center">
-                        <span>RO Calculator</span>
+                    <div class="effectline grid-content" type="flex" align="middle" justify="center">
+                        <span>RO 計算機</span>
                     </div>
                 </el-col>
             </el-row>
@@ -1178,10 +1197,10 @@
 
         </div>
         <!-- footer -->
-        <div height="30px">
-                    <div class="bg-purple-dark" type="flex" align="middle" justify="center">
+        <div class="ROCalFooter">
+                    <div type="flex" align="middle" justify="center">
                         Copyright(c) Landgris</br>
-                        <a target="_blank" href="https://twitter.com/Landgris">Twitter</a>
+                        <a href="https://twitter.com/Landgris" target="_blank"><span>Twitter</span></a>
                     </div>
         </div>
     </div>
@@ -1190,7 +1209,7 @@
 
     <script>
         evue = new Vue({
-            el: '#equipment',
+            el: '#App',
             data: {
                 StoreDB_Status: [],
                 StatusDBDialogVisible: false,
