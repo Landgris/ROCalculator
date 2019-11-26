@@ -17,7 +17,7 @@
     </style> -->
     <style>
         .el-row {
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .el-col {
@@ -47,8 +47,7 @@
         }
 
         .bodycol-container {
-            height: 80vh;
-            overflow: auto;
+            height: calc(100vh - (50px + 30px + 8px));
         }
 
         .effectline {
@@ -90,7 +89,7 @@
 </head>
 
 <body>
-    <el-container id="equipment">
+    <div id="equipment" style="padding: 0px 0px;">
         <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" width="33%">
             <span slot="title">增加 <b>{{EquipSelectLabel}}</b> 裝備效果</span>
             <el-row class="bg-purple" :gutter="6">
@@ -235,7 +234,8 @@
                 </div>
             </el-row>
         </el-dialog>
-        <el-header>
+        <!-- header -->
+        <div style="height:50px; position: relative;" >
             <el-row>
                 <el-col :span="24">
                     <div class="effectline grid-content bg-purple-dark" type="flex" align="middle" justify="center">
@@ -243,11 +243,12 @@
                     </div>
                 </el-col>
             </el-row>
-        </el-header>
-        <el-main>
+        </div>
+        <!-- main -->
+        <div>
             <el-row :gutter="2">
                 <el-col :span="8" >
-                        <el-scrollbar wrap-class="bodycol-container" :native="true">
+                <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                     <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
                         <el-col class="textcenter" :span="6">
                             <span class="textcenter"> </span>
@@ -700,10 +701,10 @@
                             </el-row>
                         </div>
                     </el-row>
-                        </el-scrollbar>
+                </el-scrollbar>
                 </el-col>
                 <el-col :span="8" >
-                        <el-scrollbar wrap-class="bodycol-container" :native="true">
+                <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                     <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
                         <el-col class="textcenter" :span="6"> </el-col>
                         <el-col class="textcenter" :span="10">
@@ -945,7 +946,7 @@
                 </el-scrollbar>
                 </el-col>
                 <el-col :span="8" >
-                        <el-scrollbar wrap-class="bodycol-container" :native="true">
+                <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                     <el-row>
                         <div class="Attribute">
                             <el-row class="titlebox" type="flex" align="middle" justify="space-around"
@@ -1175,18 +1176,15 @@
                 </el-col>
             </el-row>
 
-        </el-main>
-        <el-footer>
-            <el-row>
-                <el-col>
-                    <div class="bg-purple" type="flex" align="middle" justify="center">
+        </div>
+        <!-- footer -->
+        <div height="30px">
+                    <div class="bg-purple-dark" type="flex" align="middle" justify="center">
                         Copyright(c) Landgris</br>
                         <a target="_blank" href="https://twitter.com/Landgris">Twitter</a>
                     </div>
-                </el-col>
-            </el-row>
-        </el-footer>
-    </el-container>
+        </div>
+    </div>
 
 
 
