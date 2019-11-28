@@ -44,15 +44,17 @@
             padding: 10px 0;
             background-color: #f9fafc;
         }
-        .ROCalTitle{
-            height:50px; 
+
+        .ROCalTitle {
+            height: 50px;
             position: relative;
             color: white;
             background: #303133;
             border-radius: 4px;
         }
-        .ROCalFooter{
-            height:35px; 
+
+        .ROCalFooter {
+            height: 35px;
             color: white;
             background: #303133;
             border-radius: 4px;
@@ -100,7 +102,8 @@
             color: white;
         }
 
-        a:visited, a:link {
+        a:visited,
+        a:link {
             text-decoration: none !important;
             color: white;
         }
@@ -109,6 +112,27 @@
 
 <body>
     <div id="App">
+        <el-dialog :visible.sync="QuickCalcDialogVisible" width="80%">
+            <span slot="title">簡易計算機</span>
+            <el-row class="effectline" :gutter="6">
+                <el-col :span="24">
+                    <div>
+                        <el-input v-model="QuickCalc.formula" v-on:change="onQuickCalcInput" placeholder="算式">
+                        </el-input>
+                    </div>
+                </el-col>
+            </el-row>
+            <el-row class="statusbox effectline" style="min-height: 40px;" :gutter="6">
+                <el-col :span="4">
+                    計算結果
+                </el-col>
+                <el-col :span="20">
+                    <div>
+                        {{QuickCalc.solution}}
+                    </div>
+                </el-col>
+            </el-row>
+        </el-dialog>
         <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" width="33%">
             <span slot="title">增加 <b>{{EquipSelectLabel}}</b> 裝備效果</span>
             <el-row class="bg-purple" :gutter="6">
@@ -255,953 +279,1147 @@
         </el-dialog>
         <!-- header -->
         <div class="ROCalTitle">
-            <el-row>
-                <el-col :span="24">
+            <el-row type="flex" align="middle" justify="space-around">
+                <el-col :span="3">
+                </el-col>
+                <el-col :span="18">
                     <div class="effectline grid-content" type="flex" align="middle" justify="center">
                         <span>RO 計算機</span>
                     </div>
+                </el-col>
+                <el-col :span="3">
+                    <el-button v-on:click="OpenQuickCaleDialogue" icon="el-icon-mobile-phone" size="small">
+                    </el-button>
                 </el-col>
             </el-row>
         </div>
         <!-- main -->
         <div>
             <el-row :gutter="2">
-                <el-col :span="8" >
-                <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
-                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                        <el-col class="textcenter" :span="6">
-                            <span class="textcenter"> </span>
-                        </el-col>
-                        <el-col class="textcenter" :span="10">
-                            <span class="textcenter">角色素質</span>
-                        </el-col>
-                        <el-col class="textcenter" :span="6" style="text-align: right;">
-                            <el-tooltip class="item" effect="dark" content="讀取已經儲存的素質" placement="left">
-                                <el-button v-on:click="OpenStatusDBDialogDialogue" size="small">
-                                    角色清單
-                                </el-button>
-                            </el-tooltip>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <div class="boxborder StatusBlock">
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter">Level</el-col>
-                                <el-col>
-                                    <el-input v-model="status.Level" v-on:input="onOption" placeholder="Level">
-                                    </el-input>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter">STR</el-col>
-                                <el-col>
-                                    <el-input v-model="status.STR" v-on:input="onOption" placeholder="STR">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">{{status_total.STR}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter">AGI</el-col>
-                                <el-col>
-                                    <el-input v-model="status.AGI" v-on:input="onOption" placeholder="AGI">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">{{status_total.AGI}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter">VIT</el-col>
-                                <el-col>
-                                    <el-input v-model="status.VIT" v-on:input="onOption" placeholder="VIT">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">{{status_total.VIT}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter">INT</el-col>
-                                <el-col>
-                                    <el-input v-model="status.INT" v-on:input="onOption" placeholder="INT">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">{{status_total.INT}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter">DEX</el-col>
-                                <el-col>
-                                    <el-input v-model="status.DEX" v-on:input="onOption" placeholder="DEX">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">{{status_total.DEX}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter">LUK</el-col>
-                                <el-col>
-                                    <el-input v-model="status.LUK" v-on:input="onOption" placeholder="LUK">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">{{status_total.LUK}}</el-col>
-                            </el-row>
-                        </div>
-                    </el-row>
-                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                        <el-col class="textcenter" :span="10">
-                            <span class="textcenter">敵方</span>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <div class="boxborder EnemyBlock">
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle"
-                                justify="center">
-                                <el-col :span="24">
-                                    <div class="textcenter grid-content">
-                                        <el-select value-key="id" v-model="enemyattribute" v-on:change="onSelectEnemy"
-                                            placeholder="選擇敵方">
-                                            <el-option v-for="item in enemylist" :key="item.id" :label="item.name"
-                                                :value="item">
-                                            </el-option>
-                                        </el-select>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col :span="3" class="textcenter"><span>屬性</span>
-                                </el-col>
-                                <el-col :span="5">
-                                    <div class="grid-content bg-purple">
-                                        <el-select v-model="enemyattribute.elemental"
-                                            v-on:change="ComputElementalPercent" placeholder="敵方屬性">
-                                            <el-option v-for="item in elementtypelist" :key="item.id"
-                                                :label="item.label" :value="item.id">
-                                            </el-option>
-                                        </el-select>
-                                    </div>
-                                </el-col>
-                                <el-col :span="4" class="textcenter"><span>屬性等級</span>
-                                </el-col>
-                                <el-col :span="3">
-                                    <div class="grid-content bg-purple">
-                                        <el-select value-key="id" v-model="enemyattribute.elementallevel"
-                                            v-on:change="ComputElementalPercent" placeholder="屬性等級">
-                                            <el-option v-for="item in elementlevel" :key="item.id" :label="item.id"
-                                                :value="item.id">
-                                            </el-option>
-                                        </el-select>
-                                    </div>
-                                </el-col>
-                                <el-col :span="4" class="textcenter">體型</el-col>
-                                <el-col :span="5">
-                                    <div class="grid-content bg-purple">
-                                        <el-select value-key="id" v-model="enemyattribute.size" placeholder="體型">
-                                            <el-option v-for="item in sizetypelist" :key="item.id" :label="item.label"
-                                                :value="item.id">
-                                            </el-option>
-                                        </el-select>
-                                    </div>
-                                </el-col>
-                            </el-row>
+                <el-col :span="8">
+                    <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
+                        <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                            <el-col class="textcenter" :span="6">
+                                <span class="textcenter"> </span>
+                            </el-col>
+                            <el-col class="textcenter" :span="10">
+                                <span class="textcenter">角色素質</span>
+                            </el-col>
+                            <el-col class="textcenter" :span="6" style="text-align: right;">
+                                <el-tooltip class="item" effect="dark" content="讀取已經儲存的素質" placement="left">
+                                    <el-button v-on:click="OpenStatusDBDialogDialogue" size="small">
+                                        角色清單
+                                    </el-button>
+                                </el-tooltip>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="boxborder StatusBlock">
+                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                    style="height:40px;">
+                                    <el-col class="textcenter">Level</el-col>
+                                    <el-col>
+                                        <el-input v-model="status.Level" v-on:input="onOption" placeholder="Level">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                    style="height:40px;">
+                                    <el-col class="textcenter">STR</el-col>
+                                    <el-col>
+                                        <el-input v-model="status.STR" v-on:input="onOption"
+                                            v-on:change="onStatusChange" placeholder="STR">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">{{status_total.STR}}</el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                    style="height:40px;">
+                                    <el-col class="textcenter">AGI</el-col>
+                                    <el-col>
+                                        <el-input v-model="status.AGI" v-on:input="onOption"
+                                            v-on:change="onStatusChange" placeholder="AGI">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">{{status_total.AGI}}</el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                    style="height:40px;">
+                                    <el-col class="textcenter">VIT</el-col>
+                                    <el-col>
+                                        <el-input v-model="status.VIT" v-on:input="onOption"
+                                            v-on:change="onStatusChange" placeholder="VIT">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">{{status_total.VIT}}</el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                    style="height:40px;">
+                                    <el-col class="textcenter">INT</el-col>
+                                    <el-col>
+                                        <el-input v-model="status.INT" v-on:input="onOption"
+                                            v-on:change="onStatusChange" placeholder="INT">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">{{status_total.INT}}</el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                    style="height:40px;">
+                                    <el-col class="textcenter">DEX</el-col>
+                                    <el-col>
+                                        <el-input v-model="status.DEX" v-on:input="onOption"
+                                            v-on:change="onStatusChange" placeholder="DEX">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">{{status_total.DEX}}</el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                    style="height:40px;">
+                                    <el-col class="textcenter">LUK</el-col>
+                                    <el-col>
+                                        <el-input v-model="status.LUK" v-on:input="onOption"
+                                            v-on:change="onStatusChange" placeholder="LUK">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">{{status_total.LUK}}</el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                        <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                            <el-col class="textcenter" :span="10">
+                                <span class="textcenter">敵方</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="boxborder EnemyBlock">
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle"
+                                    justify="center">
+                                    <el-col :span="24">
+                                        <div class="textcenter grid-content">
+                                            <el-select value-key="id" v-model="enemyattribute"
+                                                v-on:change="onSelectEnemy" placeholder="選擇敵方">
+                                                <el-option v-for="item in enemylist" :key="item.id" :label="item.name"
+                                                    :value="item">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col :span="3" class="textcenter"><span>屬性</span>
+                                    </el-col>
+                                    <el-col :span="5">
+                                        <div class="grid-content bg-purple">
+                                            <el-select v-model="enemyattribute.elemental"
+                                                v-on:change="ComputElementalPercent" placeholder="敵方屬性">
+                                                <el-option v-for="item in elementtypelist" :key="item.id"
+                                                    :label="item.label" :value="item.id">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="4" class="textcenter"><span>屬性等級</span>
+                                    </el-col>
+                                    <el-col :span="3">
+                                        <div class="grid-content bg-purple">
+                                            <el-select value-key="id" v-model="enemyattribute.elementallevel"
+                                                v-on:change="ComputElementalPercent" placeholder="屬性等級">
+                                                <el-option v-for="item in elementlevel" :key="item.id" :label="item.id"
+                                                    :value="item.id">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="4" class="textcenter">體型</el-col>
+                                    <el-col :span="5">
+                                        <div class="grid-content bg-purple">
+                                            <el-select value-key="id" v-model="enemyattribute.size" placeholder="體型">
+                                                <el-option v-for="item in sizetypelist" :key="item.id"
+                                                    :label="item.label" :value="item.id">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                </el-row>
 
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter">前 DEF</el-col>
-                                <el-col>
-                                    <el-input v-model="enemyattribute.StatusDEF" v-on:input="onChangeEnemyStatus"
-                                        placeholder="前 DEF">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">後 DEF</el-col>
-                                <el-col>
-                                    <el-input v-model="enemyattribute.WeaponDEF" v-on:input="onChangeEnemyStatus"
-                                        placeholder="後 DEF">
-                                    </el-input>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter">前 MDEF</el-col>
-                                <el-col>
-                                    <el-input v-model="enemyattribute.StatusMDEF" v-on:input="onChangeEnemyStatus"
-                                        placeholder="前 MDEF">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">後 MDEF</el-col>
-                                <el-col>
-                                    <el-input v-model="enemyattribute.WeaponMDEF" v-on:input="onChangeEnemyStatus"
-                                        placeholder="後 MDEF">
-                                    </el-input>
-                                </el-col>
-                            </el-row>
-                        </div>
-                    </el-row>
-                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                        <el-col class="textcenter" :span="10">
-                            <span class="textcenter">技能選項</span>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <div class="boxborder OptionBlock">
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="24">
-                                    <span>攻擊屬性</span>
-                                </el-col>
-                                <el-col :span="24">
-                                    <div class="textcenter">
-                                        <el-select value-key="id" v-model="option.AttackElementalIdx"
-                                            v-on:change="ComputElementalPercent" placeholder="攻擊屬性">
-                                            <el-option v-for="item in elementtypelist" :key="item.id"
-                                                :label="item.label" :value="item.id">
-                                            </el-option>
-                                        </el-select>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="12">技能倍率</el-col>
-                                <el-col :span="8">
-                                    <el-input v-model="option.SkillPercent" v-on:input="onOption" placeholder="Skill %">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter" :span="4">%</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="12">裝備技能傷害增加</el-col>
-                                <el-col :span="8">
-                                    <el-input v-model="option.EquipSkillAddDamage" v-on:input="onOption"
-                                        placeholder="Skill %">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter" :span="4">%</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter">武器修練ATK增加</el-col>
-                                <el-col>
-                                    <el-input v-model="option.WeaponMasteryATK" v-on:input="onOption" placeholder="ATK">
-                                    </el-input>
-                                </el-col>
-                            </el-row>
-                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                <el-col class="textcenter" :span="12">
-                                    <span>技能遠傷</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="12">
-                                    <el-switch v-model="option.SkillRanged" active-color="#13ce66"
-                                        v-on:change="ComputeATKAtttibute" inactive-color="#8a9799">
-                                    </el-switch>
-                                </el-col>
-                            </el-row>
-                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                <el-col class="textcenter" :span="12">
-                                    <span>技能爆擊</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="12">
-                                    <el-switch v-model="option.SkillCritical" active-color="#13ce66"
-                                        v-on:change="ComputeATKAtttibute" inactive-color="#8a9799">
-                                    </el-switch>
-                                </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-collapse>
-                                    <el-collapse-item>
-                                        <template slot="title" align="center">
-                                            <div class="textcenter">劍士</div>
-                                        </template>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter">前 DEF</el-col>
+                                    <el-col>
+                                        <el-input v-model="enemyattribute.StatusDEF" v-on:input="onChangeEnemyStatus"
+                                            placeholder="前 DEF">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">後 DEF</el-col>
+                                    <el-col>
+                                        <el-input v-model="enemyattribute.WeaponDEF" v-on:input="onChangeEnemyStatus"
+                                            placeholder="後 DEF">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter">前 MDEF</el-col>
+                                    <el-col>
+                                        <el-input v-model="enemyattribute.StatusMDEF" v-on:input="onChangeEnemyStatus"
+                                            placeholder="前 MDEF">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">後 MDEF</el-col>
+                                    <el-col>
+                                        <el-input v-model="enemyattribute.WeaponMDEF" v-on:input="onChangeEnemyStatus"
+                                            placeholder="後 MDEF">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                        <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                            <el-col class="textcenter" :span="10">
+                                <span class="textcenter">技能選項</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="boxborder OptionBlock">
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="24">
+                                        <span>攻擊屬性</span>
+                                    </el-col>
+                                    <el-col :span="24">
+                                        <div class="textcenter">
+                                            <el-select value-key="id" v-model="option.AttackElementalIdx"
+                                                v-on:change="ComputElementalPercent" placeholder="攻擊屬性">
+                                                <el-option v-for="item in elementtypelist" :key="item.id"
+                                                    :label="item.label" :value="item.id">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">技能倍率</el-col>
+                                    <el-col :span="8">
+                                        <el-input v-model="option.SkillPercent" v-on:change="onSkillPercentChange"
+                                            placeholder="Skill %">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">%</el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">裝備技能傷害增加</el-col>
+                                    <el-col :span="8">
+                                        <el-input v-model="option.EquipSkillAddDamage" v-on:input="onOption"
+                                            placeholder="Skill %">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">%</el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter">武器修練ATK增加</el-col>
+                                    <el-col>
+                                        <el-input v-model="option.WeaponMasteryATK" v-on:input="onOption"
+                                            placeholder="ATK">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                    <el-col class="textcenter" :span="12">
+                                        <span>技能遠傷</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-switch v-model="option.SkillRanged" active-color="#13ce66"
+                                            v-on:change="ComputeATKAtttibute" inactive-color="#8a9799">
+                                        </el-switch>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                    <el-col class="textcenter" :span="12">
+                                        <span>技能爆擊</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-switch v-model="option.SkillCritical" active-color="#13ce66"
+                                            v-on:change="ComputeATKAtttibute" inactive-color="#8a9799">
+                                        </el-switch>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-collapse>
+                                        <el-collapse-item>
+                                            <template slot="title" align="center">
+                                                <div class="textcenter">劍士</div>
+                                            </template>
 
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>騎乘</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Riding" v-on:change="ComputeSizefix"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>怒爆</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.MagnumBreak"
-                                                    v-on:change="onOptionMagnumBreak" active-color="#13ce66"
-                                                    inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>集中攻擊</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Concentration" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>靈氣劍</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.AuraBlade" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>狂怒之槍</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Berserk" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                    </el-collapse-item>
-                                    <el-collapse-item>
-                                        <template slot="title">
-                                            <div class="textcenter">盜賊</div>
-                                        </template>
-
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>致命塗毒</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.EnchantDeadlyPoison"
-                                                    v-on:change="onOptionEnchantDeadlyPoison" active-color="#13ce66"
-                                                    inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>高階拳刃修練</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.AdvancedKatarReserch" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                    </el-collapse-item>
-                                    <el-collapse-item>
-                                        <template slot="title">
-                                            <div class="textcenter">商人</div>
-                                        </template>
-
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>武器值最大化</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.MaximizePower" v-on:change="ComputeSizefix"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>無視體型攻擊</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.WeaponPerfection"
-                                                    v-on:change="ComputeSizefix" active-color="#13ce66"
-                                                    inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>兇砍</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Overthrust" v-on:change="onOptionOverthrust"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>兇砍最大值</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.OverthrustMax"
-                                                    v-on:change="onOptionOverthrustMax" active-color="#13ce66"
-                                                    inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                    </el-collapse-item>
-                                    <el-collapse-item>
-                                        <template slot="title">
-                                            <div class="textcenter">弓箭手</div>
-                                        </template>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>心神凝聚</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.AttentionConcentrate" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799" disabled>
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>狙殺瞄準</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.TrueSight" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>精英狙擊</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.UNLIMIT" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                    </el-collapse-item>
-                                    <el-collapse-item>
-                                        <template slot="title">
-                                            <div class="textcenter">法師</div>
-                                        </template>
-
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>打擊強化</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Striking" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                    </el-collapse-item>
-                                    <el-collapse-item>
-                                        <template slot="title">
-                                            <div class="textcenter">服事</div>
-                                        </template>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>加速術</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.IncreaseAgility" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>天使的賜福</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Blessing" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>點穴-反</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.GentleTouchCharge" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                    </el-collapse-item>
-                                </el-collapse>
-                            </el-row>
-                        </div>
-                    </el-row>
-                </el-scrollbar>
-                </el-col>
-                <el-col :span="8" >
-                <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
-                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                        <el-col class="textcenter" :span="6"> </el-col>
-                        <el-col class="textcenter" :span="10">
-                            <span class="textcenter">裝備</span>
-                        </el-col>
-                        <el-col class="textcenter" :span="6" style="text-align: right;">
-                            <el-tooltip class="item" effect="dark" content="讀取已經儲存的裝備" placement="left">
-                                <el-button v-on:click="OpenEquipDBDialogDialogue" size="small">
-                                    裝備清單
-                                </el-button>
-                            </el-tooltip>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <div class="boxborder EquipBlock">
-
-                            <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist">
-                                <div class="Equipment" style="padding: 0px 4px;">
-                                    <el-row class="effectline" :gutter="4" type="flex" align="middle">
-                                        <el-col class="textcenter" :span="4">
-                                            <div>
-                                                <span>{{item.label}}</span>
-                                            </div>
-                                        </el-col>
-                                        <el-col class="textcenter">
-                                            <div>
-                                                <el-input v-model="equipspartlist[eqindex].equipname"
-                                                    placeholder="裝備名稱">
-                                                </el-input>
-                                            </div>
-                                        </el-col>
-                                        <el-tooltip class="item" effect="dark" content="增加效果" placement="left">
-                                            <el-col class="textcenter" :span="5">
-                                                <el-button v-on:click="OpenEffectDialogue(eqindex)"
-                                                    icon="el-icon-circle-plus-outline" type="success" plain>
-                                                </el-button>
-                                            </el-col>
-                                        </el-tooltip>
-                                        <el-col class="textcenter" :span="5">
-                                            <el-tooltip class="item" effect="dark" content="儲存裝備" placement="right">
-                                                <el-button v-on:click="onSaveEquip(eqindex)"
-                                                    icon="el-icon-collection-tag">
-                                                </el-button>
-                                            </el-tooltip>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row>
-                                        <el-col :span="24">
-                                            <el-row>
-                                                <div v-for="(item, index) in equipspartlist[eqindex].effectlist"
-                                                    v-bind:key="item.effecttypelist">
-                                                    <el-row class="effectline" :gutter="4" type="flex" align="middle"
-                                                        style="height:40px;">
-                                                        <el-col class="bg-purple" :span="2">
-                                                        </el-col>
-                                                        <el-col class="textcenter" :span="6" style="text-align: right;">
-                                                            <span class="EffectType">{{ item.EffectType.label }}</span>
-                                                        </el-col>
-                                                        <el-col class="textcenter" :span="2">
-                                                            <span class="">{{ item.EffectType.opersymbol }}</span>
-                                                        </el-col>
-                                                        <el-col class="textcenter" :span="2">
-                                                            <span class="">{{ item.EffectNumber }}</span>
-                                                        </el-col>
-                                                        <el-col class="textcenter" :span="2 ">
-                                                            <span lass="">{{ item.EffectType.suffixsymbol }}</span>
-                                                        </el-col>
-                                                        <el-col :span="5">
-                                                            <el-button v-on:click="RemoveEffect(eqindex, index)"
-                                                                icon="el-icon-delete" type="danger" size="mini">
-                                                            </el-button>
-                                                        </el-col>
-                                                        <el-col :span="5">
-                                                        </el-col>
-                                                    </el-row>
-                                                </div>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>騎乘</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.Riding" v-on:change="ComputeSizefix"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
                                             </el-row>
-                                        </el-col>
-                                    </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>怒爆</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.MagnumBreak"
+                                                        v-on:change="onOptionMagnumBreak" active-color="#13ce66"
+                                                        inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>集中攻擊</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.Concentration" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>靈氣劍</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.AuraBlade" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>狂怒之槍</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.Berserk" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                        </el-collapse-item>
+                                        <el-collapse-item>
+                                            <template slot="title">
+                                                <div class="textcenter">盜賊</div>
+                                            </template>
+
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>致命塗毒</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.EnchantDeadlyPoison"
+                                                        v-on:change="onOptionEnchantDeadlyPoison" active-color="#13ce66"
+                                                        inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>高階拳刃修練</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.AdvancedKatarReserch"
+                                                        v-on:change="onOption" active-color="#13ce66"
+                                                        inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                        </el-collapse-item>
+                                        <el-collapse-item>
+                                            <template slot="title">
+                                                <div class="textcenter">商人</div>
+                                            </template>
+
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>武器值最大化</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.MaximizePower"
+                                                        v-on:change="ComputeSizefix" active-color="#13ce66"
+                                                        inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>無視體型攻擊</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.WeaponPerfection"
+                                                        v-on:change="ComputeSizefix" active-color="#13ce66"
+                                                        inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>兇砍</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.Overthrust"
+                                                        v-on:change="onOptionOverthrust" active-color="#13ce66"
+                                                        inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>兇砍最大值</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.OverthrustMax"
+                                                        v-on:change="onOptionOverthrustMax" active-color="#13ce66"
+                                                        inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                        </el-collapse-item>
+                                        <el-collapse-item>
+                                            <template slot="title">
+                                                <div class="textcenter">弓箭手</div>
+                                            </template>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>心神凝聚</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.AttentionConcentrate"
+                                                        v-on:change="onOption" active-color="#13ce66"
+                                                        inactive-color="#8a9799" disabled>
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>狙殺瞄準</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.TrueSight" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>精英狙擊</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.UNLIMIT" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                        </el-collapse-item>
+                                        <el-collapse-item>
+                                            <template slot="title">
+                                                <div class="textcenter">法師</div>
+                                            </template>
+
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>魔力增幅</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.MagicPower" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>打擊強化</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.Striking" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                        </el-collapse-item>
+                                        <el-collapse-item>
+                                            <template slot="title">
+                                                <div class="textcenter">服事</div>
+                                            </template>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>加速術</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.IncreaseAgility" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>天使的賜福</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.Blessing" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>點穴-反</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.GentleTouchCharge" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                        </el-collapse-item>
+                                        <el-collapse-item>
+                                            <template slot="title">
+                                                <div class="textcenter">裝備技能</div>
+                                            </template>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>奧汀之神力 Lv1</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.OdinsPowerLv1" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                                justify="end">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>奧汀之神力 Lv2</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="option.OdinsPowerLv2" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                        </el-collapse-item>
+                                    </el-collapse>
+                                </el-row>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
+                </el-col>
+                <el-col :span="8">
+                    <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
+                        <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                            <el-col class="textcenter" :span="6"> </el-col>
+                            <el-col class="textcenter" :span="10">
+                                <span class="textcenter">裝備</span>
+                            </el-col>
+                            <el-col class="textcenter" :span="6" style="text-align: right;">
+                                <el-tooltip class="item" effect="dark" content="讀取已經儲存的裝備" placement="left">
+                                    <el-button v-on:click="OpenEquipDBDialogDialogue" size="small">
+                                        裝備清單
+                                    </el-button>
+                                </el-tooltip>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="boxborder EquipBlock">
+                                <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist">
+                                    <div class="Equipment" style="padding: 0px 4px;">
+                                        <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="4">
+                                                <div>
+                                                    <span>{{item.label}}</span>
+                                                </div>
+                                            </el-col>
+                                            <el-col class="textcenter">
+                                                <div>
+                                                    <el-input v-model="equipspartlist[eqindex].equipname"
+                                                        placeholder="裝備名稱">
+                                                    </el-input>
+                                                </div>
+                                            </el-col>
+                                            <el-tooltip class="item" effect="dark" content="增加效果" placement="left">
+                                                <el-col class="textcenter" :span="5">
+                                                    <el-button v-on:click="OpenEffectDialogue(eqindex)"
+                                                        icon="el-icon-circle-plus-outline" type="success" plain>
+                                                    </el-button>
+                                                </el-col>
+                                            </el-tooltip>
+                                            <el-col class="textcenter" :span="5">
+                                                <el-tooltip class="item" effect="dark" content="儲存裝備" placement="right">
+                                                    <el-button v-on:click="onSaveEquip(eqindex)"
+                                                        icon="el-icon-collection-tag">
+                                                    </el-button>
+                                                </el-tooltip>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <div v-for="(item, index) in equipspartlist[eqindex].effectlist"
+                                                v-bind:key="item.effecttypelist">
+                                                <el-row class="effectline" :gutter="4" type="flex" align="middle"
+                                                    justify="end" style="height:40px;">
+                                                    <el-col class="textcenter" :span="10" style="text-align: right;">
+                                                        <span class="EffectType">{{ item.EffectType.label }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ item.EffectType.opersymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ item.EffectNumber }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2 ">
+                                                        <span lass="">{{ item.EffectType.suffixsymbol }}</span>
+                                                    </el-col>
+                                                    <el-col :span="5">
+                                                        <el-button v-on:click="RemoveEffect(eqindex, index)"
+                                                            icon="el-icon-delete" type="danger" size="mini">
+                                                        </el-button>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </el-row>
-                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                        <el-col class="textcenter" :span="10">
-                            <span class="textcenter">武器</span>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <div class="boxborder WeaponBlock bg-purple-light">
-                            <el-row :gutter="4" type="flex" align="middle">
-                                <el-col :span="4">
-                                    <span>武器等級</span>
-                                </el-col>
-                                <el-col :span="8">
-                                    <div class="grid-content bg-purple">
-                                        <el-select value-key="id" v-model="weapon.level"
-                                            v-on:change="onSelectedWeaponLevel" placeholder="武器等級">
-                                            <el-option v-for="item in weaponlevellist" :key="item.id"
-                                                :label="item.label" :value="item">
-                                            </el-option>
-                                        </el-select>
-                                    </div>
-                                </el-col>
-                                <el-col :span="7">
-                                    <span>精鍊等級</span>
-                                </el-col>
-                                <el-col :span="5">
-                                    <div class="grid-content bg-purple-light">
-                                        <el-input v-model="weapon.refinelevel" v-on:input="onChangeRefineLevel"
-                                            placeholder="精鍊等級">
-                                        </el-input>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end">
-                                <el-col :span="4">
-                                    <span>主手武器</span>
-                                </el-col>
-                                <el-col :span="8">
-                                    <div class="grid-content bg-purple">
-                                        <el-select value-key="id" v-model="weapon.type"
-                                            v-on:change="onSelectedWeaponType" placeholder="武器類型">
-                                            <el-option v-for="item in weapontypelist" :key="item.id" :label="item.label"
-                                                :value="item">
-                                            </el-option>
-                                        </el-select>
-                                    </div>
-                                </el-col>
-                                <el-col class="textcenter" :span="12">
-                                    <el-checkbox v-model="lefthandweapon" label="副手持武" border></el-checkbox>
-                                </el-col>
-                            </el-row>
-                            <el-row class="effectline" :gutter="4" type="flex" align="middle">
-                                <el-col :span="6">
-                                    <span>武器ATK: </span>
-                                </el-col>
-                                <el-col :span="6">
-                                    <div class="grid-content bg-purple-light">
-                                        <el-input v-model="weapon.ATK" placeholder="武器ATK">
-                                        </el-input>
-                                    </div>
-                                </el-col>
-                                <el-col :span="6">
-                                    <span>武器MATK: </span>
-                                </el-col>
-                                <el-col :span="6">
-                                    <div class="grid-content bg-purple-light">
-                                        <el-input v-model="weapon.MATK" placeholder="武器MATK">
-                                        </el-input>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="effectline" :gutter="4" type="flex" align="middle">
-                                <el-col :span="6">
-                                    <span>箭矢ATK: </span>
-                                </el-col>
-                                <el-col :span="6">
-                                    <div class="grid-content bg-purple-light">
-                                        <el-input v-model="weapon.ArrowATK" placeholder="箭矢ATK">
-                                        </el-input>
-                                    </div>
-                                </el-col>
-                                <el-col :span="6">
-                                    <span>砲彈ATK: </span>
-                                </el-col>
-                                <el-col :span="6">
-                                    <div class="grid-content bg-purple-light">
-                                        <el-input v-model="weapon.BulletATK" placeholder="砲彈ATK">
-                                        </el-input>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
-                                <el-col class="textcenter" :span="8" style="text-align: right;">
-                                    <span>精鍊Atk/Matk:</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="4">
-                                    <span>{{weapon.refineatk}}</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="8" style="text-align: right;">
-                                    <span>過度精鍊Atk/Matk:</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="4">
-                                    <span>{{weapon.refineatk2}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
-                                <el-col class="textcenter" :span="8" style="text-align: right;">
-                                    <span>體型修正:</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="16">
-                                    <span>{{weapon.sizefix}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
-                                <el-col class="textcenter" :span="8" style="text-align: right;">
-                                    <span>普攻遠程:</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="16">
-                                    <span>{{weapon.type.isRangedattack}}</span>
-                                </el-col>
-                            </el-row>
-                        </div>
-                    </el-row>
-                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                        <el-col class="textcenter" :span="10">
-                            <span class="textcenter">裝備效果整合</span>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <div class="boxborder EffectListBlock">
-                            <el-row>
-                                <el-col :span="24">
-                                    <el-row>
-                                        <div v-for="(item, id) in this.effecttypelist" v-bind:key="item.id">
-
-                                            <el-row v-if="item.totalvalue!=0" class="statusbox bg-purple" type="flex"
-                                                align="middle" justify="center" style="height:40px;">
-                                                <el-col class="textcenter" :span="6" style="text-align: right;">
-                                                    <span>{{ item.label }}</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="2">
-                                                    <span class="">{{ item.opersymbol }}</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="2">
-                                                    <span>{{item.totalvalue}}</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="2 ">
-                                                    <span lass="">{{ item.suffixsymbol }}</span>
-                                                </el-col>
-                                            </el-row>
+                        </el-row>
+                        <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                            <el-col class="textcenter" :span="10">
+                                <span class="textcenter">武器</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="boxborder WeaponBlock bg-purple-light">
+                                <el-row :gutter="4" type="flex" align="middle">
+                                    <el-col :span="4">
+                                        <span>武器等級</span>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <div class="grid-content bg-purple">
+                                            <el-select value-key="id" v-model="weapon.level"
+                                                v-on:change="onSelectedWeaponLevel" placeholder="武器等級">
+                                                <el-option v-for="item in weaponlevellist" :key="item.id"
+                                                    :label="item.label" :value="item">
+                                                </el-option>
+                                            </el-select>
                                         </div>
-                                    </el-row>
-                                </el-col>
-                            </el-row>
-                        </div>
-                    </el-row>
-                </el-scrollbar>
+                                    </el-col>
+                                    <el-col :span="7">
+                                        <span>精鍊等級</span>
+                                    </el-col>
+                                    <el-col :span="5">
+                                        <div class="grid-content bg-purple-light">
+                                            <el-input v-model="weapon.refinelevel" v-on:input="onChangeRefineLevel"
+                                                placeholder="精鍊等級">
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end">
+                                    <el-col :span="4">
+                                        <span>主手武器</span>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <div class="grid-content bg-purple">
+                                            <el-select value-key="id" v-model="weapon.type"
+                                                v-on:change="onSelectedWeaponType" placeholder="武器類型">
+                                                <el-option v-for="item in weapontypelist" :key="item.id"
+                                                    :label="item.label" :value="item">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-checkbox v-model="lefthandweapon" label="副手持武" border></el-checkbox>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                    <el-col :span="6">
+                                        <span>武器ATK: </span>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <div class="grid-content bg-purple-light">
+                                            <el-input v-model="weapon.ATK" placeholder="武器ATK">
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <span>武器MATK: </span>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <div class="grid-content bg-purple-light">
+                                            <el-input v-model="weapon.MATK" placeholder="武器MATK">
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                    <el-col :span="6">
+                                        <span>箭矢ATK: </span>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <div class="grid-content bg-purple-light">
+                                            <el-input v-model="weapon.ArrowATK" placeholder="箭矢ATK">
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <span>砲彈ATK: </span>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <div class="grid-content bg-purple-light">
+                                            <el-input v-model="weapon.BulletATK" placeholder="砲彈ATK">
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
+                                    <el-col class="textcenter" :span="8" style="text-align: right;">
+                                        <span>精鍊Atk/Matk:</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">
+                                        <span>{{weapon.refineatk}}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="8" style="text-align: right;">
+                                        <span>過度精鍊Atk/Matk:</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">
+                                        <span>{{weapon.refineatk2}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
+                                    <el-col class="textcenter" :span="8" style="text-align: right;">
+                                        <span>體型修正:</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="16">
+                                        <span>{{weapon.sizefix}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
+                                    <el-col class="textcenter" :span="8" style="text-align: right;">
+                                        <span>普攻遠程:</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="16">
+                                        <span>{{weapon.type.isRangedattack}}</span>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                        <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                            <el-col class="textcenter" :span="10">
+                                <span class="textcenter">裝備效果整合</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="boxborder EffectListBlock">
+                                <el-row>
+                                    <el-col :span="24">
+                                        <el-row>
+                                            <div v-for="(item, id) in this.effecttypelist" v-bind:key="item.id">
+
+                                                <el-row v-if="item.totalvalue!=0" class="statusbox bg-purple"
+                                                    type="flex" align="middle" justify="center" style="height:40px;">
+                                                    <el-col class="textcenter" :span="6" style="text-align: right;">
+                                                        <span>{{ item.label }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ item.opersymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span>{{item.totalvalue}}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2 ">
+                                                        <span lass="">{{ item.suffixsymbol }}</span>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
                 </el-col>
-                <el-col :span="8" >
-                <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
-                    <el-row>
-                        <div class="Attribute">
-                            <el-row class="titlebox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="textcenter" :span="10">
-                                    <span class="textcenter">一般</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>素質Atk(前):</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="10">
-                                    <span>{{attritube.StatusATK}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>素質Matk(前):</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="10">
-                                    <span>{{attritube.StatusMATK}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>屬性倍率:</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="10">
-                                    <span>{{option.ElementalPercent}} %</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>體型倍率:</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="10">
-                                    <span>{{computeattribute.sizefix}} %</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>敵方防禦:</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="10">
-                                    <span>{{option.enemydef}} %</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="titlebox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="textcenter" :span="10">
-                                    <span class="textcenter">ATK計算</span>
-                                </el-col>
-                            </el-row>
+                <el-col :span="8">
+                    <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
+                        <el-row>
+                            <div class="Attribute">
+                                <el-row class="titlebox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="textcenter" :span="10">
+                                        <span class="textcenter">一般</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>素質Atk(前):</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10">
+                                        <span>{{attritube.StatusATK}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>素質Matk(前):</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10">
+                                        <span>{{attritube.StatusMATK}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>屬性倍率:</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10">
+                                        <span>{{option.ElementalPercent}} %</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>體型倍率:</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10">
+                                        <span>{{computeattribute.sizefix}} %</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>敵方物理防禦係數:</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10">
+                                        <span>{{computeattribute.enemydef}} %</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>敵方魔法防禦係數:</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10">
+                                        <span>{{computeattribute.enemymdef}} %</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="titlebox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="textcenter" :span="10">
+                                        <span class="textcenter">ATK計算</span>
+                                    </el-col>
+                                </el-row>
 
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>基礎ATK:</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc0_min}}~{{computeattribute.atkc0_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc0_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>精練&特殊ATK加值</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc1_min}}~{{computeattribute.atkc1_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc1_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>體型修正&箭矢傷害</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc2_min}}~{{computeattribute.atkc2_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc2_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>總武器ATK</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.weaponatk_min}}~{{computeattribute.weaponatk_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.weaponatk_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>種族階級體型屬性</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkequip_min}}~{{computeattribute.atkequip_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkequip_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>霸氣ATK%</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkbranch_min}}~{{computeattribute.atkbranch_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkbranch_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>後ATK(上面兩個和)</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc4_min}}~{{computeattribute.atkc4_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc4_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>最終ATK</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc5_min}}~{{computeattribute.atkc5_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc5_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>卡裝遠傷爆傷%</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc6_min}}~{{computeattribute.atkc6_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc6_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>技能倍率&敵方DEF</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc7_min}}~{{computeattribute.atkc7_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc7_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>技能傷害</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc8_min}}~{{computeattribute.atkc8_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc8_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>技能傷害(爆擊)</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="10">
-                                    <span>{{computeattribute.atkc8_critical}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>普攻傷害</span>
-                                </el-col>
-                                <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
-                                    <span>{{computeattribute.normalattack_min}}~{{computeattribute.normalattack_max}}</span>
-                                </el-col>
-                                <el-col v-else class="textcenter" :span="10">
-                                    <span>{{computeattribute.normalattack_max}}</span>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                    <span>普攻傷害(爆擊)</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="10">
-                                    <span>{{computeattribute.normalcritical}}</span>
-                                </el-col>
-                            </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>基礎ATK:</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc0_min}}~{{computeattribute.atkc0_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc0_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>精練&特殊ATK加值</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc1_min}}~{{computeattribute.atkc1_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc1_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>體型修正&箭矢傷害</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc2_min}}~{{computeattribute.atkc2_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc2_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>總武器ATK</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.weaponatk_min}}~{{computeattribute.weaponatk_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.weaponatk_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>種族階級體型屬性</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkequip_min}}~{{computeattribute.atkequip_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkequip_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>霸氣ATK%</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkbranch_min}}~{{computeattribute.atkbranch_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkbranch_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>後ATK(上面兩個和)</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc4_min}}~{{computeattribute.atkc4_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc4_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>最終ATK</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc5_min}}~{{computeattribute.atkc5_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc5_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>卡裝遠傷爆傷%</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc6_min}}~{{computeattribute.atkc6_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc6_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>技能倍率&敵方DEF</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc7_min}}~{{computeattribute.atkc7_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc7_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>技能傷害</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc8_min}}~{{computeattribute.atkc8_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc8_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>技能傷害(爆擊)</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10">
+                                        <span>{{computeattribute.atkc8_critical}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>普攻傷害</span>
+                                    </el-col>
+                                    <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.normalattack_min}}~{{computeattribute.normalattack_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.normalattack_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>普攻傷害(爆擊)</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10">
+                                        <span>{{computeattribute.normalcritical}}</span>
+                                    </el-col>
+                                </el-row>
 
-                        </div>
-                    </el-row>
-                </el-scrollbar>
+                                <el-row class="titlebox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="textcenter" :span="10">
+                                        <span class="textcenter">MATK計算</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>武器MATK</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.weaponmatk_min}}~{{computeattribute.weaponmatk_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.weaponmatk_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>裝備MATK&魔力增幅</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.equipmatk_min}}~{{computeattribute.equipmatk_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.equipmatk_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>MATK%</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.matkpercent_min}}~{{computeattribute.matkpercent_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.matkpercent_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>最終MATK</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.finalmatk_min}}~{{computeattribute.finalmatk_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.finalmatk_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>敵方減傷</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.matk1_min}}~{{computeattribute.matk1_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.matk1_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>技能倍率</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.skillmatk_min}}~{{computeattribute.skillmatk_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.skillmatk_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>敵方MDEF</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.matk2_min}}~{{computeattribute.matk2_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.matk2_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>屬性倍率</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.matk3_min}}~{{computeattribute.matk3_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.matk3_max}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>技能傷害</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.matk4_min}}~{{computeattribute.matk4_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.matk4_max}}</span>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
                 </el-col>
             </el-row>
 
         </div>
         <!-- footer -->
         <div class="ROCalFooter">
-                    <div type="flex" align="middle" justify="center">
-                        Copyright(c) Landgris</br>
-                        <a href="https://twitter.com/Landgris" target="_blank"><span>Twitter</span></a>
-                    </div>
+            <div type="flex" align="middle" justify="center">
+                Copyright(c) Landgris</br>
+                <a href="https://twitter.com/Landgris" target="_blank"><span>Twitter</span></a>
+            </div>
         </div>
     </div>
 
@@ -1219,6 +1437,8 @@
                 EquipDBDialogVisible: false,
                 EquipSelectId: '',
                 EquipSelectLabel: '',
+                QuickCalc: { formula: '', solution: '' },
+                QuickCalcDialogVisible: false,
                 equipspartlist: [
                     { id: 'helm', label: '頭飾', equipname: '', effectlist: [] },
                     { id: 'armor', label: '衣服', equipname: '', effectlist: [] },
@@ -1234,15 +1454,23 @@
                 effecttypelist: [
                     { label: 'Atk', id: 'Atk', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'Atk %', id: 'AtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: 'Matk', id: 'Matk', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
-                    { label: 'Matk %', id: 'MatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '種族 %', id: 'RacePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '體型 %', id: 'SizePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '屬性 %', id: 'ElementalPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '階級 %', id: 'LevelPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '種族 %', id: 'RaceAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '體型 %', id: 'SizeAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '對屬性魔物Atk %', id: 'ElementalAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '階級 %', id: 'LevelAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '爆傷 %', id: 'CriDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '無視防禦 %', id: 'BypassDEFPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '無視物理防禦 %', id: 'BypassDEFPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+
+                    { label: 'Matk', id: 'Matk', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'Matk %', id: 'MatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '種族 %', id: 'RaceMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '體型 %', id: 'SizeMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '階級 %', id: 'LevelMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '對屬性魔物Matk %', id: 'ElementalMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '屬性魔法 %', id: 'ElementalMagicPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '無視魔法防禦 %', id: 'BypassMDEFPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+
                     { label: 'ASPD', id: 'ASPD', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
                     { label: '攻擊後延%', id: 'AspdPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '爆擊率 %', id: 'Cri', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
@@ -1381,6 +1609,8 @@
                     StatusDEF: 0, WeaponDEF: 0,
                     StatusMDEF: 0, WeaponMDEF: 0,
                     sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0,
+                    rangedResist: 0, raceResist: 0, criResist: 0,
+                    doram: false,
                 },
                 enemylist: [],
                 option:
@@ -1417,7 +1647,9 @@
                     AdvancedKatarReserch: false,    //高階拳刃修練
                     AdvancedKatarReserchValue: 20,
 
-                    Striking: false,            //打擊強化
+                    MagicPower: false,          // 魔力增幅
+                    MagicPowerValue: 50,
+                    Striking: false,            // 打擊強化
 
                     IncreaseAgility: false,     //加速
                     IncreaseAgilityValue: 10,
@@ -1440,6 +1672,9 @@
                     SkillCritical: false,           //技能是否爆擊
                     BaseCriticalValue: 40,          //基礎爆擊增傷
 
+                    OdinsPowerLv1: false,           //奧汀之神力 ATK+70、MATK+70，DEF-20、MDEF-20
+                    OdinsPowerLv2: false,           // ATK+100、MATK+100，DEF-40、MDEF-40
+                    RECOGNIZEDSPELL: false,         //魔法省悟
 
                 },
                 computeattribute:
@@ -1448,6 +1683,7 @@
                     elementalpercent: 0,
                     sizefix: 0,
                     enemydef: 0,
+                    enemymdef: 0,
 
                     atkc0_min: 0,//武器基礎ATK x [ 1 + ( STR ÷ 200 ) - ( 武器等級 x 0.05 ) 
                     atkc0_max: 0,//武器基礎ATK x [ 1 + ( STR ÷ 200 ) + ( 武器等級 x 0.05 ) 
@@ -1507,9 +1743,55 @@
                     x 對方(1 - 金剛不壞 90% )
                     x 對方(1 - 俯身 90% )
                     */
+
+                    weaponmatk_min: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 -  武器等級 x 0.10 ))
+                    weaponmatk_max: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 +  武器等級 x 0.10 ))
+                    equipmatk_min: 0,   // weaponmatk_min x (1 + 0.05 × 魔力增幅等級 ) + 卡裝MATK )
+                    equipmatk_max: 0,
+                    matkpercent_min: 0, // equipmatk_min x 本身( 1 + MATK增傷%)
+                    matkpercent_max: 0,
+                    finalmatk_min: 0,   // x ( 1 + 我方屬性增傷%) x ( 1 + 對方屬性增傷%) x ( 1+ 種族增傷%) x (1 + 體型增傷%)
+                    finalmatk_max: 0,
+                    matk1_min: 0,  // 對方為喵族 ( 1 + 10% ) x 對方(1 -  體型減傷%) x ( 1-  屬性減傷%) x ( 1 - 種族減傷%) x ( 1 -  階級減傷% )
+                    matk1_max: 0,
+                    skillmatk_min: 0,   //x 本身(技能倍率%)
+                    skillmatk_max: 0,
+                    matk2_min: 0,      //x 對方(1000+後MDEF) / (1000+10 x 後MDEF) - 前MDEF)
+                    matk2_max: 0,
+                    matk3_min: 0,       // x 屬性倍率
+                    matk3_max: 0,
+                    matk4_min: 0,       // x (1 + 技能增傷的卡裝%)  x (1 + 技能增傷的技能%)
+                    matk4_max: 0,
+
+
+                    /*
+                    魔法最終傷害公式=
+                    ((( INT + INT/2 + LUK/3 + BaseLv/4 + DEX/5 )
+                    + (( 武器MATK + 精煉MATK ) x ( 1 ±  武器等級 x 0.10 ))
+                    x (1 + 0.05 × 魔力增幅等級 ) + 卡裝MATK )
+                    x 本身( 1 + MATK增傷%) x ( 1 + 我方屬性增傷%) x ( 1 + 對方屬性增傷%) x ( 1+ 種族增傷%) x (1 + 體型增傷%)
+                    x 對方為喵族 ( 1 + 10% )
+                    x 對方(1 -  體型減傷%) x ( 1-  屬性減傷%) x ( 1 - 種族減傷%) x ( 1 -  階級減傷% )
+                    x 本身(技能倍率%)
+                    x 對方(1000+後MDEF) / (1000+10 x 後MDEF) - 前MDEF)
+                    x 屬性倍率
+                    x (1 + 技能增傷的卡裝%)  x (1 + 技能增傷的技能%)
+                    x ( 天使之怒或天罰(效果不累加) 1 + 100% )
+                    x ( 潛擊 1 + 30%(BOSS型怪為15%) )
+                    */
                 }
             },
             methods: {
+                OpenQuickCaleDialogue() {
+                    this.QuickCalcDialogVisible = true;
+                },
+                onQuickCalcInput() {
+                    try {
+                        this.QuickCalc.solution = eval(this.QuickCalc.formula);
+                    } catch (e) {
+                        this.QuickCalc.solution = "錯誤:" + e;
+                    }
+                },
                 CombineEquipsAttribute() {
                     this.effecttypelist.forEach(element => {
                         var result = 0;
@@ -1631,7 +1913,17 @@
                 onChangeRefineLevel() {
                     this.ComputRefineATK();
                 },
-                onChaneStatus() {
+                onStatusChange() {
+                    //this.status.STR = eval(this.$refs.STRInput.value);
+                    this.status.STR = eval(this.status.STR);
+                    this.status.AGI = eval(this.status.AGI);
+                    this.status.VIT = eval(this.status.VIT);
+                    this.status.INT = eval(this.status.INT);
+                    this.status.DEX = eval(this.status.DEX);
+                    this.status.LUK = eval(this.status.LUK);
+                    this.ComputStatus();
+                },
+                ComputStatus() {
                     this.status_total.STR = Number(this.status.STR) + Number(this.status_add.STR);
                     this.status_total.AGI = Number(this.status.AGI) + Number(this.status_add.AGI);
                     this.status_total.VIT = Number(this.status.VIT) + Number(this.status_add.VIT);
@@ -1639,6 +1931,7 @@
                     this.status_total.DEX = Number(this.status.DEX) + Number(this.status_add.DEX);
                     this.status_total.LUK = Number(this.status.LUK) + Number(this.status_add.LUK);
                     this.ComputeATKAtttibute();
+                    this.ComputeMATKAtttibute();
                 },
                 getElementalPercent(attackelementalid, enemyelemental, enemyelementlevel) {
                     var count = this.elementtypelist.length;
@@ -1673,8 +1966,6 @@
                 },
                 ComputeATKAtttibute() {
                     // Math.ceil 進位  Math.floor 捨去 Math.round 4捨5入
-                    this.attritube.StatusMATK = Math.floor(this.status_total.INT * 1.5 + this.status_total.LUK / 3 + this.status.Level / 4 + this.status_total.DEX / 5);
-
                     var TempSTR = this.status_total.STR;
                     var TempDEX = this.status_total.DEX;
                     if (this.weapon.type.id === 'Bows' || this.weapon.type.id === 'Instruments' || this.weapon.type.id === 'Whips' || this.weapon.type.id === 'Guns') {
@@ -1720,10 +2011,10 @@
                     this.computeattribute.weaponatk_max = this.MulOper(this.computeattribute.atkc2_max, para6);
                     this.computeattribute.weaponatk_min += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue);
                     this.computeattribute.weaponatk_max += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue);
-                    var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RacePercent').totalvalue) / 100;
-                    var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizePercent').totalvalue) / 100;
-                    var para_elemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalPercent').totalvalue) / 100;
-                    var para_level = Number(1) + Number(this.effecttypelist.find(x => x.id == 'LevelPercent').totalvalue) / 100;
+                    var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceAtkPercent').totalvalue) / 100;
+                    var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizeAtkPercent').totalvalue) / 100;
+                    var para_elemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalAtkPercent').totalvalue) / 100;
+                    var para_level = Number(1) + Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue) / 100;
                     var para_posion = Number(1) + (this.option.EnchantDeadlyPoison ? (Number(this.option.EnchantDeadlyPoisonPercent / 100)) : Number(0));
                     this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.weaponatk_min, para_race);
                     this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.weaponatk_max, para_race);
@@ -1829,14 +2120,14 @@
                     }
                     //敵方DEF
                     var parabypassDEF = Number(1) + Number(this.effecttypelist.find(x => x.id == 'BypassDEFPercent').totalvalue) / 100;
-                    var para9 = ((4000 + this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)) /
+                    var paraDEF = ((4000 + this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)) /
                         (4000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)));
-                    this.option.enemydef = (para9 * 100).toFixed(2);
-                    this.computeattribute.atkc7_min = Math.floor(this.computeattribute.atkc7_min * para9) - Number(this.enemyattribute.StatusDEF);
-                    this.computeattribute.atkc7_max = Math.floor(this.computeattribute.atkc7_max * para9) - Number(this.enemyattribute.StatusDEF);
-                    this.computeattribute.normalattack_min = Math.floor(this.computeattribute.normalattack_min * para9) - Number(this.enemyattribute.StatusDEF);
-                    this.computeattribute.normalattack_max = Math.floor(this.computeattribute.normalattack_max * para9) - Number(this.enemyattribute.StatusDEF);
-                    this.computeattribute.normalcritical = Math.floor(this.computeattribute.normalcritical * para9) - Number(this.enemyattribute.StatusDEF);
+                    this.computeattribute.enemydef = (paraDEF * 100).toFixed(2);
+                    this.computeattribute.atkc7_min = Math.floor(this.computeattribute.atkc7_min * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                    this.computeattribute.atkc7_max = Math.floor(this.computeattribute.atkc7_max * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                    this.computeattribute.normalattack_min = Math.floor(this.computeattribute.normalattack_min * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                    this.computeattribute.normalattack_max = Math.floor(this.computeattribute.normalattack_max * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                    this.computeattribute.normalcritical = Math.floor(this.computeattribute.normalcritical * paraDEF) - Number(this.enemyattribute.StatusDEF);
 
                     // 技能增傷裝
                     this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc7_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
@@ -1853,8 +2144,9 @@
                         this.computeattribute.normalcritical += Number(paraAb);
                     }
                     // 技能爆擊 *1.4
-                    this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.option.CriticalValue / 100));
-                    this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.CriticalValue / 100));
+                    this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                    this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                    this.computeattribute.atkc8_critical = 0;
                     if (this.option.SkillCritical) {
                         this.computeattribute.atkc8_critical = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
                     }
@@ -1870,11 +2162,94 @@
                         return _L;
                     }
                     if (percent < 1) {
-                        return Math.ceil((Number(value) * (Number(percent) * 100)) / 100);
+                        var _S = Math.round(value * (Number(percent) * 100));
+                        var _L = Math.floor(_S / 100);
+                        return _L;
                     }
                     return value * percent;
                 },
                 ComputeMATKAtttibute() {
+                    this.attritube.StatusMATK = (
+                        Math.floor(this.status_total.INT * 1.5) +
+                        Math.floor(this.status_total.LUK / 3) +
+                        Math.floor(this.status.Level / 4) +
+                        Math.floor(this.status_total.DEX / 5)
+                    );
+
+                    var para1 = this.weapon.level.id * 0.1;
+                    this.computeattribute.weaponmatk_min = Number(this.attritube.StatusMATK) +
+                        this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk)), (1 - para1));
+                    this.computeattribute.weaponmatk_max = Number(this.attritube.StatusMATK) +
+                        this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk)), (1 + para1));
+
+                    var para2 = Number(1) + (this.option.MagicPower ? Number(this.option.MagicPowerValue / 100) : 0);
+                    var para3 = Number(this.effecttypelist.find(x => x.id == 'Matk').totalvalue);
+                    this.computeattribute.equipmatk_min = this.MulOper(this.computeattribute.weaponmatk_min, para2) + para3;
+                    this.computeattribute.equipmatk_max = this.MulOper(this.computeattribute.weaponmatk_max, para2) + para3;
+
+                    var para4 = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MatkPercent').totalvalue / 100) +
+                        Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue / 100);
+                    this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.equipmatk_min, para4);
+                    this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.equipmatk_max, para4);
+
+                    var para_magicelemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue) / 100;
+                    var para_elemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalMatkPercent').totalvalue) / 100;
+                    var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceMatkPercent').totalvalue) / 100;
+                    var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizeMatkPercent').totalvalue) / 100;
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.matkpercent_min, para_magicelemt);
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.matkpercent_max, para_magicelemt);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_elemt);
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_elemt);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_race);
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_race);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_size);
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_size);
+
+                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.finalmatk_min, Number(1) + Number(this.enemyattribute.sizeResist / 100));
+                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.finalmatk_max, Number(1) + Number(this.enemyattribute.sizeResist / 100));
+                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.enemyattribute.elementalResist / 100));
+                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.enemyattribute.elementalResist / 100));
+                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.enemyattribute.raceResist / 100));
+                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.enemyattribute.raceResist / 100));
+                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.enemyattribute.levelResist / 100));
+                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.enemyattribute.levelResist / 100));
+
+                    this.computeattribute.skillmatk_min = this.MulOper(this.computeattribute.matk1_min, Number(this.option.SkillPercent / 100));
+                    this.computeattribute.skillmatk_max = this.MulOper(this.computeattribute.matk1_max, Number(this.option.SkillPercent / 100));
+                    var parabypassMDEF = Number(1) + Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue) / 100;
+                    var paraMDEF = ((1000 + this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)) /
+                        (1000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)));
+                    this.computeattribute.enemymdef = (paraMDEF * 100).toFixed(2);
+                    this.computeattribute.matk2_min = Math.floor(this.computeattribute.skillmatk_min * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
+                    this.computeattribute.matk2_max = Math.floor(this.computeattribute.skillmatk_max * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
+
+                    this.computeattribute.matk3_min = this.MulOper(this.computeattribute.matk2_min, Number(this.option.ElementalPercent / 100));
+                    this.computeattribute.matk3_max = this.MulOper(this.computeattribute.matk2_max, Number(this.option.ElementalPercent / 100));
+
+                    this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk3_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
+                    this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk3_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
+
+                    /*
+                        weaponmatk_min: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 -  武器等級 x 0.10 ))
+                        weaponmatk_max: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 +  武器等級 x 0.10 ))
+                        equipmatk_min: 0,   // weaponmatk_min x (1 + 0.05 × 魔力增幅等級 ) + 卡裝MATK )
+                        equipmatk_max: 0, 
+                        matkpercent_min: 0, // equipmatk_min x 本身( 1 + MATK增傷%)
+                        matkpercent_max: 0,
+                        finalmatk_min: 0,   // x ( 1 + 我方屬性增傷%) x ( 1 + 對方屬性增傷%) x ( 1+ 種族增傷%) x (1 + 體型增傷%)
+                        finalmatk_max: 0,
+                        matk1_min: 0,  // 對方為喵族 ( 1 + 10% ) x 對方(1 -  體型減傷%) x ( 1-  屬性減傷%) x ( 1 - 種族減傷%) x ( 1 -  階級減傷% )
+                        matk1_max: 0,
+                        skillmatk_min: 0,   //x 本身(技能倍率%)
+                        skillmatk_max: 0,
+                        matk2_min: 0,      //x 對方(1000+後MDEF) / (1000+10 x 後MDEF) - 前MDEF)
+                        matk2_max: 0,
+                        matk3_min: 0,       // x 屬性倍率
+                        matk3_max: 0,
+                        matk4_min: 0,       // x (1 + 技能增傷的卡裝%)  x (1 + 技能增傷的技能%)
+                        matk4_max: 0,
+                    */
+
                 },
                 onChangeEnemyStatus() {
 
@@ -1886,13 +2261,17 @@
                     console.log("onSelectEnemy: " + this.enemyattribute.elemental);
                 },
                 initenemylist() {
-                    this.enemylist[0] = { id: 0, name: '自訂', level: 1, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0 };
-                    this.enemylist[1] = { id: 1, name: '蛋Lv10', level: 10, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 5, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0 };
-                    this.enemylist[2] = { id: 2, name: '龍蛋Lv100', level: 100, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0 };
-                    this.enemylist[3] = { id: 3, name: '龍蛋Lv150', level: 150, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0 };
-                    this.enemylist[4] = { id: 4, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 180, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0 };
-                    this.enemylist[5] = { id: 5, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 160, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0 };
+                    this.enemylist[0] = { id: 0, name: '自訂', level: 1, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
+                    this.enemylist[1] = { id: 1, name: '蛋Lv10', level: 10, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
+                    this.enemylist[2] = { id: 2, name: '龍蛋Lv100', level: 100, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
+                    this.enemylist[3] = { id: 3, name: '龍蛋Lv150', level: 150, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
+                    this.enemylist[4] = { id: 4, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 180, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
+                    this.enemylist[5] = { id: 5, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 160, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
 
+                },
+                onSkillPercentChange() {
+                    this.option.SkillPercent = eval(this.option.SkillPercent);
+                    this.onOption();
                 },
                 onOption() {
 
@@ -1966,8 +2345,9 @@
                         this.attritube.MDEF += _m;
                     }
 
-                    this.onChaneStatus();
+                    this.ComputStatus();
                     this.ComputeATKAtttibute();
+                    this.ComputeMATKAtttibute();
                 },
                 onOptionMagnumBreak() {
                     if (this.option.MagnumBreak) {
@@ -2106,6 +2486,7 @@
             this.ComputElementalPercent();
             this.ComputeSizefix();
             this.ComputeATKAtttibute();
+            this.ComputeMATKAtttibute();
         }, {
             deep: true
         });
@@ -2114,6 +2495,7 @@
             console.log("Watch weapon ");
             this.ComputRefineATK();
             this.ComputeATKAtttibute();
+            this.ComputeMATKAtttibute();
         }, {
             deep: true
         });
@@ -2121,6 +2503,7 @@
         evue.$watch('option.AttackElementalIdx', function (newB, oldB) {
             console.log("Watch option AttackElementalIdx ");
             this.ComputeATKAtttibute();
+            this.ComputeMATKAtttibute();
         }, {
             deep: true
         });
