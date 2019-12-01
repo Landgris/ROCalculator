@@ -13,3 +13,14 @@
   <el-collapse-item title="可控 Controllability">
   </el-collapse-item>
 </el-collapse>
+
+ <el-collapse>
+   <el-collapse-item>
+  <template slot="title">一般<i class="header-icon el-icon-info"></i></template>
+    <template slot="title">
+    <div class="textcenter grid-content">
+      劍士
+      </div>
+    </template>
+  </el-collapse-item>
+</el-collapse>

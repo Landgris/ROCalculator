@@ -64,6 +64,10 @@
             height: calc(100vh - (50px + 35px + 8px));
         }
 
+        .DBlist-container {
+            height: calc(40vh - (50px));
+        }
+
         .effectline {
             line-height: 3;
             margin: auto;
@@ -112,25 +116,69 @@
 
 <body>
     <div id="App">
-        <el-dialog :visible.sync="QuickCalcDialogVisible" width="80%">
+        <el-dialog :visible.sync="QuickCalcDialogVisible" width="80%" height="80%">
             <span slot="title">簡易計算機</span>
-            <el-row class="effectline" :gutter="6">
-                <el-col :span="24">
+            <el-row class="statusbox" :gutter="6" type="flex" align="middle">
+                <el-col class="textcenter" :span="4">
+                    算式:
+                </el-col>
+                <el-col :span="20">
                     <div>
                         <el-input v-model="QuickCalc.formula" v-on:change="onQuickCalcInput" placeholder="算式">
                         </el-input>
                     </div>
                 </el-col>
             </el-row>
-            <el-row class="statusbox effectline" style="min-height: 40px;" :gutter="6">
-                <el-col :span="4">
+            <el-row class="statusbox titlebox" style="min-height: 40px;" :gutter="6" type="flex" align="middle">
+                <el-col class="textcenter" :span="4">
                     計算結果
                 </el-col>
-                <el-col :span="20">
+                <el-col class="textcenter" :span="20">
                     <div>
                         {{QuickCalc.solution}}
                     </div>
                 </el-col>
+            </el-row>
+            <el-row class="statusbox" :gutter="6" type="flex" align="middle">
+                <el-col class="textcenter" :span="4">
+                    備註:
+                </el-col>
+                <el-col class="textcenter" :span="20">
+                    <div>
+                        <el-input v-model="QuickCalc.remark" placeholder="備註">
+                        </el-input>
+                    </div>
+                </el-col>
+            </el-row>
+            <el-row class="statusbox titlebox" :gutter="6" type="flex" align="middle">
+                <el-col class="textcenter" :span="4">
+                    <span class="">備註</span>
+                </el-col>
+                <el-col class="textcenter">
+                    <span>算式</span>
+                </el-col>
+                <el-col class="textcenter" :span="4">
+                    <span class="">計算結果</span>
+                </el-col>
+            </el-row>
+            <el-row :gutter="6" >
+            <el-scrollbar wrap-class="DBlist-container" :native="false" :noresize="false">
+                <div v-for="(item, index) in StoreDB_QuickCalc" v-bind:key="item.uuid">
+                    <div style="padding: 2px 5px;">
+                        <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle">
+                            <el-col class="textcenter" :span="4">
+                                <span class="">{{ item.remark }}</span>
+                            </el-col>
+                            <el-col class="textcenter">
+                                <span>{{ item.formula }}</span>
+                            </el-col>
+                            <el-col class="textcenter" :span="6">
+                                <span class="">{{ item.solution }}</span>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </div>
+                </el-scrollbar>
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" width="33%">
@@ -1437,7 +1485,8 @@
                 EquipDBDialogVisible: false,
                 EquipSelectId: '',
                 EquipSelectLabel: '',
-                QuickCalc: { formula: '', solution: '' },
+                StoreDB_QuickCalc: [],
+                QuickCalc: { formula: '', solution: '', remark: '' },
                 QuickCalcDialogVisible: false,
                 equipspartlist: [
                     { id: 'helm', label: '頭飾', equipname: '', effectlist: [] },
@@ -1782,16 +1831,6 @@
                 }
             },
             methods: {
-                OpenQuickCaleDialogue() {
-                    this.QuickCalcDialogVisible = true;
-                },
-                onQuickCalcInput() {
-                    try {
-                        this.QuickCalc.solution = eval(this.QuickCalc.formula);
-                    } catch (e) {
-                        this.QuickCalc.solution = "錯誤:" + e;
-                    }
-                },
                 CombineEquipsAttribute() {
                     this.effecttypelist.forEach(element => {
                         var result = 0;
@@ -2380,14 +2419,6 @@
                 },
                 OpenEquipDBDialogDialogue() {
                     this.EquipDBDialogVisible = true;
-                    if (localStorage.getItem('StoreDB_Equip')) {
-                        try {
-                            this.StoreDB_Equip = JSON.parse(localStorage.getItem('StoreDB_Equip'));
-                            Enumerable.from(this.StoreDB_Equip).orderBy(x => x.equip.id);
-                        } catch (e) {
-                            console.log("catch e:" + e);
-                        }
-                    }
                 },
                 onLoadEquipSave(saveid) {
                     var idx = this.equipspartlist.findIndex(x => x.id == this.StoreDB_Equip[saveid].equip.id);
@@ -2406,7 +2437,6 @@
                     const parsed = JSON.stringify(this.StoreDB_Equip);
                     localStorage.setItem('StoreDB_Equip', parsed);
                 },
-
                 onSaveStatus() {
                     // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
                     // let copy = $.extend(true, {}, obj); //使用 jquery.extend
@@ -2425,13 +2455,6 @@
                         this.StatusBulidString += key + ":" + value + "/";
                     }
                     this.StatusBulidString = this.StatusBulidString.slice(0, this.StatusBulidString.length - 1);
-                    if (localStorage.getItem('StoreDB_Status')) {
-                        try {
-                            this.StoreDB_Status = JSON.parse(localStorage.getItem('StoreDB_Status'));
-                        } catch (e) {
-                            console.log("catch e:" + e);
-                        }
-                    }
                 },
                 onLoadStatusSave(saveid) {
                     this.status = Object.assign({}, this.StoreDB_Status[saveid].status);
@@ -2447,6 +2470,51 @@
                 SaveStatusDB() {
                     const parsed = JSON.stringify(this.StoreDB_Status);
                     localStorage.setItem('StoreDB_Status', parsed);
+                },
+                OpenQuickCaleDialogue() {
+                    this.QuickCalcDialogVisible = true;
+                },
+                onQuickCalcInput() {
+                    try {
+                        this.QuickCalc.solution = eval(this.QuickCalc.formula);
+                        this.StoreDB_QuickCalc.unshift({
+                            uuid: this._uuid(),
+                            formula: this.QuickCalc.formula,
+                            solution: this.QuickCalc.solution,
+                            remark: this.QuickCalc.remark
+                        });
+                        if (this.StoreDB_QuickCalc.length > 8)
+                            this.StoreDB_QuickCalc.splice(this.StoreDB_QuickCalc.length - 1, 1);
+                        const parsed = JSON.stringify(this.StoreDB_QuickCalc);
+                        localStorage.setItem('StoreDB_QuickCalc', parsed);
+                    } catch (e) {
+                        this.QuickCalc.solution = "錯誤:" + e;
+                    }
+                },
+                LoadDB() {
+                    if (localStorage.getItem('StoreDB_Status')) {
+                        try {
+                            this.StoreDB_Status = JSON.parse(localStorage.getItem('StoreDB_Status'));
+                        } catch (e) {
+                            console.log("catch e:" + e);
+                        }
+                    }
+                    if (localStorage.getItem('StoreDB_Equip')) {
+                        try {
+                            this.StoreDB_Equip = JSON.parse(localStorage.getItem('StoreDB_Equip'));
+                            Enumerable.from(this.StoreDB_Equip).orderBy(x => x.equip.id);
+                        } catch (e) {
+                            console.log("catch e:" + e);
+                        }
+                    }
+                    if (localStorage.getItem('StoreDB_QuickCalc')) {
+                        try {
+                            this.StoreDB_QuickCalc = JSON.parse(localStorage.getItem('StoreDB_QuickCalc'));
+                            Enumerable.from(this.StoreDB_QuickCalc).orderBy(x => x.id);
+                        } catch (e) {
+                            console.log("catch e:" + e);
+                        }
+                    }
                 },
                 // 產生唯一碼 給存檔使用
                 // https://cythilya.github.io/2017/03/12/uuid/
@@ -2464,6 +2532,7 @@
             },
             mounted() {
                 console.log("mounted");
+                this.LoadDB();
                 this.effectdialogue.EffectType = this.effecttypelist[0];
                 this.weapon = {
                     type: this.weapontypelist[0], level: this.weaponlevellist[0],
