@@ -64,6 +64,14 @@
             height: calc(100vh - (50px + 35px + 8px));
         }
 
+        .Dialogue-container{
+            height: calc(100vh - (50px + 35px + 16px));
+        }
+
+        .SkillList-container{
+            height: calc(100vh - (50px + 35px + 16px + 50px + 190px + 40px));
+        }
+
         .DBlist-container {
             height: calc(40vh - (50px));
         }
@@ -117,68 +125,69 @@
 <body>
     <div id="App">
 
-        <el-dialog :visible.sync="SkillDBDialogVisible" width="80%" top="10vh" v-on:close="CloseSkillFormulaDialogue" center>
+        <el-dialog :visible.sync="SkillDBDialogVisible" custom-class="Dialogue-container" width="99%" top="50px" v-on:close="CloseSkillFormulaDialogue"
+            center>
             <span slot="title">技能清單</span>
             <el-row class="statusbox titlebox" :gutter="6" type="flex" align="middle">
                 <el-col style="padding: 5px 5px;">
-            <el-row :gutter="6" type="flex" align="middle">
-                <el-col class="textcenter" :span="4">
-                    技能名:
+                    <el-row :gutter="6" type="flex" align="middle">
+                        <el-col class="textcenter" :span="4">
+                            技能名:
+                        </el-col>
+                        <el-col class="textcenter" :span="10">
+                            <div>
+                                <el-input v-model="skill.name" placeholder="技能名">
+                                </el-input>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="6" type="flex" align="middle">
+                        <el-col class="textcenter" :span="4">
+                            公式:
+                        </el-col>
+                        <el-col :span="20">
+                            <div>
+                                <el-input v-model="skill.formula" placeholder="公式">
+                                </el-input>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="6" type="flex" align="middle">
+                        <el-col class="textcenter" :span="4">
+                            次數:
+                        </el-col>
+                        <el-col :span="3">
+                            <div>
+                                <el-input v-model="skill.hitnumber" placeholder="次數">
+                                </el-input>
+                            </div>
+                        </el-col>
+                        <el-col class="textcenter" :span="4">
+                            技能遠傷
+                        </el-col>
+                        <el-col class="textcenter" :span="4">
+                            <el-switch v-model="skill.ranged" active-color="#13ce66" inactive-color="#8a9799">
+                            </el-switch>
+                        </el-col>
+                        <el-col class="textcenter" :span="4">
+                            技能爆擊:
+                        </el-col>
+                        <el-col class="textcenter" :span="4">
+                            <el-switch v-model="skill.critical" active-color="#13ce66" inactive-color="#8a9799">
+                            </el-switch>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="6" type="flex" align="middle">
+                        <el-col class="textcenter" :span="20" style="color: red;">
+                            {{option.SkillFormulaError}}
+                        </el-col>
+                        <el-col class="textcenter" :span="4">
+                            <el-button v-on:click="onSaveSkill" size="small">
+                                儲存技能
+                            </el-button>
+                        </el-col>
+                    </el-row>
                 </el-col>
-                <el-col class="textcenter" :span="10">
-                    <div>
-                        <el-input v-model="skill.name" placeholder="技能名">
-                        </el-input>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row :gutter="6" type="flex" align="middle">
-                <el-col class="textcenter" :span="4">
-                    公式:
-                </el-col>
-                <el-col :span="20">
-                    <div>
-                        <el-input v-model="skill.formula" placeholder="公式">
-                        </el-input>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row :gutter="6" type="flex" align="middle">
-                <el-col class="textcenter" :span="4">
-                    次數:
-                </el-col>
-                <el-col :span="3">
-                    <div>
-                        <el-input v-model="skill.hitnumber" placeholder="次數">
-                        </el-input>
-                    </div>
-                </el-col>
-                <el-col class="textcenter" :span="4">
-                    技能遠傷
-                </el-col>
-                <el-col class="textcenter" :span="4">
-                    <el-switch v-model="skill.ranged" active-color="#13ce66" inactive-color="#8a9799">
-                    </el-switch>
-                </el-col>
-                <el-col class="textcenter" :span="4">
-                    技能爆擊:
-                </el-col>
-                <el-col class="textcenter" :span="4">
-                    <el-switch v-model="skill.critical" active-color="#13ce66" inactive-color="#8a9799">
-                    </el-switch>
-                </el-col>
-            </el-row>
-            <el-row :gutter="6" type="flex" align="middle">
-                <el-col class="textcenter" :span="20" style="color: red;">
-                    {{option.SkillFormulaError}}
-                </el-col>
-                <el-col class="textcenter" :span="4">
-                    <el-button v-on:click="onSaveSkill" size="small">
-                        儲存技能
-                    </el-button>
-                </el-col>
-            </el-row>
-        </el-col>
             </el-row>
             <el-row class="statusbox titlebox" :gutter="6" type="flex" align="middle">
                 <el-col class="textcenter" :span="4">
@@ -191,7 +200,7 @@
                 </el-col>
             </el-row>
             <el-row :gutter="6">
-                <el-scrollbar wrap-class="DBlist-container" :native="false" :noresize="false">
+                <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
                     <div v-for="(item, index) in StoreDB_Skill" v-bind:key="item.uuid">
                         <div style="padding: 2px 5px;">
                             <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle">
@@ -199,8 +208,8 @@
                                     <span class="">{{ item.skill.name }}</span>
                                 </el-col>
                                 <el-col class="bg-purple-light" style="padding: 0px 15px;">
-                                    <el-row class="effectline":gutter="4" type="flex" align="middle">
-                                        <el-col style="text-align: left;" >
+                                    <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                        <el-col style="text-align: left;">
                                             <span>{{ item.skill.formula }}</span>
                                         </el-col>
                                     </el-row>
@@ -240,6 +249,8 @@
                         </div>
                     </div>
                 </el-scrollbar>
+            
+            
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="QuickCalcDialogVisible" width="80%" height="80%">
@@ -335,11 +346,12 @@
                 </el-col>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="EquipDBDialogVisible" width="50%">
+        <el-dialog :visible.sync="EquipDBDialogVisible"  custom-class="Dialogue-container" width="99%" top="50px"
+        center>
             <span slot="title">裝備清單</span>
             <el-row :gutter="6">
                 <div style="padding: 5px 5px;">
-                    <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle" style="height:40px;">
+                    <el-row class="statusbox titlebox" :gutter="4" type="flex" align="middle" style="height:40px;">
                         <el-col class="textcenter" :span="4" style="text-align: right;">
                             <span class=""><b>部位</b></span>
                         </el-col>
@@ -382,17 +394,18 @@
                 </div>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="StatusDBDialogVisible" width="100%">
+        <el-dialog :visible.sync="StatusDBDialogVisible" custom-class="Dialogue-container" width="99%" top="50px"
+            center>
             <span slot="title">角色清單</span>
-            <el-row :gutter="6">
-                <div style="padding: 0px 5px;">
-                    <el-row class="optionbox effectline bg-purple" :gutter="4" type="flex" align="middle"
+            <el-row  class="statusbox titlebox" :gutter="6">
+                <div style="padding: 5px 5px;">
+                    <el-row :gutter="4" type="flex" align="middle"
                         style="height:40px;">
                         <el-col class="textcenter">
                             <span>目前素質</span>
                         </el-col>
                     </el-row>
-                    <el-row class="optionbox effectline bg-purple" :gutter="4" type="flex" align="middle"
+                    <el-row :gutter="4" type="flex" align="middle"
                         style="height:40px;">
                         <el-col :span="8">
                             <span>存檔名字</span>
@@ -413,8 +426,10 @@
                         </el-col>
                     </el-row>
                 </div>
+            </el-row>
+            <el-row>
                 <div style="padding: 5px 5px;">
-                    <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle" style="height:40px;">
+                    <el-row class="statusbox titlebox" :gutter="4" type="flex" align="middle" style="height:40px;">
                         <el-col class="textcenter" :span="8">
                             <span class=""><b>角色名字</b></span>
                         </el-col>
@@ -425,6 +440,9 @@
                         </el-col>
                     </el-row>
                 </div>
+            </el-row>
+            <el-row>
+                <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
                 <div v-for="(item, index) in StoreDB_Status" v-bind:key="item.uuid">
                     <div style="padding: 2px 5px;">
                         <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle">
@@ -449,6 +467,7 @@
                         </el-row>
                     </div>
                 </div>
+                </el-scrollbar>
             </el-row>
         </el-dialog>
         <!-- header -->
@@ -647,7 +666,7 @@
                             </div>
                         </el-row>
                         <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                            <el-col class="textcenter" :span="6" >
+                            <el-col class="textcenter" :span="6">
                             </el-col>
                             <el-col class="textcenter" :span="10">
                                 <span class="textcenter">技能選項</span>
@@ -663,32 +682,43 @@
                         <el-row>
                             <div class="boxborder OptionBlock">
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="7">技能倍率</el-col>
+                                    <el-col class="textcenter" :span="12">技能倍率</el-col>
                                     <el-col class="textcenter" :span="8">
                                         {{option.SkillPercent}}
                                     </el-col>
-                                    <el-col class="textcenter" :span="3">%</el-col>
-                                    <el-col class="textcenter" :span="3">
-                                        <el-tooltip class="item" effect="dark" content="使用公式" placement="left">
-                                            <el-button v-on:click="onUseSkillPercentFormula" icon="el-icon-d-caret"
-                                                size="small">
-                                            </el-button>
-                                        </el-tooltip>
+                                    <el-col class="textcenter" :span="4">%</el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                    align="middle">
+                                    <el-col class="textcenter" :span="4">技能公式</el-col>
+                                    <el-col :span="17">
+                                        <el-input v-model="skill.formula" v-on:change="onSkillPercentChange"
+                                            placeholder="Skill %">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col :span="2">
+                                    <el-popover
+                                        placement="right-start" title="公式關鍵字" width="350" trigger="click">
+                                        <el-scrollbar wrap-class="DBlist-container" :native="false" :noresize="false">
+                                        <el-table :data="KeywordReplaceList" stripe style="width: 100%">
+                                        <el-table-column prop="str1" label="關鍵字" width="100"> </el-table-column>
+                                        <el-table-column prop="description" label="功能" width="220"> </el-table-column>
+                                        </el-table>
+                                        </el-scrollbar>
+                                        <el-button slot="reference">?</el-button>
+                                    </el-popover>
                                     </el-col>
                                 </el-row>
-                                <el-collapse-transition>
-                                    <div v-show="option.UseSkillPercentFormula">
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
-                                            align="middle">
-                                            <el-col class="textcenter" :span="7">技能公式</el-col>
-                                            <el-col>
-                                                <el-input v-model="skill.formula" v-on:change="onSkillPercentChange"
-                                                    placeholder="Skill %">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-collapse-transition>
+                                <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害" placement="top">
+                                    <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="12">傷害次數</el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <el-input v-model="skill.hitnumber" v-on:change="onSkillPercentChange"
+                                                placeholder="傷害次數">
+                                            </el-input>
+                                        </el-col>
+                                    </el-row>
+                                </el-tooltip>
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                     <el-col class="textcenter" :span="12">
                                         <span>技能遠傷</span>
@@ -893,7 +923,7 @@
                                             <template slot="title">
                                                 <div class="textcenter">弓箭手</div>
                                             </template>
-                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                            <!-- <el-row class="optionbox" :gutter="4" type="flex" align="middle"
                                                 justify="end">
                                                 <el-col class="textcenter" :span="12">
                                                     <span>心神凝聚</span>
@@ -904,7 +934,7 @@
                                                         inactive-color="#8a9799" disabled>
                                                     </el-switch>
                                                 </el-col>
-                                            </el-row>
+                                            </el-row> -->
                                             <el-row class="optionbox" :gutter="4" type="flex" align="middle"
                                                 justify="end">
                                                 <el-col class="textcenter" :span="12">
@@ -932,7 +962,17 @@
                                             <template slot="title">
                                                 <div class="textcenter">法師</div>
                                             </template>
-
+                                            <el-row class="optionbox" :gutter="4" type="flex" align="middle"
+                                            justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>魔法省悟</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.RECOGNIZEDSPELL" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
                                             <el-row class="optionbox" :gutter="4" type="flex" align="middle"
                                                 justify="end">
                                                 <el-col class="textcenter" :span="12">
@@ -1608,6 +1648,18 @@
                                         <span>{{computeattribute.matk4_max}}</span>
                                     </el-col>
                                 </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                    style="height:40px;">
+                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <span>技能總傷害</span>
+                                    </el-col>
+                                    <el-col v-if="option.RECOGNIZEDSPELL==false" class="textcenter" :span="10">
+                                        <span>{{computeattribute.matkmulti_min}}~{{computeattribute.matkmulti_max}}</span>
+                                    </el-col>
+                                    <el-col v-else class="textcenter" :span="10">
+                                        <span>{{computeattribute.matkmulti_max}}</span>
+                                    </el-col>
+                                </el-row>
                             </div>
                         </el-row>
                     </el-scrollbar>
@@ -1878,8 +1930,7 @@
 
                     //TODO[戰斧颶風]的風屬性武器增傷125%
                     SkillPercent: 0,
-                    UseSkillPercentFormula: false,
-                    SkillFormulaError:'',
+                    SkillFormulaError: '',
 
                     EquipSkillAddDamage: 0,         //裝備技能增傷
                     BaseCriticalValue: 40,          //基礎爆擊增傷
@@ -1974,7 +2025,8 @@
                     matk3_max: 0,
                     matk4_min: 0,       // x (1 + 技能增傷的卡裝%)  x (1 + 技能增傷的技能%)
                     matk4_max: 0,
-
+                    matkmulti_min: 0,
+                    matkmulti_max: 0,
 
                     /*
                     魔法最終傷害公式=
@@ -2117,22 +2169,21 @@
                 },
                 onStatusChange() {
                     //this.status.STR = eval(this.$refs.STRInput.value);
-                    this.status.STR = eval(this.status.STR);
-                    this.status.AGI = eval(this.status.AGI);
-                    this.status.VIT = eval(this.status.VIT);
-                    this.status.INT = eval(this.status.INT);
-                    this.status.DEX = eval(this.status.DEX);
-                    this.status.LUK = eval(this.status.LUK);
                     this.ComputStatus();
                 },
                 ComputStatus() {
-                    this.status_total.STR = Number(this.status.STR) + Number(this.status_add.STR);
-                    this.status_total.AGI = Number(this.status.AGI) + Number(this.status_add.AGI);
-                    this.status_total.VIT = Number(this.status.VIT) + Number(this.status_add.VIT);
-                    this.status_total.INT = Number(this.status.INT) + Number(this.status_add.INT);
-                    this.status_total.DEX = Number(this.status.DEX) + Number(this.status_add.DEX);
-                    this.status_total.LUK = Number(this.status.LUK) + Number(this.status_add.LUK);
+                    try{
+                    this.status_total.STR = Number(eval(this.status.STR)) + Number(this.status_add.STR);
+                    this.status_total.AGI = Number(eval(this.status.AGI)) + Number(this.status_add.AGI);
+                    this.status_total.VIT = Number(eval(this.status.VIT)) + Number(this.status_add.VIT);
+                    this.status_total.INT = Number(eval(this.status.INT)) + Number(this.status_add.INT);
+                    this.status_total.DEX = Number(eval(this.status.DEX)) + Number(this.status_add.DEX);
+                    this.status_total.LUK = Number(eval(this.status.LUK)) + Number(this.status_add.LUK);
                     this.onSkillPercentChange();
+                    }catch(e)
+                    {
+                        console.log( "ComputStatus error "+ e );
+                    }
                 },
                 getElementalPercent(attackelementalid, enemyelemental, enemyelementlevel) {
                     var count = this.elementtypelist.length;
@@ -2430,6 +2481,16 @@
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk3_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk3_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
 
+                    var _paradiv = this.skill.hitnumber;
+                    if (_paradiv == 0) _paradiv = 1;
+                    if (_paradiv < 0) {
+                        _paradiv *= -1;
+                        this.computeattribute.matk4_min = Math.floor(this.computeattribute.matk4_min / _paradiv);
+                        this.computeattribute.matk4_max = Math.floor(this.computeattribute.matk4_max / _paradiv);
+                    }
+
+                    this.computeattribute.matkmulti_min = this.computeattribute.matk4_min * _paradiv;
+                    this.computeattribute.matkmulti_max = this.computeattribute.matk4_max * _paradiv;
                     /*
                         weaponmatk_min: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 -  武器等級 x 0.10 ))
                         weaponmatk_max: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 +  武器等級 x 0.10 ))
@@ -2470,17 +2531,13 @@
                     this.enemylist[5] = { id: 5, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 160, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
 
                 },
-                onUseSkillPercentFormula() {
-                    this.option.UseSkillPercentFormula = !this.option.UseSkillPercentFormula;
-                },
                 onSkillPercentChange() {
                     var _formula = this.skill.formula;
-                    this.option.SkillPercent = eval( this.SkillFormulaReplace(_formula));
+                    this.option.SkillPercent = eval(this.SkillFormulaReplace(_formula));
                     this.ComputeATKAtttibute();
                     this.ComputeMATKAtttibute();
                 },
-                SkillFormulaReplace( f )
-                {
+                SkillFormulaReplace(f) {
                     for (x of this.KeywordReplaceList) {
                         f = f.replace(new RegExp(x.str1, "g"), x.str2);
                     }
@@ -2587,7 +2644,7 @@
                 },
                 onSaveEquip(epidx) {
                     if (this.equipspartlist[epidx].equipname == '') return;
-                    this.StoreDB_Equip.push({ uuid: this._uuid(), equip: this.equipspartlist[epidx] });
+                    this.StoreDB_Equip.unshift({ uuid: this._uuid(), equip: JSON.parse(JSON.stringify(this.equipspartlist[epidx])) });
                     this.SaveEquipDB();
                 },
                 OpenEquipDBDialogDialogue() {
@@ -2596,7 +2653,9 @@
                 onLoadEquipSave(saveid) {
                     var idx = this.equipspartlist.findIndex(x => x.id == this.StoreDB_Equip[saveid].equip.id);
                     if (idx > -1) {
-                        this.equipspartlist[idx] = this.StoreDB_Equip[saveid].equip;
+                        if( idx == 6 && this.equipspartlist[idx].equipname != '' ) { idx = 7; }
+                        if( idx == 7 && this.equipspartlist[idx].equipname != '' ) { idx = 6; }
+                        this.equipspartlist[idx] = JSON.parse(JSON.stringify(this.StoreDB_Equip[saveid].equip));
                         this.CombineEquipsAttribute();
                     }
                 },
@@ -2614,7 +2673,7 @@
                     // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
                     // let copy = $.extend(true, {}, obj); //使用 jquery.extend
                     // JSON.parse(JSON.stringify(this.)) 
-                    this.StoreDB_Status.push({
+                    this.StoreDB_Status.unshift({
                         uuid: this._uuid(), name: this.StatusName
                         , statusstring: this.StatusBulidString
                         , status: JSON.parse(JSON.stringify(this.status))
@@ -2633,6 +2692,7 @@
                     this.status = Object.assign({}, this.StoreDB_Status[saveid].status);
                     this.StatusName = this.StoreDB_Status[saveid].name;
                     this.onOption();
+                    this.StatusDBDialogVisible = false;
                 },
                 onRemoveStatusSave(saveid) {
                     if (saveid > -1) {
@@ -2668,32 +2728,32 @@
                     this.SkillDBDialogVisible = true;
                 },
                 CloseSkillFormulaDialogue() {
-                    if( this.skill.formula == '')
+                    if (this.skill.formula == '')
                         this.skill.formula = 0;
                 },
                 onSaveSkill() {
                     // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
                     // let copy = $.extend(true, {}, obj); //使用 jquery.extend
                     // JSON.parse(JSON.stringify(this.)) 
-                    if (this.skill.formula == '' ||
-                        this.skill.name == '') return;
+                    if (this.skill.formula == '') { this.option.SkillFormulaError = "公式為空"; return; }
+                    if (this.skill.name == '') { this.option.SkillFormulaError = "技能名為空"; return; }
                     if (this.skill.hitnumber == '') this.skill.hitnumber = 0;
-                    this.option.SkillFormulaError ='';
-                    try{
+                    this.option.SkillFormulaError = '';
+                    try {
                         var _valid = eval(this.SkillFormulaReplace(this.skill.formula));
                         this.StoreDB_Skill.unshift({
                             uuid: this._uuid(),
                             skill: Object.assign({}, this.skill)
                         });
                         this.SaveSkillDB();
-                    }catch(e)
-                    {
-                        this.option.SkillFormulaError = e;
+                    } catch (e) {
+                        this.option.SkillFormulaError = "公式錯誤 " + e;
                     }
                 },
                 onLoadSkillSave(saveid) {
                     this.skill = Object.assign({}, this.StoreDB_Skill[saveid].skill);
                     this.onSkillPercentChange();
+                    this.SkillDBDialogVisible = false;
                 },
                 onRemoveSkillSave(saveid) {
                     if (saveid > -1) {
@@ -2737,16 +2797,16 @@
                         }
                     }
                     this.KeywordReplaceList.push(
-                        { str1: 'STR', str2: 'this.status_total.STR' },
-                        { str1: 'AGI', str2: 'this.status_total.AGI' },
-                        { str1: 'VIT', str2: 'this.status_total.VIT' },
-                        { str1: 'INT', str2: 'this.status_total.INT' },
-                        { str1: 'DEX', str2: 'this.status_total.DEX' },
-                        { str1: 'LUK', str2: 'this.status_total.LUK' },
-                        { str1: 'BLV', str2: 'this.status.Level' },
-                        { str1: 'MUL', str2: 'this.MulOper' },
-                        { str1: 'DOWN', str2: 'Math.floor' },
-                        { str1: 'UP', str2: 'Math.ceil' },
+                        { str1: 'STR', str2: 'this.status_total.STR', description:'代入總STR' },
+                        { str1: 'AGI', str2: 'this.status_total.AGI', description:'代入總AGI' },
+                        { str1: 'VIT', str2: 'this.status_total.VIT', description:'代入總VIT' },
+                        { str1: 'INT', str2: 'this.status_total.INT', description:'代入總INT' },
+                        { str1: 'DEX', str2: 'this.status_total.DEX', description:'代入總DEX' },
+                        { str1: 'LUK', str2: 'this.status_total.LUK', description:'代入總LUK' },
+                        { str1: 'BLV', str2: 'this.status.Level', description:'代入角色等級' },
+                        { str1: 'MUL', str2: 'this.MulOper', description:'MUL(A,B)為A*B, B若>1則無條件捨去, B若<1則無條件進位' },
+                        { str1: 'DOWN', str2: 'Math.floor', description:'DOWN(A) 小數點無條件捨去' },
+                        { str1: 'UP', str2: 'Math.ceil', description:'UP(A) 小數點無條件進位' },
                     );
                 },
                 // 產生唯一碼 給存檔使用
@@ -2779,7 +2839,8 @@
                 this.ComputElementalPercent();
                 this.status_add_init = Object.assign({}, this.status_add);
                 this.status_totla_init = Object.assign({}, this.status_total);
-                this.option.UseSkillPercentFormula = true;
+                this.skill={ name: '', formula: '(350+INT*3)*BLV/100', ranged: false, critical: false, hitnumber: 1, elemental: 0, };
+
             }
 
         })
