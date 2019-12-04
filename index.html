@@ -140,29 +140,29 @@
 <body>
     <div id="App">
 
-        <el-dialog :visible.sync="UIPanel['SpecialthanksPanel']" v-on:close="ClosePanel('SpecialthanksPanel')" custom-class="Dialogue-container" width="30%" top="58px"
-            center>
+        <el-dialog :visible.sync="UIPanel['SpecialthanksPanel']" v-on:close="ClosePanel('SpecialthanksPanel')"
+            custom-class="Dialogue-container" width="30%" top="58px" center>
             <span slot="title">特別感謝</span>
             <el-row :gutter="6">
                 <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
                     <div v-for="(item, index) in SpecialthanksList" v-bind:key="item.id">
                         <div style="padding: 2px 5px;">
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="textcenter" :span="10">
-                                            <span class="">{{ item.coop }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10" style="text-align: left;">
-                                            <span class="" >{{ item.name }}</span>
-                                    </el-col>
-                                </el-row>
+                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                style="height:40px;">
+                                <el-col class="textcenter" :span="10">
+                                    <span class="">{{ item.coop }}</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="10" style="text-align: left;">
+                                    <span class="">{{ item.name }}</span>
+                                </el-col>
+                            </el-row>
                         </div>
                     </div>
                 </el-scrollbar>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="SkillDBDialogVisible" custom-class="Dialogue-container" width="99%" top="58px"
-            v-on:close="CloseSkillFormulaDialogue" center>
+        <el-dialog :visible.sync="UIPanel['SkillDBDialog']" custom-class="Dialogue-container" width="99%" top="58px"
+            v-on:close="ClosePanel('SkillDBDialog')" center>
             <span slot="title">技能清單</span>
             <el-row class="statusbox titlebox" :gutter="6" type="flex" align="middle">
                 <el-col style="padding: 5px 5px;">
@@ -300,7 +300,8 @@
 
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="QuickCalcDialogVisible" width="80%" height="80%">
+        <el-dialog :visible.sync="UIPanel['QuickCalcDialog']" width="80%" height="80%"
+            v-on:close="ClosePanel('QuickCalcDialog')">
             <span slot="title">簡易計算機</span>
             <el-row class="statusbox" :gutter="6" type="flex" align="middle">
                 <el-col class="textcenter" :span="4">
@@ -365,7 +366,7 @@
                 </el-scrollbar>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="EquipEffectDialogVisible" @close="CloseEffectDialogue" width="33%">
+        <el-dialog :visible.sync="UIPanel['EquipEffectDialog']" @close="ClosePanel('EquipEffectDialog')" width="33%">
             <span slot="title">增加 <b>{{EquipSelectLabel}}</b> 裝備效果</span>
             <el-row class="titlebox" :gutter="6">
                 <el-col :span="11">
@@ -393,7 +394,8 @@
                 </el-col>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="EquipDBDialogVisible" custom-class="Dialogue-container" width="99%" top="58px" center>
+        <el-dialog :visible.sync="UIPanel['EquipDBDialog']" v-on:close="ClosePanel('EquipDBDialog')"
+            custom-class="Dialogue-container" width="99%" top="58px" center>
             <span slot="title">裝備清單</span>
             <el-row :gutter="6">
                 <div style="padding: 5px 5px;">
@@ -440,8 +442,8 @@
                 </div>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="StatusDBDialogVisible" custom-class="Dialogue-container" width="99%" top="58px"
-            center>
+        <el-dialog :visible.sync="UIPanel['StatusDBDialog']" v-on:close="ClosePanel('StatusDBDialog')"
+            custom-class="Dialogue-container" width="99%" top="58px" center>
             <span slot="title">角色清單</span>
             <el-row class="statusbox titlebox" :gutter="6">
                 <div style="padding: 5px 5px;">
@@ -527,7 +529,7 @@
                     </div>
                 </el-col>
                 <el-col :span="1">
-                    <el-button v-on:click="OpenQuickCaleDialogue" icon="el-icon-mobile-phone" size="small">
+                    <el-button v-on:click="TogglePanel('QuickCalcDialog')" icon="el-icon-mobile-phone" size="small">
                     </el-button>
                 </el-col>
                 <el-col :span="2">
@@ -742,7 +744,7 @@
                             </el-col>
                             <el-col class="textcenter" :span="6" style="text-align: right;">
                                 <el-tooltip class="item" effect="dark" content="讀取已經儲存的技能" placement="left">
-                                    <el-button v-on:click="OpenSkillFormulaDialogue" size="small">
+                                    <el-button v-on:click="TogglePanel('SkillDBDialog')" size="small">
                                         技能清單
                                     </el-button>
                                 </el-tooltip>
@@ -1370,7 +1372,7 @@
                             </el-col>
                             <el-col class="textcenter" :span="6" style="text-align: right;">
                                 <el-tooltip class="item" effect="dark" content="讀取已經儲存的裝備" placement="left">
-                                    <el-button v-on:click="OpenEquipDBDialogDialogue" size="small">
+                                    <el-button v-on:click="TogglePanel('EquipDBDialog')" size="small">
                                         裝備清單
                                     </el-button>
                                 </el-tooltip>
@@ -2061,22 +2063,15 @@
             el: '#App',
             data: {
                 StoreDB_Skill: [],
-                SkillDBDialogVisible: false,
                 StoreDB_Status: [],
-                StatusDBDialogVisible: false,
                 StatusName: '',
                 StatusBulidString: '',
                 StoreDB_Equip: [],
-                EquipDBDialogVisible: false,
                 EquipSelectId: '',
                 EquipSelectLabel: '',
                 StoreDB_QuickCalc: [],
                 QuickCalc: { formula: '', solution: '', remark: '' },
-                QuickCalcDialogVisible: false,
-                SpecialthanksList:[
-                    {id:0, coop:'公式協力', name:'賴喵'},
-                ],
-                SpecialthanksDialogVisible: false,
+                SpecialthanksList: [],
                 equipspartlist: [
                     { id: 'helm', label: '頭飾', equipname: '', effectlist: [] },
                     { id: 'armor', label: '衣服', equipname: '', effectlist: [] },
@@ -2130,7 +2125,6 @@
                     { id: 9, atkpercent: 27, hit: 27 },
                     { id: 10, atkpercent: 33, hit: 30 }
                 ],
-                EquipEffectDialogVisible: false,
                 effectdialogue: {
                     EffectType: '',
                     EffectNumber: ''
@@ -2456,13 +2450,18 @@
                     EquipSkillPage: false,
 
                     SpecialthanksPanel: false,
+                    StatusDBDialog: false,
+                    SkillDBDialog: false,
+                    EquipDBDialog: false,
+                    EquipEffectDialog: false,
+                    QuickCalcDialog: false,
                 },
             },
             methods: {
                 TogglePanel(id) {
                     this.UIPanel[id] = !this.UIPanel[id];
                 },
-                ClosePanel(id){                   
+                ClosePanel(id) {
                     this.UIPanel[id] = false;
                 },
                 CombineEquipsAttribute() {
@@ -2523,7 +2522,7 @@
                                     EffectType: this.equipspartlist[this.EquipSelectId].effectlist[index].EffectType
                                 })
                             this.effectdialogue.EffectNumber = '';
-                            this.EquipEffectDialogVisible = false;
+                            this.ClosePanel('EquipEffectDialog');
                             this.CombineEquipsAttribute();
                             return;
                         }
@@ -2534,7 +2533,7 @@
                     })
                     console.log("AddEffect: " + this.effectdialogue.EffectType + " /" + this.effectdialogue.EffectNumber);
                     this.effectdialogue.EffectNumber = '';
-                    this.EquipEffectDialogVisible = false;
+                    this.ClosePanel('EquipEffectDialog');
                     this.CombineEquipsAttribute();
                 },
                 RemoveEffect(eqindex, index) {
@@ -2549,8 +2548,7 @@
                     console.log("onSelectedDrug " + item.label);
                 },
                 OpenEffectDialogue(eqindex) {
-                    console.log("OpenDialogue " + eqindex);
-                    this.EquipEffectDialogVisible = true;
+                    this.UIPanel['EquipEffectDialog'] = true;
                     this.EquipSelectId = eqindex;
                     this.EquipSelectLabel = this.equipspartlist[eqindex].label;
                 },
@@ -2965,15 +2963,6 @@
                     this.enemyattribute = Object.assign({}, item);
                     console.log("onSelectEnemy: " + this.enemyattribute.elemental);
                 },
-                initenemylist() {
-                    this.enemylist[0] = { id: 0, name: '自訂', level: 1, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
-                    this.enemylist[1] = { id: 1, name: '蛋Lv10', level: 10, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
-                    this.enemylist[2] = { id: 2, name: '龍蛋Lv100', level: 100, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
-                    this.enemylist[3] = { id: 3, name: '龍蛋Lv150', level: 150, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
-                    this.enemylist[4] = { id: 4, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 180, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
-                    this.enemylist[5] = { id: 5, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 160, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false };
-
-                },
                 onSkillPercentChange() {
                     if (this.skill.hitnumber == '') this.skill.hitnumber = 1;
                     if (this.skill.level == '') this.skill.level = 1;
@@ -3128,9 +3117,6 @@
                     this.StoreDB_Equip.unshift({ uuid: this._uuid(), equip: JSON.parse(JSON.stringify(this.equipspartlist[epidx])) });
                     this.SaveEquipDB();
                 },
-                OpenEquipDBDialogDialogue() {
-                    this.EquipDBDialogVisible = true;
-                },
                 onClearEquipPart(idx) {
                     var _id = this.equipspartlist[idx].id;
                     var _label = this.equipspartlist[idx].label;
@@ -3175,7 +3161,7 @@
                     this.SaveStatusDB();
                 },
                 OpenStatusDBDialogDialogue() {
-                    this.StatusDBDialogVisible = true;
+                    this.UIPanel['StatusDBDialog'] = true;
                     this.StatusBulidString = '';
                     for (const [key, value] of Object.entries(this.status)) {
                         this.StatusBulidString += key + ":" + value + "/";
@@ -3186,7 +3172,7 @@
                     this.status = Object.assign({}, this.StoreDB_Status[saveid].status);
                     this.StatusName = this.StoreDB_Status[saveid].name;
                     this.onOption();
-                    this.StatusDBDialogVisible = false;
+                    this.ClosePanel('StatusDBDialog');
                 },
                 onRemoveStatusSave(saveid) {
                     if (saveid > -1) {
@@ -3197,9 +3183,6 @@
                 SaveStatusDB() {
                     const parsed = JSON.stringify(this.StoreDB_Status);
                     localStorage.setItem('StoreDB_Status', parsed);
-                },
-                OpenQuickCaleDialogue() {
-                    this.QuickCalcDialogVisible = true;
                 },
                 onQuickCalcInput() {
                     try {
@@ -3217,9 +3200,6 @@
                     } catch (e) {
                         this.QuickCalc.solution = "錯誤:" + e;
                     }
-                },
-                OpenSkillFormulaDialogue() {
-                    this.SkillDBDialogVisible = true;
                 },
                 CloseSkillFormulaDialogue() {
                     if (this.skill.formula == '')
@@ -3249,7 +3229,7 @@
                 onLoadSkillSave(saveid) {
                     this.skill = Object.assign({}, this.StoreDB_Skill[saveid].skill);
                     this.onSkillPercentChange();
-                    this.SkillDBDialogVisible = false;
+                    this.ClosePanel('SkillDBDialog');
                 },
                 onRemoveSkillSave(saveid) {
                     if (saveid > -1) {
@@ -3292,6 +3272,16 @@
                             console.log("catch e:" + e);
                         }
                     }
+
+                    this.enemylist.push(
+                        { id: 0, name: '自訂', level: 1, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 1, name: '蛋Lv10', level: 10, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2, name: '龍蛋Lv100', level: 100, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3, name: '龍蛋Lv150', level: 150, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 4, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 180, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 5, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 160, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false }
+                    );
+
                     this.KeywordReplaceList.push(
                         { str1: 'STR', str2: 'this.status_total.STR', description: '代入總STR' },
                         { str1: 'AGI', str2: 'this.status_total.AGI', description: '代入總AGI' },
@@ -3304,6 +3294,10 @@
                         { str1: 'MUL', str2: 'this.MulOper', description: 'MUL(A,B)為A*B, B若>1則無條件捨去, B若<1則無條件進位' },
                         { str1: 'DOWN', str2: 'Math.floor', description: 'DOWN(A) 小數點無條件捨去' },
                         { str1: 'UP', str2: 'Math.ceil', description: 'UP(A) 小數點無條件進位' },
+                    );
+                    
+                    this.SpecialthanksList.push(
+                        { id: 0, coop: '公式協力', name: '賴喵' },
                     );
                 },
                 // 產生唯一碼 給存檔使用
@@ -3328,7 +3322,6 @@
                 this.status_total_init = Object.assign({}, this.status_total);
                 this.option_init = Object.assign({}, this.option);
 
-                this.initenemylist();
                 this.enemyattribute = this.enemylist[0];
                 this.effectdialogue.EffectType = this.effecttypelist[0];
                 this.weapon = {
