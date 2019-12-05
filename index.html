@@ -2940,7 +2940,7 @@
                     this.computeattribute.skillmatk_max = this.MulOper(this.computeattribute.matk1_max, Number(this.option.SkillPercent / 100));
 
                     //var parabypassMDEF = Number(1) + Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue) / 100;
-                    var parabypassMDEF = Number(1) + Number(this.attritube['BYPASSMDEF']) / 100;
+                    var parabypassMDEF = Number(1) - Number(this.attritube['BYPASSMDEF']) / 100;
                     var paraMDEF = ((1000 + this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)) /
                         (1000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)));
                     this.computeattribute.enemymdef = (paraMDEF * 100).toFixed(2);
