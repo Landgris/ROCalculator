@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="https://unpkg.com/linq"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> -->
     <!-- <style type="text/css">
         #equipinput {
             display: inline;
@@ -947,7 +947,6 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
-                                        </el-collapse-item>
                                     </div>
                                 </el-collapse-transition>
 
@@ -981,6 +980,29 @@
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
+                                                <span>毒耐性弱化</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.VENOMIMPRESS" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.VENOMIMPRESS">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">毒耐性弱化</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.VENOMIMPRESSLevel"
+                                                            v-on:change="onOption" placeholder="等級">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
                                                 <span>高階拳刃修練</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -989,7 +1011,6 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
-                                        </el-collapse-item>
                                     </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('MerchantSkillPage')">
@@ -1032,21 +1053,33 @@
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
-                                                <span>兇砍</span>
+                                                <span>兇砍 25%</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Overthrust" v-on:change="onOptionOverthrust"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                <el-switch v-model="option.Overthrust"
+                                                    v-on:change="onOptionOverthrust('Self')" active-color="#13ce66"
+                                                    inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
-                                                <span>兇砍最大值</span>
+                                                <span>兇砍(隊伍) 15%</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.OverthrustParty"
+                                                    v-on:change="onOptionOverthrust('Party')" active-color="#13ce66"
+                                                    inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>兇砍最大值 100%</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-switch v-model="option.OverthrustMax"
-                                                    v-on:change="onOptionOverthrustMax" active-color="#13ce66"
+                                                    v-on:change="onOptionOverthrust('Max')" active-color="#13ce66"
                                                     inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -1061,7 +1094,16 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
-                                        </el-collapse-item>
+                                        <!-- <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>戰斧颶風</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.AxeTornado" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row> -->
                                     </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('ArcherSkillPage')">
@@ -1101,7 +1143,6 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
-                                        </el-collapse-item>
                                     </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('MageSkillPage')">
@@ -1240,8 +1281,8 @@
                                                 <span>神威祈福</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.ImpositioManus" active-color="#13ce66"
-                                                    inactive-color="#8a9799">
+                                                <el-switch v-model="option.ImpositioManus" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
@@ -1263,8 +1304,8 @@
                                                 <span>折枝讚頌</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.LAUDARAMUS" active-color="#13ce66"
-                                                    inactive-color="#8a9799">
+                                                <el-switch v-model="option.LAUDARAMUS" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
@@ -1286,8 +1327,8 @@
                                                 <span>贖罪</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.EXPIATIO" active-color="#13ce66"
-                                                    inactive-color="#8a9799">
+                                                <el-switch v-model="option.EXPIATIO" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
@@ -1298,6 +1339,29 @@
                                                     <el-col class="textcenter" :span="8">贖罪等級</el-col>
                                                     <el-col :span="4">
                                                         <el-input v-model.number="option.EXPIATIOLevel"
+                                                            v-on:change="onOption" placeholder="等級">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>祈禱文</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.ORATIO" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.ORATIO">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">祈禱文等級</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.ORATIOLevel"
                                                             v-on:change="onOption" placeholder="等級">
                                                         </el-input>
                                                     </el-col>
@@ -2088,19 +2152,19 @@
                 effecttypelist: [
                     { label: 'Atk', id: 'Atk', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'Atk %', id: 'AtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '種族 %', id: 'RaceAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '體型 %', id: 'SizeAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '物理種族 %', id: 'RaceAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '物理體型 %', id: 'SizeAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '對屬性魔物Atk %', id: 'ElementalAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '階級 %', id: 'LevelAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '爆傷 %', id: 'CriDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視物理防禦 %', id: 'BypassDEFPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
 
                     { label: 'Matk', id: 'Matk', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'Matk %', id: 'MatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '種族 %', id: 'RaceMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '體型 %', id: 'SizeMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '階級 %', id: 'LevelMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '魔法種族 %', id: 'RaceMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '魔法體型 %', id: 'SizeMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '魔法階級 %', id: 'LevelMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '對屬性魔物Matk %', id: 'ElementalMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '屬性魔法 %', id: 'ElementalMagicPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視魔法防禦 %', id: 'BypassMDEFPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
@@ -2111,19 +2175,6 @@
                     { label: '變詠 %', id: 'VariableCastPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '固詠', id: 'FixedCast', totalvalue: '', opersymbol: '\-', suffixsymbol: 's' },
                     { label: '固詠 %', id: 'FixedCastPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
-                    { label: '霸氣', id: 'Mettle', totalvalue: '', opersymbol: 'lv', suffixsymbol: '' },
-                ],
-                fallenwarrior_Mettle: [
-                    { id: 1, atkpercent: 3, hit: 3 },
-                    { id: 2, atkpercent: 6, hit: 6 },
-                    { id: 3, atkpercent: 9, hit: 9 },
-                    { id: 4, atkpercent: 12, hit: 12 },
-                    { id: 5, atkpercent: 15, hit: 15 },
-                    { id: 6, atkpercent: 18, hit: 18 },
-                    { id: 7, atkpercent: 21, hit: 21 },
-                    { id: 8, atkpercent: 24, hit: 24 },
-                    { id: 9, atkpercent: 27, hit: 27 },
-                    { id: 10, atkpercent: 33, hit: 30 }
                 ],
                 effectdialogue: {
                     EffectType: '',
@@ -2174,7 +2225,7 @@
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0, DEF: 0, MDEF: 0,
                     ASPD: 0, ASPDP: 0, CRI: 0, VCT: 0, FCT: 0, HIT: 0,
-                    CRIDP: 0, BYPASSDEF: 0, BYPASSMDEF: 0,
+                    CRIDP: 0, RNGDP: 0, BYPASSDEF: 0, BYPASSMDEF: 0,
                 },
                 attritube_init: {},
                 sizetypelist: [
@@ -2268,19 +2319,17 @@
                     MaximizePower: false,       //武器值最大化
                     WeaponPerfection: false,    //無視體型攻擊
                     Overthrust: false,          //兇砍
-                    OverthrustValue: 25,
+                    OverthrustParty: false,     //兇砍隊伍
                     OverthrustMax: false,       //兇砍最大值
-                    OverthrustMaxValue: 100,
-                    AdrenalineRush: false,       //速度激發
+                    AdrenalineRush: false,      //速度激發
+                    AxeTornado: false,          //戰斧颶風
 
                     Riding: false,              //騎乘
                     TwoHandQuicken: false,      //雙劍加速
                     Concentration: false,       //集中攻擊
-                    ConcentrationValue: 15,
                     AuraBlade: false,           //靈氣劍 等級*10
                     AuraBladeValue: 8,
                     Berserk: false,             //狂怒之槍
-                    BerserkValue: 200,
 
                     MagnumBreak: false,             //怒爆
                     MagnumBreakValue: 20,
@@ -2290,7 +2339,7 @@
                     MagnumPoison2Value: 0,          //怒爆致毒
 
                     VENOMIMPRESS: false,            //毒耐性弱化
-                    VENOMIMPRESSValue: 50,
+                    VENOMIMPRESSLevel: 0,
                     AdvancedKatarReserch: false,    //高階拳刃修練
                     AdvancedKatarReserchValue: 20,
 
@@ -2313,13 +2362,13 @@
                     LAUDARAMUSLevel: 0,
                     EXPIATIO: false,            //贖罪
                     EXPIATIOLevel: 0,
+                    ORATIO: false,              //祈禱文
+                    ORATIOLevel: 0,
 
-                    AttentionConcentrate: false,    //心神凝聚 DEX AGI 12%
-                    AttentionConcentrateValue: 12,
                     TrueSight: false,               //狙殺瞄準  命中率 +30%, 傷害力 +20%, 必殺攻擊率+10
                     TrueSightValue: 20,
                     UNLIMIT: false,                 //精英狙擊
-                    UNLIMITValue: 350,
+                    UNLIMITLevel: 5,
 
                     //TODO[戰斧颶風]的風屬性武器增傷125%
                     SkillPercent: 0,
@@ -2335,46 +2384,57 @@
                 },
                 computeattribute:
                 {
-                    floatatk: 0,
                     elementalpercent: 0,
                     sizefix: 0,
                     enemydef: 0,
                     enemymdef: 0,
 
-                    atkc0_min: 0,//武器基礎ATK x [ 1 + ( STR ÷ 200 ) - ( 武器等級 x 0.05 ) 
-                    atkc0_max: 0,//武器基礎ATK x [ 1 + ( STR ÷ 200 ) + ( 武器等級 x 0.05 ) 
+                    SpecialATK1: 0, // 特殊技能加值  體型修正之前 打擊強化、點穴(半)、祈禱文 
+                    SpecialATK2: 0, // 特殊屬性加值  ATK%分支 屬性倍率之後 素質ATK之前  要分開乘 但 毒弱 紋章 通常只會有一種
+                    SpecialATK3: 0, // 特殊技能加值  素質ATK之後 DEF之前    戰斧颶風 凶砍 狙殺 狂怒之槍
 
-                    atkc1_min: 0,   // atkc0 + 精煉ATK  + 特殊技能加值打擊強化、點穴(半) )
-                    atkc1_max: 0,   // atkc0 + 精煉ATK  + 特殊技能加值打擊強化、點穴(半) )
+                    atkc0_min: 0,   //武器基礎ATK x [ 1 + ( STR ÷ 200 ) - ( 武器等級 x 0.05 ) 
+                    atkc0_max: 0,   //武器基礎ATK x [ 1 + ( STR ÷ 200 ) + ( 武器等級 x 0.05 ) 
+
+                    atkc1_min: 0,   // atkc0 + 精煉ATK  + SpecialATK1 )
+                    atkc1_max: 0,
 
                     atkc2_min: 0,   //(atkc1 x 體形修正 + 箭矢ATK)
-                    atkc2_max: 0,   //(atkc1 x 體形修正 + 箭矢ATK)
+                    atkc2_max: 0,
 
-                    weaponatk_min: 0,   //(atkc2 x ( 1 + 怒爆20％ 或  致命塗毒25%(二選一)  x  屬性表 ) + 卡裝ATK))
+                    weaponatk_min: 0,
                     weaponatk_max: 0,
+                    //(atkc2 x ( 1 + 怒爆20％ 或  致命塗毒25%(二選一)  x  屬性表 ) + 卡裝ATK))
 
-                    atkequip_min: 0,    //x ( 1 + 種族ATK% ) x ( 1 + 體型ATK% ) x ( 1 + 致命塗毒300% ) x (1 + 屬性ATK% ) x ( 1 + 階級ATK% )
+                    atkequip_min: 0,
                     atkequip_max: 0,
+                    //weaponatk_min x ( 1 + 種族ATK% ) x ( 1 + 體型ATK% ) x (1 + 屬性ATK% ) x ( 1 + 階級ATK% ) x ( 1 + 致命塗毒 )
 
-                    atkbranch_min: 0,   //x (霸氣ATK% + ATK% )
+                    atkbranch_min: 0,
+                    atkbranch_max: 0,
+                    //weaponatk_min x (霸氣ATK% + ATK% )
                     //x 對方( 1 - 體型減傷% ) x ( 1 - 階級減傷% ) x ( 1 - 攻擊屬性減傷% ) x ( 1 - 怪物屬性減傷% )
                     //+ 砲彈ATK
-                    atkbranch_max: 0,
 
-                    atkc4_min: 0,   //weaponatk_min + this.computeattribute.atkbranch_min
-                    atkc4_max: 0,   //weaponatk_max + this.computeattribute.atkbranch_max
+                    atkc4_min: 0,
+                    atkc4_max: 0,
+                    //weaponatk_min + atkbranch_min
 
-                    atkc5_min: 0,   //atkc4_min x 屬性倍率 x (1 + 毒耐性弱化50%) x (使用左手武器時 1 - 25%) + 素質ATK x 2+ 修煉ATK + 武器強悍
-                    atkc5_max: 0,   //atkc4_max x 屬性倍率 x (1 + 毒耐性弱化50%) x (使用左手武器時 1 - 25%) + 素質ATK x 2+ 修煉ATK + 武器強悍
+                    atkc5_min: 0,
+                    atkc5_max: 0,
+                    //atkc4_max x 屬性倍率 x (1 + 毒耐性弱化50%) x (使用左手武器時 1 - 25%)
+                    // + 素質ATK x 2+ 修煉ATK + 武器強悍
 
-                    atkc6_min: 0,   //x 本身 ( 1 + 遠距增傷% ) x ( 1 +暴擊增傷卡裝% )
-                    //x 對方為喵族 ( 1 + 10% )x 對方 ( 1 -  遠距減傷% ) x ( 1 - 種族減傷%) x ( 1 - 暴擊減傷%)
+                    atkc6_min: 0,
                     atkc6_max: 0,
+                    //x 本身 ( 1 + 遠距增傷% ) x ( 1 +暴擊增傷卡裝% )
+                    //x 對方為喵族 ( 1 + 10% )x 對方 ( 1 -  遠距減傷% ) x ( 1 - 種族減傷%) x ( 1 - 暴擊減傷%)
 
-                    atkc7_min: 0,   //x 本身( 技能倍率% x [戰斧颶風]的風屬性武器增傷125% + 集中攻擊25% + 凶砍25%或凶砍最大值100% + 狂怒之槍200% )
+                    atkc7_min: 0,
+                    atkc7_max: 0,
+                    //x 本身( 技能倍率% x [戰斧颶風]的風屬性武器增傷125% + 凶砍 + 狂怒之槍)
                     //x ( 高階拳刃修練等級 x 2% + 10%)
                     //x 對方 ( ( 4000 + 後DEF ) ÷ ( 4000 + 10 x 後DEF ) ) - 前DEF
-                    atkc7_max: 0,
 
                     normalattack_min: 0,
                     normalattack_max: 0,
@@ -2620,26 +2680,26 @@
                         this.option.AttackElementalIdx,
                         this.enemyattribute.elemental,
                         this.enemyattribute.elementallevel);
+                    this.onOption();
                 },
                 ComputeSizefix() {
                     if (this.option.WeaponPerfection) {
                         this.computeattribute.sizefix = 100;
-                        return;
                     }
-                    if (this.option.Riding && this.weapon.type.id == 'Spears') {
+                    else if (this.option.Riding && this.weapon.type.id == 'Spears') {
                         this.computeattribute.sizefix = 100;
-                        return;
-                    }
-                    switch (this.enemyattribute.size) {
-                        case 0:
-                            this.computeattribute.sizefix = this.weapon.type.sizefix.small;
-                            break;
-                        case 1:
-                            this.computeattribute.sizefix = this.weapon.type.sizefix.middle;
-                            break;
-                        case 2:
-                            this.computeattribute.sizefix = this.weapon.type.sizefix.big;
-                            break;
+                    } else {
+                        switch (this.enemyattribute.size) {
+                            case 0:
+                                this.computeattribute.sizefix = this.weapon.type.sizefix.small;
+                                break;
+                            case 1:
+                                this.computeattribute.sizefix = this.weapon.type.sizefix.middle;
+                                break;
+                            case 2:
+                                this.computeattribute.sizefix = this.weapon.type.sizefix.big;
+                                break;
+                        }
                     }
                     this.onOption();
                 },
@@ -2651,47 +2711,41 @@
                         TempSTR = this.status_total.DEX;
                         TempDEX = this.status_total.STR;
                     }
-                    var amu = this.lefthandweapon ? 1 : 1;
-                    this.attritube.StatusATK = Math.floor(this.status.Level / 4 + TempSTR + TempDEX / 5 + this.status_total.LUK / 3) * amu;
+                    this.attritube.StatusATK = Math.floor(this.status.Level / 4 + TempSTR + TempDEX / 5 + this.status_total.LUK / 3);
 
                     var para1 = TempSTR / 200;
                     var para2 = this.weapon.level.id * 0.05
                     this.computeattribute.atkc0_min = this.MulOper(Number(this.weapon.ATK), (1 + para1 - para2));
                     this.computeattribute.atkc0_max = this.MulOper(Number(this.weapon.ATK), (1 + para1 + para2));
 
-                    var para3 = 0;
-                    if (this.option.Striking)   //打擊強化
-                    {
-                        para3 = this.weapon.level.id * (this.option.StrikingLevel * 2 + 8) + this.option.EndowLevel_Total * 5;
-                    }
-                    var para4 = 0;
-                    if (this.option.GentleTouchCharge) {
-                        para4 = (this.status_total.STR / 2 + this.status_total.DEX / 4) * 5 / 5;
-                    }
+                    var para3 = Number(this.weapon.refineatk) + Number(this.weapon.refineatk2) + this.computeattribute['SpecialATK1'];
+                    this.computeattribute.atkc1_min = Number(this.computeattribute.atkc0_min) + para3;
+                    this.computeattribute.atkc1_max = Number(this.computeattribute.atkc0_max) + para3;
 
-                    this.computeattribute.atkc1_min = Number(this.computeattribute.atkc0_min) + Number(this.weapon.refineatk) + Number(this.weapon.refineatk2) + para3 + para4;
-                    this.computeattribute.atkc1_max = Number(this.computeattribute.atkc0_max) + Number(this.weapon.refineatk) + Number(this.weapon.refineatk2) + para3 + para4;
-                    this.computeattribute.atkc2_min = Number(this.computeattribute.atkc1_min) * (this.computeattribute.sizefix / 100) + Number(this.weapon.ArrowATK);
-                    this.computeattribute.atkc2_max = Number(this.computeattribute.atkc1_max) * (this.computeattribute.sizefix / 100) + Number(this.weapon.ArrowATK);
                     if (this.computeattribute.sizefix < 100) {
-                        this.computeattribute.atkc2_min = Math.floor(this.computeattribute.atkc2_min);
-                        this.computeattribute.atkc2_max = Math.floor(this.computeattribute.atkc2_max);
+                        this.computeattribute.atkc2_min = this.MulOper(Number(this.computeattribute.atkc1_min), (this.computeattribute.sizefix / 100));
+                        this.computeattribute.atkc2_max = this.MulOper(Number(this.computeattribute.atkc1_max), (this.computeattribute.sizefix / 100));
                     }
+                    else {
+                        this.computeattribute.atkc2_min = Number(this.computeattribute.atkc1_min);
+                        this.computeattribute.atkc2_max = Number(this.computeattribute.atkc1_max);
+                    }
+                    this.computeattribute.atkc2_min + Number(this.weapon.ArrowATK);
+                    this.computeattribute.atkc2_max + Number(this.weapon.ArrowATK);
+
                     var para5 = 0; //屬性
-                    if (this.option.MagnumBreak) {
-                        para5 = 1;
-                    }
-                    else if (this.option.EnchantDeadlyPoison) para5 = 5;
+                    if (this.option.MagnumBreak) { para5 = 1; }
+                    else if (this.option.EnchantDeadlyPoison) { para5 = 5; }
                     var para5value = this.getElementalPercent(para5,
                         this.enemyattribute.elemental,
                         this.enemyattribute.elementallevel);
                     var para6 = Number(1) + (this.option.MagnumPoison2Value / 100) * (para5value / 100);
                     this.computeattribute.weaponatk_min = this.MulOper(this.computeattribute.atkc2_min, para6);
                     this.computeattribute.weaponatk_max = this.MulOper(this.computeattribute.atkc2_max, para6);
-                    //this.computeattribute.weaponatk_min += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue);
-                    //this.computeattribute.weaponatk_max += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue);
+
                     this.computeattribute.weaponatk_min += this.attritube['ATK'];
                     this.computeattribute.weaponatk_max += this.attritube['ATK'];
+
                     var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceAtkPercent').totalvalue) / 100;
                     var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizeAtkPercent').totalvalue) / 100;
                     var para_elemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalAtkPercent').totalvalue) / 100;
@@ -2708,19 +2762,11 @@
                     this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_posion);
                     this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_posion);
 
-                    var para_MettleATKPercent = 0;
-                    var para_Mettlelevel = Number(this.effecttypelist.find(x => x.id == 'Mettle').totalvalue);
-                    if (para_Mettlelevel > 0) para_MettleATKPercent = this.fallenwarrior_Mettle[para_Mettlelevel - 1].atkpercent;
-                    var para_atkpercent = Number(this.effecttypelist.find(x => x.id == 'AtkPercent').totalvalue);
-                    //集中
-                    para_atkpercent += this.option.Concentration ? this.option.ConcentrationValue : 0;
-
                     // 霸氣 ATK% 似乎不適用小於1進位
                     // 從MulOper改為Mathfloor 捨去
-                    this.computeattribute.atkbranch_min = Math.floor(this.computeattribute.weaponatk_min *
-                        (para_MettleATKPercent + para_atkpercent) / 100);
-                    this.computeattribute.atkbranch_max = Math.floor(this.computeattribute.weaponatk_max *
-                        (para_MettleATKPercent + para_atkpercent) / 100);
+                    this.computeattribute.atkbranch_min = Math.floor(this.computeattribute.weaponatk_min * (this.attritube['ATKP']) / 100);
+                    this.computeattribute.atkbranch_max = Math.floor(this.computeattribute.weaponatk_max * (this.attritube['ATKP']) / 100);
+
                     this.computeattribute.atkbranch_min = this.MulOper(this.computeattribute.atkbranch_min, Number(1) + Number(this.enemyattribute.sizeResist / 100));
                     this.computeattribute.atkbranch_max = this.MulOper(this.computeattribute.atkbranch_max, Number(1) + Number(this.enemyattribute.sizeResist / 100));
                     this.computeattribute.atkbranch_min = this.MulOper(this.computeattribute.atkbranch_min, Number(1) + Number(this.enemyattribute.levelResist / 100));
@@ -2737,10 +2783,10 @@
 
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc4_min, Number(this.option.ElementalPercent / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc4_max, Number(this.option.ElementalPercent / 100));
-                    if (this.option.VENOMIMPRESS && this.option.AttackElementalIdx == 5) {
-                        this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.option.VENOMIMPRESSValue / 100));
-                        this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.option.VENOMIMPRESSValue / 100));
-                    }
+
+                    this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.computeattribute['SpecialATK2'] / 100));
+                    this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.computeattribute['SpecialATK2'] / 100));
+
                     if (this.lefthandweapon) {
                         this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(0.75));
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(0.75));
@@ -2750,8 +2796,7 @@
                     this.computeattribute.atkc5_max += para7;
 
                     //遠程增傷
-                    var para_ranged = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RangedDamagePercent').totalvalue) / 100;
-                    if (this.option.UNLIMIT) para_ranged += this.option.UNLIMITValue / 100;   //精英
+                    var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
                     if (this.skill.ranged) {
                         this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc5_min, para_ranged);
                         this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc5_max, para_ranged);
@@ -2768,7 +2813,6 @@
                     }
 
                     //爆擊增傷
-                    //var para_crid = Number(1) + Number(this.effecttypelist.find(x => x.id == 'CriDamagePercent').totalvalue) / 100;
                     var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
                     if (this.skill.critical) {
                         this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
@@ -2776,14 +2820,9 @@
                     }
                     this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalattack_max, para_crid);
 
-                    //技能倍率 這邊不確定paraskillp跟 para8要 先乘再加 還是 先加再乘
-                    var para8 = Number(this.option.SkillPercent);
-                    var para_na = 0;
-                    para_na += this.option.Berserk ? this.option.BerserkValue : 0;
-                    para_na += this.option.Overthrust ? this.option.OverthrustValue : 0;
-                    para_na += this.option.OverthrustMax ? this.option.OverthrustMaxValue : 0;
-                    para_na += this.option.TrueSight ? this.option.TrueSightValue : 0;
-                    para8 += Number(para_na);
+                    //技能倍率 
+                    var para_na = Number(this.computeattribute['SpecialATK3']);
+                    var para8 = Matj.floor(Number(this.option.SkillPercent)) + Number(para_na); // 這邊不確定SpecialATK3跟 para8要 先乘再加 還是 先加再乘
                     para_na = Number(1) + Number(para_na / 100);
                     para8 = Number(para8 / 100);
                     this.computeattribute.atkc7_min = this.MulOper(this.computeattribute.atkc6_min, para8);
@@ -2801,8 +2840,7 @@
                         this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, paraAdvancedKatarReserchValue);
                     }
                     //敵方DEF
-                    //var parabypassDEF = Number(1) + Number(this.effecttypelist.find(x => x.id == 'BypassDEFPercent').totalvalue) / 100;
-                    var parabypassDEF = Number(1) + Number(this.attritube['BYPASSDEF']) / 100;
+                    var parabypassDEF = Number(1) - Number(this.attritube['BYPASSDEF']) / 100;
                     var paraDEF = ((4000 + this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)) /
                         (4000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)));
                     this.computeattribute.enemydef = (paraDEF * 100).toFixed(2);
@@ -2816,16 +2854,16 @@
                     this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc7_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc7_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
 
-                    this.computeattribute.atkc9_min = this.computeattribute.atkc8_min;
-                    this.computeattribute.atkc9_max = this.computeattribute.atkc8_max;
                     if (this.option.AuraBlade) {
                         paraAb = this.status.Level * this.option.AuraBladeValue;
-                        this.computeattribute.atkc9_min += Number(paraAb);
-                        this.computeattribute.atkc9_max += Number(paraAb);
+                        this.computeattribute.atkc8_min += Number(paraAb);
+                        this.computeattribute.atkc8_max += Number(paraAb);
                         this.computeattribute.normalattack_min += Number(paraAb);
                         this.computeattribute.normalattack_max += Number(paraAb);
                         this.computeattribute.normalcritical += Number(paraAb);
                     }
+                    this.computeattribute.atkc9_min = this.computeattribute.atkc8_min;
+                    this.computeattribute.atkc9_max = this.computeattribute.atkc8_max;
                     // 技能爆擊 *1.4
                     this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.option.BaseCriticalValue / 100));
                     this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
@@ -2987,7 +3025,11 @@
 
                     if (this.option.EquipSkillAddDamage == '') this.option.EquipSkillAddDamage = 0;
                     if (this.option.WeaponMasteryATK == '') this.option.WeaponMasteryATK = 0;
+                    this.computeattribute['SpecialATK1'] = 0;
+                    this.computeattribute['SpecialATK2'] = 0;
+                    this.computeattribute['SpecialATK3'] = 0;
 
+                    //雙手劍攻擊速度增加
                     if (this.option.TwoHandQuicken) {
                         if (this.weapon.type.id == 'TwoHandedSword') {
                             this.attritube['CRI'] += 12;
@@ -2997,7 +3039,12 @@
                     }
                     // 集中
                     if (this.option.Concentration) {
-                        //this.effecttypelist.find(x => x.id == 'AtkPercent').totalvalue += Number(this.option.ConcentrationValue);
+                        this.attritube['ATKP'] += 15;
+                        this.attritube['HIT'] += 50;
+                    }
+                    // 狂怒之槍
+                    if (this.option.Berserk) {
+                        this.computeattribute['SpecialATK3'] += 200;
                     }
                     // 怒爆
                     if (this.option.MagnumBreak) {
@@ -3019,6 +3066,27 @@
                             this.attritube['ASPDP'] += 40;
                         }
                     }
+                    if (this.option.VENOMIMPRESS) {
+                        if (this.option.AttackElementalIdx == 5) {
+                            this.computeattribute['SpecialATK2'] += this.option.VENOMIMPRESSLevel * 10;
+                        }
+                    }
+                    // 兇砍
+                    if (this.option.Overthrust) {
+                        this.computeattribute['SpecialATK3'] += 5 * 5;
+                    }
+                    if (this.option.OverthrustParty) {
+                        this.computeattribute['SpecialATK3'] += 5 * 3;
+                    }
+                    if (this.option.OverthrustMax) {
+                        this.computeattribute['SpecialATK3'] += 5 * 20;
+                    }
+                    // 戰斧颶風
+                    if (this.option.AxeTornado) {
+                        if (this.option.AttackElementalIdx == 3) {
+                            this.computeattribute['SpecialATK3'] += 25;
+                        }
+                    }
                     // 心神
                     if (this.option.AttentionConcentrate) {
                         var _Dex = Math.floor(this.status_total.DEX * Number(this.option.AttentionConcentrateValue / 100));
@@ -3035,10 +3103,15 @@
                         this.status_add.DEX += 5;
                         this.status_add.LUK += 5;
                         this.attritube['CRI'] += 10;
+                        this.computeattribute['SpecialATK3'] += 10 * 2;
+                    }
+                    if (this.option.UNLIMIT) {
+                        this.attritube['RNGDP'] += this.option.UNLIMITLevel * 50 + 100;
                     }
                     // 打強
                     if (this.option.Striking) {
                         this.attritube['CRI'] += this.option.StrikingLevel;
+                        this.computeattribute['SpecialATK1'] += this.weapon.level.id * (this.option.StrikingLevel * 2 + 8) + this.option.EndowLevel_Total * 5;
                     }
                     // 加速
                     if (this.option.IncreaseAgility) {
@@ -3054,6 +3127,7 @@
                     }
                     // 點穴
                     if (this.option.GentleTouchCharge) {
+                        this.computeattribute['SpecialATK1'] += (this.status_total.STR / 2 + this.status_total.DEX / 4) * 5 / 5;
                         this.attritube['ASPDP'] += this.status_total.AGI * 5 / 60;
                         this.attritube['MDEF'] += 200 / this.status_total.INT * 5;
                     }
@@ -3068,6 +3142,12 @@
                         this.attritube['ATK'] += Number(this.option.ImpositioManusLevel) * 5;
                         this.attritube['MATK'] += Number(this.option.ImpositioManusLevel) * 5;
                     }
+                    //祈禱文
+                    if (this.option.ORATIO) {
+                        if (this.option.AttackElementalIdx == 6) {
+                            this.computeattribute['SpecialATK1'] += this.weapon.ATK * ((this.option.ORATIOLevel * 2) / 100);
+                        }
+                    }
                     //折枝
                     if (this.option.LAUDARAMUS) {
                         this.attritube['CRIDP'] += Number(this.option.LAUDARAMUSLevel) * 5;
@@ -3078,9 +3158,11 @@
                     }
 
                     this.attritube['ATK'] += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue);
+                    this.attritube['ATKP'] += Number(this.effecttypelist.find(x => x.id == 'AtkPercent').totalvalue);
                     this.attritube['MATK'] += Number(this.effecttypelist.find(x => x.id == 'Matk').totalvalue);
                     this.attritube['CRI'] += Number(this.effecttypelist.find(x => x.id == 'Cri').totalvalue);
                     this.attritube['CRIDP'] += Number(this.effecttypelist.find(x => x.id == 'CriDamagePercent').totalvalue);
+                    this.attritube['RNGDP'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamagePercent').totalvalue);
                     this.attritube['BYPASSDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassDEFPercent').totalvalue);
                     this.attritube['BYPASSMDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue);
 
@@ -3100,15 +3182,14 @@
                     }
                     this.onOption();
                 },
-                onOptionOverthrust() {
-                    if (this.option.Overthrust) {
-                        this.option.OverthrustMax = false;
-                    }
-                    this.onOption();
-                },
-                onOptionOverthrustMax() {
-                    if (this.option.OverthrustMax) {
-                        this.option.Overthrust = false;
+                onOptionOverthrust(type) {
+                    this.option.Overthrust = false;
+                    this.option.OverthrustParty = false;
+                    this.option.OverthrustMax = false;
+                    switch (type) {
+                        case 'Self': this.option.Overthrust = true; break;
+                        case 'Party': this.option.OverthrustParty = true; break;
+                        case 'Max': this.option.OverthrustMax = true; break;
                     }
                     this.onOption();
                 },
@@ -3342,8 +3423,6 @@
             console.log("Watch enemyattribute ");
             this.ComputElementalPercent();
             this.ComputeSizefix();
-            this.ComputeATKAtttibute();
-            this.ComputeMATKAtttibute();
         }, {
             deep: true
         });
@@ -3356,14 +3435,6 @@
             if (this.weapon.BulletATK == '') this.weapon.BulletATK = 0;
             if (this.weapon.refinelevel == '') this.weapon.refinelevel = 0;
             this.onOption();
-        }, {
-            deep: true
-        });
-
-        evue.$watch('option.AttackElementalIdx', function (newB, oldB) {
-            console.log("Watch option AttackElementalIdx ");
-            this.ComputeATKAtttibute();
-            this.ComputeMATKAtttibute();
         }, {
             deep: true
         });
