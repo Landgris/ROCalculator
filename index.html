@@ -826,7 +826,7 @@
                                     </el-col>
                                     <el-col :span="12">
                                         <div class="textcenter">
-                                            <el-select value-key="id" v-model="option.AttackElementalIdx"
+                                            <el-select value-key="id" v-model="skilloption.AttackElementalIdx"
                                                 v-on:change="ComputElementalPercent" placeholder="攻擊屬性">
                                                 <el-option v-for="item in elementtypelist" :key="item.id"
                                                     :label="item.label" :value="item.id">
@@ -847,7 +847,7 @@
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter">武器修練ATK增加</el-col>
                                     <el-col>
-                                        <el-input v-model.number="option.WeaponMasteryATK" v-on:change="onOption"
+                                        <el-input v-model.number="skilloption.WeaponMasteryATK" v-on:change="onOption"
                                             placeholder="ATK">
                                         </el-input>
                                     </el-col>
@@ -1423,6 +1423,36 @@
                                         </el-collapse-transition>
                                     </div>
                                 </el-collapse-transition>
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                    <el-col class="textcenter" :span="12">
+                                        <span>無視物理防禦</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-switch v-model="option.IgnoreDEF" v-on:change="onOption"
+                                            active-color="#13ce66" inactive-color="#8a9799">
+                                        </el-switch>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                    <el-col class="textcenter" :span="12">
+                                        <span>無視魔法防禦</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-switch v-model="option.IgnoreMDEF" v-on:change="onOption"
+                                            active-color="#13ce66" inactive-color="#8a9799">
+                                        </el-switch>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                    <el-col class="textcenter" :span="12">
+                                        <span>魔劍士 達納托斯的記憶卡片</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-switch v-model="option.MemoryofThanatosCard" v-on:change="onOption"
+                                            active-color="#13ce66" inactive-color="#8a9799">
+                                        </el-switch>
+                                    </el-col>
+                                </el-row>
                             </el-row>
                         </el-row>
                     </el-scrollbar>
@@ -1716,7 +1746,7 @@
                                                 <span>屬性相剋倍率:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{option.ElementalPercent}} %</span>
+                                                <span>{{skilloption.ElementalPercent}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -2172,6 +2202,7 @@
                     { label: 'ASPD', id: 'ASPD', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
                     { label: '攻擊後延%', id: 'AspdPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '爆擊率 %', id: 'Cri', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '技能後延%', id: 'GCDPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '變詠 %', id: 'VariableCastPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '固詠', id: 'FixedCast', totalvalue: '', opersymbol: '\-', suffixsymbol: 's' },
                     { label: '固詠 %', id: 'FixedCastPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
@@ -2309,12 +2340,14 @@
                     hitnumber: 1,
                     elemental: 0,
                 },
-                option_init: '',
-                option:
-                {
+                skilloption: {
                     AttackElementalIdx: 0,      //玩家攻擊屬性
                     ElementalPercent: 0,        //屬性倍率
                     WeaponMasteryATK: 0,        //武器修練
+                },
+                option_init: '',
+                option:
+                {
 
                     MaximizePower: false,       //武器值最大化
                     WeaponPerfection: false,    //無視體型攻擊
@@ -2343,12 +2376,13 @@
                     AdvancedKatarReserch: false,    //高階拳刃修練
                     AdvancedKatarReserchValue: 20,
 
-                    MagicPower: false,          // 魔力增幅
+                    RECOGNIZEDSPELL: false,         //魔法省悟
+                    MagicPower: false,              //魔力增幅
                     MagicPowerValue: 50,
-                    Striking: false,            // 打擊強化
-                    StrikingLevel: 1,
-                    EndowLevel_Total: 0,
-                    SPELLFIST: false,
+                    Striking: false,                //打擊強化
+                    StrikingLevel: 1,               
+                    EndowLevel_Total: 0,            //屬附總等級
+                    SPELLFIST: false,               //魔力拳
                     ElementalBlotLevel: 1,
 
 
@@ -2379,8 +2413,10 @@
 
                     OdinsPower: false,           //奧汀之神力
                     OdinsPowerLevel: 0,
-                    RECOGNIZEDSPELL: false,         //魔法省悟
 
+                    IgnoreDEF: false,
+                    IgnoreMDEF: false,
+                    MemoryofThanatosCard: false,
                 },
                 computeattribute:
                 {
@@ -2676,8 +2712,8 @@
                     return percent;
                 },
                 ComputElementalPercent() {
-                    this.option.ElementalPercent = this.getElementalPercent(
-                        this.option.AttackElementalIdx,
+                    this.skilloption.ElementalPercent = this.getElementalPercent(
+                        this.skilloption.AttackElementalIdx,
                         this.enemyattribute.elemental,
                         this.enemyattribute.elementallevel);
                     this.onOption();
@@ -2781,8 +2817,8 @@
                     this.computeattribute.atkc4_min = this.computeattribute.atkequip_min + this.computeattribute.atkbranch_min;
                     this.computeattribute.atkc4_max = this.computeattribute.atkequip_max + this.computeattribute.atkbranch_max;
 
-                    this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc4_min, Number(this.option.ElementalPercent / 100));
-                    this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc4_max, Number(this.option.ElementalPercent / 100));
+                    this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc4_min, Number(this.skilloption.ElementalPercent / 100));
+                    this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc4_max, Number(this.skilloption.ElementalPercent / 100));
 
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.computeattribute['SpecialATK2'] / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.computeattribute['SpecialATK2'] / 100));
@@ -2791,7 +2827,7 @@
                         this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(0.75));
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(0.75));
                     }
-                    var para7 = (this.lefthandweapon ? Number(this.attritube.StatusATK) : Number(this.attritube.StatusATK * 2)) + Number(this.option.WeaponMasteryATK);
+                    var para7 = (this.lefthandweapon ? Number(this.attritube.StatusATK) : Number(this.attritube.StatusATK * 2)) + Number(this.skilloption.WeaponMasteryATK);
                     this.computeattribute.atkc5_min += para7;
                     this.computeattribute.atkc5_max += para7;
 
@@ -2822,7 +2858,7 @@
 
                     //技能倍率 
                     var para_na = Number(this.computeattribute['SpecialATK3']);
-                    var para8 = Matj.floor(Number(this.option.SkillPercent)) + Number(para_na); // 這邊不確定SpecialATK3跟 para8要 先乘再加 還是 先加再乘
+                    var para8 = Math.floor(Number(this.option.SkillPercent)) + Number(para_na); // 這邊不確定SpecialATK3跟 para8要 先乘再加 還是 先加再乘
                     para_na = Number(1) + Number(para_na / 100);
                     para8 = Number(para8 / 100);
                     this.computeattribute.atkc7_min = this.MulOper(this.computeattribute.atkc6_min, para8);
@@ -2840,15 +2876,18 @@
                         this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, paraAdvancedKatarReserchValue);
                     }
                     //敵方DEF
-                    var parabypassDEF = Number(1) - Number(this.attritube['BYPASSDEF']) / 100;
-                    var paraDEF = ((4000 + this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)) /
-                        (4000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)));
-                    this.computeattribute.enemydef = (paraDEF * 100).toFixed(2);
-                    this.computeattribute.atkc7_min = Math.floor(this.computeattribute.atkc7_min * paraDEF) - Number(this.enemyattribute.StatusDEF);
-                    this.computeattribute.atkc7_max = Math.floor(this.computeattribute.atkc7_max * paraDEF) - Number(this.enemyattribute.StatusDEF);
-                    this.computeattribute.normalattack_min = Math.floor(this.computeattribute.normalattack_min * paraDEF) - Number(this.enemyattribute.StatusDEF);
-                    this.computeattribute.normalattack_max = Math.floor(this.computeattribute.normalattack_max * paraDEF) - Number(this.enemyattribute.StatusDEF);
-                    this.computeattribute.normalcritical = Math.floor(this.computeattribute.normalcritical * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                    if( this.option.IgnoreDEF == false)
+                    {
+                        var parabypassDEF = Number(1) - Number(this.attritube['BYPASSDEF']) / 100;
+                        var paraDEF = ((4000 + this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)) /
+                            (4000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)));
+                        this.computeattribute.enemydef = (paraDEF * 100).toFixed(2);
+                        this.computeattribute.atkc7_min = Math.floor(this.computeattribute.atkc7_min * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                        this.computeattribute.atkc7_max = Math.floor(this.computeattribute.atkc7_max * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                        this.computeattribute.normalattack_min = Math.floor(this.computeattribute.normalattack_min * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                        this.computeattribute.normalattack_max = Math.floor(this.computeattribute.normalattack_max * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                        this.computeattribute.normalcritical = Math.floor(this.computeattribute.normalcritical * paraDEF) - Number(this.enemyattribute.StatusDEF);
+                    }
 
                     // 技能增傷裝
                     this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc7_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
@@ -2899,9 +2938,9 @@
 
                     var para1 = this.weapon.level.id * 0.1;
                     this.computeattribute.weaponmatk_min = Number(this.attritube.StatusMATK) +
-                        this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk)), (1 - para1));
+                        this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk) + Number(this.weapon.refineatk2)), (1 - para1));
                     this.computeattribute.weaponmatk_max = Number(this.attritube.StatusMATK) +
-                        this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk)), (1 + para1));
+                        this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk) + Number(this.weapon.refineatk2)), (1 + para1));
 
                     var para2 = Number(1) + (this.option.MagicPower ? Number(this.option.MagicPowerValue / 100) : 0);
                     var para3 = Number(this.effecttypelist.find(x => x.id == 'Matk').totalvalue);
@@ -2935,20 +2974,25 @@
                     this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.enemyattribute.levelResist / 100));
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.enemyattribute.levelResist / 100));
 
+                    this.option.SkillPercent = Math.floor( this.option.SkillPercent );
                     if (this.option.SPELLFIST) this.option.SkillPercent = Number(100);
                     this.computeattribute.skillmatk_min = this.MulOper(this.computeattribute.matk1_min, Number(this.option.SkillPercent / 100));
                     this.computeattribute.skillmatk_max = this.MulOper(this.computeattribute.matk1_max, Number(this.option.SkillPercent / 100));
 
-                    //var parabypassMDEF = Number(1) + Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue) / 100;
-                    var parabypassMDEF = Number(1) - Number(this.attritube['BYPASSMDEF']) / 100;
-                    var paraMDEF = ((1000 + this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)) /
-                        (1000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)));
-                    this.computeattribute.enemymdef = (paraMDEF * 100).toFixed(2);
-                    this.computeattribute.matk2_min = Math.floor(this.computeattribute.skillmatk_min * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
-                    this.computeattribute.matk2_max = Math.floor(this.computeattribute.skillmatk_max * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
+                    this.computeattribute.matk2_min = this.computeattribute.skillmatk_min;
+                    this.computeattribute.matk2_max = this.computeattribute.skillmatk_max;
+                    if( this.option.IgnoreDEF == false)
+                    {
+                        var parabypassMDEF = Number(1) - Number(this.attritube['BYPASSMDEF']) / 100;
+                        var paraMDEF = ((1000 + this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)) /
+                            (1000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)));
+                        this.computeattribute.enemymdef = (paraMDEF * 100).toFixed(2);
+                        this.computeattribute.matk2_min = Math.floor(this.computeattribute.skillmatk_min * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
+                        this.computeattribute.matk2_max = Math.floor(this.computeattribute.skillmatk_max * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
+                    }
 
-                    this.computeattribute.matk3_min = this.MulOper(this.computeattribute.matk2_min, Number(this.option.ElementalPercent / 100));
-                    this.computeattribute.matk3_max = this.MulOper(this.computeattribute.matk2_max, Number(this.option.ElementalPercent / 100));
+                    this.computeattribute.matk3_min = this.MulOper(this.computeattribute.matk2_min, Number(this.skilloption.ElementalPercent / 100));
+                    this.computeattribute.matk3_max = this.MulOper(this.computeattribute.matk2_max, Number(this.skilloption.ElementalPercent / 100));
 
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk3_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk3_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
@@ -3017,14 +3061,16 @@
                 },
                 ResetOption() {
                     this.option = Object.assign({}, this.option_init);
-                    this.onOption();
+                    this.ComputeSizefix(); // 包含onOption
                 },
                 onOption() {
                     this.status_add = Object.assign({}, this.status_add_init);
                     this.attritube = Object.assign({}, this.attritube_init);
 
                     if (this.option.EquipSkillAddDamage == '') this.option.EquipSkillAddDamage = 0;
-                    if (this.option.WeaponMasteryATK == '') this.option.WeaponMasteryATK = 0;
+                    if (this.skilloption.WeaponMasteryATK == '') this.skilloption.WeaponMasteryATK = 0;
+                    this.option.IgnoreDEF = false;
+                    this.option.IgonreMDEF = false;
                     this.computeattribute['SpecialATK1'] = 0;
                     this.computeattribute['SpecialATK2'] = 0;
                     this.computeattribute['SpecialATK3'] = 0;
@@ -3049,10 +3095,10 @@
                     // 怒爆
                     if (this.option.MagnumBreak) {
                         this.option.MagnumPoison2Value = this.option.MagnumBreakValue;
-                        this.option.AttackElementalIdx = 1;    //改變攻擊屬性 火
+                        this.skilloption.AttackElementalIdx = 1;    //改變攻擊屬性 火
                     } else {
-                        if (this.option.AttackElementalIdx === 1)
-                            this.option.AttackElementalIdx = 0;    //改變攻擊屬性 無
+                        if (this.skilloption.AttackElementalIdx === 1)
+                            this.skilloption.AttackElementalIdx = 0;    //改變攻擊屬性 無
                     }
                     // 致毒
                     if (this.option.EnchantDeadlyPoison) {
@@ -3067,7 +3113,7 @@
                         }
                     }
                     if (this.option.VENOMIMPRESS) {
-                        if (this.option.AttackElementalIdx == 5) {
+                        if (this.skilloption.AttackElementalIdx == 5) {
                             this.computeattribute['SpecialATK2'] += this.option.VENOMIMPRESSLevel * 10;
                         }
                     }
@@ -3083,7 +3129,7 @@
                     }
                     // 戰斧颶風
                     if (this.option.AxeTornado) {
-                        if (this.option.AttackElementalIdx == 3) {
+                        if (this.skilloption.AttackElementalIdx == 3) {
                             this.computeattribute['SpecialATK3'] += 25;
                         }
                     }
@@ -3131,12 +3177,6 @@
                         this.attritube['ASPDP'] += this.status_total.AGI * 5 / 60;
                         this.attritube['MDEF'] += 200 / this.status_total.INT * 5;
                     }
-                    if (this.option.OdinsPower && this.option.OdinsPowerLevel > 0) {
-                        this.attritube['ATK'] += this.option.OdinsPowerLevel * 30 + 40;
-                        this.attritube['MATK'] += this.option.OdinsPowerLevel * 30 + 40;
-                        this.attritube['DEF'] -= this.option.OdinsPowerLevel * 20;
-                        this.attritube['MDEF'] -= this.option.OdinsPowerLevel * 20;
-                    }
                     //神威
                     if (this.option.ImpositioManus) {
                         this.attritube['ATK'] += Number(this.option.ImpositioManusLevel) * 5;
@@ -3144,7 +3184,7 @@
                     }
                     //祈禱文
                     if (this.option.ORATIO) {
-                        if (this.option.AttackElementalIdx == 6) {
+                        if (this.skilloption.AttackElementalIdx == 6) {
                             this.computeattribute['SpecialATK1'] += this.weapon.ATK * ((this.option.ORATIOLevel * 2) / 100);
                         }
                     }
@@ -3155,6 +3195,19 @@
                     if (this.option.EXPIATIO) {
                         this.attritube['BYPASSDEF'] += Number(this.option.EXPIATIOLevel) * 5;
                         this.attritube['BYPASSMDEF'] += Number(this.option.EXPIATIOLevel) * 5;
+                    }
+                    // 奧汀神力
+                    if (this.option.OdinsPower && this.option.OdinsPowerLevel > 0) {
+                        this.attritube['ATK'] += this.option.OdinsPowerLevel * 30 + 40;
+                        this.attritube['MATK'] += this.option.OdinsPowerLevel * 30 + 40;
+                        this.attritube['DEF'] -= this.option.OdinsPowerLevel * 20;
+                        this.attritube['MDEF'] -= this.option.OdinsPowerLevel * 20;
+                    }
+                    // 魔劍士
+                    if( this.option.MemoryofThanatosCard )
+                    {
+                        this.attritube['ATK'] += this.enemyattribute.WeaponDEF/2;
+                        this.option.IgnoreDEF = true;
                     }
 
                     this.attritube['ATK'] += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue);
@@ -3294,7 +3347,7 @@
                     if (this.skill.name == '') { this.option.SkillFormulaError = "技能名為空"; return; }
                     if (this.skill.level < 1) this.skill.level = 1;
                     if (this.skill.hitnumber == '') this.skill.hitnumber = 0;
-                    this.skill.elemental = this.option.AttackElementalIdx;
+                    this.skill.elemental = this.skilloption.AttackElementalIdx;
                     this.option.SkillFormulaError = '';
                     try {
                         var _valid = eval(this.SkillFormulaReplace(this.skill.formula));
@@ -3411,7 +3464,7 @@
                     refinelevel: 0
                 };
                 this.ChangeWeapon();
-                this.option.AttackElementalIdx = 0;
+                this.skilloption.AttackElementalIdx = 0;
                 this.ComputElementalPercent();
                 this.skill = { name: '', level: 1, formula: '(70*SLV+INT*3)*BLV/100', ranged: false, critical: false, hitnumber: 1, elemental: 0, };
                 this.onSkillPercentChange();
