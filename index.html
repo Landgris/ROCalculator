@@ -296,8 +296,6 @@
                         </div>
                     </div>
                 </el-scrollbar>
-
-
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['QuickCalcDialog']" width="80%" height="80%"
@@ -398,8 +396,28 @@
             custom-class="Dialogue-container" width="99%" top="58px" center>
             <span slot="title">裝備清單</span>
             <el-row :gutter="6">
-                <div style="padding: 5px 5px;">
-                    <el-row class="statusbox titlebox" :gutter="4" type="flex" align="middle" style="height:40px;">
+                    <div class="statusbox titlebox" style="padding: 5px 5px;">
+                <el-row :gutter="4" type="flex" align="middle" style="height:80px;">
+                        <el-col class="textcenter" :span="3">
+                            篩選
+                        </el-col>
+                        <el-col class="textcenter" :span="3">
+                            <el-button v-on:click="onFliterEquipClear" >
+                                清空
+                            </el-button>
+                        </el-col>
+                        <el-col class="textcenter" style="text-align: left;">
+                                <el-checkbox-group v-model="StoreDB_EquipFliterGroup" v-on:change="onFliterEquipPart"
+                                fill="#909399" text-color="white">
+                                    <el-checkbox-button v-for="item in equipspartlist" :label="item.label" :key="item.id">
+                                        {{item.label}}
+                                    </el-checkbox-button>
+                                </el-checkbox-group>
+                        </el-col>
+                </el-row>
+                    </div>
+                <div class="statusbox titlebox" style="padding: 5px 5px;">
+                    <el-row  :gutter="4" type="flex" align="middle" style="height:40px;">
                         <el-col class="textcenter" :span="4" style="text-align: right;">
                             <span class=""><b>部位</b></span>
                         </el-col>
@@ -414,23 +432,24 @@
                         </el-col>
                     </el-row>
                 </div>
-                <div v-for="(item, index) in StoreDB_Equip" v-bind:key="item.uuid">
+                <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
+                <div v-for="(item, index) in StoreDB_EquipFiltered" v-bind:key="item.uuid">
                     <div style="padding: 2px 5px;">
                         <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle">
 
                             <el-col class="textcenter" :span="4" style="text-align: right;">
                                 <span class="EffectType">{{ item.equip.label }}</span>
                             </el-col>
-                            <el-col class="textcenter">
+                            <el-col class="textcenter bg-purple-light">
                                 <span class="">{{ item.equip.equipname }}</span>
                             </el-col>
                             <el-col :span="4">
-                                <el-button v-on:click="onRemoveEquipSave(index)" icon="el-icon-delete" type="danger"
+                                <el-button v-on:click="onRemoveEquipSave(item.uuid)" icon="el-icon-delete" type="danger"
                                     size="mini">
                                 </el-button>
                             </el-col>
                             <el-col :span="6">
-                                <el-button v-on:click="onLoadEquipSave(index)" icon="el-icon-check" type="success"
+                                <el-button v-on:click="onLoadEquipSave(item.uuid)" icon="el-icon-check" type="success"
                                     type="primary" size="small">
                                     載入
                                 </el-button>
@@ -440,6 +459,7 @@
                         </el-row>
                     </div>
                 </div>
+                </el-scrollbar>
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['StatusDBDialog']" v-on:close="ClosePanel('StatusDBDialog')"
@@ -707,7 +727,9 @@
                                 </el-row>
 
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                        <el-tooltip class="item" effect="dark" content="(魔物等級+VIT)/2" placement="bottom-start">
                                     <el-col class="textcenter">前 DEF</el-col>
+                                        </el-tooltip>
                                     <el-col>
                                         <el-input v-model="enemyattribute.StatusDEF" v-on:input="onChangeEnemyStatus"
                                             placeholder="前 DEF">
@@ -721,7 +743,9 @@
                                     </el-col>
                                 </el-row>
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                        <el-tooltip class="item" effect="dark" content="(魔物等級+INT)/4" placement="bottom-start">
                                     <el-col class="textcenter">前 MDEF</el-col>
+                                        </el-tooltip>
                                     <el-col>
                                         <el-input v-model="enemyattribute.StatusMDEF" v-on:input="onChangeEnemyStatus"
                                             placeholder="前 MDEF">
@@ -1421,8 +1445,6 @@
                                                 </el-row>
                                             </div>
                                         </el-collapse-transition>
-                                    </div>
-                                </el-collapse-transition>
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                     <el-col class="textcenter" :span="12">
                                         <span>無視物理防禦</span>
@@ -1453,6 +1475,8 @@
                                         </el-switch>
                                     </el-col>
                                 </el-row>
+                            </div>
+                        </el-collapse-transition>
                             </el-row>
                         </el-row>
                     </el-scrollbar>
@@ -2160,17 +2184,22 @@
                 StoreDB_Status: [],
                 StatusName: '',
                 StatusBulidString: '',
+
+                StoreDB_EquipFliterGroup: [],
                 StoreDB_Equip: [],
                 EquipSelectId: '',
                 EquipSelectLabel: '',
+
                 StoreDB_QuickCalc: [],
                 QuickCalc: { formula: '', solution: '', remark: '' },
+
                 SpecialthanksList: [],
+
                 equipspartlist: [
                     { id: 'helm', label: '頭飾', equipname: '', effectlist: [] },
                     { id: 'armor', label: '衣服', equipname: '', effectlist: [] },
                     { id: 'weaponr', label: '主手', equipname: '', effectlist: [] },
-                    { id: 'weaponl', label: '左手', equipname: '', effectlist: [] },
+                    { id: 'weaponl', label: '副手', equipname: '', effectlist: [] },
                     { id: 'robe', label: '披肩', equipname: '', effectlist: [] },
                     { id: 'shoes', label: '靴子', equipname: '', effectlist: [] },
                     { id: 'acc1', label: '飾品', equipname: '', effectlist: [] },
@@ -2981,7 +3010,7 @@
 
                     this.computeattribute.matk2_min = this.computeattribute.skillmatk_min;
                     this.computeattribute.matk2_max = this.computeattribute.skillmatk_max;
-                    if( this.option.IgnoreDEF == false)
+                    if( this.option.IgnoreMDEF == false)
                     {
                         var parabypassMDEF = Number(1) - Number(this.attritube['BYPASSMDEF']) / 100;
                         var paraMDEF = ((1000 + this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)) /
@@ -3069,8 +3098,6 @@
 
                     if (this.option.EquipSkillAddDamage == '') this.option.EquipSkillAddDamage = 0;
                     if (this.skilloption.WeaponMasteryATK == '') this.skilloption.WeaponMasteryATK = 0;
-                    this.option.IgnoreDEF = false;
-                    this.option.IgonreMDEF = false;
                     this.computeattribute['SpecialATK1'] = 0;
                     this.computeattribute['SpecialATK2'] = 0;
                     this.computeattribute['SpecialATK3'] = 0;
@@ -3204,8 +3231,7 @@
                         this.attritube['MDEF'] -= this.option.OdinsPowerLevel * 20;
                     }
                     // 魔劍士
-                    if( this.option.MemoryofThanatosCard )
-                    {
+                    if( this.option.MemoryofThanatosCard ){
                         this.attritube['ATK'] += this.enemyattribute.WeaponDEF/2;
                         this.option.IgnoreDEF = true;
                     }
@@ -3247,8 +3273,12 @@
                     this.onOption();
                 },
                 onSaveEquip(epidx) {
-                    if (this.equipspartlist[epidx].equipname == '') return;
-                    this.StoreDB_Equip.unshift({ uuid: this._uuid(), equip: JSON.parse(JSON.stringify(this.equipspartlist[epidx])) });
+                    if (this.equipspartlist[epidx].equipname.trim() == '') return;
+                    this.StoreDB_Equip.unshift({ 
+                        uuid: this._uuid(), 
+                        equip: JSON.parse(JSON.stringify(this.equipspartlist[epidx])),
+                        date:  Date.now() 
+                    });
                     this.SaveEquipDB();
                 },
                 onClearEquipPart(idx) {
@@ -3264,20 +3294,29 @@
                         })
                     this.CombineEquipsAttribute();
                 },
-                onLoadEquipSave(saveid) {
-                    var idx = this.equipspartlist.findIndex(x => x.id == this.StoreDB_Equip[saveid].equip.id);
+                onLoadEquipSave(uuid) {
+                    var _dbidx = this.StoreDB_Equip.findIndex( x=>x.uuid == uuid );
+                    var idx = this.equipspartlist.findIndex(x => x.id == this.StoreDB_Equip[_dbidx].equip.id);
                     if (idx > -1) {
                         if (idx == 6 && this.equipspartlist[idx].equipname != '') { idx = 7; }
                         if (idx == 7 && this.equipspartlist[idx].equipname != '') { idx = 6; }
-                        this.equipspartlist[idx] = JSON.parse(JSON.stringify(this.StoreDB_Equip[saveid].equip));
+                        this.equipspartlist[idx] = JSON.parse(JSON.stringify(this.StoreDB_Equip[_dbidx].equip));
                         this.CombineEquipsAttribute();
                     }
                 },
-                onRemoveEquipSave(saveid) {
-                    if (saveid > -1) {
-                        this.StoreDB_Equip.splice(saveid, 1)
+                onRemoveEquipSave(uuid) {
+                    var _dbidx = this.StoreDB_Equip.findIndex( x=>x.uuid == uuid );
+                    if (_dbidx > -1) {
+                        this.StoreDB_Equip.splice(_dbidx, 1)
                         this.SaveEquipDB();
                     }
+                },
+                onFliterEquipPart()
+                {
+                },
+                onFliterEquipClear()
+                {
+                    this.StoreDB_EquipFliterGroup = [];
                 },
                 SaveEquipDB() {
                     const parsed = JSON.stringify(this.StoreDB_Equip);
@@ -3412,8 +3451,9 @@
                         { id: 1, name: '蛋Lv10', level: 10, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 2, name: '龍蛋Lv100', level: 100, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3, name: '龍蛋Lv150', level: 150, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 4, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 180, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 5, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 160, WeaponDEF: 0, StatusMDEF: 100, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false }
+                        { id: 4, name: '闇●盧恩騎士', level: 179, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189.5, WeaponDEF: 400, StatusMDEF: 57.25, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 5, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119.5, WeaponDEF: 160, StatusMDEF: 62.25, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 6, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false }
                     );
 
                     this.KeywordReplaceList.push(
@@ -3432,6 +3472,7 @@
 
                     this.SpecialthanksList.push(
                         { id: 0, coop: '公式協力', name: '賴喵' },
+                        { id: 1, coop: '測試協力', name: '少爺 & 太太' },
                     );
                 },
                 // 產生唯一碼 給存檔使用
@@ -3447,6 +3488,25 @@
                         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
                     });
                 }
+            },
+            computed: {
+                
+                StoreDB_EquipFiltered()
+                {
+                    var _tempgroup = this.StoreDB_EquipFliterGroup;
+                    return _tempgroup.length > 0 ?
+                        this.StoreDB_Equip.filter(
+                        function (saverow) { 
+                            return _tempgroup.indexOf( saverow.equip.label ) > -1;
+                        }
+                    ).sort( (a, b) => a.equip.label>b.equip.label? 1:
+                        a.equip.label===b.equip.label?
+                            ((a.date>b.date)?-1:1):-1
+                    )
+                    :
+                    this.StoreDB_Equip
+                    ;
+                },
             },
             mounted() {
                 console.log("mounted");
