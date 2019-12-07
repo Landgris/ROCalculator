@@ -72,6 +72,10 @@
             height: calc(100vh - (50px + 35px + 16px + 50px + 190px + 40px));
         }
 
+        .EffectList-container {
+            height: calc(100vh - (50px + 35px + 8px + 300px));
+        }
+
         .DBlist-container {
             height: calc(40vh - (50px));
         }
@@ -161,7 +165,7 @@
                 </el-scrollbar>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="UIPanel['SkillDBDialog']" custom-class="Dialogue-container" width="99%" top="58px"
+        <el-dialog :visible.sync="UIPanel['SkillDBDialog']" custom-class="Dialogue-container" width="70%" top="58px"
             v-on:close="ClosePanel('SkillDBDialog')" center>
             <span slot="title">技能清單</span>
             <el-row class="statusbox titlebox" :gutter="6" type="flex" align="middle">
@@ -364,36 +368,42 @@
                 </el-scrollbar>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="UIPanel['EquipEffectDialog']" @close="ClosePanel('EquipEffectDialog')" width="33%">
+        <el-dialog :visible.sync="UIPanel['EquipEffectDialog']" custom-class="EffectList-container" width="50%" top="58px"
+            v-on:close="ClosePanel('EquipEffectDialog')" center>
             <span slot="title">增加 <b>{{EquipSelectLabel}}</b> 裝備效果</span>
-            <el-row class="titlebox" :gutter="6">
-                <el-col :span="11">
-                    <div>
-                        <el-select value-key="id" v-model="effectdialogue.EffectType" v-on:change="onSelectedDrug"
-                            placeholder="選擇效果">
-                            <el-option v-for="item in effecttypelist" :key="item.id" :label="item.label" :value="item">
-                            </el-option>
-                        </el-select>
-                    </div>
-                </el-col>
-                <el-col :span="8">
-                    <div>
-                        <el-input v-model.number="effectdialogue.EffectNumber" v-on:keyup.enter.native="AddEffect"
-                            placeholder="效果參數">
-                        </el-input>
-                    </div>
-                </el-col>
-                <el-col :span="5">
-                    <div>
-                        <el-button v-on:click="AddEffect" type="success" plain>
-                            確定
-                        </el-button>
-                    </div>
-                </el-col>
-            </el-row>
+            <div class="statusbox titlebox" style="padding: 5px 5px; height: 40px;">
+                <el-row :gutter="6" type="flex" align="middle">
+                    <el-col class="textcenter" :span="11">
+                            <el-select value-key="id" v-model="effectdialogue.EffectType" v-on:change="onSelectedDrug"
+                                placeholder="選擇效果">
+                                <el-option v-for="item in effecttypelist" :key="item.id" :label="item.label" :value="item">
+                                </el-option>
+                            </el-select>
+                    </el-col>
+                    <el-col class="textcenter" :span="8">
+                            <el-input v-model.number="effectdialogue.EffectNumber" v-on:keyup.enter.native="AddEffect"
+                                placeholder="效果參數">
+                            </el-input>
+                    </el-col>
+                    <el-col class="textcenter" :span="5">
+                            <el-button v-on:click="AddEffect" type="success" plain>
+                                確定增加
+                            </el-button>
+                    </el-col>
+                </el-row>
+            </div>
+            <div class="statusbox titlebox" style="padding: 2px 5px; height: 250px;">
+                <div v-for="(item, index) in effecttypelist" v-bind:key="item.id">
+                        <el-col :span="4" style="padding: 5px 0px;">
+                            <el-button v-on:click="onSelectEffect(item)" size="small">
+                                {{item.label}}
+                            </el-button>
+                        </el-col>
+                </div>
+            </div>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['EquipDBDialog']" v-on:close="ClosePanel('EquipDBDialog')"
-            custom-class="Dialogue-container" width="99%" top="58px" center>
+            custom-class="Dialogue-container" width="70%" top="58px" center>
             <span slot="title">裝備清單</span>
             <el-row :gutter="6">
                     <div class="statusbox titlebox" style="padding: 5px 5px;">
@@ -463,7 +473,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['StatusDBDialog']" v-on:close="ClosePanel('StatusDBDialog')"
-            custom-class="Dialogue-container" width="99%" top="58px" center>
+            custom-class="Dialogue-container" width="70%" top="58px" center>
             <span slot="title">角色清單</span>
             <el-row class="statusbox titlebox" :gutter="6">
                 <div style="padding: 5px 5px;">
@@ -2671,6 +2681,10 @@
                 },
                 onSelectedDrug(item) {
                     console.log("onSelectedDrug " + item.label);
+                },
+                onSelectEffect(item)
+                {
+                    this.effectdialogue.EffectType = item;
                 },
                 OpenEffectDialogue(eqindex) {
                     this.UIPanel['EquipEffectDialog'] = true;
