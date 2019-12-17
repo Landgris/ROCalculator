@@ -1816,7 +1816,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>總爆擊率:</span>
+                                                <span>爆擊率:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['CRI']}} %</span>
@@ -1825,7 +1825,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>總爆擊增傷:</span>
+                                                <span>爆擊增傷:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['CRIDP']}} %</span>
@@ -1834,7 +1834,25 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>總無視物理防禦:</span>
+                                                <span>攻擊後延遲:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ASPDP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>變動詠唱:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['VCT']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>無視物理防禦:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['BYPASSDEF']}} %</span>
@@ -1843,7 +1861,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>總無視魔法防禦:</span>
+                                                <span>無視魔法防禦:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['BYPASSMDEF']}} %</span>
@@ -2525,8 +2543,6 @@
                     atkc9_min: 0,// x ( 1 + 技能增傷的卡裝%) x ( 1 + 技能增傷的技能% )
                     atkc9_max: 0,
                     /*
-                    + 靈氣劍 (技能等級 x 20)
-                    x ( 1 + 暴擊傷害40% )
                     x ( 致命爪痕 1 + 250% (限定近距離物理攻擊))
                     x ( 天使之怒或天罰(效果不累加) 1 + 100% )
                     x ( 二刀連擊 1 + 100% )
@@ -3140,9 +3156,6 @@
                     if (this.option.MagnumBreak) {
                         this.option.MagnumPoison2Value = this.option.MagnumBreakValue;
                         this.skilloption.AttackElementalIdx = 1;    //改變攻擊屬性 火
-                    } else {
-                        if (this.skilloption.AttackElementalIdx === 1)
-                            this.skilloption.AttackElementalIdx = 0;    //改變攻擊屬性 無
                     }
                     // 致毒
                     if (this.option.EnchantDeadlyPoison) {
@@ -3261,7 +3274,11 @@
                     this.attritube['RNGDP'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamagePercent').totalvalue);
                     this.attritube['BYPASSDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassDEFPercent').totalvalue);
                     this.attritube['BYPASSMDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue);
-
+                    this.attritube['ASPDP'] += Number(this.effecttypelist.find(x => x.id == 'AspdPercent').totalvalue);
+                    this.attritube['ASPDP'] = -Math.abs(this.attritube['ASPDP']);
+                    this.attritube['VCT'] += Number(this.effecttypelist.find(x => x.id == 'VariableCastPercent').totalvalue);
+                    this.attritube['VCT'] = -Math.abs(this.attritube['VCT']);
+                    
                     this.ComputStatus();
                     //this.ComputeATKAtttibute();
                     //this.ComputeMATKAtttibute();
@@ -3269,6 +3286,10 @@
                 onOptionMagnumBreak() {
                     if (this.option.MagnumBreak) {
                         this.option.EnchantDeadlyPoison = false;
+                    }
+                    else{
+                        if (this.skilloption.AttackElementalIdx == 1)
+                            this.skilloption.AttackElementalIdx = 0;    //改變攻擊屬性 無
                     }
                     this.onOption();
                 },
@@ -3470,7 +3491,10 @@
                         { id: 3, name: '龍蛋Lv150', level: 150, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 4, name: '闇●盧恩騎士', level: 179, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189.5, WeaponDEF: 400, StatusMDEF: 57.25, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 5, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119.5, WeaponDEF: 160, StatusMDEF: 62.25, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 6, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false }
+                        { id: 6, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 7, name: '席琳基米', level: 150, elemental: 8, elementallevel: 1, size: 2, StatusDEF: 102, WeaponDEF: 479, StatusMDEF: 151, WeaponMDEF: 444, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 8, name: '闇答萊屍', level: 150, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 120, WeaponDEF: 30, StatusMDEF: 159.5, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 9, name: '覺醒闇答萊屍', level: 180, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 135, WeaponDEF: 30, StatusMDEF: 174.5, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false }
                     );
 
                     this.KeywordReplaceList.push(
