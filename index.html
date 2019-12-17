@@ -3005,12 +3005,12 @@
                         this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk) + Number(this.weapon.refineatk2)), (1 + para1));
 
                     var para2 = Number(1) + (this.option.MagicPower ? Number(this.option.MagicPowerValue / 100) : 0);
-                    var para3 = Number(this.effecttypelist.find(x => x.id == 'Matk').totalvalue);
+                    var para3 = this.attritube['MATK'];
                     this.computeattribute.equipmatk_min = this.MulOper(this.computeattribute.weaponmatk_min, para2) + para3;
                     this.computeattribute.equipmatk_max = this.MulOper(this.computeattribute.weaponmatk_max, para2) + para3;
 
                     var para4 = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MatkPercent').totalvalue / 100) +
-                        Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue / 100);
+                        Number(this.effecttypelist.find(x => x.id == 'LevelMatkPercent').totalvalue / 100);
                     this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.equipmatk_min, para4);
                     this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.equipmatk_max, para4);
 
