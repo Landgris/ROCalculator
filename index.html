@@ -18,6 +18,9 @@
     </script>
 
     <style>
+        [v-cloak] {
+            display: none;
+        }
         .el-row {
             margin-bottom: 2px;
         }
@@ -145,7 +148,7 @@
 </head>
 
 <body>
-    <div id="App">
+    <div id="App" v-cloak>
 
         <el-dialog :visible.sync="UIPanel['SpecialthanksPanel']" v-on:close="ClosePanel('SpecialthanksPanel')"
             custom-class="Dialogue-container" width="30%" top="58px" center>
@@ -598,7 +601,12 @@
                                     style="height:40px;">
                                     <el-col class="textcenter">Level</el-col>
                                     <el-col>
-                                        <el-input v-model="status.Level" v-on:input="onOption" placeholder="Level">
+                                        <el-input v-model.number="status.Level" v-on:input="onOption" placeholder="Level">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter">JobLevel</el-col>
+                                    <el-col>
+                                        <el-input v-model.number="status.JOBLevel" v-on:input="onOption" placeholder="Level">
                                         </el-input>
                                     </el-col>
                                 </el-row>
@@ -984,6 +992,29 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>盾咒(ATK)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.ShieldSpell" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.ShieldSpell">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">盾牌防禦力</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.ShieldDEF"
+                                                            v-on:change="onOption" placeholder="ShieldDEF">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
                                     </div>
                                 </el-collapse-transition>
 
@@ -1069,6 +1100,16 @@
                                     <div v-show="UIPanel['MerchantSkillPage']">
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
+                                                <span>大聲吶喊</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.Loud" v-on:change="onOption" 
+                                                 active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
                                                 <span>武器值最大化</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -1131,6 +1172,29 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>火山塵暴</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.Pyroclastic" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.Pyroclastic">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">生命體等級</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.HomunculusLevel"
+                                                            v-on:change="onOption" placeholder="生命體等級">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
                                         <!-- <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
                                                 <span>戰斧颶風</span>
@@ -1608,7 +1672,7 @@
                                     <el-col :span="5">
                                         <div class="grid-content bg-purple-light">
                                             <el-input v-model.number="weapon.refinelevel"
-                                                v-on:change="onChangeRefineLevel" placeholder="精鍊等級">
+                                                v-on:input="onChangeRefineLevel" placeholder="精鍊等級">
                                             </el-input>
                                         </div>
                                     </el-col>
@@ -1667,6 +1731,26 @@
                                     <el-col :span="6">
                                         <div class="grid-content bg-purple-light">
                                             <el-input v-model.number="weapon.BulletATK" placeholder="砲彈ATK">
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                    <el-col :span="6">
+                                        <span>武器重量: </span>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <div class="grid-content bg-purple-light">
+                                            <el-input v-model.number="weapon.Weight" placeholder="WGT">
+                                            </el-input>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <span>盾牌重量: </span>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <div class="grid-content bg-purple-light">
+                                            <el-input v-model.number="weapon.ShieldWeight" placeholder="SHWGT">
                                             </el-input>
                                         </div>
                                     </el-col>
@@ -2228,6 +2312,8 @@
 
                 equipspartlist: [
                     { id: 'helm', label: '頭飾', equipname: '', effectlist: [] },
+                    { id: 'helm1', label: '頭中', equipname: '', effectlist: [] },
+                    { id: 'helm2', label: '頭下', equipname: '', effectlist: [] },
                     { id: 'armor', label: '衣服', equipname: '', effectlist: [] },
                     { id: 'weaponr', label: '主手', equipname: '', effectlist: [] },
                     { id: 'weaponl', label: '副手', equipname: '', effectlist: [] },
@@ -2237,6 +2323,7 @@
                     { id: 'acc2', label: '飾品', equipname: '', effectlist: [] },
                     { id: 'shadow', label: '影子', equipname: '', effectlist: [] },
                     { id: 'costume', label: '服飾', equipname: '', effectlist: [] },
+                    { id: 'cardset', label: '套卡', equipname: '', effectlist: [] },
                     { id: 'other', label: '自訂', equipname: '', effectlist: [] },
                 ],
                 effecttypelist: [
@@ -2298,10 +2385,11 @@
                 weapon: {
                     type: '', sizefix: '', level: '',
                     ATK: 0, MATK: 0, ArrowATK: 0, BulletATK: 0,
-                    refinelevel: 0, refineatk: 0, refineatk2: 0
+                    refinelevel: 0, refineatk: 0, refineatk2: 0,
+                    Weight: 0, ShieldWeight: 0,
                 },
                 status: {
-                    Level: 1,
+                    Level: 1, JOBLevel: 1,
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0
                 },
                 status_add: {
@@ -2409,6 +2497,7 @@
                 option:
                 {
 
+                    Loud: false,                //大聲吶喊
                     MaximizePower: false,       //武器值最大化
                     WeaponPerfection: false,    //無視體型攻擊
                     Overthrust: false,          //兇砍
@@ -2416,6 +2505,8 @@
                     OverthrustMax: false,       //兇砍最大值
                     AdrenalineRush: false,      //速度激發
                     AxeTornado: false,          //戰斧颶風
+                    Pyroclastic: false,         //火山塵暴
+                    HomunculusLevel: 1,         //生命體等級
 
                     Riding: false,              //騎乘
                     TwoHandQuicken: false,      //雙劍加速
@@ -2423,6 +2514,8 @@
                     AuraBlade: false,           //靈氣劍 等級*10
                     AuraBladeValue: 8,
                     Berserk: false,             //狂怒之槍
+                    ShieldSpell: false,         //盾咒
+                    ShieldDEF: 0,
 
                     MagnumBreak: false,             //怒爆
                     MagnumBreakValue: 20,
@@ -2816,9 +2909,10 @@
                     this.computeattribute.atkc0_min = this.MulOper(Number(this.weapon.ATK), (1 + para1 - para2));
                     this.computeattribute.atkc0_max = this.MulOper(Number(this.weapon.ATK), (1 + para1 + para2));
 
-                    var para3 = Number(this.weapon.refineatk) + Number(this.weapon.refineatk2) + this.computeattribute['SpecialATK1'];
-                    this.computeattribute.atkc1_min = Number(this.computeattribute.atkc0_min) + para3;
-                    this.computeattribute.atkc1_max = Number(this.computeattribute.atkc0_max) + para3;
+                    var para3 = Number(this.weapon.refineatk) + this.computeattribute['SpecialATK1'];
+                    var paraminirefineatk2 = this.weapon.refineatk2 > 0? 1:0;
+                    this.computeattribute.atkc1_min = Number(this.computeattribute.atkc0_min) + para3 + Number(paraminirefineatk2);
+                    this.computeattribute.atkc1_max = Number(this.computeattribute.atkc0_max) + para3 + Number(this.weapon.refineatk2);
 
                     if (this.computeattribute.sizefix < 100) {
                         this.computeattribute.atkc2_min = this.MulOper(Number(this.computeattribute.atkc1_min), (this.computeattribute.sizefix / 100));
@@ -2828,8 +2922,8 @@
                         this.computeattribute.atkc2_min = Number(this.computeattribute.atkc1_min);
                         this.computeattribute.atkc2_max = Number(this.computeattribute.atkc1_max);
                     }
-                    this.computeattribute.atkc2_min + Number(this.weapon.ArrowATK);
-                    this.computeattribute.atkc2_max + Number(this.weapon.ArrowATK);
+                    this.computeattribute.atkc2_min += Number(this.weapon.ArrowATK);
+                    this.computeattribute.atkc2_max += Number(this.weapon.ArrowATK);
 
                     var para5 = 0; //屬性
                     if (this.option.MagnumBreak) { para5 = 1; }
@@ -2999,8 +3093,9 @@
                     );
 
                     var para1 = this.weapon.level.id * 0.1;
+                    var paraminirefineatk2 = this.weapon.refineatk2 > 0? 1:0;
                     this.computeattribute.weaponmatk_min = Number(this.attritube.StatusMATK) +
-                        this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk) + Number(this.weapon.refineatk2)), (1 - para1));
+                        this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk) + Number(paraminirefineatk2)), (1 - para1));
                     this.computeattribute.weaponmatk_max = Number(this.attritube.StatusMATK) +
                         this.MulOper((Number(this.weapon.MATK) + Number(this.weapon.refineatk) + Number(this.weapon.refineatk2)), (1 + para1));
 
@@ -3009,10 +3104,17 @@
                     this.computeattribute.equipmatk_min = this.MulOper(this.computeattribute.weaponmatk_min, para2) + para3;
                     this.computeattribute.equipmatk_max = this.MulOper(this.computeattribute.weaponmatk_max, para2) + para3;
 
-                    var para4 = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MatkPercent').totalvalue / 100) +
-                        Number(this.effecttypelist.find(x => x.id == 'LevelMatkPercent').totalvalue / 100);
-                    this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.equipmatk_min, para4);
-                    this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.equipmatk_max, para4);
+                    //var para4 = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MatkPercent').totalvalue / 100) +
+                     //   Number(this.effecttypelist.find(x => x.id == 'LevelMatkPercent').totalvalue / 100);
+                    var para41 = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MatkPercent').totalvalue / 100);
+                    var para42= Number(1) + Number(this.effecttypelist.find(x => x.id == 'LevelMatkPercent').totalvalue / 100);
+                    //this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.equipmatk_min, para4);
+                    //this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.equipmatk_max, para4);
+
+                    this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.equipmatk_min, para41);
+                    this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.equipmatk_max, para41);
+                    this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.matkpercent_min, para42);
+                    this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.matkpercent_max, para42);
 
                     var para_magicelemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue) / 100;
                     var para_elemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalMatkPercent').totalvalue) / 100;
@@ -3152,6 +3254,10 @@
                     if (this.option.Berserk) {
                         this.computeattribute['SpecialATK3'] += 200;
                     }
+                    // 盾咒
+                    if( this.option.ShieldSpell ){
+                        this.attritube['ATK'] += this.option.ShieldDEF;
+                    }
                     // 怒爆
                     if (this.option.MagnumBreak) {
                         this.option.MagnumPoison2Value = this.option.MagnumBreakValue;
@@ -3174,6 +3280,11 @@
                             this.computeattribute['SpecialATK2'] += this.option.VENOMIMPRESSLevel * 10;
                         }
                     }
+                    // 大聲吶喊
+                    if (this.option.Loud){
+                        this.status_add.STR += 4;
+                        this.attritube['ATK'] += 30;
+                    }
                     // 兇砍
                     if (this.option.Overthrust) {
                         this.computeattribute['SpecialATK3'] += 5 * 5;
@@ -3183,6 +3294,10 @@
                     }
                     if (this.option.OverthrustMax) {
                         this.computeattribute['SpecialATK3'] += 5 * 20;
+                    }
+                    // 火山塵暴
+                    if (this.option.Pyroclastic){
+                        this.attritube['ATK'] += Number(this.option.HomunculusLevel) + 10*10;
                     }
                     // 戰斧颶風
                     if (this.option.AxeTornado) {
@@ -3505,7 +3620,10 @@
                         { str1: 'DEX', str2: 'this.status_total.DEX', description: '代入總DEX' },
                         { str1: 'LUK', str2: 'this.status_total.LUK', description: '代入總LUK' },
                         { str1: 'BLV', str2: 'this.status.Level', description: '代入角色基本等級' },
+                        { str1: 'JLV', str2: 'this.status.JOBLevel', description: '代入角色職業等級' },
                         { str1: 'SLV', str2: 'this.skill.level', description: '代入技能等級' },
+                        { str1: 'WGT', str2: 'this.weapon.Weight', description: '代入武器重量' },
+                        { str1: 'SHW', str2: 'this.weapon.ShieldWeight', description: '代入盾牌重量' },
                         { str1: 'MUL', str2: 'this.MulOper', description: 'MUL(A,B)為A*B, B若>1則無條件捨去, B若<1則無條件進位' },
                         { str1: 'DOWN', str2: 'Math.floor', description: 'DOWN(A) 小數點無條件捨去' },
                         { str1: 'UP', str2: 'Math.ceil', description: 'UP(A) 小數點無條件進位' },
@@ -3563,7 +3681,8 @@
                 this.weapon = {
                     type: this.weapontypelist[0], level: this.weaponlevellist[0],
                     ATK: 0, MATK: 0, ArrowATK: 0, BulletATK: 0,
-                    refinelevel: 0
+                    refinelevel: 0,
+                    Weight: 0, ShieldWeight: 0,
                 };
                 this.ChangeWeapon();
                 this.skilloption.AttackElementalIdx = 0;
