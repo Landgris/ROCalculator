@@ -3451,8 +3451,8 @@
                     var _dbidx = this.StoreDB_Equip.findIndex( x=>x.uuid == uuid );
                     var idx = this.equipspartlist.findIndex(x => x.id == this.StoreDB_Equip[_dbidx].equip.id);
                     if (idx > -1) {
-                        if (idx == 6 && this.equipspartlist[idx].equipname != '') { idx = 7; }
-                        if (idx == 7 && this.equipspartlist[idx].equipname != '') { idx = 6; }
+                        if (idx == 8 && this.equipspartlist[idx].equipname != '') { idx = 9; }
+                        if (idx == 9 && this.equipspartlist[idx].equipname != '') { idx = 8; }
                         this.equipspartlist[idx] = JSON.parse(JSON.stringify(this.StoreDB_Equip[_dbidx].equip));
                         this.CombineEquipsAttribute();
                     }
