@@ -227,7 +227,7 @@
                             </el-switch>
                         </el-col>
                         <el-col class="textcenter" :span="2">
-                            爆擊
+                            暴擊
                         </el-col>
                         <el-col class="textcenter" :span="2">
                             <el-switch v-model="skill.critical" active-color="#13ce66" inactive-color="#8a9799">
@@ -301,7 +301,7 @@
                                             遠傷
                                         </el-col>
                                         <el-col v-if="item.skill.critical" class="skilltag" :span="2">
-                                            爆擊
+                                            暴擊
                                         </el-col>
                                         <el-col v-if="item.skill.cannon" class="skilltag" :span="2">
                                             砲彈
@@ -877,7 +877,7 @@
                                 </el-row>
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                     <el-col class="textcenter" :span="12">
-                                        <span>技能爆擊</span>
+                                        <span>技能暴擊</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="12">
                                         <el-switch v-model="skill.critical" active-color="#13ce66"
@@ -986,7 +986,7 @@
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
-                                                <span>怒爆</span>
+                                                <span>怒暴</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-switch v-model="option.MagnumBreak"
@@ -2022,7 +2022,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>爆擊率:</span>
+                                                <span>暴擊率:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['CRI']}} %</span>
@@ -2031,7 +2031,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>爆擊增傷:</span>
+                                                <span>暴擊增傷:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['CRIDP']}} %</span>
@@ -2191,7 +2191,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>卡裝遠傷爆傷%</span>
+                                                <span>卡裝遠傷暴傷%</span>
                                             </el-col>
                                             <el-col v-if="option.MaximizePower==false" class="textcenter" :span="10">
                                                 <span>{{computeattribute.atkc6_min}}~{{computeattribute.atkc6_max}}</span>
@@ -2229,7 +2229,7 @@
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
                                     <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                        <span>技能傷害(爆擊)</span>
+                                        <span>技能傷害(暴擊)</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
                                         <span>{{computeattribute.atkc8_critical}}</span>
@@ -2250,7 +2250,7 @@
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
                                     <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                        <span>普攻傷害(爆擊)</span>
+                                        <span>普攻傷害(暴擊)</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
                                         <span>{{computeattribute.normalcritical}}</span>
@@ -2463,7 +2463,7 @@
                     { label: '物理體型 %', id: 'SizeAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '對屬性魔物Atk %', id: 'ElementalAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '爆傷 %', id: 'CriDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視物理防禦 %', id: 'BypassDEFPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
 
@@ -2478,7 +2478,7 @@
 
                     { label: 'ASPD', id: 'ASPD', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
                     { label: '攻擊後延%', id: 'AspdPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
-                    { label: '爆擊率 %', id: 'Cri', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '暴擊率 %', id: 'Cri', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '技能後延%', id: 'GCDPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '變詠 %', id: 'VariableCastPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '固詠', id: 'FixedCast', totalvalue: '', opersymbol: '\-', suffixsymbol: 's' },
@@ -2649,12 +2649,12 @@
                     ShieldSpell: false,         //盾咒
                     ShieldDEF: 0,
 
-                    MagnumBreak: false,             //怒爆
+                    MagnumBreak: false,             //怒暴
                     MagnumBreakValue: 20,
                     EnchantDeadlyPoison: false,     //致命塗毒
                     EnchantDeadlyPoisonValue: 25,
                     EnchantDeadlyPoisonPercent: 300,
-                    MagnumPoison2Value: 0,          //怒爆致毒
+                    MagnumPoison2Value: 0,          //怒暴致毒
 
                     VENOMIMPRESS: false,            //毒耐性弱化
                     VENOMIMPRESSLevel: 0,
@@ -2696,7 +2696,7 @@
                     SkillFormulaError: '',
 
                     EquipSkillAddDamage: 0,         //裝備技能增傷
-                    BaseCriticalValue: 40,          //基礎爆擊增傷
+                    BaseCriticalValue: 40,          //基礎暴擊增傷
 
                     OdinsPower: false,           //奧汀之神力
                     OdinsPowerLevel: 0,
@@ -2731,7 +2731,7 @@
 
                     weaponatk_min: 0,
                     weaponatk_max: 0,
-                    //(atkc2 x ( 1 + 怒爆20％ 或  致命塗毒25%(二選一)  x  屬性表 ) + 卡裝ATK))
+                    //(atkc2 x ( 1 + 怒暴20％ 或  致命塗毒25%(二選一)  x  屬性表 ) + 卡裝ATK))
 
                     atkequip_min: 0,
                     atkequip_max: 0,
@@ -2769,7 +2769,7 @@
 
                     atkc8_min: 0,// x ( 1 + 技能增傷的卡裝%) x ( 1 + 技能增傷的技能% )
                     atkc8_max: 0,
-                    atkc8_critical: 0,  //技能爆擊 基礎40%
+                    atkc8_critical: 0,  //技能暴擊 基礎40%
 
                     atkc9_min: 0,// x ( 1 + 技能增傷的卡裝%) x ( 1 + 技能增傷的技能% )
                     atkc9_max: 0,
@@ -3141,7 +3141,7 @@
                         this.computeattribute.normalattack_max = this.computeattribute.atkc5_max;
                     }
 
-                    //爆擊增傷
+                    //暴擊增傷
                     var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
                     if (this.skill.critical) {
                         this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
@@ -3201,14 +3201,14 @@
 
                     this.computeattribute.atkc9_min = this.computeattribute.atkc8_min;
                     this.computeattribute.atkc9_max = this.computeattribute.atkc8_max;
-                    // 技能爆擊 *1.4
+                    // 技能暴擊 *1.4
                     this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.option.BaseCriticalValue / 100));
                     this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
                     this.computeattribute.atkc8_critical = 0;
                     if (this.skill.critical) {
                         this.computeattribute.atkc8_critical = this.computeattribute.atkc9_max;
                     }
-                    // 普攻爆擊 *1.4
+                    // 普攻暴擊 *1.4
                     this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(this.option.BaseCriticalValue / 100));
 
 
@@ -3410,7 +3410,7 @@
                     if( this.option.ShieldSpell ){
                         this.attritube['ATK'] += this.option.ShieldDEF;
                     }
-                    // 怒爆
+                    // 怒暴
                     if (this.option.MagnumBreak) {
                         this.option.MagnumPoison2Value = this.option.MagnumBreakValue;
                         this.skilloption.AttackElementalIdx = 1;    //改變攻擊屬性 火
@@ -3771,13 +3771,13 @@
                         { id: 0, name: '自訂', level: 1, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 1, name: '蛋Lv10', level: 10, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 2, name: '龍蛋Lv100', level: 100, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3, name: '龍蛋Lv150', level: 150, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37.5, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 4, name: '闇●盧恩騎士', level: 179, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189.5, WeaponDEF: 400, StatusMDEF: 57.25, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 5, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119.5, WeaponDEF: 160, StatusMDEF: 62.25, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3, name: '龍蛋Lv150', level: 150, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 4, name: '闇●盧恩騎士', level: 179, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189, WeaponDEF: 400, StatusMDEF: 57, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 5, name: '闇●十字斬首者', level: 179, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 62, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 6, name: '闇●魅影追蹤者', level: 178, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 7, name: '席琳基米', level: 150, elemental: 8, elementallevel: 1, size: 2, StatusDEF: 102, WeaponDEF: 479, StatusMDEF: 151, WeaponMDEF: 444, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 8, name: '闇答萊屍', level: 150, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 120, WeaponDEF: 30, StatusMDEF: 159.5, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 9, name: '覺醒闇答萊屍', level: 180, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 135, WeaponDEF: 30, StatusMDEF: 174.5, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false }
+                        { id: 8, name: '闇答萊屍', level: 150, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 120, WeaponDEF: 30, StatusMDEF: 159, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 9, name: '覺醒闇答萊屍', level: 180, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 135, WeaponDEF: 30, StatusMDEF: 174, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false }
                     );
 
                     this.KeywordReplaceList.push(
