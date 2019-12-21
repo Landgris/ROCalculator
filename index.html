@@ -1287,6 +1287,16 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>操控樂器/練習舞蹈</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.MusicalDancingLesson" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('MageSkillPage')">
@@ -2678,6 +2688,8 @@
                     TrueSightValue: 20,
                     UNLIMIT: false,                 //精英狙擊
                     UNLIMITLevel: 5,
+                    MusicalDancingLesson: false,    // 操控樂器練習舞蹈
+
 
                     //TODO[戰斧颶風]的風屬性武器增傷125%
                     SkillPercent: 0,
@@ -3194,7 +3206,7 @@
                     this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
                     this.computeattribute.atkc8_critical = 0;
                     if (this.skill.critical) {
-                        this.computeattribute.atkc8_critical = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                        this.computeattribute.atkc8_critical = this.computeattribute.atkc9_max;
                     }
                     // 普攻爆擊 *1.4
                     this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(this.option.BaseCriticalValue / 100));
@@ -3343,6 +3355,7 @@
                     if (this.skill.hitnumber == '') this.skill.hitnumber = 1;
                     if (this.skill.level == '') this.skill.level = 1;
                     var _formula = this.skill.formula;
+                    if (this.status.level < 100) _formula = _formula.replace(new RegExp("BLV", "g"), "100");
                     this.option.SkillPercent = eval(this.SkillFormulaReplace(_formula));
                     this.ComputeATKAtttibute();
                     this.ComputeMATKAtttibute();
@@ -3467,6 +3480,9 @@
                     }
                     if (this.option.UNLIMIT) {
                         this.attritube['RNGDP'] += this.option.UNLIMITLevel * 50 + 100;
+                    }
+                    if (this.option.MusicalDancingLesson) {
+                        this.attritube['ATK'] += 3*10;
                     }
                     // 打強
                     if (this.option.Striking) {
