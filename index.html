@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.0/index.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.0/theme-chalk/index.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63581889-2"></script>
@@ -2808,13 +2808,13 @@
                 CombineEquipsAttribute() {
                     this.effecttypelist.forEach(element => {
                         var result = 0;
-                        result = Enumerable.from(this.equipspartlist)
-                            .where("($.effectlist).some(function (x) { return x.EffectType.id == '" + element.id + "'; })")
-                            .select(function (x) {
+                        result = Enumerable.From(this.equipspartlist)
+                            .Where("($.effectlist).some(function (x) { return x.EffectType.id == '" + element.id + "'; })")
+                            .Select(function (x) {
                                 var xx = x.effectlist.filter(x => x.EffectType.id == (element.id.toString()))
                                 return Number(xx[0].EffectNumber);
                             })
-                            .sum();
+                            .Sum();
                         element.totalvalue = result;
                     });
                     this.onOption();
@@ -3718,7 +3718,7 @@
                     if (localStorage.getItem('StoreDB_Equip')) {
                         try {
                             this.StoreDB_Equip = JSON.parse(localStorage.getItem('StoreDB_Equip'));
-                            Enumerable.from(this.StoreDB_Equip).orderBy(x => x.equip.id);
+                            Enumerable.From(this.StoreDB_Equip).OrderBy(x => x.equip.id);
                         } catch (e) {
                             console.log("catch e:" + e);
                         }
@@ -3726,7 +3726,7 @@
                     if (localStorage.getItem('StoreDB_QuickCalc')) {
                         try {
                             this.StoreDB_QuickCalc = JSON.parse(localStorage.getItem('StoreDB_QuickCalc'));
-                            Enumerable.from(this.StoreDB_QuickCalc).orderBy(x => x.id);
+                            Enumerable.From(this.StoreDB_QuickCalc).OrderBy(x => x.id);
                         } catch (e) {
                             console.log("catch e:" + e);
                         }
