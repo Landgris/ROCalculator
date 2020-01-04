@@ -954,7 +954,7 @@
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter">武器修練ATK增加</el-col>
                                     <el-col>
-                                        <el-input v-model.number="skilloption.WeaponMasteryATK" v-on:change="onOption"
+                                        <el-input v-model.number="skilloption.WeaponMasteryATKInput" v-on:change="onOption"
                                             placeholder="ATK">
                                         </el-input>
                                     </el-col>
@@ -1434,7 +1434,7 @@
                                                 <span>加速術</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.IncreaseAgility" v-on:change="onOption"
+                                                <el-switch v-model="option.IncreaseAgility" v-on:change="onOptionIncreaseAgility('1st')"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -1444,11 +1444,57 @@
                                                 <span>天使的賜福</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Blessing" v-on:change="onOption"
+                                                <el-switch v-model="option.Blessing" v-on:change="onOptionBlessing('1st')"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>純白百合花</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.CANTOCANDIDUS" v-on:change="onOptionIncreaseAgility('3rd')"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.CANTOCANDIDUS">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">施展者JOB等級</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.ABJobLevel"
+                                                            v-on:change="onOption" placeholder="JOB等級">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>慈悲術</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.CREMENTIA" v-on:change="onOptionBlessing('3rd')"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.CREMENTIA">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">施展者JOB等級</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.ABJobLevel"
+                                                            v-on:change="onOption" placeholder="JOB等級">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
                                                 <span>神威祈福</span>
@@ -1543,6 +1589,29 @@
                                         </el-collapse-transition>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
+                                                <span>蓄氣</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SpiritSpheres" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.SpiritSpheres">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">氣球數量</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.SpiritSpheresCount"
+                                                            v-on:change="onOption" placeholder="數量">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
                                                 <span>點穴-反</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -1613,6 +1682,25 @@
                                                 </el-row>
                                             </div>
                                         </el-collapse-transition>
+                                    </div>
+                                </el-collapse-transition>
+                                <div v-on:click="TogglePanel('StarEmperorSkillPage')">
+                                    <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
+                                        <el-col class="textcenter" :span="2">
+                                        </el-col>
+                                        <el-col class="textcenter" :span="20">
+                                            <span class="textcenter">拳聖 & 拳皇</span>
+                                        </el-col>
+                                        <el-col v-if="UIPanel['StarEmperorSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-down"></i>
+                                        </el-col>
+                                        <el-col v-else="UIPanel['StarEmperorSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-up"></i>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['StarEmperorSkillPage']">
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
                                                 <span>日月星的憎惡(怪物)</span>
@@ -1644,7 +1732,88 @@
                                             </el-col>
                                         </el-row>
                                     </div>
-                                    </el-collapse-transition>
+                                </el-collapse-transition>
+                                <div v-on:click="TogglePanel('SoulReaperSkillPage')">
+                                    <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
+                                        <el-col class="textcenter" :span="2">
+                                        </el-col>
+                                        <el-col class="textcenter" :span="20">
+                                            <span class="textcenter">悟靈 & 獵靈</span>
+                                        </el-col>
+                                        <el-col v-if="UIPanel['SoulReaperSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-down"></i>
+                                        </el-col>
+                                        <el-col v-else="UIPanel['SoulReaperSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-up"></i>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['SoulReaperSkillPage']">
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>靈魂蓄積</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SOULCOLLECT" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.SOULCOLLECT">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">靈魂數量</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.SoulCount"
+                                                            v-on:change="onOption" placeholder="數量">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>影子靈魂</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SOULSHADOW" v-on:change="onSoulReaperSoul('SOULSHADOW')"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>精靈靈魂</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SOULFAIRY" v-on:change="onSoulReaperSoul('SOULFAIRY')"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>隼鷹靈魂</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SOULFALCON" v-on:change="onSoulReaperSoul('SOULFALCON')"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>巨人靈魂</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SOULGOLEM" v-on:change="onSoulReaperSoul('SOULGOLEM')"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('EquipSkillPage')">
                                     <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
@@ -1688,7 +1857,7 @@
                                         </el-collapse-transition>
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                     <el-col class="textcenter" :span="12">
-                                        <span>無視物理防禦</span>
+                                        <span>無視物理防禦(全段)</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="12">
                                         <el-switch v-model="option.IgnoreDEF" v-on:change="onOption"
@@ -1698,7 +1867,7 @@
                                 </el-row>
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                     <el-col class="textcenter" :span="12">
-                                        <span>無視魔法防禦</span>
+                                        <span>無視魔法防禦(全段)</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="12">
                                         <el-switch v-model="option.IgnoreMDEF" v-on:change="onOption"
@@ -2169,7 +2338,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>無視物理防禦:</span>
+                                                <span>忽略物理防禦(乘算):</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['BYPASSDEF']}} %</span>
@@ -2178,7 +2347,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>無視魔法防禦:</span>
+                                                <span>忽略魔法防禦(乘算):</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['BYPASSMDEF']}} %</span>
@@ -2678,6 +2847,7 @@
                 skilloption: {
                     AttackElementalIdx: 0,      //玩家攻擊屬性
                     ElementalPercent: 0,        //屬性倍率
+                    WeaponMasteryATKInput: 0,
                     WeaponMasteryATK: 0,        //武器修練
                 },
                 option_init: '',
@@ -2729,6 +2899,11 @@
                     IncreaseAgility: false,     //加速
                     IncreaseAgilityValue: 10,
                     Blessing: false,            //天賜
+                    CREMENTIA: false,           //慈悲
+                    CANTOCANDIDUS: false,       //純白百合花
+                    ABJobLevel: 1,              //施展者JOB等級
+                    SpiritSpheres: false,       //蓄氣
+                    SpiritSpheresCount: 0,      
                     GentleTouchCharge: false,   //點穴-反
                     ImpositioManus: false,      //神威祈福
                     ImpositioManusLevel: 0,
@@ -2752,6 +2927,14 @@
                     SLSOpposition: false,           //太陽和月亮和星星的憎惡
                     SLSMiracle: false,              //太陽和月亮和星星的奇蹟
                     SLSFusion: false,               //太陽和月亮和星星的融合
+
+                    SOULCOLLECT: false,         //靈魂蓄積
+                    SoulCount: 0,               
+                    SOULSHADOW: false,          //影子靈魂
+                    SOULFAIRY: false,           //精靈靈魂
+                    SOULFALCON: false,          //隼鷹靈魂
+                    SOULGOLEM: false,           //巨人靈魂
+
 
                     //TODO[戰斧颶風]的風屬性武器增傷125%
                     SkillPercent: 0,
@@ -2898,6 +3081,8 @@
                     ThiefSkillPage: false,
                     AcolyteSkillPage: false,
                     TaekwonSkillPage: false,
+                    StarEmperorSkillPage: false,
+                    SoulReaperSkillPage: false,
                     EquipSkillPage: false,
                     SpecialATKPage: false,
 
@@ -3511,7 +3696,8 @@
                     this.attritube = Object.assign({}, this.attritube_init);
 
                     if (this.option.EquipSkillAddDamage == '') this.option.EquipSkillAddDamage = 0;
-                    if (this.skilloption.WeaponMasteryATK == '') this.skilloption.WeaponMasteryATK = 0;
+                    if (this.skilloption.WeaponMasteryATKInput == '') this.skilloption.WeaponMasteryATKInput = 0;
+                    this.skilloption.WeaponMasteryATK = this.skilloption.WeaponMasteryATKInput;
                     this.computeattribute['SpecialATK1'] = 0;   // 打強 點穴
                     this.computeattribute['SpecialATK2'] = 0;   // 練習舞蹈 砲彈ATK
                     this.computeattribute['SpecialATK3'] = 0;   // 毒弱
@@ -3627,12 +3813,27 @@
                         this.status_add.AGI += 12;
                         this.attritube['ASPDP'] += this.option.IncreaseAgilityValue;
                     }
+                    if (this.option.CANTOCANDIDUS){
+                        var jc = Math.floor(this.option.ABJobLevel/10);
+                        this.status_add.AGI += 12 + jc;
+                        this.attritube['ASPDP'] += this.option.IncreaseAgilityValue;
+                    }
                     // 天賜
                     if (this.option.Blessing) {
                         this.status_add.STR += 10;
                         this.status_add.INT += 10;
                         this.status_add.DEX += 10;
                         this.attritube['HIT'] += 20;
+                    }
+                    if (this.option.CREMENTIA){
+                        var jc = Math.floor(this.option.ABJobLevel/10);
+                        this.status_add.STR += 10 + jc;
+                        this.status_add.INT += 10 + jc;
+                        this.status_add.DEX += 10 + jc;
+                        this.attritube['HIT'] += 20;
+                    }
+                    if (this.option.SpiritSpheres){
+                        this.skilloption.WeaponMasteryATK += this.option.SpiritSpheresCount * 3;
                     }
                     // 點穴
                     if (this.option.GentleTouchCharge) {
@@ -3663,6 +3864,26 @@
                     if (this.option.SLSFusion){
                         this.attritube['BYPASSDEF'] += 100;
                         this.skill.critical = true;
+                    }
+                    //靈魂
+                    if (this.option.SOULCOLLECT){
+                        this.attritube['MATK'] += this.option.SoulCount*3;
+                    }
+                    if (this.option.SOULSHADOW){
+                        this.attritube['CRI'] += 10+2*5;
+                        this.attritube['ASPD'] += 3;
+                    }
+                    if (this.option.SOULFAIRY){
+                        this.attritube['MATK'] += 10*5;
+                        this.attritube['VCT'] += 10;
+                    }
+                    if (this.option.SOULFALCON){
+                        this.attritube['ATK'] += 10*5;
+                        this.attritube['HIT'] += 15;
+                    }
+                    if (this.option.SOULGOLEM){
+                        this.attritube['DEF'] += 60*5;
+                        this.attritube['MDEF'] += 15+5*5;
                     }
                     // 奧汀神力
                     if (this.option.OdinsPower && this.option.OdinsPowerLevel > 0) {
@@ -3695,6 +3916,7 @@
                     if( this.attritube['BYPASSDEF'] > 100 ) this.attritube['BYPASSDEF'] = 100;
                     this.attritube['BYPASSMDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue);
                     if( this.attritube['BYPASSMDEF'] > 100 ) this.attritube['BYPASSMDEF'] = 100;
+                    this.attritube['ASPD'] += Number(this.effecttypelist.find(x => x.id == 'ASPD').totalvalue);
                     this.attritube['ASPDP'] += Number(this.effecttypelist.find(x => x.id == 'AspdPercent').totalvalue);
                     this.attritube['ASPDP'] = -Math.abs(this.attritube['ASPDP']);
                     this.attritube['VCT'] += Number(this.effecttypelist.find(x => x.id == 'VariableCastPercent').totalvalue);
@@ -3720,14 +3942,34 @@
                     }
                     this.onOption();
                 },
+                onOptionBlessing(type) {
+                    switch (type) { 
+                        case '1st': this.option.CREMENTIA = false; break;
+                        case '3rd': this.option.Blessing = false; break;
+                    }
+                    this.onOption();
+                },
+                onOptionIncreaseAgility(type) {
+                    switch (type) { 
+                        case '1st': this.option.CANTOCANDIDUS = false; break;
+                        case '3rd': this.option.IncreaseAgility = false; break;
+                    }
+                    this.onOption();
+                },
                 onOptionOverthrust(type) {
-                    this.option.Overthrust = false;
-                    this.option.OverthrustParty = false;
-                    this.option.OverthrustMax = false;
                     switch (type) {
-                        case 'Self': this.option.Overthrust = true; break;
-                        case 'Party': this.option.OverthrustParty = true; break;
-                        case 'Max': this.option.OverthrustMax = true; break;
+                        case 'Self': this.option.OverthrustParty = false; this.option.OverthrustMax = false; break;
+                        case 'Party': this.option.Overthrust = false; this.option.OverthrustMax = false; break;
+                        case 'Max': this.option.Overthrust = false; this.option.OverthrustParty = false; break;
+                    }
+                    this.onOption();
+                },
+                onSoulReaperSoul(type){
+                    switch (type) {
+                        case 'SOULSHADOW': this.option.SOULFAIRY = false; this.option.SOULFALCON = false; this.option.SOULGOLEM = false; break;
+                        case 'SOULFAIRY': this.option.SOULSHADOW = false; this.option.SOULFALCON = false; this.option.SOULGOLEM = false; break;
+                        case 'SOULFALCON': this.option.SOULSHADOW = false; this.option.SOULFAIRY = false; this.option.SOULGOLEM = false; break;
+                        case 'SOULGOLEM': this.option.SOULSHADOW = false; this.option.SOULFAIRY = false; this.option.SOULFALCON = false; break;
                     }
                     this.onOption();
                 },
