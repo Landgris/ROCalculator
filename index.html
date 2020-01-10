@@ -4101,6 +4101,7 @@
                 },
                 onLoadSkillSave(saveid) {
                     this.skill = Object.assign({}, this.StoreDB_Skill[saveid].skill);
+                    if( this.skill.laterformula == null ) this.skill.laterformula = false; 
                     this.onSkillPercentChange();
                     this.ClosePanel('SkillDBDialog');
                 },
@@ -4239,7 +4240,7 @@
                 this.ChangeWeapon();
                 this.skilloption.AttackElementalIdx = 0;
                 this.ComputElementalPercent();
-                this.skill = { name: '', level: 1, formula: '(70*SLV+INT*3)*BLV/100', ranged: false, critical: false, hitnumber: 1, elemental: 0, };
+                this.skill = { name: '', level: 1, formula: '(70*SLV+INT*3)*BLV/100', ranged: false, critical: false, hitnumber: 1, laterformula: false, elemental: 0, };
                 this.onSkillPercentChange();
             }
 
