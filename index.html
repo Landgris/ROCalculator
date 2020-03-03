@@ -3023,6 +3023,15 @@
                                     </el-col>
                                 </el-row>
                                 <div
+                                    v-show="computeattribute['CastTime']>1">
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="textcenter" :span="10">
+                                            <span>詠唱>1秒，荷包不足請儲值</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div
                                     v-show="(computeattribute['CastTime']+computeattribute['DelayTime'])>computeattribute['AspdDelay']">
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
