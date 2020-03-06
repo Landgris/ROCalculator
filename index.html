@@ -2933,7 +2933,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>攻擊後延遲:</span>
+                                                <span>攻擊後延遲%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['ASPDP']}} %</span>
@@ -2942,7 +2942,16 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>技能後延遲:</span>
+                                                <span>技能獨延:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['GCD']}} s</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能後(共)延遲%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['GCD']}} %</span>
@@ -3429,7 +3438,8 @@
                     { label: 'ASPD', id: 'ASPD', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
                     { label: '攻擊後延%', id: 'AspdPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '暴擊率 %', id: 'Cri', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '技能後延%', id: 'GCDPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
+                    { label: '技能獨延', id: 'CDTime', totalvalue: '', opersymbol: '\-', suffixsymbol: '\s' },
+                    { label: '技能後(共)延%', id: 'GCDPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '變詠 %', id: 'VariableCastPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '指定技能變詠 %', id: 'SPSkillVariableCastPercent', totalvalue: '', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '固詠', id: 'FixedCast', totalvalue: '', opersymbol: '\-', suffixsymbol: 's' },
@@ -3495,7 +3505,7 @@
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0, DEF: 0, MDEF: 0,
                     ASPD: 0, ASPDP: 0, CRI: 0, HIT: 0, CRIDP: 0, RNGDP: 0,
-                    SK1VCTP: 0, SK2VCTP: 0, EQVCTP: 0, FCT: 0, FCTP: 0, GCD: 0,
+                    SK1VCTP: 0, SK2VCTP: 0, EQVCTP: 0, FCT: 0, FCTP: 0, CD: 0, GCD: 0,
                     BYPASSDEF: 0, BYPASSMDEF: 0,
                     ElementalMagicPercent: 0,
                 },
@@ -4089,7 +4099,8 @@
                         this.skill.VCT * (1 - Math.sqrt(_StatusDI / 530)) * (1 - (-this.attritube['EQVCTP']) / 100) * (1 - (-this.attritube['SK1VCTP']) / 100) * (1 - (-this.attritube['SK2VCTP']) / 100) +
                         (this.skill.FCT - (-this.attritube['FCT'])) * (1 - (-this.attritube['FCTP']) / 100);
                     this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 100) / 100, 0, _MaxCastTime);
-                    this.computeattribute.DelayTime = Math.floor(this.skill.GCD * (1 - (-this.attritube['GCD']) / 100) * 100) / 100;
+                    this.computeattribute.DelayTime = Math.max(Math.floor(this.skill.GCD * (1 - (-this.attritube['GCD']) / 100) * 100) / 100, 
+                        this.skill.CD - (-this.attritube['CD']));
                     this.computeattribute.AspdDelay = Math.floor((200 - this.attritube.ASPD) / 50 * 100) / 100;
                     var _MAxDelay = Math.max(this.computeattribute.CastTime + this.computeattribute.DelayTime, this.computeattribute.AspdDelay);
                     this.computeattribute.HitperSec = Math.floor(1 / _MAxDelay * 100) / 100;
@@ -4819,6 +4830,8 @@
                     this.attritube['SK2VCTP'] = -Math.abs(this.attritube['SK2VCTP']);
                     this.attritube['GCD'] += Number(this.effecttypelist.find(x => x.id == 'GCDPercent').totalvalue);
                     this.attritube['GCD'] = -Math.abs(this.attritube['GCD']);
+                    this.attritube['CD'] = Number(this.effecttypelist.find(x => x.id == 'CDTime').totalvalue);
+                    this.attritube['CD'] = -Math.abs(this.attritube['CD']);
 
                     this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue);
 
@@ -5114,13 +5127,14 @@
                         { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', ranged: false, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨(樂器/鞭子)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100*1.666', ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 0, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'WM_SEVERE_RAINSTORM(bow)', name: '大暴雨(弓)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100', ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 0, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '9*SLV', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨(樂器/鞭子)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100*1.666', ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WM_SEVERE_RAINSTORM(bow)', name: '大暴雨(弓)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100', ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WM_METALICSOUND', name:'重金屬音樂', level: 10, formula: '(SLV*120+600)*BLV/100', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 3, CD: 4, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} }, 
+                        { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 0, formula: '(1100+SLV*100)*BLV/100', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 0, formula: '(1100+SLV*200)*BLV/100', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        //{ skill:{id:'', name:'', level: 0, formula: '', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 0, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
-                        //{ skill:{id:'', name:'', level: 0, formula: '', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 0, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
+                        //{ skill: { id: '', name:'', level: 0, formula: '', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 0, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
+                        //{ skill: { id: '', name:'', level: 0, formula: '', ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 0, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
 
                     );
 
