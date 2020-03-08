@@ -435,7 +435,7 @@
                                                 <el-col class="textcenter" :span="6">
                                                     <span class="">{{ item.skill.name }}</span>
                                                 </el-col>
-                                                <el-col class="bg-purple-light" style="padding: 0px 15px;">
+                                                <el-col :class="index%2==0?'bg-purple-light':'bg-purple'" style="padding: 0px 15px;">
                                                     <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                                         <el-col style="text-align: left;">
                                                             <span>{{ item.skill.formula }}</span>
@@ -488,7 +488,7 @@
                                                 <el-col class="textcenter" :span="6">
                                                     <span class="">{{ item.skill.name }}</span>
                                                 </el-col>
-                                                <el-col class="bg-purple-light" style="padding: 0px 15px;">
+                                                <el-col :class="index%2==0?'bg-purple-light':'bg-purple'" style="padding: 0px 15px;">
                                                     <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                                         <el-col style="text-align: left;">
                                                             <span>{{ item.skill.formula }}</span>
@@ -708,12 +708,12 @@
                 <el-scrollbar wrap-class="EquipList-container" :native="false" :noresize="false">
                     <div v-for="(item, index) in StoreDB_EquipFiltered" v-bind:key="item.uuid">
                         <div style="padding: 2px 5px;">
-                            <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle">
+                            <el-row class="optionbox effectline" :class="index%2==0?'bg-purple-light':'bg-purple'" :gutter="4" type="flex" align="middle">
 
                                 <el-col class="textcenter" :span="4" style="text-align: right;">
                                     <span class="EffectType">{{ item.equip.label }}</span>
                                 </el-col>
-                                <el-col class="textcenter bg-purple-light">
+                                <el-col class="textcenter">
                                     <span class="">{{ item.equip.equipname }}</span>
                                 </el-col>
                                 <el-col :span="4">
@@ -878,8 +878,8 @@
                         <el-scrollbar wrap-class="StatusList-container" :native="false" :noresize="false">
                             <div v-for="(item, index) in StoreDB_Status" v-bind:key="item.uuid">
                                 <div style="padding: 2px 5px;">
-                                    <el-row class="optionbox effectline" :gutter="4" type="flex" align="middle">
-
+                                    <el-row class="optionbox effectline" :class="index%2==0?'bg-purple-light':'bg-purple'" 
+                                    :gutter="4" type="flex" align="middle">
                                         <el-col class="textcenter" :span="8">
                                             <span>{{ item.name }}</span>
                                         </el-col>
@@ -2895,37 +2895,31 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
                                         <span>屬性相剋倍率:</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="10">
+                                    <el-col class="textcenter" :span="4">
                                         <span>{{skilloption.ElementalPercent}} %</span>
                                     </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
                                         <span>體型修正倍率:</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="10">
+                                    <el-col class="textcenter" :span="4">
                                         <span>{{computeattribute.sizefix}} %</span>
                                     </el-col>
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
                                         <span>暴擊率:</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="10">
+                                    <el-col class="textcenter" :span="4">
                                         <span>{{attritube['CRI']}} %</span>
                                     </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
                                         <span>暴擊增傷:</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="10">
+                                    <el-col class="textcenter" :span="4">
                                         <span>{{attritube['CRIDP']}} %</span>
                                     </el-col>
                                 </el-row>
@@ -2933,37 +2927,31 @@
                                     <div v-show="UIPanel['General']">
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>敵方物理防禦係數:</span>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>敵方物防係數:</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="10">
+                                            <el-col class="textcenter" :span="4">
                                                 <span>{{computeattribute.enemydef}} %</span>
                                             </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>敵方魔法防禦係數:</span>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>敵方魔防係數:</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="10">
+                                            <el-col class="textcenter" :span="4">
                                                 <span>{{computeattribute.enemymdef}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>忽略物理防禦(乘算):</span>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>忽略物防(乘算):</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="10">
+                                            <el-col class="textcenter" :span="4">
                                                 <span>{{attritube['BYPASSDEF']}} %</span>
                                             </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>忽略魔法防禦(乘算):</span>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>忽略魔防(乘算):</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="10">
+                                            <el-col class="textcenter" :span="4">
                                                 <span>{{attritube['BYPASSMDEF']}} %</span>
                                             </el-col>
                                         </el-row>
@@ -3062,7 +3050,7 @@
                                 </el-collapse-transition>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>實際詠唱時間:</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3071,7 +3059,7 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>技能延遲時間:</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3080,7 +3068,7 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>ASPD:{{attritube['ASPD']}} 攻擊間隔:</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3091,7 +3079,7 @@
                                     v-show="computeattribute['CastTime']>1">
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="textcenter" :span="10">
+                                        <el-col class="textcenter">
                                             <span>詠唱>1秒，荷包不足請儲值</span>
                                         </el-col>
                                     </el-row>
@@ -3107,7 +3095,7 @@
                                 </div>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>每秒攻擊次數:</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3226,7 +3214,7 @@
                                 </el-collapse-transition>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>技能傷害</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3235,7 +3223,7 @@
                                 </el-row>
                                 <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
                                     align="middle" justify="space-around" style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>技能總傷害</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3244,7 +3232,7 @@
                                 </el-row>
                                 <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
                                     justify="space-around" style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>技能傷害(暴擊)</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3253,7 +3241,7 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>技能DPS</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3262,7 +3250,7 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>普攻傷害</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3271,7 +3259,7 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>普攻傷害(暴擊)</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3280,7 +3268,7 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>普攻DPS</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3382,7 +3370,7 @@
                                 </el-collapse-transition>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>技能傷害</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3391,7 +3379,7 @@
                                 </el-row>
                                 <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
                                     align="middle" justify="space-around" style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>技能總傷害</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3400,7 +3388,7 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
                                         <span>技能DPS</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
@@ -3418,7 +3406,7 @@
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around" 
                                         style="height:40px;">
-                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
                                             <span>技能傷害</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
@@ -3427,7 +3415,7 @@
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
                                             <span>技能DPS</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
