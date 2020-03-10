@@ -79,6 +79,10 @@
             height: calc(100vh - (50px + 35px + 8px));
         }
 
+        .body2col-container {
+            height: calc(100vh - (50px + 35px + 8px + 42px));
+        }
+
         .Dialogue-container {
             height: calc(100vh - (50px + 35px + 24px));
         }
@@ -191,12 +195,12 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" align="middle">
-                                
-                    <div style="padding: 0px 0px 20px 50px;">
-                                <el-col class="textcenter" style="text-align: left;">
-                                    <div v-html="item.content"></div>
-                                </el-col>
-                    </div>
+
+                                <div style="padding: 0px 0px 20px 50px;">
+                                    <el-col class="textcenter" style="text-align: left;">
+                                        <div v-html="item.content"></div>
+                                    </el-col>
+                                </div>
                             </el-row>
                         </div>
                     </div>
@@ -395,8 +399,8 @@
                                     <div class="textcenter">
                                         <el-select value-key="id" v-model="skill.DamageTypeIdx"
                                             v-on:change="onSkillPercentChange" placeholder="傷害類型">
-                                            <el-option v-for="item in DamageType" :key="item.id"
-                                                :label="item.label" :value="item.id">
+                                            <el-option v-for="item in DamageType" :key="item.id" :label="item.label"
+                                                :value="item.id">
                                             </el-option>
                                         </el-select>
                                     </div>
@@ -435,7 +439,8 @@
                                                 <el-col class="textcenter" :span="6">
                                                     <span class="">{{ item.skill.name }}</span>
                                                 </el-col>
-                                                <el-col :class="index%2==0?'bg-purple-light':'bg-purple'" style="padding: 0px 15px;">
+                                                <el-col :class="index%2==0?'bg-purple-light':'bg-purple'"
+                                                    style="padding: 0px 15px;">
                                                     <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                                         <el-col style="text-align: left;">
                                                             <span>{{ item.skill.formula }}</span>
@@ -488,7 +493,8 @@
                                                 <el-col class="textcenter" :span="6">
                                                     <span class="">{{ item.skill.name }}</span>
                                                 </el-col>
-                                                <el-col :class="index%2==0?'bg-purple-light':'bg-purple'" style="padding: 0px 15px;">
+                                                <el-col :class="index%2==0?'bg-purple-light':'bg-purple'"
+                                                    style="padding: 0px 15px;">
                                                     <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                                         <el-col style="text-align: left;">
                                                             <span>{{ item.skill.formula }}</span>
@@ -615,8 +621,8 @@
             <!-- TODO
                     { label: 'STR', id: 'STR', totalvalue: '', opersymbol: '\+', suffixsymbol: '' },
             -->
-            <el-row>
-                <div v-for="(item, index) in EquipSelectEffect" v-bind:key="item.id">
+<!--             <el-row>
+                <div v-for="(item, index) in TempEffectTypeList" v-bind:key="item.id">
                     <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end"
                         style="height:40px;">
                         <el-col class="textcenter" style="text-align: right;">
@@ -633,7 +639,7 @@
                         </el-col>
                     </el-row>
                 </div>
-            </el-row>
+            </el-row> -->
             <div class="statusbox titlebox" style="padding: 5px 5px; height: 40px;">
                 <el-row :gutter="6" type="flex" align="middle">
                     <el-col class="textcenter" :span="11">
@@ -708,7 +714,8 @@
                 <el-scrollbar wrap-class="EquipList-container" :native="false" :noresize="false">
                     <div v-for="(item, index) in StoreDB_EquipFiltered" v-bind:key="item.uuid">
                         <div style="padding: 2px 5px;">
-                            <el-row class="optionbox effectline" :class="index%2==0?'bg-purple-light':'bg-purple'" :gutter="4" type="flex" align="middle">
+                            <el-row class="optionbox effectline" :class="index%2==0?'bg-purple-light':'bg-purple'"
+                                :gutter="4" type="flex" align="middle">
 
                                 <el-col class="textcenter" :span="4" style="text-align: right;">
                                     <span class="EffectType">{{ item.equip.label }}</span>
@@ -878,8 +885,9 @@
                         <el-scrollbar wrap-class="StatusList-container" :native="false" :noresize="false">
                             <div v-for="(item, index) in StoreDB_Status" v-bind:key="item.uuid">
                                 <div style="padding: 2px 5px;">
-                                    <el-row class="optionbox effectline" :class="index%2==0?'bg-purple-light':'bg-purple'" 
-                                    :gutter="4" type="flex" align="middle">
+                                    <el-row class="optionbox effectline"
+                                        :class="index%2==0?'bg-purple-light':'bg-purple'" :gutter="4" type="flex"
+                                        align="middle">
                                         <el-col class="textcenter" :span="8">
                                             <span>{{ item.name }}</span>
                                         </el-col>
@@ -1316,8 +1324,8 @@
                                         <div class="textcenter">
                                             <el-select value-key="id" v-model="skill.DamageTypeIdx"
                                                 v-on:change="onSkillPercentChange" placeholder="傷害類型">
-                                                <el-option v-for="item in DamageType" :key="item.id"
-                                                    :label="item.label" :value="item.id">
+                                                <el-option v-for="item in DamageType" :key="item.id" :label="item.label"
+                                                    :value="item.id">
                                                 </el-option>
                                             </el-select>
                                         </div>
@@ -2593,24 +2601,307 @@
                     </el-scrollbar>
                 </el-col>
                 <el-col :span="8">
-                    <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
-                        <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                            <el-col class="textcenter" :span="6"> </el-col>
-                            <el-col class="textcenter" :span="10">
-                                <span class="textcenter">裝備</span>
-                            </el-col>
-                            <el-col class="textcenter" :span="6" style="text-align: right;">
-                                <el-tooltip class="item" effect="dark" content="讀取已經儲存的裝備" placement="left">
-                                    <el-button v-on:click="TogglePanel('EquipDBDialog')" size="small">
-                                        裝備清單
-                                    </el-button>
-                                </el-tooltip>
-                            </el-col>
-                        </el-row>
+                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                        <el-col class="textcenter" :span="6"> </el-col>
+                        <el-col class="textcenter" :span="10">
+                            <span class="textcenter">裝備</span>
+                        </el-col>
+                        <el-col class="textcenter" :span="6" style="text-align: right;">
+                            <el-tooltip class="item" effect="dark" content="讀取已經儲存的裝備" placement="left">
+                                <el-button v-on:click="TogglePanel('EquipDBDialog')" size="small">
+                                    裝備清單
+                                </el-button>
+                            </el-tooltip>
+                        </el-col>
+                    </el-row>
+                    <el-scrollbar wrap-class="body2col-container" :native="true" :noresize="false">
                         <el-row>
-                            <div class="boxborder EquipBlock">
-                                <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist">
-                                    <div class="Equipment" style="padding: 0px 4px;">
+                            <div class="boxborder EquipBlock" >
+                                <!--主手-->
+                                <div class="bg-purple" style="padding: 0px 2px;">
+                                    <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="4">
+                                            <div>
+                                                <span>{{equipspartlist[0].label}}</span>
+                                            </div>
+                                        </el-col>
+                                        <el-col class="textcenter">
+                                            <div>
+                                                <el-input v-model="equipspartlist[0].equipname" placeholder="裝備名稱">
+                                                </el-input>
+                                            </div>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="5">
+                                            <el-button v-on:click="onClearEquipPart(0)" size="mini">
+                                                清空
+                                            </el-button>
+                                        </el-col>
+                                        <el-tooltip class="item" effect="dark" content="增加效果" placement="bottom-start">
+                                            <el-col class="textcenter" :span="5">
+                                                <el-button v-on:click="OpenEffectDialogue(0)"
+                                                    icon="el-icon-circle-plus-outline" type="success" plain>
+                                                </el-button>
+                                            </el-col>
+                                        </el-tooltip>
+                                        <el-col class="textcenter" :span="5">
+                                            <el-tooltip class="item" effect="dark" content="儲存裝備" placement="bottom-start">
+                                                <el-button v-on:click="onSaveEquip(0)" icon="el-icon-collection-tag">
+                                                </el-button>
+                                            </el-tooltip>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="bg-purple" :gutter="4" style="padding: 5px 5px;">
+                                        <el-row :gutter="4" type="flex" align="middle" justify="start">
+                                            <el-col :span="4" style="text-align: right;">
+                                                <span>主手武器</span>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-select value-key="id" v-model="weapon.type"
+                                                    v-on:change="onSelectedWeaponType" placeholder="武器類型">
+                                                    <el-option v-for="item in weapontypelist" :key="item.id" :label="item.label"
+                                                        :value="item">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-col>
+                                            <el-col :span="12" v-show="weapon.type.id=='Bows'|weapon.type.id=='Instruments'|weapon.type.id=='Whips'">
+                                                <el-row :gutter="4" type="flex" align="middle" justify="space-around">
+                                                    <el-col :span="12" style="text-align: right;">
+                                                        <span>箭矢ATK:</span>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <el-input v-model.number="weapon.ArrowATK" placeholder="箭矢ATK">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row v-show="weapon.type.id!='Empty'">
+                                            <el-row class="" :gutter="4" type="flex" align="middle" justify="space-around">
+                                                <el-col :span="4" style="text-align: right;">
+                                                    <span>武器等級</span>
+                                                </el-col>
+                                                <el-col :span="8">
+                                                    <el-select value-key="id" v-model="weapon.level"
+                                                        v-on:change="onSelectedWeaponLevel" placeholder="武器等級">
+                                                        <el-option v-for="item in weaponlevellist" :key="item.id"
+                                                            :label="item.label" :value="item">
+                                                        </el-option>
+                                                    </el-select>
+                                                </el-col>
+                                                <el-col :span="6" style="text-align: right;">
+                                                    <span>精鍊等級</span>
+                                                </el-col>
+                                                <el-col :span="6">
+                                                    <div>
+                                                        <el-input v-model.number="weapon.refinelevel"
+                                                            v-on:input="onChangeRefineLevel" placeholder="精鍊等級">
+                                                        </el-input>
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="" :gutter="4" type="flex" align="middle" justify="start">
+                                                <el-col :span="6" style="text-align: right;">
+                                                    <span>武器ATK: </span>
+                                                </el-col>
+                                                <el-col :span="6">
+                                                    <el-input v-model.number="weapon.ATK" placeholder="武器ATK">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col :span="6" style="text-align: right;">
+                                                    <span>武器MATK: </span>
+                                                </el-col>
+                                                <el-col :span="6">
+                                                    <el-input v-model.number="weapon.MATK" placeholder="武器MATK">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="" :gutter="4" type="flex" align="middle" justify="start">
+                                                <el-col :span="6" style="text-align: right;">
+                                                    <span>武器重量: </span>
+                                                </el-col>
+                                                <el-col :span="6">
+                                                    <el-input v-model.number="weapon.Weight" placeholder="WGT">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col :span="6" style="text-align: right;">
+                                                    <span>砲彈ATK: </span>
+                                                </el-col>
+                                                <el-col :span="6">
+                                                    <el-input v-model.number="weapon.BulletATK" placeholder="砲彈ATK">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
+                                        </el-row>
+                                    </el-row>
+                                    <el-row>
+                                        <div class="Item" v-for="(item, index) in equipspartlist[0].effectlist"
+                                            v-bind:key="item.effecttypelist">
+                                            <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end"
+                                                style="height:40px;">
+                                                <el-col class="textcenter" :span="4">
+                                                </el-col>
+                                                <el-col class="textcenter" style="text-align: right;">
+                                                    <span class="EffectType">{{ item.EffectType.label }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span class="">{{ item.EffectType.opersymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="3">
+                                                    <span class="">{{ item.EffectNumber }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span lass="">{{ item.EffectType.suffixsymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="5">
+                                                </el-col>
+                                                <el-col class="textcenter" :span="15">
+                                                    <el-button v-on:click="RemoveEffect(0, index)" icon="el-icon-delete"
+                                                        type="danger" size="mini">
+                                                    </el-button>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-row>
+                                </div>
+                                <!--副手-->
+                                <div class="bg-purple" style="padding: 0px 2px;">
+                                    <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="4">
+                                            <div>
+                                                <span>{{equipspartlist[1].label}}</span>
+                                            </div>
+                                        </el-col>
+                                        <el-col class="textcenter">
+                                            <div>
+                                                <el-input v-model="equipspartlist[1].equipname" clearable placeholder="裝備名稱">
+                                                </el-input>
+                                            </div>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="5">
+                                            <el-button v-on:click="onClearEquipPart(1)" size="mini">
+                                                清空
+                                            </el-button>
+                                        </el-col>
+                                        <el-tooltip class="item" effect="dark" content="增加效果" placement="bottom-start">
+                                            <el-col class="textcenter" :span="5">
+                                                <el-button v-on:click="OpenEffectDialogue(1)"
+                                                    icon="el-icon-circle-plus-outline" type="success" plain>
+                                                </el-button>
+                                            </el-col>
+                                        </el-tooltip>
+                                        <el-col class="textcenter" :span="5">
+                                            <el-tooltip class="item" effect="dark" content="儲存裝備" placement="bottom-start">
+                                                <el-button v-on:click="onSaveEquip(1)" icon="el-icon-collection-tag">
+                                                </el-button>
+                                            </el-tooltip>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox bg-purple" :gutter="4" type="flex" align="middle" justify="start"
+                                        v-show="weapon.type.isTwohand?false:true">
+                                        <el-col :span="4" style="text-align: right;">
+                                            <span>副手裝備</span>
+                                        </el-col>
+                                        <el-col :span="8">
+                                            <el-select value-key="id" v-model="subweapon.type"
+                                                v-on:change="onSelectedWeaponType" placeholder="類型">
+                                                <el-option v-for="item in subhandtype" :key="item.id" :label="item.label"
+                                                    :value="item">
+                                                </el-option>
+                                            </el-select>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="effectline" :gutter="4" type="flex" align="middle"
+                                        v-show="subweapon.type.id==1">
+                                        <el-col :span="6" style="text-align: right;">
+                                            <span>盾牌重量: </span>
+                                        </el-col>
+                                        <el-col :span="6">
+                                            <div class="grid-content">
+                                                <el-input v-model.number="subweapon.ShieldWeight" placeholder="SHWGT">
+                                                </el-input>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+                                    <div v-show="subweapon.type.id==2">
+                                        <el-row class="" :gutter="4" type="flex" align="middle" justify="space-around">
+                                            <el-col :span="4" style="text-align: right;">
+                                                <span>武器等級</span>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <div class="grid-content">
+                                                    <el-select value-key="id" v-model="subweapon.level"
+                                                        v-on:change="onSelectedWeaponLevel" placeholder="武器等級">
+                                                        <el-option v-for="item in weaponlevellist" :key="item.id"
+                                                            :label="item.label" :value="item">
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="6" style="text-align: right;">
+                                                <span>精鍊等級</span>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div>
+                                                    <el-input v-model.number="subweapon.refinelevel"
+                                                        v-on:input="onChangeRefineLevel" placeholder="精鍊等級">
+                                                    </el-input>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="" :gutter="4" type="flex" align="middle" justify="start">
+                                            <el-col :span="6" style="text-align: right;">
+                                                <span>武器ATK: </span>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div class="grid-content">
+                                                    <el-input v-model.number="subweapon.ATK" placeholder="武器ATK">
+                                                    </el-input>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="6" style="text-align: right;">
+                                                <span>武器MATK: </span>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div class="grid-content">
+                                                    <el-input v-model.number="subweapon.MATK" placeholder="武器MATK">
+                                                    </el-input>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                    <el-row>
+                                        <div class="Item" v-for="(item, index) in equipspartlist[1].effectlist"
+                                            v-bind:key="item.effecttypelist">
+                                            <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end"
+                                                style="height:40px;">
+                                                <el-col class="textcenter" :span="4">
+                                                </el-col>
+                                                <el-col class="textcenter" style="text-align: right;">
+                                                    <span class="EffectType">{{ item.EffectType.label }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span class="">{{ item.EffectType.opersymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="3">
+                                                    <span class="">{{ item.EffectNumber }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span lass="">{{ item.EffectType.suffixsymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="5">
+                                                </el-col>
+                                                <el-col class="textcenter" :span="15">
+                                                    <el-button v-on:click="RemoveEffect(1, index)" icon="el-icon-delete"
+                                                        type="danger" size="mini">
+                                                    </el-button>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-row>
+                                </div>
+                                <!--裝備-->
+                                <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist.slice(2)">
+                                    <div class="" style="padding: 0px 4px;">
                                         <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                             <el-col class="textcenter" :span="4">
                                                 <div>
@@ -2619,20 +2910,20 @@
                                             </el-col>
                                             <el-col class="textcenter">
                                                 <div>
-                                                    <el-input v-model="equipspartlist[eqindex].equipname"
+                                                    <el-input v-model="equipspartlist[eqindex+2].equipname"
                                                         placeholder="裝備名稱">
                                                     </el-input>
                                                 </div>
                                             </el-col>
                                             <el-col class="textcenter" :span="5">
-                                                <el-button v-on:click="onClearEquipPart(eqindex)" size="mini">
+                                                <el-button v-on:click="onClearEquipPart(eqindex+2)" size="mini">
                                                     清空
                                                 </el-button>
                                             </el-col>
                                             <el-tooltip class="item" effect="dark" content="增加效果"
                                                 placement="bottom-start">
                                                 <el-col class="textcenter" :span="5">
-                                                    <el-button v-on:click="OpenEffectDialogue(eqindex)"
+                                                    <el-button v-on:click="OpenEffectDialogue(eqindex+2)"
                                                         icon="el-icon-circle-plus-outline" type="success" plain>
                                                     </el-button>
                                                 </el-col>
@@ -2640,14 +2931,14 @@
                                             <el-col class="textcenter" :span="5">
                                                 <el-tooltip class="item" effect="dark" content="儲存裝備"
                                                     placement="bottom-start">
-                                                    <el-button v-on:click="onSaveEquip(eqindex)"
+                                                    <el-button v-on:click="onSaveEquip(eqindex+2)"
                                                         icon="el-icon-collection-tag">
                                                     </el-button>
                                                 </el-tooltip>
                                             </el-col>
                                         </el-row>
                                         <el-row>
-                                            <div v-for="(item, index) in equipspartlist[eqindex].effectlist"
+                                            <div v-for="(item, index) in equipspartlist[eqindex+2].effectlist"
                                                 v-bind:key="item.effecttypelist">
                                                 <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                     justify="end" style="height:40px;">
@@ -2668,7 +2959,7 @@
                                                     <el-col class="textcenter" :span="5">
                                                     </el-col>
                                                     <el-col class="textcenter" :span="15">
-                                                        <el-button v-on:click="RemoveEffect(eqindex, index)"
+                                                        <el-button v-on:click="RemoveEffect(eqindex+2, index)"
                                                             icon="el-icon-delete" type="danger" size="mini">
                                                         </el-button>
                                                     </el-col>
@@ -2679,152 +2970,53 @@
                                 </div>
                             </div>
                         </el-row>
+                        <!--武器-->
                         <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
                             <el-col class="textcenter" :span="10">
-                                <span class="textcenter">武器</span>
+                                <span class="textcenter">武器&裝備效果整合</span>
                             </el-col>
                         </el-row>
                         <el-row>
-                            <div class="boxborder WeaponBlock bg-purple-light">
-                                <el-row :gutter="4" type="flex" align="middle">
-                                    <el-col :span="4">
-                                        <span>武器等級</span>
-                                    </el-col>
-                                    <el-col :span="8">
-                                        <div class="grid-content bg-purple">
-                                            <el-select value-key="id" v-model="weapon.level"
-                                                v-on:change="onSelectedWeaponLevel" placeholder="武器等級">
-                                                <el-option v-for="item in weaponlevellist" :key="item.id"
-                                                    :label="item.label" :value="item">
-                                                </el-option>
-                                            </el-select>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="7">
-                                        <span>精鍊等級</span>
-                                    </el-col>
-                                    <el-col :span="5">
-                                        <div class="grid-content bg-purple-light">
-                                            <el-input v-model.number="weapon.refinelevel"
-                                                v-on:input="onChangeRefineLevel" placeholder="精鍊等級">
-                                            </el-input>
-                                        </div>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end">
-                                    <el-col :span="4">
-                                        <span>主手武器</span>
-                                    </el-col>
-                                    <el-col :span="8">
-                                        <div class="grid-content bg-purple">
-                                            <el-select value-key="id" v-model="weapon.type"
-                                                v-on:change="onSelectedWeaponType" placeholder="武器類型">
-                                                <el-option v-for="item in weapontypelist" :key="item.id"
-                                                    :label="item.label" :value="item">
-                                                </el-option>
-                                            </el-select>
-                                        </div>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="12">
-                                        <el-checkbox v-model="lefthandweapon" label="副手持武" border></el-checkbox>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="effectline" :gutter="4" type="flex" align="middle">
-                                    <el-col :span="6">
-                                        <span>武器ATK: </span>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div class="grid-content bg-purple-light">
-                                            <el-input v-model.number="weapon.ATK" placeholder="武器ATK">
-                                            </el-input>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <span>武器MATK: </span>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div class="grid-content bg-purple-light">
-                                            <el-input v-model.number="weapon.MATK" placeholder="武器MATK">
-                                            </el-input>
-                                        </div>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="effectline" :gutter="4" type="flex" align="middle">
-                                    <el-col :span="6">
-                                        <span>箭矢ATK: </span>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div class="grid-content bg-purple-light">
-                                            <el-input v-model.number="weapon.ArrowATK" placeholder="箭矢ATK">
-                                            </el-input>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <span>砲彈ATK: </span>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div class="grid-content bg-purple-light">
-                                            <el-input v-model.number="weapon.BulletATK" placeholder="砲彈ATK">
-                                            </el-input>
-                                        </div>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="effectline" :gutter="4" type="flex" align="middle">
-                                    <el-col :span="6">
-                                        <span>武器重量: </span>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div class="grid-content bg-purple-light">
-                                            <el-input v-model.number="weapon.Weight" placeholder="WGT">
-                                            </el-input>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <span>盾牌重量: </span>
-                                    </el-col>
-                                    <el-col :span="6">
-                                        <div class="grid-content bg-purple-light">
-                                            <el-input v-model.number="weapon.ShieldWeight" placeholder="SHWGT">
-                                            </el-input>
-                                        </div>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
-                                    <el-col class="textcenter" :span="8" style="text-align: right;">
-                                        <span>精鍊Atk/Matk:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{weapon.refineatk}}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="8" style="text-align: right;">
-                                        <span>過度精鍊Atk/Matk:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{weapon.refineatk2}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
-                                    <el-col class="textcenter" :span="8" style="text-align: right;">
-                                        <span>體型修正:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="16">
-                                        <span>{{weapon.sizefix}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="bg-purple effectline" type="flex" align="middle" justify="center">
-                                    <el-col class="textcenter" :span="8" style="text-align: right;">
-                                        <span>普攻遠程:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="16">
-                                        <span>{{weapon.type.isRangedattack}}</span>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                        </el-row>
-                        <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
-                            <el-col class="textcenter" :span="10">
-                                <span class="textcenter">裝備效果整合</span>
-                            </el-col>
+                            <el-row class="bg-purple-light effectline" type="flex" align="middle" justify="center">
+                                <el-col class="textcenter" :span="8" style="text-align: right;">
+                                    <span>精鍊Atk / Matk:</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="4">
+                                    <span>{{weapon.refineatk}} / {{weapon.refinematk}}</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="8" style="text-align: right;">
+                                    <span>過度精鍊Atk / Matk:</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="4">
+                                    <span>{{weapon.refineatk2}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row class="bg-purple-light effectline" type="flex" align="middle" justify="center">
+                                <el-col class="textcenter" :span="2">
+                                    <span>小:</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="4">
+                                    <span>{{weapon.type.sizefix.small}}%</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="2">
+                                    <span>中:</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="4">
+                                    <span>{{weapon.type.sizefix.middle}}%</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="2">
+                                    <span>大:</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="4">
+                                    <span>{{weapon.type.sizefix.large}}%</span>
+                                </el-col>
+                            </el-row>
+                            <el-row class="bg-purple-light effectline" type="flex" align="middle" justify="center"
+                                v-show="weapon.type.isRangedattack">
+                                <el-col class="textcenter skilltag">
+                                    <span>普攻遠傷</span>
+                                </el-col>
+                            </el-row>
                         </el-row>
                         <el-row>
                             <div class="boxborder EffectListBlock">
@@ -3075,8 +3267,7 @@
                                         <span>{{computeattribute['AspdDelay']}} s</span>
                                     </el-col>
                                 </el-row>
-                                <div
-                                    v-show="computeattribute['CastTime']>1">
+                                <div v-show="computeattribute['CastTime']>1">
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="textcenter">
@@ -3103,298 +3294,298 @@
                                     </el-col>
                                 </el-row>
                                 <div v-show="UIPanel['ATKPanel']">
-                                <div v-on:click="TogglePanel('ATKCompute')">
-                                    <el-row class="titlebox" type="flex" align="middle" style="height:40px;">
-                                        <el-col class="textcenter" :span="2">
-                                        </el-col>
-                                        <el-col class="textcenter" :span="20">
-                                            <span class="textcenter">ATK計算</span>
-                                        </el-col>
-                                        <el-col v-if="UIPanel['ATKCompute']" class="textcenter" :span="2">
-                                            <i class="el-icon-arrow-down"></i>
-                                        </el-col>
-                                        <el-col v-else="UIPanel['ATKCompute']" class="textcenter" :span="2">
-                                            <i class="el-icon-arrow-up"></i>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                                <el-collapse-transition>
-                                    <div v-show="UIPanel['ATKCompute']">
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>基礎ATK:</span>
+                                    <div v-on:click="TogglePanel('ATKCompute')">
+                                        <el-row class="titlebox" type="flex" align="middle" style="height:40px;">
+                                            <el-col class="textcenter" :span="2">
                                             </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkc0_min}}~{{computeattribute.atkc0_max}}</span>
+                                            <el-col class="textcenter" :span="20">
+                                                <span class="textcenter">ATK計算</span>
                                             </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>精練&特殊ATK加值</span>
+                                            <el-col v-if="UIPanel['ATKCompute']" class="textcenter" :span="2">
+                                                <i class="el-icon-arrow-down"></i>
                                             </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkc1_min}}~{{computeattribute.atkc1_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>體型修正&箭矢傷害</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkc2_min}}~{{computeattribute.atkc2_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>總武器ATK</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.weaponatk_min}}~{{computeattribute.weaponatk_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>種族階級體型屬性</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkequip_min}}~{{computeattribute.atkequip_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>ATK%</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkbranch_min}}~{{computeattribute.atkbranch_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>後ATK(上面兩個和)</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkc4_min}}~{{computeattribute.atkc4_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>最終ATK</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkc5_min}}~{{computeattribute.atkc5_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>暴傷遠傷%</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkc6_min}}~{{computeattribute.atkc6_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>技能倍率&敵方DEF</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.atkc7_min}}~{{computeattribute.atkc7_max}}</span>
+                                            <el-col v-else="UIPanel['ATKCompute']" class="textcenter" :span="2">
+                                                <i class="el-icon-arrow-up"></i>
                                             </el-col>
                                         </el-row>
                                     </div>
-                                </el-collapse-transition>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>技能傷害</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.atkc9_min}}~{{computeattribute.atkc9_max}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
-                                    align="middle" justify="space-around" style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>技能總傷害</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{this.computeattribute.atkmulti_min}}~{{computeattribute.atkmulti_max}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
-                                    justify="space-around" style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>技能傷害(暴擊)</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.atkskillcritical}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>技能DPS</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.atkmulti_DPS}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>普攻傷害</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.normalattack_min}}~{{computeattribute.normalattack_max}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>普攻傷害(暴擊)</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.normalcritical}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>普攻DPS</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.normalattack_DPS}}</span>
-                                    </el-col>
-                                </el-row>
+                                    <el-collapse-transition>
+                                        <div v-show="UIPanel['ATKCompute']">
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>基礎ATK:</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc0_min}}~{{computeattribute.atkc0_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>精練&特殊ATK加值</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc1_min}}~{{computeattribute.atkc1_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>體型修正&箭矢傷害</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc2_min}}~{{computeattribute.atkc2_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>總武器ATK</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.weaponatk_min}}~{{computeattribute.weaponatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>種族階級體型屬性</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkequip_min}}~{{computeattribute.atkequip_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>ATK%</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkbranch_min}}~{{computeattribute.atkbranch_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>後ATK(上面兩個和)</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc4_min}}~{{computeattribute.atkc4_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>最終ATK</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc5_min}}~{{computeattribute.atkc5_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>暴傷遠傷%</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc6_min}}~{{computeattribute.atkc6_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>技能倍率&敵方DEF</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc7_min}}~{{computeattribute.atkc7_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-collapse-transition>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.atkc9_min}}~{{computeattribute.atkc9_max}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
+                                        align="middle" justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能總傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{this.computeattribute.atkmulti_min}}~{{computeattribute.atkmulti_max}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
+                                        justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害(暴擊)</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.atkskillcritical}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能DPS</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.atkmulti_DPS}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>普攻傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalattack_min}}~{{computeattribute.normalattack_max}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>普攻傷害(暴擊)</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalcritical}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>普攻DPS</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalattack_DPS}}</span>
+                                        </el-col>
+                                    </el-row>
                                 </div>
                                 <div v-show="UIPanel['MATKPanel']">
-                                <div v-on:click="TogglePanel('MATKCompute')">
-                                    <el-row class="titlebox" type="flex" align="middle" style="height:40px;">
-                                        <el-col class="textcenter" :span="2">
-                                        </el-col>
-                                        <el-col class="textcenter" :span="20">
-                                            <span class="textcenter">MATK計算</span>
-                                        </el-col>
-                                        <el-col v-if="UIPanel['MATKCompute']" class="textcenter" :span="2">
-                                            <i class="el-icon-arrow-down"></i>
-                                        </el-col>
-                                        <el-col v-else="UIPanel['MATKCompute']" class="textcenter" :span="2">
-                                            <i class="el-icon-arrow-up"></i>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                                <el-collapse-transition>
-                                    <div v-show="UIPanel['MATKCompute']">
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>武器MATK</span>
+                                    <div v-on:click="TogglePanel('MATKCompute')">
+                                        <el-row class="titlebox" type="flex" align="middle" style="height:40px;">
+                                            <el-col class="textcenter" :span="2">
                                             </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.weaponmatk_min}}~{{computeattribute.weaponmatk_max}}</span>
+                                            <el-col class="textcenter" :span="20">
+                                                <span class="textcenter">MATK計算</span>
                                             </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>裝備MATK&魔力增幅</span>
+                                            <el-col v-if="UIPanel['MATKCompute']" class="textcenter" :span="2">
+                                                <i class="el-icon-arrow-down"></i>
                                             </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.equipmatk_min}}~{{computeattribute.equipmatk_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>MATK%</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.matkpercent_min}}~{{computeattribute.matkpercent_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>最終MATK</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.finalmatk_min}}~{{computeattribute.finalmatk_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>敵方減傷</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.matk1_min}}~{{computeattribute.matk1_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>技能倍率</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.skillmatk_min}}~{{computeattribute.skillmatk_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>敵方MDEF</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.matk2_min}}~{{computeattribute.matk2_max}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>技能增傷</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.matk3_min}}~{{computeattribute.matk3_max}}</span>
+                                            <el-col v-else="UIPanel['MATKCompute']" class="textcenter" :span="2">
+                                                <i class="el-icon-arrow-up"></i>
                                             </el-col>
                                         </el-row>
                                     </div>
-                                </el-collapse-transition>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>技能傷害</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.matk4_min}}~{{computeattribute.matk4_max}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
-                                    align="middle" justify="space-around" style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>技能總傷害</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.matkmulti_min}}~{{computeattribute.matkmulti_max}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                        <span>技能DPS</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{computeattribute.matkmulti_min_DPS}}~{{computeattribute.matkmulti_max_DPS}}</span>
-                                    </el-col>
-                                </el-row>
+                                    <el-collapse-transition>
+                                        <div v-show="UIPanel['MATKCompute']">
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>武器MATK</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.weaponmatk_min}}~{{computeattribute.weaponmatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>裝備MATK&魔力增幅</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.equipmatk_min}}~{{computeattribute.equipmatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>MATK%</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.matkpercent_min}}~{{computeattribute.matkpercent_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>最終MATK</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.finalmatk_min}}~{{computeattribute.finalmatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>敵方減傷</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.matk1_min}}~{{computeattribute.matk1_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>技能倍率</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.skillmatk_min}}~{{computeattribute.skillmatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>敵方MDEF</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.matk2_min}}~{{computeattribute.matk2_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>技能增傷</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.matk3_min}}~{{computeattribute.matk3_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-collapse-transition>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.matk4_min}}~{{computeattribute.matk4_max}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
+                                        align="middle" justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能總傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.matkmulti_min}}~{{computeattribute.matkmulti_max}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能DPS</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.matkmulti_min_DPS}}~{{computeattribute.matkmulti_max_DPS}}</span>
+                                        </el-col>
+                                    </el-row>
                                 </div>
                                 <div v-show="UIPanel['DragonBreathPanel']">
                                     <el-row class="titlebox" type="flex" align="middle" style="height:40px;">
@@ -3404,7 +3595,7 @@
                                             <span class="textcenter">龍之吐息計算</span>
                                         </el-col>
                                     </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around" 
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
                                             <span>技能傷害</span>
@@ -3457,6 +3648,7 @@
                 EquipSelectId: '',
                 EquipSelectLabel: '',
                 EquipSelectEffect: [],
+                TempEffectTypeList:[],
 
                 StoreDB_QuickCalc: [],
                 QuickCalc: { formula: '', solution: '', remark: '' },
@@ -3466,12 +3658,12 @@
                 CurrentUpdateVersion: '',
 
                 equipspartlist: [
+                    { id: 'weaponr', label: '主手', equipname: '', effectlist: [] },
+                    { id: 'weaponl', label: '副手', equipname: '', effectlist: [] },
                     { id: 'helm', label: '頭飾', equipname: '', effectlist: [] },
                     { id: 'helm1', label: '頭中', equipname: '', effectlist: [] },
                     { id: 'helm2', label: '頭下', equipname: '', effectlist: [] },
                     { id: 'armor', label: '衣服', equipname: '', effectlist: [] },
-                    { id: 'weaponr', label: '主手', equipname: '', effectlist: [] },
-                    { id: 'weaponl', label: '副手', equipname: '', effectlist: [] },
                     { id: 'robe', label: '披肩', equipname: '', effectlist: [] },
                     { id: 'shoes', label: '靴子', equipname: '', effectlist: [] },
                     { id: 'acc1', label: '飾品', equipname: '', effectlist: [] },
@@ -3525,24 +3717,29 @@
                     EffectNumber: ''
                 },
                 weapontypelist: [
-                    { id: 'Empty', label: '空手', sizefix: { small: 100, middle: 100, big: 100 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Daggers', label: '短劍', sizefix: { small: 100, middle: 75, big: 50 }, baseaspd: '', isRangedattack: false },
-                    { id: 'OneHandedSwords', label: '單手劍', sizefix: { small: 75, middle: 100, big: 75 }, baseaspd: '', isRangedattack: false },
-                    { id: 'TwoHandedSword', label: '雙手劍', sizefix: { small: 75, middle: 75, big: 100 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Katars', label: '拳刃', sizefix: { small: 75, middle: 100, big: 75 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Spears', label: '矛類', sizefix: { small: 75, middle: 75, big: 100 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Axes', label: '斧類', sizefix: { small: 50, middle: 75, big: 100 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Maces', label: '鈍器', sizefix: { small: 75, middle: 100, big: 100 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Knuckles', label: '拳套', sizefix: { small: 100, middle: 100, big: 75 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Rods', label: '杖類', sizefix: { small: 100, middle: 100, big: 100 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Books', label: '書本', sizefix: { small: 100, middle: 100, big: 50 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Bows', label: '弓', sizefix: { small: 100, middle: 100, big: 75 }, baseaspd: '', isRangedattack: true },
-                    { id: 'Instruments', label: '樂器', sizefix: { small: 75, middle: 100, big: 75 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Whips', label: '鞭子', sizefix: { small: 75, middle: 100, big: 75 }, baseaspd: '', isRangedattack: false },
-                    { id: 'Guns', label: '槍', sizefix: { small: 100, middle: 100, big: 100 }, baseaspd: '', isRangedattack: true },
-                    { id: 'Shuriken', label: '手裏劍', sizefix: { small: 75, middle: 75, big: 100 }, baseaspd: '', isRangedattack: false },
+                    { id: 'Empty', label: '空手', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Daggers', label: '短劍', sizefix: { small: 100, middle: 75, large: 50 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'OneHandedSwords', label: '單手劍', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'TwoHandedSword', label: '雙手劍', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true },
+                    { id: 'Katars', label: '拳刃', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: true },
+                    { id: 'Spears', label: '矛類', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Axes', label: '斧類', sizefix: { small: 50, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Maces', label: '鈍器', sizefix: { small: 75, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Knuckles', label: '拳套', sizefix: { small: 100, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Rods', label: '杖類', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Books', label: '書本', sizefix: { small: 100, middle: 100, large: 50 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Bows', label: '弓', sizefix: { small: 100, middle: 100, large: 75 }, baseaspd: '', isRangedattack: true, isTwohand: true },
+                    { id: 'Instruments', label: '樂器', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Whips', label: '鞭子', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Guns', label: '槍', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: true, isTwohand: true },
+                    { id: 'Shuriken', label: '手裏劍', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true },
                 ],
                 lefthandweapon: false,
+                subhandtype: [
+                    { id: 0, label: '空手' },
+                    { id: 1, label: '盾牌' },
+                    { id: 2, label: '武器' },
+                ],
                 weaponlevellist: [
                     { id: 1, label: '一級武器', upgradeatk: 2, saferefine: 7, overatk: 3 },
                     { id: 2, label: '二級武器', upgradeatk: 3, saferefine: 6, overatk: 5 },
@@ -3550,11 +3747,20 @@
                     { id: 4, label: '四級武器', upgradeatk: 7, saferefine: 4, overatk: 14 }
                 ],
                 weapon: {
-                    type: '', sizefix: '', level: '',
-                    ATK: 0, MATK: 0, ArrowATK: 0, BulletATK: 0,
-                    refinelevel: 0, refineatk: 0, refineatk2: 0,
-                    Weight: 0, ShieldWeight: 0,
+                    type: '', level: '',
+                    ATK: 0, MATK: 0, refinelevel: 0,
+                    refineatk: 0, refinematk: 0, refineatk2: 0,
+                    ArrowATK: 0, BulletATK: 0,
+                    Weight: 0, 
                 },
+                weapon_init: {},
+                subweapon:{
+                    type: '', level: '',
+                    ATK: 0, MATK: 0, refinelevel: 0, 
+                    refineatk: 0, refinematk: 0,
+                    ShieldWeight: 0,
+                },
+                subweapon_init: {},
                 status: {
                     Level: 1, JOBLevel: 1,
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
@@ -3682,10 +3888,10 @@
                     SpecialMATK1: 0,
                     DamageTypeIdx: 0,
                 },
-                DamageType:[
-                    { id: 0, label:'物理傷害' },
-                    { id: 1, label:'魔法傷害' },
-                    { id: 2, label:'龍息傷害' }
+                DamageType: [
+                    { id: 0, label: '物理傷害' },
+                    { id: 1, label: '魔法傷害' },
+                    { id: 2, label: '龍息傷害' }
                 ],
                 skilloption: {
                     AttackElementalIdx: 0,      //玩家攻擊屬性
@@ -3935,7 +4141,7 @@
                     x ( 天使之怒或天罰(效果不累加) 1 + 100% )
                     x ( 潛擊 1 + 30%(BOSS型怪為15%) )
                     */
-                    
+
                     DragonBreathDMG: 0,
                     DragonBreathDMG_DPS: 0,
                     /*
@@ -4102,6 +4308,9 @@
                 },
                 ComputRefineATK() {
                     this.weapon.refineatk = this.weapon.refinelevel * this.weaponlevellist[this.weapon.level.id - 1].upgradeatk;
+                    this.weapon.refinematk = this.weapon.refineatk;
+                    this.subweapon.refineatk = this.subweapon.refinelevel * this.weaponlevellist[this.subweapon.level.id - 1].upgradeatk;
+                    this.subweapon.refinematk = this.subweapon.refineatk;
                     if (this.weapon.refinelevel <= this.weaponlevellist[this.weapon.level.id - 1].saferefine) {
                         this.weapon.refineatk2 = 0;
                     }
@@ -4111,8 +4320,11 @@
                     }
 
                     if (this.weapon.type.id === 'Bows') {
+                        this.weapon.refinematk = 0;
                         this.weapon.refineatk2 = 0;
                     }
+                    this.weapon.refineatk = this.weapon.refineatk + this.subweapon.refineatk;
+                    this.weapon.refinematk = this.weapon.refinematk + this.subweapon.refinematk;
                 },
                 onSelectedWeaponLevel(item) {
                     this.ComputRefineATK();
@@ -4121,8 +4333,22 @@
                     this.ChangeWeapon();
                 },
                 ChangeWeapon() {
-                    this.weapon.sizefix = '小 ' + this.weapon.type.sizefix.small + '% / 中 ' +
-                        this.weapon.type.sizefix.middle + '% / 大 ' + this.weapon.type.sizefix.big + '\%';
+                    if (this.weapon.type.isTwohand) { this.subweapon.type = this.subhandtype[0]; }
+                    if (this.weapon.type.id == 'Empty') {
+                        this.weapon.level = this.weaponlevellist[0];
+                        this.weapon.refinelevel = 0;
+                        this.weapon.ATK = 0;
+                        this.weapon.MATK = 0;
+                        this.weapon.Weight = 0;
+                    }
+                    if (this.subweapon.type.id != 2) {
+                        this.subweapon.level = this.weaponlevellist[0];
+                        this.subweapon.refinelevel = 0;
+                        this.subweapon.ATK = 0;
+                        this.subweapon.MATK = 0;
+                        this.weapon.ShieldWeight = 0;
+                    }
+
                     this.ComputRefineATK();
                     this.ComputeSizefix();
                 },
@@ -4186,7 +4412,7 @@
                                 this.computeattribute.sizefix = this.weapon.type.sizefix.middle;
                                 break;
                             case 2:
-                                this.computeattribute.sizefix = this.weapon.type.sizefix.big;
+                                this.computeattribute.sizefix = this.weapon.type.sizefix.large;
                                 break;
                         }
                     }
@@ -4200,7 +4426,7 @@
                         this.skill.VCT * (1 - Math.sqrt(_StatusDI / 530)) * (1 - (-this.attritube['EQVCTP']) / 100) * (1 - (-this.attritube['SK1VCTP']) / 100) * (1 - (-this.attritube['SK2VCTP']) / 100) +
                         (this.skill.FCT - (-this.attritube['FCT'])) * (1 - (-this.attritube['FCTP']) / 100);
                     this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 100) / 100, 0, _MaxCastTime);
-                    this.computeattribute.DelayTime = Math.max(Math.floor(this.skill.GCD * (1 - (-this.attritube['GCD']) / 100) * 100) / 100, 
+                    this.computeattribute.DelayTime = Math.max(Math.floor(this.skill.GCD * (1 - (-this.attritube['GCD']) / 100) * 100) / 100,
                         this.skill.CD - (-this.attritube['CD']));
                     this.computeattribute.AspdDelay = Math.floor((200 - this.attritube.ASPD) / 50 * 100) / 100;
                     var _MAxDelay = Math.max(this.computeattribute.CastTime + this.computeattribute.DelayTime, this.computeattribute.AspdDelay);
@@ -4290,11 +4516,11 @@
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
 
-                    if (this.lefthandweapon) {
+                    if (this.subweapon.type.id == 2) {
                         this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(0.75));
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(0.75));
                     }
-                    var para7 = (this.lefthandweapon ? Number(this.attritube.StatusATK) : Number(this.attritube.StatusATK * 2));
+                    var para7 = (this.subweapon.type.id == 2 ? Number(this.attritube.StatusATK) : Number(this.attritube.StatusATK * 2));
                     if (this.option.SevenWinde) {
                         var parasevenwinde = this.getElementalPercent(
                             this.skilloption.AttackElementalIdx,
@@ -4479,9 +4705,9 @@
                     var floatmatk_max = (1 + para1);
                     if (this.option.RECOGNIZEDSPELL) floatmatk_min = floatmatk_max;
                     this.computeattribute.weaponmatk_min = Number(this.attritube.StatusMATK) +
-                        Math.floor((Number(this.weapon.MATK) + Number(this.weapon.refineatk)) * floatmatk_min) + Number(paraminirefineatk2);
+                        Math.floor((Number(this.weapon.MATK) + Number(this.weapon.refinematk)) * floatmatk_min) + Number(paraminirefineatk2);
                     this.computeattribute.weaponmatk_max = Number(this.attritube.StatusMATK) +
-                        Math.floor((Number(this.weapon.MATK) + Number(this.weapon.refineatk)) * floatmatk_max) + Number(this.weapon.refineatk2);
+                        Math.floor((Number(this.weapon.MATK) + Number(this.weapon.refinematk)) * floatmatk_max) + Number(this.weapon.refineatk2);
 
                     var para2 = Number(1) + (this.option.MagicPower ? Number(this.option.MagicPowerValue / 100) : 0);
                     var para3 = this.attritube['MATK'];
@@ -4592,8 +4818,8 @@
                     */
 
                 },
-                ComputeDRAGONBREATH(){
-                    
+                ComputeDRAGONBREATH() {
+
                     this.computeattribute.DragonBreathDMG = 1;
                     this.option.SkillPercent = Math.floor(this.option.SkillPercent) * 100;
                     this.computeattribute.DragonBreathDMG = Math.floor(this.computeattribute.DragonBreathDMG * Number(this.option.SkillPercent / 100));
@@ -4633,19 +4859,19 @@
                     this.ClosePanel('ATKPanel');
                     this.ClosePanel('MATKPanel');
                     this.ClosePanel('DragonBreathPanel');
-                    switch( this.skill.DamageTypeIdx ){
+                    switch (this.skill.DamageTypeIdx) {
                         case 0:
                             this.ComputeATKAtttibute();
                             this.OpenPanel('ATKPanel');
-                        break;
+                            break;
                         case 1:
                             this.ComputeMATKAtttibute();
                             this.OpenPanel('MATKPanel');
-                        break;
+                            break;
                         case 2:
                             this.ComputeDRAGONBREATH();
                             this.OpenPanel('DragonBreathPanel');
-                        break;
+                            break;
                     }
                 },
                 SkillFormulaReplace(f) {
@@ -4917,18 +5143,18 @@
                         this.attritube['MATK'] += this.status.Level / 3 + 5 * 20;
                     }
                     //生命力量
-                    if (this.option.PowerofLife){
+                    if (this.option.PowerofLife) {
                         this.attritube['CRI'] += 20;
                         this.attritube['HIT'] += 20;
                         //this.attritube['FLEE'] += 20;
                         this.attritube['RNGDP'] += 20;
                     }
                     //大地力量
-                    if (this.option.PowerofLand){
+                    if (this.option.PowerofLand) {
                         this.attritube['MATKP'] += 20;
                     }
                     //喵喵/喵喵不休
-                    if (this.option.MeowMeow){
+                    if (this.option.MeowMeow) {
                         this.attritube['MATK'] += 100;
                     }
 
@@ -4987,7 +5213,6 @@
 
                     this.option.EquipSkillAddDamage += Number(this.effecttypelist.find(x => x.id == 'SkillDamagePercent').totalvalue);
 
-                    console.log("???" + this.skill.SpecialATK1);
                     this.computeattribute['SpecialATK1'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK1));
                     this.computeattribute['SpecialATK2'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK2));
                     this.computeattribute['SpecialATK3'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK3));
@@ -5054,18 +5279,33 @@
                     }
                     this.onOption();
                 },
+                onChangeEquipName(epidx){
+                    
+                },
                 onSaveEquip(epidx) {
                     if (this.equipspartlist[epidx].equipname.trim() == '') return;
                     this.StoreDB_Equip.unshift({
                         uuid: this._uuid(),
-                        equip: JSON.parse(JSON.stringify(this.equipspartlist[epidx])),
-                        date: Date.now()
+                        equip: Object.assign({},this.equipspartlist[epidx]),
+                        date: Date.now(),
+                        weapon: (epidx<2)?((epidx==0)?
+                                    Object.assign({},this.weapon):
+                                    Object.assign({},this.subweapon)):
+                                    null
                     });
                     this.SaveEquipDB();
                 },
                 onClearEquipPart(idx) {
                     var _id = this.equipspartlist[idx].id;
                     var _label = this.equipspartlist[idx].label;
+                    if (idx==0){
+                        this.weapon = Object.assign({}, this.weapon_init);
+                        this.ChangeWeapon();
+                    }
+                    if (idx==1){
+                        this.subweapon = Object.assign({}, this.subweapon_init);
+                        this.ChangeWeapon();
+                    }
                     this.$set(this.equipspartlist,
                         idx,
                         {
@@ -5082,8 +5322,24 @@
                     if (idx > -1) {
                         if (idx == 8 && this.equipspartlist[idx].equipname != '') { idx = 9; }
                         if (idx == 9 && this.equipspartlist[idx].equipname != '') { idx = 8; }
-                        this.equipspartlist[idx] = JSON.parse(JSON.stringify(this.StoreDB_Equip[_dbidx].equip));
+                        //this.equipspartlist[idx] = Object.assign({}, JSON.parse(JSON.stringify(this.StoreDB_Equip[_dbidx].equip)));
+                        this.$set(this.equipspartlist,
+                            idx,
+                            {
+                                id: this.StoreDB_Equip[_dbidx].equip.id,
+                                label: this.StoreDB_Equip[_dbidx].equip.label,
+                                equipname: this.StoreDB_Equip[_dbidx].equip.equipname,
+                                effectlist: this.StoreDB_Equip[_dbidx].equip.effectlist,
+                            })
                         this.CombineEquipsAttribute();
+                    }
+                    if (idx == 0 && this.StoreDB_Equip[_dbidx].weapon!=null){
+                        this.weapon = Object.assign({},this.StoreDB_Equip[_dbidx].weapon);
+                        this.ChangeWeapon();
+                    }
+                    if (idx == 1 && this.StoreDB_Equip[_dbidx].weapon!=null){
+                        this.subweapon = Object.assign({},this.StoreDB_Equip[_dbidx].weapon);
+                        this.ChangeWeapon();
                     }
                 },
                 onRemoveEquipSave(uuid) {
@@ -5253,43 +5509,43 @@
                             console.log("catch e:" + e);
                         }
                     }
-                    /*
-                                        for (x of this.equipspartlist) {
-                                            x.effectlist = Object.assign({}, this.effecttypelist);
-                                        }
-                    */
+                    
+/*                     for (let i=0; i<this.equipspartlist.length; i++) {
+                        //this.equipspartlist[i].equipname = Object.assign({}, '111')
+                    } */
+
                     this.DefaultDB_Skill.push(
-                        { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/150*1.2', DamageTypeIdx:2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '1300+SLV*300*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 2, VCT: 5, CD: 5, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(2000+SLV*100)*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 2, VCT: 6, CD: 10, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'WL_JACKFROST', name: '凍僵術(未結凍)', level: 5, formula: '(SLV*100+500)*BLV/150', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 4, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'AB_ADORAMUS', name: '謳歌', level: 10, formula: '(330+SLV*70)*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 6, FCT: 0.5, VCT: 2, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SN_SHARPSHOOTING', name: '銳利射擊', level: 5, formula: '(150+200*SLV)*(BLV/100)', DamageTypeIdx:0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'RA_ARROWSTORM', name: '箭雨風暴', level: 10, formula: '(SLV*80+1000)*BLV/100', DamageTypeIdx:0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 3.8, CD: 3.2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'LG_CANNONSPEAR', name: '加農砲攻擊', level: 5, formula: '(50+STR)*SLV*BLV/100', DamageTypeIdx:0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'LG_BANISHINGPOINT', name: '放逐攻擊', level: 10, formula: '(SLV*50+10*30)*BLV/100', DamageTypeIdx:0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'LG_EXEEDBREAK', name: '強化衝擊', level: 5, formula: '(SLV*100+(JLV*10)+(WLV*WGT*(BLV/100)))+100', DamageTypeIdx:0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 7, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SO_PSYCHIC_WAVE', name: '超自然波', level: 5, formula: '(70*SLV+INT*3)*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.6, VCT: 12, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SO_VARETYR_SPEAR', name: '聖槍刺擊', level: 10, formula: '(((5+5)*120)+SLV*(INT/2))*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 3, FCT: 1, VCT: 1, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SO_DIAMONDDUST', name: '鑽石星塵', level: 5, formula: '(1000+INT*SLV)*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 0, VCT: 7, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SO_EARTHGRAVE', name: '大地墳場', level: 5, formula: '(1000+INT*SLV)*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 4, FCT: 1, VCT: 3, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SO_CLOUD_KILL', name: '雲殺', level: 5, formula: 'SLV*40*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 5, FCT: 0, VCT: 3.1, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SO_SPELLFIST', name: '魔力拳', level: 10, formula: '(SLV/2+10)*100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: true, hitnumber: 1, elemental: 1, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },    
-                        { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', DamageTypeIdx:0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 1000, SpecialMATK1: 0, } },
-                        { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈超過5)', level: 5, formula: '(8+DOWN(SP/10))*100', DamageTypeIdx:0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 100, SpecialATK5: 0, SpecialATK6: 1000, SpecialMATK1: 0, } },
-                        { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: 'DOWN((HP*(SLV*0.02+0.1)+SP*(SLV*0.01+0.05))/4)*(BLV/100)', DamageTypeIdx:0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 'SLV*240+ELV*40', SpecialMATK1: 0, } },
-                        { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', DamageTypeIdx:0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', DamageTypeIdx:0, ranged: false, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', DamageTypeIdx:0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨(樂器/鞭子)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100*1.666', DamageTypeIdx:0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'WM_SEVERE_RAINSTORM(bow)', name: '大暴雨(弓)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100', DamageTypeIdx:0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'WM_METALICSOUND', name:'重金屬音樂', level: 10, formula: '(SLV*120+600)*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 3, CD: 4, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} }, 
-                        { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 7, formula: '(1100+SLV*100)*BLV/100', DamageTypeIdx:0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 7, formula: '(1100+SLV*200)*BLV/100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SU_PICKYPECK', name:'小雞啄擊', level: 5, formula: 'DOWN((200+SLV*100)*2.2)', DamageTypeIdx:0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
-                        { skill: { id: 'SU_SV_STEMSPEAR', name:'獼猴桃梗槍', level: 5, formula: '700', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 1, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
-                        { skill: { id: 'SU_CN_METEOR', name:'貓薄荷隕石', level: 5, formula: '200+SLV*100', DamageTypeIdx:1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 3, VCT: 4, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
+                        { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/150*1.2', DamageTypeIdx: 2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '1300+SLV*300*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 2, VCT: 5, CD: 5, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(2000+SLV*100)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 2, VCT: 6, CD: 10, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WL_JACKFROST', name: '凍僵術(未結凍)', level: 5, formula: '(SLV*100+500)*BLV/150', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 4, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'AB_ADORAMUS', name: '謳歌', level: 10, formula: '(330+SLV*70)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 6, FCT: 0.5, VCT: 2, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SN_SHARPSHOOTING', name: '銳利射擊', level: 5, formula: '(150+200*SLV)*(BLV/100)', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'RA_ARROWSTORM', name: '箭雨風暴', level: 10, formula: '(SLV*80+1000)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 3.8, CD: 3.2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'LG_CANNONSPEAR', name: '加農砲攻擊', level: 5, formula: '(50+STR)*SLV*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'LG_BANISHINGPOINT', name: '放逐攻擊', level: 10, formula: '(SLV*50+10*30)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'LG_EXEEDBREAK', name: '強化衝擊', level: 5, formula: '(SLV*100+(JLV*10)+(WLV*WGT*(BLV/100)))+100', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 7, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SO_PSYCHIC_WAVE', name: '超自然波', level: 5, formula: '(70*SLV+INT*3)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.6, VCT: 12, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SO_VARETYR_SPEAR', name: '聖槍刺擊', level: 10, formula: '(((5+5)*120)+SLV*(INT/2))*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 3, FCT: 1, VCT: 1, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SO_DIAMONDDUST', name: '鑽石星塵', level: 5, formula: '(1000+INT*SLV)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 0, VCT: 7, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SO_EARTHGRAVE', name: '大地墳場', level: 5, formula: '(1000+INT*SLV)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 4, FCT: 1, VCT: 3, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SO_CLOUD_KILL', name: '雲殺', level: 5, formula: 'SLV*40*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 5, FCT: 0, VCT: 3.1, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SO_SPELLFIST', name: '魔力拳', level: 10, formula: '(SLV/2+10)*100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: true, hitnumber: 1, elemental: 1, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 1000, SpecialMATK1: 0, } },
+                        { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈超過5)', level: 5, formula: '(8+DOWN(SP/10))*100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 100, SpecialATK5: 0, SpecialATK6: 1000, SpecialMATK1: 0, } },
+                        { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: 'DOWN((HP*(SLV*0.02+0.1)+SP*(SLV*0.01+0.05))/4)*(BLV/100)', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 'SLV*240+ELV*40', SpecialMATK1: 0, } },
+                        { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', DamageTypeIdx: 0, ranged: false, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨(樂器/鞭子)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100*1.666', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WM_SEVERE_RAINSTORM(bow)', name: '大暴雨(弓)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'WM_METALICSOUND', name: '重金屬音樂', level: 10, formula: '(SLV*120+600)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 3, CD: 4, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 7, formula: '(1100+SLV*100)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 7, formula: '(1100+SLV*200)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SU_PICKYPECK', name: '小雞啄擊', level: 5, formula: 'DOWN((200+SLV*100)*2.2)', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SU_SV_STEMSPEAR', name: '獼猴桃梗槍', level: 5, formula: '700', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 1, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SU_CN_METEOR', name: '貓薄荷隕石', level: 5, formula: '200+SLV*100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 3, VCT: 4, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         //{ skill: { id: '', name:'', level: 0, formula: '', DamageTypeIdx:0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 0, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
                         //{ skill: { id: '', name:'', level: 0, formula: '', DamageTypeIdx:0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 0, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0,} },
 
@@ -5331,19 +5587,20 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id:'2020-3-8', content:'修改傷害計算顯示方式<br/>技能欄位增加傷害類型 (物理/魔法/龍息)<br/>增加技能清單 龍之氣息/謳歌/魔力拳/重金屬音樂/小雞啄擊/獼猴桃梗槍/貓薄荷隕石<br/>增加技能額外選項 多蘭族召喚師' },
-                        { id:'2020-3-3', content:'修改素質/技能清單樣式<br/>增加技能清單預設技能<br/>增加素質欄位HPSP<br/>增加敵方欄位Level<br/>增加公式關鍵字 HP/SP/ELV<br/>增加更新列表' },
-                        { id:'2020-3-1', content:'增加額外技能選項 影狼&朧 詩舞分類<br/>增加詠唱&延遲計算<br/>增加暴率&DPS計算<br/>增加素質欄ASPD、裝備效果變詠設定<br/>修改技能清單樣式' },
-                        { id:'2020-2-10', content:'修改裝備技能倍率增傷的輸入方式 改由裝備效果增加<br/>裝備效果增加技能增傷%<br/>增加額外技能選項 劍士分類 靈感<br/>增加額外技能選項 服事分類 神聖殿堂(僅法傷)' },
-                        { id:'2020-1-4', content:'修正法傷技能增傷跟屬性倍率的順序<br/>修正兇砍開啟後無法被關閉<br/>增加額外技能選項 服事分類 慈悲術/純白百合花/蓄氣<br/>增加額外技能選項 跆拳/拳皇/獵靈分類' },
-                        { id:'2019-12-23', content:'修改武器值最大化/魔法省悟的計算(顯示)方式<br/>修正武器浮動傷害為無條件捨去<br/>修正ATK公式暴傷/遠傷的順序<br/>增加物理技能多段計算<br/>簡化沒有多段/暴傷技能的UI欄位' },
-                        { id:'2019-12-21', content:'修正公式中用到BLV最低為100<br/>敵方的內建資料修改' },
-                        { id:'2019-12-19', content:'修正無視防禦超過100%上限的問題<br/>技能設定增加加農砲彈、半無視防禦<br/>技能清單修改顯示方式<br/>裝備效果增加 STR AGI VIT INT DEX LUK 全能力<br/>增加公式關鍵字 WLV<br/>修改ATK公式架構' },
-                        { id:'2019-12-18', content:'修正箭矢ATK沒有被正確加入<br/>修正階級MATK%代入錯誤<br/>增加輸入職業等級<br/>增加額外技能選項 盾咒/大聲吶喊/火山塵暴<br/>增加裝備分類 頭中/頭下/套卡<br/>增加武器選項 武器重量/盾牌重量<br/>增加公式關鍵字 JLV/WGT/SHW' },
+                        { id: '2020-3-10', content: '增加武器儲存<br/>調整武器欄位位置、增加副手裝備設定' },
+                        { id: '2020-3-8', content: '修改傷害計算顯示方式<br/>技能欄位增加傷害類型 (物理/魔法/龍息)<br/>增加技能清單 龍之氣息/謳歌/魔力拳/重金屬音樂/小雞啄擊/獼猴桃梗槍/貓薄荷隕石<br/>增加技能額外選項 多蘭族召喚師' },
+                        { id: '2020-3-3', content: '修改素質/技能清單樣式<br/>增加技能清單預設技能<br/>增加素質欄位HPSP<br/>增加敵方欄位Level<br/>增加公式關鍵字 HP/SP/ELV<br/>增加更新列表' },
+                        { id: '2020-3-1', content: '增加額外技能選項 影狼&朧 詩舞分類<br/>增加詠唱&延遲計算<br/>增加暴率&DPS計算<br/>增加素質欄ASPD、裝備效果變詠設定<br/>修改技能清單樣式' },
+                        { id: '2020-2-10', content: '修改裝備技能倍率增傷的輸入方式 改由裝備效果增加<br/>裝備效果增加技能增傷%<br/>增加額外技能選項 劍士分類 靈感<br/>增加額外技能選項 服事分類 神聖殿堂(僅法傷)' },
+                        { id: '2020-1-4', content: '修正法傷技能增傷跟屬性倍率的順序<br/>修正兇砍開啟後無法被關閉<br/>增加額外技能選項 服事分類 慈悲術/純白百合花/蓄氣<br/>增加額外技能選項 跆拳/拳皇/獵靈分類' },
+                        { id: '2019-12-23', content: '修改武器值最大化/魔法省悟的計算(顯示)方式<br/>修正武器浮動傷害為無條件捨去<br/>修正ATK公式暴傷/遠傷的順序<br/>增加物理技能多段計算<br/>簡化沒有多段/暴傷技能的UI欄位' },
+                        { id: '2019-12-21', content: '修正公式中用到BLV最低為100<br/>敵方的內建資料修改' },
+                        { id: '2019-12-19', content: '修正無視防禦超過100%上限的問題<br/>技能設定增加加農砲彈、半無視防禦<br/>技能清單修改顯示方式<br/>裝備效果增加 STR AGI VIT INT DEX LUK 全能力<br/>增加公式關鍵字 WLV<br/>修改ATK公式架構' },
+                        { id: '2019-12-18', content: '修正箭矢ATK沒有被正確加入<br/>修正階級MATK%代入錯誤<br/>增加輸入職業等級<br/>增加額外技能選項 盾咒/大聲吶喊/火山塵暴<br/>增加裝備分類 頭中/頭下/套卡<br/>增加武器選項 武器重量/盾牌重量<br/>增加公式關鍵字 JLV/WGT/SHW' },
                     );
                     try {
                         this.CurrentUpdateVersion = JSON.parse(localStorage.getItem('CurrentUpdateVersion'));
-                        if( this.CurrentUpdateVersion != this.UpdateLogList[0].id ){
+                        if (this.CurrentUpdateVersion != this.UpdateLogList[0].id) {
                             this.CurrentUpdateVersion = this.UpdateLogList[0].id;
                             const parsed = JSON.stringify(this.CurrentUpdateVersion);
                             localStorage.setItem('CurrentUpdateVersion', parsed);
@@ -5384,7 +5641,11 @@
                         d = Math.floor(d / 16);
                         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
                     });
+                },
+                inputtest(item){
+                    console.log(item);
                 }
+
             },
             computed: {
 
@@ -5401,8 +5662,9 @@
                         )
                         :
                         this.StoreDB_Equip
-                        ;
+                        ; 
                 },
+                
             },
             mounted() {
                 console.log("mounted");
@@ -5414,16 +5676,24 @@
 
                 this.enemyattribute = this.enemylist[0];
                 this.effectdialogue.EffectType = this.effecttypelist[0];
+                this.TempEffectTypeList = Object.assign({}, this.effecttypelist);
                 this.weapon = {
                     type: this.weapontypelist[0], level: this.weaponlevellist[0],
-                    ATK: 0, MATK: 0, ArrowATK: 0, BulletATK: 0,
-                    refinelevel: 0,
-                    Weight: 0, ShieldWeight: 0,
+                    ATK: 0, MATK: 0, refinelevel: 0,
+                    ArrowATK: 0, BulletATK: 0,
+                    Weight: 0,
                 };
+                this.weapon_init = Object.assign({}, this.weapon);
+                this.subweapon = {
+                    type: this.subhandtype[0], level: this.weaponlevellist[0],
+                    ATK: 0, MATK: 0, refinelevel: 0,
+                    ShieldWeight: 0,
+                };
+                this.subweapon_init = Object.assign({}, this.subweapon);
                 this.ChangeWeapon();
                 this.skilloption.AttackElementalIdx = 0;
                 this.ComputElementalPercent();
-                this.skill = { name: '', level: 1, formula: '(70*SLV+INT*3)*BLV/100', DamageTypeIdx:0, ranged: false, critical: false, hitnumber: 1, laterformula: false, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, };
+                this.skill = { name: '', level: 1, formula: '(70*SLV+INT*3)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, hitnumber: 1, laterformula: false, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, };
                 this.onSkillPercentChange();
             }
 
