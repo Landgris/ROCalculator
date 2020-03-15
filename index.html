@@ -5464,7 +5464,7 @@
                                 id: this.StoreDB_Equip[_dbidx].equip.id,
                                 label: this.StoreDB_Equip[_dbidx].equip.label,
                                 equipname: this.StoreDB_Equip[_dbidx].equip.equipname,
-                                effectlist: this.StoreDB_Equip[_dbidx].equip.effectlist,
+                                effectlist: this.StoreDB_Equip[_dbidx].equip.effectlist.concat(),
                             })
                         this.CombineEquipsAttribute();
                     }
@@ -5727,7 +5727,7 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2020-3-15', content: '增加一般計算遊戲內後Atk/Matk面板顯示的數值，方便檢查裝備填寫錯誤<br/>增加武器為拳刃時左手的計算(普攻/普爆/普DPS)<br/>增加技能清單 十字斬/迴旋刀刃/迴旋十字斬<br/>調整技能清單樣式' },
+                        { id: '2020-3-15A', content: '修正不清空就儲存裝備會導致存檔被覆蓋的BUG<br/>增加一般計算遊戲內後Atk/Matk面板顯示的數值，方便檢查裝備填寫錯誤<br/>增加武器為拳刃時左手的計算(普攻/普爆/普DPS)<br/>增加技能清單 十字斬/迴旋刀刃/迴旋十字斬<br/>調整技能清單樣式' },
                         { id: '2020-3-14', content: '增加計算可用/已用素質點<br/>增加部分UI折疊功能<br/>增加技能清單 風魔飛鏢之飛舞/幽冥十字斬' },
                         { id: '2020-3-10', content: '增加武器儲存<br/>調整武器欄位位置、增加副手裝備設定' },
                         { id: '2020-3-8', content: '修改傷害計算顯示方式<br/>技能欄位增加傷害類型 (物理/魔法/龍息)<br/>增加技能清單 龍之氣息/謳歌/魔力拳/重金屬音樂/小雞啄擊/獼猴桃梗槍/貓薄荷隕石<br/>增加技能額外選項 多蘭族召喚師' },
