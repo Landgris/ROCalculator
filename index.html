@@ -194,7 +194,7 @@
 <body>
     <div id="App" v-cloak>
 
-        <el-dialog :visible.sync="UIPanel['UpdateLogPanel']" v-on:close="ClosePanel('UpdateLogPanel')"
+        <el-dialog :visible.sync="UIPanel['UpdateLogDialog']" v-on:close="ClosePanel('UpdateLogDialog')"
             custom-class="Dialogue-container" width="45%" top="58px" center>
             <span slot="title">更新內容</span>
             <el-row :gutter="6">
@@ -220,7 +220,7 @@
                 </el-scrollbar>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="UIPanel['SpecialthanksPanel']" v-on:close="ClosePanel('SpecialthanksPanel')"
+        <el-dialog :visible.sync="UIPanel['SpecialthanksDialog']" v-on:close="ClosePanel('SpecialthanksDialog')"
             custom-class="Dialogue-container" width="30%" top="58px" center>
             <span slot="title">特別感謝</span>
             <el-row :gutter="6">
@@ -909,6 +909,91 @@
                 </el-col>
             </el-row>
         </el-dialog>
+        <el-dialog :visible.sync="UIPanel['AllSetDBDialog']" v-on:close="ClosePanel('AllSetDBDialog')"
+            custom-class="Dialogue-container" width="85%" top="58px" center>
+            <span slot="title">All Set</span>
+            <el-row :gutter="2">
+                <el-col :span="8">
+                    <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
+                        style="height:40px;" :span="8">
+                        <span class="textcenter">目前計算統整</span>
+                    </el-row>
+                    <div style="padding: 0px 5px;">
+                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle" justify="end">
+                            <el-col class="textcenter">
+                                <el-button v-on:click="onSaveAllSet" size="small">
+                                    儲存>>>
+                                </el-button>
+                            </el-col>
+                        </el-row>
+                        <el-row class="statusbox bg-purple-light" type="flex" align="middle" justify="space-around">
+                            <el-col class="textcenter">
+                                <span>存檔名</span>
+                            </el-col>
+                            <el-col class="textcenter">
+                                <el-input v-model="TempAllSet.Name" placeholder="要儲存的檔名">
+                                </el-input>
+                            </el-col>
+                        </el-row>
+                        <el-scrollbar wrap-class="EquipList-container" :native="false" :noresize="false">
+                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
+                                <el-col class="textcenter">技能名</el-col>
+                                <el-col>
+                                    <el-input v-model.number="TempAllSet.SkillName" laceholder="Level">
+                                    </el-input>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
+                                <el-col class="textcenter">敵人名</el-col>
+                                <el-col>
+                                    <el-input v-model.number="TempAllSet.EnmeyName" laceholder="Level">
+                                    </el-input>
+                                </el-col>
+                            </el-row>
+                        </el-scrollbar>
+                    </div>
+                </el-col>
+                <el-col :span="16">
+                    <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
+                        style="height:40px;" :span="16">
+                        <span class="textcenter">已儲存清單</span>
+                    </el-row>
+                    <div style="padding: 0px 5px;">
+                        <el-scrollbar wrap-class="StatusList-container" :native="false" :noresize="false">
+                            <div v-for="(item, index) in StoreDB_AllSet" v-bind:key="item.uuid">
+                                <div style="padding: 2px 5px;">
+                                    <el-row class="optionbox effectline"
+                                        :class="index%2==0?'bg-purple-light':'bg-purple'" :gutter="4" type="flex"
+                                        align="middle">
+                                        <el-col class="textcenter" :span="8">
+                                            <span>{{ item.AllSet.Name }}</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="5">
+                                            <span>{{ item.AllSet.SkillName }}</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="5">
+                                            <span>{{ item.AllSet.EnemyName }}</span>
+                                        </el-col>
+                                        <el-col :span="4">
+                                            <el-button v-on:click="onRemoveAllSetSave(index)" icon="el-icon-delete"
+                                                type="danger" size="mini">
+                                            </el-button>
+                                        </el-col>
+                                        <el-col :span="6">
+                                            <el-button v-on:click="onLoadAllSetSave(index)" icon="el-icon-check"
+                                                type="success" type="primary" size="small">
+                                                載入
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                            </div>
+                        </el-scrollbar>
+
+                    </div>
+                </el-col>
+            </el-row>
+        </el-dialog>
         <!-- header -->
         <div class="ROCalTitle">
             <el-row type="flex" align="middle" justify="space-around">
@@ -927,12 +1012,12 @@
                     TwRO
                 </el-col>
                 <el-col :span="2">
-                    <el-button v-on:click="TogglePanel('UpdateLogPanel')" size="small">
+                    <el-button v-on:click="TogglePanel('UpdateLogDialog')" size="small">
                         更新內容
                     </el-button>
                 </el-col>
                 <el-col :span="2">
-                    <el-button v-on:click="TogglePanel('SpecialthanksPanel')" size="small">
+                    <el-button v-on:click="TogglePanel('SpecialthanksDialog')" size="small">
                         協力成員
                     </el-button>
                 </el-col>
@@ -1332,6 +1417,21 @@
                                     </el-col>
                                     <el-col class="textcenter" :span="1">秒</el-col>
                                 </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <span>傷害類型</span>
+                                    </el-col>
+                                    <el-col :span="12">
+                                        <div class="textcenter">
+                                            <el-select value-key="id" v-model="skill.DamageTypeIdx"
+                                                v-on:change="onSkillPercentChange" placeholder="傷害類型">
+                                                <el-option v-for="item in DamageType" :key="item.id" :label="item.label"
+                                                    :value="item.id">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                </el-row>
                             </div>
                                 </el-collapse-transition>
                                 <div v-show="skill.ranged">
@@ -1372,21 +1472,6 @@
                                         </el-col>
                                     </el-row>
                                 </div>
-                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="12">
-                                        <span>傷害類型</span>
-                                    </el-col>
-                                    <el-col :span="12">
-                                        <div class="textcenter">
-                                            <el-select value-key="id" v-model="skill.DamageTypeIdx"
-                                                v-on:change="onSkillPercentChange" placeholder="傷害類型">
-                                                <el-option v-for="item in DamageType" :key="item.id" :label="item.label"
-                                                    :value="item.id">
-                                                </el-option>
-                                            </el-select>
-                                        </div>
-                                    </el-col>
-                                </el-row>
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
                                         <span>攻擊屬性</span>
@@ -3128,6 +3213,17 @@
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                         <el-row>
                             <div class="Attribute">
+<!--                                 <el-row class="titlebox" type="flex" align="middle" style="height:40px; padding: 0px 5px;">
+                                    <el-col class="textcenter" :span="4">
+                                    </el-col>
+                                    <el-col class="textcenter" :span="20">
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">
+                                        <el-button v-on:click="onOpenAllSet" size="mini">
+                                            AllSet
+                                        </el-button>
+                                    </el-col>
+                                </el-row> -->
                                 <el-row class="titlebox" type="flex" align="middle" style="height:40px; padding: 0px 5px;">
                                     <el-col class="textcenter" :span="2">
                                     </el-col>
@@ -3476,6 +3572,36 @@
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>普攻傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalattack_min}}~{{computeattribute.normalattack_max}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>普攻傷害(暴擊)</span>
+                                        </el-col>
+                                        <el-col v-if="weapon.type.id=='Katars'" class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalcritical}} + {{Math.floor(computeattribute.normalcritical*0.21)}}</span>
+                                        </el-col>
+                                        <el-col v-else class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalcritical}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>普攻DPS</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalattack_DPS}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
                                             <span>技能傷害</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
@@ -3507,36 +3633,6 @@
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
                                             <span>{{computeattribute.atkmulti_DPS}}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>普攻傷害</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalattack_min}}~{{computeattribute.normalattack_max}}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>普攻傷害(暴擊)</span>
-                                        </el-col>
-                                        <el-col v-if="weapon.type.id=='Katars'" class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalcritical}} + {{Math.floor(computeattribute.normalcritical*0.21)}}</span>
-                                        </el-col>
-                                        <el-col v-else class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalcritical}}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>普攻DPS</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalattack_DPS}}</span>
                                         </el-col>
                                     </el-row>
                                 </div>
@@ -3720,6 +3816,9 @@
                 EquipSelectLabel: '',
                 EquipSelectEffect: [],
                 TempEffectTypeList:[],
+
+                StoreDB_AllSet:[],
+                TempAllSet: {},
 
                 StoreDB_QuickCalc: [],
                 QuickCalc: { formula: '', solution: '', remark: '' },
@@ -4262,12 +4361,13 @@
                     EquipSkillPage: false,
                     SpecialATKPage: false,
 
-                    UpdateLogPanel: false,
-                    SpecialthanksPanel: false,
+                    UpdateLogDialog: false,
+                    SpecialthanksDialog: false,
                     StatusDBDialog: false,
                     SkillDBDialog: false,
                     EquipDBDialog: false,
                     EquipEffectDialog: false,
+                    AllSetDBDialog: false,
                     QuickCalcDialog: false,
 
                     StatusPanel: true,
@@ -4830,9 +4930,9 @@
                     var floatmatk_max = (1 + para1);
                     if (this.option.RECOGNIZEDSPELL) floatmatk_min = floatmatk_max;
                     this.computeattribute.weaponmatk_min = Number(this.attritube['StatusMATK']) +
-                        Math.floor((Number(this.weapon.MATK) + Number(this.weapon.refinematk)) * floatmatk_min) + Number(paraminirefineatk2);
+                        Math.floor((Number(this.weapon.MATK) + Number(this.subweapon.MATK) + Number(this.weapon.refinematk)) * floatmatk_min) + Number(paraminirefineatk2);
                     this.computeattribute.weaponmatk_max = Number(this.attritube['StatusMATK']) +
-                        Math.floor((Number(this.weapon.MATK) + Number(this.weapon.refinematk)) * floatmatk_max) + Number(this.weapon.refineatk2);
+                        Math.floor((Number(this.weapon.MATK) + Number(this.subweapon.MATK) + Number(this.weapon.refinematk)) * floatmatk_max) + Number(this.weapon.refineatk2);
 
                     var para2 = Number(1) + (this.option.MagicPower ? Number(this.option.MagicPowerValue / 100) : 0);
                     var para3 = this.attritube['MATK'];
@@ -5342,8 +5442,8 @@
                     this.attritube['CD'] = Number(this.effecttypelist.find(x => x.id == 'CDTime').totalvalue);
                     this.attritube['CD'] = -Math.abs(this.attritube['CD']);
 
-                    this.attritube['WeaponATK'] = this.attritube['ATK'] + this.weapon.ATK + this.weapon.refineatk;
-                    this.attritube['WeaponMATK'] = this.attritube['MATK'] + this.weapon.MATK + this.weapon.refinematk;
+                    this.attritube['WeaponATK'] = this.attritube['ATK'] + this.weapon.ATK + this.weapon.refineatk + this.subweapon.ATK;
+                    this.attritube['WeaponMATK'] = this.attritube['MATK'] + this.weapon.MATK + this.weapon.refinematk + this.subweapon.MATK;
                     this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue);
 
                     this.option.EquipSkillAddDamage += Number(this.effecttypelist.find(x => x.id == 'SkillDamagePercent').totalvalue);
@@ -5613,6 +5713,68 @@
                     const parsed = JSON.stringify(this.StoreDB_Skill);
                     localStorage.setItem('StoreDB_Skill', parsed);
                 },
+                onOpenAllSet(){
+                    this.$set(this.TempAllSet, 'Name', '');
+                    this.$set(this.TempAllSet, 'Equip', this.equipspartlist);
+                    this.$set(this.TempAllSet, 'Weapon', this.weapon);
+                    this.$set(this.TempAllSet, 'SubWeapon', this.subweapon);
+                    this.$set(this.TempAllSet, 'Status', this.status);
+                    this.$set(this.TempAllSet, 'SkillName', this.skill.name);
+                    this.$set(this.TempAllSet, 'Skill', this.skill);
+                    this.$set(this.TempAllSet, 'SkillOption', this.skilloption);
+                    this.$set(this.TempAllSet, 'Option', this.Option);
+                    this.$set(this.TempAllSet, 'EnemyName', this.enemyattribute.name);
+                    this.$set(this.TempAllSet, 'Enemy', this.enemyattribute);
+                    this.$set(this.TempAllSet, 'Damage', 0);
+                    this.$set(this.TempAllSet, 'DamageDPS', 0);
+                    this.$set(this.TempAllSet, 'NormalAttackDPS', 0);
+                    this.OpenPanel('AllSetDBDialog');
+                    
+                },
+                onSaveAllSet(){
+                    this.StoreDB_AllSet.unshift({
+                        uuid: this._uuid(),
+                        AllSet: this.TempAllSet,
+                    });
+                    const parsed = JSON.stringify(this.StoreDB_AllSet);
+                    localStorage.setItem('StoreDB_AllSet', parsed);
+                },
+                onRemoveAllSetSave(dbidx){
+                    if (dbidx > -1) {
+                        this.StoreDB_AllSet.splice(dbidx, 1)
+                        this.SaveStatusDB();
+                        const parsed = JSON.stringify(this.StoreDB_AllSet);
+                        localStorage.setItem('StoreDB_AllSet', parsed);
+                    }
+                },
+                onLoadAllSetSave(_dbidx){
+                    //this.equipspartlist[idx] = Object.assign({}, JSON.parse(JSON.stringify(this.StoreDB_Equip[_dbidx].equip)));
+                    this.skill.name = this.StoreDB_AllSet[_dbidx].AllSet.SkillName;
+                    for( eqi=0; eqi<this.equipspartlist.length; ++eqi){
+                        this.$set(this.equipspartlist,
+                            eqi,
+                            {
+                                id: this.equipspartlist[eqi].id,
+                                label: this.equipspartlist[eqi].label,
+                                equipname: this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].equipname,
+                                effectlist: this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].effectlist.concat(),
+                            })
+                    }
+                    this.weapon = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.Weapon);
+                    if( this.weapon == null ) this.weapon = Object.assign({}, this.weapon_init);
+                    this.subweapon = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.SubWeapon);
+                    if( this.subweapon == null ) this.subweapon = Object.assign({}, this.subweapon_init);
+
+                    this.status = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.Status);
+                    this.skill = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.Skill);
+                    this.skilloption = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.SkillOption);
+                    this.Option = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.Option);
+                    this.CombineEquipsAttribute();
+                    this.ChangeWeapon();
+                    this.enemyattribute.name = this.StoreDB_AllSet[_dbidx].AllSet.EnemyName;
+                    this.enemyattribute = this.StoreDB_AllSet[_dbidx].AllSet.Enemy;
+
+                },
                 LoadDB() {
                     if (localStorage.getItem('StoreDB_Status')) {
                         try {
@@ -5640,6 +5802,13 @@
                     if (localStorage.getItem('StoreDB_Skill')) {
                         try {
                             this.StoreDB_Skill = JSON.parse(localStorage.getItem('StoreDB_Skill'));
+                        } catch (e) {
+                            console.log("catch e:" + e);
+                        }
+                    }
+                    if (localStorage.getItem('StoreDB_AllSet')) {
+                        try {
+                            this.StoreDB_AllSet = JSON.parse(localStorage.getItem('StoreDB_AllSet'));
                         } catch (e) {
                             console.log("catch e:" + e);
                         }
@@ -5727,6 +5896,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-3-18', content: '修正副手Matk不被計算的BUG' },
                         { id: '2020-3-15A', content: '修正不清空就儲存裝備會導致存檔被覆蓋的BUG<br/>增加一般計算遊戲內後Atk/Matk面板顯示的數值，方便檢查裝備填寫錯誤<br/>增加武器為拳刃時左手的計算(普攻/普爆/普DPS)<br/>增加技能清單 十字斬/迴旋刀刃/迴旋十字斬<br/>調整技能清單樣式' },
                         { id: '2020-3-14', content: '增加計算可用/已用素質點<br/>增加部分UI折疊功能<br/>增加技能清單 風魔飛鏢之飛舞/幽冥十字斬' },
                         { id: '2020-3-10', content: '增加武器儲存<br/>調整武器欄位位置、增加副手裝備設定' },
@@ -5746,7 +5916,7 @@
                             this.CurrentUpdateVersion = this.UpdateLogList[0].id;
                             const parsed = JSON.stringify(this.CurrentUpdateVersion);
                             localStorage.setItem('CurrentUpdateVersion', parsed);
-                            this.TogglePanel('UpdateLogPanel');
+                            this.TogglePanel('UpdateLogDialog');
                         }
                     } catch (e) {
                         console.log("catch e:" + e);
@@ -5856,6 +6026,16 @@
             if (this.weapon.ArrowATK == '') this.weapon.ArrowATK = 0;
             if (this.weapon.BulletATK == '') this.weapon.BulletATK = 0;
             if (this.weapon.refinelevel == '') this.weapon.refinelevel = 0;
+            this.onOption();
+        }, {
+            deep: true
+        });
+        evue.$watch('subweapon', function (newB, oldB) {
+            console.log("Watch subweapon ");
+            if (this.subweapon.ATK == '') this.subweapon.ATK = 0;
+            if (this.subweapon.MATK == '') this.subweapon.MATK = 0;
+            if (this.subweapon.ShieldWeight == '') this.subweapon.ShieldWeight = 0;
+            if (this.subweapon.refinelevel == '') this.subweapon.refinelevel = 0;
             this.onOption();
         }, {
             deep: true
