@@ -3213,7 +3213,7 @@
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                         <el-row>
                             <div class="Attribute">
-<!--                                 <el-row class="titlebox" type="flex" align="middle" style="height:40px; padding: 0px 5px;">
+                                <el-row v-if="TestMode" class="titlebox" type="flex" align="middle" style="height:40px; padding: 0px 5px;">
                                     <el-col class="textcenter" :span="4">
                                     </el-col>
                                     <el-col class="textcenter" :span="20">
@@ -3223,7 +3223,7 @@
                                             AllSet
                                         </el-button>
                                     </el-col>
-                                </el-row> -->
+                                </el-row>
                                 <el-row class="titlebox" type="flex" align="middle" style="height:40px; padding: 0px 5px;">
                                     <el-col class="textcenter" :span="2">
                                     </el-col>
@@ -3820,6 +3820,7 @@
                 StoreDB_AllSet:[],
                 TempAllSet: {},
 
+                TestMode: false,
                 StoreDB_QuickCalc: [],
                 QuickCalc: { formula: '', solution: '', remark: '' },
 
@@ -4801,8 +4802,8 @@
                         this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
                     }
                     if (this.weapon.type.isRangedattack) {
-                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
-                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
+                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, para_ranged);
+                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, para_ranged);
                         this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, para_ranged);
                     }
 
@@ -5799,6 +5800,16 @@
                             console.log("catch e:" + e);
                         }
                     }
+                    if (localStorage.getItem('TestMode')) {
+                        try {
+                            this.TestMode = JSON.parse(localStorage.getItem('TestMode'));
+                        } catch (e) {
+                            console.log("catch e:" + e);
+                        }
+                    }else{
+                        const parsed = JSON.stringify(this.TestMode);
+                        localStorage.setItem('TestMode', parsed);
+                    }
                     if (localStorage.getItem('StoreDB_Skill')) {
                         try {
                             this.StoreDB_Skill = JSON.parse(localStorage.getItem('StoreDB_Skill'));
@@ -5841,8 +5852,8 @@
                         { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 1000, SpecialMATK1: 0, } },
                         { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈>5)', level: 5, formula: '(8+DOWN(SP/10))*100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 100, SpecialATK5: 0, SpecialATK6: 1000, SpecialMATK1: 0, } },
                         { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: 'DOWN((HP*(SLV*0.02+0.1)+SP*(SLV*0.01+0.05))/4)*(BLV/100)', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 'SLV*240+ELV*40', SpecialMATK1: 0, } },
-                        { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', DamageTypeIdx: 0, ranged: false, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨(樂器/鞭子)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100*1.666', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM(bow)', name: '大暴雨(弓)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
@@ -5896,6 +5907,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-3-24', content: '修正白字普攻傷害部分情況會錯誤的問題<br>修正手推車加農砲設定現在為遠傷<br>修正三角射擊攻擊次數現在為-3' },
                         { id: '2020-3-18', content: '修正副手Matk不被計算的BUG' },
                         { id: '2020-3-15A', content: '修正不清空就儲存裝備會導致存檔被覆蓋的BUG<br/>增加一般計算遊戲內後Atk/Matk面板顯示的數值，方便檢查裝備填寫錯誤<br/>增加武器為拳刃時左手的計算(普攻/普爆/普DPS)<br/>增加技能清單 十字斬/迴旋刀刃/迴旋十字斬<br/>調整技能清單樣式' },
                         { id: '2020-3-14', content: '增加計算可用/已用素質點<br/>增加部分UI折疊功能<br/>增加技能清單 風魔飛鏢之飛舞/幽冥十字斬' },
@@ -5979,7 +5991,6 @@
                 
             },
             mounted() {
-                console.log("mounted");
                 this.LoadDB();
                 this.attritube_init = Object.assign({}, this.attritube);
                 this.status_add_init = Object.assign({}, this.status_add);
