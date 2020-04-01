@@ -1175,22 +1175,34 @@
                                     </el-col>
                                 </el-row>
                                 <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6">
+                                        <span>轉生</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">
+                                        <el-switch v-model="status.Transcendent" v-on:change="onOption"
+                                            active-color="#13ce66" inactive-color="#8a9799">
+                                        </el-switch>
+                                    </el-col>
                                     <el-tooltip class="item" effect="dark" content='預設轉生情況，非轉生要-52點' placement="top-start">
                                     <el-col class="textcenter" :span="6">可用素質點</el-col>
                                     </el-tooltip>
                                     <el-col class="textcenter" :span="6">{{computeattribute.StatsPoint}}</el-col>  
+                                </el-row>
+                                <el-row v-show="(computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint'])>=0" 
+                                    class="statusbox" :gutter="4" type="flex" align="middle" >
                                     <el-tooltip class="item" effect="dark" content='計算素質欄中第一個 " + 號" 前的數值 例:120+10+5 取120' placement="top-start">
                                     <el-col class="textcenter" :span="6">已消耗點數</el-col>
                                     </el-tooltip>
                                     <el-col class="textcenter" :span="6">{{computeattribute.RaisingStatsPoint}}</el-col>
-                                </el-row>
-                                <el-row v-show="(computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint'])>=0" 
-                                    class="statusbox" :gutter="4" type="flex" align="middle" >
-                                    <el-col class="textcenter">餘 {{computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint']}}點</el-col>
+                                    <el-col class="textcenter" :span="12">餘 {{computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint']}}點</el-col>
                                 </el-row>
                                 <el-row v-show="(computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint'])<0" 
-                                class="statusbox" :gutter="4" type="flex" align="middle" style="color: red;">
-                                    <el-col class="textcenter">不足 {{computeattribute['RaisingStatsPoint']-computeattribute['StatsPoint']}}點</el-col>
+                                    class="statusbox" :gutter="4" type="flex" align="middle" style="color: red;">
+                                    <el-tooltip class="item" effect="dark" content='計算素質欄中第一個 " + 號" 前的數值 例:120+10+5 取120' placement="top-start">
+                                    <el-col class="textcenter" :span="6">已消耗點數</el-col>
+                                    </el-tooltip>
+                                    <el-col class="textcenter" :span="6">{{computeattribute.RaisingStatsPoint}}</el-col>
+                                    <el-col class="textcenter" :span="12">不足 {{computeattribute['RaisingStatsPoint']-computeattribute['StatsPoint']}}點</el-col>
                                 </el-row>
                             </div>
                             </div>
@@ -1341,6 +1353,12 @@
                         </el-row>
                         <el-row>
                             <div class="boxborder OptionBlock">
+                                <el-row  v-show='skill.name != ""'  class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">技能名</el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        {{skill.name}}
+                                    </el-col>
+                                </el-row>
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">技能倍率</el-col>
                                     <el-col class="textcenter" :span="8">
@@ -3933,7 +3951,7 @@
                 },
                 subweapon_init: {},
                 status: {
-                    Level: 1, JOBLevel: 1,
+                    Level: 1, JOBLevel: 1, Transcendent: false,
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
                     ASPD: 0, HP: 0, SP: 0,
                 },
@@ -4595,7 +4613,7 @@
                         this.attritube['CRI'] = Math.floor((this.attritube['CRI'] - this.enemyattribute.LUK * 0.2) * 100) / 100;
                         this.onSkillPercentChange();
 
-                        var _Pt = 100;
+                        var _Pt = this.status.Transcendent? 100 : 100-52;
                         for(i=1;i<this.status.Level;i++)
                         {
                             if(i<100){
@@ -4655,9 +4673,9 @@
                     var _StatusDI = (this.status_total.DEX * 2 + this.status_total.INT);
                     if (_StatusDI > 530) _StatusDI = 530;
                     this.computeattribute.CastTime =
-                        this.skill.VCT * (1 - Math.sqrt(_StatusDI / 530)) * (1 - (-this.attritube['EQVCTP']) / 100) * (1 - (-this.attritube['SK1VCTP']) / 100) * (1 - (-this.attritube['SK2VCTP']) / 100) +
-                        (this.skill.FCT - (-this.attritube['FCT'])) * (1 - (-this.attritube['FCTP']) / 100);
-                    this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 100) / 100, 0, _MaxCastTime);
+                        this.skill.VCT * (1 - Math.sqrt(_StatusDI / 530)) * (1 + this.attritube['EQVCTP']/100) * (1 + this.attritube['SK1VCTP']/100) * (1 + this.attritube['SK2VCTP']/100) +
+                        this.clamp((this.skill.FCT - (-this.attritube['FCT'])), 0, 999) * (1 - (-this.attritube['FCTP']) / 100);
+                    this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 10000) / 10000, 0, _MaxCastTime);
                     this.computeattribute.DelayTime = Math.max(Math.floor(this.skill.GCD * (1 - (-this.attritube['GCD']) / 100) * 100) / 100,
                         this.skill.CD - (-this.attritube['CD']));
                     this.computeattribute.AspdDelay = Math.floor((200 - this.attritube.ASPD) / 50 * 100) / 100;
@@ -5365,8 +5383,8 @@
                     }
                     //上弦月
                     if (this.option.OB_ZANGETSU) {
-                        this.attritube['ATK'] += this.status.Level / 3 + 5 * 20;
-                        this.attritube['MATK'] += this.status.Level / 3 + 5 * 20;
+                        this.attritube['ATK'] += Math.floor(this.status.Level / 3) + 5 * 20;
+                        this.attritube['MATK'] += Math.floor(this.status.Level / 3) + 5 * 20;
                     }
                     if (this.option.KO_RIGHT) {
                         this.computeattribute['SpecialRLHand'] = 70 + this.option.KO_RIGHTLevel*10;
@@ -5432,12 +5450,12 @@
                         Number(this.effecttypelist.find(x => x.id == 'FixedCastPercent').totalvalue));
                     this.attritube['FCTP'] = -Math.abs(this.attritube['FCTP']);
                     this.attritube['FCT'] += Number(this.effecttypelist.find(x => x.id == 'FixedCast').totalvalue);
-                    this.attritube['FCT'] = -Math.abs(this.attritube['FCT']);
+                    this.attritube['FCT'] = -1 * Math.abs(this.attritube['FCT']);
                     this.attritube['EQVCTP'] += Number(this.effecttypelist.find(x => x.id == 'VariableCastPercent').totalvalue);
-                    this.attritube['EQVCTP'] = -Math.abs(this.attritube['EQVCTP']);
-                    this.attritube['SK1VCTP'] = -Math.abs(this.attritube['SK1VCTP']);
+                    this.attritube['EQVCTP'] = -1 * this.clamp(Math.abs(this.attritube['EQVCTP']), -100, 100);
+                    this.attritube['SK1VCTP'] = -1 * this.clamp(Math.abs(this.attritube['SK1VCTP']), 0, 100);
                     this.attritube['SK2VCTP'] = Number(this.effecttypelist.find(x => x.id == 'SPSkillVariableCastPercent').totalvalue);
-                    this.attritube['SK2VCTP'] = -Math.abs(this.attritube['SK2VCTP']);
+                    this.attritube['SK2VCTP'] = -1 * this.clamp(Math.abs(this.attritube['SK2VCTP']), 0, 100);
                     this.attritube['GCD'] += Number(this.effecttypelist.find(x => x.id == 'GCDPercent').totalvalue);
                     this.attritube['GCD'] = -Math.abs(this.attritube['GCD']);
                     this.attritube['CD'] = Number(this.effecttypelist.find(x => x.id == 'CDTime').totalvalue);
@@ -5619,6 +5637,7 @@
                     if (this.status.ASPD == null) this.status.ASPD = 0;
                     if (this.status.HP == null) this.status.HP = 0;
                     if (this.status.SP == null) this.status.SP = 0;
+                    if (this.status.Transcendent == null) this.status.Transcendent = false;
                     this.onOption();
                     this.ClosePanel('StatusDBDialog');
                 },
@@ -5838,6 +5857,7 @@
                         { skill: { id: 'GC_CROSSIMPACT', name: '十字斬', level: 5, formula: '(1000+SLV*100)*BLV/120', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'GC_ROLLINGCUTTER', name: '迴旋刀刃', level: 5, formula: '(50+SLV*50)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'GC_CROSSRIPPERSLASHER', name: '迴旋十字斬', level: 5, formula: '(400+SLV*80)*BLV/100+10*AGI', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },             
+                        { skill: { id: 'RA_AIMEDBOLT', name: '瞄準標靶', level: 10, formula: '(500+SLV*20)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 1, VCT: 4, CD: 1, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'SN_SHARPSHOOTING', name: '銳利射擊', level: 5, formula: '(150+200*SLV)*(BLV/100)', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'RA_ARROWSTORM', name: '箭雨風暴', level: 10, formula: '(SLV*80+1000)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 3.8, CD: 3.2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'LG_CANNONSPEAR', name: '加農砲攻擊', level: 5, formula: '(50+STR)*SLV*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
@@ -5874,15 +5894,18 @@
                     this.enemylist.push(
                         { id: 0, name: '自訂', level: 1, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 1, name: '蛋(10)', level: 10, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 2, name: '龍蛋(100)', level: 100, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3, name: '龍蛋(150)', level: 150, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 4, name: '闇●盧恩騎士', level: 179, hp: 0, LUK: 0, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189, WeaponDEF: 400, StatusMDEF: 57, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 5, name: '闇●十字斬首者', level: 179, hp: 0, LUK: 0, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 62, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 6, name: '闇●魅影追蹤者', level: 178, hp: 0, LUK: 0, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 7, name: '席琳基米', level: 150, hp: 0, LUK: 0, elemental: 8, elementallevel: 1, size: 2, StatusDEF: 102, WeaponDEF: 479, StatusMDEF: 151, WeaponMDEF: 444, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 8, name: '闇答萊屍', level: 150, hp: 0, LUK: 0, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 120, WeaponDEF: 30, StatusMDEF: 159, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 9, name: '覺醒闇答萊屍', level: 180, hp: 0, LUK: 0, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 135, WeaponDEF: 30, StatusMDEF: 174, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 10, name: '歐內斯特 斯特凡˙傑克', level: 160, hp: 0, LUK: 0, elemental: 9, elementallevel: 1, size: 2, StatusDEF: 88, WeaponDEF: 146, StatusMDEF: 54, WeaponMDEF: 30, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2410, name: '龍蛋(100)', level: 100, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2411, name: '龍蛋(150)', level: 150, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3213, name: '闇●盧恩騎士', level: 179, hp: 2448000, LUK: 60, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189, WeaponDEF: 400, StatusMDEF: 57, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3208, name: '闇●十字斬首者', level: 179, hp: 2380000, LUK: 80, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 62, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3230, name: '闇●魅影追蹤者', level: 178, hp: 2040000, LUK: 50, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2996, name: '席琳基米', level: 150, hp: 66666666, LUK: 166, elemental: 8, elementallevel: 1, size: 2, StatusDEF: 102, WeaponDEF: 479, StatusMDEF: 151, WeaponMDEF: 444, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2476, name: '闇答萊屍', level: 150, hp: 4290000, LUK: 20, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 120, WeaponDEF: 30, StatusMDEF: 159, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3150, name: '覺醒闇答萊屍', level: 180, hp: 42900000, LUK: 20, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 135, WeaponDEF: 30, StatusMDEF: 174, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 10, name: '歐內斯特 斯特凡˙傑克', level: 160, hp: 20000000, LUK: 43, elemental: 9, elementallevel: 1, size: 2, StatusDEF: 88, WeaponDEF: 146, StatusMDEF: 54, WeaponMDEF: 30, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 11, name: '米古爾', level: 115, hp: 8600000, LUK: 85, elemental: 3, elementallevel: 4, size: 1, StatusDEF: 71, WeaponDEF: 216, StatusMDEF: 45, WeaponMDEF: 95, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 12, name: '噩夢小丑皇', level: 189, hp: 2100000000, LUK: 0, elemental: 5, elementallevel: 4, size: 2, StatusDEF: 0, WeaponDEF: 200, StatusMDEF: 0, WeaponMDEF: 400, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        
                     );
 
                     this.KeywordReplaceList.push(
@@ -5907,6 +5930,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-4-1', content: '素質點計算增加轉生按鈕(未轉生少52點)<br>修正裝備變詠固詠會超過上限會錯誤的問題<br>增加敵方資料<br>調整技能區塊顯示' },
                         { id: '2020-3-24', content: '修正白字普攻傷害部分情況會錯誤的問題<br>修正手推車加農砲設定現在為遠傷<br>修正三角射擊攻擊次數現在為-3' },
                         { id: '2020-3-18', content: '修正副手Matk不被計算的BUG' },
                         { id: '2020-3-15A', content: '修正不清空就儲存裝備會導致存檔被覆蓋的BUG<br/>增加一般計算遊戲內後Atk/Matk面板顯示的數值，方便檢查裝備填寫錯誤<br/>增加武器為拳刃時左手的計算(普攻/普爆/普DPS)<br/>增加技能清單 十字斬/迴旋刀刃/迴旋十字斬<br/>調整技能清單樣式' },
@@ -6016,7 +6040,7 @@
                 this.ChangeWeapon();
                 this.skilloption.AttackElementalIdx = 0;
                 this.ComputElementalPercent();
-                this.skill = { name: '', level: 1, formula: '(70*SLV+INT*3)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, hitnumber: 1, laterformula: false, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, };
+                this.skill = { name: '', level: 1, formula: '100', DamageTypeIdx: 0, ranged: false, critical: false, hitnumber: 1, laterformula: false, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, };
                 this.onSkillPercentChange();
             }
 
