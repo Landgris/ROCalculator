@@ -4763,13 +4763,20 @@
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(0.75));
                     } */
                     var para7 = (this.subweapon.type.id == 2 ? Number(this.attritube['StatusATK']) : Number(this.attritube['StatusATK'] * 2));
+                    var para7ele = 100;
+                    if (this.enemyattribute.elemental == 8) {
+                        para7ele = this.getElementalPercent(
+                            0,
+                            this.enemyattribute.elemental,
+                            this.enemyattribute.elementallevel);
+                    }
                     if (this.option.SevenWinde) {
-                        var parasevenwinde = this.getElementalPercent(
+                        para7ele = this.getElementalPercent(
                             this.skilloption.AttackElementalIdx,
                             this.enemyattribute.elemental,
                             this.enemyattribute.elementallevel);
-                        para7 = this.MulOper(Number(para7), Number(parasevenwinde / 100));
                     }
+                    para7 = this.MulOper(Number(para7), Number(para7ele / 100));
                     this.computeattribute.atkc5_min += Number(para7) + Number(this.skilloption.WeaponMasteryATK);
                     this.computeattribute.atkc5_max += Number(para7) + Number(this.skilloption.WeaponMasteryATK);
 
@@ -4812,13 +4819,8 @@
                     this.computeattribute.normalattack_max = this.computeattribute.atkc5_max, para_crid;
                     this.computeattribute.normalcritical = this.MulOper(this.computeattribute.atkc5_max, para_crid);
 
-                    //遠程增傷
+                    //遠程增傷 技能移去後段
                     var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
-                    if (this.skill.ranged) {
-                        this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
-                        this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
-                    }
                     if (this.weapon.type.isRangedattack) {
                         this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, para_ranged);
                         this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, para_ranged);
@@ -4888,6 +4890,12 @@
                     this.computeattribute.normalattack_DPS = Math.floor((this.computeattribute.normalattack_min + this.computeattribute.normalattack_max) / 2) * _CRIRateN / 100 +
                         this.computeattribute.normalcritical * _CRIRate;
 
+                    // 技能遠傷
+                    if (this.skill.ranged ) {
+                        this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, para_ranged);
+                        this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, para_ranged);
+                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
+                    }
                     // 技能增傷裝
                     this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
@@ -5881,7 +5889,11 @@
                         { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 5, formula: '(AGI+DEX)+150*SLV+500', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 5, formula: 'SLV*150*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
-                        { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 7, formula: '(1100+SLV*100)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SJ_SOLARBURST', name: '太陽爆炸', level: 10, formula: '(1000+SLV*220+*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },        
+                        { skill: { id: 'SJ_NEWMOONKICK', name: '朔月腳', level: 7, formula: '(600+SLV*100+(SLV>3)?100:0)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 10, formula: '(1100+SLV*100)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
+                        { skill: { id: 'SP_SPA', name: '艾斯帕', level: 5, formula: '(500+SLV*250)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 7, formula: '(1100+SLV*200)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'SU_PICKYPECK', name: '小雞啄擊', level: 5, formula: 'DOWN((200+SLV*100)*2.2)', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
                         { skill: { id: 'SU_SV_STEMSPEAR', name: '獼猴桃梗槍', level: 5, formula: '700', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 1, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, } },
@@ -5930,6 +5942,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-4-7', content: '修正對念屬性敵方的傷害計算<br>調整技能遠傷的位置<br>增加技能清單 紅焰腳/太陽爆炸/朔月腳/艾斯帕' },
                         { id: '2020-4-1', content: '素質點計算增加轉生按鈕(未轉生少52點)<br>修正裝備變詠固詠會超過上限會錯誤的問題<br>增加敵方資料<br>調整技能區塊顯示' },
                         { id: '2020-3-24', content: '修正白字普攻傷害部分情況會錯誤的問題<br>修正手推車加農砲設定現在為遠傷<br>修正三角射擊攻擊次數現在為-3' },
                         { id: '2020-3-18', content: '修正副手Matk不被計算的BUG' },
