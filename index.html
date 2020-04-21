@@ -1174,6 +1174,18 @@
                                         </el-input>
                                     </el-col>
                                 </el-row>
+                                <el-row v-if="TestMode" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6">HP_JOB_A</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="HP_JOB_A" v-on:input="onOption" placeholder="HP">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">HP_JOB_B</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="HP_JOB_B" v-on:input="onOption" placeholder="SP">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
                                 <el-row class="statusbox" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="6">
                                         <span>轉生</span>
@@ -1994,6 +2006,86 @@
                                                 </el-row>
                                             </div>
                                         </el-collapse-transition>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>火之紋章Lv3(我方)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SO_FIRE_INSIGNIA" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>火之紋章(敵方)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SO_FIRE_INSIGNIA_ENEMY" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>水之紋章Lv3(我方)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SO_WATER_INSIGNIA" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>水之紋章(敵方)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SO_WATER_INSIGNIA_ENEMY" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>風之紋章Lv3(我方)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SO_WIND_INSIGNIA" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>風之紋章(敵方)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SO_WIND_INSIGNIA_ENEMY" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>地之紋章Lv3(我方)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SO_EARTH_INSIGNIA" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>地之紋章(敵方)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SO_EARTH_INSIGNIA_ENEMY" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('AcolyteSkillPage')">
@@ -3979,6 +4071,7 @@
                     BYPASSDEF: 0, BYPASSMDEF: 0,
                     ElementalMagicPercent: 0,
                 },
+                HP_JOB_A: 0, HP_JOB_B: 0,
                 attritube_init: {},
                 sizetypelist: [
                     { id: 0, label: '小型' },
@@ -4135,7 +4228,18 @@
                     Striking: false,                //打擊強化
                     StrikingLevel: 1,
                     EndowLevel_Total: 0,            //屬附總等級
-
+                    SO_FIRE_INSIGNIA: false,
+                    SO_FIRE_INSIGNIA_ENEMY: false,
+                    FireInsigniaLevel: 0,
+                    SO_WATER_INSIGNIA: false,
+                    SO_WATER_INSIGNIA_ENEMY: false,
+                    WaterInsigniaLevel: 0,
+                    SO_WIND_INSIGNIA: false,
+                    SO_WIND_INSIGNIA_ENEMY: false,
+                    WindInsigniaLevel: 0,
+                    SO_EARTH_INSIGNIA: false,
+                    SO_EARTH_INSIGNIA_ENEMY: false,
+                    EarthInsigniaLevel: 0,
 
                     IncreaseAgility: false,     //加速
                     IncreaseAgilityValue: 10,
@@ -4628,6 +4732,21 @@
                         this.computeattribute['RaisingStatsPoint'] = 
                             this.RaisingStats(this.status.STR)+this.RaisingStats(this.status.AGI)+this.RaisingStats(this.status.VIT)+
                             this.RaisingStats(this.status.INT)+this.RaisingStats(this.status.DEX)+this.RaisingStats(this.status.LUK);
+
+/*                             
+                        var _BaseHP = 35;
+                        _BaseHP += this.status.Level * this.HP_JOB_B;
+                        for(i=2;i<=this.status.Level;i++)
+                        {
+                            _BaseHP += Math.round(this.HP_JOB_A * i);
+                        }
+                        var _MaxHP = _BaseHP;
+                        var HP_MOD_A = 0, HP_MOD_B = 0;
+                        _MaxHP = Math.floor(  Math.floor(_MaxHP * (1 + this.status_total.VIT * 0.01)) * (this.status.Transcendent?1.25:1) );
+                        _MaxHP += HP_MOD_A;
+                        _MaxHP = Math.floor( _MaxHP * (1 + HP_MOD_B * 0.01) );
+                        this.status.HP = _MaxHP; */
+
                     } catch (e) {
                         console.log("ComputStatus error " + e);
                     }
@@ -4821,6 +4940,13 @@
 
                     //遠程增傷 技能移去後段
                     var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
+                    
+                    if (this.skill.ranged ) {
+                        this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
+                        this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
+                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
+                    }
+                    
                     if (this.weapon.type.isRangedattack) {
                         this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, para_ranged);
                         this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, para_ranged);
@@ -4890,12 +5016,13 @@
                     this.computeattribute.normalattack_DPS = Math.floor((this.computeattribute.normalattack_min + this.computeattribute.normalattack_max) / 2) * _CRIRateN / 100 +
                         this.computeattribute.normalcritical * _CRIRate;
 
-                    // 技能遠傷
+                     // 技能遠傷
+                     /* 
                     if (this.skill.ranged ) {
                         this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, para_ranged);
                         this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, para_ranged);
                         this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
-                    }
+                    }  */
                     // 技能增傷裝
                     this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
@@ -5032,6 +5159,11 @@
                     } else {
                         this.computeattribute.matk4_min = this.computeattribute.matk4_min;
                         this.computeattribute.matk4_max = this.computeattribute.matk4_max;
+                    }
+
+                    if( this.option.SO_WATER_INSIGNIA_ENEMY ){
+                        this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1.5));
+                        this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1.5));
                     }
 
                     var _paradiv = this.skill.hitnumber;
@@ -5274,6 +5406,44 @@
                     if (this.option.Striking) {
                         this.attritube['CRI'] += this.option.StrikingLevel;
                         this.computeattribute['SpecialATK1'] += this.weapon.level.id * (this.option.StrikingLevel * 2 + 8) + this.option.EndowLevel_Total * 5;
+                    }
+                    // 紋章
+                    if (this.option.SO_FIRE_INSIGNIA) {
+                        if (this.skilloption.AttackElementalIdx == 1) {
+                            this.attritube['MATK'] += 50;
+                            this.attritube['ElementalMagicPercent'] += 25;
+                        }
+                    }
+                    if (this.option.SO_WATER_INSIGNIA) {
+                        if (this.skilloption.AttackElementalIdx == 2) {
+                            this.attritube['ElementalMagicPercent'] += 25;
+                        }
+                    }
+                    if (this.option.SO_WIND_INSIGNIA) {
+                        if (this.skilloption.AttackElementalIdx == 3) {
+                            this.attritube['ElementalMagicPercent'] += 25;
+                        }
+                    }
+                    if (this.option.SO_EARTH_INSIGNIA) {
+                        if (this.skilloption.AttackElementalIdx == 4) {
+                            this.attritube['ElementalMagicPercent'] += 25;
+                        }
+                    }
+                    if (this.option.SO_FIRE_INSIGNIA_ENEMY) {
+                        if (this.skilloption.AttackElementalIdx == 1) {
+                        }
+                    }
+                    if (this.option.SO_WATER_INSIGNIA_ENEMY) {
+                        if (this.skilloption.AttackElementalIdx == 2) {
+                        }
+                    }
+                    if (this.option.SO_WIND_INSIGNIA_ENEMY) {
+                        if (this.skilloption.AttackElementalIdx == 3) {
+                        }
+                    }
+                    if (this.option.SO_EARTH_INSIGNIA_ENEMY) {
+                        if (this.skilloption.AttackElementalIdx == 4) {
+                        }
                     }
                     // 加速
                     if (this.option.IncreaseAgility) {
