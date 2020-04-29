@@ -5868,6 +5868,7 @@
                         console.log("Load Equip " + idx + ": "+ this.StoreDB_Equip[_dbidx].equip.equipname);
                         if (idx == 8 && this.equipspartlist[8].equipname != '') { idx = 9; }
                         if (idx == 9 && this.equipspartlist[8].equipname == '') { idx = 8; }
+                        if (idx == 9 && this.equipspartlist[9].equipname != '') { idx = 8; }
                         //this.equipspartlist[idx] = Object.assign({}, JSON.parse(JSON.stringify(this.StoreDB_Equip[_dbidx].equip)));
                         this.$set(this.equipspartlist,
                             idx,
