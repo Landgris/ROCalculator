@@ -13,7 +13,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.0/index.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.0/theme-chalk/index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.min.js"></script>
+    
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63581889-2"></script>
     <script>
@@ -60,6 +61,10 @@
             background-color: #f9fafc;
         }
 
+        .text-wrapper {
+        white-space: pre-wrap;
+        }
+
         .ROCalTitle {
             height: 50px;
             position: relative;
@@ -97,6 +102,10 @@
 
         .SkillList-container {
             height: calc(100vh - (50px + 35px + 200px));
+        }
+
+        .EquipText-container {
+            height: calc(100vh - (50px + 35px + 130px));
         }
 
         .ThanksList-container {
@@ -748,6 +757,23 @@
                 </el-scrollbar>
             </el-row>
         </el-dialog>
+        
+        <el-dialog :visible.sync="UIPanel['EquipTextDialog']" v-on:close="ClosePanel('EquipTextDialog')"
+            custom-class="Dialogue-container" width="40%" top="58px" :show-close=false center>
+            <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:50px; padding: 0px 0px;">
+                <el-col :span="12">
+                    <el-button v-on:click="CopyEquipText('Equip')">複製裝備文字</el-button>
+                </el-col>
+                <el-col :span="12">
+                    <el-button v-on:click="CopyEquipText('Combine')">複製整合效果</el-button>
+                </el-col>
+            </el-row>
+            <el-row :gutter="6" style="padding: 0px 10px;">
+                <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
+                    <div class="text-wrapper">{{EquipText}}</div>
+                </el-scrollbar>
+            </el-row>
+        </el-dialog>
         <el-dialog :visible.sync="UIPanel['StatusDBDialog']" v-on:close="ClosePanel('StatusDBDialog')"
             custom-class="Dialogue-container" width="85%" top="58px" center>
             <span slot="title">角色清單</span>
@@ -1064,11 +1090,23 @@
             <el-row :gutter="2">
                 <el-col :span="8">
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
+                        
                         <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:40px; padding: 0px 5px;">
                             <el-col class="textcenter" :span="2">
-                                <span class="textcenter"> </span>
+                                <el-button v-on:click="onOpenAllSet" size="mini">
+                                    清單
+                                </el-button>
                             </el-col>
-                            <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="20" style="text-align: center;">
+                            <el-col class="textcenter" :span="20">
+                                <span class="textcenter">整頁儲存(測試)</span>
+                            </el-col>
+                            <el-col class="textcenter" :span="6">
+                            </el-col>
+                        </el-row>
+                        <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:40px; padding: 0px 5px;">
+                            <el-col class="textcenter" :span="2">
+                            </el-col>
+                            <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="16" style="text-align: center;">
                                 <span class="textcenter">角色素質</span>
                             </el-col>
                             <el-col v-else-if="!UIPanel['StatusPanel']&&(skill.DamageTypeIdx==0)" class="textcenter" :span="16" style="text-align: left;">
@@ -2918,13 +2956,19 @@
                     </el-scrollbar>
                 </el-col>
                 <el-col :span="8">
-                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                    <el-row class="titlebox" type="flex" align="middle" justify="space-around" style="height:40px; padding: 0px 5px;">
+                        <el-col class="textcenter" :span="6"> </el-col>
                         <el-col class="textcenter" :span="6"> </el-col>
                         <el-col class="textcenter" :span="10">
                             <span class="textcenter">裝備</span>
                         </el-col>
                         <el-col class="textcenter" :span="6" style="text-align: right;">
-                            <el-tooltip class="item" effect="dark" content="讀取已經儲存的裝備" placement="left">
+                            <el-button v-on:click="OpenTextDialog('Equip')" size="small">
+                                複製文字
+                            </el-button>
+                        </el-col>
+                        <el-col class="textcenter" :span="6" style="text-align: right;">
+                            <el-tooltip class="item" effect="dark" content="讀取已經儲存的裝備" placement="right">
                                 <el-button v-on:click="TogglePanel('EquipDBDialog')" size="small">
                                     裝備清單
                                 </el-button>
@@ -3369,17 +3413,6 @@
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                         <el-row>
                             <div class="Attribute">
-                                <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:40px; padding: 0px 5px;">
-                                    <el-col class="textcenter" :span="8">
-                                    </el-col>
-                                    <el-col class="textcenter" :span="8">
-                                    </el-col>
-                                    <el-col class="textcenter" :span="8">
-                                        <el-button v-on:click="onOpenAllSet" size="mini">
-                                            整頁儲存(測試)
-                                        </el-button>
-                                    </el-col>
-                                </el-row>
                                 <el-row class="titlebox" type="flex" align="middle" style="height:40px; padding: 0px 5px;">
                                     <el-col class="textcenter" :span="2">
                                     </el-col>
@@ -3976,6 +4009,8 @@
                 StoreDB_AllSet:[],
                 TempAllSet: {},
 
+                EquipText: '',
+
                 TestMode: false,
                 StoreDB_QuickCalc: [],
                 QuickCalc: { formula: '', solution: '', remark: '' },
@@ -4564,6 +4599,7 @@
                     EquipDBDialog: false,
                     EquipEffectDialog: false,
                     AllSetDBDialog: false,
+                    EquipTextDialog: false,
                     QuickCalcDialog: false,
 
                     StatusPanel: true,
@@ -4689,6 +4725,98 @@
                 },
                 CloseEffectDialogue() {
                     this.EquipSelectId = '';
+                },
+                OpenTextDialog( type ) {
+                    this.EquipText = this.GetEquipString();
+                    this.OpenPanel('EquipTextDialog');
+                },
+                // https://vuejsexamples.com/a-simple-vue2-binding-to-clipboard-js/
+                // https://vue-clipboard2.inndy.tw/
+                CopyEquipText( type ){
+                    switch(type){
+                        case 'Equip':
+                            this.EquipText = this.GetEquipString();
+                        break;
+                        case 'Combine':
+                            this.EquipText = this.GetCombineString();
+                        break;
+                    }
+                     this.$copyText(this.EquipText)
+                     .then(function (e) {
+                            alert('複製成功')
+                            console.log(e)
+                        }, function (e) {
+                            alert('複製失敗')
+                            console.log(e)
+                    });
+                },
+                GetEquipString() {
+                    var _BuildString = "";
+                    for( var i=0; i<this.equipspartlist.length; ++i )
+                    {
+                        if (this.equipspartlist[i].equipname.trim() == '') continue;
+                        else _BuildString += this.equipspartlist[i].label + ": " + this.equipspartlist[i].equipname + '\n';
+                        if( i==0 )
+                        {
+                            if( this.weapon.ATK != 0 )
+                            {
+                                _BuildString += "\tATK: " + this.weapon.ATK;
+                                if( this.weapon.refineatk != 0 ) _BuildString += " 精煉ATK: " + this.weapon.refineatk;
+                            }
+                            if( this.weapon.MATK != 0 )
+                            {
+                                _BuildString += "\tMATK: " + this.weapon.MATK ;
+                                if( this.weapon.refinematk != 0 ) _BuildString += " 精煉MATK: " + this.weapon.refinematk;
+                            } 
+                            if( this.weapon.refineatk2 != 0 ) _BuildString += " 過渡精煉: " + this.weapon.refineatk2;
+                            _BuildString += '\n'
+                            if( this.weapon.ArrowATK != 0 ) _BuildString += "\t箭矢ATK: " + this.weapon.ArrowATK + '\n';
+                            if( this.weapon.BulletATK != 0 ) _BuildString += "\t子彈ATK: " + this.weapon.BulletATK + '\n';
+                            if( this.weapon.Weight != 0 ) _BuildString += "\t重量: " + this.weapon.Weight + '\n';
+                        }
+                        if( i==1 )
+                        {
+                            if( this.subweapon.ATK != 0 )
+                            {
+                                _BuildString += "ATK: " + this.subweapon.ATK;
+                                if( this.weapon.refineatk != 0 ) _BuildString += "\t精煉ATK: " + this.subweapon.refineatk;
+                                _BuildString += '\n'
+                            }
+                            if( this.subweapon.MATK != 0 )
+                            {
+                                _BuildString += "MATK: " + this.subweapon.MATK;
+                                if( this.weapon.refinematk != 0 ) _BuildString += "\t精煉MATK: " + this.subweapon.refinematk;
+                                _BuildString += '\n'
+                            } 
+                            if( this.subweapon.ShieldWeight != 0 ) _BuildString += " \t盾牌重量: " + this.subweapon.ShieldWeight + '\n';
+                        }
+                        var _EffectTypeInfo;
+                        for( var j=0; j<this.equipspartlist[i].effectlist.length; ++j )
+                        {
+                            _EffectTypeInfo = Enumerable.From(this.effecttypelist)
+                                .Where("$.id == '" + this.equipspartlist[i].effectlist[j].EffectType.id + "'" )
+                                .Single();
+                            _BuildString += '\t'
+                                 + _EffectTypeInfo.label.substr(0).replace('%', '').trim()
+                                 + _EffectTypeInfo.opersymbol
+                                 + this.equipspartlist[i].effectlist[j].EffectNumber
+                                 + _EffectTypeInfo.suffixsymbol + '\n';
+                        }
+                    }
+                    return _BuildString;
+                },
+                GetCombineString(){
+                    var _BuildString = "";
+                        for( var i=0; i<this.effecttypelist.length; ++i )
+                        {
+                            if( this.effecttypelist[i].totalvalue == 0 ) continue;
+                            _BuildString += 
+                                this.effecttypelist[i].label.substr(0).replace('%', '').trim()
+                                 + this.effecttypelist[i].opersymbol
+                                 + this.effecttypelist[i].totalvalue
+                                 + this.effecttypelist[i].suffixsymbol + '\n';
+                        }
+                    return _BuildString;
                 },
                 ComputRefineATK() {
                     this.weapon.refineatk = this.weapon.refinelevel * this.weaponlevellist[this.weapon.level.id - 1].upgradeatk;
@@ -5703,11 +5831,6 @@
                         this.attritube['DEF'] -= this.option.OdinsPowerLevel * 20;
                         this.attritube['MDEF'] -= this.option.OdinsPowerLevel * 20;
                     }
-                    // 魔劍士
-                    if (this.option.MemoryofThanatosCard) {
-                        this.attritube['ATK'] += this.enemyattribute.WeaponDEF / 2;
-                        this.option.IgnoreDEF = true;
-                    }
 
                     var _AllStatus = Number(this.effecttypelist.find(x => x.id == 'AllStatus').totalvalue);
                     this.status_add.STR += Number(this.effecttypelist.find(x => x.id == 'STR').totalvalue) + _AllStatus;
@@ -5757,6 +5880,21 @@
                     this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue);
 
                     this.option.EquipSkillAddDamage += Number(this.effecttypelist.find(x => x.id == 'SkillDamagePercent').totalvalue);
+
+                    // 魔劍士
+                    if (this.option.MemoryofThanatosCard) {
+                        this.option.IgnoreDEF = true;
+                        if (this.skill.transWeaponDEF == false) {
+                            this.attritube['ATK'] += 
+                            Math.floor(
+                                this.MulOper(
+                                    this.enemyattribute.WeaponDEF,
+                                    (Number(1) - Number(this.attritube['BYPASSDEF'])/100)
+                                )
+                                * 0.5
+                            );
+                        } 
+                    }
 
                     this.computeattribute['SpecialATK1'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK1));
                     this.computeattribute['SpecialATK2'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK2));
@@ -6052,7 +6190,7 @@
                 onSaveAllSet(){
                     this.StoreDB_AllSet.unshift({
                         uuid: this._uuid(),
-                        AllSet: this.TempAllSet,
+                        AllSet: Object.assign({}, this.TempAllSet),
                     });
                     const parsed = JSON.stringify(this.StoreDB_AllSet);
                     localStorage.setItem('StoreDB_AllSet', parsed);
@@ -6234,6 +6372,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-5-4', content: '增加裝備/整合效果的文字複製功能<br>修正額外裝備選項魔劍卡對於無視防禦沒有影響ATK的錯誤' },
                         { id: '2020-4-29', content: '增加三轉職業HP/SP計算<br>裝備效果增加HP、HP%、SP、SP%<br>調整素質區塊/素質清單樣式<br>增加技能清單 爆炸飛刀/幽冥十字斬(十字創傷)<br>整頁儲存測試中' },
                         { id: '2020-4-7', content: '修正對念屬性敵方的傷害計算<br>調整技能遠傷的位置<br>增加技能清單 紅焰腳/太陽爆炸/朔月腳/艾斯帕' },
                         { id: '2020-4-1', content: '素質點計算增加轉生按鈕(未轉生少52點)<br>修正裝備變詠固詠會超過上限會錯誤的問題<br>增加敵方資料<br>調整技能區塊顯示' },
