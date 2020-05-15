@@ -3800,7 +3800,7 @@
                                             <span>普攻傷害(暴擊)</span>
                                         </el-col>
                                         <el-col v-if="weapon.type.id=='Katars'" class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalcritical | currency }} + {{(Math.floor(computeattribute.normalcritical*0.21) | currency )}}</span>
+                                            <span>{{computeattribute.normalcritical | currency }} + {{(Math.floor(computeattribute.normalcritical*0.21)) | currency }}</span>
                                         </el-col>
                                         <el-col v-else class="textcenter" :span="10">
                                             <span>{{computeattribute.normalcritical | currency }}</span>
@@ -6412,6 +6412,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-5-16', content: '修正無法選擇拳刃的錯誤' },
                         { id: '2020-5-8', content: '傷害計算增加千分號<br>修正預設技能爆炸飛刀/幽冥十字斬(185)公式錯誤' },
                         { id: '2020-5-7', content: '增加技能清單 加農砲/火神砲/噴射飛拳<br>技能清單增加/修改部分擴充職業185更新技能<br>技能清單增加備註欄位<br>詠唱&延遲欄位調整、增加DEX+INT/2計算<br>每秒攻擊次數最大值為7.14(DPS計算同)' },
                         { id: '2020-5-4', content: '增加裝備/整合效果的文字複製功能<br>修正額外裝備選項魔劍卡對於無視防禦沒有影響ATK的錯誤' },
