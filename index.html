@@ -1300,7 +1300,7 @@
                                             active-color="#13ce66" inactive-color="#8a9799">
                                         </el-switch>
                                     </el-col>
-                                    <el-tooltip class="item" effect="dark" content='預設轉生情況，非轉生要-52點' placement="top-start">
+                                    <el-tooltip class="item" effect="dark" content='轉生100點，非轉生52點' placement="top-start">
                                     <el-col class="textcenter" :span="6">可用素質點</el-col>
                                     </el-tooltip>
                                     <el-col class="textcenter" :span="6">{{computeattribute.StatsPoint}}</el-col>  
@@ -4961,8 +4961,10 @@
                                 _Pt += Math.floor(i/5)+3;
                             }else if(i<=150){
                                 _Pt += Math.floor(i/10)+13;
-                            }else if(i>150){
+                            }else if(i<=185){
                                 _Pt += 28 + Math.floor((i-150)/7);
+                            }else if(i>185){
+                                _Pt += 33 + Math.floor((i-185)/7);
                             }
                         }
                         this.computeattribute['StatsPoint'] = _Pt;
@@ -6377,15 +6379,19 @@
                         { id: 1, name: '蛋(10)', level: 10, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 2410, name: '龍蛋(100)', level: 100, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 2411, name: '龍蛋(150)', level: 150, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3800, name: '不祥果樹龜', level: 157, hp: 508335, LUK: 60, elemental: 0, elementallevel: 2, size: 0, StatusDEF: 146, WeaponDEF: 288, StatusMDEF: 61, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3802, name: '不祥岩石龜', level: 161, hp: 592310, LUK: 50, elemental: 4, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 406, StatusMDEF: 50, WeaponMDEF: 116, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3803, name: '不祥火焰龜', level: 162, hp: 527390, LUK: 89, elemental: 1, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 400, StatusMDEF: 50, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3801, name: '不祥水靈龜', level: 159, hp: 549071, LUK: 60, elemental: 2, elementallevel: 2, size: 0, StatusDEF: 139, WeaponDEF: 146, StatusMDEF: 64, WeaponMDEF: 80, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3799, name: '不祥風靈龜', level: 160, hp: 592508, LUK: 30, elemental: 3, elementallevel: 2, size: 0, StatusDEF: 110, WeaponDEF: 339, StatusMDEF: 51, WeaponMDEF: 82, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3213, name: '闇●盧恩騎士', level: 179, hp: 2448000, LUK: 60, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189, WeaponDEF: 400, StatusMDEF: 57, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3208, name: '闇●十字斬首者', level: 179, hp: 2380000, LUK: 80, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 62, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3230, name: '闇●魅影追蹤者', level: 178, hp: 2040000, LUK: 50, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 2996, name: '席琳基米', level: 150, hp: 66666666, LUK: 166, elemental: 8, elementallevel: 1, size: 2, StatusDEF: 102, WeaponDEF: 479, StatusMDEF: 151, WeaponMDEF: 444, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 2476, name: '闇答萊屍', level: 150, hp: 4290000, LUK: 20, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 120, WeaponDEF: 30, StatusMDEF: 159, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3150, name: '覺醒闇答萊屍', level: 180, hp: 42900000, LUK: 20, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 135, WeaponDEF: 30, StatusMDEF: 174, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 10, name: '歐內斯特 斯特凡˙傑克', level: 160, hp: 20000000, LUK: 43, elemental: 9, elementallevel: 1, size: 2, StatusDEF: 88, WeaponDEF: 146, StatusMDEF: 54, WeaponMDEF: 30, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 11, name: '米古爾', level: 115, hp: 8600000, LUK: 85, elemental: 3, elementallevel: 4, size: 1, StatusDEF: 71, WeaponDEF: 216, StatusMDEF: 45, WeaponMDEF: 95, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 12, name: '噩夢小丑皇', level: 189, hp: 2100000000, LUK: 0, elemental: 5, elementallevel: 4, size: 2, StatusDEF: 0, WeaponDEF: 200, StatusMDEF: 0, WeaponMDEF: 400, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3473, name: '歐內斯特 斯特凡˙傑克', level: 160, hp: 20000000, LUK: 43, elemental: 9, elementallevel: 1, size: 2, StatusDEF: 88, WeaponDEF: 146, StatusMDEF: 54, WeaponMDEF: 30, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 20346, name: '米古爾', level: 115, hp: 8600000, LUK: 85, elemental: 3, elementallevel: 4, size: 1, StatusDEF: 71, WeaponDEF: 216, StatusMDEF: 45, WeaponMDEF: 95, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         
                     );
 
@@ -6412,6 +6418,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-5-19', content: '素質點計算支援到200等<br>增加敵方預設資料幻影龜島' },
                         { id: '2020-5-16-1', content: '修正無法選擇拳刃的錯誤<br>修正預設技能風魔飛鏢之飛舞(185)幽冥十字斬(185)延遲設定錯誤' },
                         { id: '2020-5-8', content: '傷害計算增加千分號<br>修正預設技能爆炸飛刀/幽冥十字斬(185)公式錯誤' },
                         { id: '2020-5-7', content: '增加技能清單 加農砲/火神砲/噴射飛拳<br>技能清單增加/修改部分擴充職業185更新技能<br>技能清單增加備註欄位<br>詠唱&延遲欄位調整、增加DEX+INT/2計算<br>每秒攻擊次數最大值為7.14(DPS計算同)' },
