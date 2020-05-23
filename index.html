@@ -4476,6 +4476,7 @@
                     enemydef: 0,
                     enemymdef: 0,
 
+                    SpecialATK0: 0, // 地符
                     SpecialATK1: 0, // 特殊技能加值  體型修正之前 打擊強化、點穴(半)、祈禱文 
                     SpecialATK2: 0, // 特殊加值  種族體型屬性階級+ATK%分支(後ATK)+SpecialATK2   舞蹈練習 砲彈
                     SpecialATK3: 0, // 特殊屬性乘值  ATK%分支 屬性倍率之後 素質ATK之前  要分開乘 但 毒弱 紋章 通常只會有一種
@@ -5086,8 +5087,8 @@
 
                     var para1 = this.computeattribute['TransSTR'] / 200;
                     var para2 = this.weapon.level.id * 0.05
-                    this.computeattribute.atkc0_min = Math.floor(Number(this.weapon.ATK) * (1 + para1 - para2));
-                    this.computeattribute.atkc0_max = Math.floor(Number(this.weapon.ATK) * (1 + para1 + para2));
+                    this.computeattribute.atkc0_min = Math.floor(Number(this.weapon.ATK+this.computeattribute['SpecialATK0']) * (1 + para1 - para2));
+                    this.computeattribute.atkc0_max = Math.floor(Number(this.weapon.ATK+this.computeattribute['SpecialATK0']) * (1 + para1 + para2));
                     if (this.option.MaximizePower) this.computeattribute.atkc0_min = this.computeattribute.atkc0_max;
 
                     var para3 = Number(this.weapon.refineatk) + this.computeattribute['SpecialATK1'];
@@ -5559,6 +5560,7 @@
                     this.option.EquipSkillAddDamage = 0;
                     if (this.skilloption.WeaponMasteryATKInput == '') this.skilloption.WeaponMasteryATKInput = 0;
                     this.skilloption.WeaponMasteryATK = this.skilloption.WeaponMasteryATKInput;
+                    this.computeattribute['SpecialATK0'] = 0;   // 地符
                     this.computeattribute['SpecialATK1'] = 0;   // 打強 點穴
                     this.computeattribute['SpecialATK2'] = 0;   // 練習舞蹈 砲彈ATK
                     this.computeattribute['SpecialATK3'] = 0;   // 毒弱
@@ -5837,10 +5839,8 @@
                         if( this.enemyattribute.elemental == 2 ) { this.attritube['ElementalAtkPercent'] += 30; }
                     }
                     if (this.option.KO_DOHU_KOUKAI) {
-                        var para1 = this.status_total.STR / 200;
-                        var para2 = this.weapon.level.id * 0.05
-                        var val = Math.floor(this.weapon.ATK * (this.option.KO_CharmCount * 15) / 100 * (1 + para1 + para2));
-                        this.computeattribute['SpecialATK1'] += val;
+                        var val = Math.floor(this.weapon.ATK * (this.option.KO_CharmCount * 10) / 100);
+                        this.computeattribute['SpecialATK0'] += val;
                         if( this.enemyattribute.elemental == 3 ) { this.attritube['ElementalAtkPercent'] += 30; }
                     }
                     //十六夜
