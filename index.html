@@ -112,6 +112,18 @@
             height: calc(100vh - (50px + 35px + 130px));
         }
 
+        .Announce-container {
+            height: calc(50vh - (200px));
+        }
+
+        .UpdateList-container {
+            height: calc(50vh - 85px);
+        }
+
+        .AboutList-container {
+            height: calc(100vh - (50px + 35px + 250px));
+        }
+
         .EffectList-container {
             height: calc(100vh - (50px + 35px + 24px));
         }
@@ -190,6 +202,11 @@
             color: white;
         }
 
+        .aboutbox{
+            background: white;
+            color: black;
+        }
+
         .subtitlebox {
             border: 1px solid #d7dae2;
             border-radius: 2px;
@@ -199,21 +216,90 @@
         }
 
         a:visited,
-        a:link {
-            text-decoration: none !important;
-            color: white;
-        }
     </style>
 </head>
 
 <body>
     <div id="App" v-cloak>
 
+        <el-dialog :visible.sync="UIPanel['AboutDialog']" v-on:close="ClosePanel('UpdateLogDialog')"
+            custom-class="Dialogue-container" width="45%" top="58px" center>
+            <span slot="title">關於</span>
+            <el-row :gutter="6">
+                <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
+                    <el-col class="textcenter">前言</el-col>
+                </el-row>
+                <el-row>
+                    <div class="aboutbox" style="padding: 5px 40px; text-align:left">
+                        <el-row :gutter="4" type="flex" align="left">
+                            <b>這個計算機在使用上需要對裝備有一定的了解</b><br>
+                        </el-row>
+                        <el-row :gutter="4" type="flex" align="left">
+                            如果對於某件裝不知道怎樣填歡迎發問<br>
+                            <br>
+                            建議在輸入要換的裝前 可以先看現有裝打蛋測試傷害是否符合<br>
+                            才開始換成預計要換的裝<br>
+                            <br>
+                            參考朋友賴喵用google sheet寫的計算機做成通用的版本<br>
+                            我的本業是做遊戲，可是要做計算機的話還是要用成網頁比較好<br>
+                            所以這個是網頁菜鳥寫出來的，敬請見諒<br>
+                            RO的技能多又複雜，要靠大家的測試跟整理才有辦法寫成計算機<br>
+                            歡迎提供算式跟找出計算機還是官方的BUG(?)
+                        </el-row>
+                    </div>
+                </el-row>
+                <el-row style="height:120">
+                    <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
+                        <el-col class="textcenter">關於</el-col>
+                    </el-row>
+                    <div style="padding: 5px 40px;">
+                        <el-row :gutter="4" type="flex" align="middle">
+                            <a href="https://forum.gamer.com.tw/C.php?bsn=4212&snA=424409&tnum=10" target="_blank"><span style="color:steelblue">巴哈討論串連結</span></a><br>
+                        </el-row>
+                        <el-row :gutter="4" type="flex" align="middle">
+                            <a href="https://forum.gamer.com.tw/Co.php?bsn=4212&sn=2848500&subbsn=1&bPage=0" target="_blank"><span style="color:steelblue">操作說明</span></a><br>
+                        </el-row>
+                        <el-row :gutter="4" type="flex" align="middle">
+                            <br>
+                            連絡信箱:valkyrie7744533@gmail.com<br>
+                            PTT ID: valkyria<br>
+                            巴哈 ID: randgris<br>
+                        </el-row>
+                    </div>
+                </el-row>
+            </el-row>
+        </el-dialog>
         <el-dialog :visible.sync="UIPanel['UpdateLogDialog']" v-on:close="ClosePanel('UpdateLogDialog')"
             custom-class="Dialogue-container" width="45%" top="58px" center>
             <span slot="title">更新內容</span>
             <el-row :gutter="6">
-                <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
+                <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
+                    <el-col class="textcenter">更新概要</el-col>
+                </el-row>
+                <el-scrollbar wrap-class="Announce-container" :native="false" :noresize="false">
+                    <el-row>
+                        <div class="aboutbox" style="padding: 5px 55px; text-align:left">
+                            <el-row :gutter="4" type="flex" align="left">
+                                擴充185的技能公式更新<br>
+                                現在地符計算是武器攻擊力的15%放在體型修正之前並且會被浮動影響<br>
+                                感謝鶴之翼的物忍研究!<br><br>
+                                素質點計算支援到200等!<br><br>
+                                增加了裝備效果文字模式 方便複製給別人看<br><br>
+                                可以算三轉的HPSP了!! 擴充職業的HPSP統計中<br><br>
+                                整頁儲存 測試中  不會紀錄額外技能選項<br><br>
+                                拳刃斬首的普攻計算OK了! 雙刀斬首的傷害還無法計算<br>
+                                <br>
+                                希望有人可以整理分享計算機可用的資料(技能敵方藥水修練之類的)<br>
+                                或是裝備模擬心得幫文章推上去QQ<br>
+                            </el-row>
+                        </div>
+                    </el-row>
+                </el-scrollbar>
+                
+                <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
+                    <el-col class="textcenter">更新紀錄</el-col>
+                </el-row>
+                <el-scrollbar wrap-class="UpdateList-container" :native="false" :noresize="false">
                     <div v-for="(item, index) in UpdateLogList" v-bind:key="item.id">
                         <div style="padding: 2px 5px;">
                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -411,6 +497,16 @@
                             </el-tooltip>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
+                                    <span>後計算技能遠傷</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-switch v-model="skill.laterranged" active-color="#13ce66"
+                                        v-on:change="onOption" inactive-color="#8a9799">
+                                    </el-switch>
+                                </el-col>
+                            </el-row>
+                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col class="textcenter" :span="12">
                                     <span>技能位置-後</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
@@ -496,6 +592,7 @@
                                                         <el-col v-if="item.skill.critical" class="skilltag" :span="3">暴擊</el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag" :span="3">砲彈</el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF" class="skilltag" :span="5">半無視防禦</el-col>
+                                                        <el-col v-if="item.skill.laterranged" class="skilltag" :span="5">後計算技能遠傷</el-col>
                                                     </el-row>
                                                     <el-row class="skillline" align="middle" >
                                                         <el-col class="statussavebox" :span="4">固詠 {{ item.skill.FCT }}s</el-col>
@@ -507,7 +604,7 @@
                                                         <el-col style="text-align: left; padding-left: 10px; color:crimson;">
                                                             <span>備註: {{ item.skill.Note }}</span>
                                                         </el-col>
-                                                    </el-col>
+                                                    </el-row>
                                                 </el-col>
                                                 <el-col :span="3">
                                                     <el-button v-on:click="onLoadSkillDefault(index)"
@@ -546,6 +643,7 @@
                                                         <el-col v-if="item.skill.critical" class="skilltag skillline" :span="3">暴擊</el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag skillline" :span="3">砲彈</el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF" class="skilltag skillline" :span="5">半無視防禦</el-col>
+                                                        <el-col v-if="item.skill.laterranged" class="skilltag skillline" :span="5">後計算技能遠傷</el-col>
                                                     </el-row>
                                                     <el-row class="skillline" align="middle">
                                                         <el-col :span="4">固詠 {{ item.skill.FCT }}s</el-col>
@@ -557,7 +655,7 @@
                                                         <el-col style="text-align: left; padding-left: 10px; color:crimson;">
                                                             <span>備註: {{ item.skill.Note }}</span>
                                                         </el-col>
-                                                    </el-col>
+                                                    </el-row>
                                                 </el-col>
                                                 <el-col :span="2">
                                                     <el-button v-on:click="onRemoveSkillSave(index)"
@@ -778,7 +876,6 @@
                 </el-scrollbar>
             </el-row>
         </el-dialog>
-        
         <el-dialog :visible.sync="UIPanel['EquipTextDialog']" v-on:close="ClosePanel('EquipTextDialog')"
             custom-class="Dialogue-container" width="40%" top="58px" :show-close=false center>
             <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:50px; padding: 0px 0px;">
@@ -1079,10 +1176,12 @@
         </el-dialog>
         <!-- header -->
         <div class="ROCalTitle">
-            <el-row type="flex" align="middle" justify="space-around">
+            <el-row type="flex" align="middle" justify="end" :gutter="2">
                 <el-col :span="2">
                 </el-col>
-                <el-col :span="2">
+                <el-col :span="1">
+                </el-col>
+                <el-col :span="1">
                 </el-col>
                 <el-col :span="2">
                 </el-col>
@@ -1094,14 +1193,19 @@
                 <el-col :span="2" class="textcenter">
                     TwRO
                 </el-col>
-                <el-col :span="2">
-                    <el-button v-on:click="TogglePanel('UpdateLogDialog')" size="small">
-                        更新內容
+                <el-col :span="1">
+                    <el-button v-on:click="TogglePanel('AboutDialog')" size="small">
+                        關於
+                    </el-button>
+                </el-col>
+                <el-col :span="1">
+                    <el-button v-on:click="TogglePanel('SpecialthanksDialog')" size="small">
+                        協力
                     </el-button>
                 </el-col>
                 <el-col :span="2">
-                    <el-button v-on:click="TogglePanel('SpecialthanksDialog')" size="small">
-                        協力成員
+                    <el-button v-on:click="TogglePanel('UpdateLogDialog')" size="small">
+                        更新紀錄
                     </el-button>
                 </el-col>
             </el-row>
@@ -1604,6 +1708,13 @@
                                     <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                         <el-col class="textcenter" :span="12">
                                             <span>技能位置-後</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="skill.laterranged">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>後計算技能遠傷</span>
                                         </el-col>
                                     </el-row>
                                 </div>
@@ -4018,7 +4129,7 @@
         <div class="ROCalFooter">
             <div type="flex" align="middle" justify="center">
                 Copyright(c) Landgris</br>
-                <a href="https://twitter.com/Landgris" target="_blank"><span>Twitter</span></a>
+                <a href="https://twitter.com/Landgris" target="_blank"><span style="color: white;">Twitter</span></a>
             </div>
         </div>
     </div>
@@ -4634,6 +4745,7 @@
                     EquipSkillPage: false,
                     SpecialATKPage: false,
 
+                    AboutDialog: false,
                     UpdateLogDialog: false,
                     SpecialthanksDialog: false,
                     StatusDBDialog: false,
@@ -5220,10 +5332,9 @@
                     this.computeattribute.normalattack_max = this.computeattribute.atkc5_max, para_crid;
                     this.computeattribute.normalcritical = this.MulOper(this.computeattribute.atkc5_max, para_crid);
 
-                    //遠程增傷 技能移去後段
+                    //遠程增傷 this.skill.laterranged分前後段
                     var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
-                    
-                    if (this.skill.ranged ) {
+                    if (this.skill.ranged && this.skill.laterranged==false) {
                         this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
                         this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
                         this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
@@ -5298,13 +5409,12 @@
                     this.computeattribute.normalattack_DPS = Math.floor((this.computeattribute.normalattack_min + this.computeattribute.normalattack_max) / 2) * _CRIRateN / 100 +
                         this.computeattribute.normalcritical * _CRIRate;
 
-                     // 技能遠傷
-                     /* 
-                    if (this.skill.ranged ) {
+                    // 技能遠傷
+                    if (this.skill.ranged && this.skill.laterranged) {
                         this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, para_ranged);
                         this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, para_ranged);
                         this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
-                    }  */
+                    }
                     // 技能增傷裝
                     this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
@@ -5839,7 +5949,7 @@
                         if( this.enemyattribute.elemental == 2 ) { this.attritube['ElementalAtkPercent'] += 30; }
                     }
                     if (this.option.KO_DOHU_KOUKAI) {
-                        var val = Math.floor(this.weapon.ATK * (this.option.KO_CharmCount * 10) / 100);
+                        var val = Math.floor(this.weapon.ATK * (this.option.KO_CharmCount * 15) / 100);
                         this.computeattribute['SpecialATK0'] += val;
                         if( this.enemyattribute.elemental == 3 ) { this.attritube['ElementalAtkPercent'] += 30; }
                     }
@@ -6208,6 +6318,7 @@
                     if (this.skill.cannon == null) this.skill.cannon = false;
                     if (this.skill.transWeaponDEF == null) this.skill.transWeaponDEF = false;
                     if (this.skill.laterformula == null) this.skill.laterformula = false;
+                    if (this.skill.laterranged == null) this.skill.laterranged = false;
                     if (this.skill.VCT == null) this.skill.VCT = 0;
                     if (this.skill.FCT == null) this.skill.FCT = 0;
                     if (this.skill.CD == null) this.skill.CD = 0;
@@ -6378,7 +6489,7 @@
                         { skill: { id: 'SR_RAMPAGEBLASTER', name: '爆氣散彈', level: 5, formula: 'SLV*20*5*BLV/150', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 10, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SR_RAMPAGEBLASTER(ex)', name: '爆氣散彈(爆氣)', level: 5, formula: '(SLV*20+5*20)*15*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 10, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'15為潛龍後的氣彈數', } },
                         { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
-                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'遠傷應該在技能傷之後，待修正', } },
+                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'遠傷應該在技能傷之後，待修正', } },
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨(樂器/鞭子)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100*1.666', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM(bow)', name: '大暴雨(弓)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
@@ -6388,16 +6499,18 @@
                         { skill: { id: 'NJ_HYOUSENSOU', name: '冰閃槍', level: 10, formula: '70', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 2, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'NJ_HYOUSYOURAKU', name: '冰晶落', level: 5, formula: '150+SLV*150', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 2, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'NJ_KAMAITACHI', name: '朔風', level: 5, formula: '100+SLV*100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
-                        { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
+                        { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
-                        { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*150*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
+                        { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*150*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'KO_JYUMONJIKIRI(buff)', name: '幽冥十字斬(十字創傷)', level: 10, formula: '(SLV*200+BLV*SLV)*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SJ_SOLARBURST', name: '太陽爆炸', level: 10, formula: '(1000+SLV*220)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SJ_NEWMOONKICK', name: '朔月腳', level: 7, formula: '(600+SLV*100+((SLV>3)?100:0))*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 10, formula: '(1100+SLV*100)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SP_SPA', name: '艾斯帕', level: 10, formula: '(500+SLV*250)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
-                        { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 10, formula: '(1100+SLV*200)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
+                        { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 10, formula: '(1100+SLV*200)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
+                        { skill: { id: 'SP_CURSEEXPLOSION', name: '邪靈爆炸', level: 10, formula: '400+SLV*100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 7, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
+                        { skill: { id: 'SP_CURSEEXPLOSION(buff)', name: '邪靈爆炸(詛咒)', level: 10, formula: '(400+SLV*100+1500+SLV*200)*2', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 7, FCT: 1, VCT: 3, CD: 1, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'2為暗抗-100%，現在沒有設定敵方抗性部分', } },
                         { skill: { id: 'SU_PICKYPECK', name: '小雞啄擊', level: 5, formula: 'DOWN((200+SLV*100)*2.2)', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SU_SV_STEMSPEAR', name: '獼猴桃梗槍', level: 5, formula: '700', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 1, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SU_CN_METEOR', name: '貓薄荷隕石', level: 5, formula: '200+SLV*100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 3, VCT: 4, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
@@ -6450,6 +6563,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-6-1', content: '增加預設技能清單邪靈爆炸(詛咒)<br>增加關於面板<br>增加更新概要欄' },
                         { id: '2020-5-20', content: '增加預設技能清單 爆炎龍/冰閃槍/冰晶落/朔風<br>預設技能擴充185分類移除，改為確定版本<br>增加額外技能選項 影子武士<br>額外技能選項火水風地符 增加對剋屬敵方物理增傷<br>額外技能選項火水風地符/影子武士的增傷現在會檢查技能<br><span style="margin-left:2em"><I>如果有使用之前(185技能預估)的儲存資料要重新指定技能才會套用</I>' },
                         { id: '2020-5-19', content: '素質點計算支援到200等<br>增加敵方預設資料幻影龜島' },
                         { id: '2020-5-16-1', content: '修正無法選擇拳刃的錯誤<br>修正預設技能風魔飛鏢之飛舞(185)幽冥十字斬(185)延遲設定錯誤' },
