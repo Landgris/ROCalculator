@@ -290,11 +290,10 @@
                     <el-row>
                         <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                             <el-row :gutter="4" type="flex" align="left">
+                                這次更新地符總算沒問題了!<br><br>
                                 正在考慮增加各種種族、體型、屬性、對屬性、階級增傷的超多設定<br>
                                 感覺很累...<br><br>
-                                擴充185的技能公式更新<br>
-                                現在地符計算是武器攻擊力的10%放在體型修正之前，但是地符對於精練還未知，所以計算出的傷害會比實際還稍低<br>
-                                感謝鶴之翼的物忍研究!<br><br>
+                                擴充185的技能公式更新，感謝鶴之翼的物忍研究!<br><br>
                                 素質點計算支援到200等!<br><br>
                                 增加了裝備效果文字模式 方便複製給別人看<br><br>
                                 可以算三轉的HPSP了!! 擴充職業的HPSP統計中<br><br>
@@ -1213,17 +1212,17 @@
                     </el-button>
                 </el-col>
                 <el-col :span="1">
-                    <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="small">
+                    <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="small" type="warning">
                        贊助
                     </el-button>
                 </el-col>
                 <el-col :span="1">
-                    <el-button v-on:click="TogglePanel('SpecialthanksDialog')" size="small">
+                    <el-button v-on:click="TogglePanel('SpecialthanksDialog')" size="small" type="success" >
                         協力
                     </el-button>
                 </el-col>
                 <el-col :span="2">
-                    <el-button v-on:click="TogglePanel('UpdateLogDialog')" size="small">
+                    <el-button v-on:click="TogglePanel('UpdateLogDialog')" size="small" type="danger" >
                         更新紀錄
                     </el-button>
                 </el-col>
@@ -4268,7 +4267,7 @@
                     { id: 'Instruments', label: '樂器', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
                     { id: 'Whips', label: '鞭子', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
                     { id: 'Guns', label: '槍', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: true, isTwohand: true },
-                    { id: 'Shuriken', label: '手裏劍', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true },
+                    { id: 'Shuriken', label: '風魔飛鏢', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true },
                 ],
                 lefthandweapon: false,
                 subhandtype: [
@@ -5194,14 +5193,16 @@
 
                     var para1 = this.computeattribute['TransSTR'] / 200;
                     var para2 = this.weapon.level.id * 0.05
-                    this.computeattribute.atkc0_min = Math.floor(Number(Number(this.weapon.ATK)+this.computeattribute['SpecialATK0']) * (1 + para1 - para2));
-                    this.computeattribute.atkc0_max = Math.floor(Number(Number(this.weapon.ATK)+this.computeattribute['SpecialATK0']) * (1 + para1 + para2));
+                    this.computeattribute.atkc0_min = Math.floor(Number(Number(this.weapon.ATK)) * (1 + para1 - para2));
+                    this.computeattribute.atkc0_max = Math.floor(Number(Number(this.weapon.ATK)) * (1 + para1 + para2));
                     if (this.option.MaximizePower) this.computeattribute.atkc0_min = this.computeattribute.atkc0_max;
 
                     var para3 = Number(this.weapon.refineatk) + this.computeattribute['SpecialATK1'];
                     var paraminirefineatk2 = this.weapon.refineatk2 > 0 ? 1 : 0;
                     this.computeattribute.atkc1_min = Number(this.computeattribute.atkc0_min) + para3 + Number(paraminirefineatk2);
                     this.computeattribute.atkc1_max = Number(this.computeattribute.atkc0_max) + para3 + Number(this.weapon.refineatk2);
+                    this.computeattribute.atkc1_min = Math.floor(this.computeattribute.atkc1_min * (1 + this.computeattribute['SpecialATK0']));
+                    this.computeattribute.atkc1_max = Math.floor(this.computeattribute.atkc1_max * (1 + this.computeattribute['SpecialATK0']));
 
                     if (this.computeattribute.sizefix < 100) {
                         this.computeattribute.atkc2_min = Math.floor(Number(this.computeattribute.atkc1_min) * (this.computeattribute.sizefix / 100));
@@ -5944,13 +5945,13 @@
                         if( this.enemyattribute.elemental == 2 ) { this.attritube['ElementalAtkPercent'] += 30; }
                     }
                     if (this.option.KO_DOHU_KOUKAI) {
-                        var val = Math.floor(this.weapon.ATK * (this.option.KO_CharmCount * 10) / 100);
+                        var val = (this.option.KO_CharmCount * 10) / 100;
                         this.computeattribute['SpecialATK0'] += val;
                         if( this.enemyattribute.elemental == 3 ) { this.attritube['ElementalAtkPercent'] += 30; }
                     }
                     //十六夜
                     if (this.option.KO_IZAYOI) {
-                        this.attritube['MATK'] += Math.floor(this.status.JOBLevel / 2 * 5);
+                        this.attritube['MATK'] += Math.floor(this.status.JOBLevel / 2)* 5;
                         this.attritube['SK1VCTP'] += 50;
                         this.attritube['FCTP'] = Math.max(this.attritube['FCTP'], 100);
                     }
@@ -6459,7 +6460,7 @@
                         { skill: { id: 'NC_VULCANARM', name: '火神砲', level: 3, formula: '(SLV*70+DEX)*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'NC_BOOSTKNUCKLE', name: '噴射飛拳', level: 5, formula: '((200+SLV*100)+DEX)*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'RA_AIMEDBOLT', name: '瞄準標靶', level: 10, formula: '(500+SLV*20)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 1, VCT: 4, CD: 1, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
-                        { skill: { id: 'SN_SHARPSHOOTING', name: '銳利射擊', level: 5, formula: '(150+200*SLV)*(BLV/100)', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
+                        { skill: { id: 'SN_SHARPSHOOTING', name: '銳利射擊', level: 5, formula: '(150+200*SLV)*(BLV/100)', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0.15, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'RA_ARROWSTORM', name: '箭雨風暴', level: 10, formula: '(1000+SLV*80)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 3.8, CD: 3.2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'LG_CANNONSPEAR', name: '加農砲攻擊', level: 5, formula: '(50+STR)*SLV*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'LG_BANISHINGPOINT', name: '放逐攻擊', level: 10, formula: '(SLV*50+10*30)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
@@ -6488,7 +6489,7 @@
                         { skill: { id: 'NJ_KAMAITACHI', name: '朔風', level: 5, formula: '100+SLV*100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
-                        { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*150*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
+                        { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*200*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'KO_JYUMONJIKIRI(buff)', name: '幽冥十字斬(十字創傷)', level: 10, formula: 'SLV*200*BLV/100+BLV*SLV', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SJ_SOLARBURST', name: '太陽爆炸', level: 10, formula: '(1000+SLV*220)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
@@ -6552,6 +6553,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-6-8', content: '修正額外技能選項十六夜某些情況會有些微差異的錯誤<br>修改地符公式計算位置<br>修正預設技能幽冥十字斬公式<br>增加預設技能銳利射擊獨立延遲' },
                         { id: '2020-6-4', content: '修改預設技能 幽冥十字斬公式<br>修改地符倍率為10%<br>增加敵方預設資料 施密特國王簡單/困難<br>增加贊助連結按鈕' },
                         { id: '2020-6-1', content: '增加預設技能清單邪靈爆炸(詛咒)<br>增加關於面板<br>增加更新概要欄' },
                         { id: '2020-5-20', content: '增加預設技能清單 爆炎龍/冰閃槍/冰晶落/朔風<br>預設技能擴充185分類移除，改為確定版本<br>增加額外技能選項 影子武士<br>額外技能選項火水風地符 增加對剋屬敵方物理增傷<br>額外技能選項火水風地符/影子武士的增傷現在會檢查技能<br><span style="margin-left:2em"><I>如果有使用之前(185技能預估)的儲存資料要重新指定技能才會套用</I>' },
