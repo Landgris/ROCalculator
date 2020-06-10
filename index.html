@@ -222,7 +222,7 @@
 <body>
     <div id="App" v-cloak>
 
-        <el-dialog :visible.sync="UIPanel['AboutDialog']" v-on:close="ClosePanel('UpdateLogDialog')"
+        <el-dialog :visible.sync="UIPanel['AboutDialog']" v-on:close="ClosePanel('AboutDialog')"
             custom-class="Dialogue-container" width="45%" top="58px" center>
             <span slot="title">關於</span>
             <el-row :gutter="6">
@@ -274,6 +274,43 @@
                                 PTT ID: valkyria<br>
                                 巴哈 ID: randgris<br>
                             </el-col>
+                        </el-row>
+                    </div>
+                </el-row>
+            </el-row>
+        </el-dialog>
+        <el-dialog :visible.sync="UIPanel['DonateDialog']" v-on:close="ClosePanel('DonateDialog')"
+            custom-class="Dialogue-container" width="45%" top="58px" center>
+            <el-row :gutter="6">
+                <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
+                    <el-col class="textcenter">Toss A Coin To Your Witcher</el-col>
+                </el-row>
+                <el-row>
+                    <div class="aboutbox" style="padding: 5px 40px; text-align:left">
+                        <el-row :gutter="4" type="flex" align="left" justify="center">
+                            <el-image 
+                            style="width: 400px; height: 250px" 
+                            :src="'https://media.giphy.com/media/Y2goLDS3PaDtfiIhyo/giphy.gif'" 
+                            :fit="'contain'">
+                            </el-image>
+                        </el-row>
+                        <el-row :gutter="4" type="flex" align="left" justify="center">
+                            這個計算機是希望大家在換裝備的時候可以不用借裝或是買到才發現傷害怎麼沒變？！<br>
+                            就可以先用算的少走一些冤枉路<br><br>
+                            從去年12月完成後一直更新到現在<br>
+                            沒想到時間過這麼快! 好險有在寫更新紀錄，沒事就可以看看到底加了多少東西<br>
+                            除了修正BUG、增加新功能、填各職業技能坑、各種測試公式、還要隨版本更新跑<br>
+                            為了可以更雲玩家還增加了200等的素質點數<br><br>
+                            如果覺得這個計算機有幫助你選擇到適合的裝備、或是計算是否打的贏某隻怪物<br>
+                            想要斗內的話可以按下面的連結，我會非常感謝<br><br>
+                        </el-row>
+                        <el-row>
+                            <b>寄信告訴我訂單編號跟伺服器ID或想要的名字，我會把你加入感謝名單！</b><br><br>
+                        </el-row>
+                        <el-row :gutter="12" type="flex" align="left" justify="center">
+                            <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="big" type="warning">
+                                點這裡連結到贊助頁面
+                            </el-button>
                         </el-row>
                     </div>
                 </el-row>
@@ -1213,7 +1250,7 @@
                     </el-button>
                 </el-col>
                 <el-col :span="1">
-                    <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="small" type="warning">
+                    <el-button v-on:click="TogglePanel('DonateDialog')" size="small" type="warning">
                        贊助
                     </el-button>
                 </el-col>
@@ -1565,6 +1602,18 @@
                                     <el-col>
                                         <el-input v-model="enemyattribute.WeaponMDEF" v-on:input="onChangeEnemyStatus"
                                             placeholder="後 MDEF">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row v-if="TestMode" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6">屬性抗性</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="enemyattribute.elementalResist" v-on:input="onOption" placeholder="HP">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">種族抗性</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="enemyattribute.raceResist" v-on:input="onOption" placeholder="SP">
                                         </el-input>
                                     </el-col>
                                 </el-row>
@@ -2899,7 +2948,7 @@
                                         <el-col class="textcenter" :span="2">
                                         </el-col>
                                         <el-col class="textcenter" :span="20">
-                                            <span class="textcenter">多蘭族 召喚師</span>
+                                            <span class="textcenter">喵族 召喚師</span>
                                         </el-col>
                                         <el-col v-if="UIPanel['SummonerSkillPage']" class="textcenter" :span="2">
                                             <i class="el-icon-arrow-down"></i>
@@ -2937,6 +2986,45 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-switch v-model="option.MeowMeow" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-collapse-transition>
+                                <div v-on:click="TogglePanel('NoviceSkillPage')">
+                                    <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
+                                        <el-col class="textcenter" :span="2">
+                                        </el-col>
+                                        <el-col class="textcenter" :span="20">
+                                            <span class="textcenter">超級初心者</span>
+                                        </el-col>
+                                        <el-col v-if="UIPanel['NoviceSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-down"></i>
+                                        </el-col>
+                                        <el-col v-else="UIPanel['NoviceSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-up"></i>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['NoviceSkillPage']">
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>突破極限</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.NV_BREAKTHROUGH" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>心靈超越</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.NV_TRANSCENDENCE" v-on:change="onOption"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -4184,7 +4272,7 @@
                     { id:'RE', label: '反叛者', TranscendentClass:false, basehp: [0], basesp: [0], baseaspd: 0 },
                     { id:'SE', label: '拳皇', TranscendentClass:false, basehp: [0], basesp: [0], baseaspd: 0 },
                     { id:'SL', label: '獵靈士', TranscendentClass:false, basehp: [0], basesp: [0], baseaspd: 0 },
-                    { id:'SUM', label: '多蘭族召喚師', TranscendentClass:false, basehp: [0], basesp: [0], baseaspd: 0 },
+                    { id:'SUM', label: '喵族召喚師', TranscendentClass:false, basehp: [0], basesp: [0], baseaspd: 0 },
                     { id:'SN', label: '超級初心者', TranscendentClass:false, basehp: [0], basesp: [0], baseaspd: 0 },
                 ],
                 equipspartlist: [
@@ -4557,6 +4645,9 @@
                     PowerofLand: false,         //大地力量
                     MeowMeow: false,            //喵喵/喵喵不休
 
+                    NV_BREAKTHROUGH: false,     //突破極限
+                    NV_TRANSCENDENCE: false,    //心靈超越
+
                     //TODO[戰斧颶風]的風屬性武器增傷125%
                     SkillPercent: 0,
                     SkillFormulaError: '',
@@ -4737,11 +4828,13 @@
                     SoulReaperSkillPage: false,
                     KagerouOboroSkillPage: false,
                     SummonerSkillPage: false,
+                    NoviceSkillPage: false,
                     EquipSkillPage: false,
                     SpecialATKPage: false,
 
                     AboutDialog: false,
                     UpdateLogDialog: false,
+                    DonateDialog: false,
                     SpecialthanksDialog: false,
                     StatusDBDialog: false,
                     SkillDBDialog: false,
@@ -5985,6 +6078,18 @@
                     //喵喵/喵喵不休
                     if (this.option.MeowMeow) {
                         this.attritube['MATK'] += 100;
+                    } 
+                    //突破極限
+                    if (this.option.NV_BREAKTHROUGH) {
+                        this.attritube['ATK'] += 100;
+                        this.attritube['HP'] += 2000;
+                        this.attritube['SP'] += 200;
+                    }
+                    //心靈超越
+                    if (this.option.NV_TRANSCENDENCE) {
+                        this.attritube['MATK'] += 100;
+                        this.attritube['HP'] += 2000;
+                        this.attritube['SP'] += 200;
                     }
 
                     // 奧汀神力
@@ -6554,6 +6659,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-6-11', content: '增加額外技能選項分類 超級初心者<br>多蘭族改為喵族<br>增加贊助頁面' },
                         { id: '2020-6-8', content: '修正額外技能選項十六夜某些情況會有些微差異的錯誤<br>修改地符公式計算位置<br>修正預設技能幽冥十字斬公式 有整頁儲存的需要重新指定<br>增加預設技能銳利射擊獨立延遲' },
                         { id: '2020-6-4', content: '修改預設技能 幽冥十字斬公式<br>修改地符倍率為10%<br>增加敵方預設資料 施密特國王簡單/困難<br>增加贊助連結按鈕' },
                         { id: '2020-6-1', content: '增加預設技能清單邪靈爆炸(詛咒)<br>增加關於面板<br>增加更新概要欄' },
@@ -6571,7 +6677,7 @@
                         { id: '2020-3-15-1', content: '修正不清空就儲存裝備會導致存檔被覆蓋的BUG<br/>增加一般計算遊戲內後Atk/Matk面板顯示的數值，方便檢查裝備填寫錯誤<br/>增加武器為拳刃時左手的計算(普攻/普爆/普DPS)<br/>增加技能清單 十字斬/迴旋刀刃/迴旋十字斬<br/>調整技能清單樣式' },
                         { id: '2020-3-14', content: '增加計算可用/已用素質點<br/>增加部分UI折疊功能<br/>增加技能清單 風魔飛鏢之飛舞/幽冥十字斬' },
                         { id: '2020-3-10', content: '增加武器儲存<br/>調整武器欄位位置、增加副手裝備設定' },
-                        { id: '2020-3-8', content: '修改傷害計算顯示方式<br/>技能欄位增加傷害類型 (物理/魔法/龍息)<br/>增加技能清單 龍之氣息/謳歌/魔力拳/重金屬音樂/小雞啄擊/獼猴桃梗槍/貓薄荷隕石<br/>增加技能額外選項 多蘭族召喚師' },
+                        { id: '2020-3-8', content: '修改傷害計算顯示方式<br/>技能欄位增加傷害類型 (物理/魔法/龍息)<br/>增加技能清單 龍之氣息/謳歌/魔力拳/重金屬音樂/小雞啄擊/獼猴桃梗槍/貓薄荷隕石<br/>增加技能額外選項 喵族召喚師' },
                         { id: '2020-3-3', content: '修改素質/技能清單樣式<br/>增加技能清單預設技能<br/>增加素質欄位HPSP<br/>增加敵方欄位Level<br/>增加公式關鍵字 HP/SP/ELV<br/>增加更新列表' },
                         { id: '2020-3-1', content: '增加額外技能選項 影狼&朧 詩舞分類<br/>增加詠唱&延遲計算<br/>增加暴率&DPS計算<br/>增加素質欄ASPD、裝備效果變詠設定<br/>修改技能清單樣式' },
                         { id: '2020-2-10', content: '修改裝備技能倍率增傷的輸入方式 改由裝備效果增加<br/>裝備效果增加技能增傷%<br/>增加額外技能選項 劍士分類 靈感<br/>增加額外技能選項 服事分類 神聖殿堂(僅法傷)' },
