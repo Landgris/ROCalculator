@@ -6428,7 +6428,7 @@
                     if (this.skill.SpecialMATK1 == null) this.skill.SpecialMATK1 = 0;
                     if (this.skill.DamageTypeIdx == null) this.skill.DamageTypeIdx = 0;
                     this.skilloption.AttackElementalIdx = this.skill.elemental;
-                    this.onOption();
+                    this.ComputElementalPercent();  // -> onOption
                 },
                 onRemoveSkillSave(saveid) {
                     if (saveid > -1) {
@@ -6496,11 +6496,34 @@
                     this.skill = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Skill);
                     this.skilloption = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.SkillOption);
                     //this.option = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Option);
-                    this.CombineEquipsAttribute();
-                    this.ChangeWeapon();
+                    //this.CombineEquipsAttribute();
+                    //this.ChangeWeapon();
                     this.enemyattribute.name = this.StoreDB_AllSet[_dbidx].AllSet.EnemyName;
                     this.enemyattribute = this.StoreDB_AllSet[_dbidx].AllSet.Enemy;
-
+                    
+                    this.CheckParam();
+                    this.CombineEquipsAttribute();
+                    this.ChangeWeapon();
+                },
+                CheckParam(){
+                    if (this.skill.ranged == null) this.skill.ranged = false;
+                    if (this.skill.critical == null) this.skill.critical = false;
+                    if (this.skill.cannon == null) this.skill.cannon = false;
+                    if (this.skill.transWeaponDEF == null) this.skill.transWeaponDEF = false;
+                    if (this.skill.laterformula == null) this.skill.laterformula = false;
+                    if (this.skill.laterranged == null) this.skill.laterranged = false;
+                    if (this.skill.VCT == null) this.skill.VCT = 0;
+                    if (this.skill.FCT == null) this.skill.FCT = 0;
+                    if (this.skill.CD == null) this.skill.CD = 0;
+                    if (this.skill.GCD == null) this.skill.GCD = 0;
+                    if (this.skill.SpecialATK1 == null) this.skill.SpecialATK1 = 0;
+                    if (this.skill.SpecialATK2 == null) this.skill.SpecialATK2 = 0;
+                    if (this.skill.SpecialATK3 == null) this.skill.SpecialATK3 = 0;
+                    if (this.skill.SpecialATK4 == null) this.skill.SpecialATK4 = 0;
+                    if (this.skill.SpecialATK5 == null) this.skill.SpecialATK5 = 0;
+                    if (this.skill.SpecialATK6 == null) this.skill.SpecialATK6 = 0;
+                    if (this.skill.SpecialMATK1 == null) this.skill.SpecialMATK1 = 0;
+                    if (this.skill.DamageTypeIdx == null) this.skill.DamageTypeIdx = 0;
                 },
                 LoadDB() {
                     if (localStorage.getItem('StoreDB_Status')) {
@@ -6661,7 +6684,7 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2020-6-15', content: '修正存檔後又馬上修改裝備，可能會覆蓋之前存檔的問題' },
+                        { id: '2020-6-15-1', content: '修正存檔後又馬上修改裝備，可能會覆蓋之前存檔的錯誤<br>修正載入早期<整頁儲存>有可能會有遠傷不影響的錯誤<br>修正載入技能時不會重新計算屬性倍率的問題' },
                         { id: '2020-6-11', content: '增加額外技能選項分類 超級初心者<br>多蘭族改為喵族<br>增加贊助頁面' },
                         { id: '2020-6-8', content: '修正額外技能選項十六夜某些情況會有些微差異的錯誤<br>修改地符公式計算位置<br>修正預設技能幽冥十字斬公式 有整頁儲存的需要重新指定<br>增加預設技能銳利射擊獨立延遲' },
                         { id: '2020-6-4', content: '修改預設技能 幽冥十字斬公式<br>修改地符倍率為10%<br>增加敵方預設資料 施密特國王簡單/困難<br>增加贊助連結按鈕' },
