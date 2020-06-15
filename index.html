@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.0/theme-chalk/index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63581889-2"></script>
@@ -6238,11 +6239,12 @@
                     if (this.equipspartlist[epidx].equipname.trim() == '') return;
                     this.StoreDB_Equip.unshift({
                         uuid: this._uuid(),
-                        equip: Object.assign({},this.equipspartlist[epidx]),
+                        //equip: Object.assign({},this.equipspartlist[epidx]),
+                        equip: _.cloneDeep(this.equipspartlist[epidx]),
                         date: Date.now(),
                         weapon: (epidx<2)?((epidx==0)?
-                                    Object.assign({},this.weapon):
-                                    Object.assign({},this.subweapon)):
+                                    _.cloneDeep(this.weapon):
+                                    _.cloneDeep(this.subweapon)):
                                     null
                     });
                     this.SaveEquipDB();
@@ -6251,11 +6253,11 @@
                     var _id = this.equipspartlist[idx].id;
                     var _label = this.equipspartlist[idx].label;
                     if (idx==0){
-                        this.weapon = Object.assign({}, this.weapon_init);
+                        this.weapon = _.cloneDeep(this.weapon_init);
                         this.ChangeWeapon();
                     }
                     if (idx==1){
-                        this.subweapon = Object.assign({}, this.subweapon_init);
+                        this.subweapon = _.cloneDeep(this.subweapon_init);
                         this.ChangeWeapon();
                     }
                     this.$set(this.equipspartlist,
@@ -6290,11 +6292,11 @@
                         this.CombineEquipsAttribute();
                     }
                     if (idx == 0 && this.StoreDB_Equip[_dbidx].weapon!=null){
-                        this.weapon = Object.assign({},this.StoreDB_Equip[_dbidx].weapon);
+                        this.weapon = _.cloneDeep(this.StoreDB_Equip[_dbidx].weapon);
                         this.ChangeWeapon();
                     }
                     if (idx == 1 && this.StoreDB_Equip[_dbidx].weapon!=null){
-                        this.subweapon = Object.assign({},this.StoreDB_Equip[_dbidx].weapon);
+                        this.subweapon = _.cloneDeep(this.StoreDB_Equip[_dbidx].weapon);
                         this.ChangeWeapon();
                     }
                 },
@@ -6336,7 +6338,7 @@
                     this.StatusBulidString = this.StatusBulidString.slice(0, this.StatusBulidString.length - 1);
                 },
                 onLoadStatusSave(saveid) {
-                    this.status = Object.assign({}, this.StoreDB_Status[saveid].status);
+                    this.status = _.cloneDeep(this.StoreDB_Status[saveid].status);
                     this.StatusName = this.StoreDB_Status[saveid].name;
                     if (this.status.ASPD == null) this.status.ASPD = 0;
                     if (this.status.HP == null) this.status.HP = 0;
@@ -6391,7 +6393,7 @@
                         var _valid = eval(this.SkillFormulaReplace(this.skill.formula));
                         this.StoreDB_Skill.unshift({
                             uuid: this._uuid(),
-                            skill: Object.assign({}, this.skill)
+                            skill: _.cloneDeep(this.skill)
                         });
                         this.SaveSkillDB();
                     } catch (e) {
@@ -6399,11 +6401,11 @@
                     }
                 },
                 onLoadSkillDefault(saveid) {
-                    this.skill = Object.assign({}, this.DefaultDB_Skill[saveid].skill);
+                    this.skill = _.cloneDeep(this.DefaultDB_Skill[saveid].skill);
                     this.LoadSkill();
                 },
                 onLoadSkillSave(saveid) {
-                    this.skill = Object.assign({}, this.StoreDB_Skill[saveid].skill);
+                    this.skill = _.cloneDeep(this.StoreDB_Skill[saveid].skill);
                     this.LoadSkill();
                 },
                 LoadSkill() {
@@ -6459,7 +6461,7 @@
                 onSaveAllSet(){
                     this.StoreDB_AllSet.unshift({
                         uuid: this._uuid(),
-                        AllSet: Object.assign({}, this.TempAllSet),
+                        AllSet: _.cloneDeep(this.TempAllSet),
                     });
                     const parsed = JSON.stringify(this.StoreDB_AllSet);
                     localStorage.setItem('StoreDB_AllSet', parsed);
@@ -6485,15 +6487,15 @@
                                 effectlist: this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].effectlist.concat(),
                             })
                     }
-                    this.weapon = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.Weapon);
-                    if( this.weapon == null ) this.weapon = Object.assign({}, this.weapon_init);
-                    this.subweapon = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.SubWeapon);
-                    if( this.subweapon == null ) this.subweapon = Object.assign({}, this.subweapon_init);
+                    this.weapon = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Weapon);
+                    if( this.weapon == null ) this.weapon = _.cloneDeep(this.weapon_init);
+                    this.subweapon = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.SubWeapon);
+                    if( this.subweapon == null ) this.subweapon = _.cloneDeep(this.subweapon_init);
 
-                    this.status = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.Status);
-                    this.skill = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.Skill);
-                    this.skilloption = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.SkillOption);
-                    //this.option = Object.assign({}, this.StoreDB_AllSet[_dbidx].AllSet.Option);
+                    this.status = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Status);
+                    this.skill = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Skill);
+                    this.skilloption = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.SkillOption);
+                    //this.option = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Option);
                     this.CombineEquipsAttribute();
                     this.ChangeWeapon();
                     this.enemyattribute.name = this.StoreDB_AllSet[_dbidx].AllSet.EnemyName;
@@ -6659,6 +6661,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-6-15', content: '修正存檔後又馬上修改裝備，可能會覆蓋之前存檔的問題' },
                         { id: '2020-6-11', content: '增加額外技能選項分類 超級初心者<br>多蘭族改為喵族<br>增加贊助頁面' },
                         { id: '2020-6-8', content: '修正額外技能選項十六夜某些情況會有些微差異的錯誤<br>修改地符公式計算位置<br>修正預設技能幽冥十字斬公式 有整頁儲存的需要重新指定<br>增加預設技能銳利射擊獨立延遲' },
                         { id: '2020-6-4', content: '修改預設技能 幽冥十字斬公式<br>修改地符倍率為10%<br>增加敵方預設資料 施密特國王簡單/困難<br>增加贊助連結按鈕' },
@@ -6783,13 +6786,13 @@
                     ArrowATK: 0, BulletATK: 0,
                     Weight: 0,
                 };
-                this.weapon_init = Object.assign({}, this.weapon);
+                this.weapon_init = _.cloneDeep(this.weapon);
                 this.subweapon = {
                     type: this.subhandtype[0], level: this.weaponlevellist[0],
                     ATK: 0, MATK: 0, refinelevel: 0,
                     ShieldWeight: 0,
                 };
-                this.subweapon_init = Object.assign({}, this.subweapon);
+                this.subweapon_init = _.cloneDeep(this.subweapon);
                 this.ChangeWeapon();
                 this.skilloption.AttackElementalIdx = 0;
                 this.ComputElementalPercent();
