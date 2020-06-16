@@ -557,7 +557,7 @@
                             </el-row>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
-                                    <span>技能位置-後</span>
+                                    <span>後計算技能倍率</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.laterformula" active-color="#13ce66"
@@ -643,6 +643,7 @@
                                                         <el-col v-if="item.skill.cannon" class="skilltag" :span="3">砲彈</el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF" class="skilltag" :span="5">半無視防禦</el-col>
                                                         <el-col v-if="item.skill.laterranged" class="skilltag" :span="5">後計算技能遠傷</el-col>
+                                                        <el-col v-if="item.skill.laterformula" class="skilltag" :span="5">後計算技能倍率</el-col>
                                                     </el-row>
                                                     <el-row class="skillline" align="middle" >
                                                         <el-col class="statussavebox" :span="4">固詠 {{ item.skill.FCT }}s</el-col>
@@ -694,6 +695,7 @@
                                                         <el-col v-if="item.skill.cannon" class="skilltag skillline" :span="3">砲彈</el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF" class="skilltag skillline" :span="5">半無視防禦</el-col>
                                                         <el-col v-if="item.skill.laterranged" class="skilltag skillline" :span="5">後計算技能遠傷</el-col>
+                                                        <el-col v-if="item.skill.laterformula" class="skilltag skillline" :span="5">後計算技能倍率</el-col>
                                                     </el-row>
                                                     <el-row class="skillline" align="middle">
                                                         <el-col :span="4">固詠 {{ item.skill.FCT }}s</el-col>
@@ -1773,17 +1775,17 @@
                                         </el-row>
                                     </el-tooltip>
                                 </div>
-                                <div v-show="skill.laterformula">
-                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                        <el-col class="textcenter" :span="12">
-                                            <span>技能位置-後</span>
-                                        </el-col>
-                                    </el-row>
-                                </div>
                                 <div v-show="skill.laterranged">
                                     <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                         <el-col class="textcenter" :span="12">
                                             <span>後計算技能遠傷</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="skill.laterformula">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>後計算技能倍率</span>
                                         </el-col>
                                     </el-row>
                                 </div>
@@ -2012,6 +2014,16 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-switch v-model="option.AdvancedKatarReserch" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>致命爪痕</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.GC_DARKCROW" v-on:change="onOption"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -2378,7 +2390,7 @@
                                         <el-col class="textcenter" :span="2">
                                         </el-col>
                                         <el-col class="textcenter" :span="20">
-                                            <span class="textcenter">服事</span>
+                                            <span class="textcenter">大主教</span>
                                         </el-col>
                                         <el-col v-if="UIPanel['AcolyteSkillPage']" class="textcenter" :span="2">
                                             <i class="el-icon-arrow-down"></i>
@@ -2508,6 +2520,16 @@
                                         </el-collapse-transition>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
+                                                <span>天使之怒</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.PR_LEXAETERNA" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
                                                 <span>神聖殿堂</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -2541,16 +2563,6 @@
                                         </el-collapse-transition>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
-                                                <span>聖典</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.SECRAMENT" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
                                                 <span>贖罪</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -2574,6 +2586,39 @@
                                         </el-collapse-transition>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
+                                                <span>奧汀之神力</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.OdinsPower" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="option.OdinsPower">
+                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                    justify="center">
+                                                    <el-col class="textcenter" :span="8">奧汀之神力等級</el-col>
+                                                    <el-col :span="4">
+                                                        <el-input v-model.number="option.OdinsPowerLevel"
+                                                            v-on:change="onOption" placeholder="等級">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>聖典</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SECRAMENT" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
                                                 <span>祈禱文</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -2595,6 +2640,25 @@
                                                 </el-row>
                                             </div>
                                         </el-collapse-transition>
+                                    </div>
+                                </el-collapse-transition>
+                                <div v-on:click="TogglePanel('SuraSkillPage')">
+                                    <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
+                                        <el-col class="textcenter" :span="2">
+                                        </el-col>
+                                        <el-col class="textcenter" :span="20">
+                                            <span class="textcenter">修羅</span>
+                                        </el-col>
+                                        <el-col v-if="UIPanel['SuraSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-down"></i>
+                                        </el-col>
+                                        <el-col v-else="UIPanel['SuraSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-up"></i>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['SuraSkillPage']">
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
                                                 <span>蓄氣</span>
@@ -2630,7 +2694,6 @@
                                         </el-row>
                                     </div>
                                 </el-collapse-transition>
-
                                 <div v-on:click="TogglePanel('TaekwonSkillPage')">
                                     <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
                                         <el-col class="textcenter" :span="2">
@@ -3049,29 +3112,6 @@
                                 </div>
                                 <el-collapse-transition>
                                     <div v-show="UIPanel['EquipSkillPage']">
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>奧汀之神力</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.OdinsPower" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-collapse-transition>
-                                            <div v-show="option.OdinsPower">
-                                                <el-row class="optionsubbox" :gutter="4" type="flex" align="middle"
-                                                    justify="center">
-                                                    <el-col class="textcenter" :span="8">奧汀之神力等級</el-col>
-                                                    <el-col :span="4">
-                                                        <el-input v-model.number="option.OdinsPowerLevel"
-                                                            v-on:change="onOption" placeholder="等級">
-                                                        </el-input>
-                                                    </el-col>
-                                                </el-row>
-                                            </div>
-                                        </el-collapse-transition>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
                                                 <span>無視物理防禦(全段)</span>
@@ -4307,6 +4347,7 @@
                     { label: '物理體型 %', id: 'SizeAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '對屬性魔物Atk %', id: 'ElementalAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '物理特定怪 %', id: 'MonsterAtkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視物理防禦 %', id: 'BypassDEFPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
@@ -4318,6 +4359,7 @@
                     { label: '魔法階級 %', id: 'LevelMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '對屬性魔物Matk %', id: 'ElementalMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '屬性魔法 %', id: 'ElementalMagicPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '魔法特定怪 %', id: 'MonsterMatkPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視魔法防禦 %', id: 'BypassMDEFPercent', totalvalue: '', opersymbol: '\+', suffixsymbol: '\%' },
 
                     { label: '技能增傷 %', id: 'SkillDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -4563,6 +4605,7 @@
                     VENOMIMPRESSLevel: 0,
                     AdvancedKatarReserch: false,    //高階拳刃修練
                     AdvancedKatarReserchValue: 20,
+                    GC_DARKCROW: false,             //致命爪痕
                     AS_RIGHT: false,
                     AS_RIGHTLevel: 5,
                     AS_LEFT: false,
@@ -4600,6 +4643,7 @@
                     SuffragiumLevel: 1,
                     ImpositioManus: false,      //神威祈福
                     ImpositioManusLevel: 5,
+                    PR_LEXAETERNA: false,       //天使之怒
                     Basilica: false,            //神聖殿堂
                     LAUDARAMUS: false,          //折枝讚頌
                     LAUDARAMUSLevel: 0,
@@ -4743,8 +4787,6 @@
                     atkmulti_max: 0,
                     atkmulti_DPS: 0,
                     /*
-                    x ( 致命爪痕 1 + 250% (限定近距離物理攻擊))
-                    x ( 天使之怒或天罰(效果不累加) 1 + 100% )
                     x ( 二刀連擊 1 + 100% )
                     x ( 潛擊 1 + 30%(BOSS型怪為15%) )
                     x (右手修練等級 x 10% + 50% 或 左手修練等級 x 10% + 30%)
@@ -4824,6 +4866,7 @@
                     MerchantSkillPage: false,
                     ThiefSkillPage: false,
                     AcolyteSkillPage: false,
+                    SuraSkillPage: false,
                     TaekwonSkillPage: false,
                     StarEmperorSkillPage: false,
                     SoulReaperSkillPage: false,
@@ -5327,6 +5370,7 @@
                     var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizeAtkPercent').totalvalue) / 100;
                     var para_elemt = Number(1) + Number(this.attritube['ElementalAtkPercent']) / 100;
                     var para_level = Number(1) + Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue) / 100;
+                    var para_mons = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MonsterAtkPercent').totalvalue) / 100;
                     var para_posion = Number(1) + (this.option.EnchantDeadlyPoison ? (Number(this.option.EnchantDeadlyPoisonPercent / 100)) : Number(0));
                     this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.weaponatk_min, para_race);
                     this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.weaponatk_max, para_race);
@@ -5336,6 +5380,8 @@
                     this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_elemt);
                     this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_level);
                     this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_level);
+                    this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_mons);
+                    this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_mons);
                     this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_posion);
                     this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_posion);
 
@@ -5518,6 +5564,27 @@
                     if (this.skill.critical) {
                         this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, Number(1) + Number(this.option.BaseCriticalValue / 100));
                     }
+                    // 普攻暴擊 *1.4
+                    this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(this.option.BaseCriticalValue / 100));
+
+                    // 爪痕
+                    if (this.option.GC_DARKCROW && this.skill.ranged==false) {
+                        this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(150/100));
+                        this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(150/100));
+                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, Number(1) + Number(150/100));
+                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, Number(1) + Number(150/100));
+                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, Number(1) + Number(150/100));
+                        this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(150/100));
+                    }
+                    // 天怒
+                    if (this.option.PR_LEXAETERNA) {
+                        this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(100/100));
+                        this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(100/100));
+                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, Number(1) + Number(100/100));
+                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, Number(1) + Number(100/100));
+                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, Number(1) + Number(100/100));
+                        this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(100/100));
+                    }
 
                     var _paradiv = this.skill.hitnumber;
                     if (_paradiv == 0) _paradiv = 1;
@@ -5528,9 +5595,6 @@
                     }
                     this.computeattribute.atkmulti_min = this.computeattribute.atkc9_min * _paradiv;
                     this.computeattribute.atkmulti_max = this.computeattribute.atkc9_max * _paradiv;
-                    // 普攻暴擊 *1.4
-                    this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(this.option.BaseCriticalValue / 100));
-
                     var _CRIRate = this.attritube['CRI'];
                     var _CRIRateN = this.clamp(100 - _CRIRate, 0, 100);
                     this.computeattribute.normalattack_DPS = Math.floor((this.computeattribute.normalattack_min + this.computeattribute.normalattack_max) / 2) * _CRIRateN / 100 +
@@ -5591,6 +5655,7 @@
                     var para_magicelemt = Number(1) + Number(this.attritube['ElementalMagicPercent']) / 100;
                     var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceMatkPercent').totalvalue) / 100;
                     var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizeMatkPercent').totalvalue) / 100;
+                    var para_mons = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MonsterMatkPercent').totalvalue) / 100;
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.matkpercent_min, para_elemt);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.matkpercent_max, para_elemt);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_magicelemt);
@@ -5599,6 +5664,8 @@
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_race);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_size);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_size);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_mons);
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_mons);
 
                     this.computeattribute.matk1_min = this.MulOper(this.computeattribute.finalmatk_min, Number(1) + Number(this.enemyattribute.sizeResist / 100));
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.finalmatk_max, Number(1) + Number(this.enemyattribute.sizeResist / 100));
@@ -5647,6 +5714,12 @@
                     if( this.option.SO_WATER_INSIGNIA_ENEMY ){
                         this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1.5));
                         this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1.5));
+                    }
+
+                    // 天怒
+                    if (this.option.PR_LEXAETERNA) {
+                        this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(100/100));
+                        this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(100/100));
                     }
 
                     var _paradiv = this.skill.hitnumber;
@@ -5703,6 +5776,11 @@
                     }
                     //屬性增傷
                     this.computeattribute.DragonBreathDMG = this.MulOper(this.computeattribute.DragonBreathDMG, Number(this.skilloption.ElementalPercent / 100));
+
+                    // 天怒
+                    if (this.option.PR_LEXAETERNA) {
+                        this.computeattribute.DragonBreathDMG = this.MulOper(this.computeattribute.DragonBreathDMG, Number(1) + Number(100/100));
+                    }
 
                     this.computeattribute.DragonBreathDMG_DPS = Math.floor(this.computeattribute.DragonBreathDMG * this.computeattribute.HitperSec * 100) / 100;
 
@@ -6608,7 +6686,7 @@
                         { skill: { id: 'SR_RAMPAGEBLASTER', name: '爆氣散彈', level: 5, formula: 'SLV*20*5*BLV/150', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 10, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SR_RAMPAGEBLASTER(ex)', name: '爆氣散彈(爆氣)', level: 5, formula: '(SLV*20+5*20)*15*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 10, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'15為潛龍後的氣彈數', } },
                         { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
-                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'遠傷應該在技能傷之後，待修正', } },
+                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'遠傷應該在技能傷之後，待修正', } },
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨(樂器/鞭子)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100*1.666', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM(bow)', name: '大暴雨(弓)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
@@ -6619,7 +6697,7 @@
                         { skill: { id: 'NJ_HYOUSYOURAKU', name: '冰晶落', level: 5, formula: '150+SLV*150', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 2, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'NJ_KAMAITACHI', name: '朔風', level: 5, formula: '100+SLV*100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
-                        { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
+                        { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*200*BLV/100', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'KO_JYUMONJIKIRI(buff)', name: '幽冥十字斬(十字創傷)', level: 10, formula: 'SLV*200*BLV/100+BLV*SLV', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
                         { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note:'', } },
@@ -6684,6 +6762,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-6-16', content: '預設技能 手推車加農砲、爆炸飛刀增加後計算遠傷<br>裝備效果增加物理/魔法特定怪物增傷<br>額外技能選項增加 致命爪痕/天使之怒<br>額外技能選項大主教跟修羅分開，奧丁之神力移動到大主教區' },
                         { id: '2020-6-15-1', content: '修正存檔後又馬上修改裝備，可能會覆蓋之前存檔的錯誤<br>修正載入早期<整頁儲存>有可能會有遠傷不影響的錯誤<br>修正載入技能時不會重新計算屬性倍率的問題' },
                         { id: '2020-6-11', content: '增加額外技能選項分類 超級初心者<br>多蘭族改為喵族<br>增加贊助頁面' },
                         { id: '2020-6-8', content: '修正額外技能選項十六夜某些情況會有些微差異的錯誤<br>修改地符公式計算位置<br>修正預設技能幽冥十字斬公式 有整頁儲存的需要重新指定<br>增加預設技能銳利射擊獨立延遲' },
