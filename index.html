@@ -1095,42 +1095,6 @@
                                     </el-col>
                                 </el-row>
 
-                                <el-row :class="PreviewETL[GetETLIndex('ASPD')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="12">
-                                        ASPD
-                                    </el-col>
-                                    <el-col class="textcenter" :span="12">
-                                        <el-input v-if="PreviewETL[0]"
-                                            v-model="PreviewETL[GetETLIndex('ASPD')].totalvalue"
-                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
-                                        </el-input>
-                                    </el-col>
-                                </el-row>
-
-                                <el-row :class="PreviewETL[GetETLIndex('AspdPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="12">
-                                        攻擊後延%
-                                    </el-col>
-                                    <el-col class="textcenter" :span="12">
-                                        <el-input v-if="PreviewETL[0]"
-                                            v-model="PreviewETL[GetETLIndex('AspdPercent')].totalvalue"
-                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
-                                        </el-input>
-                                    </el-col>
-                                </el-row>
-
-                                <el-row :class="PreviewETL[GetETLIndex('Cri')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="12">
-                                        暴擊率 %
-                                    </el-col>
-                                    <el-col class="textcenter" :span="12">
-                                        <el-input v-if="PreviewETL[0]"
-                                            v-model="PreviewETL[GetETLIndex('Cri')].totalvalue"
-                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
-                                        </el-input>
-                                    </el-col>
-                                </el-row>
-
                                 <el-row :class="PreviewETL[GetETLIndex('CDTime')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
                                         技能獨延
@@ -1202,6 +1166,42 @@
                                         </el-input>
                                     </el-col>
                                 </el-row>
+
+                                <el-row :class="PreviewETL[GetETLIndex('ASPD')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        ASPD
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-input v-if="PreviewETL[0]"
+                                            v-model="PreviewETL[GetETLIndex('ASPD')].totalvalue"
+                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+
+                                <el-row :class="PreviewETL[GetETLIndex('AspdPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        攻擊後延%
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-input v-if="PreviewETL[0]"
+                                            v-model="PreviewETL[GetETLIndex('AspdPercent')].totalvalue"
+                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+
+                                <el-row :class="PreviewETL[GetETLIndex('Cri')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        暴擊率 %
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-input v-if="PreviewETL[0]"
+                                            v-model="PreviewETL[GetETLIndex('Cri')].totalvalue"
+                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
                             </div>
                         </el-row>
                     </el-scrollbar>
@@ -1238,7 +1238,7 @@
 
                                         <el-row :class="PreviewETL[GetETLIndex('RaceAtkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                物理種族 %
+                                                種族 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -1250,7 +1250,7 @@
 
                                         <el-row :class="PreviewETL[GetETLIndex('SizeAtkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                物理體型 %
+                                                體型 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -1260,21 +1260,9 @@
                                             </el-col>
                                         </el-row>
 
-                                        <el-row :class="PreviewETL[GetETLIndex('ElementalAtkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="12">
-                                                對屬性魔物Atk %
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-input v-if="PreviewETL[0]"
-                                                    v-model="PreviewETL[GetETLIndex('ElementalAtkPercent')].totalvalue"
-                                                    v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>
-
                                         <el-row :class="PreviewETL[GetETLIndex('LevelAtkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                物理階級 %
+                                                階級 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -1284,13 +1272,37 @@
                                             </el-col>
                                         </el-row>
 
+                                        <el-row :class="PreviewETL[GetETLIndex('ElementalAtkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                對屬性魔物 %
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('ElementalAtkPercent')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+
                                         <el-row :class="PreviewETL[GetETLIndex('MonsterAtkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                物理特定怪 %
+                                                特定魔物 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
                                                     v-model="PreviewETL[GetETLIndex('MonsterAtkPercent')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+
+                                        <el-row :class="PreviewETL[GetETLIndex('BypassDEFPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                無視防禦 %
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('BypassDEFPercent')].totalvalue"
                                                     v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
                                                 </el-input>
                                             </el-col>
@@ -1320,17 +1332,6 @@
                                             </el-col>
                                         </el-row>
 
-                                        <el-row :class="PreviewETL[GetETLIndex('BypassDEFPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="12">
-                                                無視物理防禦 %
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-input v-if="PreviewETL[0]"
-                                                    v-model="PreviewETL[GetETLIndex('BypassDEFPercent')].totalvalue"
-                                                    v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>
                                     </div>
                                 </el-row>
                             </el-scrollbar>
@@ -1365,7 +1366,7 @@
 
                                         <el-row :class="PreviewETL[GetETLIndex('RaceMatkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                魔法種族 %
+                                                種族 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -1377,7 +1378,7 @@
 
                                         <el-row :class="PreviewETL[GetETLIndex('SizeMatkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                魔法體型 %
+                                                體型 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -1389,7 +1390,7 @@
 
                                         <el-row :class="PreviewETL[GetETLIndex('LevelMatkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                魔法階級 %
+                                                階級 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -1401,7 +1402,7 @@
 
                                         <el-row :class="PreviewETL[GetETLIndex('ElementalMatkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                對屬性魔物Matk %
+                                                對屬性魔物 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -1425,7 +1426,7 @@
 
                                         <el-row :class="PreviewETL[GetETLIndex('MonsterMatkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                魔法特定怪 %
+                                                特定魔物 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -1437,7 +1438,7 @@
 
                                         <el-row :class="PreviewETL[GetETLIndex('BypassMDEFPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
-                                                無視魔法防禦 %
+                                                無視防禦 %
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
@@ -5024,9 +5025,9 @@
                     { label: 'Atk %', id: 'AtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理種族 %', id: 'RaceAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理體型 %', id: 'SizeAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '對屬性魔物Atk %', id: 'ElementalAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '物理特定怪 %', id: 'MonsterAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '對屬性魔物Atk %', id: 'ElementalAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '物理特定魔物 %', id: 'MonsterAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視物理防禦 %', id: 'BypassDEFPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -5038,19 +5039,19 @@
                     { label: '魔法階級 %', id: 'LevelMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '對屬性魔物Matk %', id: 'ElementalMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '屬性魔法 %', id: 'ElementalMagicPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '魔法特定怪 %', id: 'MonsterMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '魔法特定魔物 %', id: 'MonsterMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視魔法防禦 %', id: 'BypassMDEFPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
 
                     { label: '技能增傷 %', id: 'SkillDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: 'ASPD', id: 'ASPD', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
-                    { label: '攻擊後延%', id: 'AspdPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
-                    { label: '暴擊率 %', id: 'Cri', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '技能獨延', id: 'CDTime', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\s' },
                     { label: '技能後(共)延%', id: 'GCDPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '變詠 %', id: 'VariableCastPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '指定技能變詠 %', id: 'SPSkillVariableCastPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '固詠', id: 'FixedCast', totalvalue: '0', opersymbol: '\-', suffixsymbol: 's' },
                     { label: '固詠 %', id: 'FixedCastPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
+                    { label: 'ASPD', id: 'ASPD', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: '攻擊後延%', id: 'AspdPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
+                    { label: '暴擊率 %', id: 'Cri', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
 
                     { label: 'HP %', id: 'HPPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: 'HP', id: 'HP', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
@@ -7498,8 +7499,8 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2020-6-17', content: '裝備效果設定頁面大更新!<br>減少裝備效果所佔的儲存空間(此次更新後所儲存的)' },
-                        { id: '2020-6-16', content: '預設技能 手推車加農砲、爆炸飛刀增加後計算遠傷<br>裝備效果增加物理/魔法特定怪物增傷<br>額外技能選項增加 致命爪痕/天使之怒<br>額外技能選項大主教跟修羅分開，奧丁之神力移動到大主教區' },
+                        { id: '2020-6-17-1', content: '裝備效果設定頁面大更新!<br>減少裝備效果所佔的儲存空間(此次更新後所儲存的)<br>修改部分效果文字' },
+                        { id: '2020-6-16', content: '預設技能 手推車加農砲、爆炸飛刀增加後計算遠傷<br>裝備效果增加物理/魔法特定魔物物增傷<br>額外技能選項增加 致命爪痕/天使之怒<br>額外技能選項大主教跟修羅分開，奧丁之神力移動到大主教區' },
                         { id: '2020-6-15-1', content: '修正存檔後又馬上修改裝備，可能會覆蓋之前存檔的錯誤<br>修正載入早期<整頁儲存>有可能會有遠傷不影響的錯誤<br>修正載入技能時不會重新計算屬性倍率的問題' },
                         { id: '2020-6-11', content: '增加額外技能選項分類 超級初心者<br>多蘭族改為喵族<br>增加贊助頁面' },
                         { id: '2020-6-8', content: '修正額外技能選項十六夜某些情況會有些微差異的錯誤<br>修改地符公式計算位置<br>修正預設技能幽冥十字斬公式 有整頁儲存的需要重新指定<br>增加預設技能銳利射擊獨立延遲' },
