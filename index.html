@@ -431,9 +431,14 @@
                             </el-row>
                         </div>
                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle" justify="end">
-                            <el-col class="textcenter">
-                                <el-button v-on:click="onSaveSkill" size="small">
+                            <el-col v-if="skill.name!=''" class="textcenter">
+                                <el-button v-on:click="onSaveSkill" type="success" size="small">
                                     儲存自訂技能>>>
+                                </el-button>
+                            </el-col>
+                            <el-col v-if="skill.name==''" class="textcenter">
+                                <el-button v-on:click="onSaveSkill" type="danger" disabled size="small">
+                                    儲存前設定技能名
                                 </el-button>
                             </el-col>
                         </el-row>
@@ -885,6 +890,8 @@
                 </el-col>
                 <el-col :span="2">
                 </el-col>
+                <el-col :span="2">
+                </el-col>
                 <el-col :span="8">
                 </el-col>
                 <el-col :span="2" class="textcenter">
@@ -896,6 +903,8 @@
                     <el-button v-on:click="onEditEquipCancel" size="small">
                         取消
                     </el-button>
+                </el-col>
+                <el-col :span="2">
                 </el-col>
                 <el-col :span="2" class="textcenter">
                     <el-button v-on:click="onEditEquipConfirm(false)" type="success" plain size="small">
@@ -934,7 +943,7 @@
                                             <span class="">{{ item.opersymbol }}</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <span class="">{{ item.totalvalue }}</span>
+                                            <span class="">{{ item.totalvalue!=9999?item.totalvalue:'' }}</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="2">
                                             <span lass="">{{ item.suffixsymbol }}</span>
@@ -1320,6 +1329,18 @@
                                             </el-col>
                                         </el-row>
 
+                                        <el-row :class="PreviewETL[GetETLIndex('MeleeDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                近傷 %
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('MeleeDamagePercent')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        
                                         <el-row :class="PreviewETL[GetETLIndex('RangedDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
                                                 遠傷 %
@@ -1329,6 +1350,30 @@
                                                     v-model="PreviewETL[GetETLIndex('RangedDamagePercent')].totalvalue"
                                                     v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
                                                 </el-input>
+                                            </el-col>
+                                        </el-row>
+
+                                        <el-row :class="PreviewETL[GetETLIndex('WeaponPerfection')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle" style="height:40">
+                                            <el-col class="textcenter" :span="12">
+                                                無視體型攻擊
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="PreviewETL[GetETLIndex('WeaponPerfection')].totalvalue" active-color="#13ce66"
+                                                        v-on:change="OnEditEquipEffect()" inactive-color="#8a9799"
+                                                        active-value="9999" inactive-value="0">>
+                                                    </el-switch>
+                                            </el-col>
+                                        </el-row>
+
+                                        <el-row :class="PreviewETL[GetETLIndex('WeaponOccult')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle" style="height:40">
+                                            <el-col class="textcenter" :span="12">
+                                                浸透勁效果
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12" >
+                                                    <el-switch v-model="PreviewETL[GetETLIndex('WeaponOccult')].totalvalue" active-color="#13ce66"
+                                                        v-on:change="OnEditEquipEffect()" inactive-color="#8a9799"
+                                                        active-value="9999" inactive-value="0">>
+                                                    </el-switch>
                                             </el-col>
                                         </el-row>
 
@@ -1552,9 +1597,14 @@
                     </el-row>
                     <div style="padding: 0px 5px;">
                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle" justify="end">
-                            <el-col class="textcenter">
-                                <el-button v-on:click="onSaveStatus" size="small">
+                            <el-col v-if="StatusName!=''" class="textcenter">
+                                <el-button v-on:click="onSaveStatus" type="success" size="small">
                                     儲存素質>>>
+                                </el-button>
+                            </el-col>
+                            <el-col v-if="StatusName==''" class="textcenter">
+                                <el-button v-on:click="onSaveStatus" type="danger" disabled size="small">
+                                    儲存前設定檔名
                                 </el-button>
                             </el-col>
                         </el-row>
@@ -1755,9 +1805,14 @@
                     </el-row>
                     <div style="padding: 0px 5px;">
                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle" justify="end">
-                            <el-col class="textcenter">
-                                <el-button v-on:click="onSaveAllSet" size="small">
-                                    儲存>>>
+                            <el-col v-if="TempAllSet.Name!=''" class="textcenter">
+                                <el-button v-on:click="onSaveAllSet" type="success" size="small">
+                                    儲存整頁>>>
+                                </el-button>
+                            </el-col>
+                            <el-col v-if="TempAllSet.Name==''" class="textcenter">
+                                <el-button v-on:click="onSaveAllSet" type="danger" disabled size="small">
+                                    儲存前設定檔名
                                 </el-button>
                             </el-col>
                         </el-row>
@@ -1875,7 +1930,7 @@
         <!-- main -->
         <div>
             <el-row :gutter="2">
-                <el-col :span="8">
+                <el-col :span="6">
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
 
                         <el-row class="titlebox" type="flex" align="middle" justify="end"
@@ -1891,26 +1946,26 @@
                             <el-col class="textcenter" :span="6">
                             </el-col>
                         </el-row>
-                        <el-row class="titlebox" type="flex" align="middle" justify="end"
+                        <el-row class="titlebox" :gutter="2" type="flex" align="middle" justify="end"
                             style="height:40px; padding: 0px 5px;">
                             <el-col class="textcenter" :span="2">
                             </el-col>
-                            <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="16"
+                            <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="15"
                                 style="text-align: center;">
                                 <span class="textcenter">角色素質</span>
                             </el-col>
                             <el-col v-else-if="!UIPanel['StatusPanel']&&(skill.DamageTypeIdx==0)" class="textcenter"
-                                :span="16" style="text-align: left;">
+                                :span="15" style="text-align: left;">
                                 <span class="textcenter">角色: [LV]{{status.Level}} [STR]{{status_total.STR}}
                                     [DEX]{{status_total.DEX}} [LUK]{{status_total.LUK}}</span>
                             </el-col>
                             <el-col v-else-if="!UIPanel['StatusPanel']&&(skill.DamageTypeIdx==1)" class="textcenter"
-                                :span="16" style="text-align: left;">
+                                :span="15" style="text-align: left;">
                                 <span class="textcenter">角色: [LV]{{status.Level}} [INT]{{status_total.INT}}
                                     [DEX]{{status_total.DEX}} [LUK]{{status_total.LUK}}</span>
                             </el-col>
                             <el-col v-else-if="!UIPanel['StatusPanel']&&(skill.DamageTypeIdx==2)" class="textcenter"
-                                :span="16" style="text-align: left;">
+                                :span="15" style="text-align: left;">
                                 <span class="textcenter">角色: [LV]{{status.Level}} [HP]{{status.HP}}
                                     [SP]{{status.SP}}</span>
                             </el-col>
@@ -1921,11 +1976,11 @@
                                     </el-button>
                                 </el-tooltip>
                             </el-col>
-                            <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="2">
+                            <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('StatusPanel')" size="mini"><i
                                         class="el-icon-arrow-down"></i></el-button>
                             </el-col>
-                            <el-col v-else="!UIPanel['StatusPanel']" class="textcenter" :span="2">
+                            <el-col v-else="!UIPanel['StatusPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('StatusPanel')" size="mini"><i
                                         class="el-icon-arrow-up"></i></el-button>
                             </el-col>
@@ -2118,23 +2173,23 @@
                         </el-row>
                         <el-row class="titlebox" type="flex" align="middle" justify="end"
                             style="height:40px; padding: 0px 5px;">
-                            <el-col :span="2">
+                            <el-col :span="3">
                             </el-col>
-                            <el-col v-if="UIPanel['EnemyPanel']" class="textcenter" :span="20"
+                            <el-col v-if="UIPanel['EnemyPanel']" class="textcenter" :span="18"
                                 style="text-align: center;">
                                 <span class="textcenter">敵方</span>
                             </el-col>
-                            <el-col v-else="!UIPanel['EnemyPanel']" class="textcenter" :span="20"
+                            <el-col v-else="!UIPanel['EnemyPanel']" class="textcenter" :span="18"
                                 style="text-align: left;">
                                 <span class="textcenter">敵方: [{{enemyattribute.name}}] [Lv{{enemyattribute.level}}]
                                     [{{elementtypelist[enemyattribute.elemental].label}}Lv{{enemyattribute.elementallevel}}]
                                     [{{sizetypelist[enemyattribute.size].label}}]</span>
                             </el-col>
-                            <el-col v-if="UIPanel['EnemyPanel']" class="textcenter" :span="2">
+                            <el-col v-if="UIPanel['EnemyPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('EnemyPanel')" size="mini"><i
                                         class="el-icon-arrow-down"></i></el-button>
                             </el-col>
-                            <el-col v-else="!UIPanel['EnemyPanel']" class="textcenter" :span="2">
+                            <el-col v-else="!UIPanel['EnemyPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('EnemyPanel')" size="mini"><i
                                         class="el-icon-arrow-up"></i></el-button>
                             </el-col>
@@ -2267,25 +2322,30 @@
                                     </div>
                                 </div>
                         </el-row>
-                        <el-row class="titlebox" type="flex" align="middle" justify="end"
+
+                    </el-scrollbar>
+                </el-col>
+                <el-col :span="6">
+                    <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
+                        <el-row class="titlebox" :gutter="4" type="flex" align="middle" justify="end"
                             style="height:40px; padding: 0px 5px;">
-                            <el-col class="textcenter" :span="2">
+                            <el-col class="textcenter" :span="9">
                             </el-col>
-                            <el-col class="textcenter" :span="10">
+                            <el-col class="textcenter" :span="6">
                                 <span class="textcenter">技能</span>
                             </el-col>
                             <el-col class="textcenter" :span="6" style="text-align: right;">
                                 <el-tooltip class="item" effect="dark" content="讀取已經儲存的技能" placement="left">
                                     <el-button v-on:click="TogglePanel('SkillDBDialog')" size="mini">
-                                        技能設定/列表
+                                        技能設定
                                     </el-button>
                                 </el-tooltip>
                             </el-col>
-                            <el-col v-if="UIPanel['SkillPanel']" class="textcenter" :span="2">
+                            <el-col v-if="UIPanel['SkillPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('SkillPanel')" size="mini"><i
                                         class="el-icon-arrow-down"></i></el-button>
                             </el-col>
-                            <el-col v-else="!UIPanel['SkillPanel']" class="textcenter" :span="2">
+                            <el-col v-else="!UIPanel['SkillPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('SkillPanel')" size="mini"><i
                                         class="el-icon-arrow-up"></i></el-button>
                             </el-col>
@@ -2716,7 +2776,7 @@
                                                 <span>武器值最大化</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.MaximizePower" v-on:change="ComputeSizefix"
+                                                <el-switch v-model="option.MaximizePower" v-on:change="onOption"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -3790,16 +3850,6 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>魔劍士 達納托斯的記憶卡片</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.MemoryofThanatosCard" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
                                     </div>
                                 </el-collapse-transition>
 
@@ -3883,7 +3933,7 @@
                         </el-row>
                     </el-scrollbar>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="6">
                     <el-row class="titlebox" type="flex" align="middle" justify="space-around"
                         style="height:40px; padding: 0px 5px;">
                         <el-col class="textcenter" :span="6"> </el-col>
@@ -3922,7 +3972,7 @@
                                             </div>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="onClearEquipPart(eqindex+2)" size="mini">
+                                            <el-button v-on:click="onClearEquipPart(0)" size="mini">
                                                 清空
                                             </el-button>
                                         </el-col>
@@ -4032,7 +4082,7 @@
                                                     <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="3">
-                                                    <span class="">{{ item.EffectNumber }}</span>
+                                                    <span class="">{{ item.EffectNumber!=9999?item.EffectNumber:'' }}</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="2">
                                                     <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
@@ -4064,7 +4114,7 @@
                                             </div>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="onClearEquipPart(eqindex+2)" size="mini">
+                                            <el-button v-on:click="onClearEquipPart(1)" size="mini">
                                                 清空
                                             </el-button>
                                         </el-col>
@@ -4161,8 +4211,8 @@
                                                 <el-col class="textcenter" :span="2">
                                                     <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
                                                 </el-col>
-                                                <el-col class="textcenter" :span="3">
-                                                    <span class="">{{ item.EffectNumber }}</span>
+                                                <el-col  class="textcenter" :span="3">
+                                                    <span class="">{{ item.EffectNumber!=9999?item.EffectNumber:'' }}</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="2">
                                                     <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
@@ -4220,7 +4270,7 @@
                                                         <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
                                                     </el-col>
                                                     <el-col class="textcenter" :span="3">
-                                                        <span class="">{{ item.EffectNumber }}</span>
+                                                        <span class="">{{ item.EffectNumber!=9999?item.EffectNumber:'' }}</span>
                                                     </el-col>
                                                     <el-col class="textcenter" :span="2">
                                                         <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
@@ -4302,7 +4352,7 @@
                                                     <el-col class="textcenter" :span="2">
                                                         <span class="">{{ item.opersymbol }}</span>
                                                     </el-col>
-                                                    <el-col class="textcenter" :span="2">
+                                                    <el-col v-if="item.opersymbol!=''" class="textcenter" :span="2">
                                                         <span>{{item.totalvalue}}</span>
                                                     </el-col>
                                                     <el-col class="textcenter" :span="2 ">
@@ -4317,22 +4367,22 @@
                         </el-row>
                     </el-scrollbar>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="6">
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                         <el-row>
                             <div class="Attribute">
                                 <el-row class="titlebox" type="flex" align="middle"
                                     style="height:40px; padding: 0px 5px;">
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="3">
                                     </el-col>
-                                    <el-col class="textcenter" :span="20">
+                                    <el-col class="textcenter" :span="18">
                                         <span class="textcenter">一般</span>
                                     </el-col>
-                                    <el-col v-if="UIPanel['General']" class="textcenter" :span="2">
+                                    <el-col v-if="UIPanel['General']" class="textcenter" :span="3">
                                         <el-button type="info" v-on:click="TogglePanel('General')" size="mini"><i
                                                 class="el-icon-arrow-down"></i></el-button>
                                     </el-col>
-                                    <el-col v-else class="textcenter" :span="2">
+                                    <el-col v-else class="textcenter" :span="3">
                                         <el-button type="info" v-on:click="TogglePanel('General')" size="mini"><i
                                                 class="el-icon-arrow-up"></i></el-button>
                                     </el-col>
@@ -4421,16 +4471,16 @@
                                 </el-collapse-transition>
                                 <el-row class="titlebox" type="flex" align="middle"
                                     style="height:40px; padding: 0px 5px;">
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="3">
                                     </el-col>
-                                    <el-col class="textcenter" :span="20">
+                                    <el-col class="textcenter" :span="18">
                                         <span class="textcenter">詠唱 & 延遲</span>
                                     </el-col>
-                                    <el-col v-if="UIPanel['CastDelay']" class="textcenter" :span="2">
+                                    <el-col v-if="UIPanel['CastDelay']" class="textcenter" :span="3">
                                         <el-button type="info" v-on:click="TogglePanel('CastDelay')" size="mini"><i
                                                 class="el-icon-arrow-down"></i></el-button>
                                     </el-col>
-                                    <el-col v-else class="textcenter" :span="2">
+                                    <el-col v-else class="textcenter" :span="3">
                                         <el-button type="info" v-on:click="TogglePanel('CastDelay')" size="mini"><i
                                                 class="el-icon-arrow-up"></i></el-button>
                                     </el-col>
@@ -4574,16 +4624,16 @@
                                 <div v-show="UIPanel['ATKPanel']">
                                     <el-row class="titlebox" type="flex" align="middle"
                                         style="height:40px; padding: 0px 5px;">
-                                        <el-col class="textcenter" :span="2">
+                                        <el-col class="textcenter" :span="3">
                                         </el-col>
-                                        <el-col class="textcenter" :span="20">
+                                        <el-col class="textcenter" :span="18">
                                             <span class="textcenter">ATK計算</span>
                                         </el-col>
-                                        <el-col v-if="UIPanel['ATKCompute']" class="textcenter" :span="2">
+                                        <el-col v-if="UIPanel['ATKCompute']" class="textcenter" :span="3">
                                             <el-button type="info" v-on:click="TogglePanel('ATKCompute')" size="mini"><i
                                                     class="el-icon-arrow-down"></i></el-button>
                                         </el-col>
-                                        <el-col v-else class="textcenter" :span="2">
+                                        <el-col v-else class="textcenter" :span="3">
                                             <el-button type="info" v-on:click="TogglePanel('ATKCompute')" size="mini"><i
                                                     class="el-icon-arrow-up"></i></el-button>
                                         </el-col>
@@ -4766,16 +4816,16 @@
                                 <div v-show="UIPanel['MATKPanel']">
                                     <el-row class="titlebox" type="flex" align="middle"
                                         style="height:40px; padding: 0px 5px;">
-                                        <el-col class="textcenter" :span="2">
+                                        <el-col class="textcenter" :span="3">
                                         </el-col>
-                                        <el-col class="textcenter" :span="20">
+                                        <el-col class="textcenter" :span="18">
                                             <span class="textcenter">MATK計算</span>
                                         </el-col>
-                                        <el-col v-if="UIPanel['MATKCompute']" class="textcenter" :span="2">
+                                        <el-col v-if="UIPanel['MATKCompute']" class="textcenter" :span="3">
                                             <el-button type="info" v-on:click="TogglePanel('MATKCompute')" size="mini">
                                                 <i class="el-icon-arrow-down"></i></el-button>
                                         </el-col>
-                                        <el-col v-else class="textcenter" :span="2">
+                                        <el-col v-else class="textcenter" :span="3">
                                             <el-button type="info" v-on:click="TogglePanel('MATKCompute')" size="mini">
                                                 <i class="el-icon-arrow-up"></i></el-button>
                                         </el-col>
@@ -5029,6 +5079,7 @@
                     { label: '對屬性魔物Atk %', id: 'ElementalAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理特定魔物 %', id: 'MonsterAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '近傷 %', id: 'MeleeDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視物理防禦 %', id: 'BypassDEFPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
 
@@ -5057,6 +5108,9 @@
                     { label: 'HP', id: 'HP', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'SP %', id: 'SPPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: 'SP', id: 'SP', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    
+                    { label: '無視體型攻擊', id: 'WeaponPerfection', totalvalue: '0', opersymbol: '', suffixsymbol: '' },
+                    { label: '浸透勁效果', id: 'WeaponOccult', totalvalue: '0', opersymbol: '', suffixsymbol: '' },
 
                 ],
                 effectdialogue: {
@@ -5132,9 +5186,10 @@
                 attritube: {
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0, DEF: 0, MDEF: 0, HP: 0, HPP: 0, SP: 0, SPP: 0,
-                    ASPD: 0, ASPDP: 0, CRI: 0, HIT: 0, CRIDP: 0, RNGDP: 0,
+                    ASPD: 0, ASPDP: 0, CRI: 0, HIT: 0, CRIDP: 0, RNGDP: 0, MELDP: 0,
                     SK1VCTP: 0, SK2VCTP: 0, EQVCTP: 0, FCT: 0, FCTP: 0, CD: 0, GCD: 0,
                     BYPASSDEF: 0, BYPASSMDEF: 0,
+                    WeaponPerfection: 0, WeaponOccult: 0,
                     ElementalMagicPercent: 0,
                     ElementalAtkPercent: 0,
                 },
@@ -5890,6 +5945,7 @@
 
                     this.ComputRefineATK();
                     this.ComputeSizefix();
+                    this.onOption();
                 },
                 onChangeRefineLevel() {
                     this.ComputRefineATK();
@@ -6047,7 +6103,6 @@
                                 break;
                         }
                     }
-                    this.onOption();
                 },
                 ComputeCastDelay() {
                     var _MaxCastTime = 999;
@@ -6209,17 +6264,28 @@
 
                     //遠程增傷 this.skill.laterranged分前後段
                     var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
+                    //近戰傷害
+                    var para_melee = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue) / 100;
                     if (this.skill.ranged && this.skill.laterranged == false) {
                         this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
                         this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
                         this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
+                    }else if(this.skill.ranged == false){
+                        this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                        this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
+                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_melee);
                     }
 
                     if (this.weapon.type.isRangedattack) {
                         this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, para_ranged);
                         this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, para_ranged);
                         this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, para_ranged);
+                    }else{
+                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, para_melee);
+                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, para_melee);
+                        this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, para_melee);
                     }
+
 
                     //技能倍率 
                     var para_sk = Number(1) + Number(this.computeattribute['SpecialATK4'] / 100);
@@ -6568,6 +6634,7 @@
                 ResetOption() {
                     this.option = Object.assign({}, this.option_init);
                     this.ComputeSizefix(); // 包含onOption
+                    this.onOption();
                 },
                 onOption() {
                     this.status_add = Object.assign({}, this.status_add_init);
@@ -6647,6 +6714,9 @@
                     if (this.option.Loud) {
                         this.status_add.STR += 4;
                         this.attritube['ATK'] += 30;
+                    }
+                    if (this.option.WeaponPerfection) {
+                        this.attritube['WeaponPerfection'] = 9999;
                     }
                     // 兇砍
                     if (this.option.Overthrust) {
@@ -6964,10 +7034,15 @@
                     this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue);
                     this.attritube['ElementalAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalAtkPercent').totalvalue);
 
+                    this.attritube['WeaponPerfection'] += Number(this.effecttypelist.find(x => x.id == 'WeaponPerfection').totalvalue);
+                    this.attritube['WeaponOccult'] += Number(this.effecttypelist.find(x => x.id == 'WeaponOccult').totalvalue);
+
                     this.option.EquipSkillAddDamage += Number(this.effecttypelist.find(x => x.id == 'SkillDamagePercent').totalvalue);
 
-                    // 魔劍士
-                    if (this.option.MemoryofThanatosCard) {
+                    if (this.attritube['WeaponPerfection'] > 0) {
+                        this.computeattribute['sizefix'] = 100;
+                    }
+                    if (this.attritube['WeaponOccult'] > 0) {
                         this.option.IgnoreDEF = true;
                         if (this.skill.transWeaponDEF == false) {
                             this.attritube['ATK'] +=
@@ -7499,6 +7574,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-6-23', content: '增加裝備效果 近距離傷害/無視體型攻擊/浸透勁效果<br>增加儲存前檔名設定提醒<br>修正主副手無法清空的問題<br>移除額外技能選項 魔劍卡效果' },
                         { id: '2020-6-17-1', content: '裝備效果設定頁面大更新!<br>減少裝備效果所佔的儲存空間(此次更新後所儲存的)<br>修改部分效果文字' },
                         { id: '2020-6-16', content: '預設技能 手推車加農砲、爆炸飛刀增加後計算遠傷<br>裝備效果增加物理/魔法特定魔物物增傷<br>額外技能選項增加 致命爪痕/天使之怒<br>額外技能選項大主教跟修羅分開，奧丁之神力移動到大主教區' },
                         { id: '2020-6-15-1', content: '修正存檔後又馬上修改裝備，可能會覆蓋之前存檔的錯誤<br>修正載入早期<整頁儲存>有可能會有遠傷不影響的錯誤<br>修正載入技能時不會重新計算屬性倍率的問題' },
@@ -7638,7 +7714,7 @@
                 this.ChangeWeapon();
                 this.skilloption.AttackElementalIdx = 0;
                 this.ComputElementalPercent();
-                this.skill = { name: '', level: 1, formula: '100', DamageTypeIdx: 0, ranged: false, critical: false, hitnumber: 1, laterformula: false, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, };
+                this.skill = { name: '', level: 1, formula: '100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, };
                 this.onSkillPercentChange();
             }
 
@@ -7648,6 +7724,7 @@
             console.log("Watch enemyattribute ");
             this.ComputElementalPercent();
             this.ComputeSizefix();
+            this.onOption();
         }, {
             deep: true
         });
