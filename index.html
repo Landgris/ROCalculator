@@ -133,6 +133,15 @@
             height: calc(100vh - (50px + 35px + 240px));
         }
 
+        .ConsumableList1-container {
+            height: calc(100vh - (50px + 35px + 212px));
+        }
+
+        .ConsumableList2-container {
+            height: calc(100vh - (50px + 35px + 160px));
+        }
+
+
         .DBlist-container {
             height: calc(40vh - (50px));
         }
@@ -347,20 +356,16 @@
                     <el-row>
                         <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                             <el-row :gutter="4" type="flex" align="left">
+                                終於有消耗品可以選擇了!<br><br>
                                 裝備效果頁面大幅更新，一次要輸入多項效果上會方便很多<br><br>
-                                這次更新地符總算沒問題了!<br><br>
                                 另外當要計算拿兩把武器的技能傷害時，請把副手清空為空手，傷害才會正確<br><br>
                                 正在考慮增加各種種族、體型、屬性、對屬性、階級增傷的超多設定<br>
-                                感覺很累...<br><br>
-                                擴充185的技能公式更新，感謝鶴之翼的物忍研究!<br><br>
                                 素質點計算支援到200等!<br><br>
-                                增加了裝備效果文字模式 方便複製給別人看<br><br>
-                                可以算三轉的HPSP了!! 擴充職業的HPSP統計中<br><br>
+                                擴充職業的HPSP統計中<br><br>
                                 整頁儲存 測試中 不會紀錄額外技能選項<br><br>
                                 拳刃斬首的普攻計算OK了! 雙刀斬首的傷害還無法計算<br>
                                 <br>
-                                希望有人可以整理分享計算機可用的資料(技能敵方藥水修練之類的)<br>
-                                或是裝備模擬心得幫文章推上去QQ<br>
+                                希望有人可以整理分享裝備模擬心得幫文章推上去QQ<br>
                             </el-row>
                         </div>
                     </el-row>
@@ -1884,16 +1889,263 @@
                 </el-col>
             </el-row>
         </el-dialog>
+        <el-dialog :visible.sync="UIPanel['ConsumableDBDialog']" custom-class="Dialogue-container" width="70%"
+            top="58px" v-on:close="ClosePanel('ConsumableDBDialog')" center>
+            <span slot="title">使用消耗品</span>
+            <el-row class="statusbox titlebox" style="padding: 5px 5px; height: 60px;":gutter="4" type="flex" align="middle" justify="end" >
+                <el-col :span="2">
+                </el-col>
+                <el-col :span="2">
+                </el-col>
+                <el-col :span="2">
+                </el-col>
+                <el-col :span="2">
+                </el-col>
+                <el-col :span="2">
+                </el-col>
+                <el-col :span="8">
+                </el-col>
+                <el-col :span="2" class="textcenter">
+                    <el-button v-on:click="OnClearConsumable" size="small">
+                        清空
+                    </el-button>
+                </el-col>
+                <el-col :span="2">
+                </el-col>
+                <el-col :span="2">
+                </el-col>
+                <el-col :span="2" class="textcenter">
+                    <el-button v-on:click="ClosePanel('ConsumableDBDialog')" type="success" plain size="small">
+                        確定
+                    </el-button>
+                </el-col>
+                <el-col :span="4">
+                </el-col>
+                <el-col :span="4">
+                </el-col>
+            </el-row>
+            <el-row :gutter="2">
+                <el-col :span="6" class="statusbox ">
+                    <el-row class="optionbox" style="height:40px;" :gutter="4" type="flex" align="middle" justify="middle">
+                        <el-col class="textcenter" >
+                            <span class="EffectType">統計效果</span>
+                        </el-col>
+                    </el-row>
+                    <el-scrollbar wrap-class="ConsumableList1-container" :native="false" :noresize="false">
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in consumableeffecttypelist" v-bind:key="item.id">
+                                <el-row v-if="item.totalvalue!=0" class="effectline previeweffectbox" :gutter="4" type="flex"
+                                    align="middle" justify="end" style="height:40px;">
+                                    <el-col class="textcenter" :span="2">
+                                    </el-col>
+                                    <el-col class="textcenter" style="text-align: right;">
+                                        <span class="EffectType">{{ item.label }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <span class="">{{ item.opersymbol }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="5">
+                                        <span class="">{{ item.totalvalue }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <span lass="">{{ item.suffixsymbol }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
+                </el-col>
+                <el-col :span="6" class=" ">
+                    <el-row class="effectline previeweffectbox" style="height:40px;" :gutter="4" type="flex" align="middle" justify="middle">
+                        <el-col class="textcenter" >
+                            <span class="EffectType">素質類(取最大)</span>
+                        </el-col>
+                    </el-row>
+                    <el-scrollbar wrap-class="ConsumableList1-container" :native="false" :noresize="false">
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('StatusG')" v-bind:key="item.id" 
+                                style="padding: 3px 10px;">
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                                <el-collapse-transition>
+                                    <div v-if="item.ATKUP!=null && item.editable && item.active" >
+                                        <el-row
+                                            class="optionbox textcenter" style="padding: 0px 10px;"
+                                            type="flex" align="middle" justify="middle">
+                                            <el-col class="textcenter" :span="8">
+                                                <span>ATK提升</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="2">
+                                            </el-col>
+                                            <el-col class="textcenter" :span="14">
+                                                <el-slider v-model="item.ATKUP" :min="11" :max="111" @change="ConumableSlider()"></el-slider>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-collapse-transition>
+                                <el-collapse-transition>
+                                    <div v-if="item.MATKUP!=null && item.editable && item.active" >
+                                        <el-row
+                                            class="optionbox textcenter" style="padding: 0px 10px;"
+                                            type="flex" align="middle" justify="middle">
+                                            <el-col class="textcenter" :span="8">
+                                                <span>MATK提升</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="2">
+                                            </el-col>
+                                            <el-col class="textcenter" :span="14">
+                                                <el-slider v-model="item.MATKUP" :min="11" :max="111" @change="ConumableSlider()"></el-slider>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-collapse-transition>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
+                </el-col>
+                <el-col :span="6" class=" ">
+                    <el-scrollbar wrap-class="ConsumableList2-container" :native="false" :noresize="false">
+                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                            <el-col class="textcenter" >
+                                <span class="EffectType">素質類(可疊加)</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Status20G')" v-bind:key="item.id"
+                                style="height:40px; padding: 3px 10px;">
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                            <el-col class="textcenter" >
+                                <span class="EffectType">HP SP(可疊加)</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('HPSP')" v-bind:key="item.id"
+                                style="height:40px; padding: 3px 10px;">
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
+                </el-col>
+                <el-col :span="6" class=" ">
+                    <el-scrollbar wrap-class="ConsumableList2-container" :native="false" :noresize="false">
+                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                            <el-col class="textcenter" >
+                                <span class="EffectType">ATK MATK提升(取最大, 面板不顯示)</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('ATKMATKUP')" v-bind:key="item.id"
+                                style="height:40px; padding: 3px 10px;">
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                            <el-col class="textcenter" >
+                                <span class="EffectType">獨立系統(可疊加)</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('sp')" v-bind:key="item.id"
+                                style="height:40px; padding: 3px 10px;">
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                            <el-col class="textcenter" >
+                                <span class="EffectType">戰鬥藥(擇一)</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio1')" v-bind:key="item.id"
+                                style="height:40px; padding: 3px 10px;">
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                            <el-col class="textcenter" >
+                                <span class="EffectType">魔法糖(擇一)</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio2')" v-bind:key="item.id"
+                                style="height:40px; padding: 3px 10px;">
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
+                </el-col>
+            </el-row>
+        </el-dialog>
+
         <!-- header -->
         <div class="ROCalTitle">
             <el-row type="flex" align="middle" justify="end" :gutter="2">
-                <el-col :span="2">
-                </el-col>
                 <el-col :span="1">
                 </el-col>
-                <el-col :span="1">
-                </el-col>
-                <el-col :span="1">
+                <el-col :span="4">
+                    <el-button v-on:click="onOpenAllSet" size="mini">
+                        整頁儲存清單(測試)
+                    </el-button>
                 </el-col>
                 <el-col :span="2">
                 </el-col>
@@ -1932,20 +2184,6 @@
             <el-row :gutter="2">
                 <el-col :span="6">
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
-
-                        <el-row class="titlebox" type="flex" align="middle" justify="end"
-                            style="height:40px; padding: 0px 5px;">
-                            <el-col class="textcenter" :span="4">
-                                <el-button v-on:click="onOpenAllSet" size="mini">
-                                    清單
-                                </el-button>
-                            </el-col>
-                            <el-col class="textcenter" :span="20">
-                                <span class="textcenter">整頁儲存(測試)</span>
-                            </el-col>
-                            <el-col class="textcenter" :span="6">
-                            </el-col>
-                        </el-row>
                         <el-row class="titlebox" :gutter="2" type="flex" align="middle" justify="end"
                             style="height:40px; padding: 0px 5px;">
                             <el-col class="textcenter" :span="2">
@@ -2306,12 +2544,6 @@
                                         </el-row>
                                         <el-row v-if="TestMode" class="statusbox bg-purple-light" :gutter="4"
                                             type="flex" align="middle">
-                                            <el-col class="textcenter" :span="6">屬性抗性?</el-col>
-                                            <el-col :span="6">
-                                                <el-input v-model="enemyattribute.elementalResist" v-on:input="onOption"
-                                                    placeholder="HP">
-                                                </el-input>
-                                            </el-col>
                                             <el-col class="textcenter" :span="6">種族抗性</el-col>
                                             <el-col :span="6">
                                                 <el-input v-model="enemyattribute.raceResist" v-on:input="onOption"
@@ -2321,8 +2553,60 @@
                                         </el-row>
                                     </div>
                                 </div>
+                            </el-collapse-transition>
                         </el-row>
-
+                        <el-row class="titlebox" type="flex" align="middle" justify="end"
+                            style="height:40px; padding: 0px 5px;">
+                            <el-col class="textcenter" :span="4">
+                            </el-col>
+                            <el-col class="textcenter" :span="20">
+                                <span class="textcenter">消耗品</span>
+                            </el-col>
+                            <el-col class="textcenter" :span="4">
+                                <el-button v-on:click="OpenConsumableDialogue" size="mini">
+                                    設定
+                                </el-button>
+                            </el-col>
+                        </el-row> 
+                        <el-row>
+                                <div class="Item" v-for="(item, index) in ConsumActiveFiltered()" v-bind:key="item.id" 
+                                    style="height:40px; padding: 3px 10px;">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                        <el-col class="textcenter" :span="24">
+                                            <span class="EffectType">{{ item.name }}</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                        </el-row> 
+                        <el-row>
+                            <div class="boxborder EffectListBlock">
+                                <el-row>
+                                    <el-col :span="24">
+                                        <div class="Item" v-for="(item, index) in consumableeffecttypelist" v-bind:key="item.id">
+                                            <el-row v-if="item.totalvalue!=0" :gutter="4" type="flex" class="statusbox bg-purple"
+                                                align="middle" justify="end" style="height:40px;">
+                                                <el-col class="textcenter" :span="2">
+                                                </el-col>
+                                                <el-col class="textcenter" style="text-align: right;">
+                                                    <span class="EffectType">{{ item.label }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span class="">{{ item.opersymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="5">
+                                                    <span class="">{{ item.totalvalue!=9999?item.totalvalue:'' }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span lass="">{{ item.suffixsymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
                     </el-scrollbar>
                 </el-col>
                 <el-col :span="6">
@@ -3606,6 +3890,17 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
+                                        <el-row v-show="TestMode" class="optionbox" :gutter="4" type="flex"
+                                            align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>邪惡靈魂詛咒</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SP_SOULCURSE" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('KagerouOboroSkillPage')">
@@ -3813,45 +4108,6 @@
                                         </el-row>
                                     </div>
                                 </el-collapse-transition>
-                                <div v-on:click="TogglePanel('EquipSkillPage')">
-                                    <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
-                                        <el-col class="textcenter" :span="2">
-                                        </el-col>
-                                        <el-col class="textcenter" :span="20">
-                                            <span class="textcenter">裝備技能</span>
-                                        </el-col>
-                                        <el-col v-if="UIPanel['EquipSkillPage']" class="textcenter" :span="2">
-                                            <i class="el-icon-arrow-down"></i>
-                                        </el-col>
-                                        <el-col v-else="UIPanel['EquipSkillPage']" class="textcenter" :span="2">
-                                            <i class="el-icon-arrow-up"></i>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                                <el-collapse-transition>
-                                    <div v-show="UIPanel['EquipSkillPage']">
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>無視物理防禦(全段)</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.IgnoreDEF" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>無視魔法防禦(全段)</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.IgnoreMDEF" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-collapse-transition>
 
                                 <div v-on:click="TogglePanel('SpecialATKPage')">
                                     <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
@@ -3887,7 +4143,7 @@
                                             </el-col>
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
-                                            <el-col class="textcenter" :span="12">SpecialATK3(屬性倍率x)</el-col>
+                                            <el-col class="textcenter" :span="12">SpecialATK3(屬性耐性x)</el-col>
                                             <el-col :span="12">
                                                 <el-input v-model.number="computeattribute['SpecialATK3']"
                                                     v-on:change="onSpecialATKChange" placeholder="ATK">
@@ -5012,6 +5268,8 @@
                 PreviewETL: [],
                 PreviewEN: '',  // 預覽裝備名字
 
+                StoreDB_Consumable: [],
+
                 StoreDB_AllSet: [],
                 TempAllSet: {},
 
@@ -5117,6 +5375,29 @@
                     EffectType: '',
                     EffectNumber: ''
                 },
+                consumableeffecttypelist_init: [],
+                consumableeffecttypelist:[
+                    { label: 'STR', id: 'STR', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'AGI', id: 'AGI', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'VIT', id: 'VIT', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'INT', id: 'INT', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'DEX', id: 'DEX', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'LUK', id: 'LUK', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'ATK', id: 'ATK', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'MATK', id: 'MATK', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'Atk %', id: 'AtkPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: 'Matk %', id: 'MatkPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: 'HP %', id: 'HPPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: 'SP %', id: 'SPPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '固詠 %', id: 'FixedCastPercent', totalvalue: 0, opersymbol: '\-', suffixsymbol: '\%' },
+                    { label: '變詠 %', id: 'VariableCastPercent', totalvalue: 0, opersymbol: '\-', suffixsymbol: '\%' },
+                    { label: '暴擊率 %', id: 'Cri', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '全屬性法傷 %', id: 'ElementalMagicPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '技能後(共)延%', id: 'GCDPercent', totalvalue: 0, opersymbol: '\-', suffixsymbol: '\%' },
+                ],
                 weapontypelist: [
                     { id: 'Empty', label: '空手', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
                     { id: 'Daggers', label: '短劍', sizefix: { small: 100, middle: 75, large: 50 }, baseaspd: '', isRangedattack: false, isTwohand: false },
@@ -5192,6 +5473,7 @@
                     WeaponPerfection: 0, WeaponOccult: 0,
                     ElementalMagicPercent: 0,
                     ElementalAtkPercent: 0,
+                    LevelAtkPercent: 0,
                 },
                 HP_JOB_A: 0, HP_JOB_B: 0,
                 attritube_init: {},
@@ -5266,6 +5548,7 @@
                     doram: false,
                 },
                 enemylist: [],
+                consumablelist: [],
                 KeywordReplaceList: [],
                 skill: {
                     id: '',
@@ -5410,6 +5693,7 @@
                     SOULFAIRY: false,           //精靈靈魂
                     SOULFALCON: false,          //隼鷹靈魂
                     SOULGOLEM: false,           //巨人靈魂
+                    SP_SOULCURSE: false,        //邪惡靈魂詛咒
 
                     NJ_NEN: false,              //念
                     KO_KAHU_ENTEN: false,       //火符
@@ -5608,7 +5892,6 @@
                     KagerouOboroSkillPage: false,
                     SummonerSkillPage: false,
                     NoviceSkillPage: false,
-                    EquipSkillPage: false,
                     SpecialATKPage: false,
 
                     AboutDialog: false,
@@ -5621,6 +5904,7 @@
                     EquipEffectDialog: false,
                     EditEquipDialog: false,
                     AllSetDBDialog: false,
+                    ConsumableDBDialog: false,
                     EquipTextDialog: false,
                     QuickCalcDialog: false,
 
@@ -5950,6 +6234,157 @@
                 onChangeRefineLevel() {
                     this.ComputRefineATK();
                 },
+                OpenConsumableDialogue() {
+                    this.OpenPanel('ConsumableDBDialog');
+                },
+                IsConsumableActive(id) {
+                    var _idx = this.consumablelist.findIndex(i => i.id === id);
+                    return this.consumablelist[_idx]['active'];
+                },
+                OnClearConsumable(){
+                    for( var t=0; t<this.consumableeffecttypelist.length; ++t ){
+                        this.consumableeffecttypelist[t].totalvalue = 0;
+                    }
+                    for( var l=0; l<this.consumablelist.length; ++l ){
+                        this.consumablelist[l]['active'] = false;
+                    }
+                },
+                OnEditConsumable(id){
+                    var _idx = this.consumablelist.findIndex(i => i.id === id)
+                    var _active = this.consumablelist[_idx]['active'];
+
+                    if( this.consumablelist[_idx]['group'] == 'Radio1' ){
+                        this.consumablelist.forEach(item => {
+                            if(item['group'] == 'Radio1') item['active'] = false;
+                        });
+                    }
+                    if( this.consumablelist[_idx]['group'] == 'Radio2' ){
+                        this.consumablelist.forEach(item => {
+                            if(item['group'] == 'Radio2') item['active'] = false;
+                        });
+                    }
+                    this.$set(this.consumablelist[_idx],
+                                'active',
+                                !_active);
+                    this.OnComputeConsumable();    
+                    this.onOption();
+                },
+                ConumableSlider(){
+                    this.OnComputeConsumable();
+                    this.onOption();
+                },
+                OnComputeConsumable(){
+                    this.consumableeffecttypelist = _.cloneDeep(this.consumableeffecttypelist_init);
+
+                    var _statusgtag = [ 'STR', 'AGI', 'VIT', 'INT', 'DEX', 'LUK', 'ATK', 'MATK'];
+                    var _ATKMATKUP = { ATKUP:0, MATKUP:0 };
+                    var _atkmatkuptag = [ 'ATKUP', 'MATKUP'];
+                    var _FixedCast = 0;
+
+                    for( var i=0; i<this.consumablelist.length; ++i ){
+                        if(this.consumablelist[i].active==false) continue;
+                        // 素質系統 取最大
+                        if(this.consumablelist[i].group=='StatusG' ||
+                            this.consumablelist[i].group=='ATKMATKUP'){
+                            for( var t=0; t<_statusgtag.length; ++t ){
+                                if( this.consumablelist[i][_statusgtag[t]] != null ){
+                                    var _idx = this.consumableeffecttypelist.findIndex( i=> i.id == _statusgtag[t]);
+                                    if( _idx > -1 ){
+                                        this.consumableeffecttypelist[_idx].totalvalue = Math.max(this.consumableeffecttypelist[_idx].totalvalue, this.consumablelist[i][_statusgtag[t]]);
+                                    }
+                                }
+                            };
+                            if( this.consumablelist[i]['ATKUP'] != null ){
+                                _ATKMATKUP['ATKUP'] = Math.max(_ATKMATKUP['ATKUP'], this.consumablelist[i]['ATKUP']);
+                            }
+                            if( this.consumablelist[i]['MATKUP'] != null ){
+                                _ATKMATKUP['MATKUP'] = Math.max(_ATKMATKUP['MATKUP'], this.consumablelist[i]['MATKUP']);
+                            }
+                        }
+                        // 獨立系統可疊加
+                        if(this.consumablelist[i].group=='HPSP' ||
+                            this.consumablelist[i].group=='Status20G' ||
+                            this.consumablelist[i].group=='sp'){
+                            for( var t=0; t<this.consumableeffecttypelist.length; ++t ){
+                                if( this.consumablelist[i][this.consumableeffecttypelist[t].id] != null ){
+                                    var _idx = this.consumableeffecttypelist.findIndex( i=> i.id == this.consumableeffecttypelist[t].id);
+                                    if( _idx > -1 ){
+                                        if( this.consumableeffecttypelist[t].id == 'FixedCast' ) _FixedCast = Math.max(_FixedCast, Number(this.consumablelist[i]['FixedCastPercent']));
+                                        this.consumableeffecttypelist[_idx].totalvalue += Number(this.consumablelist[i][this.consumableeffecttypelist[t].id]);
+                                    }
+                                }
+                            };
+                        }
+                    }
+
+                    // ATKMATKUP系統 取最大
+                    var _idx = this.consumableeffecttypelist.findIndex( i=> i.id == 'ATK');
+                    this.consumableeffecttypelist[_idx].totalvalue += _ATKMATKUP["ATKUP"];
+                    var _idx = this.consumableeffecttypelist.findIndex( i=> i.id == 'MATK');
+                    this.consumableeffecttypelist[_idx].totalvalue += _ATKMATKUP["MATKUP"];
+
+                    // 戰鬥藥 糖果系統
+                    _tag = [ 'LevelAtkPercent', 'ATK', 'MATK', 'HPPercent', 'SPPercent', 'FixedCast' ];
+                    var _idx = this.consumablelist.findIndex(i=>i.group=='Radio1' && i.active==true);
+                    if( _idx > -1 ){
+                        for( var t=0; t<_tag.length; ++t ){
+                            if( this.consumablelist[_idx][_tag[t]] != null ){
+                                var _id = this.consumableeffecttypelist.findIndex( i=> i.id == _tag[t]);
+                                this.consumableeffecttypelist[_id].totalvalue += Number(this.consumablelist[_idx][_tag[t]]);
+                            }
+                        };
+                    }
+                    _idx = this.consumablelist.findIndex(i=>i.group=='Radio2' && i.active==true);
+                    if( _idx > -1 ){
+                        for( var t=0; t<_tag.length; ++t ){
+                            if( this.consumablelist[_idx][_tag[t]] != null ){
+                                var _id = this.consumableeffecttypelist.findIndex( i=> i.id == _tag[t]);
+                                this.consumableeffecttypelist[_id].totalvalue += Number(this.consumablelist[_idx][_tag[t]]);
+                                if( this.consumableeffecttypelist[_id].id == 'FixedCast' ) _FixedCast = Math.max(_FixedCast, Number(this.consumablelist[_idx]['FixedCastPercent']));
+                            }
+                        };
+                    }
+                    // 固詠修正
+                    var _id = this.consumableeffecttypelist.findIndex( i=> i.id == 'FixedCastPercent');
+                    this.consumableeffecttypelist[_id].totalvalue = _FixedCast;
+                },
+                buildConsumable(){
+                    this.StoreDB_Consumable = [];
+                    for( var i=0; i<this.consumablelist.length; ++i ){
+                        if( this.consumablelist[i].active ){
+                            this.StoreDB_Consumable.push( this.consumablelist[i].id );
+                            if( this.consumablelist[i].id == 14616 ){
+                                this.StoreDB_Consumable.push( this.consumablelist[i].ATKUP );
+                                ++i;
+                            }
+                            if( this.consumablelist[i].id == 14619 ){
+                                this.StoreDB_Consumable.push( this.consumablelist[i].MATKUP );
+                                ++i;
+                            }
+                        }
+                    }
+                },
+                parseConsumable(){
+                    var _idx;
+                    for( var i=0; i<this.consumablelist.length; ++i ){
+                        _idx = this.StoreDB_Consumable.findIndex( item=>item == this.consumablelist[i].id );
+                        if( _idx>-1 )
+                        {
+                            this.consumablelist[i].active = true;
+                            if( this.consumablelist[i].id == 14616 ){
+                                this.consumablelist[i].ATKUP = this.StoreDB_Consumable[_idx+1];
+                                ++i;
+                            }
+                            if( this.consumablelist[i].id == 14619 ){
+                                this.consumablelist[i].MATKUP = this.StoreDB_Consumable[_idx+1];
+                                ++i;
+                            }
+                        }else{
+                            this.consumablelist[i].active = false;
+                        }
+                    }
+                    this.OnComputeConsumable();
+                },
                 onStatusChange() {
                     //this.status.STR = eval(this.$refs.STRInput.value);
                     if (this.status.STR == '') this.status.STR = 0;
@@ -6162,7 +6597,7 @@
                     var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceAtkPercent').totalvalue) / 100;
                     var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizeAtkPercent').totalvalue) / 100;
                     var para_elemt = Number(1) + Number(this.attritube['ElementalAtkPercent']) / 100;
-                    var para_level = Number(1) + Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue) / 100;
+                    var para_level = Number(1) + Number(this.attritube['LevelAtkPercent']) / 100;
                     var para_mons = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MonsterAtkPercent').totalvalue) / 100;
                     var para_posion = Number(1) + (this.option.EnchantDeadlyPoison ? (Number(this.option.EnchantDeadlyPoisonPercent / 100)) : Number(0));
                     this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.weaponatk_min, para_race);
@@ -6504,6 +6939,10 @@
 
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk3_min, Number(this.skilloption.ElementalPercent / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk3_max, Number(this.skilloption.ElementalPercent / 100));
+                    
+                    this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+                    this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+
 
                     if (this.skill.laterformula == true) {
                         this.option.SkillPercent = Math.floor(this.option.SkillPercent);
@@ -6707,7 +7146,7 @@
                     }
                     if (this.option.VENOMIMPRESS) {
                         if (this.skilloption.AttackElementalIdx == 5) {
-                            this.computeattribute['SpecialATK3'] += this.option.VENOMIMPRESSLevel * 10;
+                            this.computeattribute['SpecialATK3'] = this.option.VENOMIMPRESSLevel * 10;
                         }
                     }
                     // 大聲吶喊
@@ -6904,6 +7343,11 @@
                         this.attritube['DEF'] += 60 * 5;
                         this.attritube['MDEF'] += 15 + 5 * 5;
                     }
+                    if (this.option.SP_SOULCURSE) {
+                        if (this.skilloption.AttackElementalIdx == 7) {
+                            this.computeattribute['SpecialATK3'] = 100;
+                        }
+                    }
                     //念
                     if (this.option.NJ_NEN) {
                         this.status_add.STR += 5;
@@ -6987,25 +7431,40 @@
                     }
 
                     var _AllStatus = Number(this.effecttypelist.find(x => x.id == 'AllStatus').totalvalue);
-                    this.status_add.STR += Number(this.effecttypelist.find(x => x.id == 'STR').totalvalue) + _AllStatus;
-                    this.status_add.AGI += Number(this.effecttypelist.find(x => x.id == 'AGI').totalvalue) + _AllStatus;
-                    this.status_add.VIT += Number(this.effecttypelist.find(x => x.id == 'VIT').totalvalue) + _AllStatus;
-                    this.status_add.INT += Number(this.effecttypelist.find(x => x.id == 'INT').totalvalue) + _AllStatus;
-                    this.status_add.DEX += Number(this.effecttypelist.find(x => x.id == 'DEX').totalvalue) + _AllStatus;
-                    this.status_add.LUK += Number(this.effecttypelist.find(x => x.id == 'LUK').totalvalue) + _AllStatus;
+                    this.status_add.STR += Number(this.effecttypelist.find(x => x.id == 'STR').totalvalue) + _AllStatus
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='STR').totalvalue);
+                    this.status_add.AGI += Number(this.effecttypelist.find(x => x.id == 'AGI').totalvalue) + _AllStatus
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='AGI').totalvalue);
+                    this.status_add.VIT += Number(this.effecttypelist.find(x => x.id == 'VIT').totalvalue) + _AllStatus
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='VIT').totalvalue);
+                    this.status_add.INT += Number(this.effecttypelist.find(x => x.id == 'INT').totalvalue) + _AllStatus
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='INT').totalvalue);
+                    this.status_add.DEX += Number(this.effecttypelist.find(x => x.id == 'DEX').totalvalue) + _AllStatus
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='DEX').totalvalue);
+                    this.status_add.LUK += Number(this.effecttypelist.find(x => x.id == 'LUK').totalvalue) + _AllStatus
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='LUK').totalvalue);
 
                     this.attritube['HP'] += Number(this.effecttypelist.find(x => x.id == 'HP').totalvalue) + _AllStatus;
-                    this.attritube['HPP'] += Number(this.effecttypelist.find(x => x.id == 'HPPercent').totalvalue);
+                    this.attritube['HPP'] += Number(this.effecttypelist.find(x => x.id == 'HPPercent').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='HPPercent').totalvalue);
                     this.attritube['SP'] += Number(this.effecttypelist.find(x => x.id == 'SP').totalvalue) + _AllStatus;
-                    this.attritube['SPP'] += Number(this.effecttypelist.find(x => x.id == 'SPPercent').totalvalue);
+                    this.attritube['SPP'] += Number(this.effecttypelist.find(x => x.id == 'SPPercent').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='SPPercent').totalvalue);
 
-                    this.attritube['ATK'] += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue);
-                    this.attritube['ATKP'] += Number(this.effecttypelist.find(x => x.id == 'AtkPercent').totalvalue);
-                    this.attritube['MATK'] += Number(this.effecttypelist.find(x => x.id == 'Matk').totalvalue);
-                    this.attritube['MATKP'] += Number(this.effecttypelist.find(x => x.id == 'MatkPercent').totalvalue);
-                    this.attritube['CRI'] += Number(this.effecttypelist.find(x => x.id == 'Cri').totalvalue);
-                    this.attritube['CRIDP'] += Number(this.effecttypelist.find(x => x.id == 'CriDamagePercent').totalvalue);
-                    this.attritube['RNGDP'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamagePercent').totalvalue);
+                    this.attritube['ATK'] += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='ATK').totalvalue);
+                    this.attritube['ATKP'] += Number(this.effecttypelist.find(x => x.id == 'AtkPercent').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='AtkPercent').totalvalue);
+                    this.attritube['MATK'] += Number(this.effecttypelist.find(x => x.id == 'Matk').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='MATK').totalvalue);
+                    this.attritube['MATKP'] += Number(this.effecttypelist.find(x => x.id == 'MatkPercent').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='MatkPercent').totalvalue);
+                    this.attritube['CRI'] += Number(this.effecttypelist.find(x => x.id == 'Cri').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='Cri').totalvalue);
+                    this.attritube['CRIDP'] += Number(this.effecttypelist.find(x => x.id == 'CriDamagePercent').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='CriDamagePercent').totalvalue);
+                    this.attritube['RNGDP'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamagePercent').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='RangedDamagePercent').totalvalue);
                     this.attritube['BYPASSDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassDEFPercent').totalvalue);
                     if (this.attritube['BYPASSDEF'] > 100) this.attritube['BYPASSDEF'] = 100;
                     this.attritube['BYPASSMDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue);
@@ -7015,11 +7474,13 @@
                     this.attritube['ASPDP'] += Number(this.effecttypelist.find(x => x.id == 'AspdPercent').totalvalue);
                     this.attritube['ASPDP'] = -Math.abs(this.attritube['ASPDP']);
                     this.attritube['FCTP'] = Math.max(this.attritube['FCTP'],
-                        Number(this.effecttypelist.find(x => x.id == 'FixedCastPercent').totalvalue));
+                        Number(this.effecttypelist.find(x => x.id == 'FixedCastPercent').totalvalue),
+                        Number(this.consumableeffecttypelist.find(x=>x.id=='FixedCastPercent').totalvalue));
                     this.attritube['FCTP'] = -Math.abs(this.attritube['FCTP']);
                     this.attritube['FCT'] += Number(this.effecttypelist.find(x => x.id == 'FixedCast').totalvalue);
                     this.attritube['FCT'] = -1 * Math.abs(this.attritube['FCT']);
-                    this.attritube['EQVCTP'] += Number(this.effecttypelist.find(x => x.id == 'VariableCastPercent').totalvalue);
+                    this.attritube['EQVCTP'] += Number(this.effecttypelist.find(x => x.id == 'VariableCastPercent').totalvalue)
+                                                +Number(this.consumableeffecttypelist.find(x=>x.id=='VariableCastPercent').totalvalue);
                     this.attritube['EQVCTP'] = -1 * this.clamp(Math.abs(this.attritube['EQVCTP']), -100, 100);
                     this.attritube['SK1VCTP'] = -1 * this.clamp(Math.abs(this.attritube['SK1VCTP']), 0, 100);
                     this.attritube['SK2VCTP'] = Number(this.effecttypelist.find(x => x.id == 'SPSkillVariableCastPercent').totalvalue);
@@ -7031,8 +7492,12 @@
 
                     this.attritube['WeaponATK'] = this.attritube['ATK'] + Number(this.weapon.ATK) + this.weapon.refineatk + this.subweapon.ATK;
                     this.attritube['WeaponMATK'] = this.attritube['MATK'] + this.weapon.MATK + this.weapon.refinematk + this.subweapon.MATK;
-                    this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue);
+                    this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue)
+                                                                +Number(this.consumableeffecttypelist.find(x=>x.id=='ElementalMagicPercent').totalvalue);
                     this.attritube['ElementalAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalAtkPercent').totalvalue);
+
+                    this.attritube['LevelAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue)
+                                                        +Number(this.consumableeffecttypelist.find(x=>x.id=='LevelAtkPercent').totalvalue);
 
                     this.attritube['WeaponPerfection'] += Number(this.effecttypelist.find(x => x.id == 'WeaponPerfection').totalvalue);
                     this.attritube['WeaponOccult'] += Number(this.effecttypelist.find(x => x.id == 'WeaponOccult').totalvalue);
@@ -7346,6 +7811,8 @@
                     this.$set(this.TempAllSet, 'Option', this.option);
                     this.$set(this.TempAllSet, 'EnemyName', this.enemyattribute.name);
                     this.$set(this.TempAllSet, 'Enemy', this.enemyattribute);
+                    this.buildConsumable();
+                    this.$set(this.TempAllSet, 'Consumable', this.StoreDB_Consumable);
                     this.$set(this.TempAllSet, 'Damage', 0);
                     this.$set(this.TempAllSet, 'DamageDPS', 0);
                     this.$set(this.TempAllSet, 'NormalAttackDPS', 0);
@@ -7394,6 +7861,11 @@
                     //this.ChangeWeapon();
                     this.enemyattribute.name = this.StoreDB_AllSet[_dbidx].AllSet.EnemyName;
                     this.enemyattribute = this.StoreDB_AllSet[_dbidx].AllSet.Enemy;
+
+                    if(this.StoreDB_AllSet[_dbidx].AllSet.Consumable != null){
+                        this.StoreDB_Consumable = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Consumable);
+                        this.parseConsumable();
+                    }
 
                     this.CheckParam();
                     this.CombineEquipsAttribute();
@@ -7552,8 +8024,61 @@
                         { id: 20346, name: '米古爾', level: 115, hp: 8600000, LUK: 85, elemental: 3, elementallevel: 4, size: 1, StatusDEF: 71, WeaponDEF: 216, StatusMDEF: 45, WeaponMDEF: 95, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 20388, name: '施密特國王(簡單)', level: 110, hp: 9300000, LUK: 0, elemental: 0, elementallevel: 4, size: 1, StatusDEF: 0, WeaponDEF: 340, StatusMDEF: 0, WeaponMDEF: 82, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 20387, name: '施密特國王(困難)', level: 175, hp: 45000000, LUK: 0, elemental: 0, elementallevel: 4, size: 1, StatusDEF: 0, WeaponDEF: 680, StatusMDEF: 0, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 40000, name: '闇答萊屍(挑戰)', level: 192, hp: 73276522, LUK: 0, elemental: 7, elementallevel: 3, size: 1, StatusDEF: 0, WeaponDEF: 446, StatusMDEF: 0, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 40001, name: '希爾梅茲', level: 195, hp: 1315093464, LUK: 0, elemental: 6, elementallevel: 3, size: 2, StatusDEF: 0, WeaponDEF: 514, StatusMDEF: 0, WeaponMDEF: 92, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
 
                     );
+                    this.consumablelist.push(
+                        { id:12202, name:'力量料理', active:false, group:'StatusG', STR:10},
+                        { id:12203, name:'敏捷料理', active:false, group:'StatusG', AGI:10},
+                        { id:12207, name:'體力料理', active:false, group:'StatusG', VIT:10},
+                        { id:12204, name:'智力料理', active:false, group:'StatusG', INT:10},
+                        { id:12205, name:'靈巧料理', active:false, group:'StatusG', DEX:10},
+                        { id:12206, name:'幸運料理', active:false, group:'StatusG', LUK:10},
+                        { id:14616, name:'力量棒棒條', active:false, group:'StatusG', STR:15, ATKUP:11, editable:true},
+                        { id:14618, name:'敏捷棒棒條', active:false, group:'StatusG', AGI:15},
+                        { id:14617, name:'體力棒棒條', active:false, group:'StatusG', VIT:15},
+                        { id:14619, name:'智力棒棒條', active:false, group:'StatusG', INT:15, MATKUP:11, editable:true},
+                        { id:14620, name:'靈巧棒棒條', active:false, group:'StatusG', DEX:15},
+                        { id:14621, name:'幸運棒棒條', active:false, group:'StatusG', LUK:15, Cri:11},
+                        { id:14886, name:'終極料理', active:false, group:'StatusG', STR:10, AGI:10, VIT:10, INT:10, DEX:10, LUK:10, ATK:30, MATK:30},
+                        { id:12883, name:'萬能年糕', active:false, group:'StatusG', STR:10, AGI:10, VIT:10, INT:10, DEX:10, LUK:10, ATK:30, MATK:30},
+                        { id:100098, name:'活力激發劑', active:false, group:'StatusG', STR:20, AGI:20, VIT:20, INT:20, DEX:20, LUK:20},
+
+                        { id:12429, name:'烤野豬', active:false, group:'Status20G', STR:20},
+                        { id:12433, name:'捕蟲藥草煎', active:false, group:'Status20G', AGI:20},
+                        { id:12431, name:'米洛斯燒肉', active:false, group:'Status20G', VIT:20},
+                        { id:12430, name:'狼血雞尾酒', active:false, group:'Status20G', INT:20},
+                        { id:12432, name:'小雪獸冰茶', active:false, group:'Status20G', DEX:20},
+                        { id:12434, name:'畢帝特龍尾麵', active:false, group:'Status20G', LUK:20},
+
+                        { id:683, name:'艾草', active:false, group:'ATKMATKUP', MATKUP:30},
+                        { id:682, name:'雄黃酒', active:false, group:'ATKMATKUP', ATKUP:30},
+                        { id:14601, name:'戰神蒂爾之祝福', active:false, group:'ATKMATKUP', ATKUP:20, MATKUP:20},
+
+                        { id:12404, name:'活性化藥水', active:false, group:'sp', AtkPercent:2, MatkPercent:2},
+                        { id:12418, name:'揮擊藥水', active:false, group:'sp', ATK:50},
+                        { id:12419, name:'魔力藥水', active:false, group:'sp', MATK:50},
+                        { id:12796, name:'紅色狂暴藥水', active:false, group:'sp', ATK:30, MATK:30, VariableCastPercent:5, HPPercent:-10, SPPercent:-10},
+                        { id:14766, name:'魔幻香水', active:false, group:'sp', ATK:30, MATK:30, AtkPercent:1, MatkPercent:1, FixedCastPercent:30},
+                        { id:22511, name:'潘利爾符咒', active:false, group:'sp', MATK:25, FixedCastPercent:50},
+                        { id:23475, name:'極限藥水', active:false, group:'sp', HPPercent:5, SPPercent:5, RangedDamagePercent:5, CriDamagePercent:5, ElementalMagicPercent:5},
+                        { id:14536, name:'研磨劑', active:false, group:'sp', Cri:30},
+                        { id:100293, name:'齊爾-D-01卷軸', active:false, group:'sp', GCDPercent:30},
+
+                        { id:12791, name:'戰鬥藥', active:false, group:'Radio1', LevelAtkPercent:5, MatkPercent:5, HPPercent:-3, SPPercent:-3},
+                        { id:12792, name:'高級戰鬥藥', active:false, group:'Radio1', LevelAtkPercent:10, MatkPercent:10, HPPercent:-5, SPPercent:-5},
+
+                        { id:14586, name:'跳跳糖', active:false, group:'Radio2', ATK:20},
+                        { id:12596, name:'魔法糖果', active:false, group:'Radio2', MATK:30, FixedCastPercent:70},
+
+                        { id:12424, name:'HP增加藥水(大)', active:false, group:'HPSP', HPPercent:5},
+                        { id:12427, name:'SP增加藥水(大)', active:false, group:'HPSP', SPPercent:5},
+                        { id:12274, name:'仙丹', active:false, group:'HPSP', HPPercent:5},
+                        { id:12436, name:'維他丸500', active:false, group:'HPSP', SPPercent:5},
+                        { id:14600, name:'智囊藥水', active:false, group:'HPSP', SPPercent:10},
+                        { id:14602, name:'塔奧群卡卷軸', active:false, group:'HPSP', HPPercent:100},
+                    ); 
 
                     this.KeywordReplaceList.push(
                         { str1: 'STR', str2: 'this.status_total.STR', description: '代入總STR' },
@@ -7578,6 +8103,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-7-8', content: '增加消耗品區域(適用整頁儲存，詳見討論串說明)<br>增加敵方預設資料 闇答萊屍(挑戰)/希爾梅茲<br>增加感謝贊助名單<br>' },
                         { id: '2020-6-29', content: '修正無視體型攻擊/浸透勁效果移除時效果依然存在的BUG<br>' },
                         { id: '2020-6-23', content: '增加裝備效果 近距離傷害/無視體型攻擊/浸透勁效果<br>增加儲存前檔名設定提醒<br>修正主副手無法清空的問題<br>移除額外技能選項 魔劍卡效果' },
                         { id: '2020-6-17-1', content: '裝備效果設定頁面大更新!<br>減少裝備效果所佔的儲存空間(此次更新後所儲存的)<br>修改部分效果文字' },
@@ -7625,6 +8151,7 @@
 
                     this.SpecialthanksList.push(
                         { id: 0, coop: '公式協力', name: '賴喵' },
+                        { id: 5, coop: 'KRO測試協力', name: 'PTT sqky990 霧雨さとり' },
                         { id: 1, coop: '測試協力', name: '少爺 & 太太' },
                         { id: 2, coop: '測試協力', name: '夕華。' },
                         { id: 3, coop: '測試協力', name: '水絳' },
@@ -7633,7 +8160,10 @@
                         { id: 4, coop: '公式協力', name: '阿松' },
                         { id: 0, coop: '公式協力', name: '琉璃廣' },
                         { id: 4, coop: '公式提供', name: '鶴之翼' },
-                        { id: 4, coop: '公式提供', name: '月夜魔女的貓兒@PTT' },
+                        { id: 0, coop: '', name: '' },
+                        { id: 5, coop: '感謝贊助', name: '巴基力 沐沐' },
+                        { id: 5, coop: '感謝贊助', name: '鄰居漂亮大姐姐 春' },
+                        { id: 5, coop: '感謝贊助', name: '巴基力 YU0520' },
                     );
                     console.log("LOAD DB");
                 },
@@ -7663,6 +8193,21 @@
                 },
                 inputtest(item) {
                     console.log(item);
+                },
+                
+                ConsumGroupFiltered(group) {
+                    return this.consumablelist.filter(
+                        function(row){
+                            return row.group==group;
+                        }
+                    )
+                },
+                ConsumActiveFiltered() {
+                    return this.consumablelist.filter(
+                        function(row){
+                            return row.active==true;
+                        }
+                    )
                 }
 
             },
@@ -7690,6 +8235,7 @@
                         ;
                 },
 
+
             },
             mounted() {
                 this.LoadDB();
@@ -7697,6 +8243,7 @@
                 this.status_add_init = Object.assign({}, this.status_add);
                 this.status_total_init = Object.assign({}, this.status_total);
                 this.option_init = Object.assign({}, this.option);
+                this.consumableeffecttypelist_init = _.cloneDeep(this.consumableeffecttypelist);
 
                 this.enemyattribute = this.enemylist[0];
                 this.effectdialogue.EffectType = this.effecttypelist[0];
