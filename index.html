@@ -6085,15 +6085,24 @@
                 },
                 onEditEquipConfirm( save ){
                     this.equipspartlist[this.EquipSelectId].equipname = this.PreviewEN;
+
+                    var _oldenablemap=[];
+                    for( let item of this.equipspartlist[this.EquipSelectId].effectlist){
+                        _oldenablemap.push({ EffectID:item.EffectType.id, Enable:item.Enable });
+                    }
+
                     var _idx = 0;
                     for (let preview of this.PreviewETL) {
                         if( preview.totalvalue != 0 ){
+                            var _enable = true;
+                            var _oldidx = _oldenablemap.findIndex(x=>x.id==preview.id);
+                            if( _oldidx >-1 ) _enable = _oldenablemap[_oldidx].Enable;
                             this.$set(this.equipspartlist[this.EquipSelectId].effectlist,
                                 _idx,
                                 {
                                     EffectNumber: Number(preview.totalvalue),
                                     EffectType: {id: preview.id},
-                                    Enable: this.equipspartlist[this.EquipSelectId].effectlist[_idx].Enable,
+                                    Enable: _enable,
                                 })
                             _idx += 1;
                         }else{
