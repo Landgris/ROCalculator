@@ -6095,7 +6095,7 @@
                     for (let preview of this.PreviewETL) {
                         if( preview.totalvalue != 0 ){
                             var _enable = true;
-                            var _oldidx = _oldenablemap.findIndex(x=>x.id==preview.id);
+                            var _oldidx = _oldenablemap.findIndex(x=>x.EffectID==preview.id);
                             if( _oldidx >-1 ) _enable = _oldenablemap[_oldidx].Enable;
                             this.$set(this.equipspartlist[this.EquipSelectId].effectlist,
                                 _idx,
