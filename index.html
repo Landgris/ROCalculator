@@ -217,6 +217,18 @@
             text-align: center;
         }
 
+        .obsidianbox {
+            text-align: center;
+            background: #7a7a7a;
+            color:white;
+        }
+
+        .goldbox {
+            text-align: center;
+            background: #FFD700;
+            color:#082567;
+        }
+
         .textcenter {
             text-align: center;
         }
@@ -397,24 +409,43 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['SpecialthanksDialog']" v-on:close="ClosePanel('SpecialthanksDialog')"
-            custom-class="Dialogue-container" width="30%" top="58px" center>
+            custom-class="Dialogue-container" width="60%" top="58px" center>
             <span slot="title">特別感謝</span>
             <el-row :gutter="6">
-                <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
-                    <div v-for="(item, index) in SpecialthanksList" v-bind:key="item.id">
-                        <div style="padding: 2px 5px;">
-                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                style="height:40px;">
-                                <el-col class="textcenter" :span="10">
-                                    <span class="">{{ item.coop }}</span>
-                                </el-col>
-                                <el-col class="textcenter" :span="10" style="text-align: left;">
-                                    <span class="">{{ item.name }}</span>
-                                </el-col>
-                            </el-row>
+                <el-col :span="12">
+                    <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
+                        <div v-for="(item, index) in SpecialthanksList" :key="index">
+                            <div style="padding: 2px 5px;">
+                                <el-row class="statusbox obsidianbox" type="flex" align="middle" justify="space-around"
+                                    style="height:50px;">
+                                    <el-col class="textcenter" :span="10">
+                                        <span class="">{{ item.coop }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10" style="text-align: left;">
+                                        <span class="">{{ item.name }}</span>
+                                    </el-col>
+                                </el-row>
+                            </div>
                         </div>
-                    </div>
-                </el-scrollbar>
+                    </el-scrollbar>
+                </el-col>
+                <el-col :span="12">
+                    <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
+                        <div v-for="(item, index) in DonatethanksList" :key="index">
+                            <div style="padding: 2px 5px;">
+                                <el-row class="statusbox goldbox" type="flex" align="middle" justify="space-around"
+                                    style="height:50px;">
+                                    <el-col class="textcenter" :span="10">
+                                        <span class="">{{ item.coop }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="10" style="text-align: left;">
+                                        <span class="">{{ item.name }}</span>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </div>
+                    </el-scrollbar>
+                </el-col>
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['SkillDBDialog']" custom-class="Dialogue-container" width="85%" top="58px"
@@ -3271,6 +3302,16 @@
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
+                                                <span>終極念力</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.WL_TELEKINESIS_INTENSE" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
                                                 <span>打擊強化</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -4182,6 +4223,14 @@
                                                 </el-input>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">SpecialMATK2(MDEF之後)</el-col>
+                                            <el-col :span="12">
+                                                <el-input v-model.number="computeattribute['SpecialMATK2']"
+                                                    v-on:change="onSpecialATKChange" placeholder="MATK">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </el-collapse-transition>
 
@@ -4341,16 +4390,9 @@
                                                 <el-col class="textcenter" :span="2">
                                                     <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                 </el-col>
-                                                <el-col v-if="!item.Enable" class="textcenter" :span="5">
-                                                    <el-button v-on:click="EnableEffect(0, index, true)"
-                                                        size="mini">啟用
-                                                    </el-button>
-                                                </el-col>
-                                                <el-col v-if="item.Enable" class="textcenter" :span="5">
-                                                    <el-button v-on:click="EnableEffect(0, index, false)"
-                                                        type="danger" size="mini">關閉效果
-                                                    </el-button>
-                                                </el-col>
+                                                    <el-col class="textcenter"  :span="5">
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(1, index)"></el-checkbox>
+                                                    </el-col>
                                             </el-row>
                                         </div>
                                     </el-row>
@@ -4472,16 +4514,9 @@
                                                 <el-col class="textcenter" :span="2">
                                                     <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                 </el-col>
-                                                <el-col v-if="!item.Enable" class="textcenter" :span="5">
-                                                    <el-button v-on:click="EnableEffect(1, index, true)"
-                                                        size="mini">啟用
-                                                    </el-button>
-                                                </el-col>
-                                                <el-col v-if="item.Enable" class="textcenter" :span="5">
-                                                    <el-button v-on:click="EnableEffect(1, index, false)"
-                                                        type="danger" size="mini">關閉效果
-                                                    </el-button>
-                                                </el-col>
+                                                    <el-col class="textcenter"  :span="5">
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(1, index)"></el-checkbox>
+                                                    </el-col>
                                             </el-row>
                                         </div>
                                     </el-row>
@@ -4529,17 +4564,10 @@
                                                         <span class="">{{ item.EffectNumber!=9999?item.EffectNumber:'' }}</span>
                                                     </el-col>
                                                     <el-col class="textcenter" :span="2">
-                                                        <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
+                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                     </el-col>
-                                                    <el-col v-if="!item.Enable" class="textcenter" :span="5">
-                                                        <el-button v-on:click="EnableEffect(eqindex+2, index, true)"
-                                                            size="mini">啟用
-                                                        </el-button>
-                                                    </el-col>
-                                                    <el-col v-if="item.Enable" class="textcenter" :span="5">
-                                                        <el-button v-on:click="EnableEffect(eqindex+2, index, false)"
-                                                            type="danger" size="mini">關閉效果
-                                                        </el-button>
+                                                    <el-col class="textcenter"  :span="5">
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+2, index)"></el-checkbox>
                                                     </el-col>
                                                 </el-row>
                                             </div>
@@ -5283,6 +5311,7 @@
                 QuickCalc: { formula: '', solution: '', remark: '' },
 
                 SpecialthanksList: [],
+                DonatethanksList: [],
                 UpdateLogList: [],
                 CurrentUpdateVersion: '',
 
@@ -5635,6 +5664,7 @@
                     RECOGNIZEDSPELL: false,         //魔法省悟
                     MagicPower: false,              //魔力增幅
                     MagicPowerValue: 50,
+                    WL_TELEKINESIS_INTENSE: false,   //終極念力
                     Striking: false,                //打擊強化
                     StrikingLevel: 5,
                     EndowLevel_Total: 0,            //屬附總等級
@@ -5819,6 +5849,7 @@
                     */
 
                     SpecialMATK1: 0, // 特殊技能加值  技能倍率後 用加的  忍者符咒
+                    SpecialMATK2: 0, // 特殊技能乘值  mdef之後 屬性之前 終念
 
                     weaponmatk_min: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 -  武器等級 x 0.10 ))
                     weaponmatk_max: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 +  武器等級 x 0.10 ))
@@ -6020,8 +6051,7 @@
                         this.CombineEquipsAttribute();
                     }
                 },
-                EnableEffect(eqindex, index, enable){
-                    this.equipspartlist[eqindex].effectlist[index].Enable = enable;
+                EnableEffect(eqindex, index){
                     this.CombineEquipsAttribute();
                 },
                 onSelectedDrug(item) {
@@ -6932,7 +6962,7 @@
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.enemyattribute.levelResist / 100));
 
                     if (this.skill.laterformula == false) {
-                        this.option.SkillPercent = Math.floor(this.option.SkillPercent) + this.computeattribute.SpecialMATK1;
+                        this.option.SkillPercent = Math.floor(this.option.SkillPercent) + this.computeattribute['SpecialMATK1'];
                         this.computeattribute.skillmatk_min = Math.floor(this.computeattribute.matk1_min * Number(this.option.SkillPercent / 100));
                         this.computeattribute.skillmatk_max = Math.floor(this.computeattribute.matk1_max * Number(this.option.SkillPercent / 100));
                     } else {
@@ -6959,6 +6989,9 @@
                     
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+
+                    this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialMATK2'] / 100));
+                    this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialMATK2'] / 100));
 
 
                     if (this.skill.laterformula == true) {
@@ -7107,6 +7140,7 @@
                     this.computeattribute['SpecialATK5'] = 0;   // 兇砍 狂怒之槍
                     this.computeattribute['SpecialATK6'] = 0;   // 靈氣劍
                     this.computeattribute['SpecialMATK1'] = 0;   // 忍者符
+                    this.computeattribute['SpecialMATK2'] = 0;   // 終念
 
                     //雙手劍攻擊速度增加
                     if (this.option.TwoHandQuicken) {
@@ -7226,6 +7260,13 @@
                     if (this.option.BA_POEMBRAGI) {
                         this.attritube['SK1VCTP'] += 2 * 10;
                         this.attritube['GCD'] += 3 * 10;
+                    }
+                    // 終極念力
+                    if (this.option.WL_TELEKINESIS_INTENSE){
+                        if (this.skilloption.AttackElementalIdx == 8) {
+                            this.computeattribute['SpecialMATK2'] += 200;
+                            this.attritube['SK1VCTP'] += 50;
+                        }
                     }
                     // 打強
                     if (this.option.Striking) {
@@ -7967,6 +8008,7 @@
                         { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '1300+SLV*300*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 2, VCT: 5, CD: 5, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(2000+SLV*100)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 2, VCT: 6, CD: 10, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_JACKFROST', name: '凍僵術(未結凍)', level: 5, formula: '(SLV*100+500)*BLV/150', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 4, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WL_SOULEXPANSION', name: '靈魂爆炸', level: 5, formula: '(400+SLV*100+INT)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 8, FCT: 0, VCT: 2, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'AB_ADORAMUS', name: '謳歌', level: 10, formula: '(330+SLV*70)*BLV/100', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 6, FCT: 0.5, VCT: 2, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'GC_CROSSIMPACT', name: '十字斬', level: 5, formula: '(1000+SLV*100)*BLV/120', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'GC_ROLLINGCUTTER', name: '迴旋刀刃', level: 5, formula: '(50+SLV*50)*BLV/100', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialMATK1: 0, Note: '', } },
@@ -8121,6 +8163,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-7-14', content: '增加預設技能 靈魂爆炸<br>增加額外技能選項 終極念力<br>修改裝備效果開關樣式' },
                         { id: '2020-7-10', content: '裝備效果移除功能更改為啟用/關閉<br>修正預設技能 重金屬音樂的獨延為3秒共延為0秒<br>修正額外技能選項 點穴-反沒有MHP-20%的錯誤' },
                         { id: '2020-7-8', content: '增加消耗品區域(適用整頁儲存，詳見討論串說明)<br>增加敵方預設資料 闇答萊屍(挑戰)/希爾梅茲<br>增加感謝贊助名單<br>' },
                         { id: '2020-6-29', content: '修正無視體型攻擊/浸透勁效果移除時效果依然存在的BUG<br>' },
@@ -8168,6 +8211,11 @@
                         console.log("catch e:" + e);
                     }
 
+                    this.DonatethanksList.push(
+                        { id: 0, coop: '感謝贊助', name: '巴基力 沐沐' },
+                        { id: 1, coop: '感謝贊助', name: '鄰居漂亮大姐姐 春' },
+                        { id: 2, coop: '感謝贊助', name: '巴基力 YU0520' },
+                    );
                     this.SpecialthanksList.push(
                         { id: 0, coop: '公式協力', name: '賴喵' },
                         { id: 5, coop: 'KRO測試協力', name: 'PTT sqky990 霧雨さとり' },
@@ -8179,11 +8227,8 @@
                         { id: 4, coop: '公式協力', name: '阿松' },
                         { id: 0, coop: '公式協力', name: '琉璃廣' },
                         { id: 4, coop: '公式提供', name: '鶴之翼' },
-                        { id: 0, coop: '', name: '' },
-                        { id: 5, coop: '感謝贊助', name: '巴基力 沐沐' },
-                        { id: 5, coop: '感謝贊助', name: '鄰居漂亮大姐姐 春' },
-                        { id: 5, coop: '感謝贊助', name: '巴基力 YU0520' },
                     );
+
                     console.log("LOAD DB");
                 },
 
