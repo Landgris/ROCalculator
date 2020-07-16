@@ -2307,6 +2307,8 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="1">+</el-col>
                                             <el-col class="textcenter" :span="4">{{status_add.STR}}</el-col>
+                                            <el-col class="textcenter" :span="1">+</el-col>
+                                            <el-col class="textcenter" :span="4">{{status_job.STR}}</el-col>
                                             <el-col class="textcenter" :span="1">=</el-col>
                                             <el-col class="textcenter" :span="4">{{status_total.STR}}</el-col>
                                         </el-row>
@@ -2320,6 +2322,8 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="1">+</el-col>
                                             <el-col class="textcenter" :span="4">{{status_add.AGI}}</el-col>
+                                            <el-col class="textcenter" :span="1">+</el-col>
+                                            <el-col class="textcenter" :span="4">{{status_job.AGI}}</el-col>
                                             <el-col class="textcenter" :span="1">=</el-col>
                                             <el-col class="textcenter" :span="4">{{status_total.AGI}}</el-col>
                                         </el-row>
@@ -2333,6 +2337,8 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="1">+</el-col>
                                             <el-col class="textcenter" :span="4">{{status_add.VIT}}</el-col>
+                                            <el-col class="textcenter" :span="1">+</el-col>
+                                            <el-col class="textcenter" :span="4">{{status_job.VIT}}</el-col>
                                             <el-col class="textcenter" :span="1">=</el-col>
                                             <el-col class="textcenter" :span="4">{{status_total.VIT}}</el-col>
                                         </el-row>
@@ -2346,6 +2352,8 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="1">+</el-col>
                                             <el-col class="textcenter" :span="4">{{status_add.INT}}</el-col>
+                                            <el-col class="textcenter" :span="1">+</el-col>
+                                            <el-col class="textcenter" :span="4">{{status_job.INT}}</el-col>
                                             <el-col class="textcenter" :span="1">=</el-col>
                                             <el-col class="textcenter" :span="4">{{status_total.INT}}</el-col>
                                         </el-row>
@@ -2359,6 +2367,8 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="1">+</el-col>
                                             <el-col class="textcenter" :span="4">{{status_add.DEX}}</el-col>
+                                            <el-col class="textcenter" :span="1">+</el-col>
+                                            <el-col class="textcenter" :span="4">{{status_job.DEX}}</el-col>
                                             <el-col class="textcenter" :span="1">=</el-col>
                                             <el-col class="textcenter" :span="4">{{status_total.DEX}}</el-col>
                                         </el-row>
@@ -2372,6 +2382,8 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="1">+</el-col>
                                             <el-col class="textcenter" :span="4">{{status_add.LUK}}</el-col>
+                                            <el-col class="textcenter" :span="1">+</el-col>
+                                            <el-col class="textcenter" :span="4">{{status_job.LUK}}</el-col>
                                             <el-col class="textcenter" :span="1">=</el-col>
                                             <el-col class="textcenter" :span="4">{{status_total.LUK}}</el-col>
                                         </el-row>
@@ -5496,6 +5508,10 @@
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
                 },
                 status_add_init: {},
+                status_job: {
+                    STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
+                },
+                status_job_init: {},
                 status_total: {
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
                 },
@@ -6307,6 +6323,8 @@
                     for( var l=0; l<this.consumablelist.length; ++l ){
                         this.consumablelist[l]['active'] = false;
                     }
+                    this.OnComputeConsumable();    
+                    this.onOption();
                 },
                 OnEditConsumable(id){
                     var _idx = this.consumablelist.findIndex(i => i.id === id)
@@ -6476,21 +6494,22 @@
                             .Where("$.id == '" + this.status.classid + "'")
                             .Single();
 
+                        this.status_job = _.cloneDeep(this.status_job_init);
                         if (this.status.UseJobMaxPoint){
-                            this.status_add.STR += _ClassInfo.JobMaxPoint[0];
-                            this.status_add.AGI += _ClassInfo.JobMaxPoint[1];
-                            this.status_add.VIT += _ClassInfo.JobMaxPoint[2];
-                            this.status_add.INT += _ClassInfo.JobMaxPoint[3];
-                            this.status_add.DEX += _ClassInfo.JobMaxPoint[4];
-                            this.status_add.LUK += _ClassInfo.JobMaxPoint[5];
+                            this.status_job.STR += _ClassInfo.JobMaxPoint[0];
+                            this.status_job.AGI += _ClassInfo.JobMaxPoint[1];
+                            this.status_job.VIT += _ClassInfo.JobMaxPoint[2];
+                            this.status_job.INT += _ClassInfo.JobMaxPoint[3];
+                            this.status_job.DEX += _ClassInfo.JobMaxPoint[4];
+                            this.status_job.LUK += _ClassInfo.JobMaxPoint[5];
                         }
 
-                        this.status_total.STR = Number(eval(this.status.STR)) + Number(this.status_add.STR);
-                        this.status_total.AGI = Number(eval(this.status.AGI)) + Number(this.status_add.AGI);
-                        this.status_total.VIT = Number(eval(this.status.VIT)) + Number(this.status_add.VIT);
-                        this.status_total.INT = Number(eval(this.status.INT)) + Number(this.status_add.INT);
-                        this.status_total.DEX = Number(eval(this.status.DEX)) + Number(this.status_add.DEX);
-                        this.status_total.LUK = Number(eval(this.status.LUK)) + Number(this.status_add.LUK);
+                        this.status_total.STR = Number(eval(this.status.STR)) + Number(this.status_add.STR) + Number(this.status_job.STR);
+                        this.status_total.AGI = Number(eval(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
+                        this.status_total.VIT = Number(eval(this.status.VIT)) + Number(this.status_add.VIT) + Number(this.status_job.VIT);
+                        this.status_total.INT = Number(eval(this.status.INT)) + Number(this.status_add.INT) + Number(this.status_job.INT);
+                        this.status_total.DEX = Number(eval(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
+                        this.status_total.LUK = Number(eval(this.status.LUK)) + Number(this.status_add.LUK) + Number(this.status_job.LUK);
 
                         this.computeattribute['TransSTR'] = this.status_total.STR;
                         var TempDEX = this.status_total.DEX;
@@ -8187,7 +8206,7 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2020-7-16', content: '增加代入JOB滿等加成素質點開關(全職業)' },
+                        { id: '2020-7-16-1', content: '增加代入JOB滿等加成素質點開關(全職業)<br>修正消耗品清空時沒重新計算的BUG<br>修正JOB加成素質點重複計算的BUG' },
                         { id: '2020-7-14', content: '增加預設技能 靈魂爆炸<br>增加額外技能選項 終極念力<br>修改裝備效果開關樣式' },
                         { id: '2020-7-10', content: '裝備效果移除功能更改為啟用/關閉<br>修正預設技能 重金屬音樂的獨延為3秒共延為0秒<br>修正額外技能選項 點穴-反沒有MHP-20%的錯誤' },
                         { id: '2020-7-8', content: '增加消耗品區域(適用整頁儲存，詳見討論串說明)<br>增加敵方預設資料 闇答萊屍(挑戰)/希爾梅茲<br>增加感謝贊助名單<br>' },
@@ -8330,6 +8349,7 @@
                 this.LoadDB();
                 this.attritube_init = Object.assign({}, this.attritube);
                 this.status_add_init = Object.assign({}, this.status_add);
+                this.status_job_init = Object.assign({}, this.status_job);
                 this.status_total_init = Object.assign({}, this.status_total);
                 this.option_init = Object.assign({}, this.option);
                 this.consumableeffecttypelist_init = _.cloneDeep(this.consumableeffecttypelist);
