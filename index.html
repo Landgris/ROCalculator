@@ -6401,7 +6401,7 @@
                     this.consumableeffecttypelist[_idx].totalvalue += _ATKMATKUP["MATKUP"];
 
                     // 戰鬥藥 糖果系統
-                    _tag = [ 'LevelAtkPercent', 'ATK', 'MATK', 'HPPercent', 'SPPercent', 'FixedCast' ];
+                    _tag = [ 'LevelAtkPercent', 'MatkPercent', 'ATK', 'MATK', 'HPPercent', 'SPPercent', 'FixedCast' ];
                     var _idx = this.consumablelist.findIndex(i=>i.group=='Radio1' && i.active==true);
                     if( _idx > -1 ){
                         for( var t=0; t<_tag.length; ++t ){
@@ -8206,7 +8206,8 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2020-7-16-1', content: '增加代入JOB滿等加成素質點開關(全職業)<br>修正消耗品清空時沒重新計算的BUG<br>修正JOB加成素質點重複計算的BUG' },
+                        { id: '2020-7-17', content: '修正戰鬥藥類Matk%沒帶入的錯誤' },
+                        { id: '2020-7-16-1', content: '增加代入JOB滿等加成素質點開關(全職業)<br>修正消耗品清空時沒重新計算的錯誤<br>修正JOB加成素質點重複計算的錯誤' },
                         { id: '2020-7-14', content: '增加預設技能 靈魂爆炸<br>增加額外技能選項 終極念力<br>修改裝備效果開關樣式' },
                         { id: '2020-7-10', content: '裝備效果移除功能更改為啟用/關閉<br>修正預設技能 重金屬音樂的獨延為3秒共延為0秒<br>修正額外技能選項 點穴-反沒有MHP-20%的錯誤' },
                         { id: '2020-7-8', content: '增加消耗品區域(適用整頁儲存，詳見討論串說明)<br>增加敵方預設資料 闇答萊屍(挑戰)/希爾梅茲<br>增加感謝贊助名單<br>' },
