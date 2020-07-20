@@ -7608,7 +7608,7 @@
                     this.attritube['CD'] = Number(this.effecttypelist.find(x => x.id == 'CDTime').totalvalue);
                     this.attritube['CD'] = -Math.abs(this.attritube['CD']);
 
-                    this.attritube['WeaponATK'] = this.attritube['ATK'] + Number(this.weapon.ATK) + this.weapon.refineatk + this.subweapon.ATK;
+                    this.attritube['WeaponATK'] = this.attritube['ATK'] + Number(this.weapon.ATK) + this.weapon.refineatk + this.subweapon.ATK + Number(this.computeattribute['SpecialATK4']);
                     this.attritube['WeaponMATK'] = this.attritube['MATK'] + this.weapon.MATK + this.weapon.refinematk + this.subweapon.MATK;
                     this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue)
                                                                 +Number(this.consumableeffecttypelist.find(x=>x.id=='ElementalMagicPercent').totalvalue);
