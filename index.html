@@ -184,6 +184,14 @@
             background: #b3dcec;
         }
 
+        .previeweffectbox3 {
+            border: 1px solid #d7dae2;
+            border-radius: 2px;
+            text-align: center;
+            background: white;
+            color: #606266;
+        }
+
         .optionbox {
             border: 1px solid #d7dae2;
             border-radius: 2px;
@@ -1541,15 +1549,18 @@
             <el-row :gutter="6">
                 <div class="statusbox titlebox" style="padding: 5px 5px;">
                     <el-row :gutter="4" type="flex" align="middle" style="height:80px;">
-                        <el-col class="textcenter" :span="3">
-                            篩選
-                        </el-col>
-                        <el-col class="textcenter" :span="3">
+                        <el-row class="statusbox bg-purple-light" :span="4" :gutter="4" type="flex" align="middle">
+                            <el-col class="textcenter" >
+                                    <el-input v-model="StoreDB_SearchString" @input="onFliterEquipSearch" placeholder="搜尋" clearable>
+                                    </el-input>
+                            </el-col>
+                        </el-row>
+                        <el-col class="textcenter" :span="2">
                             <el-button v-on:click="onFliterEquipClear">
-                                清空
+                                全部
                             </el-button>
                         </el-col>
-                        <el-col class="textcenter" style="text-align: left;">
+                        <el-col class="textcenter" style="text-align: left;" :span="18">
                             <el-checkbox-group v-model="StoreDB_EquipFliterGroup" v-on:change="onFliterEquipPart"
                                 fill="#909399" text-color="white">
                                 <el-checkbox-button v-for="item in equipspartlist" :label="item.label" :key="item.id">
@@ -1576,30 +1587,55 @@
                     </el-row>
                 </div>
                 <el-scrollbar wrap-class="EquipList-container" :native="false" :noresize="false">
-                    <div v-for="(item, index) in StoreDB_EquipFiltered" v-bind:key="item.uuid">
-                        <div style="padding: 2px 5px;">
-                            <el-row class="optionbox effectline" :class="index%2==0?'bg-purple-light':'bg-purple'"
-                                :gutter="4" type="flex" align="middle">
-
-                                <el-col class="textcenter" :span="4" style="text-align: right;">
-                                    <span class="EffectType">{{ item.equip.label }}</span>
-                                </el-col>
-                                <el-col class="textcenter">
-                                    <span class="">{{ item.equip.equipname }}</span>
-                                </el-col>
-                                <el-col :span="4">
-                                    <el-button v-on:click="onRemoveEquipSave(item.uuid)" icon="el-icon-delete"
-                                        type="danger" size="mini">
-                                    </el-button>
-                                </el-col>
-                                <el-col :span="6">
-                                    <el-button v-on:click="onLoadEquipSave(item.uuid)" icon="el-icon-check"
-                                        type="success" type="primary" size="small">
-                                        載入
-                                    </el-button>
-                                </el-col>
-                                <el-col :span="5">
-                                </el-col>
+                    <div v-for="(item, index) in StoreDB_EquipFilterList" v-bind:key="item.uuid">
+                        <div style="padding: 5px 5px;">
+                            <el-row class="effectline" :class="index%2==0?'bg-purple-light':'bg-purple'">
+                                <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="4" style="text-align: right;">
+                                        <span class="EffectType">{{ item.equip.label }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter">
+                                        <span class="">{{ item.equip.equipname }}</span>
+                                    </el-col>
+                                    <el-col :span="4">
+                                        <el-button v-on:click="onRemoveEquipSave(item.uuid)" icon="el-icon-delete"
+                                            type="danger" size="mini">
+                                        </el-button>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <el-button v-on:click="onFliterEquipPreview(index)" icon="el-icon-view"
+                                            size="small">
+                                        </el-button>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <el-button v-on:click="onLoadEquipSave(item.uuid)" icon="el-icon-check"
+                                            type="success" type="primary" size="small">
+                                            載入
+                                        </el-button>
+                                    </el-col>
+                                    <el-col :span="5">
+                                    </el-col>
+                                </el-row>
+                                <el-collapse-transition>
+                                <div v-show="item.preview" style="padding: 1px 100px 10px 100px;">
+                                    <div v-for="(effect, index) in item.equip.effectlist" v-bind:key="item.uuid">
+                                        <el-row class="previeweffectbox3 effectline" :gutter="1" type="flex" align="middle" justify="center">
+                                            <el-col class="textcenter" style="text-align: right;" :span="4">
+                                                <span class="EffectType">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].label }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="1">
+                                                <span class="">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].opersymbol }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="2">
+                                                <span class="">{{ effect.EffectNumber!=9999?effect.EffectNumber:'' }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="1">
+                                                <span lass="">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].suffixsymbol }}</span>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </div>
+                                </el-collapse-transition>
                             </el-row>
                         </div>
                     </div>
@@ -4353,7 +4389,7 @@
                         </el-col>
                         <el-col class="textcenter" :span="6" style="text-align: right;">
                             <el-tooltip class="item" effect="dark" content="讀取已經儲存的裝備" placement="right">
-                                <el-button v-on:click="TogglePanel('EquipDBDialog')" size="small">
+                                <el-button v-on:click="onOpenEquipDB" size="small">
                                     裝備清單
                                 </el-button>
                             </el-tooltip>
@@ -4490,9 +4526,9 @@
                                                 <el-col class="textcenter" :span="2">
                                                     <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                 </el-col>
-                                                    <el-col class="textcenter"  :span="5">
-                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(1, index)"></el-checkbox>
-                                                    </el-col>
+                                                <el-col class="textcenter"  :span="5">
+                                                    <el-checkbox v-model="item.Enable" @change="EnableEffect(1, index)"></el-checkbox>
+                                                </el-col>
                                             </el-row>
                                         </div>
                                     </el-row>
@@ -5389,6 +5425,8 @@
                 StatusBulidString: '',
 
                 StoreDB_EquipFliterGroup: [],
+                StoreDB_EquipFilterList: [],
+                StoreDB_SearchString: '',
                 StoreDB_Equip: [],
                 EquipSelectId: '',
                 EquipSelectLabel: '',
@@ -7864,10 +7902,51 @@
                         this.SaveEquipDB();
                     }
                 },
+                onOpenEquipDB() {
+                    if( this.StoreDB_SearchString.trim() != '' ){
+                        this.onFliterEquipSearch();
+                    }else{
+                        this.onFliterEquipPart();
+                    }
+                    this.OpenPanel('EquipDBDialog');
+                },
+                onFliterEquipSearch() {
+                    this.StoreDB_EquipFliterGroup = [];
+                    this.StoreDB_EquipFilterList = this.StoreDB_Equip.filter(post => {
+                        //return post.equip.equipname.includes(this.StoreDB_SearchString)
+                        return this.StoreDB_SearchString.split(' ').every(v => post.equip.equipname.includes(v));
+                    });
+                },
                 onFliterEquipPart() {
+                    this.StoreDB_SearchString = '';
+                    if( this.StoreDB_EquipFliterGroup.length>1 ){
+                        this.StoreDB_EquipFliterGroup.splice(0,1);
+                    }
+                    var _tempgroup = this.StoreDB_EquipFliterGroup;
+                    this.StoreDB_EquipFilterList = _tempgroup.length > 0 ?
+                        this.StoreDB_Equip.filter(
+                            function (saverow) {
+                                return _tempgroup.indexOf(saverow.equip.label) > -1;
+                            }
+                        ).sort((a, b) => a.equip.label > b.equip.label ? 1 :
+                            a.equip.label === b.equip.label ?
+                                ((a.date > b.date) ? -1 : 1) : -1
+                        )
+                        :
+                        this.StoreDB_Equip
+                        ;
+                    for( var i=0; i<this.StoreDB_EquipFilterList.length; ++i)
+                    {
+                        this.$set( this.StoreDB_EquipFilterList[i], 'preview', false);
+                    }
                 },
                 onFliterEquipClear() {
+                    this.StoreDB_SearchString = '';
                     this.StoreDB_EquipFliterGroup = [];
+                    this.onFliterEquipPart();
+                },
+                onFliterEquipPreview(index){
+                    this.$set( this.StoreDB_EquipFilterList[index], 'preview', !this.StoreDB_EquipFilterList[index].preview);
                 },
                 SaveEquipDB() {
                     const parsed = JSON.stringify(this.StoreDB_Equip);
@@ -8307,6 +8386,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-8-1', content: '裝備儲存DB篩選功能修改<br>增加裝備儲存DB搜尋&預覽功能' },
                         { id: '2020-7-28', content: '增加額外技能選項 鴞梟之眼/心神凝聚' },
                         { id: '2020-7-20', content: '修改額外技能選項 神威祈福公式位置<br>修改HPSP增大藥水增加帶入BLV公式' },
                         { id: '2020-7-17', content: '修正戰鬥藥類Matk%沒帶入的錯誤' },
@@ -8430,7 +8510,7 @@
                 },
             },
             computed: {
-
+                /*
                 StoreDB_EquipFiltered() {
                     var _tempgroup = this.StoreDB_EquipFliterGroup;
                     return _tempgroup.length > 0 ?
@@ -8446,7 +8526,7 @@
                         this.StoreDB_Equip
                         ;
                 },
-
+                */
 
             },
             mounted() {
