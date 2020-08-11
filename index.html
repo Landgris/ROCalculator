@@ -5630,6 +5630,7 @@
                     ShieldWeight: 0,
                 },
                 subweapon_init: {},
+                ClassInfo: {},
                 status: {
                     Level: 1, JOBLevel: 1, Transcendent: false, classid: 'AB', UseJobMaxPoint: false,
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
@@ -6633,20 +6634,10 @@
                     try {
 
                         if (this.status.classid == null) this.status.classid = 'AB';
-                        var _ClassInfo;
-                        _ClassInfo = Enumerable.From(this.classlist)
+                        this.ClassInfo = Enumerable.From(this.classlist)
                             .Where("$.id == '" + this.status.classid + "'")
                             .Single();
 
-                        this.status_job = _.cloneDeep(this.status_job_init);
-                        if (this.status.UseJobMaxPoint){
-                            this.status_job.STR += _ClassInfo.JobMaxPoint[0];
-                            this.status_job.AGI += _ClassInfo.JobMaxPoint[1];
-                            this.status_job.VIT += _ClassInfo.JobMaxPoint[2];
-                            this.status_job.INT += _ClassInfo.JobMaxPoint[3];
-                            this.status_job.DEX += _ClassInfo.JobMaxPoint[4];
-                            this.status_job.LUK += _ClassInfo.JobMaxPoint[5];
-                        }
 
                         this.status_total.STR = Number(eval(this.status.STR)) + Number(this.status_add.STR) + Number(this.status_job.STR);
                         this.status_total.AGI = Number(eval(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
@@ -6674,7 +6665,7 @@
                         this.attritube['CRI'] = Math.floor((this.attritube['CRI'] - this.enemyattribute.LUK * 0.2) * 100) / 100;
                         this.onSkillPercentChange();
 
-                        this.status.Transcendent = _ClassInfo.TranscendentClass;
+                        this.status.Transcendent = this.ClassInfo.TranscendentClass;
                         var _Pt = this.status.Transcendent ? 100 : 100 - 52;
                         for (i = 1; i < this.status.Level; i++) {
                             if (i < 100) {
@@ -6700,9 +6691,9 @@
                             _BaseHP += Math.round(this.HP_JOB_A * i);
                         }
                         // 3rd
-                        if (this.status.Level >= 99 && this.status.Level <= 185 && _ClassInfo.TranscendentClass) {
-                            _BaseHP = _ClassInfo.basehp[Number(this.status.Level - 99)];
-                            _BaseSP = _ClassInfo.basesp[Number(this.status.Level - 99)];
+                        if (this.status.Level >= 99 && this.status.Level <= 185 && this.ClassInfo.TranscendentClass) {
+                            _BaseHP = this.ClassInfo.basehp[Number(this.status.Level - 99)];
+                            _BaseSP = this.ClassInfo.basesp[Number(this.status.Level - 99)];
                             /*                             _BaseHP = Enumerable.From(this.classlist)
                                                                 .Where("$.id == '" + this.status.classid + "'")
                                                                 .Select("$.basehp[" + Number(this.status.Level - 99) + "]")
@@ -7326,6 +7317,15 @@
                 onOption() {
                     this.status_add = Object.assign({}, this.status_add_init);
                     this.attritube = Object.assign({}, this.attritube_init);
+                    this.status_job = _.cloneDeep(this.status_job_init);
+                    if (this.status.UseJobMaxPoint){
+                        this.status_job.STR += this.ClassInfo.JobMaxPoint[0];
+                        this.status_job.AGI += this.ClassInfo.JobMaxPoint[1];
+                        this.status_job.VIT += this.ClassInfo.JobMaxPoint[2];
+                        this.status_job.INT += this.ClassInfo.JobMaxPoint[3];
+                        this.status_job.DEX += this.ClassInfo.JobMaxPoint[4];
+                        this.status_job.LUK += this.ClassInfo.JobMaxPoint[5];
+                    }
 
                     this.option.EquipSkillAddDamage = 0;
                     if (this.skilloption.WeaponMasteryATKInput == '') this.skilloption.WeaponMasteryATKInput = 0;
@@ -7438,7 +7438,6 @@
                     if (this.option.AC_CONCENTRATION){
                         this.status_add.AGI += (Math.floor((Number(this.status.AGI.toString().split('+', 1)[0])+this.status_job.AGI+(this.option.AC_CONCENTRATION_Para2))*(2+this.option.AC_CONCENTRATION_Para1)*0.01));
                         this.status_add.DEX += (Math.floor((Number(this.status.DEX.toString().split('+', 1)[0])+this.status_job.DEX+(this.option.AC_OWL?10:0)+(this.option.AC_CONCENTRATION_Para3))*(2+this.option.AC_CONCENTRATION_Para1)*0.01));
-
                     }
                     // 狙殺
                     if (this.option.TrueSight) {
@@ -8441,6 +8440,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-8-11', content: '修正心神凝聚跟JOB代入點數開關順序會影響計算數值的問題' },
                         { id: '2020-8-3', content: '技能選擇方式修改為下拉選單<br><span style="margin-left:2em">依照職業顯示預設技能<br><span style="margin-left:2em">載入其他技能會加入下拉選單' },
                         { id: '2020-8-1', content: '裝備儲存DB篩選功能修改<br>增加裝備儲存DB搜尋&預覽功能' },
                         { id: '2020-7-28', content: '增加額外技能選項 鴞梟之眼/心神凝聚' },
