@@ -2968,7 +2968,7 @@
                                                 <span>騎乘</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.Riding" v-on:change="ComputeSizefix"
+                                                <el-switch v-model="option.Riding" v-on:change="onOption"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -3176,7 +3176,7 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-switch v-model="option.WeaponPerfection"
-                                                    v-on:change="ComputeSizefix" active-color="#13ce66"
+                                                    v-on:change="onOption" active-color="#13ce66"
                                                     inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -8440,6 +8440,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-8-13', content: '修正額外技能選項 無視體型攻擊/騎乘術拿長矛時體型修正不會重新計算的問題' },
                         { id: '2020-8-11', content: '修正心神凝聚跟JOB代入點數開關順序會影響計算數值的問題' },
                         { id: '2020-8-3', content: '技能選擇方式修改為下拉選單<br><span style="margin-left:2em">依照職業顯示預設技能<br><span style="margin-left:2em">載入其他技能會加入下拉選單' },
                         { id: '2020-8-1', content: '裝備儲存DB篩選功能修改<br>增加裝備儲存DB搜尋&預覽功能' },
