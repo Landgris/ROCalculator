@@ -7568,7 +7568,7 @@
                     //祈禱文
                     if (this.option.ORATIO) {
                         if (this.skilloption.AttackElementalIdx == 6) {
-                            this.computeattribute['SpecialATK1'] += this.weapon.ATK * ((this.option.ORATIOLevel * 2) / 100);
+                            this.computeattribute['SpecialATK3'] = (this.option.ORATIOLevel * 2);
                         }
                     }
                     //折枝
@@ -8440,6 +8440,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-8-17', content: '增加額外技能選項 祈禱文' },
                         { id: '2020-8-13', content: '修正額外技能選項 無視體型攻擊/騎乘術拿長矛時體型修正不會重新計算的問題' },
                         { id: '2020-8-11', content: '修正心神凝聚跟JOB代入點數開關順序會影響計算數值的問題' },
                         { id: '2020-8-3', content: '技能選擇方式修改為下拉選單<br><span style="margin-left:2em">依照職業顯示預設技能<br><span style="margin-left:2em">載入其他技能會加入下拉選單' },
