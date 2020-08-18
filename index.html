@@ -376,10 +376,9 @@
                     <el-row>
                         <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                             <el-row :gutter="4" type="flex" align="left">
-                                終於有消耗品可以選擇了!<br><br>
-                                裝備效果頁面大幅更新，一次要輸入多項效果上會方便很多<br><br>
-                                另外當要計算拿兩把武器的技能傷害時，請把副手清空為空手，傷害才會正確<br><br>
-                                正在考慮增加各種種族、體型、屬性、對屬性、階級增傷的超多設定<br>
+                                浪跡樂師的額外輔助技能只列出跟傷害HP延遲相關<br><br>
+                                修羅的預設技能虎砲/羅剎破凰擊公式有誤跟未知，待修正<br><br>
+                                當要計算拿兩把武器的技能傷害時，請把副手類型改為空手，傷害才會正確<br><br>
                                 素質點計算支援到200等!<br><br>
                                 擴充職業的HPSP統計中<br><br>
                                 整頁儲存 測試中 不會紀錄額外技能選項<br><br>
@@ -2892,6 +2891,13 @@
                                         </el-col>
                                     </el-row>
                                 </div>
+                                <div v-show="skill.Note!=''">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" style="color:rgb(29, 149, 170);">
+                                            <span>備註: {{ skill.Note }}</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
                                         <span>攻擊屬性</span>
@@ -3371,7 +3377,7 @@
                                         <el-col class="textcenter" :span="2">
                                         </el-col>
                                         <el-col class="textcenter" :span="20">
-                                            <span class="textcenter">詩人 & 舞孃</span>
+                                            <span class="textcenter">浪跡 & 樂師</span>
                                         </el-col>
                                         <el-col v-if="UIPanel['BardDancerSkillPage']" class="textcenter" :span="2">
                                             <i class="el-icon-arrow-down"></i>
@@ -3399,6 +3405,66 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-switch v-model="option.BA_POEMBRAGI" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>朝風車突擊</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.MI_RUSH_WINDMILL" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>月光小夜曲</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.WA_MOONLIT_SERENADE" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>搖擺舞</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.WA_SWING_DANCE" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>雷拉多露水</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.WM_LERADS_DEW" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>無限哼唱聲</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.WM_UNLIMITED_HUMMING_VOICE" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>與狼共舞</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.WM_DANCE_WITH_WUG" v-on:change="onOption"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -3872,7 +3938,27 @@
                                                 <span>點穴-反</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="option.GentleTouchCharge" v-on:change="onOption"
+                                                <el-switch v-model="option.SR_GENTLETOUCH_CHANGE" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>點穴-活</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SR_GENTLETOUCH_REVITALIZE" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>潛龍昇天</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.SR_RAISINGDRAGON" v-on:change="onOption"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -5850,7 +5936,9 @@
                     ABJobLevel: 65,              //施展者JOB等級
                     SpiritSpheres: false,       //蓄氣
                     SpiritSpheresCount: 0,
-                    GentleTouchCharge: false,   //點穴-反
+                    SR_GENTLETOUCH_CHANGE: false,   //點穴-反
+                    SR_GENTLETOUCH_REVITALIZE: false,   //點穴-活
+                    SR_RAISINGDRAGON: false,        //潛龍昇天
                     Suffragium: false,          //犧牲祈福
                     SuffragiumLevel: 1,
                     ImpositioManus: false,      //神威祈福
@@ -5876,7 +5964,14 @@
                     UNLIMITLevel: 5,
 
                     MusicalDancingLesson: false,    // 操控樂器練習舞蹈
-                    BA_POEMBRAGI: false,             // 布萊奇之詩
+                    BA_POEMBRAGI: false,            // 布萊奇之詩
+                    MI_RUSH_WINDMILL: false,        // 朝風車突擊
+                    WA_MOONLIT_SERENADE: false,     // 月光小夜曲
+                    WA_SWING_DANCE: false,          // 搖擺舞 
+                    WM_LERADS_DEW: false,           // 雷拉多露水
+                    WM_UNLIMITED_HUMMING_VOICE: false,  // 無限哼唱聲
+                    WM_DANCE_WITH_WUG: false,       // 與狼共舞
+
 
                     SevenWinde: false,          //溫暖的風
                     Kihop: false,               //加油
@@ -7462,6 +7557,33 @@
                         this.attritube['SK1VCTP'] += 2 * 10;
                         this.attritube['GCD'] += 3 * 10;
                     }
+                    // 朝風車突擊
+                    if (this.option.MI_RUSH_WINDMILL) {
+                        this.attritube['ATK'] += 20+2*10;
+                    }
+                    // 月光小夜曲
+                    if (this.option.WA_MOONLIT_SERENADE) {
+                        this.attritube['MATK'] += 20+2*10;
+                    }
+                    // 搖擺舞
+                    if (this.option.WA_SWING_DANCE) {
+                        this.attritube['FCTP'] = Math.max(this.attritube['FCTP'], 30);
+                        this.attritube['ASPDP'] += 25;
+                    }
+                    // 雷拉多露水
+                    if (this.option.WM_LERADS_DEW) {
+                        this.attritube['HPP'] += 17+Math.floor(10/3);
+                    }
+                    // 無限哼唱聲
+                    if (this.option.WM_UNLIMITED_HUMMING_VOICE) {
+                        this.attritube['ElementalMagicPercent'] += 20;
+                    }
+                    // 與狼共舞
+                    if (this.option.WM_DANCE_WITH_WUG) {
+                        this.attritube['FCTP'] = Math.max(this.attritube['FCTP'], 70);
+                        this.attritube['ASPDP'] += 25;
+                        this.attritube['RNGDP'] += 5;
+                    }
                     // 終極念力
                     if (this.option.WL_TELEKINESIS_INTENSE){
                         if (this.skilloption.AttackElementalIdx == 8) {
@@ -7539,12 +7661,29 @@
                     if (this.option.SpiritSpheres) {
                         this.skilloption.WeaponMasteryATK += this.option.SpiritSpheresCount * 3;
                     }
-                    // 點穴
-                    if (this.option.GentleTouchCharge) {
-                        this.computeattribute['SpecialATK1'] += (this.status_total.STR / 2 + this.status_total.DEX / 4) * 5 / 5;
+                    // 點穴-反
+                    if (this.option.SR_GENTLETOUCH_CHANGE) {
+                        //this.computeattribute['SpecialATK1'] += (this.status_total.STR / 2 + this.status_total.DEX / 4) * 5 / 5;
                         this.attritube['ASPDP'] += this.status_total.AGI * 5 / 60;
-                        this.attritube['MDEF'] += 200 / this.status_total.INT * 5;
-                        this.attritube['HPP'] -= 20;
+                        
+                        this.attritube['ATK'] += 40;
+                        this.attritube['ATKP'] += 5;
+                        if (this.skill.id.includes('SR_RAMPAGEBLASTER') || this.skill.id.includes('SR_KNUCKLEARROW'))
+                        {
+                            this.option.EquipSkillAddDamage += 30;
+                        }
+                    }
+                    // 點穴-活
+                    if (this.option.SR_GENTLETOUCH_REVITALIZE) {
+                        if (this.skill.id.includes('SR_TIGERCANNON') || this.skill.id.includes('SR_GATEOFHELL'))
+                        {
+                            this.option.EquipSkillAddDamage += 30;
+                        }
+                    }
+                    //潛龍昇天
+                    if (this.option.SR_RAISINGDRAGON) {
+                        this.attritube['HPP'] += 12;
+                        this.attritube['SPP'] += 12;
                     }
                     //犧牲祈福
                     if (this.option.Suffragium) {
@@ -8307,15 +8446,20 @@
                         { skill: { id: 'SO_SPELLFIST', name: '魔力拳', level: 10, formula: '(SLV/2+10)*100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: true, hitnumber: 1, elemental: 1, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10為施放的火箭/冰箭/雷擊技能等級', } },
                         { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
                         { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈>5)', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 100, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
-                        { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: 'DOWN((HP*(SLV*0.02+0.1)+SP*(SLV*0.01+0.05))/4)*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 'SLV*240+ELV*40', SpecialATK7: 0, SpecialMATK1: 0, Note: '額外選項的氣彈數量為施放前的扣2 (潛龍後就是13顆)', } },
-                        { skill: { id: 'SR_RAMPAGEBLASTER', name: '爆氣散彈', level: 5, formula: 'SLV*20*5*BLV/150', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 10, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'SR_RAMPAGEBLASTER(ex)', name: '爆氣散彈(爆氣)', level: 5, formula: '(SLV*20+5*20)*15*BLV/120', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 10, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '15為潛龍後的氣彈數', } },
+                        { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: 'DOWN((HP*(SLV*0.02+0.1)+SP*(SLV*0.01+0.05))/4)*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 'SLV*240+ELV*40', SpecialATK7: 0, SpecialMATK1: 0, Note: '更新後有誤差，待修正公式', } },
+                        { skill: { id: 'SR_RIDEINLIGHTNING', name: '雷光彈', level: 5, formula: '(SLV*40)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '技能等級=氣彈消耗數', } },
+                        { skill: { id: 'SR_RAMPAGEBLASTER', name: '爆氣散彈', level: 5, formula: '(1000+350*SLV)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為爆氣等級*200', } },
+                        { skill: { id: 'SR_RAMPAGEBLASTER(ex)', name: '爆氣散彈(標記)', level: 5, formula: '(1000+350*SLV+500+SLV*200)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為爆氣等級*200', } },
+                        { skill: { id: 'SR_KNUCKLEARROW', name: '修羅身彈', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'SR_KNUCKLEARROW(ex)', name: '修羅身彈(BOSS)', level: 10, formula: '(500+SLV*200)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'SR_GATEOFHELL', name: '羅剎破凰擊', level: 10, formula: '100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '公式未知', } },
+                        
                         { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', class: 'SC', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: 'SLV*60+5*50*INT/40', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '遠傷應該在技能傷之後，待修正', } },
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨(樂器/鞭子)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100*1.666', class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM(bow)', name: '大暴雨(弓)', level: 5, formula: '(DEX+AGI)*(SLV/5)*BLV/100', class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'WM_METALICSOUND', name: '重金屬音樂', level: 10, formula: '(SLV*120+600)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 5.5, CD: 3, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WM_METALICSOUND', name: '重金屬音樂', level: 10, formula: '(SLV*120+600)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 5.5, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', class: 'KO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_BAKUENRYU', name: '爆炎龍', level: 5, formula: '150+SLV*150', class: 'KO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 0.6, VCT: 2.4, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_HYOUSENSOU', name: '冰閃槍', level: 10, formula: '70', class: 'KO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 2, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8440,6 +8584,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-8-19', content: '增加預設修羅技能 雷光彈/爆氣散彈/爆氣散彈(標記)/修羅身彈/修羅身彈(BOSS)<br>增加額外技能選項 修羅 點穴-反/點穴-活/潛龍昇天<br>增加額外技能選項 浪跡&樂師 朝風車突擊/月光小夜曲/搖擺舞/雷拉多露水/無限哼唱聲/與狼共舞<br>更新預設技能 重金屬音樂延遲設定' },
                         { id: '2020-8-17', content: '增加額外技能選項 祈禱文' },
                         { id: '2020-8-13', content: '修正額外技能選項 無視體型攻擊/騎乘術拿長矛時體型修正不會重新計算的問題' },
                         { id: '2020-8-11', content: '修正心神凝聚跟JOB代入點數開關順序會影響計算數值的問題' },
