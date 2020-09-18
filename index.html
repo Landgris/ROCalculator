@@ -3529,6 +3529,16 @@
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
+                                                <span>魔力中毒</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.MagicAddicted" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
                                                 <span>終極念力</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -5929,7 +5939,8 @@
 
                     RECOGNIZEDSPELL: false,         //魔法省悟
                     MagicPower: false,              //魔力增幅
-                    MagicPowerValue: 50,
+                    MagicPowerValue: 100,
+                    MagicAddicted: false,           //魔力中毒
                     WL_TELEKINESIS_INTENSE: false,   //終極念力
                     Striking: false,                //打擊強化
                     StrikingLevel: 5,
@@ -7612,6 +7623,10 @@
                         this.attritube['ASPDP'] += 25;
                         this.attritube['RNGDP'] += 5;
                     }
+                    // 魔力中毒
+                    if (this.option.MagicAddicted){
+                        this.computeattribute['SpecialATK3'] = 50;
+                    }
                     // 終極念力
                     if (this.option.WL_TELEKINESIS_INTENSE){
                         if (this.skilloption.AttackElementalIdx == 8) {
@@ -8458,13 +8473,18 @@
 
                     this.DefaultDB_Skill.push(
                         { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/150*1.2', class: 'RK', DamageTypeIdx: 2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '現有HPSP影響傷害', } },
-                        { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '1300+SLV*300*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 2, VCT: 5, CD: 5, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(2000+SLV*100)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 2, VCT: 6, CD: 10, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'WL_JACKFROST', name: '凍僵術(未結凍)', level: 5, formula: '(SLV*100+500)*BLV/150', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 4, VCT: 1, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'WL_SOULEXPANSION', name: '靈魂爆炸', level: 5, formula: '(400+SLV*100+INT)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 8, FCT: 0, VCT: 2, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        
+                        { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '(700+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 2, VCT: 5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(1000+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 2, VCT: 6, CD: 7, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WL_JACKFROST', name: '凍僵術', level: 5, formula: '(1000+SLV*300)*BLV/150', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 4, VCT: 1, CD: 4, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WL_JACKFROST(buff)', name: '凍僵術(結霜)', level: 5, formula: '(1200+SLV*600)*BLV/150', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 4, VCT: 1, CD: 4, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WL_SOULEXPANSION', name: '靈魂爆炸', level: 5, formula: '(750+SLV*150+INT)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 8, FCT: 0, VCT: 2, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WL_HELLINFERNO', name: '地獄火焰(暗)', level: 5, formula: '(SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 7, FCT: 1, VCT: 3, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '暗火須分開計算再加總，待修正', } },
+                        { skill: { id: 'WL_HELLINFERNO(fire)', name: '地獄火焰(火)', level: 5, formula: '(SLV*400)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 1, FCT: 1, VCT: 3, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '暗火須分開計算再加總，待修正', } },
+                        { skill: { id: 'WL_COMET', name: '毀滅慧星', level: 5, formula: '(2500+SLV*500)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 2, VCT: 10, CD: 20, GCD: 1.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'AB_ADORAMUS', name: '謳歌', level: 10, formula: '(330+SLV*70)*BLV/100', class: 'AB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 6, FCT: 0.5, VCT: 2, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'GC_CROSSIMPACT', name: '十字斬', level: 5, formula: '(1000+SLV*100)*BLV/120', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'GC_ROLLINGCUTTER', name: '迴旋刀刃', level: 5, formula: '(50+SLV*50)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'GC_ROLLINGCUTTER', name: '迴旋刀刃', level: 5, formula: '(50+SLV*50)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'GC_CROSSRIPPERSLASHER', name: '迴旋十字斬', level: 5, formula: '(400+SLV*80)*BLV/100+10*AGI', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10*AGI 的10為迴旋刀刃次數，最高10', } },
                         { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(300+((ESIZE<2)?((ESIZE<1)?400:350):300)*SLV)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.2, VCT: 2.2, CD: 0.65, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據敵方體型變動', } },
                         { skill: { id: 'NC_VULCANARM', name: '火神砲', level: 3, formula: '(SLV*70+DEX)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8626,6 +8646,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-9-18', content: '增加預設技能 地獄火焰/毀滅彗星<br>修改預設技能 碧血隕石/地牛翻身/凍僵術/靈魂爆炸/迴旋刀刃<br>增加額外技能選項 魔力中毒' },
                         { id: '2020-8-23', content: '增加預設技能 殘響' },
                         { id: '2020-8-19-1', content: '增加預設修羅技能 雷光彈/爆氣散彈/爆氣散彈(標記)/修羅身彈/修羅身彈(BOSS)/羅剎破凰擊<br>增加額外技能選項 修羅 點穴-反/點穴-活/潛龍昇天<br>增加額外技能選項 浪跡&樂師 朝風車突擊/月光小夜曲/搖擺舞/雷拉多露水/無限哼唱聲/與狼共舞<br>更新預設技能 重金屬音樂延遲設定<br>增加輸入現有HPSP欄<br>增加技能備註顯示<br>增加公式關鍵字WTI 武器類型' },
                         { id: '2020-8-17', content: '增加額外技能選項 祈禱文' },
