@@ -10,11 +10,11 @@
     <script src="https://unpkg.com/linq"></script>
     -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.0/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.2/index.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.13.0/theme-chalk/index.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/linq.js/3.2.3/linq.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63581889-2"></script>
@@ -376,6 +376,7 @@
                     <el-row>
                         <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                             <el-row :gutter="4" type="flex" align="left">
+                                咒術士優化更新版本!!<br><br>
                                 浪跡樂師的額外輔助技能只列出跟傷害HP延遲相關<br><br>
                                 修羅的預設技能修羅身彈/爆氣散彈/虎砲/羅剎破凰擊計算OK<br><br>
                                 當要計算拿兩把武器的技能傷害時，物理請把副手類型改為空手，傷害才會正確<br>
@@ -8646,7 +8647,7 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2020-9-18', content: '增加預設技能 地獄火焰/毀滅彗星<br>修改預設技能 碧血隕石/地牛翻身/凍僵術/靈魂爆炸/迴旋刀刃<br>增加額外技能選項 魔力中毒' },
+                        { id: '2020-9-18', content: '增加預設技能 地獄火焰/毀滅彗星<br>修改預設技能 碧血隕石/地牛翻身/凍僵術/靈魂爆炸/                                                                                                                                                                                                                                               迴旋刀刃<br>增加額外技能選項 魔力中毒' },
                         { id: '2020-8-23', content: '增加預設技能 殘響' },
                         { id: '2020-8-19-1', content: '增加預設修羅技能 雷光彈/爆氣散彈/爆氣散彈(標記)/修羅身彈/修羅身彈(BOSS)/羅剎破凰擊<br>增加額外技能選項 修羅 點穴-反/點穴-活/潛龍昇天<br>增加額外技能選項 浪跡&樂師 朝風車突擊/月光小夜曲/搖擺舞/雷拉多露水/無限哼唱聲/與狼共舞<br>更新預設技能 重金屬音樂延遲設定<br>增加輸入現有HPSP欄<br>增加技能備註顯示<br>增加公式關鍵字WTI 武器類型' },
                         { id: '2020-8-17', content: '增加額外技能選項 祈禱文' },
@@ -8688,7 +8689,7 @@
                         { id: '2020-3-3', content: '修改素質/技能清單樣式<br/>增加技能清單預設技能<br/>增加素質欄位HPSP<br/>增加敵方欄位Level<br/>增加公式關鍵字 HP/SP/ELV<br/>增加更新列表' },
                         { id: '2020-3-1', content: '增加額外技能選項 影狼&朧 詩舞分類<br/>增加詠唱&延遲計算<br/>增加暴率&DPS計算<br/>增加素質欄ASPD、裝備效果變詠設定<br/>修改技能清單樣式' },
                         { id: '2020-2-10', content: '修改裝備技能倍率增傷的輸入方式 改由裝備效果增加<br/>裝備效果增加技能增傷%<br/>增加額外技能選項 劍士分類 靈感<br/>增加額外技能選項 服事分類 神聖殿堂(僅法傷)' },
-                        { id: '2020-1-4', content: '修正法傷技能增傷跟屬性倍率的順序<br/>修正兇砍開啟後無法被關閉<br/>增加額外技能選項 服事分類 慈悲術/純白百合花/蓄氣<br/>增加額外技能選項 跆拳/拳皇/獵靈分類' },
+                        { id: '2020-1-4', content: '修正法傷技能增傷跟屬性倍率的順序<br/>修正兇砍開啟後無法被關閉<br/>���加額外技能選項 服事分類 慈悲術/純白百合花/蓄氣<br/>增加額外技能選項 跆拳/拳皇/獵靈分類' },
                         { id: '2019-12-23', content: '修改武器值最大化/魔法省悟的計算(顯示)方式<br/>修正武器浮動傷害為無條件捨去<br/>修正ATK公式暴傷/遠傷的順序<br/>增加物理技能多段計算<br/>簡化沒有多段/暴傷技能的UI欄位' },
                         { id: '2019-12-21', content: '修正公式中用到BLV最低為100<br/>敵方的內建資料修改' },
                         { id: '2019-12-19', content: '修正無視防禦超過100%上限的問題<br/>技能設定增加加農砲彈、半無視防禦<br/>技能清單修改顯示方式<br/>裝備效果增加 STR AGI VIT INT DEX LUK 全能力<br/>增加公式關鍵字 WLV<br/>修改ATK公式架構' },
