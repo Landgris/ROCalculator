@@ -7013,14 +7013,14 @@
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, paraKihop);
                     }
 
+                    var paraSLSO = 0;
                     if (this.option.SLSMiracle) {
                         paraSLSO = this.status.Level + this.status_total.DEX + this.status_total.LUK + this.status_total.STR;
                         paraSLSO = 1 + Math.floor(paraSLSO / 3) / 100;
                         this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Math.floor(paraSLSO));
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Math.floor(paraSLSO));
                     }
-                    else if (this.option.SLSOpposition) {
-                        var paraSLSO;
+                    if (this.option.SLSOpposition) {
                         switch (this.enemyattribute.size) {
                             case 0:
                             case 1:
@@ -8647,6 +8647,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-9-25', content: '修正額外技能選項 拳皇 日星月的奇蹟跟憎惡不能疊加的問題' },
                         { id: '2020-9-20', content: '修正預設技能 碧血隕石/地牛翻身/凍僵術 詠唱時間' },
                         { id: '2020-9-18', content: '增加預設技能 地獄火焰/毀滅彗星<br>修改預設技能 碧血隕石/地牛翻身/凍僵術/靈魂爆炸/迴旋刀刃<br>增加額外技能選項 魔力中毒' },
                         { id: '2020-8-23', content: '增加預設技能 殘響' },
