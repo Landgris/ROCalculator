@@ -5336,7 +5336,7 @@
                                                 {{computeattribute.atkc9_max | currency }}</span>
                                         </el-col>
                                     </el-row>
-                                    <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
+                                    <el-row v-if="skill.hitnumber>1||skill.hitnumber<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
                                         align="middle" justify="space-around" style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
                                             <span>技能總傷害</span>
@@ -6143,6 +6143,7 @@
 
                     SpecialMATK1: 0, // 特殊技能加值  技能倍率後 用加的  忍者符咒
                     SpecialMATK2: 0, // 特殊技能乘值  mdef之後 屬性之前 終念
+                    SpecialINSIGNIAENEMYMATK: 0, // 紋章
 
                     weaponmatk_min: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 -  武器等級 x 0.10 ))
                     weaponmatk_max: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 +  武器等級 x 0.10 ))
@@ -7246,7 +7247,6 @@
                     this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.matkpercent_min, para5);
                     this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.matkpercent_max, para5);
 
-
                     var para_elemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalMatkPercent').totalvalue) / 100;
                     var para_magicelemt = Number(1) + Number(this.attritube['ElementalMagicPercent']) / 100;
                     var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceMatkPercent').totalvalue) / 100;
@@ -7272,6 +7272,9 @@
                     this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.enemyattribute.levelResist / 100));
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.enemyattribute.levelResist / 100));
 
+                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+
                     if (this.skill.laterformula == false) {
                         this.option.SkillPercent = Math.floor(this.option.SkillPercent) + this.computeattribute['SpecialMATK1'];
                         this.computeattribute.skillmatk_min = Math.floor(this.computeattribute.matk1_min * Number(this.option.SkillPercent / 100));
@@ -7283,6 +7286,7 @@
 
                     this.computeattribute.matk2_min = this.computeattribute.skillmatk_min;
                     this.computeattribute.matk2_max = this.computeattribute.skillmatk_max;
+                    
                     if (this.option.IgnoreMDEF == false) {
                         var parabypassMDEF = Number(1) - Number(this.attritube['BYPASSMDEF']) / 100;
                         var paraMDEF = ((1000 + this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)) /
@@ -7291,15 +7295,14 @@
                         this.computeattribute.matk2_min = Math.floor(this.computeattribute.skillmatk_min * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
                         this.computeattribute.matk2_max = Math.floor(this.computeattribute.skillmatk_max * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
                     }
-
                     this.computeattribute.matk3_min = this.MulOper(this.computeattribute.matk2_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     this.computeattribute.matk3_max = this.MulOper(this.computeattribute.matk2_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
 
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk3_min, Number(this.skilloption.ElementalPercent / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk3_max, Number(this.skilloption.ElementalPercent / 100));
                     
-                    this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
-                    this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+                    //this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+                    //this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
 
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialMATK2'] / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialMATK2'] / 100));
@@ -7314,10 +7317,9 @@
                         this.computeattribute.matk4_max = this.computeattribute.matk4_max;
                     }
 
-                    if (this.option.SO_WATER_INSIGNIA_ENEMY) {
-                        this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1.5));
-                        this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1.5));
-                    }
+                    this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
+                    this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
+
 
                     // 天怒
                     if (this.option.PR_LEXAETERNA) {
@@ -7475,6 +7477,7 @@
                     this.computeattribute['SpecialATK7'] = 0;   // 靈氣劍
                     this.computeattribute['SpecialMATK1'] = 0;   // 忍者符
                     this.computeattribute['SpecialMATK2'] = 0;   // 終念
+                    this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 0; //紋章
 
                     //雙手劍攻擊速度增加
                     if (this.option.TwoHandQuicken) {
@@ -7626,7 +7629,7 @@
                     }
                     // 魔力中毒
                     if (this.option.MagicAddicted){
-                        this.computeattribute['SpecialATK3'] = 50;
+                        this.computeattribute['SpecialATK3'] += 50;
                     }
                     // 終極念力
                     if (this.option.WL_TELEKINESIS_INTENSE){
@@ -7663,19 +7666,23 @@
                         }
                     }
                     if (this.option.SO_FIRE_INSIGNIA_ENEMY) {
-                        if (this.skilloption.AttackElementalIdx == 1) {
+                        if (this.skilloption.AttackElementalIdx == 2) {
+                            this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 50;
                         }
                     }
                     if (this.option.SO_WATER_INSIGNIA_ENEMY) {
-                        if (this.skilloption.AttackElementalIdx == 2) {
+                        if (this.skilloption.AttackElementalIdx == 3) {
+                            this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 50;
                         }
                     }
                     if (this.option.SO_WIND_INSIGNIA_ENEMY) {
-                        if (this.skilloption.AttackElementalIdx == 3) {
+                        if (this.skilloption.AttackElementalIdx == 4) {
+                            this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 50;
                         }
                     }
                     if (this.option.SO_EARTH_INSIGNIA_ENEMY) {
-                        if (this.skilloption.AttackElementalIdx == 4) {
+                        if (this.skilloption.AttackElementalIdx == 1) {
+                            this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 50;
                         }
                     }
                     // 加速
@@ -7752,7 +7759,16 @@
                     //祈禱文
                     if (this.option.ORATIO) {
                         if (this.skilloption.AttackElementalIdx == 6) {
-                            this.computeattribute['SpecialATK3'] = (this.option.ORATIOLevel * 2);
+                            switch (this.skill.DamageTypeIdx) {
+                                case 0:
+                                    this.computeattribute['SpecialATK1'] += this.weapon.ATK * ((this.option.ORATIOLevel * 2) / 100);
+                                    break;
+                                case 1:
+                                    //this.computeattribute['SpecialATK3'] += (this.option.ORATIOLevel * 2);
+                                    break;
+                                case 2:
+                                    break;
+                            }
                         }
                     }
                     //折枝
@@ -7789,7 +7805,7 @@
                     }
                     if (this.option.SP_SOULCURSE) {
                         if (this.skilloption.AttackElementalIdx == 7) {
-                            this.computeattribute['SpecialATK3'] = 100;
+                            this.computeattribute['SpecialATK3'] += 100;
                         }
                     }
                     //念
@@ -8479,6 +8495,7 @@
                         { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(1000+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 1, VCT: 6, CD: 7, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_JACKFROST', name: '凍僵術', level: 5, formula: '(1000+SLV*300)*BLV/150', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 1, VCT: 4, CD: 4, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_JACKFROST(buff)', name: '凍僵術(結霜)', level: 5, formula: '(1200+SLV*600)*BLV/150', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 1, VCT: 4, CD: 4, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WL_CHAINLIGHTNING', name: '連鎖電擊', level: 5, formula: '(500+SLV*100)*BLV/100+800', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 1, VCT: 5.5, CD: 0, GCD: 3, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_SOULEXPANSION', name: '靈魂爆炸', level: 5, formula: '(750+SLV*150+INT)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 8, FCT: 0, VCT: 2, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_HELLINFERNO', name: '地獄火焰(暗)', level: 5, formula: '(SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 7, FCT: 1, VCT: 3, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '暗火須分開計算再加總，待修正', } },
                         { skill: { id: 'WL_HELLINFERNO(fire)', name: '地獄火焰(火)', level: 5, formula: '(SLV*400)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 1, FCT: 1, VCT: 3, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '暗火須分開計算再加總，待修正', } },
@@ -8647,6 +8664,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-10-16', content: '修正祈禱文物理增傷計算方式(法傷仍在測試中)<br>增加額外技能選項 各屬性紋章(對敵/我)' },
                         { id: '2020-9-25', content: '修正額外技能選項 拳皇 日星月的奇蹟跟憎惡不能疊加的問題' },
                         { id: '2020-9-20', content: '修正預設技能 碧血隕石/地牛翻身/凍僵術 詠唱時間' },
                         { id: '2020-9-18', content: '增加預設技能 地獄火焰/毀滅彗星<br>修改預設技能 碧血隕石/地牛翻身/凍僵術/靈魂爆炸/迴旋刀刃<br>增加額外技能選項 魔力中毒' },
