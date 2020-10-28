@@ -376,16 +376,15 @@
                     <el-row>
                         <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                             <el-row :gutter="4" type="flex" align="left">
-                                咒術士優化更新版本!!<br><br>
-                                浪跡樂師的額外輔助技能只列出跟傷害HP延遲相關<br><br>
-                                修羅的預設技能修羅身彈/爆氣散彈/虎砲/羅剎破凰擊計算OK<br><br>
-                                當要計算拿兩把武器的技能傷害時，物理請把副手類型改為空手，傷害才會正確<br>
-                                魔法技能的話副手正常填精練跟MATK<br><br>
-                                素質點計算支援到200等!<br><br>
-                                擴充職業的HPSP統計中<br><br>
-                                整頁儲存 測試中 不會紀錄額外技能選項<br><br>
-                                拳刃斬首的普攻計算OK了! 雙刀斬首的傷害還無法計算<br>
-                                <br>
+                                十字斬首者優化更新版本!!<br>
+                                優化技能的詠唱延遲時間待確認<br>
+                                不會計算雙持狀況下的普攻傷害<br><br>
+
+                                咒術士優化更新<br>
+                                計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
+                                素質點計算支援到200等!<br>
+                                擴充職業的HPSP統計中<br>
+                                整頁儲存 測試中 不會紀錄額外技能選項<br>
                                 希望有人可以整理分享裝備模擬心得幫文章推上去QQ<br>
                             </el-row>
                         </div>
@@ -578,7 +577,7 @@
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.ranged" active-color="#13ce66"
-                                        v-on:change="ComputeATKAtttibute" inactive-color="#8a9799">
+                                        v-on:change="ComputeATKAtttibute(false)" inactive-color="#8a9799">
                                     </el-switch>
                                 </el-col>
                             </el-row>
@@ -588,7 +587,17 @@
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.critical" active-color="#13ce66"
-                                        v-on:change="ComputeATKAtttibute" inactive-color="#8a9799">
+                                        v-on:change="ComputeATKAtttibute(false)" inactive-color="#8a9799">
+                                    </el-switch>
+                                </el-col>
+                            </el-row>
+                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col class="textcenter" :span="12">
+                                    <span>一半暴率</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-switch v-model="skill.halfcri" active-color="#13ce66"
+                                        v-on:change="onOption" inactive-color="#8a9799">
                                     </el-switch>
                                 </el-col>
                             </el-row>
@@ -712,6 +721,8 @@
                                                         </el-col>
                                                         <el-col v-if="item.skill.critical" class="skilltag" :span="3">暴擊
                                                         </el-col>
+                                                        <el-col v-if="item.skill.halfcri" class="skilltag" :span="3">一半暴率
+                                                        </el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag" :span="3">砲彈
                                                         </el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF" class="skilltag"
@@ -775,6 +786,8 @@
                                                             :span="3">遠傷</el-col>
                                                         <el-col v-if="item.skill.critical" class="skilltag skillline"
                                                             :span="3">暴擊</el-col>
+                                                        <el-col v-if="item.skill.halfcri" class="skilltag skillline"
+                                                            :span="3">一半暴率</el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag skillline"
                                                             :span="3">砲彈</el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF"
@@ -2880,6 +2893,13 @@
                                         </el-col>
                                     </el-row>
                                 </div>
+                                <div v-show="skill.halfcri">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>一半暴率</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
                                 <div v-show="skill.cannon">
                                     <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                         <el-col class="textcenter" :span="12">
@@ -4621,19 +4641,21 @@
                                                 </el-col>
                                             </el-row>
                                             <el-row class="" :gutter="4" type="flex" align="middle" justify="start">
-                                                <el-col :span="6" style="text-align: right;">
+                                                <el-col :span="12" style="text-align: right;">
                                                     <span>武器重量: </span>
                                                 </el-col>
-                                                <el-col :span="6">
+                                                <el-col :span="12">
                                                     <el-input v-model.number="weapon.Weight" placeholder="WGT">
                                                     </el-input>
                                                 </el-col>
-                                                <el-col :span="6" style="text-align: right;">
+                                                <el-col v-if="status.classid=='ME'|status.classid=='GE'" :span="12" style="text-align: right;">
                                                     <span>砲彈ATK: </span>
                                                 </el-col>
-                                                <el-col :span="6">
+                                                <el-col v-if="status.classid=='ME'|status.classid=='GE'" :span="12">
                                                     <el-input v-model.number="weapon.BulletATK" placeholder="砲彈ATK">
                                                     </el-input>
+                                                </el-col>
+                                                <el-col v-else :span="24">
                                                 </el-col>
                                             </el-row>
                                         </el-row>
@@ -6735,14 +6757,12 @@
                     this.OnComputeConsumable();
                 },
                 onStatusChange() {
-                    //this.status.STR = eval(this.$refs.STRInput.value);
                     if (this.status.STR == '') this.status.STR = 0;
                     if (this.status.AGI == '') this.status.AGI = 0;
                     if (this.status.VIT == '') this.status.VIT = 0;
                     if (this.status.INT == '') this.status.INT = 0;
                     if (this.status.DEX == '') this.status.DEX = 0;
                     if (this.status.LUK == '') this.status.LUK = 0;
-                    this.ComputStatus();
                 },
                 RaisingStats(str) {
                     var _String = str + '';
@@ -6758,6 +6778,12 @@
                     return _Pt;
                 },
                 ComputStatus() {
+                    if (this.status.STR == '') this.status.STR = 0;
+                    if (this.status.AGI == '') this.status.AGI = 0;
+                    if (this.status.VIT == '') this.status.VIT = 0;
+                    if (this.status.INT == '') this.status.INT = 0;
+                    if (this.status.DEX == '') this.status.DEX = 0;
+                    if (this.status.LUK == '') this.status.LUK = 0;
                     try {
 
                         if (this.status.classid == null) this.status.classid = 'AB';
@@ -6788,7 +6814,14 @@
                         );
 
                         this.attritube['CRI'] += 2.2 + this.status_total.LUK * 0.3;
-                        if (this.weapon.id == 'Katars') this.attritube['CRI'] = this.attritube['CRI'] * 2;
+                        if (this.weapon.type.id == 'Katars') 
+                        {
+                            this.attritube['CRI'] = this.attritube['CRI'] * 2;
+                        }
+                        if (this.skill.halfcri)
+                        {
+                            this.attritube['CRI'] = this.attritube['CRI'] / 2;
+                        }
                         this.attritube['CRI'] = Math.floor((this.attritube['CRI'] - this.enemyattribute.LUK * 0.2) * 100) / 100;
 
                         this.status.Transcendent = this.ClassInfo.TranscendentClass;
@@ -6905,7 +6938,7 @@
                     this.computeattribute.HitperSec = Math.floor(1 / _MAxDelay * 100) / 100;
                     if (this.computeattribute.HitperSec > 7.14) this.computeattribute.HitperSec = 7.14;
                 },
-                ComputeATKAtttibute() {
+                ComputeATKAtttibute( isNA ) {
 
                     var para1 = this.computeattribute['TransSTR'] / 200;
                     var para2 = this.weapon.level.id * 0.05
@@ -6986,11 +7019,14 @@
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
 
-                    /*                     if (this.subweapon.type.id == 2) {
-                                            this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(0.75));
-                                            this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(0.75));
-                                        } */
-                    var para7 = (this.subweapon.type.id == 2 ? Number(this.attritube['StatusATK']) : Number(this.attritube['StatusATK'] * 2));
+                    var para7 = Number(this.attritube['StatusATK']);
+                    if( isNA ) { //普攻
+                        if( this.subweapon.type.id != 2 ){  //普攻非雙持狀態
+                            para7 += Number(this.attritube['StatusATK']);
+                        }
+                    }else{  //技能
+                        para7 += Number(this.attritube['StatusATK']);
+                    }
                     var para7ele = 100;
                     if (this.enemyattribute.elemental == 8) {
                         para7ele = this.getElementalPercent(
@@ -7411,7 +7447,7 @@
                     this.ClosePanel('DragonBreathPanel');
                     switch (this.skill.DamageTypeIdx) {
                         case 0:
-                            this.ComputeATKAtttibute();
+                            this.ComputeATKAtttibute(false);
                             this.OpenPanel('ATKPanel');
                             break;
                         case 1:
@@ -7431,7 +7467,7 @@
                     return f;
                 },
                 onSpecialATKChange() {
-                    this.ComputeATKAtttibute();
+                    this.ComputeATKAtttibute(false);
                 },
                 onChangeClass(){
                     this.StoreDB_JobMapedSkill = this.DefaultDB_Skill.filter(post => {
@@ -7950,7 +7986,7 @@
                     this.attritube['CD'] = Number(this.effecttypelist.find(x => x.id == 'CDTime').totalvalue);
                     this.attritube['CD'] = -Math.abs(this.attritube['CD']);
 
-                    this.attritube['WeaponATK'] = this.attritube['ATK'] + Number(this.weapon.ATK) + this.weapon.refineatk + this.subweapon.ATK + Number(this.computeattribute['SpecialATK4']);
+                    this.attritube['WeaponATK'] = this.attritube['ATK'] + Number(this.weapon.ATK) + this.weapon.refineatk /*+ this.subweapon.ATK*/ + Number(this.computeattribute['SpecialATK4']);
                     this.attritube['WeaponMATK'] = this.attritube['MATK'] + this.weapon.MATK + this.weapon.refinematk + this.subweapon.MATK;
                     this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue)
                                                                 +Number(this.consumableeffecttypelist.find(x=>x.id=='ElementalMagicPercent').totalvalue);
@@ -8300,6 +8336,7 @@
                     if (this.skill.transWeaponDEF == null) this.skill.transWeaponDEF = false;
                     if (this.skill.laterformula == null) this.skill.laterformula = false;
                     if (this.skill.laterranged == null) this.skill.laterranged = false;
+                    if (this.skill.halfcri == null) this.skill.halfcri = false;
                     if (this.skill.VCT == null) this.skill.VCT = 0;
                     if (this.skill.FCT == null) this.skill.FCT = 0;
                     if (this.skill.CD == null) this.skill.CD = 0;
@@ -8418,6 +8455,7 @@
                     if (this.skill.transWeaponDEF == null) this.skill.transWeaponDEF = false;
                     if (this.skill.laterformula == null) this.skill.laterformula = false;
                     if (this.skill.laterranged == null) this.skill.laterranged = false;
+                    if (this.skill.halfcri == null) this.skill.halfcri = false;
                     if (this.skill.VCT == null) this.skill.VCT = 0;
                     if (this.skill.FCT == null) this.skill.FCT = 0;
                     if (this.skill.CD == null) this.skill.CD = 0;
@@ -8501,9 +8539,11 @@
                         { skill: { id: 'WL_HELLINFERNO(fire)', name: '地獄火焰(火)', level: 5, formula: '(SLV*400)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 1, FCT: 1, VCT: 3, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '暗火須分開計算再加總，待修正', } },
                         { skill: { id: 'WL_COMET', name: '毀滅慧星', level: 5, formula: '(2500+SLV*500)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 2, VCT: 10, CD: 20, GCD: 1.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'AB_ADORAMUS', name: '謳歌', level: 10, formula: '(330+SLV*70)*BLV/100', class: 'AB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 6, FCT: 0.5, VCT: 2, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'GC_CROSSIMPACT', name: '十字斬', level: 5, formula: '(1000+SLV*100)*BLV/120', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'GC_ROLLINGCUTTER', name: '迴旋刀刃', level: 5, formula: '(50+SLV*50)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'GC_CROSSRIPPERSLASHER', name: '迴旋十字斬', level: 5, formula: '(400+SLV*80)*BLV/100+10*AGI', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10*AGI 的10為迴旋刀刃次數，最高10', } },
+                        { skill: { id: 'GC_CROSSIMPACT', name: '十字斬', level: 5, formula: '(1000+SLV*150)*BLV/120', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'GC_ROLLINGCUTTER', name: '迴旋刀刃', level: 5, formula: '(50+SLV*80)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'GC_CROSSRIPPERSLASHER', name: '迴旋十字斬', level: 5, formula: '(SLV*80)*BLV/100+(3*AGI+10*200)', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10*200 的10為迴旋刀刃次數，最高10', } },
+                        { skill: { id: 'ASC_BREAKER', name: '心靈震波', level: 10, formula: '(SLV*140+STR+INT)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0.25, VCT: 0.25, CD: 0.15, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        
                         { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(300+((ESIZE<2)?((ESIZE<1)?400:350):300)*SLV)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.2, VCT: 2.2, CD: 0.65, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據敵方體型變動', } },
                         { skill: { id: 'NC_VULCANARM', name: '火神砲', level: 3, formula: '(SLV*70+DEX)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NC_BOOSTKNUCKLE', name: '噴射飛拳', level: 5, formula: '((200+SLV*100)+DEX)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8664,6 +8704,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-10-28', content: '增加預設十字斬首者技能 心靈震波<br>修改預設技能公式 迴旋刀刃/迴旋十字斬/十字斬<br>增加新技能設定 一半暴率<br>修正拳刃現在會將暴率變為兩倍<br>修改砲彈ATK現在只有在選擇機匠/基因才會出現<br>修改雙持武器時物理技能的填入方式，不需要將副手清空了，但也不會計算雙刀的普攻傷害' },
                         { id: '2020-10-16', content: '修正祈禱文物理增傷計算方式(法傷仍在測試中)<br>增加額外技能選項 各屬性紋章(對敵/我)' },
                         { id: '2020-9-25', content: '修正額外技能選項 拳皇 日星月的奇蹟跟憎惡不能疊加的問題' },
                         { id: '2020-9-20', content: '修正預設技能 碧血隕石/地牛翻身/凍僵術 詠唱時間' },
