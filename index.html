@@ -3177,6 +3177,16 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>劇毒武器</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.GC_POISONINGWEAPON" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('MerchantSkillPage')">
@@ -4994,54 +5004,277 @@
                                         <span>{{computeattribute.sizefix}} %</span>
                                     </el-col>
                                 </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>暴擊率:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{attritube['CRI']}} %</span>
-                                    </el-col>
-                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>暴擊增傷:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{attritube['CRIDP']}} %</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>忽略物防(乘算):</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{attritube['BYPASSDEF']}} %</span>
-                                    </el-col>
-                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>忽略魔防(乘算):</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{attritube['BYPASSMDEF']}} %</span>
-                                    </el-col>
-                                </el-row>
                                 <el-collapse-transition>
-                                    <div v-show="UIPanel['General']">
+                                <div v-show="UIPanel['General']">
+                                    <div v-if="skill.DamageTypeIdx==0">
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>敵方物防係數:</span>
+                                                <span>HP%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="4">
-                                                <span>{{computeattribute.enemydef}} %</span>
+                                                <span>{{attritube['HPP']}} %</span>
                                             </el-col>
                                             <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>敵方魔防係數:</span>
+                                                <span>HP:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="4">
-                                                <span>{{computeattribute.enemymdef}} %</span>
+                                                <span>{{attritube['HP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>SP%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['SPP']}} %</span>
+                                            </el-col>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>SP:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['SP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>暴擊率:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['CRI']}} %</span>
+                                            </el-col>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>暴擊增傷:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['CRIDP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>ATK%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ATKP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>遠傷%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['RNGDP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>近傷%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['MELDP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>物理對屬性%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ElementalAtkPercent']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>物理階級%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['LevelAtkPercent']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>物理種族%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('RaceAtkPercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>物理體型%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('SizeAtkPercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>忽略物防(乘算) %:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['BYPASSDEF']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能增傷%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('SkillDamagePercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能獨延:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['CD']}} s</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能共延%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['GCD']}} %</span>
                                             </el-col>
                                         </el-row>
                                     </div>
+                                    <div v-else-if="skill.DamageTypeIdx==1">
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>HP%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['HPP']}} %</span>
+                                            </el-col>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>HP:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['HP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>SP%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['SPP']}} %</span>
+                                            </el-col>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>SP:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['SP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>MATK%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['MATKP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>屬性魔法%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ElementalMagicPercent']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>對屬性魔物%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('ElementalMatkPercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>魔法階級%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('LevelMatkPercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>魔法種族%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('RaceMatkPercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>魔法體型%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('SizeMatkPercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>忽略魔防(乘算) %:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['BYPASSMDEF']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能增傷%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('SkillDamagePercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能獨延:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['CD']}} s</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能共延%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['GCD']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </div>
                                 </el-collapse-transition>
                                 <el-row class="titlebox" type="flex" align="middle"
                                     style="height:40px; padding: 0px 5px;">
@@ -5076,7 +5309,7 @@
                                                 <span>技能獨延:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{attritube['GCD']}} s</span>
+                                                <span>{{attritube['CD']}} s</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5316,9 +5549,10 @@
                                             </el-row>
                                         </div>
                                     </el-collapse-transition>
+                                    
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                             <span>普攻傷害</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
@@ -5328,26 +5562,32 @@
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                             <span>普攻傷害(暴擊)</span>
                                         </el-col>
-                                        <el-col v-if="weapon.type.id=='Katars'" class="textcenter" :span="10">
+                                        <!--<el-col v-if="weapon.type.id=='Katars'" class="textcenter" :span="10">
                                             <span>{{computeattribute.normalcritical | currency }} +
                                                 {{(Math.floor(computeattribute.normalcritical*0.21)) | currency }}</span>
+                                        </el-col>-->
+                                        <el-col v-if="computeattribute.normalcritical_min==computeattribute.normalcritical_max"
+                                            class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalcritical_max | currency }}</span>
                                         </el-col>
                                         <el-col v-else class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalcritical | currency }}</span>
+                                            <span>{{computeattribute.normalcritical_min | currency }} ~
+                                                {{computeattribute.normalcritical_max | currency }}</span>
                                         </el-col>
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                        <el-col class="" :span="10" style="text-align: right;">
                                             <span>普攻DPS</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
                                             <span>{{computeattribute.normalattack_DPS | currency }}</span>
                                         </el-col>
                                     </el-row>
+                                    
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
@@ -5364,8 +5604,8 @@
                                             <span>技能總傷害</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
-                                            <span>{{this.computeattribute.atkmulti_min | currency }} ~
-                                                {{computeattribute.atkmulti_max | currency }}</span>
+                                            <span>{{this.computeattribute.SkillDamage_min | currency }} ~
+                                                {{computeattribute.SkillDamage_max | currency }}</span>
                                         </el-col>
                                     </el-row>
                                     <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
@@ -5373,13 +5613,18 @@
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
                                             <span>技能傷害(暴擊)</span>
                                         </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.atkskillcritical | currency }}</span>
+                                        <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max" 
+                                            class="textcenter" :span="10">
+                                            <span>{{computeattribute.SkillDamageCRI_min | currency }} ~
+                                                {{computeattribute.skilldamage | currency }}</span>
+                                        </el-col>
+                                        <el-col v-else class="textcenter" :span="10">
+                                            <span>{{computeattribute.SkillDamageCRI_max | currency }}</span>
                                         </el-col>
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                        <el-col class="" :span="10" style="text-align: right;">
                                             <span>技能DPS</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
@@ -5510,7 +5755,7 @@
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                        <el-col class="" :span="10" style="text-align: right;">
                                             <span>技能DPS</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
@@ -5955,6 +6200,9 @@
                     AdvancedKatarReserch: false,    //高階拳刃修練
                     AdvancedKatarReserchValue: 20,
                     GC_DARKCROW: false,             //致命爪痕
+                    GC_POISONINGWEAPON: false,      //劇毒武器
+                    GC_PyrexiaPoison: false,        //熱病之毒
+                    GC_LaughingPoison: false,       //狂笑之毒
                     AS_RIGHT: false,
                     AS_RIGHTLevel: 5,
                     AS_LEFT: false,
@@ -6129,7 +6377,8 @@
 
                     atkc6_min: 0,
                     atkc6_max: 0,
-                    atkskillcritical: 0,  //技能暴擊 
+                    atkskillcritical_min: 0,  //技能暴擊 
+                    atkskillcritical_max: 0,  //技能暴擊 
                     //x 本身 ( 1 + 遠距增傷% ) x ( 1 +暴擊增傷卡裝% )
                     //x 對方為喵族 ( 1 + 10% )x 對方 ( 1 -  遠距減傷% ) x ( 1 - 種族減傷%) x ( 1 - 暴擊減傷%)
 
@@ -6142,6 +6391,8 @@
                     normalattack_min: 0,
                     normalattack_max: 0,
                     normalcritical: 0,
+                    NADamageCRI_min: 0,
+                    NADamageCRI_max: 0,
                     normalattack_DPS: 0,
 
                     atkc8_min: 0,// x ( 1 + 技能增傷的卡裝%) x ( 1 + 技能增傷的技能% )
@@ -6152,6 +6403,10 @@
 
                     atkmulti_min: 0,
                     atkmulti_max: 0,
+                    SkillDamage_min: 0,
+                    SkillDamage_max: 0,
+                    SkillDamageCRI_min: 0,
+                    SkillDamageCRI_max: 0,
                     atkmulti_DPS: 0,
                     /*
                     x ( 二刀連擊 1 + 100% )
@@ -6938,13 +7193,14 @@
                     this.computeattribute.HitperSec = Math.floor(1 / _MAxDelay * 100) / 100;
                     if (this.computeattribute.HitperSec > 7.14) this.computeattribute.HitperSec = 7.14;
                 },
-                ComputeATKAtttibute( isNA ) {
+                ComputeATKAtttibute( isNA, isCRI ) {
 
                     var para1 = this.computeattribute['TransSTR'] / 200;
                     var para2 = this.weapon.level.id * 0.05
                     this.computeattribute.atkc0_min = Math.floor(Number(Number(this.weapon.ATK)) * (1 + para1 - para2));
                     this.computeattribute.atkc0_max = Math.floor(Number(Number(this.weapon.ATK)) * (1 + para1 + para2));
                     if (this.option.MaximizePower) this.computeattribute.atkc0_min = this.computeattribute.atkc0_max;
+                    if (isCRI) this.computeattribute.atkc0_min = this.computeattribute.atkc0_max;
 
                     var para3 = Number(this.weapon.refineatk) + this.computeattribute['SpecialATK1'];
                     var paraminirefineatk2 = this.weapon.refineatk2 > 0 ? 1 : 0;
@@ -7072,41 +7328,45 @@
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, paraSLSO);
                     }
 
-                    //暴擊增傷
-                    var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
-                    if (this.skill.critical) {
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkc5_max, para_crid);
-                    }
                     this.computeattribute.atkc6_min = this.computeattribute.atkc5_min;
                     this.computeattribute.atkc6_max = this.computeattribute.atkc5_max;
-                    this.computeattribute.normalattack_min = this.computeattribute.atkc5_min, para_crid;
-                    this.computeattribute.normalattack_max = this.computeattribute.atkc5_max, para_crid;
-                    this.computeattribute.normalcritical = this.MulOper(this.computeattribute.atkc5_max, para_crid);
+                    //暴擊增傷
+                    var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
+                    if( isNA ){
+                        if( isCRI ){
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_crid);
+                        }
+                    }
+                    else{
+                        if( this.skill.critical && isCRI ){
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_crid);
+                        }
+                    }
 
                     //遠程增傷 this.skill.laterranged分前後段
                     var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
                     //近戰傷害
-                    var para_melee = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue) / 100;
-                    if (this.skill.ranged && this.skill.laterranged == false) {
-                        this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
-                        this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
-                    }else if(this.skill.ranged == false){
-                        this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
-                        this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_melee);
-                    }
+                    var para_melee = Number(1) + Number(this.attritube['MELDP']) / 100;
 
-                    if (this.weapon.type.isRangedattack) {
-                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, para_ranged);
-                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, para_ranged);
-                        this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, para_ranged);
+                    if( isNA ){
+                        if (this.weapon.type.isRangedattack) {
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
+                        }else{
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
+                        }
                     }else{
-                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, para_melee);
-                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, para_melee);
-                        this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, para_melee);
+                        if (this.skill.ranged && this.skill.laterranged == false) {
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
+                        }else if(this.skill.ranged == false){
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
+                        }
                     }
-
 
                     //技能倍率 
                     var para_sk = Number(1) + Number(this.computeattribute['SpecialATK5'] / 100);
@@ -7114,21 +7374,19 @@
                     var para8 = this.MulOper(Math.floor(Number(this.option.SkillPercent)), para_sk) + Number(para_na); // 這邊不確定SpecialATK3跟 para8要 先乘再加 還是 先加再乘
                     para_na = Number(1) + Number(para_na / 100);
                     para8 = Number(para8 / 100);
-                    this.computeattribute.atkc7_min = this.MulOper(this.computeattribute.atkc6_min, para8);
-                    this.computeattribute.atkc7_max = this.MulOper(this.computeattribute.atkc6_max, para8);
-                    this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para8);
-                    this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, para_na);
-                    this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, para_na);
-                    this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, para_na);
+
+                    if( isNA ){
+                        this.computeattribute.atkc7_min = this.MulOper(this.computeattribute.atkc6_min, para_na);
+                        this.computeattribute.atkc7_max = this.MulOper(this.computeattribute.atkc6_max, para_na);
+                    }else{
+                        this.computeattribute.atkc7_min = this.MulOper(this.computeattribute.atkc6_min, para8);
+                        this.computeattribute.atkc7_max = this.MulOper(this.computeattribute.atkc6_max, para8);
+                    }
                     //高階拳刃修練
                     if (this.option.AdvancedKatarReserch) {
                         var paraAdvancedKatarReserchValue = Number(1) + Number(this.option.AdvancedKatarReserchValue / 100);
                         this.computeattribute.atkc7_min = this.MulOper(this.computeattribute.atkc7_min, paraAdvancedKatarReserchValue);
                         this.computeattribute.atkc7_max = this.MulOper(this.computeattribute.atkc7_max, paraAdvancedKatarReserchValue);
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, paraAdvancedKatarReserchValue);
-                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, paraAdvancedKatarReserchValue);
-                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, paraAdvancedKatarReserchValue);
-                        this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, paraAdvancedKatarReserchValue);
                     }
                     //敵方DEF
                     if (this.option.IgnoreDEF == false) {
@@ -7136,87 +7394,72 @@
                         var paraDEF = ((4000 + this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)) /
                             (4000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponDEF), parabypassDEF)));
                         this.computeattribute.enemydef = (paraDEF * 100).toFixed(2);
-                        if (this.skill.transWeaponDEF) {
+                        if (isNA==false && this.skill.transWeaponDEF) {
                             this.computeattribute.atkc7_min = this.computeattribute.atkc7_min - Number(this.enemyattribute.WeaponDEF) - Number(this.enemyattribute.StatusDEF);
                             this.computeattribute.atkc7_max = this.computeattribute.atkc7_max - Number(this.enemyattribute.WeaponDEF) - Number(this.enemyattribute.StatusDEF);
-                            this.computeattribute.atkskillcritical = this.computeattribute.atkskillcritical - Number(this.enemyattribute.WeaponDEF) - Number(this.enemyattribute.StatusDEF);
                         } else {
                             this.computeattribute.atkc7_min = Math.floor(this.computeattribute.atkc7_min * paraDEF) - Number(this.enemyattribute.StatusDEF);
                             this.computeattribute.atkc7_max = Math.floor(this.computeattribute.atkc7_max * paraDEF) - Number(this.enemyattribute.StatusDEF);
-                            this.computeattribute.atkskillcritical = Math.floor(this.computeattribute.atkskillcritical * paraDEF) - Number(this.enemyattribute.StatusDEF);
                         }
-                        this.computeattribute.normalattack_min = Math.floor(this.computeattribute.normalattack_min * paraDEF) - Number(this.enemyattribute.StatusDEF);
-                        this.computeattribute.normalattack_max = Math.floor(this.computeattribute.normalattack_max * paraDEF) - Number(this.enemyattribute.StatusDEF);
-                        this.computeattribute.normalcritical = Math.floor(this.computeattribute.normalcritical * paraDEF) - Number(this.enemyattribute.StatusDEF);
                     }
 
                     this.computeattribute.atkc8_min = this.computeattribute.atkc7_min;
                     this.computeattribute.atkc8_max = this.computeattribute.atkc7_max;
-                    /* 可能寫錯位置 移去後面 靈氣劍待測
+
+                    if ( isNA && this.subweapon.type.id == 2) {
+                        this.computeattribute.atkc8_min = Math.floor(this.computeattribute.atkc7_min * Number(this.computeattribute['SpecialRLHand'] / 100));
+                        this.computeattribute.atkc8_max = Math.floor(this.computeattribute.atkc7_max * Number(this.computeattribute['SpecialRLHand'] / 100));
+                    }
+
+                    if( isNA == false ){
+                        // 技能遠傷
+                        if (this.skill.ranged && this.skill.laterranged) {
+                            this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, para_ranged);
+                            this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, para_ranged);
+                        }
+                        // 技能增傷裝
+                        this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
+                        this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
+                    }
                     var parasp6 = Number(this.computeattribute['SpecialATK7']);
                     this.computeattribute.atkc8_min += parasp6;
                     this.computeattribute.atkc8_max += parasp6;
-                    this.computeattribute.atkskillcritical += parasp6;
-                    this.computeattribute.normalattack_min += parasp6;
-                    this.computeattribute.normalattack_max += parasp6;
-                    this.computeattribute.normalcritical += parasp6;
-                    */
-                    if (this.subweapon.type.id == 2) {
-                        this.computeattribute.normalattack_min = Math.floor(this.computeattribute.normalattack_min * Number(this.computeattribute['SpecialRLHand'] / 100));
-                        this.computeattribute.normalattack_max = Math.floor(this.computeattribute.normalattack_max * Number(this.computeattribute['SpecialRLHand'] / 100));
-                        this.computeattribute.normalcritical = Math.floor(this.computeattribute.normalcritical * Number(this.computeattribute['SpecialRLHand'] / 100));
-                    }
-
-                    var _CRIRate = this.attritube['CRI'];
-                    var _CRIRateN = this.clamp(100 - _CRIRate, 0, 100);
-                    this.computeattribute.normalattack_DPS = Math.floor((this.computeattribute.normalattack_min + this.computeattribute.normalattack_max) / 2) * _CRIRateN / 100 +
-                        this.computeattribute.normalcritical * _CRIRate;
-
-                    // 技能遠傷
-                    if (this.skill.ranged && this.skill.laterranged) {
-                        this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, para_ranged);
-                        this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, para_ranged);
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, para_ranged);
-                    }
-                    // 技能增傷裝
-                    this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
-                    this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
-                    this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
-
-                    var parasp6 = Number(this.computeattribute['SpecialATK7']);
-                    this.computeattribute.atkc8_min += parasp6;
-                    this.computeattribute.atkc8_max += parasp6;
-                    this.computeattribute.atkskillcritical += parasp6;
-                    this.computeattribute.normalattack_min += parasp6;
-                    this.computeattribute.normalattack_max += parasp6;
-                    this.computeattribute.normalcritical += parasp6;
 
                     this.computeattribute.atkc9_min = this.computeattribute.atkc8_min;
                     this.computeattribute.atkc9_max = this.computeattribute.atkc8_max;
-                    // 技能暴擊 *1.4
-                    if (this.skill.critical) {
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                    
+                    if( isNA ){
+                        // 普攻暴擊 *1.4
+                        if( isCRI ){
+                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                        }
+                    }else{
+                        // 技能暴擊 *1.4
+                        if (this.skill.critical && isCRI) {
+                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                        }
                     }
-                    // 普攻暴擊 *1.4
-                    this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(this.option.BaseCriticalValue / 100));
 
                     // 爪痕
-                    if (this.option.GC_DARKCROW && this.skill.ranged == false) {
-                        this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(150 / 100));
-                        this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(150 / 100));
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, Number(1) + Number(150 / 100));
-                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, Number(1) + Number(150 / 100));
-                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, Number(1) + Number(150 / 100));
-                        this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(150 / 100));
+                    if (this.option.GC_DARKCROW ) {
+                        if( isNA ){
+                            if (this.weapon.type.isRangedattack == false) {
+                                this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(150 / 100));
+                                this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(150 / 100));
+                            }
+                        }else{
+                            if( this.skill.ranged == false ){
+                                this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(150 / 100));
+                                this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(150 / 100));
+                            }
+                        }
                     }
                     // 天怒
                     if (this.option.PR_LEXAETERNA) {
                         this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(100 / 100));
                         this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(100 / 100));
-                        this.computeattribute.atkskillcritical = this.MulOper(this.computeattribute.atkskillcritical, Number(1) + Number(100 / 100));
-                        this.computeattribute.normalattack_min = this.MulOper(this.computeattribute.normalattack_min, Number(1) + Number(100 / 100));
-                        this.computeattribute.normalattack_max = this.MulOper(this.computeattribute.normalattack_max, Number(1) + Number(100 / 100));
-                        this.computeattribute.normalcritical = this.MulOper(this.computeattribute.normalcritical, Number(1) + Number(100 / 100));
                     }
 
                     var _paradiv = this.skill.hitnumber;
@@ -7228,20 +7471,31 @@
                     }
                     this.computeattribute.atkmulti_min = this.computeattribute.atkc9_min * _paradiv;
                     this.computeattribute.atkmulti_max = this.computeattribute.atkc9_max * _paradiv;
+
+                    if( isNA ){
+                        if( isCRI ){
+                            this.computeattribute.normalcritical_min = this.computeattribute.atkc9_min;
+                            this.computeattribute.normalcritical_max = this.computeattribute.atkc9_max;
+                        }else{
+                            this.computeattribute.normalattack_min = this.computeattribute.atkc9_min;
+                            this.computeattribute.normalattack_max = this.computeattribute.atkc9_max;
+                        }
+                    }else{
+                        if( isCRI ){
+                            this.computeattribute.SkillDamageCRI_min = this.computeattribute.atkmulti_min;
+                            this.computeattribute.SkillDamageCRI_max = this.computeattribute.atkmulti_max;
+                        }else{
+                            this.computeattribute.SkillDamage_min = this.computeattribute.atkmulti_min;
+                            this.computeattribute.SkillDamage_max = this.computeattribute.atkmulti_max;
+                        }
+                    }
+                },
+                ComputeATKDPS( Dmin, Dmax, DCmin, DCmax ){
                     var _CRIRate = this.attritube['CRI'];
                     var _CRIRateN = this.clamp(100 - _CRIRate, 0, 100);
-                    this.computeattribute.normalattack_DPS = Math.floor((this.computeattribute.normalattack_min + this.computeattribute.normalattack_max) / 2) * _CRIRateN / 100 +
-                        this.computeattribute.normalcritical * _CRIRate / 100;
-                    this.computeattribute.normalattack_DPS = Math.floor(this.computeattribute.normalattack_DPS * this.computeattribute.HitperSec * 100) / 100;
-                    if (this.weapon.type.id == 'Katars')
-                        this.computeattribute.normalattack_DPS = Math.floor(this.computeattribute.normalattack_DPS * 1.21 * 100) / 100;
-                    this.computeattribute.atkmulti_DPS = Math.floor((this.computeattribute.atkmulti_min + this.computeattribute.atkmulti_max) / 2)
-                    if (this.skill.critical) {
-                        this.computeattribute.atkmulti_DPS = this.computeattribute.atkmulti_DPS * _CRIRateN / 100 +
-                            this.computeattribute.atkskillcritical * _CRIRate / 100;
-                    }
-                    this.computeattribute.atkmulti_DPS = Math.floor(this.computeattribute.atkmulti_DPS * this.computeattribute.HitperSec * 100) / 100;
-
+                    var _DPS = (Math.floor((Dmin+Dmax)/2)*_CRIRateN/100) + (Math.floor((DCmin+DCmax)/2)*_CRIRate/100);
+                    _DPS = Math.floor(_DPS * this.computeattribute.HitperSec * 100) / 100;
+                    return _DPS;
                 },
                 MulOper(value, percent) {
                     if (percent > 1) {
@@ -7447,7 +7701,22 @@
                     this.ClosePanel('DragonBreathPanel');
                     switch (this.skill.DamageTypeIdx) {
                         case 0:
-                            this.ComputeATKAtttibute(false);
+                            this.ComputeATKAtttibute(true, true);
+                            this.ComputeATKAtttibute(true, false);
+                            this.computeattribute.normalattack_DPS = this.ComputeATKDPS(
+                                this.computeattribute.normalattack_min,  
+                                this.computeattribute.normalattack_max,
+                                this.computeattribute.normalcritical_min,  
+                                this.computeattribute.normalcritical_max,  
+                            );
+                            this.ComputeATKAtttibute(false, true);
+                            this.ComputeATKAtttibute(false, false);
+                            this.computeattribute.atkmulti_DPS = this.ComputeATKDPS(
+                                this.computeattribute.SkillDamage_min,
+                                this.computeattribute.SkillDamage_max,
+                                this.computeattribute.SkillDamageCRI_min,
+                                this.computeattribute.SkillDamageCRI_max,
+                            );
                             this.OpenPanel('ATKPanel');
                             break;
                         case 1:
@@ -7572,6 +7841,10 @@
                         if (this.skilloption.AttackElementalIdx == 5) {
                             this.computeattribute['SpecialATK3'] = this.option.VENOMIMPRESSLevel * 10;
                         }
+                    }
+                    // 劇毒武器
+                    if (this.option.GC_POISONINGWEAPON){
+                        this.attritube['MELDP'] += 10;
                     }
                     // 大聲吶喊
                     if (this.option.Loud) {
@@ -7961,6 +8234,7 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='CriDamagePercent').totalvalue);
                     this.attritube['RNGDP'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamagePercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='RangedDamagePercent').totalvalue);
+                    this.attritube['MELDP'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue);
                     this.attritube['BYPASSDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassDEFPercent').totalvalue);
                     if (this.attritube['BYPASSDEF'] > 100) this.attritube['BYPASSDEF'] = 100;
                     this.attritube['BYPASSMDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue);
@@ -8704,6 +8978,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-11-4', content: '"一般"總覽頁面增加更多整合資料<br>增加額外技能選項 劇毒武器<br>修改暴擊傷害浮動顯示方式' },
                         { id: '2020-10-29', content: '修正預設技能 十字斬技能BLV倍率為100' },
                         { id: '2020-10-28-1', content: '增加預設十字斬首者技能 心靈震波<br>修改預設技能公式 迴旋刀刃/迴旋十字斬/十字斬<br>增加新技能設定 一半暴率<br>修正拳刃現在會將暴率變為兩倍<br>修改砲彈ATK現在只有在選擇機匠/基因才會出現<br>修改雙持武器時物理技能的填入方式，不需要將副手清空了，但也不會計算雙刀的普攻傷害<br>修正預設技能 凍僵術技能倍率' },
                         { id: '2020-10-16', content: '修正祈禱文物理增傷計算方式(法傷仍在測試中)<br>增加額外技能選項 各屬性紋章(對敵/我)' },
