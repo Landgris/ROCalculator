@@ -3420,6 +3420,16 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>陷阱研究</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.RA_RESEARCHTRAP" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </el-collapse-transition>
                                 <div v-on:click="TogglePanel('BardDancerSkillPage')">
@@ -3465,6 +3475,16 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
                                                 <el-switch v-model="option.MI_RUSH_WINDMILL" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>女神之吻</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.DC_FORTUNEKISS" v-on:change="onOption"
                                                     active-color="#13ce66" inactive-color="#8a9799">
                                                 </el-switch>
                                             </el-col>
@@ -3521,23 +3541,23 @@
                                         </el-row>
                                     </div>
                                 </el-collapse-transition>
-                                <div v-on:click="TogglePanel('MageSkillPage')">
+                                <div v-on:click="TogglePanel('WarlockSkillPage')">
                                     <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
                                         <el-col class="textcenter" :span="2">
                                         </el-col>
                                         <el-col class="textcenter" :span="20">
-                                            <span class="textcenter">魔法師</span>
+                                            <span class="textcenter">咒術士</span>
                                         </el-col>
-                                        <el-col v-if="UIPanel['MageSkillPage']" class="textcenter" :span="2">
+                                        <el-col v-if="UIPanel['WarlockSkillPage']" class="textcenter" :span="2">
                                             <i class="el-icon-arrow-down"></i>
                                         </el-col>
-                                        <el-col v-else="UIPanel['MageSkillPage']" class="textcenter" :span="2">
+                                        <el-col v-else="UIPanel['WarlockSkillPage']" class="textcenter" :span="2">
                                             <i class="el-icon-arrow-up"></i>
                                         </el-col>
                                     </el-row>
                                 </div>
                                 <el-collapse-transition>
-                                    <div v-show="UIPanel['MageSkillPage']">
+                                    <div v-show="UIPanel['WarlockSkillPage']">
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
                                                 <span>魔法省悟</span>
@@ -3578,6 +3598,25 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
+                                    </div>
+                                </el-collapse-transition>
+                                <div v-on:click="TogglePanel('SorcererSkillPage')">
+                                    <el-row class="subtitlebox" type="flex" align="middle" style="height:40px;">
+                                        <el-col class="textcenter" :span="2">
+                                        </el-col>
+                                        <el-col class="textcenter" :span="20">
+                                            <span class="textcenter">妖術師</span>
+                                        </el-col>
+                                        <el-col v-if="UIPanel['SorcererSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-down"></i>
+                                        </el-col>
+                                        <el-col v-else="UIPanel['SorcererSkillPage']" class="textcenter" :span="2">
+                                            <i class="el-icon-arrow-up"></i>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['SorcererSkillPage']">
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
                                                 <span>打擊強化</span>
@@ -6263,10 +6302,12 @@
                     TrueSightValue: 20,
                     UNLIMIT: false,                 //精英狙擊
                     UNLIMITLevel: 5,
+                    RA_RESEARCHTRAP: false,         // 陷阱研究
 
                     MusicalDancingLesson: false,    // 操控樂器練習舞蹈
                     BA_POEMBRAGI: false,            // 布萊奇之詩
                     MI_RUSH_WINDMILL: false,        // 朝風車突擊
+                    DC_FORTUNEKISS: false,          // 女神之吻
                     WA_MOONLIT_SERENADE: false,     // 月光小夜曲
                     WA_SWING_DANCE: false,          // 搖擺舞 
                     WM_LERADS_DEW: false,           // 雷拉多露水
@@ -6485,6 +6526,8 @@
                     DragonBreathCompute: false,
                     SwordmanSkillPage: false,
                     MageSkillPage: false,
+                    WarlockSkillPage: false,
+                    SorcererSkillPage: false,
                     ArcherSkillPage: false,
                     BardDancerSkillPage: false,
                     MerchantSkillPage: false,
@@ -7900,6 +7943,10 @@
                     if (this.option.UNLIMIT) {
                         this.attritube['RNGDP'] += this.option.UNLIMITLevel * 50 + 100;
                     }
+                    if (this.option.RA_RESEARCHTRAP){
+                        this.status_add.INT += 10;
+                        this.attritube['SP'] += 400;
+                    }
                     // 練習舞蹈
                     if (this.option.MusicalDancingLesson) {
                         this.attritube['ATK'] += 3 * 10;
@@ -7912,6 +7959,11 @@
                     // 朝風車突擊
                     if (this.option.MI_RUSH_WINDMILL) {
                         this.attritube['ATK'] += 20+2*10;
+                    }
+                    // 女神之吻
+                    if (this.option.DC_FORTUNEKISS){
+                        this.attritube['CRI'] += 10;
+                        this.attritube['CRIDP'] += 20;
                     }
                     // 月光小夜曲
                     if (this.option.WA_MOONLIT_SERENADE) {
@@ -8978,6 +9030,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-11-6', content: '增加額外技能選項 女神之吻/陷阱研究<br>額外技能選項 魔法師分類現在被分為咒術士跟妖術師' },
                         { id: '2020-11-4-1', content: '"一般"總覽頁面增加更多整合資料<br>增加額外技能選項 劇毒武器<br>修改暴擊傷害浮動顯示方式<br>修正設定部分精練值會導致計算機無回應的BUG' },
                         { id: '2020-10-29', content: '修正預設技能 十字斬技能BLV倍率為100' },
                         { id: '2020-10-28-1', content: '增加預設十字斬首者技能 心靈震波<br>修改預設技能公式 迴旋刀刃/迴旋十字斬/十字斬<br>增加新技能設定 一半暴率<br>修正拳刃現在會將暴率變為兩倍<br>修改砲彈ATK現在只有在選擇機匠/基因才會出現<br>修改雙持武器時物理技能的填入方式，不需要將副手清空了，但也不會計算雙刀的普攻傷害<br>修正預設技能 凍僵術技能倍率' },
