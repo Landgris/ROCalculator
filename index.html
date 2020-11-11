@@ -8492,6 +8492,7 @@
                         this.StoreDB_Equip.splice(_dbidx, 1)
                         this.SaveEquipDB();
                     }
+                    this.onFliterEquipPart();
                 },
                 onOpenEquipDB() {
                     if( this.StoreDB_SearchString.trim() != '' ){
@@ -9030,6 +9031,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-11-11', content: '修正裝備儲存頁面 當選擇部位同時刪除裝備時，畫面不會立即更新的BUG' },
                         { id: '2020-11-6', content: '增加額外技能選項 女神之吻/陷阱研究<br>額外技能選項 魔法師分類現在被分為咒術士跟妖術師' },
                         { id: '2020-11-4-1', content: '"一般"總覽頁面增加更多整合資料<br>增加額外技能選項 劇毒武器<br>修改暴擊傷害浮動顯示方式<br>修正設定部分精練值會導致計算機無回應的BUG' },
                         { id: '2020-10-29', content: '修正預設技能 十字斬技能BLV倍率為100' },
