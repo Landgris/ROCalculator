@@ -376,11 +376,9 @@
                     <el-row>
                         <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                             <el-row :gutter="4" type="flex" align="left">
-                                十字斬首者優化更新版本!!<br>
-                                優化技能的詠唱延遲時間待確認<br>
+                                盧恩騎士更新版本!!<br>
                                 不會計算雙持狀況下的普攻傷害<br><br>
 
-                                咒術士優化更新<br>
                                 計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
                                 素質點計算支援到200等!<br>
                                 擴充職業的HPSP統計中<br>
@@ -8846,7 +8844,7 @@
                                         } */
 
                     this.DefaultDB_Skill.push(
-                        { skill: { id: 'RK_WINDCUTTER', name: '風壓飛刃', level: 5, formula: "((WTI=='TwoHandedSword')?250:((WTI=='Spears')?400:300))*SLV*((WTI=='TwoHandedSword')?2:1)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: '(95-SLV*15)/100', GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'RK_WINDCUTTER', name: '風壓飛刃', level: 5, formula: "((WTI=='TwoHandedSword')?250:((WTI=='Spears')?400:300))*SLV*((WTI=='TwoHandedSword')?2:1)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: '(95-SLV*15)/100', GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '雙手劍/矛/其他武器時倍率會不同', } },
                         { skill: { id: 'RK_IGNITIONBREAK', name: '致命爆裂', level: 5, formula: "SLV*400*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, halfcri:true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'RK_HUNDREDSPEAR', name: '百矛穿刺', level: 10, formula: "600+SLV*200*BLV/100+5*50", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: "(11-SLV)/10", CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5*50的5為螺旋擊刺等級', } },
                         { skill: { id: 'RK_SONICWAVE', name: '音速衝擊波', level: 10, formula: "(500+SLV*100)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: true, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
