@@ -2838,13 +2838,13 @@
                                                 <el-input v-model="skill.FCT" v-on:input="onOption" placeholder="時間">
                                                 </el-input>
                                             </el-col>
-                                            <el-col class="textcenter" :span="1">秒</el-col>
+                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.FCT)) }}s</el-col>
                                             <el-col class="textcenter" :span="6">變動詠唱</el-col>
                                             <el-col :span="4">
                                                 <el-input v-model="skill.VCT" v-on:input="onOption" placeholder="時間">
                                                 </el-input>
                                             </el-col>
-                                            <el-col class="textcenter" :span="1">秒</el-col>
+                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.VCT)) }}s</el-col>
                                         </el-row>
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
@@ -2853,13 +2853,13 @@
                                                 <el-input v-model="skill.CD" v-on:input="onOption" placeholder="時間">
                                                 </el-input>
                                             </el-col>
-                                            <el-col class="textcenter" :span="1">秒</el-col>
+                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.CD)) }}s</el-col>
                                             <el-col class="textcenter" :span="6">共通延遲</el-col>
                                             <el-col :span="4">
                                                 <el-input v-model="skill.GCD" v-on:input="onOption" placeholder="時間">
                                                 </el-input>
                                             </el-col>
-                                            <el-col class="textcenter" :span="1">秒</el-col>
+                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.GCD)) }}s</el-col>
                                         </el-row>
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
@@ -4984,6 +4984,369 @@
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                         <el-row>
                             <div class="Attribute">
+                                <div v-show="UIPanel['ATKPanel']">
+                                    <el-row class="titlebox" type="flex" align="middle"
+                                        style="height:40px; padding: 0px 5px;">
+                                        <el-col class="textcenter" :span="3">
+                                        </el-col>
+                                        <el-col class="textcenter" :span="18">
+                                            <span class="textcenter">ATK計算</span>
+                                        </el-col>
+                                        <el-col v-if="UIPanel['ATKCompute']" class="textcenter" :span="3">
+                                            <el-button type="info" v-on:click="TogglePanel('ATKCompute')" size="mini"><i
+                                                    class="el-icon-arrow-down"></i></el-button>
+                                        </el-col>
+                                        <el-col v-else class="textcenter" :span="3">
+                                            <el-button type="info" v-on:click="TogglePanel('ATKCompute')" size="mini"><i
+                                                    class="el-icon-arrow-up"></i></el-button>
+                                        </el-col>
+                                    </el-row>
+                                    <el-collapse-transition>
+                                        <div v-show="UIPanel['ATKCompute']">
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>基礎ATK:</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc0_min}} ~
+                                                        {{computeattribute.atkc0_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>精練&特殊ATK加值</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc1_min}} ~
+                                                        {{computeattribute.atkc1_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>體型修正&箭矢傷害</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc2_min}} ~
+                                                        {{computeattribute.atkc2_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>總武器ATK</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.weaponatk_min}} ~
+                                                        {{computeattribute.weaponatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>種族階級體型屬性</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkequip_min}} ~
+                                                        {{computeattribute.atkequip_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>ATK%</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkbranch_min}} ~
+                                                        {{computeattribute.atkbranch_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>後ATK(上面兩個和)</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc4_min}} ~
+                                                        {{computeattribute.atkc4_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>最終ATK</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc5_min}} ~
+                                                        {{computeattribute.atkc5_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>暴傷遠傷%</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc6_min}} ~
+                                                        {{computeattribute.atkc6_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>技能倍率&敵方DEF</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.atkc7_min}} ~
+                                                        {{computeattribute.atkc7_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-collapse-transition>
+                                    
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                            <span>普攻傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalattack_min | currency }} ~
+                                                {{computeattribute.normalattack_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                            <span>普攻傷害(暴擊)</span>
+                                        </el-col>
+                                        <!--<el-col v-if="weapon.type.id=='Katars'" class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalcritical | currency }} +
+                                                {{(Math.floor(computeattribute.normalcritical*0.21)) | currency }}</span>
+                                        </el-col>-->
+                                        <el-col v-if="computeattribute.normalcritical_min==computeattribute.normalcritical_max"
+                                            class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalcritical_max | currency }}</span>
+                                        </el-col>
+                                        <el-col v-else class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalcritical_min | currency }} ~
+                                                {{computeattribute.normalcritical_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="" :span="10" style="text-align: right;">
+                                            <span>普攻DPS</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.normalattack_DPS | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.atkc9_min | currency }} ~
+                                                {{computeattribute.atkc9_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="skill.hitnumber>1||skill.hitnumber<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
+                                        align="middle" justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能總傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{this.computeattribute.SkillDamage_min | currency }} ~
+                                                {{computeattribute.SkillDamage_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
+                                        justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害(暴擊)</span>
+                                        </el-col>
+                                        <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max" 
+                                            class="textcenter" :span="10">
+                                            <span>{{computeattribute.SkillDamageCRI_min | currency }} ~
+                                                {{computeattribute.SkillDamageCRI_max | currency }}</span>
+                                        </el-col>
+                                        <el-col v-else class="textcenter" :span="10">
+                                            <span>{{computeattribute.SkillDamageCRI_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="" :span="10" style="text-align: right;">
+                                            <span>技能DPS</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{ computeattribute.atkmulti_DPS | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="UIPanel['MATKPanel']">
+                                    <el-row class="titlebox" type="flex" align="middle"
+                                        style="height:40px; padding: 0px 5px;">
+                                        <el-col class="textcenter" :span="3">
+                                        </el-col>
+                                        <el-col class="textcenter" :span="18">
+                                            <span class="textcenter">MATK計算</span>
+                                        </el-col>
+                                        <el-col v-if="UIPanel['MATKCompute']" class="textcenter" :span="3">
+                                            <el-button type="info" v-on:click="TogglePanel('MATKCompute')" size="mini">
+                                                <i class="el-icon-arrow-down"></i></el-button>
+                                        </el-col>
+                                        <el-col v-else class="textcenter" :span="3">
+                                            <el-button type="info" v-on:click="TogglePanel('MATKCompute')" size="mini">
+                                                <i class="el-icon-arrow-up"></i></el-button>
+                                        </el-col>
+                                    </el-row>
+                                    <el-collapse-transition>
+                                        <div v-show="UIPanel['MATKCompute']">
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>武器MATK</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.weaponmatk_min}} ~
+                                                        {{computeattribute.weaponmatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>裝備MATK&魔力增幅</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.equipmatk_min}} ~
+                                                        {{computeattribute.equipmatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>MATK%</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.matkpercent_min}} ~
+                                                        {{computeattribute.matkpercent_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>最終MATK</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.finalmatk_min}} ~
+                                                        {{computeattribute.finalmatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>敵方減傷</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.matk1_min}} ~
+                                                        {{computeattribute.matk1_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>技能倍率</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.skillmatk_min}} ~
+                                                        {{computeattribute.skillmatk_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>敵方MDEF</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.matk2_min}} ~
+                                                        {{computeattribute.matk2_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:40px;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>技能增傷</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{computeattribute.matk3_min}} ~
+                                                        {{computeattribute.matk3_max}}</span>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-collapse-transition>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.matk4_min | currency }} ~
+                                                {{computeattribute.matk4_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
+                                        align="middle" justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能總傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.matkmulti_min | currency }} ~
+                                                {{computeattribute.matkmulti_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="" :span="10" style="text-align: right;">
+                                            <span>技能DPS</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.matkmulti_min_DPS | currency }} ~
+                                                {{computeattribute.matkmulti_max_DPS | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="UIPanel['DragonBreathPanel']">
+                                    <el-row class="titlebox" type="flex" align="middle" style="height:40px;">
+                                        <el-col class="textcenter" :span="2">
+                                        </el-col>
+                                        <el-col class="textcenter" :span="20">
+                                            <span class="textcenter">龍之吐息計算</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.DragonBreathDMG | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能DPS</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.DragonBreathDMG_DPS | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
                                 <el-row class="titlebox" type="flex" align="middle"
                                     style="height:40px; padding: 0px 5px;">
                                     <el-col class="textcenter" :span="3">
@@ -5457,369 +5820,6 @@
                                         <span>{{computeattribute['HitperSec']}}</span>
                                     </el-col>
                                 </el-row>
-                                <div v-show="UIPanel['ATKPanel']">
-                                    <el-row class="titlebox" type="flex" align="middle"
-                                        style="height:40px; padding: 0px 5px;">
-                                        <el-col class="textcenter" :span="3">
-                                        </el-col>
-                                        <el-col class="textcenter" :span="18">
-                                            <span class="textcenter">ATK計算</span>
-                                        </el-col>
-                                        <el-col v-if="UIPanel['ATKCompute']" class="textcenter" :span="3">
-                                            <el-button type="info" v-on:click="TogglePanel('ATKCompute')" size="mini"><i
-                                                    class="el-icon-arrow-down"></i></el-button>
-                                        </el-col>
-                                        <el-col v-else class="textcenter" :span="3">
-                                            <el-button type="info" v-on:click="TogglePanel('ATKCompute')" size="mini"><i
-                                                    class="el-icon-arrow-up"></i></el-button>
-                                        </el-col>
-                                    </el-row>
-                                    <el-collapse-transition>
-                                        <div v-show="UIPanel['ATKCompute']">
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>基礎ATK:</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkc0_min}} ~
-                                                        {{computeattribute.atkc0_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>精練&特殊ATK加值</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkc1_min}} ~
-                                                        {{computeattribute.atkc1_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>體型修正&箭矢傷害</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkc2_min}} ~
-                                                        {{computeattribute.atkc2_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>總武器ATK</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.weaponatk_min}} ~
-                                                        {{computeattribute.weaponatk_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>種族階級體型屬性</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkequip_min}} ~
-                                                        {{computeattribute.atkequip_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>ATK%</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkbranch_min}} ~
-                                                        {{computeattribute.atkbranch_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>後ATK(上面兩個和)</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkc4_min}} ~
-                                                        {{computeattribute.atkc4_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>最終ATK</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkc5_min}} ~
-                                                        {{computeattribute.atkc5_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>暴傷遠傷%</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkc6_min}} ~
-                                                        {{computeattribute.atkc6_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>技能倍率&敵方DEF</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.atkc7_min}} ~
-                                                        {{computeattribute.atkc7_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                        </div>
-                                    </el-collapse-transition>
-                                    
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                            <span>普攻傷害</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalattack_min | currency }} ~
-                                                {{computeattribute.normalattack_max | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                            <span>普攻傷害(暴擊)</span>
-                                        </el-col>
-                                        <!--<el-col v-if="weapon.type.id=='Katars'" class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalcritical | currency }} +
-                                                {{(Math.floor(computeattribute.normalcritical*0.21)) | currency }}</span>
-                                        </el-col>-->
-                                        <el-col v-if="computeattribute.normalcritical_min==computeattribute.normalcritical_max"
-                                            class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalcritical_max | currency }}</span>
-                                        </el-col>
-                                        <el-col v-else class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalcritical_min | currency }} ~
-                                                {{computeattribute.normalcritical_max | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="" :span="10" style="text-align: right;">
-                                            <span>普攻DPS</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.normalattack_DPS | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能傷害</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.atkc9_min | currency }} ~
-                                                {{computeattribute.atkc9_max | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row v-if="skill.hitnumber>1||skill.hitnumber<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
-                                        align="middle" justify="space-around" style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能總傷害</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{this.computeattribute.SkillDamage_min | currency }} ~
-                                                {{computeattribute.SkillDamage_max | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
-                                        justify="space-around" style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能傷害(暴擊)</span>
-                                        </el-col>
-                                        <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max" 
-                                            class="textcenter" :span="10">
-                                            <span>{{computeattribute.SkillDamageCRI_min | currency }} ~
-                                                {{computeattribute.SkillDamageCRI_max | currency }}</span>
-                                        </el-col>
-                                        <el-col v-else class="textcenter" :span="10">
-                                            <span>{{computeattribute.SkillDamageCRI_max | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="" :span="10" style="text-align: right;">
-                                            <span>技能DPS</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{ computeattribute.atkmulti_DPS | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                                <div v-show="UIPanel['MATKPanel']">
-                                    <el-row class="titlebox" type="flex" align="middle"
-                                        style="height:40px; padding: 0px 5px;">
-                                        <el-col class="textcenter" :span="3">
-                                        </el-col>
-                                        <el-col class="textcenter" :span="18">
-                                            <span class="textcenter">MATK計算</span>
-                                        </el-col>
-                                        <el-col v-if="UIPanel['MATKCompute']" class="textcenter" :span="3">
-                                            <el-button type="info" v-on:click="TogglePanel('MATKCompute')" size="mini">
-                                                <i class="el-icon-arrow-down"></i></el-button>
-                                        </el-col>
-                                        <el-col v-else class="textcenter" :span="3">
-                                            <el-button type="info" v-on:click="TogglePanel('MATKCompute')" size="mini">
-                                                <i class="el-icon-arrow-up"></i></el-button>
-                                        </el-col>
-                                    </el-row>
-                                    <el-collapse-transition>
-                                        <div v-show="UIPanel['MATKCompute']">
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>武器MATK</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.weaponmatk_min}} ~
-                                                        {{computeattribute.weaponmatk_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>裝備MATK&魔力增幅</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.equipmatk_min}} ~
-                                                        {{computeattribute.equipmatk_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>MATK%</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.matkpercent_min}} ~
-                                                        {{computeattribute.matkpercent_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>最終MATK</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.finalmatk_min}} ~
-                                                        {{computeattribute.finalmatk_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>敵方減傷</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.matk1_min}} ~
-                                                        {{computeattribute.matk1_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>技能倍率</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.skillmatk_min}} ~
-                                                        {{computeattribute.skillmatk_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>敵方MDEF</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.matk2_min}} ~
-                                                        {{computeattribute.matk2_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                                style="height:40px;">
-                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                    <span>技能增傷</span>
-                                                </el-col>
-                                                <el-col class="textcenter" :span="10">
-                                                    <span>{{computeattribute.matk3_min}} ~
-                                                        {{computeattribute.matk3_max}}</span>
-                                                </el-col>
-                                            </el-row>
-                                        </div>
-                                    </el-collapse-transition>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能傷害</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.matk4_min | currency }} ~
-                                                {{computeattribute.matk4_max | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row v-if="skill.hitnumber>1||skill.hitnumber<0" class="statusbox" type="flex"
-                                        align="middle" justify="space-around" style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能總傷害</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.matkmulti_min | currency }} ~
-                                                {{computeattribute.matkmulti_max | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="" :span="10" style="text-align: right;">
-                                            <span>技能DPS</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.matkmulti_min_DPS | currency }} ~
-                                                {{computeattribute.matkmulti_max_DPS | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                                <div v-show="UIPanel['DragonBreathPanel']">
-                                    <el-row class="titlebox" type="flex" align="middle" style="height:40px;">
-                                        <el-col class="textcenter" :span="2">
-                                        </el-col>
-                                        <el-col class="textcenter" :span="20">
-                                            <span class="textcenter">龍之吐息計算</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能傷害</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.DragonBreathDMG | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能DPS</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.DragonBreathDMG_DPS | currency }}</span>
-                                        </el-col>
-                                    </el-row>
-                                </div>
                             </div>
                         </el-row>
                     </el-scrollbar>
@@ -7215,11 +7215,11 @@
                     this.computeattribute.CastDEXINT = this.status_total.INT * 0.5 + this.status_total.DEX;
                     if (_StatusDI > 530) _StatusDI = 530;
                     this.computeattribute.CastTime =
-                        this.skill.VCT * (1 - Math.sqrt(_StatusDI / 530)) * (1 + this.attritube['EQVCTP'] / 100) * (1 + this.attritube['SK1VCTP'] / 100) * (1 + this.attritube['SK2VCTP'] / 100) +
-                        this.clamp((this.skill.FCT - (-this.attritube['FCT'])), 0, 999) * (1 - (-this.attritube['FCTP']) / 100);
+                        eval(this.SkillFormulaReplace(this.skill.VCT)) * (1 - Math.sqrt(_StatusDI / 530)) * (1 + this.attritube['EQVCTP'] / 100) * (1 + this.attritube['SK1VCTP'] / 100) * (1 + this.attritube['SK2VCTP'] / 100) +
+                        this.clamp((eval(this.SkillFormulaReplace(this.skill.FCT)) - (-this.attritube['FCT'])), 0, 999) * (1 - (-this.attritube['FCTP']) / 100);
                     this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 10000) / 10000, 0, _MaxCastTime);
-                    this.computeattribute.DelayTime = Math.max(Math.floor(this.skill.GCD * (1 - (-this.attritube['GCD']) / 100) * 100) / 100,
-                        this.skill.CD - (-this.attritube['CD']));
+                    this.computeattribute.DelayTime = Math.max(Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * (1 - (-this.attritube['GCD']) / 100) * 100) / 100,
+                        eval(this.SkillFormulaReplace(this.skill.CD)) - (-this.attritube['CD']));
                     this.computeattribute.AspdDelay = Math.floor((200 - this.attritube.ASPD) / 50 * 100) / 100;
                     var _MAxDelay = Math.max(this.computeattribute.CastTime + this.computeattribute.DelayTime, this.computeattribute.AspdDelay);
                     this.computeattribute.HitperSec = Math.floor(1 / _MAxDelay * 100) / 100;
@@ -7391,6 +7391,10 @@
                             this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
                         }
                     }else{
+                        if( this.skill.id == 'RK_WINDCUTTER' )
+                        {
+                            this.skill.ranged = (this.weapon.type.id == 'Spears')?true:false;
+                        }
                         if (this.skill.ranged && this.skill.laterranged == false) {
                             this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
                             this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
@@ -8842,6 +8846,11 @@
                                         } */
 
                     this.DefaultDB_Skill.push(
+                        { skill: { id: 'RK_WINDCUTTER', name: '風壓飛刃', level: 5, formula: "((WTI=='TwoHandedSword')?250:((WTI=='Spears')?400:300))*SLV*((WTI=='TwoHandedSword')?2:1)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: '(95-SLV*15)/100', GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'RK_IGNITIONBREAK', name: '致命爆裂', level: 5, formula: "SLV*400*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, halfcri:true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'RK_HUNDREDSPEAR', name: '百矛穿刺', level: 10, formula: "600+SLV*200*BLV/100+5*50", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: "(11-SLV)/10", CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5*50的5為螺旋擊刺等級', } },
+                        { skill: { id: 'RK_SONICWAVE', name: '音速衝擊波', level: 10, formula: "(500+SLV*100)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: true, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+
                         { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/150*1.2', class: 'RK', DamageTypeIdx: 2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '現有HPSP影響傷害', } },
                         
                         { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '(700+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 1, VCT: 5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8860,7 +8869,7 @@
                         { skill: { id: 'ASC_BREAKER', name: '心靈震波', level: 10, formula: '(SLV*140+STR+INT)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0.25, VCT: 0.25, CD: 0.15, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         
                         { skill: { id: 'NC_AXETORNADO', name: '戰斧颶風', level: 5, formula: 'DOWN((200+100*SLV+VIT)*BLV/100)*((AEI==3)?1.25:1)', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '攻擊屬性為風時倍率1.25倍', } },  
-                        { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(300+((ESIZE<2)?((ESIZE<1)?400:350):300)*SLV)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.2, VCT: 2.2, CD: 0.65, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據敵方體型變動', } },
+                        { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(300+((ESIZE<2)?((ESIZE<1)?400:350):300)*SLV)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: "(7-SLV)/10", VCT: "(12+SLV*2)/10", CD: "(15*SLV)/100", GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據敵方體型變動', } },
                         { skill: { id: 'NC_VULCANARM', name: '火神砲', level: 3, formula: '(SLV*70+DEX)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NC_BOOSTKNUCKLE', name: '噴射飛拳', level: 5, formula: '((200+SLV*100)+DEX)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'RA_AIMEDBOLT', name: '瞄準標靶', level: 10, formula: '(500+SLV*20)*BLV/100', class: 'RA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 1, VCT: 4, CD: 1, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9022,6 +9031,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-1-5', content: '增加預設技能 風壓飛刃/致命爆裂/百矛穿刺/音速衝擊波<br>風壓飛刃/百矛穿刺/加農砲 的固詠變詠獨延共延現在會依照技能等級自動調整<br>調整計算區塊的排版<br>DPS計算僅在ASPD不為0時' },
                         { id: '2020-12-29', content: '修正預設技能 艾斯核攻擊次數問題' },
                         { id: '2020-12-7', content: '增加敵方預設資料 無名劍士' },
                         { id: '2020-11-15-1', content: '預設技能 龍之氣息傷害公式增加了對應魔力中毒跟技能增傷裝<br>增加預設機匠技能 戰斧颶風' },
@@ -9212,6 +9222,7 @@
                 this.subweapon_init = _.cloneDeep(this.subweapon);
                 this.ChangeWeapon();
                 this.onChangeClass();
+                this.OpenPanel('General');
             }
 
         })
