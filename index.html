@@ -3070,6 +3070,36 @@
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
+                                                <span>突里薩茲:力量成長(盧1)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.RK_GIANTGROWTH" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>艾伊瓦茲:提升鬥志(盧5) </span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.RK_FIGHTINGSPIRIT" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>力量根源:盧恩爆發(盧10)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-switch v-model="option.RK_LUXANIMA" v-on:change="onOption"
+                                                    active-color="#13ce66" inactive-color="#8a9799">
+                                                </el-switch>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
                                                 <span>盾咒(ATK)</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="12">
@@ -4246,7 +4276,7 @@
                                                 </el-switch>
                                             </el-col>
                                         </el-row>
-                                        <el-row v-show="TestMode" class="optionbox" :gutter="4" type="flex"
+                                        <el-row class="optionbox" :gutter="4" type="flex"
                                             align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
                                                 <span>邪惡靈魂詛咒</span>
@@ -5409,7 +5439,7 @@
                                                 <span>HP:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['HP']}} %</span>
+                                                <span>{{attritube['HP']}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5424,7 +5454,7 @@
                                                 <span>SP:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['SP']}} %</span>
+                                                <span>{{attritube['SP']}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5502,7 +5532,7 @@
                                                 <span>物理體型%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{effecttypelist[GetETLIndex('SizeAtkPercent')].totalvalue}} %</span>
+                                                <span>{{attritube['SizeAtkPercent']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5512,6 +5542,15 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['BYPASSDEF']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>屬性抗性%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute['SpecialATK3']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5555,7 +5594,7 @@
                                                 <span>HP:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['HP']}} %</span>
+                                                <span>{{attritube['HP']}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5570,7 +5609,7 @@
                                                 <span>SP:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['SP']}} %</span>
+                                                <span>{{attritube['SP']}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5634,6 +5673,92 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['BYPASSMDEF']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>屬性抗性%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute['SpecialATK3']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能增傷%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{effecttypelist[GetETLIndex('SkillDamagePercent')].totalvalue}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能獨延:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['CD']}} s</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>技能共延%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['GCD']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                    <div v-else-if="skill.DamageTypeIdx==2">
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>HP%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['HPP']}} %</span>
+                                            </el-col>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>HP:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['HP']}}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>SP%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['SPP']}} %</span>
+                                            </el-col>
+                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                                <span>SP:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <span>{{attritube['SP']}}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>遠傷%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['RNGDP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>屬性抗性%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute['SpecialATK3']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -6076,6 +6201,7 @@
                     ElementalMagicPercent: 0,
                     ElementalAtkPercent: 0,
                     LevelAtkPercent: 0,
+                    SizeAtkPercent: 0,
                 },
                 HP_JOB_A: 0, HP_JOB_B: 0,
                 attritube_init: {},
@@ -6213,6 +6339,10 @@
                     ShieldSpell: false,         //盾咒
                     ShieldDEF: 0,
                     Inspiration: false,         //靈感
+
+                    RK_GIANTGROWTH: false,      //突里薩茲:力量成長(盧1)
+                    RK_FIGHTINGSPIRIT: false,   //艾伊瓦茲盧:提升鬥志(盧5)
+                    RK_LUXANIMA: false,         //力量根源:盧恩爆發(盧10)
 
                     MagnumBreak: false,             //怒暴
                     MagnumBreakValue: 20,
@@ -7264,7 +7394,7 @@
                     this.computeattribute.weaponatk_max += this.attritube['ATK'];
 
                     var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceAtkPercent').totalvalue) / 100;
-                    var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizeAtkPercent').totalvalue) / 100;
+                    var para_size = Number(1) + Number(this.attritube['SizeAtkPercent']) / 100;
                     var para_elemt = Number(1) + Number(this.attritube['ElementalAtkPercent']) / 100;
                     var para_level = Number(1) + Number(this.attritube['LevelAtkPercent']) / 100;
                     var para_mons = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MonsterAtkPercent').totalvalue) / 100;
@@ -7843,6 +7973,26 @@
                     if (this.option.Berserk) {
                         this.computeattribute['SpecialATK6'] += 200;
                     }
+                    // 突里薩茲:力量成長(盧1)
+                    if (this.option.RK_GIANTGROWTH){
+                        this.status_add.STR += 30;
+                        this.attritube['MELDP'] += 15;
+                        if(this.skill.id != 'RK_STORMBLAST') this.computeattribute['SpecialATK6'] += 250;
+                    }
+                    // 艾伊瓦茲:提升鬥志(盧5) 
+                    if (this.option.RK_FIGHTINGSPIRIT){
+                        this.attritube['ATK'] += 70;
+                    }
+                    // 力量根源:盧恩爆發(盧10)
+                    if (this.option.RK_LUXANIMA){
+                        this.attritube['MELDP'] += 30;
+                        this.attritube['RNGDP'] += 30;
+                        this.attritube['CRIDP'] += 30;
+                        this.attritube['SizeAtkPercent'] += 30;
+                        this.attritube['HPP'] += 30;
+                        this.attritube['SPP'] += 30;
+                    }
+                    
                     // 盾咒
                     if (this.option.ShieldSpell) {
                         this.attritube['ATK'] += this.option.ShieldDEF;
@@ -8310,6 +8460,7 @@
 
                     this.attritube['LevelAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue)
                                                         +Number(this.consumableeffecttypelist.find(x=>x.id=='LevelAtkPercent').totalvalue);
+                    this.attritube['SizeAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'SizeAtkPercent').totalvalue);
 
                     this.attritube['WeaponPerfection'] += Number(this.effecttypelist.find(x => x.id == 'WeaponPerfection').totalvalue);
                     this.attritube['WeaponOccult'] += Number(this.effecttypelist.find(x => x.id == 'WeaponOccult').totalvalue);
@@ -8848,7 +8999,8 @@
                         { skill: { id: 'RK_IGNITIONBREAK', name: '致命爆裂', level: 5, formula: "SLV*400*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, halfcri:true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'RK_HUNDREDSPEAR', name: '百矛穿刺', level: 10, formula: "600+SLV*200*BLV/100+5*50", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: "(11-SLV)/10", CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5*50的5為螺旋擊刺等級', } },
                         { skill: { id: 'RK_SONICWAVE', name: '音速衝擊波', level: 10, formula: "(500+SLV*100)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: true, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-
+                        { skill: { id: 'RK_STORMBLAST', name: '風暴衝擊', level: 1, formula: "(10+DOWN(STR/8))*100*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '不被突里薩茲:力量成長增傷', } },
+                        
                         { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/150*1.2', class: 'RK', DamageTypeIdx: 2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '現有HPSP影響傷害', } },
                         
                         { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '(700+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 1, VCT: 5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9029,6 +9181,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-1-6', content: '增加劍士額外技能選項 突里薩茲:力量成長(盧1)/艾伊瓦茲盧:提升鬥志(盧5)/力量根源:盧恩爆發(盧10)<br>增加龍之氣息的一般總覽項目<br>增加預設技能 風暴衝擊' },
                         { id: '2021-1-5', content: '增加預設技能 風壓飛刃/致命爆裂/百矛穿刺/音速衝擊波<br>風壓飛刃/百矛穿刺/加農砲 的固詠變詠獨延共延現在會依照技能等級自動調整<br>調整計算區塊的排版<br>DPS計算僅在ASPD不為0時' },
                         { id: '2020-12-29', content: '修正預設技能 艾斯核攻擊次數問題' },
                         { id: '2020-12-7', content: '增加敵方預設資料 無名劍士' },
