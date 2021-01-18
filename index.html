@@ -7626,15 +7626,18 @@
                         this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(100 / 100));
                     }
 
-                    var _paradiv = this.skill.hitnumber;
-                    if (_paradiv == 0) _paradiv = 1;
-                    if (_paradiv < 0) {
-                        _paradiv *= -1;
-                        this.computeattribute.atkc9_min = Math.floor(this.computeattribute.atkc9_min / _paradiv);
-                        this.computeattribute.atkc9_max = Math.floor(this.computeattribute.atkc9_max / _paradiv);
+
+                    if( !isNA ){
+                        var _paradiv = this.skill.hitnumber;
+                        if (_paradiv == 0) _paradiv = 1;
+                        if (_paradiv < 0) {
+                            _paradiv *= -1;
+                            this.computeattribute.atkc9_min = Math.floor(this.computeattribute.atkc9_min / _paradiv);
+                            this.computeattribute.atkc9_max = Math.floor(this.computeattribute.atkc9_max / _paradiv);
+                        }
+                        this.computeattribute.atkmulti_min = this.computeattribute.atkc9_min * _paradiv;
+                        this.computeattribute.atkmulti_max = this.computeattribute.atkc9_max * _paradiv;
                     }
-                    this.computeattribute.atkmulti_min = this.computeattribute.atkc9_min * _paradiv;
-                    this.computeattribute.atkmulti_max = this.computeattribute.atkc9_max * _paradiv;
 
                     if( isNA ){
                         if( isCRI ){
@@ -9082,6 +9085,9 @@
                         { id: 1, name: '蛋(10)', level: 10, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 2410, name: '龍蛋(100)', level: 100, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 2411, name: '龍蛋(150)', level: 150, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 21064, name: '測試用魔物(小)', level: 100, hp: 2000000000, LUK: 0, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 21065, name: '測試用魔物(中)', level: 100, hp: 2000000000, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 21066, name: '測試用魔物(大)', level: 100, hp: 2000000000, LUK: 0, elemental: 0, elementallevel: 1, size: 2, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3800, name: '不祥果樹龜', level: 157, hp: 508335, LUK: 60, elemental: 0, elementallevel: 2, size: 0, StatusDEF: 146, WeaponDEF: 288, StatusMDEF: 61, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3802, name: '不祥岩石龜', level: 161, hp: 592310, LUK: 50, elemental: 4, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 406, StatusMDEF: 50, WeaponMDEF: 116, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3803, name: '不祥火焰龜', level: 162, hp: 527390, LUK: 89, elemental: 1, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 400, StatusMDEF: 50, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
@@ -9181,6 +9187,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-1-18', content: '修正普攻傷害會被技能段數影響的問題<br>增加敵方預設資料 測試用魔物 (小)(中)(大)' },
                         { id: '2020-1-6', content: '增加劍士額外技能選項 突里薩茲:力量成長(盧1)/艾伊瓦茲盧:提升鬥志(盧5)/力量根源:盧恩爆發(盧10)<br>增加龍之氣息的一般總覽項目<br>增加預設技能 風暴衝擊' },
                         { id: '2021-1-5', content: '增加預設技能 風壓飛刃/致命爆裂/百矛穿刺/音速衝擊波<br>風壓飛刃/百矛穿刺/加農砲 的固詠變詠獨延共延現在會依照技能等級自動調整<br>調整計算區塊的排版<br>DPS計算僅在ASPD不為0時' },
                         { id: '2020-12-29', content: '修正預設技能 艾斯核攻擊次數問題' },
@@ -9255,9 +9262,10 @@
                     }
 
                     this.DonatethanksList.push(
-                        { id: 0, coop: '感謝贊助', name: '巴基力 沐沐' },
-                        { id: 1, coop: '感謝贊助', name: '鄰居漂亮大姐姐 春' },
-                        { id: 2, coop: '感謝贊助', name: '巴基力 YU0520' },
+                        { id: 0, coop: '感謝贊助', name: '悠哉' },
+                        { id: 1, coop: '感謝贊助', name: '巴基力 沐沐' },
+                        { id: 2, coop: '感謝贊助', name: '鄰居漂亮大姐姐 春' },
+                        { id: 3, coop: '感謝贊助', name: '巴基力 YU0520' },
                     );
                     this.SpecialthanksList.push(
                         { id: 0, coop: '公式協力', name: '賴喵' },
