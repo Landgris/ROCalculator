@@ -4569,6 +4569,14 @@
                                             </el-col>
                                         </el-row>
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">SpecialATKFront(前ATK)</el-col>
+                                            <el-col :span="12">
+                                                <el-input v-model.number="computeattribute['SpecialATKFront']"
+                                                    v-on:change="onSpecialATKChange" placeholder="ATK">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">SpecialMATK1(技能倍率+)</el-col>
                                             <el-col :span="12">
                                                 <el-input v-model.number="computeattribute['SpecialMATK1']"
@@ -5343,8 +5351,7 @@
                                             <span>技能DPS</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="10">
-                                            <span>{{computeattribute.matkmulti_min_DPS | currency }} ~
-                                                {{computeattribute.matkmulti_max_DPS | currency }}</span>
+                                            <span>{{computeattribute.matkmulti_DPS | currency }}</span>
                                         </el-col>
                                     </el-row>
                                 </div>
@@ -5397,7 +5404,7 @@
                                         <span>Atk 素質(前)+面版後:</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="10">
-                                        <span>{{attritube.StatusATK}} + {{attritube.WeaponATK}}</span>
+                                        <span>{{attritube.StatusATK+computeattribute['SpecialATKFront']}} + {{attritube.WeaponATK}}</span>
                                     </el-col>
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -6499,6 +6506,7 @@
                     SpecialATK5: 0, // 特殊技能乘值  技能倍率後 DEF之前  戰斧風屬性倍率 
                     SpecialATK6: 0, // 特殊技能加值  技能倍率後 DEF之前  凶砍 狙殺 狂怒之槍
                     SpecialATK7: 0, // 特殊技能加值  DEF之後 靈氣劍
+                    SpecialATKFront: 0,
                     SpecialRLHand: 0,   //特殊乘值 左右手修練 刺客/忍者
 
                     atkc0_min: 0,   //武器基礎ATK x [ 1 + ( STR ÷ 200 ) - ( 武器等級 x 0.05 ) 
@@ -6602,6 +6610,7 @@
                     matkmulti_max: 0,
                     matkmulti_min_DPS: 0,
                     matkmulti_max_DPS: 0,
+                    matkmulti_DPS: 0,
 
                     /*
                     魔法最終傷害公式=
@@ -7457,8 +7466,8 @@
                             this.enemyattribute.elementallevel);
                     }
                     para7 = this.MulOper(Number(para7), Number(para7ele / 100));
-                    this.computeattribute.atkc5_min += Number(para7) + Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK4']);;
-                    this.computeattribute.atkc5_max += Number(para7) + Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK4']);
+                    this.computeattribute.atkc5_min += Number(para7) + Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
+                    this.computeattribute.atkc5_max += Number(para7) + Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
 
                     if (this.option.Kihop) {
                         var paraKihop = Number(1) + Number((this.option.PartyMemberCount - 1) * this.option.KihopLevel * 2 / 100);
@@ -7677,7 +7686,9 @@
                     }
                     return value * percent;
                 },
-                ComputeMATKAtttibute() {
+                ComputeMATKAtttibute(mflag=0) {
+                    var _MATKDamageMin = 0;
+                    var _MATKDamageMax = 0;
 
                     var para1 = this.weapon.level.id * 0.1;
                     var paraminirefineatk2 = this.weapon.refineatk2 > 0 ? 1 : 0;
@@ -7733,9 +7744,9 @@
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
 
                     if (this.skill.laterformula == false) {
-                        this.option.SkillPercent = Math.floor(this.option.SkillPercent) + this.computeattribute['SpecialMATK1'];
-                        this.computeattribute.skillmatk_min = Math.floor(this.computeattribute.matk1_min * Number(this.option.SkillPercent / 100));
-                        this.computeattribute.skillmatk_max = Math.floor(this.computeattribute.matk1_max * Number(this.option.SkillPercent / 100));
+                        var para_skillpercent = Math.floor(this.option.SkillPercent) + Number(this.computeattribute['SpecialMATK1']) + Number(mflag);
+                        this.computeattribute.skillmatk_min = Math.floor(this.computeattribute.matk1_min * Number(para_skillpercent / 100));
+                        this.computeattribute.skillmatk_max = Math.floor(this.computeattribute.matk1_max * Number(para_skillpercent / 100));
                     } else {
                         this.computeattribute.skillmatk_min = this.computeattribute.matk1_min;
                         this.computeattribute.skillmatk_max = this.computeattribute.matk1_max;
@@ -7766,9 +7777,8 @@
 
 
                     if (this.skill.laterformula == true) {
-                        this.option.SkillPercent = Math.floor(this.option.SkillPercent);
-                        this.computeattribute.matk4_min = Math.floor(this.computeattribute.matk4_min * Number(this.option.SkillPercent / 100));
-                        this.computeattribute.matk4_max = Math.floor(this.computeattribute.matk4_max * Number(this.option.SkillPercent / 100));
+                        this.computeattribute.matk4_min = Math.floor(this.computeattribute.matk4_min * Number(Math.floor(this.option.SkillPercent) / 100));
+                        this.computeattribute.matk4_max = Math.floor(this.computeattribute.matk4_max * Number(Math.floor(this.option.SkillPercent) / 100));
                     } else {
                         this.computeattribute.matk4_min = this.computeattribute.matk4_min;
                         this.computeattribute.matk4_max = this.computeattribute.matk4_max;
@@ -7792,13 +7802,15 @@
                         this.computeattribute.matk4_max = Math.floor(this.computeattribute.matk4_max / _paradiv);
                     }
 
-                    this.computeattribute.matkmulti_min = this.computeattribute.matk4_min * _paradiv;
-                    this.computeattribute.matkmulti_max = this.computeattribute.matk4_max * _paradiv;
-                    this.computeattribute.matkmulti_min_DPS = Math.floor(this.computeattribute.matkmulti_min * this.computeattribute.HitperSec * 100) / 100;
-                    this.computeattribute.matkmulti_max_DPS = Math.floor(this.computeattribute.matkmulti_max * this.computeattribute.HitperSec * 100) / 100;
+                    _MATKDamageMin = this.computeattribute.matk4_min * _paradiv;
+                    _MATKDamageMax = this.computeattribute.matk4_max * _paradiv;
 
-
+                    return {
+                        Min: _MATKDamageMin,
+                        Max: _MATKDamageMax
+                    };
                     /*
+
                         weaponmatk_min: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 -  武器等級 x 0.10 ))
                         weaponmatk_max: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 +  武器等級 x 0.10 ))
                         equipmatk_min: 0,   // weaponmatk_min x (1 + 0.05 × 魔力增幅等級 ) + 卡裝MATK )
@@ -7819,6 +7831,11 @@
                         matk4_max: 0,
                     */
 
+                },
+                ComputeMATKDPS( Dmin, Dmax){
+                    var _DPS = Math.floor((Dmin+Dmax)/2);
+                    _DPS = Math.floor(_DPS * this.computeattribute.HitperSec * 100) / 100;
+                    return _DPS;
                 },
                 ComputeDRAGONBREATH() {
 
@@ -7892,7 +7909,31 @@
                             this.OpenPanel('ATKPanel');
                             break;
                         case 1:
-                            this.ComputeMATKAtttibute();
+                            var _Damage;
+                            if(this.skill.id == 'WL_CHAINLIGHTNING') {
+                                var _DamageTotalMin=0, _DamageTotalMax=0;
+                                this.computeattribute.matk4_min = 0;
+                                this.computeattribute.matk4_max = 0;
+                                for(var i=0; i<4; ++i)
+                                {
+                                    _Damage = this.ComputeMATKAtttibute(-i*100);
+                                    _DamageTotalMin += Number(_Damage.Min);
+                                    _DamageTotalMax += Number(_Damage.Max);
+                                }
+                                this.computeattribute.matk4_min = _DamageTotalMin;
+                                this.computeattribute.matk4_max = _DamageTotalMax;
+                                this.computeattribute.matkmulti_min = _DamageTotalMin;
+                                this.computeattribute.matkmulti_max = _DamageTotalMax;
+                            }else{
+                                _Damage = this.ComputeMATKAtttibute();
+                                this.computeattribute.matkmulti_min = Number(_Damage.Min);
+                                this.computeattribute.matkmulti_max = Number(_Damage.Max);
+                            }
+                            
+                            this.computeattribute.matkmulti_DPS = this.ComputeMATKDPS(
+                                this.computeattribute.matkmulti_min,
+                                this.computeattribute.matkmulti_max
+                            ); 
                             this.OpenPanel('MATKPanel');
                             break;
                         case 2:
@@ -7908,7 +7949,7 @@
                     return f;
                 },
                 onSpecialATKChange() {
-                    this.ComputeATKAtttibute(false);
+                    this.onSkillPercentChange();
                 },
                 onChangeClass(){
                     this.StoreDB_JobMapedSkill = this.DefaultDB_Skill.filter(post => {
@@ -7952,6 +7993,7 @@
                     this.computeattribute['SpecialATK5'] = 0;   // 戰斧風屬性倍率 
                     this.computeattribute['SpecialATK6'] = 0;   // 兇砍 狂怒之槍
                     this.computeattribute['SpecialATK7'] = 0;   // 靈氣劍
+                    this.computeattribute['SpecialATKFront'] = 0;   // 前ATK前ATK
                     this.computeattribute['SpecialMATK1'] = 0;   // 忍者符
                     this.computeattribute['SpecialMATK2'] = 0;   // 終念
                     this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 0; //紋章
@@ -9187,6 +9229,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-1-25', content: '修改預設技能 連鎖電擊的計算方式 為第1~4下的總傷害<br>增加額外技能選項 特殊SpecialATKFront(前ATK)' },
                         { id: '2020-1-18', content: '修正普攻傷害會被技能段數影響的問題<br>增加敵方預設資料 測試用魔物 (小)(中)(大)' },
                         { id: '2020-1-6', content: '增加劍士額外技能選項 突里薩茲:力量成長(盧1)/艾伊瓦茲盧:提升鬥志(盧5)/力量根源:盧恩爆發(盧10)<br>增加龍之氣息的一般總覽項目<br>增加預設技能 風暴衝擊' },
                         { id: '2021-1-5', content: '增加預設技能 風壓飛刃/致命爆裂/百矛穿刺/音速衝擊波<br>風壓飛刃/百矛穿刺/加農砲 的固詠變詠獨延共延現在會依照技能等級自動調整<br>調整計算區塊的排版<br>DPS計算僅在ASPD不為0時' },
