@@ -51,6 +51,10 @@
         .bg-purple-light {
             background: #e5e9f2;
         }
+        .bg-purple-light2 {
+            background: #e2f4ff;
+        }
+
 
         .grid-content {
             border-radius: 4px;
@@ -4735,6 +4739,31 @@
                                             </el-row>
                                         </el-row>
                                     </el-row>
+                                    <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="4">
+                                            <div>
+                                                <span></span>
+                                            </div>
+                                        </el-col>
+                                        <el-col class="textcenter">
+                                            <div>
+                                                <el-input v-model="equipspartlist[14].equipname"
+                                                    placeholder="卡片名稱">
+                                                </el-input>
+                                            </div>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="5">
+                                            <el-button v-on:click="onClearEquipPart(14)" size="mini">
+                                                清空
+                                            </el-button>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="5">
+                                            <el-button v-on:click="OpenEditEquipDialogue(14)" type="success"
+                                                plain>
+                                                編輯
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
                                     <el-row>
                                         <div class="Item" v-for="(item, index) in equipspartlist[0].effectlist"
                                             v-bind:key="item.effecttypelist">
@@ -4755,6 +4784,29 @@
                                                 <el-col class="textcenter"  :span="5">
                                                     <el-checkbox v-model="item.Enable" @change="EnableEffect(1, index)"></el-checkbox>
                                                 </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-row>
+                                    <el-row>
+                                        <div class="Item bg-purple-light2" v-for="(item, index) in equipspartlist[14].effectlist"
+                                            v-bind:key="item.effecttypelist" >
+                                            <el-row class="effectline" :gutter="4" type="flex" align="middle"
+                                                justify="end" style="height:40px;">
+                                                <el-col class="textcenter" style="text-align: right;" :span="12">
+                                                    <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="3">
+                                                    <span class="">{{ item.EffectNumber!=9999?item.EffectNumber:'' }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
+                                                </el-col>
+                                                    <el-col class="textcenter"  :span="5">
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(1, index)"></el-checkbox>
+                                                    </el-col>
                                             </el-row>
                                         </div>
                                     </el-row>
@@ -4859,6 +4911,31 @@
                                             </el-col>
                                         </el-row>
                                     </div>
+                                    <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="4">
+                                            <div>
+                                                <span></span>
+                                            </div>
+                                        </el-col>
+                                        <el-col class="textcenter">
+                                            <div>
+                                                <el-input v-model="equipspartlist[1+14].equipname"
+                                                    placeholder="卡片名稱">
+                                                </el-input>
+                                            </div>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="5">
+                                            <el-button v-on:click="onClearEquipPart(1+14)" size="mini">
+                                                清空
+                                            </el-button>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="5">
+                                            <el-button v-on:click="OpenEditEquipDialogue(1+14)" type="success"
+                                                plain>
+                                                編輯
+                                            </el-button>
+                                        </el-col>
+                                    </el-row>
                                     <el-row>
                                         <div class="Item" v-for="(item, index) in equipspartlist[1].effectlist"
                                             v-bind:key="item.effecttypelist">
@@ -4882,10 +4959,33 @@
                                             </el-row>
                                         </div>
                                     </el-row>
+                                    <el-row>
+                                        <div v-for="(item, index) in equipspartlist[1+14].effectlist"
+                                            v-bind:key="item.effecttypelist" class="bg-purple-light2">
+                                            <el-row class="effectline" :gutter="4" type="flex" align="middle"
+                                                justify="end" style="height:40px;">
+                                                <el-col class="textcenter" style="text-align: right;" :span="12">
+                                                    <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="3">
+                                                    <span class="">{{ item.EffectNumber!=9999?item.EffectNumber:'' }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="2">
+                                                    <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
+                                                </el-col>
+                                                <el-col class="textcenter"  :span="5">
+                                                    <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+2, index)"></el-checkbox>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-row>
                                 </div>
                                 <!--裝備-->
-                                <div class="Item bg-purple-light" v-for="(item,eqindex) in equipspartlist.slice(2)">
-                                    <div class="" style="padding: 0px 4px;">
+                                <div class="Item" v-for="(item,eqindex) in equipspartlist.slice(2,14)">
+                                    <div class="bg-purple-light" style="padding: 0px 4px;">
                                         <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                             <el-col class="textcenter" :span="4">
                                                 <div>
@@ -4911,9 +5011,57 @@
                                                 </el-button>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="4">
+                                                <div>
+                                                    <span></span>
+                                                </div>
+                                            </el-col>
+                                            <el-col class="textcenter">
+                                                <div>
+                                                    <el-input v-model="equipspartlist[eqindex+2+14].equipname"
+                                                        placeholder="卡片名稱">
+                                                    </el-input>
+                                                </div>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="5">
+                                                <el-button v-on:click="onClearEquipPart(eqindex+2+14)" size="mini">
+                                                    清空
+                                                </el-button>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="5">
+                                                <el-button v-on:click="OpenEditEquipDialogue(eqindex+2+14)" type="success"
+                                                    plain>
+                                                    編輯
+                                                </el-button>
+                                            </el-col>
+                                        </el-row>
                                         <el-row>
                                             <div v-for="(item, index) in equipspartlist[eqindex+2].effectlist"
                                                 v-bind:key="item.effecttypelist">
+                                                <el-row class="effectline" :gutter="4" type="flex" align="middle"
+                                                    justify="end" style="height:40px;">
+                                                    <el-col class="textcenter" style="text-align: right;" :span="12">
+                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <span class="">{{ item.EffectNumber!=9999?item.EffectNumber:'' }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter"  :span="5">
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+2, index)"></el-checkbox>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                        <el-row>
+                                            <div v-for="(item, index) in equipspartlist[eqindex+2+14].effectlist"
+                                                v-bind:key="item.effecttypelist" class="bg-purple-light2">
                                                 <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                     justify="end" style="height:40px;">
                                                     <el-col class="textcenter" style="text-align: right;" :span="12">
@@ -6011,6 +6159,28 @@
                 UpdateLogList: [],
                 CurrentUpdateVersion: '',
 
+                job70maxpoint:[
+                    { id: 'RK', JobMaxPoint:[6,6,7,10,9,5] },
+                    { id: 'GX', JobMaxPoint:[8,11,6,5,9,4] },
+                    { id: 'AB', JobMaxPoint:[6,7,7,12,7,4] },
+                    { id: 'RA', JobMaxPoint:[2,12,8,9,8,4] },
+                    { id: 'WL', JobMaxPoint:[1,7,8,15,8,4] },
+                    { id: 'ME', JobMaxPoint:[10,6,10,6,5,6] },
+                    { id: 'RG', JobMaxPoint:[9,3,9,10,9,3] },
+                    { id: 'SC', JobMaxPoint:[8,9,8,6,6,6] },
+                    { id: 'SU', JobMaxPoint:[10,10,6,8,8,1] },
+                    { id: 'MI', JobMaxPoint:[7,7,7,9,10,3] },
+                    { id: 'WA', JobMaxPoint:[7,9,7,9,9,2] },
+                    { id: 'SO', JobMaxPoint:[4,4,8,13,9,5] },
+                    { id: 'GE', JobMaxPoint:[5,6,8,12,8,4] },
+                    { id: 'KO', JobMaxPoint:[7,10,6,6,9,5] },
+                    { id: 'OB', JobMaxPoint:[7,10,6,6,8,6] },
+                    { id: 'RE', JobMaxPoint:[3,8,6,8,11,7] },
+                    { id: 'SE', JobMaxPoint:[12,10,6,3,9,3] },
+                    { id: 'SL', JobMaxPoint:[3,7,7,11,13,2] },
+                    { id: 'SUM',JobMaxPoint:[0,7,5,9,12,5] },
+                    { id: 'SN', JobMaxPoint:[7,7,6,6,6,5] }
+                ],
                 classlist: [
                     { id: 'RK', label: '盧恩騎士', TranscendentClass: true, JobMaxPoint:[5,5,7,10,8,5], basehp: [8100, 8133, 8242, 8352, 8464, 8576, 8690, 8804, 8920, 9036, 9154, 9273, 9393, 9514, 9636, 9759, 9883, 10008, 10134, 10261, 10389, 10518, 10648, 10779, 10912, 11045, 11180, 11315, 11452, 11589, 11728, 11868, 12009, 12151, 12294, 12438, 12583, 12729, 12876, 13024, 13173, 13323, 13474, 13626, 13780, 13934, 14090, 14246, 14404, 14562, 14722, 14883, 15042, 15100, 15260, 15321, 15481, 15541, 15600, 15760, 15820, 15980, 16141, 16303, 16466, 16630, 16795, 16961, 17128, 17296, 17465, 17635, 17806, 17978, 18151, 18325, 18500, 18759, 19059, 19269, 19558, 19851, 20228, 20491, 20676, 20862, 21070], basesp: [300, 310, 313, 316, 319, 322, 325, 328, 331, 334, 337, 340, 343, 346, 349, 352, 355, 358, 361, 364, 367, 370, 373, 376, 379, 382, 385, 388, 391, 394, 397, 400, 403, 406, 409, 412, 415, 418, 421, 424, 427, 430, 433, 436, 439, 442, 445, 448, 451, 454, 457, 460, 500, 566, 629, 672, 710, 748, 781, 824, 847, 890, 894, 898, 902, 906, 910, 915, 920, 925, 930, 935, 941, 947, 953, 959, 965, 972, 980, 987, 995, 1003, 1010, 1018, 1026, 1034, 1042], baseaspd: 0 },
                     { id: 'GX', label: '十字斬首者', TranscendentClass: true, JobMaxPoint:[8,10,6,5,8,3], basehp: [6050, 6093, 6208, 6324, 6441, 6559, 6678, 6798, 6920, 7043, 7167, 7292, 7418, 7545, 7673, 7802, 7932, 8063, 8196, 8330, 8465, 8601, 8738, 8876, 9015, 9155, 9296, 9438, 9582, 9727, 9873, 10020, 10168, 10317, 10467, 10618, 10770, 10923, 11078, 11234, 11391, 11549, 11708, 11868, 12029, 12191, 12354, 12518, 12684, 12851, 13019, 13188, 13351, 13518, 13684, 13850, 14016, 14182, 14349, 14515, 14681, 14830, 14966, 15103, 15241, 15380, 15520, 15661, 15803, 15946, 16090, 16235, 16381, 16528, 16676, 16825, 16975, 17196, 17368, 17628, 17857, 18072, 18361, 18563, 18897, 19237, 19449], basesp: [400, 410, 414, 418, 422, 426, 430, 434, 438, 442, 446, 450, 454, 458, 462, 466, 470, 474, 478, 482, 486, 490, 494, 498, 502, 506, 510, 514, 518, 522, 526, 530, 534, 538, 542, 546, 550, 554, 558, 562, 566, 570, 574, 578, 582, 586, 590, 594, 598, 602, 606, 610, 670, 695, 700, 715, 730, 745, 760, 785, 790, 805, 810, 815, 820, 825, 830, 836, 842, 848, 854, 860, 867, 874, 881, 888, 895, 900, 905, 910, 916, 921, 926, 931, 937, 942, 947], baseaspd: 0 },
@@ -6025,7 +6195,8 @@
                     { id: 'WA', label: '浪跡舞者', TranscendentClass: true, JobMaxPoint:[5,9,7,9,8,2], basehp: [4800, 4828, 4918, 5009, 5101, 5194, 5288, 5382, 5477, 5573, 5670, 5768, 5867, 5967, 6068, 6170, 6273, 6377, 6482, 6588, 6694, 6801, 6909, 7018, 7128, 7239, 7351, 7464, 7578, 7693, 7809, 7926, 8044, 8162, 8281, 8401, 8522, 8644, 8767, 8891, 9016, 9142, 9269, 9397, 9526, 9656, 9786, 9917, 10049, 10182, 10316, 10451, 10584, 10717, 10851, 10984, 11118, 11251, 11385, 11518, 11652, 11785, 11921, 12058, 12196, 12335, 12475, 12616, 12758, 12901, 13045, 13190, 13336, 13483, 13631, 13780, 13930, 14209, 14493, 14725, 14946, 15289, 15564, 15907, 16161, 16420, 16716], basesp: [400, 410, 414, 418, 422, 426, 430, 434, 438, 442, 446, 450, 454, 458, 462, 466, 470, 474, 478, 482, 486, 490, 494, 498, 502, 506, 510, 514, 518, 522, 526, 530, 534, 538, 542, 546, 550, 554, 558, 562, 566, 570, 574, 578, 582, 586, 590, 594, 598, 602, 606, 610, 614, 648, 702, 726, 750, 774, 808, 822, 846, 850, 855, 860, 865, 870, 875, 881, 887, 893, 899, 905, 912, 919, 926, 933, 940, 952, 964, 976, 988, 1001, 1013, 1026, 1039, 1052, 1065], baseaspd: 0 },
                     { id: 'SO', label: '妖術師', TranscendentClass: true, JobMaxPoint:[4,4,7,12,9,4], basehp: [4080, 4103, 4180, 4257, 4335, 4414, 4494, 4574, 4655, 4737, 4819, 4902, 4986, 5071, 5157, 5244, 5332, 5420, 5509, 5599, 5689, 5780, 5872, 5965, 6058, 6153, 6248, 6344, 6441, 6539, 6637, 6737, 6837, 6937, 7038, 7140, 7243, 7347, 7451, 7557, 7663, 7770, 7878, 7987, 8097, 8207, 8318, 8429, 8541, 8654, 8768, 8883, 8994, 9107, 9220, 9280, 9340, 9450, 9570, 9680, 9798, 9915, 10036, 10158, 10281, 10405, 10530, 10656, 10783, 10911, 11040, 11170, 11301, 11433, 11566, 11700, 11835, 12072, 12398, 12770, 13140, 13455, 13724, 14095, 14490, 14894, 15312], basesp: [900, 910, 919, 928, 937, 946, 955, 964, 973, 982, 991, 1000, 1009, 1018, 1027, 1036, 1045, 1054, 1063, 1072, 1081, 1090, 1099, 1108, 1117, 1126, 1135, 1144, 1153, 1162, 1171, 1180, 1189, 1198, 1207, 1216, 1225, 1234, 1243, 1252, 1261, 1270, 1279, 1288, 1297, 1306, 1315, 1324, 1333, 1342, 1351, 1360, 1369, 1378, 1387, 1396, 1405, 1414, 1423, 1432, 1441, 1450, 1460, 1470, 1480, 1490, 1500, 1511, 1522, 1533, 1544, 1555, 1567, 1579, 1591, 1603, 1615, 1622, 1629, 1636, 1644, 1651, 1658, 1665, 1673, 1680, 1687], baseaspd: 0 },
                     { id: 'GE', label: '基因學者', TranscendentClass: true, JobMaxPoint:[4,6,7,12,8,3], basehp: [4730, 4766, 4853, 4940, 5027, 5113, 5200, 5287, 5374, 5461, 5548, 5635, 5722, 5809, 5896, 5982, 6069, 6156, 6243, 6330, 6417, 6504, 6591, 6678, 6765, 6851, 6938, 7025, 7112, 7199, 7286, 7373, 7460, 7547, 7634, 7720, 7807, 7894, 7981, 8068, 8155, 8242, 8329, 8416, 8503, 8589, 8676, 8763, 8850, 8937, 9024, 9111, 9198, 9285, 9372, 9459, 9546, 9633, 9720, 9807, 9894, 9980, 10141, 10303, 10466, 10630, 10795, 10961, 11128, 11296, 11465, 11635, 11806, 11978, 12151, 12325, 12500, 12800, 13133, 13461, 13757, 13991, 14271, 14642, 15008, 15353, 15752], basesp: [900, 910, 919, 928, 937, 946, 955, 964, 973, 982, 991, 1000, 1009, 1018, 1027, 1036, 1045, 1054, 1063, 1072, 1081, 1090, 1099, 1108, 1117, 1126, 1135, 1144, 1153, 1162, 1171, 1180, 1189, 1198, 1207, 1216, 1225, 1234, 1243, 1252, 1261, 1270, 1279, 1288, 1297, 1306, 1315, 1324, 1333, 1342, 1351, 1360, 1369, 1378, 1387, 1396, 1405, 1414, 1423, 1432, 1441, 1450, 1460, 1470, 1480, 1490, 1500, 1511, 1522, 1533, 1544, 1555, 1567, 1579, 1591, 1603, 1615, 1625, 1636, 1646, 1657, 1667, 1678, 1689, 1700, 1710, 1721], baseaspd: 0 },
-                    { id: 'KO', label: '影狼/朧', TranscendentClass: false, JobMaxPoint:[7,9,5,6,8,5], basehp: [0], basesp: [0], baseaspd: 0 },
+                    { id: 'KO', label: '影狼', TranscendentClass: false, JobMaxPoint:[7,9,5,6,8,5], basehp: [0], basesp: [0], baseaspd: 0 },
+                    { id: 'OB', label: '朧', TranscendentClass: false, JobMaxPoint:[7,9,5,6,8,5], basehp: [0], basesp: [0], baseaspd: 0 },
                     { id: 'RE', label: '反叛者', TranscendentClass: false, JobMaxPoint:[3,7,6,8,10,6], basehp: [0], basesp: [0], baseaspd: 0 },
                     { id: 'SE', label: '拳皇', TranscendentClass: false, JobMaxPoint:[11,9,5,3,9,3], basehp: [0], basesp: [0], baseaspd: 0 },
                     { id: 'SL', label: '獵靈士', TranscendentClass: false, JobMaxPoint:[3,7,6,11,12,1], basehp: [0], basesp: [0], baseaspd: 0 },
@@ -6047,6 +6218,20 @@
                     { id: 'costume', label: '服飾', equipname: '', effectlist: [] },
                     { id: 'cardset', label: '套卡', equipname: '', effectlist: [] },
                     { id: 'other', label: '自訂', equipname: '', effectlist: [] },
+                    { id: 'weaponrcard', label: '主手卡片', equipname: '', effectlist: [] },
+                    { id: 'weaponlcard', label: '副手卡片', equipname: '', effectlist: [] },
+                    { id: 'helmcard', label: '頭飾卡片', equipname: '', effectlist: [] },
+                    { id: 'helm1card', label: '頭中卡片', equipname: '', effectlist: [] },
+                    { id: 'helm2card', label: '頭下卡片', equipname: '', effectlist: [] },
+                    { id: 'armorcard', label: '衣服卡片', equipname: '', effectlist: [] },
+                    { id: 'robecard', label: '披肩卡片', equipname: '', effectlist: [] },
+                    { id: 'shoescard', label: '靴子卡片', equipname: '', effectlist: [] },
+                    { id: 'acc1card', label: '飾品卡片', equipname: '', effectlist: [] },
+                    { id: 'acc2card', label: '飾品卡片', equipname: '', effectlist: [] },
+                    { id: 'shadowenchant', label: '影子附魔', equipname: '', effectlist: [] },
+                    { id: 'costumeenchant', label: '服飾附魔', equipname: '', effectlist: [] },
+                    { id: 'cardset2', label: '套卡2', equipname: '', effectlist: [] },
+                    { id: 'other2', label: '自訂2', equipname: '', effectlist: [] },
                 ],
                 effecttypelist: [
                     { label: 'STR', id: 'STR', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
@@ -6914,9 +7099,12 @@
                 },
                 GetEquipString() {
                     var _BuildString = "";
-                    for (var i = 0; i < this.equipspartlist.length; ++i) {
+                    for (var i = 0; i < 14; ++i) {
                         if (this.equipspartlist[i].equipname.trim() == '') continue;
-                        else _BuildString += this.equipspartlist[i].label + ": " + this.equipspartlist[i].equipname + '\n';
+                        else _BuildString += this.equipspartlist[i].label + ": " + this.equipspartlist[i].equipname;
+                        _BuildString += "  卡片: ";
+                        _BuildString += (this.equipspartlist[i+14].equipname.trim() == '')?'無':this.equipspartlist[i+14].equipname;
+                        _BuildString += '\n'
                         if (i == 0) {
                             if (this.weapon.ATK != 0) {
                                 _BuildString += "\tATK: " + this.weapon.ATK;
@@ -6954,6 +7142,18 @@
                                 + _EffectTypeInfo.label.substr(0).replace('%', '').trim()
                                 + _EffectTypeInfo.opersymbol
                                 + this.equipspartlist[i].effectlist[j].EffectNumber
+                                + _EffectTypeInfo.suffixsymbol + '\n';
+                        }
+                        if (this.equipspartlist[i+14].equipname.trim() == '') continue;
+                        _BuildString += '\n'
+                        for (var j = 0; j < this.equipspartlist[i+14].effectlist.length; ++j) {
+                            _EffectTypeInfo = Enumerable.From(this.effecttypelist)
+                                .Where("$.id == '" + this.equipspartlist[i+14].effectlist[j].EffectType.id + "'")
+                                .Single();
+                            _BuildString += '\t'
+                                + _EffectTypeInfo.label.substr(0).replace('%', '').trim()
+                                + _EffectTypeInfo.opersymbol
+                                + this.equipspartlist[i+14].effectlist[j].EffectNumber
                                 + _EffectTypeInfo.suffixsymbol + '\n';
                         }
                     }
@@ -7952,9 +8152,17 @@
                     this.onSkillPercentChange();
                 },
                 onChangeClass(){
+                            console.log(this.status.classid+" --");
                     this.StoreDB_JobMapedSkill = this.DefaultDB_Skill.filter(post => {
-                        return post.skill.class.split(',').some(v=>v==this.status.classid);
+                        return post.skill.class.split(',').some(v=>
+                        {
+                            return v==this.status.classid
+                        });
                     });
+                    
+                    this.ClassInfo = Enumerable.From(this.classlist)
+                            .Where("$.id == '" + this.status.classid + "'")
+                            .Single();
 
                     if( this.StoreDB_JobMapedSkill.length > 0 )
                     {
@@ -7962,6 +8170,7 @@
                         this.onLoadJobMapSkill();
                     }else{
                         this.JobMapedSkillId = '無技能資料';
+                        this.onOption();
                     }
                 },
                 ResetOption() {
@@ -7974,12 +8183,200 @@
                     this.attritube = Object.assign({}, this.attritube_init);
                     this.status_job = _.cloneDeep(this.status_job_init);
                     if (this.status.UseJobMaxPoint){
-                        this.status_job.STR += this.ClassInfo.JobMaxPoint[0];
-                        this.status_job.AGI += this.ClassInfo.JobMaxPoint[1];
-                        this.status_job.VIT += this.ClassInfo.JobMaxPoint[2];
-                        this.status_job.INT += this.ClassInfo.JobMaxPoint[3];
-                        this.status_job.DEX += this.ClassInfo.JobMaxPoint[4];
-                        this.status_job.LUK += this.ClassInfo.JobMaxPoint[5];
+                        if(this.status.JOBLevel == 70)
+                        {
+                            switch(this.status.classid)
+                            {
+                                case 'RK':
+                                    this.status_job.STR += this.job70maxpoint[0].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[0].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[0].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[0].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[0].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[0].JobMaxPoint[5];
+                                break;
+                                case 'GX':
+                                    this.status_job.STR += this.job70maxpoint[1].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[1].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[1].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[1].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[1].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[1].JobMaxPoint[5];
+
+                                break;
+                                case 'AB':
+                                    this.status_job.STR += this.job70maxpoint[2].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[2].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[2].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[2].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[2].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[2].JobMaxPoint[5];
+
+                                break;
+                                case 'RA':
+                                    this.status_job.STR += this.job70maxpoint[3].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[3].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[3].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[3].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[3].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[3].JobMaxPoint[5];
+
+                                break;
+                                case 'WL':
+                                    this.status_job.STR += this.job70maxpoint[4].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[4].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[4].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[4].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[4].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[4].JobMaxPoint[5];
+
+                                break;
+                                case 'ME':
+                                    this.status_job.STR += this.job70maxpoint[5].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[5].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[5].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[5].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[5].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[5].JobMaxPoint[5];
+
+                                break;
+                                case 'RG':
+                                    this.status_job.STR += this.job70maxpoint[6].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[6].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[6].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[6].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[6].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[6].JobMaxPoint[5];
+
+                                break;
+                                case 'SC':
+                                    this.status_job.STR += this.job70maxpoint[7].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[7].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[7].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[7].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[7].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[7].JobMaxPoint[5];
+
+                                break;
+                                case 'SU':
+                                    this.status_job.STR += this.job70maxpoint[8].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[8].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[8].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[8].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[8].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[8].JobMaxPoint[5];
+
+                                break;
+                                case 'MI':
+                                    this.status_job.STR += this.job70maxpoint[9].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[9].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[9].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[9].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[9].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[9].JobMaxPoint[5];
+
+                                break;
+                                case 'WA':
+                                    this.status_job.STR += this.job70maxpoint[10].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[10].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[10].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[10].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[10].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[10].JobMaxPoint[5];
+
+                                break;
+                                case 'SO':
+                                    this.status_job.STR += this.job70maxpoint[11].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[11].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[11].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[11].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[11].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[11].JobMaxPoint[5];
+
+                                break;
+                                case 'GE':
+                                    this.status_job.STR += this.job70maxpoint[12].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[12].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[12].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[12].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[12].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[12].JobMaxPoint[5];
+
+                                break;
+                                case 'KO':
+                                    this.status_job.STR += this.job70maxpoint[13].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[13].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[13].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[13].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[13].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[13].JobMaxPoint[5];
+
+                                break;
+                                case 'OB':
+                                    this.status_job.STR += this.job70maxpoint[14].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[14].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[14].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[14].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[14].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[14].JobMaxPoint[5];
+
+                                break;
+                                case 'RE':
+                                    this.status_job.STR += this.job70maxpoint[15].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[15].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[15].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[15].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[15].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[15].JobMaxPoint[5];
+
+                                break;
+                                case 'SE':
+                                    this.status_job.STR += this.job70maxpoint[16].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[16].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[16].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[16].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[16].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[16].JobMaxPoint[5];
+
+                                break;
+                                case 'SL':
+                                    this.status_job.STR += this.job70maxpoint[17].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[17].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[17].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[17].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[17].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[17].JobMaxPoint[5];
+
+                                break;
+                                case 'SUM':
+                                    this.status_job.STR += this.job70maxpoint[18].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[18].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[18].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[18].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[18].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[18].JobMaxPoint[5];
+
+                                break;
+                                case 'SN':
+                                    this.status_job.STR += this.job70maxpoint[19].JobMaxPoint[0]; 
+                                    this.status_job.AGI += this.job70maxpoint[19].JobMaxPoint[1];
+                                    this.status_job.VIT += this.job70maxpoint[19].JobMaxPoint[2];
+                                    this.status_job.INT += this.job70maxpoint[19].JobMaxPoint[3];
+                                    this.status_job.DEX += this.job70maxpoint[19].JobMaxPoint[4];
+                                    this.status_job.LUK += this.job70maxpoint[19].JobMaxPoint[5];
+
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            this.status_job.STR += this.ClassInfo.JobMaxPoint[0];
+                            this.status_job.AGI += this.ClassInfo.JobMaxPoint[1];
+                            this.status_job.VIT += this.ClassInfo.JobMaxPoint[2];
+                            this.status_job.INT += this.ClassInfo.JobMaxPoint[3];
+                            this.status_job.DEX += this.ClassInfo.JobMaxPoint[4];
+                            this.status_job.LUK += this.ClassInfo.JobMaxPoint[5];
+                        }
                     }
 
                     this.option.EquipSkillAddDamage = 0;
@@ -8916,14 +9313,15 @@
                     //this.equipspartlist[idx] = Object.assign({}, JSON.parse(JSON.stringify(this.StoreDB_Equip[_dbidx].equip)));
                     this.skill.name = this.StoreDB_AllSet[_dbidx].AllSet.SkillName;
                     for (eqi = 0; eqi < this.equipspartlist.length; ++eqi) {
-                        this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].effectlist.forEach(x=>x.Enable=x.Enable==null?true:x.Enable);
+                        //this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].effectlist.forEach(x=>x.Enable=x.Enable==null?true:x.Enable);
+                        var cardnull = (this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi]==null)?true:false;
                         this.$set(this.equipspartlist,
                             eqi,
                             {
                                 id: this.equipspartlist[eqi].id,
                                 label: this.equipspartlist[eqi].label,
-                                equipname: this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].equipname,
-                                effectlist: _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].effectlist),
+                                equipname: cardnull? '':this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].equipname,
+                                effectlist: _.cloneDeep(cardnull?[]:this.StoreDB_AllSet[_dbidx].AllSet.Equip[eqi].effectlist),
                             })
                     }
                     this.weapon = _.cloneDeep(this.StoreDB_AllSet[_dbidx].AllSet.Weapon);
@@ -9097,15 +9495,15 @@
                         { skill: { id: 'WM_METALICSOUND', name: '重金屬音樂', level: 10, formula: '(600+SLV*120)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 5.5, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_REVERBERATION', name: '殘響', level: 5, formula: '(400+SLV*300)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.5, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         
-                        { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', class: 'KO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'NJ_BAKUENRYU', name: '爆炎龍', level: 5, formula: '150+SLV*150', class: 'KO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 0.6, VCT: 2.4, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'NJ_HYOUSENSOU', name: '冰閃槍', level: 10, formula: '70', class: 'KO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 2, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'NJ_HYOUSYOURAKU', name: '冰晶落', level: 5, formula: '150+SLV*150', class: 'KO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 2, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'NJ_KAMAITACHI', name: '朔風', level: 5, formula: '100+SLV*100', class: 'KO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', class: 'KO', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', class: 'KO', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*200*BLV/100', class: 'KO', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'KO_JYUMONJIKIRI(buff)', name: '幽冥十字斬(十字創傷)', level: 10, formula: 'SLV*200*BLV/100+BLV*SLV', class: 'KO', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'NJ_BAKUENRYU', name: '爆炎龍', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 0.6, VCT: 2.4, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'NJ_HYOUSENSOU', name: '冰閃槍', level: 10, formula: '70', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 2, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'NJ_HYOUSYOURAKU', name: '冰晶落', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 2, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'NJ_KAMAITACHI', name: '朔風', level: 5, formula: '100+SLV*100', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*200*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'KO_JYUMONJIKIRI(buff)', name: '幽冥十字斬(十字創傷)', level: 10, formula: 'SLV*200*BLV/100+BLV*SLV', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_SOLARBURST', name: '太陽爆炸', level: 10, formula: '(1000+SLV*220)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_NEWMOONKICK', name: '朔月腳', level: 7, formula: '(600+SLV*100+((SLV>3)?100:0))*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9229,6 +9627,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2020-1-29', content: '增加JOB等級判斷代入點數 開啟自動代入JOB點數並且JLV填入70 就會變更為job70的數值<br>裝備區域 卡片欄位<br>修正部分情況下 代入JOB滿等素質點錯誤的問題' },
                         { id: '2020-1-25', content: '修改預設技能 連鎖電擊的計算方式 為第1~4下的總傷害<br>增加額外技能選項 特殊SpecialATKFront(前ATK)' },
                         { id: '2020-1-18', content: '修正普攻傷害會被技能段數影響的問題<br>增加敵方預設資料 測試用魔物 (小)(中)(大)' },
                         { id: '2020-1-6', content: '增加劍士額外技能選項 突里薩茲:力量成長(盧1)/艾伊瓦茲盧:提升鬥志(盧5)/力量根源:盧恩爆發(盧10)<br>增加龍之氣息的一般總覽項目<br>增加預設技能 風暴衝擊' },
