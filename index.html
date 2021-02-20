@@ -6953,7 +6953,7 @@
                     if (this.IsSupportActive('ASC_EDP')){
                         this.option.MagnumPoison2Value = 25;
                     }
-                    if (this.IsSupportActive('ASC_EDP') == false && this.IsSupportActive('ASC_EDP') == false) {
+                    if (this.IsSupportActive('ASC_EDP') == false && this.IsSupportActive('SM_MAGNUM') == false) {
                         this.option.MagnumPoison2Value = 0;
                     }
                     //速度激發
@@ -8289,6 +8289,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-2-20', content: '修正輔助技能怒暴沒有增傷的問題' },
                         { id: '2021-2-19', content: '額外輔助技能架構重寫<br>整頁儲存改名&拆開功能為配置清單 / 儲存配置 / 讀取配置檔案<br>儲存配置現在可以儲存職業&輔助技能了<br>儲存配置現在會記錄傷害/配置紀錄會顯示傷害<br>配置清單增加下載按鈕,檔名為儲存名.roc<br>增加額外技能頁面<br>修練ATK現在可以輔助技能選擇' },
                         { id: '2021-2-17', content: '增加目前統計的各職業186~200 HPSP資料 (200等缺盧恩騎士)<br>修改慈悲術、純白百合花的預設施展者JOB等級為70<br>修正純白百合花 攻擊後延遲%為10+施展者JOB/10<br>修正敵方預設資料 測試用魔物的減算物防為50<br>增加敵方預設資料 珠寶溫古力安特 骷髏迪塔勒泰晤勒斯' },
                         { id: '2021-2-5', content: '修改卡片部位分類載入機制 頭飾卡片(頭上中) 武器卡片(主副手) 飾品卡片(左右)<br>修正CRI超過100時 DPS計算錯誤的問題<br>修正卡片欄位打勾功能異常的問題<br>增加裝備效果 變詠s (為固定減變詠秒數)<br>代入JOB滿等加成素質點現在強制為J70' },
