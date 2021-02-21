@@ -6024,7 +6024,7 @@
                         var _MaxHP = _BaseHP;
                         var HP_MOD_A = this.attritube['HP'];
                         var HP_MOD_B = this.attritube['HPP'];
-                        _MaxHP = Math.floor(_MaxHP * (this.status.Transcendent ? 1.25 : 1));
+                        if(this.status.Level <= 185) _MaxHP = Math.floor(_MaxHP * (this.status.Transcendent ? 1.25 : 1));
                         _MaxHP = Math.floor(_MaxHP * (100 + this.status_total.VIT) / 100);
                         _MaxHP += HP_MOD_A;
                         _MaxHP = Math.floor(_MaxHP);
@@ -6033,7 +6033,7 @@
                         var _MaxSP = _BaseSP;
                         var SP_MOD_A = this.attritube['SP'];
                         var SP_MOD_B = this.attritube['SPP'];
-                        _MaxSP = Math.floor(_MaxSP * (this.status.Transcendent ? 1.25 : 1));
+                        if(this.status.Level <= 185) _MaxSP = Math.floor(_MaxSP * (this.status.Transcendent ? 1.25 : 1));
                         _MaxSP = Math.floor(_MaxSP * (100 + this.status_total.INT) / 100);
                         _MaxSP += SP_MOD_A;
                         _MaxSP = Math.floor(_MaxSP);
@@ -7028,6 +7028,8 @@
                     // 練習舞蹈
                     if (this.IsSupportActive('BA_MUSICALLESSON')){
                         this.attritube['ATK'] += 3 * 10;
+                        this.attritube['SPP'] += 10;
+                        this.attritube['CRI'] += 10;
                     }
                     // 課程
                     if (this.IsSupportActive('WM_LESSON')){
@@ -8289,6 +8291,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-2-21', content: '修正轉生後186以上血量錯誤的問題<br>修正練習舞蹈 增加MSP' },
                         { id: '2021-2-20', content: '修正輔助技能怒暴沒有增傷的問題' },
                         { id: '2021-2-19', content: '額外輔助技能架構重寫<br>整頁儲存改名&拆開功能為配置清單 / 儲存配置 / 讀取配置檔案<br>儲存配置現在可以儲存職業&輔助技能了<br>儲存配置現在會記錄傷害/配置紀錄會顯示傷害<br>配置清單增加下載按鈕,檔名為儲存名.roc<br>增加額外技能頁面<br>修練ATK現在可以輔助技能選擇' },
                         { id: '2021-2-17', content: '增加目前統計的各職業186~200 HPSP資料 (200等缺盧恩騎士)<br>修改慈悲術、純白百合花的預設施展者JOB等級為70<br>修正純白百合花 攻擊後延遲%為10+施展者JOB/10<br>修正敵方預設資料 測試用魔物的減算物防為50<br>增加敵方預設資料 珠寶溫古力安特 骷髏迪塔勒泰晤勒斯' },
