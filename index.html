@@ -2412,19 +2412,19 @@
                                     [SP]{{status.SP}}</span>
                             </el-col>
                             <el-col class="textcenter" :span="4" style="text-align: right;">
-                                <el-tooltip class="item" effect="dark" content="讀取已經儲存的素質" placement="left">
+                                <!--<el-tooltip class="item" effect="dark" content="讀取已經儲存的素質" placement="left">
                                     <el-button v-on:click="OpenStatusDBDialogDialogue" size="mini">
                                         角色清單
                                     </el-button>
-                                </el-tooltip>
+                                </el-tooltip>-->
                             </el-col>
                             <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('StatusPanel')" size="mini"><i
-                                        class="el-icon-arrow-down"></i></el-button>
+                                        class="el-icon-arrow-up"></i></el-button>
                             </el-col>
                             <el-col v-else="!UIPanel['StatusPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('StatusPanel')" size="mini"><i
-                                        class="el-icon-arrow-up"></i></el-button>
+                                        class="el-icon-arrow-down"></i></el-button>
                             </el-col>
                         </el-row>
                         <el-row>
@@ -2671,11 +2671,11 @@
                             </el-col>
                             <el-col v-if="UIPanel['EnemyPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('EnemyPanel')" size="mini"><i
-                                        class="el-icon-arrow-down"></i></el-button>
+                                        class="el-icon-arrow-up"></i></el-button>
                             </el-col>
                             <el-col v-else="!UIPanel['EnemyPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('EnemyPanel')" size="mini"><i
-                                        class="el-icon-arrow-up"></i></el-button>
+                                        class="el-icon-arrow-down"></i></el-button>
                             </el-col>
                         </el-row>
                         <el-row>
@@ -2873,11 +2873,11 @@
                             </el-col>
                             <el-col v-if="UIPanel['SkillPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('SkillPanel')" size="mini"><i
-                                        class="el-icon-arrow-down"></i></el-button>
+                                        class="el-icon-arrow-up"></i></el-button>
                             </el-col>
                             <el-col v-else="!UIPanel['SkillPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('SkillPanel')" size="mini"><i
-                                        class="el-icon-arrow-up"></i></el-button>
+                                        class="el-icon-arrow-down"></i></el-button>
                             </el-col>
                         </el-row>
                         <el-row>
@@ -3109,9 +3109,9 @@
                         
                         <el-row class="titlebox" type="flex" align="middle" justify="end"
                                 style="height:40px; padding: 0px 5px;">
-                                <el-col class="textcenter" :span="6">
+                                <el-col class="textcenter" :span="9">
                                 </el-col>
-                                <el-col class="textcenter" :span="12">
+                                <el-col class="textcenter" :span="6">
                                     <span class="textcenter">職業技能</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="6" style="text-align: right;">
@@ -3119,12 +3119,22 @@
                                         額外技能
                                     </el-button>
                                 </el-col>
+                                <el-col v-if="UIPanel['SupportSkillPanel']" class="textcenter" :span="3">
+                                    <el-button type="info" v-on:click="TogglePanel('SupportSkillPanel')" size="mini"><i
+                                            class="el-icon-arrow-down"></i></el-button>
+                                </el-col>
+                                <el-col v-else="!UIPanel['SupportSkillPanel']" class="textcenter" :span="3">
+                                    <el-button type="info" v-on:click="TogglePanel('SupportSkillPanel')" size="mini"><i
+                                            class="el-icon-arrow-up"></i></el-button>
+                                </el-col>
                             </el-row>
                         <el-row>
                             <div class="boxborder OptionBlock">
                                 <div v-for="(item, index) in SupportSkill_JobMaped"
                                     v-bind:key="item.id">
-                                    <el-row :class="item.skill.passive?'optionbox':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
+                                    <el-row 
+                                        v-show="!UIPanel['SupportSkillPanel'] | item.skill.active"
+                                        :class="item.skill.passive?'optionbox':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
                                         justify="end" style="height:40px;">
                                         <el-col class="textcenter" style="text-align: right;">
                                             <span class="EffectType">{{ item.skill.name }}</span>
@@ -3845,11 +3855,11 @@
                                         </el-col>
                                         <el-col v-if="UIPanel['ATKCompute']" class="textcenter" :span="3">
                                             <el-button type="info" v-on:click="TogglePanel('ATKCompute')" size="mini"><i
-                                                    class="el-icon-arrow-down"></i></el-button>
+                                                    class="el-icon-arrow-up"></i></el-button>
                                         </el-col>
                                         <el-col v-else class="textcenter" :span="3">
                                             <el-button type="info" v-on:click="TogglePanel('ATKCompute')" size="mini"><i
-                                                    class="el-icon-arrow-up"></i></el-button>
+                                                    class="el-icon-arrow-down"></i></el-button>
                                         </el-col>
                                     </el-row>
                                     <el-collapse-transition>
@@ -4049,11 +4059,11 @@
                                         </el-col>
                                         <el-col v-if="UIPanel['MATKCompute']" class="textcenter" :span="3">
                                             <el-button type="info" v-on:click="TogglePanel('MATKCompute')" size="mini">
-                                                <i class="el-icon-arrow-down"></i></el-button>
+                                                <i class="el-icon-arrow-up"></i></el-button>
                                         </el-col>
                                         <el-col v-else class="textcenter" :span="3">
                                             <el-button type="info" v-on:click="TogglePanel('MATKCompute')" size="mini">
-                                                <i class="el-icon-arrow-up"></i></el-button>
+                                                <i class="el-icon-arrow-down"></i></el-button>
                                         </el-col>
                                     </el-row>
                                     <el-collapse-transition>
@@ -4206,11 +4216,11 @@
                                     </el-col>
                                     <el-col v-if="UIPanel['General']" class="textcenter" :span="3">
                                         <el-button type="info" v-on:click="TogglePanel('General')" size="mini"><i
-                                                class="el-icon-arrow-down"></i></el-button>
+                                                class="el-icon-arrow-up"></i></el-button>
                                     </el-col>
                                     <el-col v-else class="textcenter" :span="3">
                                         <el-button type="info" v-on:click="TogglePanel('General')" size="mini"><i
-                                                class="el-icon-arrow-up"></i></el-button>
+                                                class="el-icon-arrow-down"></i></el-button>
                                     </el-col>
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -4622,11 +4632,11 @@
                                     </el-col>
                                     <el-col v-if="UIPanel['CastDelay']" class="textcenter" :span="3">
                                         <el-button type="info" v-on:click="TogglePanel('CastDelay')" size="mini"><i
-                                                class="el-icon-arrow-down"></i></el-button>
+                                                class="el-icon-arrow-up"></i></el-button>
                                     </el-col>
                                     <el-col v-else class="textcenter" :span="3">
                                         <el-button type="info" v-on:click="TogglePanel('CastDelay')" size="mini"><i
-                                                class="el-icon-arrow-up"></i></el-button>
+                                                class="el-icon-arrow-down"></i></el-button>
                                     </el-col>
                                 </el-row>
                                 <el-collapse-transition>
@@ -5367,22 +5377,6 @@
                     ATKCompute: false,
                     MATKCompute: false,
                     DragonBreathCompute: false,
-                    SwordmanSkillPage: false,
-                    MageSkillPage: false,
-                    WarlockSkillPage: false,
-                    SorcererSkillPage: false,
-                    ArcherSkillPage: false,
-                    BardDancerSkillPage: false,
-                    MerchantSkillPage: false,
-                    ThiefSkillPage: false,
-                    AcolyteSkillPage: false,
-                    SuraSkillPage: false,
-                    TaekwonSkillPage: false,
-                    StarEmperorSkillPage: false,
-                    SoulReaperSkillPage: false,
-                    KagerouOboroSkillPage: false,
-                    SummonerSkillPage: false,
-                    NoviceSkillPage: false,
                     SpecialATKPage: false,
 
                     AboutDialog: false,
@@ -5404,6 +5398,7 @@
                     StatusPanel: true,
                     EnemyPanel: true,
                     SkillPanel: false,
+                    SupportSkillPanel: false,
                     ATKPanel: true,
                     MATKPanel: true,
                     DragonBreathPanel: true,
