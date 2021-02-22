@@ -7094,45 +7094,75 @@
                         this.computeattribute['SpecialATK1'] += this.weapon.level.id * (this.GetSupportSkill('SO_STRIKING').lv * 2 + 8) + this.GetSupportSkill('SO_STRIKING').arg1 * 5;
                     }
                     // 紋章
-                    if (this.option.SO_FIRE_INSIGNIA) {
+                    if (this.IsSupportActive('SO_FIRE_INSIGNIA')) {
                         if (this.skilloption.AttackElementalIdx == 1) {
                             this.attritube['MATK'] += 50;
                             this.attritube['ElementalMagicPercent'] += 25;
                         }
                     }
-                    if (this.option.SO_WATER_INSIGNIA) {
+                    if (this.IsSupportActive('SO_WATER_INSIGNIA')) {
                         if (this.skilloption.AttackElementalIdx == 2) {
+                            this.attritube['SK1VCTP'] += 30;
                             this.attritube['ElementalMagicPercent'] += 25;
                         }
                     }
-                    if (this.option.SO_WIND_INSIGNIA) {
+                    if (this.IsSupportActive('SO_WIND_INSIGNIA')) {
                         if (this.skilloption.AttackElementalIdx == 3) {
+                            this.attritube['GCD'] += 50;
                             this.attritube['ElementalMagicPercent'] += 25;
                         }
                     }
-                    if (this.option.SO_EARTH_INSIGNIA) {
+                    if (this.IsSupportActive('SO_EARTH_INSIGNIA')) {
                         if (this.skilloption.AttackElementalIdx == 4) {
                             this.attritube['ElementalMagicPercent'] += 25;
                         }
                     }
-                    if (this.option.SO_FIRE_INSIGNIA_ENEMY) {
+                    if (this.IsSupportActive('SO_FIRE_INSIGNIA_ENEMY')) {
                         if (this.skilloption.AttackElementalIdx == 2) {
                             this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 50;
                         }
                     }
-                    if (this.option.SO_WATER_INSIGNIA_ENEMY) {
+                    if (this.IsSupportActive('SO_WATER_INSIGNIA_ENEMY')) {
                         if (this.skilloption.AttackElementalIdx == 3) {
                             this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 50;
                         }
                     }
-                    if (this.option.SO_WIND_INSIGNIA_ENEMY) {
+                    if (this.IsSupportActive('SO_WIND_INSIGNIA_ENEMY')) {
                         if (this.skilloption.AttackElementalIdx == 4) {
                             this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 50;
                         }
                     }
-                    if (this.option.SO_EARTH_INSIGNIA_ENEMY) {
+                    if (this.IsSupportActive('SO_EARTH_INSIGNIA_ENEMY')) {
                         if (this.skilloption.AttackElementalIdx == 1) {
                             this.computeattribute['SpecialINSIGNIAENEMYMATK'] = 50;
+                        }
+                    }
+                    //火元素領域
+                    if (this.IsSupportActive('SA_VOLCANO')) {
+                        if (this.skilloption.AttackElementalIdx == 1) {
+                            var _lv = this.GetSupportSkill('SA_VOLCANO').lv;
+                            var _a = [0,3,6,9,12,15];
+                            var _e = [0,10,14,17,19,20];
+                            this.attritube['ATK'] += _a[_lv];
+                            this.attritube['ElementalMagicPercent'] += _e[_lv];
+                        }
+                    }
+                    //水元素領域
+                    if (this.IsSupportActive('SA_DELUGE')) {
+                        if (this.skilloption.AttackElementalIdx == 2) {
+                            var _lv = this.GetSupportSkill('SA_DELUGE').lv;
+                            var _h = [0,5,9,12,14,15];
+                            var _e = [0,10,14,17,19,20];
+                            this.attritube['HPP'] += _h[_lv];
+                            this.attritube['ElementalMagicPercent'] += _e[_lv];
+                        }
+                    }
+                    //風元素領域
+                    if (this.IsSupportActive('SA_VIOLENTGALE')) {
+                        if (this.skilloption.AttackElementalIdx == 3) {
+                            var _lv = this.GetSupportSkill('SA_VIOLENTGALE').lv;
+                            var _e = [0,10,14,17,19,20];
+                            this.attritube['ElementalMagicPercent'] += _e[_lv];
                         }
                     }
                     // 加速
@@ -8156,6 +8186,18 @@
                         { skill: { id: 'SA_ADVANCEDBOOK', name: '進化之書', maxlv: 10, lv: 10, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SA_DRAGONOLOGY', name: '龍知識', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SO_STRIKING', name: '打擊強化', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 1, arg1: 20, arg1desc: '屬附總等級', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SO_FIRE_INSIGNIA', name: '火之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_WATER_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_WATER_INSIGNIA', name: '水之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_WIND_INSIGNIA', name: '風之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_EARTH_INSIGNIA', name: '地之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_WIND_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_FIRE_INSIGNIA_ENEMY', name: '火之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_WATER_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
+                        { skill: { id: 'SO_WATER_INSIGNIA_ENEMY', name: '水之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
+                        { skill: { id: 'SO_WIND_INSIGNIA_ENEMY', name: '風之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WATER_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
+                        { skill: { id: 'SO_EARTH_INSIGNIA_ENEMY', name: '地之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WATER_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY', Note: '', } },
+                        { skill: { id: 'SA_VOLCANO', name: '火元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SA_DELUGE,SA_VIOLENTGALE', Note: '', } },
+                        { skill: { id: 'SA_DELUGE', name: '水元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SA_VOLCANO,SA_VIOLENTGALE', Note: '', } },
+                        { skill: { id: 'SA_VIOLENTGALE', name: '風元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SA_VOLCANO,SA_DELUGE', Note: '', } },
+                        
                         { skill: { id: 'NJ_NEN', name: '念', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'KO_KAHU_ENTEN', name: '火符:炎天', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'KO_HYOUHU_HUBUKI,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
                         { skill: { id: 'KO_HYOUHU_HUBUKI', name: '冰符:吹雪', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
@@ -8291,6 +8333,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-2-22', content: '增加輔助技能 紋章 元素領域' },
                         { id: '2021-2-21', content: '修正轉生後186以上血量錯誤的問題<br>修正練習舞蹈 增加MSP' },
                         { id: '2021-2-20', content: '修正輔助技能怒暴沒有增傷的問題' },
                         { id: '2021-2-19', content: '額外輔助技能架構重寫<br>整頁儲存改名&拆開功能為配置清單 / 儲存配置 / 讀取配置檔案<br>儲存配置現在可以儲存職業&輔助技能了<br>儲存配置現在會記錄傷害/配置紀錄會顯示傷害<br>配置清單增加下載按鈕,檔名為儲存名.roc<br>增加額外技能頁面<br>修練ATK現在可以輔助技能選擇' },
