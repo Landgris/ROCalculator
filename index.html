@@ -2012,7 +2012,7 @@
                 </div>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="UIPanel['ConsumableDBDialog']" custom-class="Dialogue-container" width="70%"
+        <el-dialog :visible.sync="UIPanel['ConsumableDBDialog']" custom-class="Dialogue-container" width="80%"
             top="58px" v-on:close="ClosePanel('ConsumableDBDialog')" center>
             <span slot="title">使用消耗品</span>
             <el-row class="statusbox titlebox" style="padding: 5px 5px; height: 60px;":gutter="4" type="flex" align="middle" justify="end" >
@@ -2048,7 +2048,7 @@
                 </el-col>
             </el-row>
             <el-row :gutter="2">
-                <el-col :span="6" class="statusbox ">
+                <el-col :span="4" class="statusbox ">
                     <el-row class="optionbox" style="height:40px;" :gutter="4" type="flex" align="middle" justify="middle">
                         <el-col class="textcenter" >
                             <span class="EffectType">統計效果</span>
@@ -2080,7 +2080,7 @@
                         </el-row>
                     </el-scrollbar>
                 </el-col>
-                <el-col :span="6" class=" ">
+                <el-col :span="5" class=" ">
                     <el-row class="effectline previeweffectbox" style="height:40px;" :gutter="4" type="flex" align="middle" justify="middle">
                         <el-col class="textcenter" >
                             <span class="EffectType">素質類(取最大)</span>
@@ -2088,13 +2088,12 @@
                     </el-row>
                     <el-scrollbar wrap-class="ConsumableList1-container" :native="false" :noresize="false">
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('StatusG')" v-bind:key="item.id" 
-                                style="padding: 3px 10px;">
-                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                    <el-col class="textcenter" :span="12">
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('StatusG')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
                                         <span class="EffectType">{{ item.name }}</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="4">
                                         <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
                                             active-color="#13ce66" inactive-color="#8a9799"></el-switch>
                                     </el-col>
@@ -2135,7 +2134,7 @@
                         </el-row>
                     </el-scrollbar>
                 </el-col>
-                <el-col :span="6" class=" ">
+                <el-col :span="5" class=" ">
                     <el-scrollbar wrap-class="ConsumableList2-container" :native="false" :noresize="false">
                         <el-row class="effectline previeweffectbox" style="height:40px;">
                             <el-col class="textcenter" >
@@ -2143,13 +2142,12 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Status20G')" v-bind:key="item.id"
-                                style="height:40px; padding: 3px 10px;">
-                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                    <el-col class="textcenter" :span="12">
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Status20G')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
                                         <span class="EffectType">{{ item.name }}</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="4">
                                         <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
                                             active-color="#13ce66" inactive-color="#8a9799"></el-switch>
                                     </el-col>
@@ -2162,13 +2160,12 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('HPSP')" v-bind:key="item.id"
-                                style="height:40px; padding: 3px 10px;">
-                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                    <el-col class="textcenter" :span="12">
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('HPSP')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
                                         <span class="EffectType">{{ item.name }}</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="4">
                                         <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
                                             active-color="#13ce66" inactive-color="#8a9799"></el-switch>
                                     </el-col>
@@ -2177,7 +2174,7 @@
                         </el-row>
                     </el-scrollbar>
                 </el-col>
-                <el-col :span="6" class=" ">
+                <el-col :span="5" class=" ">
                     <el-scrollbar wrap-class="ConsumableList2-container" :native="false" :noresize="false">
                         <el-row class="effectline previeweffectbox" style="height:40px;">
                             <el-col class="textcenter" >
@@ -2185,13 +2182,12 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('ATKMATKUP')" v-bind:key="item.id"
-                                style="height:40px; padding: 3px 10px;">
-                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                    <el-col class="textcenter" :span="12">
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('ATKMATKUP')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
                                         <span class="EffectType">{{ item.name }}</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="4">
                                         <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
                                             active-color="#13ce66" inactive-color="#8a9799"></el-switch>
                                     </el-col>
@@ -2204,13 +2200,12 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('sp')" v-bind:key="item.id"
-                                style="height:40px; padding: 3px 10px;">
-                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                    <el-col class="textcenter" :span="12">
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('sp')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
                                         <span class="EffectType">{{ item.name }}</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="4">
                                         <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
                                             active-color="#13ce66" inactive-color="#8a9799"></el-switch>
                                     </el-col>
@@ -2223,13 +2218,12 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio1')" v-bind:key="item.id"
-                                style="height:40px; padding: 3px 10px;">
-                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                    <el-col class="textcenter" :span="12">
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio1')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
                                         <span class="EffectType">{{ item.name }}</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="4">
                                         <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
                                             active-color="#13ce66" inactive-color="#8a9799"></el-switch>
                                     </el-col>
@@ -2242,13 +2236,34 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio2')" v-bind:key="item.id"
-                                style="height:40px; padding: 3px 10px;">
-                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                    <el-col class="textcenter" :span="12">
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio2')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
                                         <span class="EffectType">{{ item.name }}</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="2">
+                                    <el-col class="textcenter" :span="4">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
+                </el-col>
+                <el-col :span="5" class=" ">
+                    <el-row class="effectline previeweffectbox" style="height:40px;" :gutter="4" type="flex" align="middle" justify="middle">
+                        <el-col class="textcenter" >
+                            <span class="EffectType">變身卷軸</span>
+                        </el-col>
+                    </el-row>
+                    <el-scrollbar wrap-class="ConsumableList1-container" :native="false" :noresize="false">
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('TransScroll')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">
                                         <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
                                             active-color="#13ce66" inactive-color="#8a9799"></el-switch>
                                     </el-col>
@@ -5781,6 +5796,11 @@
                             if(item['group'] == 'Radio2') item['active'] = false;
                         });
                     }
+                    if( this.consumablelist[_idx]['group'] == 'TransScroll' ){
+                        this.consumablelist.forEach(item => {
+                            if(item['group'] == 'TransScroll') item['active'] = false;
+                        });
+                    }
                     this.$set(this.consumablelist[_idx],
                                 'active',
                                 !_active);
@@ -5868,6 +5888,16 @@
                             }
                         };
                     }
+                    // 變身卷軸
+                    _tag = [ 'MATK', 'RangedDamagePercent' ];
+                    var _idx = this.consumablelist.findIndex(i=>i.group=='TransScroll' && i.active==true);
+                    for( var t=0; t<_tag.length; ++t ){
+                        if( this.consumablelist[_idx][_tag[t]] != null ){
+                            var _id = this.consumableeffecttypelist.findIndex( i=> i.id == _tag[t]);
+                            this.consumableeffecttypelist[_id].totalvalue += Number(this.consumablelist[_idx][_tag[t]]);
+                        }
+                    }
+
                     // 固詠修正
                     var _id = this.consumableeffecttypelist.findIndex( i=> i.id == 'FixedCastPercent');
                     this.consumableeffecttypelist[_id].totalvalue = _FixedCast;
@@ -7344,6 +7374,19 @@
                     if (this.IsSupportActive('SU_CHATTERING')){
                         this.attritube['MATK'] += 100;
                     }
+                    //蝦群
+                    if (this.IsSupportActive('SU_BUNCHOFSHRIMP')){
+                        this.attritube['ATKP'] += 10;
+                        this.attritube['MATKP'] += 10;
+                    }
+                    //捲甲蟲暴衝
+                    if (this.IsSupportActive('SU_ARCLOUSEDASH')){
+                        this.status_add.AGI += 40;
+                        if(this.status.classid == 'SUM')
+                        {
+                            this.attritube['RNGDP'] += 10;
+                        }
+                    }
                     //突破極限
                     if (this.IsSupportActive('NV_BREAKTHROUGH')){
                         this.attritube['ATK'] += 100;
@@ -8214,6 +8257,8 @@
                         { skill: { id: 'SP_SOULCURSE', name: '邪惡靈魂詛咒', maxlv: 1, lv: 1, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_POWEROFLIFE', name: '生命力量 (遠傷20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_POWEROFLAND', name: '大地力量 (Matk20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SU_BUNCHOFSHRIMP', name: '蝦群', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SU_ARCLOUSEDASH', name: '捲甲蟲暴衝', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_CHATTERING', name: '喵喵/喵喵不休', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'NV_BREAKTHROUGH', name: '突破極限', maxlv: 5, lv: 0, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'NV_TRANSCENDENCE', name: '心靈超越', maxlv: 5, lv: 0, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
@@ -8299,6 +8344,15 @@
                         { id:12436, name:'維他丸500', active:false, group:'HPSP', SPPercent:5},
                         { id:14600, name:'智囊藥水', active:false, group:'HPSP', SPPercent:10},
                         { id:14602, name:'塔奧群卡卷軸', active:false, group:'HPSP', HPPercent:100},
+
+                        { id:12659, name:'變身卷軸(幽靈弓箭手)', active:false, group:'TransScroll', RangedDamagePercent:25},
+                        { id:12660, name:'變身卷軸(森林妖精)', active:false, group:'TransScroll', RangedDamagePercent:25},
+                        { id:22752, name:'變身卷軸(蓋俄斯提)', active:false, group:'TransScroll', RangedDamagePercent:30},
+                        { id:22753, name:'變身卷軸(犬妖弓箭手)', active:false, group:'TransScroll', RangedDamagePercent:30},
+                        { id:12661, name:'變身卷軸(馬爾杜克)', active:false, group:'TransScroll', MATK:25},
+                        { id:12662, name:'變身卷軸(惡耗女妖)', active:false, group:'TransScroll', MATK:25},
+                        { id:22754, name:'變身卷軸(行妖術者)', active:false, group:'TransScroll', MATK:50},
+                        { id:22755, name:'變身卷軸(風魔巫師)', active:false, group:'TransScroll', MATK:50},
                     ); 
 
                     this.KeywordReplaceList.push(
@@ -8328,6 +8382,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-2-24', content: '增加輔助技能 捲甲蟲暴衝 蝦群<br>增加消耗品分類 變身卷軸' },
                         { id: '2021-2-22', content: '增加輔助技能 紋章 元素領域' },
                         { id: '2021-2-21', content: '修正轉生後186以上血量錯誤的問題<br>修正練習舞蹈 增加MSP' },
                         { id: '2021-2-20', content: '修正輔助技能怒暴沒有增傷的問題' },
@@ -8413,10 +8468,11 @@
                     this.DonatethanksList.push(
                         { id: 0, coop: '感謝贊助', name: '悠哉' },
                         { id: 1, coop: '感謝贊助', name: '巴基力 沐沐' },
-                        { id: 2, coop: '感謝贊助', name: '鄰居漂亮大姐姐 春' },
-                        { id: 3, coop: '感謝贊助', name: '波利 Rein' },
-                        { id: 4, coop: '感謝贊助', name: '波利 蒼藍鴿' },
-                        { id: 5, coop: '感謝贊助', name: '巴基力 YU0520' },
+                        { id: 2, coop: '感謝贊助', name: 'YOY' },
+                        { id: 3, coop: '感謝贊助', name: '鄰居漂亮大姐姐 春' },
+                        { id: 4, coop: '感謝贊助', name: '波利 Rein' },
+                        { id: 5, coop: '感謝贊助', name: '波利 蒼藍鴿' },
+                        { id: 6, coop: '感謝贊助', name: '巴基力 YU0520' },
                     );
                     this.SpecialthanksList.push(
                         { id: 0, coop: '公式協力', name: '賴喵' },
