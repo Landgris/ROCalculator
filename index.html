@@ -5891,10 +5891,12 @@
                     // 變身卷軸
                     _tag = [ 'MATK', 'RangedDamagePercent' ];
                     var _idx = this.consumablelist.findIndex(i=>i.group=='TransScroll' && i.active==true);
-                    for( var t=0; t<_tag.length; ++t ){
-                        if( this.consumablelist[_idx][_tag[t]] != null ){
-                            var _id = this.consumableeffecttypelist.findIndex( i=> i.id == _tag[t]);
-                            this.consumableeffecttypelist[_id].totalvalue += Number(this.consumablelist[_idx][_tag[t]]);
+                        if( _idx > -1 ){
+                        for( var t=0; t<_tag.length; ++t ){
+                            if( this.consumablelist[_idx][_tag[t]] != null ){
+                                var _id = this.consumableeffecttypelist.findIndex( i=> i.id == _tag[t]);
+                                this.consumableeffecttypelist[_id].totalvalue += Number(this.consumablelist[_idx][_tag[t]]);
+                            }
                         }
                     }
 
@@ -8382,7 +8384,7 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2021-2-24', content: '增加輔助技能 捲甲蟲暴衝 蝦群<br>增加消耗品分類 變身卷軸' },
+                        { id: '2021-2-24-1', content: '增加輔助技能 捲甲蟲暴衝 蝦群<br>增加消耗品分類 變身卷軸' },
                         { id: '2021-2-22', content: '增加輔助技能 紋章 元素領域' },
                         { id: '2021-2-21', content: '修正轉生後186以上血量錯誤的問題<br>修正練習舞蹈 增加MSP' },
                         { id: '2021-2-20', content: '修正輔助技能怒暴沒有增傷的問題' },
