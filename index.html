@@ -6303,9 +6303,8 @@
                     }
 
                     //技能倍率 
-                    var para_sk = Number(1) + Number(this.computeattribute['SpecialATK5'] / 100);
                     var para_na = Number(this.computeattribute['SpecialATK6']);
-                    var para8 = this.MulOper(Math.floor(Number(this.option.SkillPercent)), para_sk) + Number(para_na); // 這邊不確定SpecialATK3跟 para8要 先乘再加 還是 先加再乘
+                    var para8 = Math.floor(Number(this.option.SkillPercent)) + Number(this.computeattribute['SpecialATK5']);
                     para_na = Number(1) + Number(para_na / 100);
                     para8 = Number(para8 / 100);
 
@@ -6355,9 +6354,11 @@
                         this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                         this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     }
-                    var parasp6 = Number(this.computeattribute['SpecialATK7']);
-                    this.computeattribute.atkc8_min += parasp6;
-                    this.computeattribute.atkc8_max += parasp6;
+                    else{
+                        var parasp6 = Number(this.computeattribute['SpecialATK7']);
+                        this.computeattribute.atkc8_min += parasp6;
+                        this.computeattribute.atkc8_max += parasp6
+                    };
 
                     this.computeattribute.atkc9_min = this.computeattribute.atkc8_min;
                     this.computeattribute.atkc9_max = this.computeattribute.atkc8_max;
@@ -6881,8 +6882,8 @@
                     this.computeattribute['SpecialATK2'] = 0;   // 練習舞蹈 砲彈ATK
                     this.computeattribute['SpecialATK3'] = 0;   // 毒弱
                     this.computeattribute['SpecialATK4'] = 0;   // 修練 神威
-                    this.computeattribute['SpecialATK5'] = 0;   // 戰斧風屬性倍率 
-                    this.computeattribute['SpecialATK6'] = 0;   // 兇砍 狂怒之槍
+                    this.computeattribute['SpecialATK5'] = 0;   // 戰斧風屬性倍率 (加在公式內了) 狙殺
+                    this.computeattribute['SpecialATK6'] = 0;   // 兇砍 狂怒之槍 盧1
                     this.computeattribute['SpecialATK7'] = 0;   // 靈氣劍
                     this.computeattribute['SpecialATKFront'] = 0;   // 前ATK前ATK
                     this.computeattribute['SpecialMATK1'] = 0;   // 忍者符
@@ -6928,7 +6929,7 @@
                     if (this.IsSupportActive('RK_GIANTGROWTH')){
                         this.status_add.STR += 30;
                         this.attritube['MELDP'] += 15;
-                        if(this.skill.id != 'RK_STORMBLAST') this.computeattribute['SpecialATK6'] += 250;
+                        this.computeattribute['SpecialATK6'] += 250;
                     }
                     // 艾伊瓦茲:提升鬥志(盧5) 
                     if (this.IsSupportActive('RK_FIGHTINGSPIRIT')){
@@ -7043,6 +7044,7 @@
                         this.status_add.DEX += 5;
                         this.status_add.LUK += 5;
                         this.attritube['CRI'] += 10;
+                        this.computeattribute['SpecialATK5'] += 10 * 2;
                         this.computeattribute['SpecialATK6'] += 10 * 2;
                     }
                     if (this.IsSupportActive('RA_UNLIMIT')){
@@ -8384,6 +8386,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-2-26', content: '修正輔助技能 普攻傷害相關 靈氣劍/盧1/狂怒之槍/兇砍' },
                         { id: '2021-2-24-1', content: '增加輔助技能 捲甲蟲暴衝 蝦群<br>增加消耗品分類 變身卷軸' },
                         { id: '2021-2-22', content: '增加輔助技能 紋章 元素領域' },
                         { id: '2021-2-21', content: '修正轉生後186以上血量錯誤的問題<br>修正練習舞蹈 增加MSP' },
