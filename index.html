@@ -7078,6 +7078,14 @@
                         this.attritube['CRI'] += 10;
                         this.attritube['CRIDP'] += 20;
                     }
+                    // 伊登的蘋果
+                    if (this.IsSupportActive('BA_APPLEIDUN')){
+                        this.attritube['HPP'] += 20;
+                    }
+                    // 豐年頌
+                    if (this.IsSupportActive('WM_FRIGG_SONG')){
+                        this.attritube['HPP'] += 25;
+                    }
                     // 月光小夜曲
                     if (this.IsSupportActive('WA_MOONLIT_SERENADE')){
                         this.attritube['MATK'] += 20+2*10;
@@ -8132,7 +8140,7 @@
                         { skill: { id: 'KO_JYUMONJIKIRI(buff)', name: '幽冥十字斬(十字創傷)', level: 10, formula: 'SLV*200*BLV/100+BLV*SLV', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_SOLARBURST', name: '太陽爆炸', level: 10, formula: '(1000+SLV*220)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'SJ_NEWMOONKICK', name: '朔月腳', level: 7, formula: '(600+SLV*100+((SLV>3)?100:0))*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'SJ_NEWMOONKICK', name: '朔月腳', level: 7, formula: '(600+SLV*100+((SLV>3)?100:0))', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 10, formula: '(1100+SLV*100)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SP_SPA', name: '艾斯帕', level: 10, formula: '(500+SLV*250)*BLV/100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 10, formula: '(1100+SLV*200)*BLV/100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8220,6 +8228,8 @@
                         { skill: { id: 'BA_POEMBRAGI', name: '布萊奇之詩', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'MI_RUSH_WINDMILL', name: '朝風車突擊', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'DC_FORTUNEKISS', name: '女神之吻', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BA_APPLEIDUN', name: '伊登的蘋果', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WM_FRIGG_SONG', name: '豐年頌', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'WA_MOONLIT_SERENADE', name: '月光小夜曲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'WA_SWING_DANCE', name: '搖擺舞', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'WM_LERADS_DEW', name: '雷拉多露水', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
@@ -8386,6 +8396,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-2-27', content: '增加輔助技能 伊登的蘋果 豐年頌<br>修正預設技能 朔月腳技能倍率' },
                         { id: '2021-2-26', content: '修正輔助技能 普攻傷害相關 靈氣劍/盧1/狂怒之槍/兇砍' },
                         { id: '2021-2-24-1', content: '增加輔助技能 捲甲蟲暴衝 蝦群<br>增加消耗品分類 變身卷軸' },
                         { id: '2021-2-22', content: '增加輔助技能 紋章 元素領域' },
