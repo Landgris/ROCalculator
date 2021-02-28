@@ -5201,6 +5201,7 @@
                     SpecialATK5: 0,
                     SpecialATK6: 0,
                     SpecialATK7: 0,
+                    SpecialATK8: 0,
                     SpecialMATK1: 0,
                     DamageTypeIdx: 0,
                     Note: '',
@@ -5245,9 +5246,10 @@
                     SpecialATK3: 0, // 特殊屬性乘值  ATK%分支 屬性倍率之後 素質ATK之前  要分開乘 但 毒弱 紋章 通常只會有一種
                     SpecialATK4: 0, // 修練加值 修練 神威
                     // 技能倍率*SpecialATK5+SpecialATK6
-                    SpecialATK5: 0, // 特殊技能乘值  技能倍率後 DEF之前  戰斧風屬性倍率 
-                    SpecialATK6: 0, // 特殊技能加值  技能倍率後 DEF之前  凶砍 狙殺 狂怒之槍
-                    SpecialATK7: 0, // 特殊技能加值  DEF之後 靈氣劍
+                    SpecialATK5: 0, // 特殊技能乘值  技能倍率後 DEF之前  狙殺
+                    SpecialATK6: 0, // 特殊普攻加值  技能倍率後 DEF之前  凶砍  狂怒之槍
+                    SpecialATK7: 0, // 特殊技能加值  DEF之後 虎砲
+                    SpecialATK8: 0, // 特殊普攻加值  DEF之後 靈氣劍
                     SpecialATKFront: 0,
                     SpecialRLHand: 0,   //特殊乘值 左右手修練 刺客/忍者
 
@@ -6345,6 +6347,9 @@
                     }
 
                     if( isNA == false ){
+                        var parasp6 = Number(this.computeattribute['SpecialATK7']);
+                        this.computeattribute.atkc8_min += parasp6;
+                        this.computeattribute.atkc8_max += parasp6;
                         // 技能遠傷
                         if (this.skill.ranged && this.skill.laterranged) {
                             this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, para_ranged);
@@ -6355,7 +6360,7 @@
                         this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                     }
                     else{
-                        var parasp6 = Number(this.computeattribute['SpecialATK7']);
+                        var parasp6 = Number(this.computeattribute['SpecialATK8']);
                         this.computeattribute.atkc8_min += parasp6;
                         this.computeattribute.atkc8_max += parasp6
                     };
@@ -6681,7 +6686,7 @@
                                     _Damage = this.ComputeMATKAtttibute(-i*100);
                                     _DamageTotalMin += Number(_Damage.Min);
                                     _DamageTotalMax += Number(_Damage.Max);
-                                }
+                                } 
                                 this.computeattribute.matk4_min = _DamageTotalMin;
                                 this.computeattribute.matk4_max = _DamageTotalMax;
                                 this.computeattribute.matkmulti_min = _DamageTotalMin;
@@ -6882,9 +6887,10 @@
                     this.computeattribute['SpecialATK2'] = 0;   // 練習舞蹈 砲彈ATK
                     this.computeattribute['SpecialATK3'] = 0;   // 毒弱
                     this.computeattribute['SpecialATK4'] = 0;   // 修練 神威
-                    this.computeattribute['SpecialATK5'] = 0;   // 戰斧風屬性倍率 (加在公式內了) 狙殺
+                    this.computeattribute['SpecialATK5'] = 0;   // 狙殺
                     this.computeattribute['SpecialATK6'] = 0;   // 兇砍 狂怒之槍 盧1
-                    this.computeattribute['SpecialATK7'] = 0;   // 靈氣劍
+                    this.computeattribute['SpecialATK7'] = 0;   // 虎砲
+                    this.computeattribute['SpecialATK8'] = 0;   // 靈氣劍
                     this.computeattribute['SpecialATKFront'] = 0;   // 前ATK前ATK
                     this.computeattribute['SpecialMATK1'] = 0;   // 忍者符
                     this.computeattribute['SpecialMATK2'] = 0;   // 終念
@@ -6918,8 +6924,9 @@
                         this.attritube['ATKP'] += 15;
                         this.attritube['HIT'] += 50;
                     }
+                    //靈氣劍
                     if (this.IsSupportActive('LK_AURABLADE')) {
-                        this.computeattribute['SpecialATK7'] += this.status.Level * (3 + 1 * 5);
+                        this.computeattribute['SpecialATK8'] += this.status.Level * (3 + 1 * 5);
                     }
                     // 狂怒之槍
                     if (this.IsSupportActive('LK_BERSERK')) {
@@ -7526,8 +7533,9 @@
                     this.computeattribute['SpecialATK4'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK4));
                     this.computeattribute['SpecialATK5'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK5));
                     this.computeattribute['SpecialATK6'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK6));
-                    //改到HP技算後
+                    //改到HP技算後 因 羅剎
                     //this.computeattribute['SpecialATK7'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK7));
+                    this.computeattribute['SpecialATK8'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK8));
                     this.computeattribute['SpecialMATK1'] += eval(this.SkillFormulaReplace(this.skill.SpecialMATK1));
 
                     this.ComputStatus();
@@ -7810,6 +7818,7 @@
                     if (this.skill.SpecialATK5 == null) this.skill.SpecialATK5 = 0;
                     if (this.skill.SpecialATK6 == null) this.skill.SpecialATK6 = 0;
                     if (this.skill.SpecialATK7 == null) this.skill.SpecialATK7 = 0;
+                    if (this.skill.SpecialATK8 == null) this.skill.SpecialATK8 = 0;
                     if (this.skill.SpecialMATK1 == null) this.skill.SpecialMATK1 = 0;
                     if (this.skill.DamageTypeIdx == null) this.skill.DamageTypeIdx = 0;
                     this.skilloption.AttackElementalIdx = this.skill.elemental;
@@ -8012,6 +8021,7 @@
                     if (this.skill.SpecialATK5 == null) this.skill.SpecialATK5 = 0;
                     if (this.skill.SpecialATK6 == null) this.skill.SpecialATK6 = 0;
                     if (this.skill.SpecialATK7 == null) this.skill.SpecialATK7 = 0;
+                    if (this.skill.SpecialATK8 == null) this.skill.SpecialATK8 = 0;
                     if (this.skill.SpecialMATK1 == null) this.skill.SpecialMATK1 = 0;
                     if (this.skill.DamageTypeIdx == null) this.skill.DamageTypeIdx = 0;
                     if (this.status.UseJobMaxPoint == null) this.status.UseJobMaxPoint = false;
@@ -8113,7 +8123,8 @@
                         { skill: { id: 'SO_SPELLFIST', name: '魔力拳', level: 10, formula: '(SLV/2+10)*100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: true, hitnumber: 1, elemental: 1, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10為施放的火箭/冰箭/雷擊技能等級', } },
                         { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
                         { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈>5)', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 100, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
-                        { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: 'DOWN((Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))/4)*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'SLV*240+ELV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
+                        { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.25*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'SLV*240+ELV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
+                        { skill: { id: 'SR_TIGERCANNON(ex)', name: '虎砲(大地崩纏後)', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.5*(BLV/100)*1.3333', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'SLV*500+ELV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
                         { skill: { id: 'SR_RIDEINLIGHTNING', name: '雷光彈', level: 5, formula: "(SLV*40+((WTI=='Knuckles')?SLV*50:0))*BLV/100", class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '技能等級=氣彈消耗數, 使用拳套時增傷', } },
                         { skill: { id: 'SR_RAMPAGEBLASTER', name: '爆氣散彈', level: 5, formula: '(1000+350*SLV)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為爆氣等級*200', } },
                         { skill: { id: 'SR_RAMPAGEBLASTER(ex)', name: '爆氣散彈(標記)', level: 5, formula: '(1000+350*SLV+500+SLV*200)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為爆氣等級*200', } },
@@ -8396,6 +8407,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-2-28', content: '增加預設技能 虎砲(大地崩纏後)<br>修正預設技能 虎砲倍率(小數點差異)' },
                         { id: '2021-2-27', content: '增加輔助技能 伊登的蘋果 豐年頌<br>修正預設技能 朔月腳技能倍率' },
                         { id: '2021-2-26', content: '修正輔助技能 普攻傷害相關 靈氣劍/盧1/狂怒之槍/兇砍' },
                         { id: '2021-2-24-1', content: '增加輔助技能 捲甲蟲暴衝 蝦群<br>增加消耗品分類 變身卷軸' },
@@ -8423,7 +8435,7 @@
                         { id: '2020-9-20', content: '修正預設技能 碧血隕石/地牛翻身/凍僵術 詠唱時間' },
                         { id: '2020-9-18', content: '增加預設技能 地獄火焰/毀滅彗星<br>修改預設技能 碧血隕石/地牛翻身/凍僵術/靈魂爆炸/迴旋刀刃<br>增加額外技能選項 魔力中毒' },
                         { id: '2020-8-23', content: '增加預設技能 殘響' },
-                        { id: '2020-8-19-1', content: '增加預設修羅技能 雷光彈/爆氣散彈/爆氣散彈(標記)/修羅身彈/修羅身彈(BOSS)/羅剎破凰擊<br>增加額外技能選項 修羅 點穴-反/點穴-活/潛龍昇天<br>增加額外技能選項 浪跡&樂師 朝風車突擊/月光小夜曲/搖擺舞/雷拉多露水/無限哼唱聲/與狼共舞<br>更新預設技能 重金屬音樂延遲設定<br>增加輸入現有HPSP欄<br>增加技能備註顯示<br>增加公式關鍵字WTI 武器類型' },
+                        { id: '2020-8-19-1', content: '增加預設修羅技能 雷光彈/爆氣散彈/爆氣散彈(標記)/修羅身彈/修羅身彈(BOSS)/羅剎破凰擊<br>增加額外技能選項 修羅 點穴-反/點穴-活/潛��昇天<br>增加額外技能選項 浪跡&樂師 朝風車突擊/月光小夜曲/搖擺舞/雷拉多露水/無限哼唱聲/與狼共舞<br>更新預設技能 重金屬音樂延遲設定<br>增加輸入現有HPSP欄<br>增加技能備註顯示<br>增加公式關鍵字WTI 武器類型' },
                         { id: '2020-8-17', content: '增加額外技能選項 祈禱文' },
                         { id: '2020-8-13', content: '修正額外技能選項 無視體型攻擊/騎乘術拿長矛時體型修正不會重新計算的問題' },
                         { id: '2020-8-11', content: '修正心神凝聚跟JOB代入點數開關順序會影響計算數值的問題' },
