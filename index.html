@@ -4028,6 +4028,15 @@
                                                 {{computeattribute.atkc9_max | currency }}</span>
                                         </el-col>
                                     </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害(平均)</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.atkc9_avg | currency }}</span>
+                                        </el-col>
+                                    </el-row>
                                     <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
                                         align="middle" justify="space-around" style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
@@ -4038,15 +4047,37 @@
                                                 {{computeattribute.SkillDamage_max | currency }}</span>
                                         </el-col>
                                     </el-row>
+                                    <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
+                                        align="middle" justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能總傷害(平均)</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{this.computeattribute.SkillDamage_avg | currency }}</span>
+                                        </el-col>
+                                    </el-row>
                                     <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
                                         justify="space-around" style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能傷害(暴擊)</span>
+                                            <span>技能暴擊傷害</span>
                                         </el-col>
                                         <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max" 
                                             class="textcenter" :span="10">
                                             <span>{{computeattribute.SkillDamageCRI_min | currency }} ~
                                                 {{computeattribute.SkillDamageCRI_max | currency }}</span>
+                                        </el-col>
+                                        <el-col v-else class="textcenter" :span="10">
+                                            <span>{{computeattribute.SkillDamageCRI_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
+                                        justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能暴擊傷害(平均)</span>
+                                        </el-col>
+                                        <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max" 
+                                            class="textcenter" :span="10">
+                                            <span>{{computeattribute.SkillDamageCRI_avg | currency }}</span>
                                         </el-col>
                                         <el-col v-else class="textcenter" :span="10">
                                             <span>{{computeattribute.SkillDamageCRI_max | currency }}</span>
@@ -4173,6 +4204,15 @@
                                                 {{computeattribute.matk4_max | currency }}</span>
                                         </el-col>
                                     </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能傷害(平均)</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.matk4_avg | currency }}</span>
+                                        </el-col>
+                                    </el-row>
                                     <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0" class="statusbox" type="flex"
                                         align="middle" justify="space-around" style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
@@ -4181,6 +4221,15 @@
                                         <el-col class="textcenter" :span="10">
                                             <span>{{computeattribute.matkmulti_min | currency }} ~
                                                 {{computeattribute.matkmulti_max | currency }}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0" class="statusbox" type="flex"
+                                        align="middle" justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                            <span>技能總傷害(平均)</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="10">
+                                            <span>{{computeattribute.matkmulti_avg | currency }}</span>
                                         </el-col>
                                     </el-row>
                                     <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5308,13 +5357,16 @@
 
                     atkc9_min: 0,// x ( 1 + 技能增傷的卡裝%) x ( 1 + 技能增傷的技能% )
                     atkc9_max: 0,
-
+                    atkc9_avg: 0,
+                    
                     atkmulti_min: 0,
                     atkmulti_max: 0,
                     SkillDamage_min: 0,
                     SkillDamage_max: 0,
+                    SkillDamage_avg: 0,
                     SkillDamageCRI_min: 0,
                     SkillDamageCRI_max: 0,
+                    SkillDamageCRI_avg: 0,
                     atkmulti_DPS: 0,
                     /*
                     x ( 二刀連擊 1 + 100% )
@@ -5348,8 +5400,10 @@
                     matk3_max: 0,
                     matk4_min: 0,       // x 屬性倍率
                     matk4_max: 0,
+                    matk4_avg: 0,
                     matkmulti_min: 0,
                     matkmulti_max: 0,
+                    matkmulti_avg: 0,
                     matkmulti_min_DPS: 0,
                     matkmulti_max_DPS: 0,
                     matkmulti_DPS: 0,
@@ -6665,6 +6719,9 @@
                             );
                             this.ComputeATKAtttibute(false, true);
                             this.ComputeATKAtttibute(false, false);
+                            this.computeattribute.atkc9_avg = (this.computeattribute.atkc9_min+this.computeattribute.atkc9_max)*0.5;
+                            this.computeattribute.SkillDamage_avg = (this.computeattribute.SkillDamage_min+this.computeattribute.SkillDamage_max)*0.5;
+                            this.computeattribute.SkillDamageCRI_avg = (this.computeattribute.SkillDamageCRI_min+this.computeattribute.SkillDamageCRI_max)*0.5;
                             this.computeattribute.atkmulti_DPS = this.ComputeATKDPS(
                                 this.computeattribute.SkillDamage_min,
                                 this.computeattribute.SkillDamage_max,
@@ -6687,12 +6744,15 @@
                                 } 
                                 this.computeattribute.matk4_min = _DamageTotalMin;
                                 this.computeattribute.matk4_max = _DamageTotalMax;
+                                this.computeattribute.matk4_avg = (_DamageTotalMin+_DamageTotalMax)*0.5;
                                 this.computeattribute.matkmulti_min = _DamageTotalMin;
                                 this.computeattribute.matkmulti_max = _DamageTotalMax;
                             }else{
                                 _Damage = this.ComputeMATKAtttibute();
+                                this.computeattribute.matk4_avg = (_Damage.Min+_Damage.Max)*0.5;
                                 this.computeattribute.matkmulti_min = Number(_Damage.Min);
                                 this.computeattribute.matkmulti_max = Number(_Damage.Max);
+                                this.computeattribute.matkmulti_avg = (this.computeattribute.matkmulti_min+this.computeattribute.matkmulti_max)*0.5;
                             }
                             
                             this.computeattribute.matkmulti_DPS = this.ComputeMATKDPS(
@@ -8412,6 +8472,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-3-17', content: '增加計算傷害平均' },
                         { id: '2021-3-15', content: '增加預設技能 致命威脅<br>修改攻擊次數因武器類型變更(風壓飛刃/致命威脅)<br>修正百矛穿刺公式<br>修正加農砲沒有開啟使用砲彈的功能<br>修正三角射擊共延時間為0.5s<br>調整大暴雨 因武器類型不同的公式合併' },
                         { id: '2021-2-28', content: '增加預設技能 虎砲(大地崩纏後)<br>修正預設技能 虎砲倍率(小數點差異)' },
                         { id: '2021-2-27', content: '增加輔助技能 伊登的蘋果 豐年頌<br>修正預設技能 朔月腳技能倍率' },
