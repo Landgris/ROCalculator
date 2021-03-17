@@ -6749,7 +6749,7 @@
                                 this.computeattribute.matkmulti_max = _DamageTotalMax;
                             }else{
                                 _Damage = this.ComputeMATKAtttibute();
-                                this.computeattribute.matk4_avg = (_Damage.Min+_Damage.Max)*0.5;
+                                this.computeattribute.matk4_avg = (this.computeattribute.matk4_min+this.computeattribute.matk4_max)*0.5;
                                 this.computeattribute.matkmulti_min = Number(_Damage.Min);
                                 this.computeattribute.matkmulti_max = Number(_Damage.Max);
                                 this.computeattribute.matkmulti_avg = (this.computeattribute.matkmulti_min+this.computeattribute.matkmulti_max)*0.5;
