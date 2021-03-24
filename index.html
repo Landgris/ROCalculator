@@ -26,7 +26,6 @@
 
         gtag('config', 'UA-63581889-2');
     </script>
-    <script data-ad-client="ca-pub-9385178807077927" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <style>
         [v-cloak] {
             display: none;
@@ -8204,7 +8203,7 @@
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨', level: 5, formula: "(DEX+AGI)*(SLV/5)*BLV/100*((WTI=='Instruments'|WTI=='Whips')?1.666:1)", class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_METALICSOUND', name: '重金屬音樂', level: 10, formula: '(600+SLV*120)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 5.5, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'WM_REVERBERATION', name: '殘響', level: 5, formula: '(400+SLV*300)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.5, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WM_REVERBERATION', name: '殘響', level: 5, formula: '(700+SLV*300)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.5, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         
                         { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_BAKUENRYU', name: '爆炎龍', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 0.6, VCT: 2.4, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8473,6 +8472,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-3-24', content: '修改預設技能 殘響公式倍率為3/30優化後' },
                         { id: '2021-3-21', content: '增加預設技能 迴旋斧<br>修正致命威脅共延時間' },
                         { id: '2021-3-17', content: '增加計算傷害平均' },
                         { id: '2021-3-15', content: '增加預設技能 致命威脅<br>修改攻擊次數因武器類型變更(風壓飛刃/致命威脅)<br>修正百矛穿刺公式<br>修正加農砲沒有開啟使用砲彈的功能<br>修正三角射擊共延時間為0.5s<br>調整大暴雨 因武器類型不同的公式合併' },
