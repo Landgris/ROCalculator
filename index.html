@@ -7514,7 +7514,8 @@
                     this.status_add.LUK += Number(this.effecttypelist.find(x => x.id == 'LUK').totalvalue) + _AllStatus
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='LUK').totalvalue);
 
-                    this.attritube['HP'] += Number(this.effecttypelist.find(x => x.id == 'HP').totalvalue) + _AllStatus;
+                    this.attritube['HP'] += Number(this.effecttypelist.find(x => x.id == 'HP').totalvalue) + _AllStatus
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='HP').totalvalue);
                     this.attritube['HPP'] += Number(this.effecttypelist.find(x => x.id == 'HPPercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='HPPercent').totalvalue);
                     this.attritube['SP'] += Number(this.effecttypelist.find(x => x.id == 'SP').totalvalue) + _AllStatus;
@@ -8496,7 +8497,7 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2021-4-17', content: '增加消耗品 紅/藍色藥草活化液<br>增加預設技能 強酸火煙瓶投擲<br>增加敵方設定 VIT<br>補齊部分職業BLV 186以後HPSP<br>修改預設技能 殘響獨延<br>修正預設敵方 測試用魔物減算MDEF' },
+                        { id: '2021-4-17-1', content: '增加消耗品 紅/藍色藥草活化液<br>增加預設技能 強酸火煙瓶投擲<br>增加敵方設定 VIT<br>補齊部分職業BLV 186以後HPSP<br>修改預設技能 殘響獨延<br>修正預設敵方 測試用魔物減算MDEF<br>修正HP增加藥水(大)沒有增加的錯誤' },
                         { id: '2021-3-30', content: '增加預設技能 地獄植物/爆炸苞子<br>修改預設技能 手推車加農砲倍率<br>修改預設技能 殘響共延' },
                         { id: '2021-3-24', content: '修改預設技能 殘響公式倍率為3/30優化後' },
                         { id: '2021-3-21', content: '增加預設技能 迴旋斧<br>修正致命威脅共延時間' },
