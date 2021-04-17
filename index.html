@@ -2708,9 +2708,9 @@
                                         </el-row>
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
-                                            <el-col :span="3" class="textcenter"><span>屬性</span>
+                                            <el-col :span="6" class="textcenter"><span>屬性</span>
                                             </el-col>
-                                            <el-col :span="5">
+                                            <el-col :span="6">
                                                 <div class="grid-content bg-purple">
                                                     <el-select v-model="enemyattribute.elemental"
                                                         v-on:change="ComputElementalPercent" placeholder="敵方屬性">
@@ -2720,25 +2720,14 @@
                                                     </el-select>
                                                 </div>
                                             </el-col>
-                                            <el-col :span="4" class="textcenter"><span>屬性等級</span>
+                                            <el-col :span="8" class="textcenter"><span>屬性等級</span>
                                             </el-col>
-                                            <el-col :span="3">
+                                            <el-col :span="4">
                                                 <div class="grid-content bg-purple">
                                                     <el-select value-key="id" v-model="enemyattribute.elementallevel"
                                                         v-on:change="ComputElementalPercent" placeholder="屬性等級">
                                                         <el-option v-for="item in elementlevel" :key="item.id"
                                                             :label="item.id" :value="item.id">
-                                                        </el-option>
-                                                    </el-select>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="4" class="textcenter">體型</el-col>
-                                            <el-col :span="5">
-                                                <div class="grid-content bg-purple">
-                                                    <el-select value-key="id" v-model="enemyattribute.size"
-                                                        placeholder="體型">
-                                                        <el-option v-for="item in sizetypelist" :key="item.id"
-                                                            :label="item.label" :value="item.id">
                                                         </el-option>
                                                     </el-select>
                                                 </div>
@@ -2752,6 +2741,20 @@
                                                     v-on:input="onChangeEnemyStatus" placeholder="Lv">
                                                 </el-input>
                                             </el-col>
+                                            <el-col :span="6" class="textcenter">體型</el-col>
+                                            <el-col :span="6">
+                                                <div class="grid-content bg-purple">
+                                                    <el-select value-key="id" v-model="enemyattribute.size"
+                                                        placeholder="體型">
+                                                        <el-option v-for="item in sizetypelist" :key="item.id"
+                                                            :label="item.label" :value="item.id">
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
                                             <el-tooltip class="item" effect="dark" content="影響最終暴率"
                                                 placement="bottom-start">
                                                 <el-col class="textcenter" :span="6">LUK</el-col>
@@ -2759,6 +2762,15 @@
                                             <el-col :span="6">
                                                 <el-input v-model="enemyattribute.LUK" v-on:input="onChangeEnemyStatus"
                                                     placeholder="LUK">
+                                                </el-input>
+                                            </el-col>
+                                            <el-tooltip class="item" effect="dark" content="影響強酸火煙瓶"
+                                                placement="bottom-start">
+                                                <el-col class="textcenter" :span="6">VIT</el-col>
+                                            </el-tooltip>
+                                            <el-col :span="6">
+                                                <el-input v-model="enemyattribute.VIT" v-on:input="onChangeEnemyStatus"
+                                                    placeholder="VIT">
                                                 </el-input>
                                             </el-col>
                                         </el-row>
@@ -4919,11 +4931,11 @@
                 CurrentUpdateVersion: '',
 
                 classlist: [
-                    { id: 'RK', label: '盧恩騎士', TranscendentClass: true, JobMaxPoint:[6,6,7,10,9,5], basehp: [8100, 8133, 8242, 8352, 8464, 8576, 8690, 8804, 8920, 9036, 9154, 9273, 9393, 9514, 9636, 9759, 9883, 10008, 10134, 10261, 10389, 10518, 10648, 10779, 10912, 11045, 11180, 11315, 11452, 11589, 11728, 11868, 12009, 12151, 12294, 12438, 12583, 12729, 12876, 13024, 13173, 13323, 13474, 13626, 13780, 13934, 14090, 14246, 14404, 14562, 14722, 14883, 15042, 15100, 15260, 15321, 15481, 15541, 15600, 15760, 15820, 15980, 16141, 16303, 16466, 16630, 16795, 16961, 17128, 17296, 17465, 17635, 17806, 17978, 18151, 18325, 18500, 18759, 19059, 19269, 19558, 19851, 20228, 20491, 20676, 20862, 21070, 26777, 0, 27428, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], basesp: [300, 310, 313, 316, 319, 322, 325, 328, 331, 334, 337, 340, 343, 346, 349, 352, 355, 358, 361, 364, 367, 370, 373, 376, 379, 382, 385, 388, 391, 394, 397, 400, 403, 406, 409, 412, 415, 418, 421, 424, 427, 430, 433, 436, 439, 442, 445, 448, 451, 454, 457, 460, 500, 566, 629, 672, 710, 748, 781, 824, 847, 890, 894, 898, 902, 906, 910, 915, 920, 925, 930, 935, 941, 947, 953, 959, 965, 972, 980, 987, 995, 1003, 1010, 1018, 1026, 1034, 1042, 1312, 0, 1332, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], baseaspd: 0 },
+                    { id: 'RK', label: '盧恩騎士', TranscendentClass: true, JobMaxPoint:[6,6,7,10,9,5], basehp: [8100, 8133, 8242, 8352, 8464, 8576, 8690, 8804, 8920, 9036, 9154, 9273, 9393, 9514, 9636, 9759, 9883, 10008, 10134, 10261, 10389, 10518, 10648, 10779, 10912, 11045, 11180, 11315, 11452, 11589, 11728, 11868, 12009, 12151, 12294, 12438, 12583, 12729, 12876, 13024, 13173, 13323, 13474, 13626, 13780, 13934, 14090, 14246, 14404, 14562, 14722, 14883, 15042, 15100, 15260, 15321, 15481, 15541, 15600, 15760, 15820, 15980, 16141, 16303, 16466, 16630, 16795, 16961, 17128, 17296, 17465, 17635, 17806, 17978, 18151, 18325, 18500, 18759, 19059, 19269, 19558, 19851, 20228, 20491, 20676, 20862, 21070, 26777,27102,27428,27753,28078,28403,28730,29055,29380,29706,30031,30356,30682,31007,31332], basesp: [300, 310, 313, 316, 319, 322, 325, 328, 331, 334, 337, 340, 343, 346, 349, 352, 355, 358, 361, 364, 367, 370, 373, 376, 379, 382, 385, 388, 391, 394, 397, 400, 403, 406, 409, 412, 415, 418, 421, 424, 427, 430, 433, 436, 439, 442, 445, 448, 451, 454, 457, 460, 500, 566, 629, 672, 710, 748, 781, 824, 847, 890, 894, 898, 902, 906, 910, 915, 920, 925, 930, 935, 941, 947, 953, 959, 965, 972, 980, 987, 995, 1003, 1010, 1018, 1026, 1034, 1042, 1312,1322,1332,1342,1352,1362,1372,1382,1392,1402,1412,1422,1432,1442,1452], baseaspd: 0 },
                     { id: 'GX', label: '十字斬首者', TranscendentClass: true, JobMaxPoint:[8,11,6,5,9,4], basehp: [6050, 6093, 6208, 6324, 6441, 6559, 6678, 6798, 6920, 7043, 7167, 7292, 7418, 7545, 7673, 7802, 7932, 8063, 8196, 8330, 8465, 8601, 8738, 8876, 9015, 9155, 9296, 9438, 9582, 9727, 9873, 10020, 10168, 10317, 10467, 10618, 10770, 10923, 11078, 11234, 11391, 11549, 11708, 11868, 12029, 12191, 12354, 12518, 12684, 12851, 13019, 13188, 13351, 13518, 13684, 13850, 14016, 14182, 14349, 14515, 14681, 14830, 14966, 15103, 15241, 15380, 15520, 15661, 15803, 15946, 16090, 16235, 16381, 16528, 16676, 16825, 16975, 17196, 17368, 17628, 17857, 18072, 18361, 18563, 18897, 19237, 19449, 24630, 24962, 25293, 25626, 25958, 26291, 26623, 26955, 27287, 0, 27952, 28283, 28616, 28948, 29281], basesp: [400, 410, 414, 418, 422, 426, 430, 434, 438, 442, 446, 450, 454, 458, 462, 466, 470, 474, 478, 482, 486, 490, 494, 498, 502, 506, 510, 514, 518, 522, 526, 530, 534, 538, 542, 546, 550, 554, 558, 562, 566, 570, 574, 578, 582, 586, 590, 594, 598, 602, 606, 610, 670, 695, 700, 715, 730, 745, 760, 785, 790, 805, 810, 815, 820, 825, 830, 836, 842, 848, 854, 860, 867, 874, 881, 888, 895, 900, 905, 910, 916, 921, 926, 931, 937, 942, 947, 1191, 1197, 1203, 1210, 1217, 1223, 1230, 1237, 1243, 0, 1257, 1263, 1270, 1276, 1283], baseaspd: 0 },
                     { id: 'AB', label: '大主教', TranscendentClass: true, JobMaxPoint:[6,7,7,12,7,4], basehp: [4300, 4333, 4412, 4491, 4570, 4649, 4728, 4807, 4886, 4965, 5044, 5123, 5202, 5281, 5360, 5439, 5518, 5597, 5676, 5755, 5834, 5913, 5992, 6071, 6150, 6229, 6308, 6387, 6466, 6545, 6624, 6703, 6782, 6861, 6940, 7019, 7098, 7177, 7256, 7335, 7414, 7493, 7572, 7651, 7730, 7809, 7888, 7967, 8046, 8125, 8204, 8283, 8362, 8441, 8520, 8599, 8678, 8757, 8836, 8915, 8994, 9115, 9276, 9438, 9601, 9765, 9930, 10096, 10263, 10431, 10600, 10770, 10941, 11113, 11286, 11460, 11635, 11949, 12272, 12628, 13006, 13345, 13718, 14034, 14427, 14831, 15245, 19457, 19918, 20380, 20841, 21303, 21765, 22226, 22687, 23148, 23611, 24072, 24533, 24995, 25456, 25918], basesp: [800, 810, 818, 826, 834, 842, 850, 858, 866, 874, 882, 890, 898, 906, 914, 922, 930, 938, 946, 954, 962, 970, 978, 986, 994, 1002, 1010, 1018, 1026, 1034, 1042, 1050, 1058, 1066, 1074, 1082, 1090, 1098, 1106, 1114, 1122, 1130, 1138, 1146, 1154, 1162, 1170, 1178, 1186, 1194, 1202, 1210, 1258, 1286, 1334, 1372, 1410, 1458, 1466, 1474, 1482, 1490, 1499, 1508, 1517, 1526, 1535, 1545, 1555, 1565, 1575, 1585, 1596, 1607, 1618, 1629, 1640, 1651, 1663, 1674, 1686, 1697, 1709, 1721, 1733, 1745, 1757, 2211, 2226, 2241, 2256, 2271, 2286, 2301, 2316, 2331, 2346, 2361, 2376, 2391, 2406, 2421], baseaspd: 0 },
 
-                    { id: 'RA', label: '遊俠', TranscendentClass: true, JobMaxPoint:[2,12,8,9,8,4], basehp: [4800, 4828, 4918, 5009, 5101, 5194, 5288, 5382, 5477, 5573, 5670, 5768, 5867, 5967, 6068, 6170, 6273, 6377, 6482, 6588, 6694, 6801, 6909, 7018, 7128, 7239, 7351, 7464, 7578, 7693, 7809, 7926, 8044, 8162, 8281, 8401, 8522, 8644, 8767, 8891, 9016, 9142, 9269, 9397, 9526, 9656, 9786, 9917, 10049, 10182, 10316, 10451, 10585, 10719, 10853, 10987, 11121, 11255, 11389, 11523, 11657, 11790, 11926, 12063, 12201, 12340, 12480, 12621, 12763, 12906, 13050, 13195, 13341, 13488, 13636, 13785, 13935, 14088, 14384, 14657, 14965, 15280, 15493, 15757, 16040, 16281, 16607, 0, 21407, 0, 0, 22425, 22763, 0, 0, 0, 0, 0, 0, 0, 0, 25813], basesp: [400, 410, 414, 418, 422, 426, 430, 434, 438, 442, 446, 450, 454, 458, 462, 466, 470, 474, 478, 482, 486, 490, 494, 498, 502, 506, 510, 514, 518, 522, 526, 530, 534, 538, 542, 546, 550, 554, 558, 562, 566, 570, 574, 578, 582, 586, 590, 594, 598, 602, 606, 610, 650, 675, 680, 695, 710, 725, 740, 765, 770, 785, 790, 795, 800, 805, 810, 816, 822, 828, 834, 840, 847, 854, 861, 868, 875, 881, 887, 893, 899, 906, 912, 918, 924, 931, 937, 0, 1187, 0, 0, 1211, 1218, 0, 0, 0, 0, 0, 0, 0, 0, 1290], baseaspd: 0 },
+                    { id: 'RA', label: '遊俠', TranscendentClass: true, JobMaxPoint:[2,12,8,9,8,4], basehp: [4800, 4828, 4918, 5009, 5101, 5194, 5288, 5382, 5477, 5573, 5670, 5768, 5867, 5967, 6068, 6170, 6273, 6377, 6482, 6588, 6694, 6801, 6909, 7018, 7128, 7239, 7351, 7464, 7578, 7693, 7809, 7926, 8044, 8162, 8281, 8401, 8522, 8644, 8767, 8891, 9016, 9142, 9269, 9397, 9526, 9656, 9786, 9917, 10049, 10182, 10316, 10451, 10585, 10719, 10853, 10987, 11121, 11255, 11389, 11523, 11657, 11790, 11926, 12063, 12201, 12340, 12480, 12621, 12763, 12906, 13050, 13195, 13341, 13488, 13636, 13785, 13935, 14088, 14384, 14657, 14965, 15280, 15493, 15757, 16040, 16281, 16607, 21068,21407,21746,22085,22425,22763,23102,23441,23780,24118,24457,24796,25135,25475,25813], basesp: [400, 410, 414, 418, 422, 426, 430, 434, 438, 442, 446, 450, 454, 458, 462, 466, 470, 474, 478, 482, 486, 490, 494, 498, 502, 506, 510, 514, 518, 522, 526, 530, 534, 538, 542, 546, 550, 554, 558, 562, 566, 570, 574, 578, 582, 586, 590, 594, 598, 602, 606, 610, 650, 675, 680, 695, 710, 725, 740, 765, 770, 785, 790, 795, 800, 805, 810, 816, 822, 828, 834, 840, 847, 854, 861, 868, 875, 881, 887, 893, 899, 906, 912, 918, 924, 931, 937, 1178,1187,1195,1202,1211,1218,1226,1233,1242,1250,1257,1266,1273,1281,1290], baseaspd: 0 },
 
                     { id: 'WL', label: '咒術士', TranscendentClass: true, JobMaxPoint:[1,7,8,15,8,4], basehp: [3200, 3313, 3383, 3455, 3528, 3601, 3675, 3749, 3824, 3899, 3975, 4051, 4129, 4208, 4287, 4367, 4447, 4528, 4609, 4691, 4773, 4857, 4941, 5026, 5112, 5198, 5285, 5372, 5460, 5548, 5638, 5728, 5819, 5911, 6003, 6096, 6189, 6283, 6377, 6473, 6569, 6666, 6763, 6861, 6960, 7059, 7159, 7259, 7361, 7463, 7566, 7669, 7771, 7874, 7976, 8079, 8181, 8284, 8386, 8489, 8591, 8730, 8891, 9053, 9216, 9380, 9545, 9711, 9878, 10046, 10215, 10385, 10556, 10728, 10901, 11075, 11250, 11610, 11900, 12222, 12564, 12865, 13251, 13556, 13990, 14382, 14755, 18857, 19306, 19760, 20213, 20668, 21122, 21576, 22030, 22483, 22937, 23391, 23845, 24298, 24753, 25207], basesp: [900, 910, 919, 928, 937, 946, 955, 964, 973, 982, 991, 1000, 1009, 1018, 1027, 1036, 1045, 1054, 1063, 1072, 1081, 1090, 1099, 1108, 1117, 1126, 1135, 1144, 1153, 1162, 1171, 1180, 1189, 1198, 1207, 1216, 1225, 1234, 1243, 1252, 1261, 1270, 1279, 1288, 1297, 1306, 1315, 1324, 1333, 1342, 1351, 1360, 1369, 1378, 1387, 1396, 1405, 1414, 1423, 1432, 1441, 1450, 1460, 1470, 1480, 1490, 1500, 1511, 1522, 1533, 1544, 1555, 1567, 1579, 1591, 1603, 1615, 1626, 1640, 1653, 1665, 1678, 1691, 1704, 1717, 1730, 1744, 2262, 2278, 2295, 2311, 2327, 2345, 2361, 2377, 2393, 2410, 2427], baseaspd: 0 },
 
@@ -4952,7 +4964,7 @@
 
                     { id: 'SL', label: '獵靈士', TranscendentClass: false, JobMaxPoint:[3,7,7,11,13,2], basehp: [4300, 4333, 4412, 0, 0, 0, 4728, 4807, 4886, 4965, 5044, 5123, 5202, 5281, 5360, 5439, 5518, 5597, 5676, 5755, 5834, 5913, 5992, 6071, 6150, 6229, 6308, 6387, 6466, 6545, 6624, 6703, 6782, 6861, 6940, 7021, 7098, 7177, 7256, 7335, 7414, 7493, 0, 0, 0, 7809, 0, 0, 0, 8125, 0, 0, 0, 0, 0, 0, 0, 0, 8836, 0, 0, 0, 0, 9438, 0, 9765, 8576, 0, 0, 10431, 0, 10770, 10941, 11113, 11286, 11460, 11635, 0, 12365, 12618, 12877, 13273, 13546, 13965, 14402, 14841, 15158, 15517, 15891, 16265, 16639, 17013, 17387, 17761, 18135, 18509, 18882, 19256, 19630, 20004, 20378, 20752], basesp: [674, 910, 919, 0, 0, 0, 955, 964, 973, 982, 991, 1000, 1009, 1018, 1027, 1036, 1045, 1054, 1063, 1072, 1081, 1090, 1099, 1108, 1117, 1126, 1135, 1144, 1153, 1162, 1171, 1180, 1189, 1198, 1207, 1216, 1225, 1234, 1243, 1252, 1261, 1270, 0, 0, 0, 1306, 0, 0, 0, 1342, 0, 0, 0, 0, 0, 0, 0, 0, 1423, 0, 0, 0, 0, 1470, 0, 1490, 1500, 0, 0, 1533, 0, 1555, 1567, 1579, 1591, 1603, 1615, 0, 1636, 1651, 1665, 1672, 1686, 1693, 1700, 1708, 1729, 1734, 1744, 1754, 1764, 1774, 1784, 1794, 1804, 1814, 1824, 1835, 1845, 1855, 1865, 1875], baseaspd: 0 },
 
-                    { id: 'SUM', label: '喵族召喚師', TranscendentClass: false, JobMaxPoint:[0,7,5,9,12,5], basehp: [5956, 6120, 0, 6360, 6480, 0, 0, 0, 0, 0, 0, 0, 0, 7725, 7875, 0, 0, 0, 0, 0, 0, 0, 9739, 9390, 9570, 9750, 9945, 10140, 10335, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12675, 12900, 0, 0, 0, 0, 0, 14355, 0, 14865, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18750, 0, 0, 19650, 19439, 0, 0, 0, 0, 0, 21885, 0, 0, 22875, 23220, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24740, 24904, 0, 0, 25432, 25608, 25784, 25960, 0, 0, 0, 0, 0, 0, 0, 27366], basesp: [253, 257, 0, 265, 269, 0, 0, 0, 0, 0, 0, 0, 0, 316, 322, 0, 0, 0, 0, 0, 0, 0, 423, 387, 395, 403, 412, 421, 430, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 542, 553, 0, 0, 0, 0, 0, 626, 0, 642, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 835, 0, 0, 883, 800, 0, 0, 0, 0, 0, 1002, 0, 0, 1056, 1074, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1110, 1114, 0, 0, 1124, 1128, 1131, 1134, 0, 0, 0, 0, 0, 0, 0, 1161], baseaspd: 0 },
+                    { id: 'SUM', label: '喵族召喚師', TranscendentClass: false, JobMaxPoint:[0,7,5,9,12,5], basehp: [5956, 6120, 0, 6360, 6480, 0, 0, 0, 0, 0, 0, 0, 0, 7725, 7875, 0, 0, 0, 0, 0, 0, 0, 9739, 9390, 9570, 9750, 9945, 10140, 10335, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12675, 12900, 0, 0, 0, 0, 0, 14355, 0, 14865, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18750, 0, 0, 19650, 19439, 0, 0, 0, 0, 0, 21885, 0, 0, 22875, 23220, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24740, 24904, 0, 0, 25432, 25608, 25784, 25960, 0, 0, 26487, 0, 26839, 0, 27190, 27366], basesp: [253, 257, 0, 265, 269, 0, 0, 0, 0, 0, 0, 0, 0, 316, 322, 0, 0, 0, 0, 0, 0, 0, 423, 387, 395, 403, 412, 421, 430, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 542, 553, 0, 0, 0, 0, 0, 626, 0, 642, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 835, 0, 0, 883, 800, 0, 0, 0, 0, 0, 1002, 0, 0, 1056, 1074, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1110, 1114, 0, 0, 1124, 1128, 1131, 1134, 0, 0, 1144, 0, 1151, 0, 1157, 1161], baseaspd: 0 },
                     { id: 'SN', label: '超級初心者', TranscendentClass: false, JobMaxPoint:[7,7,6,6,6,5], basehp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3780, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5580, 0, 0, 0, 0, 5830, 0, 0, 5980, 0, 6080, 6130, 0, 0, 0, 6330, 0, 0, 6480, 0, 6580, 6630, 6680, 6730, 6780, 6830, 6880, 6930, 6980, 7030, 7080, 7130, 7180, 7338, 7462, 7587, 7675, 7802, 7480, 7530, 7580], basesp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 234, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 414, 0, 0, 0, 0, 439, 0, 0, 454, 0, 464, 469, 0, 0, 0, 489, 0, 0, 504, 0, 514, 519, 524, 529, 534, 539, 544, 549, 554, 559, 564, 569, 574, 579, 584, 589, 594, 599, 604, 609, 614], baseaspd: 0 },
                 ],
                 equipspartlist: [
@@ -5061,6 +5073,7 @@
                     { label: '暴擊率 %', id: 'Cri', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '近傷 %', id: 'MeleeDamagePercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '全屬性法傷 %', id: 'ElementalMagicPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '技能後(共)延%', id: 'GCDPercent', totalvalue: 0, opersymbol: '\-', suffixsymbol: '\%' },
@@ -6694,6 +6707,8 @@
                     // 拿資料 傳值就好
                     //https://wcc723.github.io/javascript/2017/12/10/javascript-reference/
                     this.enemyattribute = Object.assign({}, item);
+                    if( this.enemyattribute.LUK == null ) this.enemyattribute.LUK = 0;
+                    if( this.enemyattribute.VIT == null ) this.enemyattribute.VIT = 0;
                     console.log("onSelectEnemy: " + this.enemyattribute.elemental);
                 },
                 onSkillPercentChange() {
@@ -7520,7 +7535,8 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='CriDamagePercent').totalvalue);
                     this.attritube['RNGDP'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamagePercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='RangedDamagePercent').totalvalue);
-                    this.attritube['MELDP'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue);
+                    this.attritube['MELDP'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='MeleeDamagePercent').totalvalue);
                     this.attritube['BYPASSDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassDEFPercent').totalvalue);
                     if (this.attritube['BYPASSDEF'] > 100) this.attritube['BYPASSDEF'] = 100;
                     this.attritube['BYPASSMDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue);
@@ -8203,12 +8219,12 @@
                         { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: '(SLV*350+INT/(6-5))*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為手推車改良等級', } },
                         { skill: { id: 'GN_HELLS_PLANT', name: '地獄植物', level: 5, formula: '(SLV*100+INT*5)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為生物挑撥等級', } },
                         { skill: { id: 'GN_SPORE_EXPLOSION', name: '爆炸孢子', level: 10, formula: '(SLV*180+INT+200)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
-
+                        { skill: { id: 'CR_ACIDDEMONSTRATION', name: '強酸火煙瓶投擲', level: 10, formula: '(SLV*200+INT*2+EVit*10)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '須調整敵方VIT', } },
+            
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨', level: 5, formula: "(DEX+AGI)*(SLV/5)*BLV/100*((WTI=='Instruments'|WTI=='Whips')?1.666:1)", class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_METALICSOUND', name: '重金屬音樂', level: 10, formula: '(600+SLV*120)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 5.5, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'WM_REVERBERATION', name: '殘響', level: 5, formula: '(700+SLV*300)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.5, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'WM_REVERBERATION', name: '殘響', level: 5, formula: '(700+SLV*300)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0.5, CD: 0.2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         
                         { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_BAKUENRYU', name: '爆炎龍', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 0.6, VCT: 2.4, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8360,33 +8376,33 @@
                     );
 
                     this.enemylist.push(
-                        { id: 0, name: '自訂', level: 1, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 2408, name: '蛋(10)', level: 10, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 2410, name: '龍蛋(100)', level: 100, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 2411, name: '龍蛋(150)', level: 150, hp: 0, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 21064, name: '測試用魔物(小)', level: 100, hp: 2000000000, LUK: 0, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 21065, name: '測試用魔物(中)', level: 100, hp: 2000000000, LUK: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 21066, name: '測試用魔物(大)', level: 100, hp: 2000000000, LUK: 0, elemental: 0, elementallevel: 1, size: 2, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3800, name: '不祥果樹龜', level: 157, hp: 508335, LUK: 60, elemental: 0, elementallevel: 2, size: 0, StatusDEF: 146, WeaponDEF: 288, StatusMDEF: 61, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3802, name: '不祥岩石龜', level: 161, hp: 592310, LUK: 50, elemental: 4, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 406, StatusMDEF: 50, WeaponMDEF: 116, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3803, name: '不祥火焰龜', level: 162, hp: 527390, LUK: 89, elemental: 1, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 400, StatusMDEF: 50, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3801, name: '不祥水靈龜', level: 159, hp: 549071, LUK: 60, elemental: 2, elementallevel: 2, size: 0, StatusDEF: 139, WeaponDEF: 146, StatusMDEF: 64, WeaponMDEF: 80, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3799, name: '不祥風靈龜', level: 160, hp: 592508, LUK: 30, elemental: 3, elementallevel: 2, size: 0, StatusDEF: 110, WeaponDEF: 339, StatusMDEF: 51, WeaponMDEF: 82, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3213, name: '闇●盧恩騎士', level: 179, hp: 2448000, LUK: 60, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189, WeaponDEF: 400, StatusMDEF: 57, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3208, name: '闇●十字斬首者', level: 179, hp: 2380000, LUK: 80, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 62, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3230, name: '闇●魅影追蹤者', level: 178, hp: 2040000, LUK: 50, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 2996, name: '席琳基米', level: 150, hp: 66666666, LUK: 166, elemental: 8, elementallevel: 1, size: 2, StatusDEF: 102, WeaponDEF: 479, StatusMDEF: 151, WeaponMDEF: 444, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 2476, name: '闇答萊屍', level: 150, hp: 4290000, LUK: 20, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 120, WeaponDEF: 30, StatusMDEF: 159, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3150, name: '覺醒闇答萊屍', level: 180, hp: 42900000, LUK: 20, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 135, WeaponDEF: 30, StatusMDEF: 174, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3473, name: '歐內斯特 斯特凡˙傑克', level: 160, hp: 20000000, LUK: 43, elemental: 9, elementallevel: 1, size: 2, StatusDEF: 88, WeaponDEF: 146, StatusMDEF: 54, WeaponMDEF: 30, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 20346, name: '米古爾', level: 115, hp: 8600000, LUK: 85, elemental: 3, elementallevel: 4, size: 1, StatusDEF: 71, WeaponDEF: 216, StatusMDEF: 45, WeaponMDEF: 95, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 20388, name: '施密特國王(簡單)', level: 110, hp: 9300000, LUK: 0, elemental: 0, elementallevel: 4, size: 1, StatusDEF: 0, WeaponDEF: 340, StatusMDEF: 0, WeaponMDEF: 82, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 20387, name: '施密特國王(困難)', level: 175, hp: 45000000, LUK: 0, elemental: 0, elementallevel: 4, size: 1, StatusDEF: 0, WeaponDEF: 680, StatusMDEF: 0, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 40000, name: '闇答萊屍(挑戰)', level: 192, hp: 73276522, LUK: 0, elemental: 7, elementallevel: 3, size: 2, StatusDEF: 0, WeaponDEF: 446, StatusMDEF: 0, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 40001, name: '希梅爾茲', level: 195, hp: 1315093464, LUK: 0, elemental: 6, elementallevel: 3, size: 1, StatusDEF: 0, WeaponDEF: 514, StatusMDEF: 0, WeaponMDEF: 92, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 20536, name: '無名劍士', level: 180, hp: 75910088, LUK: 0, elemental: 1, elementallevel: 2, size: 1, StatusDEF: 0, WeaponDEF: 585, StatusMDEF: 0, WeaponMDEF: 235, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 20601, name: '珠寶溫古力安特', level: 197, hp: 37847096, LUK: 64, elemental: 0, elementallevel: 4, size: 2, StatusDEF: 181, WeaponDEF: 345, StatusMDEF: 80, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 20618, name: '骷髏迪塔勒泰晤勒斯', level: 209, hp: 88466828, LUK: 55, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 201, WeaponDEF: 451, StatusMDEF: 95, WeaponMDEF: 81, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 0, name: '自訂', level: 1, hp: 0, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 0, WeaponDEF: 0, StatusMDEF: 0, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2408, name: '蛋(10)', level: 10, hp: 0, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 5, WeaponDEF: 0, StatusMDEF: 2, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2410, name: '龍蛋(100)', level: 100, hp: 0, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 90, StatusMDEF: 25, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2411, name: '龍蛋(150)', level: 150, hp: 0, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 75, WeaponDEF: 120, StatusMDEF: 37, WeaponMDEF: 120, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 21064, name: '測試用魔物(小)', level: 100, hp: 2000000000, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 21065, name: '測試用魔物(中)', level: 100, hp: 2000000000, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 21066, name: '測試用魔物(大)', level: 100, hp: 2000000000, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 2, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3800, name: '不祥果樹龜', level: 157, hp: 508335, LUK: 60, VIT:0, elemental: 0, elementallevel: 2, size: 0, StatusDEF: 146, WeaponDEF: 288, StatusMDEF: 61, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3802, name: '不祥岩石龜', level: 161, hp: 592310, LUK: 50, VIT:0, elemental: 4, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 406, StatusMDEF: 50, WeaponMDEF: 116, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3803, name: '不祥火焰龜', level: 162, hp: 527390, LUK: 89, VIT:0, elemental: 1, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 400, StatusMDEF: 50, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3801, name: '不祥水靈龜', level: 159, hp: 549071, LUK: 60, VIT:0, elemental: 2, elementallevel: 2, size: 0, StatusDEF: 139, WeaponDEF: 146, StatusMDEF: 64, WeaponMDEF: 80, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3799, name: '不祥風靈龜', level: 160, hp: 592508, LUK: 30, VIT:0, elemental: 3, elementallevel: 2, size: 0, StatusDEF: 110, WeaponDEF: 339, StatusMDEF: 51, WeaponMDEF: 82, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3213, name: '闇●盧恩騎士', level: 179, hp: 2448000, LUK: 60, VIT:0, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189, WeaponDEF: 400, StatusMDEF: 57, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3208, name: '闇●十字斬首者', level: 179, hp: 2380000, LUK: 80, VIT:0, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 62, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3230, name: '闇●魅影追蹤者', level: 178, hp: 2040000, LUK: 50, VIT:0, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2996, name: '席琳基米', level: 150, hp: 66666666, LUK: 166, VIT:0, elemental: 8, elementallevel: 1, size: 2, StatusDEF: 102, WeaponDEF: 479, StatusMDEF: 151, WeaponMDEF: 444, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 2476, name: '闇答萊屍', level: 150, hp: 4290000, LUK: 20, VIT:0, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 120, WeaponDEF: 30, StatusMDEF: 159, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3150, name: '覺醒闇答萊屍', level: 180, hp: 42900000, LUK: 20, VIT:0, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 135, WeaponDEF: 30, StatusMDEF: 174, WeaponMDEF: 40, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 3473, name: '歐內斯特 斯特凡˙傑克', level: 160, hp: 20000000, LUK: 43, VIT:0, elemental: 9, elementallevel: 1, size: 2, StatusDEF: 88, WeaponDEF: 146, StatusMDEF: 54, WeaponMDEF: 30, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 20346, name: '米古爾', level: 115, hp: 8600000, LUK: 85, VIT:0, elemental: 3, elementallevel: 4, size: 1, StatusDEF: 71, WeaponDEF: 216, StatusMDEF: 45, WeaponMDEF: 95, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 20388, name: '施密特國王(簡單)', level: 110, hp: 9300000, LUK: 0, VIT:0, elemental: 0, elementallevel: 4, size: 1, StatusDEF: 0, WeaponDEF: 340, StatusMDEF: 0, WeaponMDEF: 82, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 20387, name: '施密特國王(困難)', level: 175, hp: 45000000, LUK: 0, VIT:0, elemental: 0, elementallevel: 4, size: 1, StatusDEF: 0, WeaponDEF: 680, StatusMDEF: 0, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 40000, name: '闇答萊屍(挑戰)', level: 192, hp: 73276522, LUK: 0, VIT:0, elemental: 7, elementallevel: 3, size: 2, StatusDEF: 0, WeaponDEF: 446, StatusMDEF: 0, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 40001, name: '希梅爾茲', level: 195, hp: 1315093464, LUK: 0, VIT:0, elemental: 6, elementallevel: 3, size: 1, StatusDEF: 0, WeaponDEF: 514, StatusMDEF: 0, WeaponMDEF: 92, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 20536, name: '無名劍士', level: 180, hp: 75910088, LUK: 0, VIT:0, elemental: 1, elementallevel: 2, size: 1, StatusDEF: 0, WeaponDEF: 585, StatusMDEF: 0, WeaponMDEF: 235, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 20601, name: '珠寶溫古力安特', level: 197, hp: 37847096, LUK: 64, VIT:0, elemental: 0, elementallevel: 4, size: 2, StatusDEF: 181, WeaponDEF: 345, StatusMDEF: 80, WeaponMDEF: 90, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        { id: 20618, name: '骷髏迪塔勒泰晤勒斯', level: 209, hp: 88466828, LUK: 55, VIT:0, elemental: 9, elementallevel: 4, size: 2, StatusDEF: 201, WeaponDEF: 451, StatusMDEF: 95, WeaponMDEF: 81, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
 
                     );
                     this.consumablelist.push(
@@ -8417,6 +8433,8 @@
                         { id:682, name:'雄黃酒', active:false, group:'ATKMATKUP', ATKUP:30},
                         { id:14601, name:'戰神蒂爾之祝福', active:false, group:'ATKMATKUP', ATKUP:20, MATKUP:20},
 
+                        { id:100232, name:'紅色藥草活化液', active:false, group:'sp', RangedDamagePercent:15, MeleeDamagePercent:15},
+                        { id:100233, name:'藍色藥草活化液', active:false, group:'sp', ElementalMagicPercent:15},
                         { id:12404, name:'活性化藥水', active:false, group:'sp', AtkPercent:2, MatkPercent:2},
                         { id:12418, name:'揮擊藥水', active:false, group:'sp', ATK:50},
                         { id:12419, name:'魔力藥水', active:false, group:'sp', MATK:50},
@@ -8471,12 +8489,14 @@
                         { str1: 'SHW', str2: 'this.weapon.ShieldWeight', description: '代入盾牌重量' },
                         { str1: 'ELV', str2: 'this.enemyattribute.level', description: '代入敵方等級' },
                         { str1: 'ESIZE', str2: 'this.enemyattribute.size', description: '代入敵方體型' },
+                        { str1: 'EVit', str2: 'this.enemyattribute.VIT', description: '代入敵方VIT' },
                         { str1: 'MUL', str2: 'this.MulOper', description: 'MUL(A,B)為A*B, B若>1則無條件捨去, B若<1則無條件進位' },
                         { str1: 'DOWN', str2: 'Math.floor', description: 'DOWN(A) 小數點無條件捨去' },
                         { str1: 'UP', str2: 'Math.ceil', description: 'UP(A) 小數點無條件進位' },
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-4-17', content: '增加消耗品 紅/藍色藥草活化液<br>增加預設技能 強酸火煙瓶投擲<br>增加敵方設定 VIT<br>補齊部分職業BLV 186以後HPSP<br>修改預設技能 殘響獨延<br>修正預設敵方 測試用魔物減算MDEF' },
                         { id: '2021-3-30', content: '增加預設技能 地獄植物/爆炸苞子<br>修改預設技能 手推車加農砲倍率<br>修改預設技能 殘響共延' },
                         { id: '2021-3-24', content: '修改預設技能 殘響公式倍率為3/30優化後' },
                         { id: '2021-3-21', content: '增加預設技能 迴旋斧<br>修正致命威脅共延時間' },
@@ -8676,7 +8696,7 @@
                 this.option_init = Object.assign({}, this.option);
                 this.consumableeffecttypelist_init = _.cloneDeep(this.consumableeffecttypelist);
 
-                this.enemyattribute = this.enemylist[0];
+                this.onSelectEnemy(this.enemylist[0]);
                 this.effectdialogue.EffectType = this.effecttypelist[0];
                 this.PreviewETL = _.cloneDeep(this.effecttypelist);
                 this.PreviewETL_init = _.cloneDeep(this.PreviewETL);
