@@ -1917,6 +1917,28 @@
                                     <el-row class="optionbox effectline"
                                         :class="index%2==0?'bg-purple-light':'bg-purple'" :gutter="4" type="flex"
                                         align="middle">
+                                        <el-col :span="2">
+                                            <el-button v-on:click="onSortupAllSet(index)" size="small">
+                                                <i class="el-icon-caret-top"></i>
+                                            </el-button>
+                                        </el-col>
+                                        <el-col :span="2">
+                                            <el-button v-on:click="onSortdownAllSet(index)" size="small">
+                                                <i class="el-icon-caret-bottom"></i>
+                                            </el-button>
+                                        </el-col>
+                                        <el-col :span="3">
+                                            <el-button v-on:click="onLoadAllSetSaveIdx(index)"
+                                                type="success" type="primary" size="small">
+                                                載入
+                                            </el-button>
+                                        </el-col>
+                                        <el-col :span="3">
+                                            <el-button v-on:click="onSaveFileAllSetSave(index)"
+                                                type="Info" type="primary" size="small" >
+                                                下載
+                                            </el-button>
+                                        </el-col>
                                         <el-col class="textcenter">
                                             <span>{{ item.AllSet.Name }}</span>
                                         </el-col>
@@ -1932,18 +1954,6 @@
                                         <el-col :span="3">
                                             <el-button v-on:click="onRemoveAllSetSave(index)" icon="el-icon-delete"
                                                 type="danger" size="mini">
-                                            </el-button>
-                                        </el-col>
-                                        <el-col :span="3">
-                                            <el-button v-on:click="onLoadAllSetSaveIdx(index)"
-                                                type="success" type="primary" size="small">
-                                                載入
-                                            </el-button>
-                                        </el-col>
-                                        <el-col :span="3">
-                                            <el-button v-on:click="onSaveFileAllSetSave(index)"
-                                                type="Info" type="primary" size="small" >
-                                                下載
                                             </el-button>
                                         </el-col>
                                     </el-row>
@@ -7079,6 +7089,16 @@
                     if (this.IsSupportActive('GC_POISONINGWEAPON')){
                         this.attritube['MELDP'] += 10;
                     }
+                    // 劇毒武器:熱病
+                    if (this.IsSupportActive('GC_POISONINGWEAPON:1')){
+                        this.attritube['MELDP'] += 10;
+                        this.attritube['CRIDP'] += 15;
+                    }
+                    // 劇毒武器:狂笑
+                    if (this.IsSupportActive('GC_POISONINGWEAPON:2')){
+                        this.attritube['MELDP'] += 10;
+                        this.attritube['GCD'] += 3 * 10;
+                    }
                     // 大聲吶喊
                     if (this.IsSupportActive('MC_LOUD')){
                         this.status_add.STR += 4;
@@ -7977,10 +7997,31 @@
                     localStorage.setItem('StoreDB_AllSet', parsed);
                     this.ClosePanel('AllSetDBSaveDialog');
                 },
+                onSortupAllSet(dbidx){
+                    if( dbidx > 0 )
+                    {
+                        var _tempsetA = JSON.parse(JSON.stringify(this.StoreDB_AllSet[dbidx]));
+                        var _tempsetB = JSON.parse(JSON.stringify(this.StoreDB_AllSet[dbidx-1]));
+                        this.$set(this.StoreDB_AllSet, dbidx, _tempsetB);
+                        this.$set(this.StoreDB_AllSet, dbidx-1, _tempsetA);
+                        const parsed = JSON.stringify(this.StoreDB_AllSet);
+                        localStorage.setItem('StoreDB_AllSet', parsed);
+                    }
+                },
+                onSortdownAllSet(dbidx){
+                    if( dbidx < this.StoreDB_AllSet.length-1 )
+                    {
+                        var _tempsetA = JSON.parse(JSON.stringify(this.StoreDB_AllSet[dbidx]));
+                        var _tempsetB = JSON.parse(JSON.stringify(this.StoreDB_AllSet[dbidx+1]));
+                        this.$set(this.StoreDB_AllSet, dbidx, _tempsetB);
+                        this.$set(this.StoreDB_AllSet, dbidx+1, _tempsetA);
+                        const parsed = JSON.stringify(this.StoreDB_AllSet);
+                        localStorage.setItem('StoreDB_AllSet', parsed);
+                    }
+                },
                 onRemoveAllSetSave(dbidx) {
                     if (dbidx > -1) {
                         this.StoreDB_AllSet.splice(dbidx, 1)
-                        this.SaveStatusDB();
                         const parsed = JSON.stringify(this.StoreDB_AllSet);
                         localStorage.setItem('StoreDB_AllSet', parsed);
                     }
@@ -8278,7 +8319,10 @@
                         { skill: { id: 'GC_VENOMIMPRESS', name: '毒耐性弱化', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'ASC_KATAR', name: '高階拳刃修練', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 20, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'GC_DARKCROW', name: '致命爪痕', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'GC_POISONINGWEAPON', name: '劇毒武器', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'GC_POISONINGWEAPON:1', name: '劇毒武器:熱病', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:2', Note: '', } },
+                        { skill: { id: 'GC_POISONINGWEAPON:2', name: '劇毒武器:狂笑', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:1', Note: '', } },
+                        { skill: { id: 'GC_POISONINGWEAPON', name: '劇毒武器:其他', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'GC_POISONINGWEAPON:1,GC_POISONINGWEAPON:2', Note: '', } },
+                        
                         { skill: { id: 'AL_INCAGI', name: '加速術', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'AB_CANTO', Note: '', } },
                         { skill: { id: 'AL_BLESSING', name: '天使之賜福', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'AB_CLEMENTIA', Note: '', } },
                         { skill: { id: 'AB_CANTO', name: '純白百合花', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 1, arg1: 70, arg1desc: '施展者JOB等級', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'AL_INCAGI', Note: '', } },
@@ -8497,6 +8541,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-4-25', content: '增加輔助技能 劇毒武器:熱病/劇毒武器:狂笑<br>配置清單增加排序上下功能按鈕' },
                         { id: '2021-4-19', content: '修正預設技能 殘響獨延時間' },
                         { id: '2021-4-17-1', content: '增加消耗品 紅/藍色藥草活化液<br>增加預設技能 強酸火煙瓶投擲<br>增加敵方設定 VIT<br>補齊部分職業BLV 186以後HPSP<br>修改預設技能 殘響獨延<br>修正預設敵方 測試用魔物減算MDEF<br>修正HP增加藥水(大)沒有增加的錯誤' },
                         { id: '2021-3-30', content: '增加預設技能 地獄植物/爆炸苞子<br>修改預設技能 手推車加農砲倍率<br>修改預設技能 殘響共延' },
