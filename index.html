@@ -267,6 +267,41 @@
             background: #DCDFE6;
         }
 
+        .ElementTableCellBT100 {
+            text-align: center;
+            color: white;
+            background:rgb(97, 175, 127)
+        }
+
+        .ElementTableCellST100 {
+            text-align: center;
+            color: white;
+            background:rgb(240, 169, 76)
+        }
+
+        .ElementTableCellST50 {
+            text-align: center;
+            color: white;
+            background:rgb(218, 105, 105)
+        }
+        
+        .ElementTableCellST25 {
+            text-align: center;
+            color: white;
+            background:rgb(61, 61, 61)
+        }
+        .el-table--enable-row-hover .el-table__body tr:hover > td {
+            background-color: rgba(0, 0, 0, 0) !important;
+        }
+
+        .ElementRowColTitle {
+            border-radius: 2px;
+            font-size:21px;
+            text-align: center;
+            border: 1px solid #0c7a47;
+            border-radius: 2px;
+        }
+
         a:visited,
     </style>
 </head>
@@ -2280,6 +2315,58 @@
                 </el-col>
             </el-row>
         </el-dialog>
+        <el-dialog :visible.sync="UIPanel['ElementTableDialog']" v-on:close="ClosePanel('ElementTableDialog')"
+            custom-class="Dialogue-container" width="65%" top="58px" center>
+            <span slot="title">屬性相剋倍率表</span>
+            <el-row >
+                <el-row type="flex" class="titlebox textcenter" align="middle" justify="center"
+                    style="height:40px;" :span="8">
+                    <el-col class="textcenter" :span="4">
+                        <span>Lv: {{ElementTableIndex}}</span>
+                    </el-col>
+                    <el-button v-on:click="SetElementTableLevel(1)" size="mini">
+                        Lv 1
+                    </el-button>
+                    <el-button v-on:click="SetElementTableLevel(2)" size="mini">
+                        Lv 2
+                    </el-button>
+                    <el-button v-on:click="SetElementTableLevel(3)" size="mini">
+                        Lv 3
+                    </el-button>
+                    <el-button v-on:click="SetElementTableLevel(4)" size="mini">
+                        Lv 4
+                    </el-button>
+                </el-row>
+                <el-row type="flex" class="textcenter" align="middle" justify="center">
+                    <el-scrollbar wrap-class="StatusList-container" :native="false" :noresize="false">
+                        <el-row type="flex" class="textcenter" align="middle" justify="start"
+                                    style="height:40px;">
+                            <el-col class="ElementRowColTitle textcenter" style="width:80px;" >
+                                <span>攻 \ 守</span>
+                            </el-col>
+                            <div v-for="colindex in 10">
+                                <el-col class="ElementRowColTitle textcenter" style="width:80px;" >
+                                    <span>{{elementtypelist[colindex-1].label}}</span>
+                                </el-col>
+                            </div>
+                        </el-row>
+                        <div v-for="rowindex in 10">
+                            <el-row type="flex" class="textcenter" align="middle" justify="start"
+                                    style="height:40px;">
+                                <el-col class="ElementRowColTitle textcenter" style="width:80px;" >
+                                    <span>{{elementtypelist[rowindex-1].label}}</span>
+                                </el-col>
+                                <div v-for="colindex in 10" >
+                                    <el-col v-bind:class="SetElementTableCellClass(elementalmap[(ElementTableIndex-1)*100+colindex-1+(rowindex-1)*10])" style="width:80px;" >
+                                        <span>{{elementalmap[(ElementTableIndex-1)*100+colindex-1+(rowindex-1)*10]}}</span>
+                                    </el-col>
+                                </div>
+                            </el-row>
+                        </div>
+                    </el-scrollbar>
+                </el-row>
+            </el-row>
+        </el-dialog>
 
         <el-dialog :visible.sync="UIPanel['SupportSkillDialog']" v-on:close="ClosePanel('SupportSkillDialog')"
             custom-class="Dialogue-container" width="40%" top="58px" center>
@@ -3097,6 +3184,9 @@
                                 </div>
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
+                                        <el-button v-on:click="onOpenElementTable" :span="4" size="mini" type="success" round>
+                                            屬性相剋表
+                                        </el-button>
                                         <span>攻擊屬性</span>
                                     </el-col>
                                     <el-col :span="12">
@@ -4080,7 +4170,7 @@
                                     <el-row v-if="skill.critical" class="statusbox" type="flex" align="middle"
                                         justify="space-around" style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
-                                            <span>技能暴擊傷害</span>
+                                            <span>技能暴擊傷害({{attritube['CRI']}} %)</span>
                                         </el-col>
                                         <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max" 
                                             class="textcenter" :span="10">
@@ -4308,35 +4398,32 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                        <span>Atk 素質(前)+面版後:</span>
+                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                        <span>HP%:</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{attritube.StatusATK+computeattribute['SpecialATKFront']}} + {{attritube.WeaponATK}}</span>
+                                    <el-col class="textcenter" :span="4">
+                                        <span>{{attritube['HPP']}} %</span>
                                     </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                        <span>Matk 素質(前)+面版後:</span>
+                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                        <span>HP:</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="10">
-                                        <span>{{attritube.StatusMATK}} + {{attritube.WeaponMATK}}</span>
+                                    <el-col class="textcenter" :span="4">
+                                        <span>{{attritube['HP']}}</span>
                                     </el-col>
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
                                     <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>屬性相剋倍率:</span>
+                                        <span>SP%:</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="4">
-                                        <span>{{skilloption.ElementalPercent}} %</span>
+                                        <span>{{attritube['SPP']}} %</span>
                                     </el-col>
                                     <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>體型修正倍率:</span>
+                                        <span>SP:</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="4">
-                                        <span>{{computeattribute.sizefix}} %</span>
+                                        <span>{{attritube['SP']}}</span>
                                     </el-col>
                                 </el-row>
                                 <el-collapse-transition>
@@ -4344,32 +4431,56 @@
                                     <div v-if="skill.DamageTypeIdx==0">
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>HP%:</span>
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>Atk 素質(前)+面版後:</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['HPP']}} %</span>
-                                            </el-col>
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>HP:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['HP']}}</span>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube.StatusATK+computeattribute['SpecialATKFront']}} + {{attritube.WeaponATK}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>SP%:</span>
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>修練Atk:</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['SPP']}} %</span>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{skilloption.WeaponMasteryATK}}</span>
                                             </el-col>
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>SP:</span>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>屬性相剋倍率:</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['SP']}}</span>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{skilloption.ElementalPercent}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>體型修正倍率:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.sizefix}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>遠傷%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['RNGDP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>近傷%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['MELDP']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -4394,24 +4505,6 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['ATKP']}} %</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>遠傷%:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{attritube['RNGDP']}} %</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>近傷%:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{attritube['MELDP']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -4499,32 +4592,20 @@
                                     <div v-else-if="skill.DamageTypeIdx==1">
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>HP%:</span>
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>Matk 素質(前)+面版後:</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['HPP']}} %</span>
-                                            </el-col>
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>HP:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['HP']}}</span>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube.StatusMATK}} + {{attritube.WeaponMATK}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>SP%:</span>
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>屬性相剋倍率:</span>
                                             </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['SPP']}} %</span>
-                                            </el-col>
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>SP:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['SP']}}</span>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{skilloption.ElementalPercent}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -4930,6 +5011,9 @@
                 TempAllSet: {},
 
                 EquipText: '',
+
+                ElementTableShow: [],
+                ElementTableIndex: 1,
 
                 TestMode: false,
                 StoreDB_QuickCalc: [],
@@ -5485,6 +5569,8 @@
                     SupportSkillDialog: false,
                     EquipTextDialog: false,
                     QuickCalcDialog: false,
+                    ElementTableDialog: false,
+                    WeaponSizeTableDialog: false,
 
                     StatusPanel: true,
                     EnemyPanel: true,
@@ -7843,6 +7929,29 @@
                         this.QuickCalc.solution = "錯誤:" + e;
                     }
                 },
+                SetElementTableLevel(level){
+                    this.ElementTableIndex = level;
+                    this.onOpenElementTable();
+                },
+                SetElementTableCellClass(_value){
+                    if(_value > 100)
+                    {
+                        return 'ElementTableCellBT100';
+                    }
+                    else if (_value <= 0)
+                    {
+                        return 'ElementTableCellST25';
+                    }
+                    else if (_value <= 50)
+                    {
+                        return 'ElementTableCellST50';
+                    }
+                    return '';
+                },
+                onOpenElementTable(){
+                    this.ElementTableShow = [];
+                   this.OpenPanel('ElementTableDialog');
+                },
                 CloseSkillFormulaDialogue() {
                     if (this.skill.formula == '')
                         this.skill.formula = 0;
@@ -8541,6 +8650,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-5-14', content: '增加屬性相剋表<br>調整一般總覽的項目及順序<br>爆擊技能在傷害顯示多增加了暴率提示' },
                         { id: '2021-4-25', content: '增加輔助技能 劇毒武器:熱病/劇毒武器:狂笑<br>配置清單增加排序上下功能按鈕' },
                         { id: '2021-4-19', content: '修正預設技能 殘響獨延時間' },
                         { id: '2021-4-17-1', content: '增加消耗品 紅/藍色藥草活化液<br>增加預設技能 強酸火煙瓶投擲<br>增加敵方設定 VIT<br>補齊部分職業BLV 186以後HPSP<br>修改預設技能 殘響獨延<br>修正預設敵方 測試用魔物減算MDEF<br>修正HP增加藥水(大)沒有增加的錯誤' },
