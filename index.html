@@ -6478,7 +6478,7 @@
                         this.computeattribute.atkc7_max = this.MulOper(this.computeattribute.atkc6_max, para8);
                     }
                     //高階拳刃修練
-                    if (this.IsSupportActive('ASC_KATAR')) {
+                    if (this.IsSupportActive('ASC_KATAR') && this.weapon.type.id == 'Katars') {
                         var paraAdvancedKatarReserchValue = Number(1) + Number(this.GetSupportSkill('ASC_KATAR').arg1 / 100);
                         this.computeattribute.atkc7_min = this.MulOper(this.computeattribute.atkc7_min, paraAdvancedKatarReserchValue);
                         this.computeattribute.atkc7_max = this.MulOper(this.computeattribute.atkc7_max, paraAdvancedKatarReserchValue);
@@ -8650,6 +8650,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-5-20', content: '修正高階拳刃修練沒有判斷武器類型的BUG' },
                         { id: '2021-5-14', content: '增加屬性相剋表<br>調整一般總覽的項目及順序<br>爆擊技能在傷害顯示多增加了暴率提示' },
                         { id: '2021-4-25', content: '增加輔助技能 劇毒武器:熱病/劇毒武器:狂笑<br>配置清單增加排序上下功能按鈕' },
                         { id: '2021-4-19', content: '修正預設技能 殘響獨延時間' },
