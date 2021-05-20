@@ -6348,18 +6348,26 @@
                     // 從MulOper改為Mathfloor 捨去
                     this.computeattribute.atkbranch_min = Math.floor(this.computeattribute.weaponatk_min * (this.attritube['ATKP']) / 100);
                     this.computeattribute.atkbranch_max = Math.floor(this.computeattribute.weaponatk_max * (this.attritube['ATKP']) / 100);
-
+                    /*
                     this.computeattribute.atkbranch_min = this.MulOper(this.computeattribute.atkbranch_min, Number(1) + Number(this.enemyattribute.sizeResist / 100));
                     this.computeattribute.atkbranch_max = this.MulOper(this.computeattribute.atkbranch_max, Number(1) + Number(this.enemyattribute.sizeResist / 100));
+                    this.computeattribute.atkbranch_min = this.MulOper(this.computeattribute.atkbranch_min, Number(1) - Number(this.enemyattribute.raceResist / 100));
+                    this.computeattribute.atkbranch_max = this.MulOper(this.computeattribute.atkbranch_max, Number(1) - Number(this.enemyattribute.raceResist / 100));
                     this.computeattribute.atkbranch_min = this.MulOper(this.computeattribute.atkbranch_min, Number(1) + Number(this.enemyattribute.levelResist / 100));
                     this.computeattribute.atkbranch_max = this.MulOper(this.computeattribute.atkbranch_max, Number(1) + Number(this.enemyattribute.levelResist / 100));
                     this.computeattribute.atkbranch_min = this.MulOper(this.computeattribute.atkbranch_min, Number(1) + Number(this.enemyattribute.elementalResist / 100));
                     this.computeattribute.atkbranch_max = this.MulOper(this.computeattribute.atkbranch_max, Number(1) + Number(this.enemyattribute.elementalResist / 100));
                     this.computeattribute.atkbranch_min = this.MulOper(this.computeattribute.atkbranch_min, Number(1) + Number(this.enemyattribute.moneletResist / 100));
                     this.computeattribute.atkbranch_max = this.MulOper(this.computeattribute.atkbranch_max, Number(1) + Number(this.enemyattribute.moneletResist / 100));
+                    */
+                    this.computeattribute.atkc4_min = this.computeattribute.atkequip_min + this.computeattribute.atkbranch_min;
+                    this.computeattribute.atkc4_max = this.computeattribute.atkequip_max + this.computeattribute.atkbranch_max;
 
-                    this.computeattribute.atkc4_min = this.computeattribute.atkequip_min + this.computeattribute.atkbranch_min + Number(this.computeattribute['SpecialATK2']);
-                    this.computeattribute.atkc4_max = this.computeattribute.atkequip_max + this.computeattribute.atkbranch_max + Number(this.computeattribute['SpecialATK2']);
+                    this.computeattribute.atkc4_min = this.MulOper(this.computeattribute.atkc4_min, Number(1) - Number(this.enemyattribute.raceResist / 100));
+                    this.computeattribute.atkc4_max = this.MulOper(this.computeattribute.atkc4_max, Number(1) - Number(this.enemyattribute.raceResist / 100));
+
+                    this.computeattribute.atkc4_min = this.computeattribute.atkc4_min + Number(this.computeattribute['SpecialATK2']);
+                    this.computeattribute.atkc4_max = this.computeattribute.atkc4_max + Number(this.computeattribute['SpecialATK2']);
 
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc4_min, Number(this.skilloption.ElementalPercent / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc4_max, Number(this.skilloption.ElementalPercent / 100));
