@@ -243,6 +243,7 @@
 
         .textcenter {
             text-align: center;
+            vertical-align: middle; 
         }
 
         .titlebox {
@@ -550,16 +551,18 @@
                                 </el-col>
                                 <el-col class="textcenter" :span="4">%</el-col>
                             </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="4">技能公式</el-col>
-                                <el-col :span="17">
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                align="middle">
+                                <el-col :span="20">
                                     <el-input v-model="skill.formula" v-on:change="onSkillPercentChange"
                                         placeholder="Skill %">
                                     </el-input>
                                 </el-col>
                                 <el-col :span="2">
-                                    <el-popover placement="right-start" title="公式關鍵字" width="350" trigger="click">
-                                        <el-scrollbar wrap-class="DBlist-container" :native="false" :noresize="false">
+                                    <el-popover placement="right-start" title="公式關鍵字" width="350"
+                                        trigger="click">
+                                        <el-scrollbar wrap-class="DBlist-container" :native="false"
+                                            :noresize="false">
                                             <el-table :data="KeywordReplaceList" stripe style="width: 100%">
                                                 <el-table-column prop="str1" label="關鍵字" width="100">
                                                 </el-table-column>
@@ -571,50 +574,58 @@
                                     </el-popover>
                                 </el-col>
                             </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="6">技能等級</el-col>
-                                <el-col class="textcenter" :span="5">
-                                    <el-input v-model.number="skill.level" v-on:change="onSkillPercentChange"
-                                        placeholder="技能等級">
-                                    </el-input>
-                                </el-col>
-                                <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害"
-                                    placement="bottom-start">
-                                    <el-col class="textcenter" :span="6">傷害次數</el-col>
-                                </el-tooltip>
-                                <el-col class="textcenter" :span="5">
-                                    <el-input v-model.number="skill.hitnumber" v-on:change="onSkillPercentChange"
-                                        placeholder="傷害次數">
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                align="middle">
+                                <el-col class="textcenter" :span="12">技能等級</el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-input v-model.number="skill.level"
+                                        v-on:change="onSkillPercentChange" placeholder="技能等級">
                                     </el-input>
                                 </el-col>
                             </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="6">固定詠唱</el-col>
-                                <el-col :span="4">
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                align="middle">
+                                <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害"
+                                    placement="bottom-start">
+                                    <el-col class="textcenter" :span="12">傷害次數</el-col>
+                                </el-tooltip>
+                                <el-col class="textcenter" :span="12">
+                                    <el-input v-model.number="skill.hitnumber"
+                                        v-on:change="onSkillPercentChange" placeholder="傷害次數">
+                                    </el-input>
+                                </el-col>
+                            </el-row>
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                align="middle">
+                                <el-col class="textcenter" :span="12">固定詠唱</el-col>
+                                <el-col :span="12">
                                     <el-input v-model="skill.FCT" v-on:input="onOption" placeholder="時間">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter" :span="1">秒</el-col>
-                                <el-col class="textcenter" :span="6">變動詠唱</el-col>
-                                <el-col :span="4">
+                            </el-row>
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                align="middle">
+                                <el-col class="textcenter" :span="12">變動詠唱</el-col>
+                                <el-col :span="12">
                                     <el-input v-model="skill.VCT" v-on:input="onOption" placeholder="時間">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter" :span="1">秒</el-col>
                             </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="6">獨立延遲</el-col>
-                                <el-col :span="4">
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                align="middle">
+                                <el-col class="textcenter" :span="12">獨立延遲</el-col>
+                                <el-col :span="12">
                                     <el-input v-model="skill.CD" v-on:input="onOption" placeholder="時間">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter" :span="1">秒</el-col>
-                                <el-col class="textcenter" :span="6">共通延遲</el-col>
-                                <el-col :span="4">
+                            </el-row>
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                align="middle">
+                                <el-col class="textcenter" :span="12">共通延遲</el-col>
+                                <el-col :span="12">
                                     <el-input v-model="skill.GCD" v-on:input="onOption" placeholder="時間">
                                     </el-input>
                                 </el-col>
-                                <el-col class="textcenter" :span="1">秒</el-col>
                             </el-row>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
@@ -3023,19 +3034,19 @@
                                         {{skill.name}}
                                     </el-col>
                                 </el-row>
-                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="12">技能倍率</el-col>
-                                    <el-col class="textcenter" :span="8">
-                                        {{option.SkillPercent}}
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle" justify="space-around" style="color:darkolivegreen; height: 60px; font-size: 30;">
+                                    <el-col class="textcenter" :span="12">
+                                           <span> Lv  {{skill.level}}</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="4">%</el-col>
+                                    <el-col class="textcenter" :span="12">
+                                            <span>{{option.SkillPercent | currency2}} %</span>
+                                    </el-col>
                                 </el-row>
                                 <el-collapse-transition>
                                     <div v-show="UIPanel['SkillPanel']">
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
-                                            <el-col class="textcenter" :span="4">技能公式</el-col>
-                                            <el-col :span="17">
+                                            <el-col :span="20">
                                                 <el-input v-model="skill.formula" v-on:change="onSkillPercentChange"
                                                     placeholder="Skill %">
                                                 </el-input>
@@ -3058,52 +3069,56 @@
                                         </el-row>
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
-                                            <el-col class="textcenter" :span="6">技能等級</el-col>
-                                            <el-col class="textcenter" :span="5">
+                                            <el-col class="textcenter" :span="12">技能等級</el-col>
+                                            <el-col class="textcenter" :span="12">
                                                 <el-input v-model.number="skill.level"
                                                     v-on:change="onSkillPercentChange" placeholder="技能等級">
                                                 </el-input>
                                             </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
                                             <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害"
                                                 placement="bottom-start">
-                                                <el-col class="textcenter" :span="6">傷害次數</el-col>
+                                                <el-col class="textcenter" :span="12">傷害次數</el-col>
                                             </el-tooltip>
-                                            <el-col class="textcenter" :span="5">
+                                            <el-col class="textcenter" :span="12">
                                                 <el-input v-model.number="skill.hitnumber"
                                                     v-on:change="onSkillPercentChange" placeholder="傷害次數">
                                                 </el-input>
                                             </el-col>
-                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.hitnumber)) }}</el-col>
                                         </el-row>
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
-                                            <el-col class="textcenter" :span="6">固定詠唱</el-col>
-                                            <el-col :span="4">
+                                            <el-col class="textcenter" :span="12">固定詠唱</el-col>
+                                            <el-col :span="12">
                                                 <el-input v-model="skill.FCT" v-on:input="onOption" placeholder="時間">
                                                 </el-input>
                                             </el-col>
-                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.FCT)) }}s</el-col>
-                                            <el-col class="textcenter" :span="6">變動詠唱</el-col>
-                                            <el-col :span="4">
-                                                <el-input v-model="skill.VCT" v-on:input="onOption" placeholder="時間">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.VCT)) }}s</el-col>
                                         </el-row>
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
-                                            <el-col class="textcenter" :span="6">獨立延遲</el-col>
-                                            <el-col :span="4">
+                                            <el-col class="textcenter" :span="12">變動詠唱</el-col>
+                                            <el-col :span="12">
+                                                <el-input v-model="skill.VCT" v-on:input="onOption" placeholder="時間">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">獨立延遲</el-col>
+                                            <el-col :span="12">
                                                 <el-input v-model="skill.CD" v-on:input="onOption" placeholder="時間">
                                                 </el-input>
                                             </el-col>
-                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.CD)) }}s</el-col>
-                                            <el-col class="textcenter" :span="6">共通延遲</el-col>
-                                            <el-col :span="4">
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">共通延遲</el-col>
+                                            <el-col :span="12">
                                                 <el-input v-model="skill.GCD" v-on:input="onOption" placeholder="時間">
                                                 </el-input>
                                             </el-col>
-                                            <el-col class="textcenter" :span="1">{{ eval(this.SkillFormulaReplace(skill.GCD)) }}s</el-col>
                                         </el-row>
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
@@ -3175,6 +3190,33 @@
                                         </el-col>
                                     </el-row>
                                 </div>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['SkillPanel']==false">
+                                        <el-row class="statusbox" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害"
+                                                placement="bottom-start">
+                                                <el-col class="textcenter" :span="12">傷害次數</el-col>
+                                            </el-tooltip>
+                                            <el-col class="textcenter" :span="12">{{ eval(this.SkillFormulaReplace(skill.hitnumber)) }}</el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="6">固定詠唱</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.FCT)) }} s</el-col>
+                                            <el-col class="textcenter" :span="6">變動詠唱</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.VCT)) }} s</el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="6">獨立延遲</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.CD)) }} s</el-col>
+                                            <el-col class="textcenter" :span="6">共通延遲</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.GCD)) }} s</el-col>
+                                        </el-row>
+                                    </div>
+                                </el-collapse-transition>
+
                                 <div v-show="skill.Note!=''">
                                     <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                         <el-col class="textcenter" style="color:rgb(29, 149, 170);">
@@ -3200,8 +3242,8 @@
                                         </div>
                                     </el-col>
                                 </el-row>
-                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="12">裝備技能傷害增加</el-col>
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">技能傷害增加</el-col>
                                     <!--                                     <el-col :span="6">
                                         <el-input v-model.number="option.EquipSkillAddDamage" v-on:change="onOption"
                                             placeholder="Skill %">
@@ -3214,7 +3256,7 @@
                                     <el-col class="textcenter" :span="6">{{option.EquipSkillAddDamage}}</el-col>
                                     <el-col class="textcenter" :span="4">%</el-col>
                                 </el-row>
-                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">武器修練ATK增加</el-col>
                                     <el-col class="textcenter" :span="6">
                                         <span>{{skilloption.WeaponMasteryATK}}</span>
@@ -4711,36 +4753,6 @@
                                     <div v-else-if="skill.DamageTypeIdx==2">
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>HP%:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['HPP']}} %</span>
-                                            </el-col>
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>HP:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['HP']}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>SP%:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['SPP']}} %</span>
-                                            </el-col>
-                                            <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                                <span>SP:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="4">
-                                                <span>{{attritube['SP']}}</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                                 <span>遠傷%:</span>
                                             </el-col>
@@ -5219,7 +5231,7 @@
                 subweapon_init: {},
                 ClassInfo: {},
                 status: {
-                    Level: 1, JOBLevel: 1, Transcendent: false, classid: 'AB', UseJobMaxPoint: false,
+                    Level: 200, JOBLevel: 70, Transcendent: false, classid: 'AB', UseJobMaxPoint: false,
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
                     ASPD: 0, HP: 0, SP: 0, MHP: 0, MSP: 0,
                 },
@@ -7086,7 +7098,9 @@
                     if (this.IsSupportActive('AM_AXEMASTERY')) { if(this.weapon.type.id == 'Axes' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=30; } }
                     if (this.IsSupportActive('GN_TRAINING_SWORD')){ if(this.weapon.type.id == 'Daggers' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=50; this.attritube['HIT'] += 15;} }
                     if (this.IsSupportActive('SA_ADVANCEDBOOK')){ if(this.weapon.type.id == 'Books' ){ this.skilloption.WeaponMasteryATK+=30; this.attritube['ASPDP'] += 5;} }
+                    if (this.IsSupportActive('TK_RUN')){ if(this.weapon.type.id == 'Empty' ){ this.skilloption.WeaponMasteryATK+=this.GetSupportSkill('TK_RUN').lv*10;} }
 
+                    
                     //雙手劍攻擊速度增加
                     if (this.IsSupportActive('SM_TWOHAND')) {
                         if (this.weapon.type.id == 'TwoHandedSword') {
@@ -8398,6 +8412,8 @@
                         { skill: { id: 'SJ_SOLARBURST', name: '太陽爆炸', level: 10, formula: '(1000+SLV*220)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_NEWMOONKICK', name: '朔月腳', level: 7, formula: '(600+SLV*100+((SLV>3)?100:0))', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 10, formula: '(1100+SLV*100)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'SJ_FALLINGSTAR', name: '流星殞落', level: 10, formula: '(100+SLV*100)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '對主要目標會有兩次相同傷害', } },
+                        
                         { skill: { id: 'SP_SPA', name: '艾斯帕', level: 10, formula: '(500+SLV*250)*BLV/100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 10, formula: '(1100+SLV*200)*BLV/100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SP_CURSEEXPLOSION', name: '邪靈爆炸', level: 10, formula: '400+SLV*100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 7, FCT: 1, VCT: 3, CD: 1, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8518,6 +8534,8 @@
                         { skill: { id: 'OB_ZANGETSU', name: '變形的上弦月', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'KG_KAGEMUSYA', name: '影子武士', maxlv: 5, lv: 5, class: 'KO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'TK_SEVENWIND', name: '溫暖的風', maxlv: 1, lv: 1, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'TK_RUN', name: '跑步', maxlv: 10, lv: 10, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
+                        
                         { skill: { id: 'TK_POWER', name: '加油', maxlv: 5, lv: 5, class: 'SE', changelv: false, argnum: 1, arg1: 1, arg1desc: '隊友數(包含自己)', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SG_HATE', name: '日月星的憎惡(怪物)', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SG_Miracle', name: '日月星的奇蹟', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
@@ -8658,6 +8676,8 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-5-24', content: '調整技能區域' },
+                        { id: '2021-5-23', content: '增加預設技能 流星墜落<br>增加輔助技能 跑步(被動)' },
                         { id: '2021-5-20', content: '修正高階拳刃修練沒有判斷武器類型的BUG' },
                         { id: '2021-5-14', content: '增加屬性相剋表<br>調整一般總覽的項目及順序<br>爆擊技能在傷害顯示多增加了暴率提示' },
                         { id: '2021-4-25', content: '增加輔助技能 劇毒武器:熱病/劇毒武器:狂笑<br>配置清單增加排序上下功能按鈕' },
@@ -8831,6 +8851,9 @@
                 currency(val) {
                     return val.toFixed(0).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
                     /* return price.toLocaleString('en-US');  寫法二：轉為千分號*/
+                },
+                currency2(val) {
+                    return val.toFixed(2)
                 },
             },
             computed: {
