@@ -270,26 +270,33 @@
 
         .ElementTableCellBT100 {
             text-align: center;
-            color: white;
-            background:rgb(97, 175, 127)
+            vertical-align: middle;
+            color: rgb(33, 153, 79);
+            background:rgb(178, 253, 207);
+            font-size: 24px;
+            font-weight: bold;
         }
 
         .ElementTableCellST100 {
             text-align: center;
             color: white;
-            background:rgb(240, 169, 76)
+            background:rgb(240, 169, 76);
         }
 
         .ElementTableCellST50 {
             text-align: center;
-            color: white;
-            background:rgb(218, 105, 105)
+            color: rgb(201, 46, 46);
+            background:rgb(252, 175, 175);
+            font-size: 24px;
+            font-weight: bold;
         }
         
         .ElementTableCellST25 {
             text-align: center;
-            color: white;
-            background:rgb(61, 61, 61)
+            color: rgb(70, 70, 70);
+            background:rgb(170, 170, 170);
+            font-size: 24px;
+            font-weight: bold;
         }
         .el-table--enable-row-hover .el-table__body tr:hover > td {
             background-color: rgba(0, 0, 0, 0) !important;
@@ -2332,7 +2339,7 @@
             <el-row >
                 <el-row type="flex" class="titlebox textcenter" align="middle" justify="center"
                     style="height:40px;" :span="8">
-                    <el-col class="textcenter" :span="4">
+                    <el-col class="textcenter" :span="4" style="font-size: 24px;">
                         <span>Lv: {{ElementTableIndex}}</span>
                     </el-col>
                     <el-button v-on:click="SetElementTableLevel(1)" size="mini">
@@ -2350,27 +2357,30 @@
                 </el-row>
                 <el-row type="flex" class="textcenter" align="middle" justify="center">
                     <el-scrollbar wrap-class="StatusList-container" :native="false" :noresize="false">
-                        <el-row type="flex" class="textcenter" align="middle" justify="start"
+                        <el-row class="textcenter" type="flex" align="middle" justify="center"
                                     style="height:40px;">
                             <el-col class="ElementRowColTitle textcenter" style="width:80px;" >
                                 <span>攻 \ 守</span>
                             </el-col>
-                            <div v-for="colindex in 10">
+                            <div v-for="colindex in 10" style="padding: 0px 5px;">
                                 <el-col class="ElementRowColTitle textcenter" style="width:80px;" >
                                     <span>{{elementtypelist[colindex-1].label}}</span>
                                 </el-col>
                             </div>
                         </el-row>
                         <div v-for="rowindex in 10">
-                            <el-row type="flex" class="textcenter" align="middle" justify="start"
-                                    style="height:40px;">
+                            <el-row class="textcenter" type="flex" align="middle" justify="center"
+                                    style="font-size: 20px;">
                                 <el-col class="ElementRowColTitle textcenter" style="width:80px;" >
                                     <span>{{elementtypelist[rowindex-1].label}}</span>
                                 </el-col>
-                                <div v-for="colindex in 10" >
+                                <div v-for="colindex in 10" style="padding: 0px 5px;">
+                                    <el-tooltip class="item" effect="dark" placement="top" :enterable="false">
+                                        <div slot="content" style="font-size: 24px;">{{elementtypelist[rowindex-1].label}} 對 {{elementtypelist[colindex-1].label}} {{ElementTableIndex}}</div>
                                     <el-col v-bind:class="SetElementTableCellClass(elementalmap[(ElementTableIndex-1)*100+colindex-1+(rowindex-1)*10])" style="width:80px;" >
                                         <span>{{elementalmap[(ElementTableIndex-1)*100+colindex-1+(rowindex-1)*10]}}</span>
                                     </el-col>
+                                    </el-tooltip>
                                 </div>
                             </el-row>
                         </div>
@@ -3194,11 +3204,12 @@
                                     <div v-show="UIPanel['SkillPanel']==false">
                                         <el-row class="statusbox" :gutter="4" type="flex"
                                             align="middle">
+                                            <el-col class="textcenter" :span="12">{{ DamageType[skill.DamageTypeIdx].label }}</el-col>
                                             <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害"
                                                 placement="bottom-start">
-                                                <el-col class="textcenter" :span="12">傷害次數</el-col>
+                                                <el-col class="textcenter" :span="6">傷害次數</el-col>
                                             </el-tooltip>
-                                            <el-col class="textcenter" :span="12">{{ eval(this.SkillFormulaReplace(skill.hitnumber)) }}</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.hitnumber)) }}</el-col>
                                         </el-row>
                                         <el-row class="statusbox" :gutter="4" type="flex"
                                             align="middle">
@@ -7205,7 +7216,7 @@
                     // 劇毒武器:狂笑
                     if (this.IsSupportActive('GC_POISONINGWEAPON:2')){
                         this.attritube['MELDP'] += 10;
-                        this.attritube['GCD'] += 3 * 10;
+                        this.attritube['GCD'] += 10;
                     }
                     // 大聲吶喊
                     if (this.IsSupportActive('MC_LOUD')){
@@ -7964,7 +7975,7 @@
                     {
                         return 'ElementTableCellST25';
                     }
-                    else if (_value <= 50)
+                    else if (_value < 90)
                     {
                         return 'ElementTableCellST50';
                     }
@@ -8676,6 +8687,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-5-25', content: '加強屬性相剋表的辨識度跟功能<br>修正劇毒武器:狂笑 共延錯誤' },
                         { id: '2021-5-24', content: '調整技能區域' },
                         { id: '2021-5-23', content: '增加預設技能 流星墜落<br>增加輔助技能 跑步(被動)' },
                         { id: '2021-5-20', content: '修正高階拳刃修練沒有判斷武器類型的BUG' },
