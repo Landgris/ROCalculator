@@ -2395,35 +2395,29 @@
             
             <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
                     style="height:40px;padding: 0px 5px;" :span="8" >
-                    <el-col class="textcenter" :span="6">
-                    </el-col>
-                    <el-col class="textcenter">
-                        <span class="textcenter"></span>
-                    </el-col>
                     <el-col class="textcenter" :span="6" style="text-align: right;">
                         <el-button v-on:click="ResetOption" size="small">
                             全部重置
                         </el-button>
                     </el-col>
-                </el-row>
-            <el-row :gutter="2">
-                <el-col :span="10" class="optionbox">
-                    <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
-
-                    <el-checkbox-group v-model="SupportSkillJobGroup" v-on:change="onChangeSupportClass" size="small" type="vertical">
-                        <div v-for="item in classlist">
-                        
-                            <el-row :gutter="1" type="flex" align="middle"
-                                        justify="center" style="height:40px;">
-                            <el-checkbox-button :label="item.id" :key="item.id" border>{{item.label}}</el-checkbox-button>
-                            </el-row>
+                    <el-col class="textcenter" :span="12">
+                        <div class="grid-content">
+                            <el-select v-model="SupportSkillJob" v-on:change="onChangeSupportClass"
+                                placeholder="">
+                                <el-option v-for="item in classlist" :key="item.id"
+                                    :label="item.label" :value="item.id">
+                                </el-option>
+                            </el-select>
                         </div>
-                    </el-checkbox-group>
-                    </el-scrollbar>
-                </el-col>
-                <el-col :span="14" class="optionbox">
+                    </el-col>
+                    <el-col class="textcenter" :span="6">
+                        <span class="textcenter"></span>
+                    </el-col>
+                </el-row>
+            <el-row type="flex" class="textcenter" align="middle" justify="center" :gutter="2">
+                <el-col :span="24" class="optionbox">
                     <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
-                        <el-row>
+                        <el-row :gutter="4">
                             <div v-for="(item, index) in OtherSupportSkill"
                                 v-bind:key="item.id">
                                 <el-row :class="item.skill.passive?'optionbox':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
@@ -2431,24 +2425,34 @@
                                     <el-col class="textcenter" style="text-align: right;">
                                         <span class="EffectType">{{ item.skill.name }}</span>
                                     </el-col>
-                                    <el-col v-else :span="1" >
+                                    <el-col :span="2" >
                                     </el-col>
                                     <el-col v-if="item.skill.maxlv>1" class="textcenter" :span="5" justify="start">
                                         <el-col v-if="item.skill.changelv==false" class="textcenter">
                                             <span class="">{{ item.skill.maxlv }}</span>
                                         </el-col>
                                         <el-col v-else class="textcenter">
-                                                <el-input v-model.number="item.skill.lv" v-on:change="onOption" size="small" style="text-align:center;"
-                                                    placeholder="level">
-                                                </el-input>
+                                            <el-input v-model.number="item.skill.lv" v-on:change="onOption" size="small" style="text-align:center;"
+                                                placeholder="level">
+                                            </el-input>
                                         </el-col>
                                     </el-col>
                                     <el-col v-else :span="5" >
                                     </el-col>
                                     <el-col class="textcenter" :span="4">
-                                        <el-switch v-model="item.skill.active" v-on:change="onOtherSupportSkill(index)"
+                                        <el-switch v-model="item.skill.active" v-on:change="onOtherSupportSkill(item.skill)"
                                             active-color="#13ce66" inactive-color="#8a9799">
                                         </el-switch>
+                                    </el-col>
+                                    <el-col v-if="item.skill.select==false" :span="4">
+                                        <el-button v-on:click="SelectSupportSkill(item.skill)" size="mini" circle><i
+                                                class="el-icon-plus"></i>
+                                        </el-button>
+                                    </el-col>
+                                    <el-col v-else :span="4">
+                                        <el-button type="danger" v-on:click="UnselectSupportSkill(item.skill)" size="mini" circle><i
+                                                class="el-icon-minus"></i>
+                                        </el-button>
                                     </el-col>
                                 </el-row>
                             </div>
@@ -2519,33 +2523,11 @@
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                         <el-row class="titlebox" :gutter="2" type="flex" align="middle" justify="end"
                             style="height:40px; padding: 0px 5px;">
-                            <el-col class="textcenter" :span="2">
+                            <el-col class="textcenter" :span="3">
                             </el-col>
-                            <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="15"
+                            <el-col class="textcenter" :span="18"
                                 style="text-align: center;">
                                 <span class="textcenter">角色素質</span>
-                            </el-col>
-                            <el-col v-else-if="!UIPanel['StatusPanel']&&(skill.DamageTypeIdx==0)" class="textcenter"
-                                :span="15" style="text-align: left;">
-                                <span class="textcenter">角色: [LV]{{status.Level}} [STR]{{status_total.STR}}
-                                    [DEX]{{status_total.DEX}} [LUK]{{status_total.LUK}}</span>
-                            </el-col>
-                            <el-col v-else-if="!UIPanel['StatusPanel']&&(skill.DamageTypeIdx==1)" class="textcenter"
-                                :span="15" style="text-align: left;">
-                                <span class="textcenter">角色: [LV]{{status.Level}} [INT]{{status_total.INT}}
-                                    [DEX]{{status_total.DEX}} [LUK]{{status_total.LUK}}</span>
-                            </el-col>
-                            <el-col v-else-if="!UIPanel['StatusPanel']&&(skill.DamageTypeIdx==2)" class="textcenter"
-                                :span="15" style="text-align: left;">
-                                <span class="textcenter">角色: [LV]{{status.Level}} [MHP]{{status.MHP}}
-                                    [SP]{{status.SP}}</span>
-                            </el-col>
-                            <el-col class="textcenter" :span="4" style="text-align: right;">
-                                <!--<el-tooltip class="item" effect="dark" content="讀取已經儲存的素質" placement="left">
-                                    <el-button v-on:click="OpenStatusDBDialogDialogue" size="mini">
-                                        角色清單
-                                    </el-button>
-                                </el-tooltip>-->
                             </el-col>
                             <el-col v-if="UIPanel['StatusPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('StatusPanel')" size="mini"><i
@@ -2557,246 +2539,269 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-collapse-transition>
-                                <div v-show="UIPanel['StatusPanel']">
-                                    <div class="boxborder StatusBlock">
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle">
-                                            <el-col :span="6" class="textcenter"><span>職業</span>
+                            <div class="boxborder StatusBlock">
+                                <el-row class="statusbox bg-purple-light" type="flex" align="middle">
+                                    <el-col :span="12" class="textcenter"><span>職業</span>
+                                    </el-col>
+                                    <el-col :span="12">
+                                        <div class="grid-content">
+                                            <el-select v-model="status.classid" v-on:change="onChangeClass"
+                                                placeholder="">
+                                                <el-option v-for="item in classlist" :key="item.id"
+                                                    :label="item.label" :value="item.id">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;">
+                                    <el-col class="textcenter" :span="3">HP</el-col>
+                                    <el-col class="textcenter" :span="8">
+                                        {{status.HP}} / {{status.MHP}}
+                                    </el-col>
+                                    <el-col :span="2"></el-col>
+                                    <el-col class="textcenter" :span="3">SP</el-col>
+                                    <el-col class="textcenter" :span="8">
+                                        {{status.SP}} / {{status.MSP}}
+                                    </el-col>
+                                </el-row>
+                                <el-row v-show="status.classid=='RK'|status.classid=='SU'" class="statusbox" type="flex" align="middle" style="padding: 0% 5%;">
+                                    <el-col :span="11">
+                                        <el-slider v-model="status.HP" :min="0" :max="status.MHP" v-on:input="onOption" :show-tooltip="false"></el-slider>
+                                    </el-col>
+                                    <el-col :span="2"></el-col>
+                                    <el-col :span="11">
+                                        <el-slider v-model="status.SP" :min="0" :max="status.MSP" v-on:input="onOption" :show-tooltip="false"></el-slider>
+                                    </el-col>
+                                </el-row>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['StatusPanel']">
+                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                style="height:40px;">
+                                                <el-col class="textcenter">Level</el-col>
+                                                <el-col>
+                                                    <el-input v-model.number="status.Level" v-on:input="ComputConsumAndOption"
+                                                        placeholder="Level">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter">JobLevel</el-col>
+                                                <el-col>
+                                                    <el-input v-model.number="status.JOBLevel" v-on:input="onOption"
+                                                        placeholder="Level">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                style="height:40px;">
+                                                <el-col class="textcenter" :span="3">STR</el-col>
+                                                <el-col :span="10">
+                                                    <el-input v-model="status.STR" v-on:input="onOption"
+                                                        v-on:change="onStatusChange" placeholder="STR">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_add.STR}}</el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_job.STR}}</el-col>
+                                                <el-col class="textcenter" :span="1">=</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_total.STR}}</el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                style="height:40px;">
+                                                <el-col class="textcenter" :span="3">AGI</el-col>
+                                                <el-col :span="10">
+                                                    <el-input v-model="status.AGI" v-on:input="onOption"
+                                                        v-on:change="onStatusChange" placeholder="AGI">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_add.AGI}}</el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_job.AGI}}</el-col>
+                                                <el-col class="textcenter" :span="1">=</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_total.AGI}}</el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                style="height:40px;">
+                                                <el-col class="textcenter" :span="3">VIT</el-col>
+                                                <el-col :span="10">
+                                                    <el-input v-model="status.VIT" v-on:input="onOption"
+                                                        v-on:change="onStatusChange" placeholder="VIT">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_add.VIT}}</el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_job.VIT}}</el-col>
+                                                <el-col class="textcenter" :span="1">=</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_total.VIT}}</el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                style="height:40px;">
+                                                <el-col class="textcenter" :span="3">INT</el-col>
+                                                <el-col :span="10">
+                                                    <el-input v-model="status.INT" v-on:input="onOption"
+                                                        v-on:change="onStatusChange" placeholder="INT">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_add.INT}}</el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_job.INT}}</el-col>
+                                                <el-col class="textcenter" :span="1">=</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_total.INT}}</el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                style="height:40px;">
+                                                <el-col class="textcenter" :span="3">DEX</el-col>
+                                                <el-col :span="10">
+                                                    <el-input v-model="status.DEX" v-on:input="onOption"
+                                                        v-on:change="onStatusChange" placeholder="DEX">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_add.DEX}}</el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_job.DEX}}</el-col>
+                                                <el-col class="textcenter" :span="1">=</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_total.DEX}}</el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                style="height:40px;">
+                                                <el-col class="textcenter" :span="3">LUK</el-col>
+                                                <el-col :span="10">
+                                                    <el-input v-model="status.LUK" v-on:input="onOption"
+                                                        v-on:change="onStatusChange" placeholder="LUK">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_add.LUK}}</el-col>
+                                                <el-col class="textcenter" :span="1">+</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_job.LUK}}</el-col>
+                                                <el-col class="textcenter" :span="1">=</el-col>
+                                                <el-col class="textcenter" :span="4">{{status_total.LUK}}</el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle">
+                                                <el-col class="textcenter" :span="12">ASPD</el-col>
+                                                <el-col :span="12">
+                                                    <el-input v-model="status.ASPD" v-on:input="onOption" placeholder="攻速">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle">
+                                                <el-col class="textcenter" :span="12">
+                                                    <span>代入JOB滿等加成素質點</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">
+                                                    <el-switch v-model="status.UseJobMaxPoint" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle">
+                                                <el-col class="textcenter" :span="6">
+                                                    <span>轉生</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="6">
+                                                    <el-switch v-model="status.Transcendent" v-on:change="onOption"
+                                                        active-color="#13ce66" inactive-color="#8a9799">
+                                                    </el-switch>
+                                                </el-col>
+                                                <el-tooltip class="item" effect="dark" content='轉生100點，非轉生52點'
+                                                    placement="top-start">
+                                                    <el-col class="textcenter" :span="6">可用素質點</el-col>
+                                                </el-tooltip>
+                                                <el-col class="textcenter" :span="6">{{computeattribute.StatsPoint}}
+                                                </el-col>
+                                            </el-row>
+                                            <el-row
+                                                v-show="(computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint'])>=0"
+                                                class="statusbox" type="flex" align="middle">
+                                                <el-tooltip class="item" effect="dark"
+                                                    content='計算素質欄中第一個 " + 號" 前的數值 例:120+10+5 取120' placement="top-start">
+                                                    <el-col class="textcenter" :span="6">已消耗點數</el-col>
+                                                </el-tooltip>
+                                                <el-col class="textcenter" :span="6">{{computeattribute.RaisingStatsPoint}}
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">餘
+                                                    {{computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint']}}點
+                                                </el-col>
+                                            </el-row>
+                                            <el-row
+                                                v-show="(computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint'])<0"
+                                                class="statusbox" type="flex" align="middle" style="color: red;">
+                                                <el-tooltip class="item" effect="dark"
+                                                    content='計算素質欄中第一個 " + 號" 前的數值 例:120+10+5 取120' placement="top-start">
+                                                    <el-col class="textcenter" :span="6">已消耗點數</el-col>
+                                                </el-tooltip>
+                                                <el-col class="textcenter" :span="6">{{computeattribute.RaisingStatsPoint}}
+                                                </el-col>
+                                                <el-col class="textcenter" :span="12">不足
+                                                    {{computeattribute['RaisingStatsPoint']-computeattribute['StatsPoint']}}點
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                </el-collapse-transition>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['StatusPanel']==false">
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="2">
+                                            <el-col class="textcenter" :span="6">Base/Job</el-col>
+                                            <el-col class="textcenter" :span="6" style="text-align: left;">
+                                                {{status.Level}} / {{status.JOBLevel}} 
                                             </el-col>
-                                            <el-col :span="18">
-                                                <div class="grid-content">
-                                                    <el-select v-model="status.classid" v-on:change="onChangeClass"
-                                                        placeholder="">
-                                                        <el-option v-for="item in classlist" :key="item.id"
-                                                            :label="item.label" :value="item.id">
-                                                        </el-option>
-                                                    </el-select>
-                                                </div>
+                                            <el-col v-if="status.UseJobMaxPoint" class="textcenter el-icon-check skilltag" :span="12" >
+                                                Job加成點
+                                            </el-col>
+                                            <el-col v-else class="textcenter" :span="12" >
                                             </el-col>
                                         </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="4">MaxHP</el-col>
-                                            <el-col class="textcenter" :span="6">
-                                                {{status.MHP}}
-                                            </el-col>
-                                            <el-col :span="2"></el-col>
-                                            <el-col class="textcenter" :span="4">MaxSP</el-col>
-                                            <el-col class="textcenter" :span="6">
-                                                {{status.MSP}}
-                                            </el-col>
-                                            <el-col :span="2"></el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="4">HP</el-col>
-                                            <el-col :span="6">
-                                                <el-input v-model.number="status.HP" v-on:input="onOption"
-                                                    placeholder="CurrentHP">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col :span="2"></el-col>
-                                            <el-col class="textcenter" :span="4">SP</el-col>
-                                            <el-col :span="6">
-                                                <el-input v-model.number="status.SP" v-on:input="onOption"
-                                                    placeholder="CurrentSP">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col :span="2"></el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle"
-                                            style="height:40px;">
-                                            <el-col class="textcenter">Level</el-col>
-                                            <el-col>
-                                                <el-input v-model.number="status.Level" v-on:input="ComputConsumAndOption"
-                                                    placeholder="Level">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter">JobLevel</el-col>
-                                            <el-col>
-                                                <el-input v-model.number="status.JOBLevel" v-on:input="onOption"
-                                                    placeholder="Level">
-                                                </el-input>
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="2">
+                                            <el-col class="textcenter" :span="4">STR</el-col>
+                                            <el-col class="textcenter" :span="8" style="text-align: left;">
+                                                {{GetPureStats(status.STR)}} + {{status_total.STR-GetPureStats(status.STR)}}
                                             </el-col>
                                         </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle"
-                                            style="height:40px;">
-                                            <el-col class="textcenter" :span="3">STR</el-col>
-                                            <el-col :span="10">
-                                                <el-input v-model="status.STR" v-on:input="onOption"
-                                                    v-on:change="onStatusChange" placeholder="STR">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_add.STR}}</el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_job.STR}}</el-col>
-                                            <el-col class="textcenter" :span="1">=</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_total.STR}}</el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle"
-                                            style="height:40px;">
-                                            <el-col class="textcenter" :span="3">AGI</el-col>
-                                            <el-col :span="10">
-                                                <el-input v-model="status.AGI" v-on:input="onOption"
-                                                    v-on:change="onStatusChange" placeholder="AGI">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_add.AGI}}</el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_job.AGI}}</el-col>
-                                            <el-col class="textcenter" :span="1">=</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_total.AGI}}</el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle"
-                                            style="height:40px;">
-                                            <el-col class="textcenter" :span="3">VIT</el-col>
-                                            <el-col :span="10">
-                                                <el-input v-model="status.VIT" v-on:input="onOption"
-                                                    v-on:change="onStatusChange" placeholder="VIT">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_add.VIT}}</el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_job.VIT}}</el-col>
-                                            <el-col class="textcenter" :span="1">=</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_total.VIT}}</el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle"
-                                            style="height:40px;">
-                                            <el-col class="textcenter" :span="3">INT</el-col>
-                                            <el-col :span="10">
-                                                <el-input v-model="status.INT" v-on:input="onOption"
-                                                    v-on:change="onStatusChange" placeholder="INT">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_add.INT}}</el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_job.INT}}</el-col>
-                                            <el-col class="textcenter" :span="1">=</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_total.INT}}</el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle"
-                                            style="height:40px;">
-                                            <el-col class="textcenter" :span="3">DEX</el-col>
-                                            <el-col :span="10">
-                                                <el-input v-model="status.DEX" v-on:input="onOption"
-                                                    v-on:change="onStatusChange" placeholder="DEX">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_add.DEX}}</el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_job.DEX}}</el-col>
-                                            <el-col class="textcenter" :span="1">=</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_total.DEX}}</el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle"
-                                            style="height:40px;">
-                                            <el-col class="textcenter" :span="3">LUK</el-col>
-                                            <el-col :span="10">
-                                                <el-input v-model="status.LUK" v-on:input="onOption"
-                                                    v-on:change="onStatusChange" placeholder="LUK">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_add.LUK}}</el-col>
-                                            <el-col class="textcenter" :span="1">+</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_job.LUK}}</el-col>
-                                            <el-col class="textcenter" :span="1">=</el-col>
-                                            <el-col class="textcenter" :span="4">{{status_total.LUK}}</el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="12">ASPD</el-col>
-                                            <el-col :span="12">
-                                                <el-input v-model="status.ASPD" v-on:input="onOption" placeholder="攻速">
-                                                </el-input>
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="2">
+                                            <el-col class="textcenter" :span="4">AGI</el-col>
+                                            <el-col class="textcenter" :span="8" style="text-align: left;">
+                                                {{GetPureStats(status.AGI)}} + {{status_total.AGI-GetPureStats(status.AGI)}}
                                             </el-col>
                                         </el-row>
-                                        <!--                                 
-                                        <el-row v-if="TestMode" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="6">HP_JOB_A</el-col>
-                                            <el-col :span="6">
-                                                <el-input v-model="HP_JOB_A" v-on:input="onOption" placeholder="HP">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="6">HP_JOB_B</el-col>
-                                            <el-col :span="6">
-                                                <el-input v-model="HP_JOB_B" v-on:input="onOption" placeholder="SP">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>  
-                                        -->
-                                        <el-row class="statusbox" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="12">
-                                                <span>代入JOB滿等加成素質點</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">
-                                                <el-switch v-model="status.UseJobMaxPoint" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="2">
+                                            <el-col class="textcenter" :span="4">VIT</el-col>
+                                            <el-col class="textcenter" :span="8" style="text-align: left;">
+                                                {{GetPureStats(status.VIT)}} + {{status_total.VIT-GetPureStats(status.VIT)}}
                                             </el-col>
                                         </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="6">
-                                                <span>轉生</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="6">
-                                                <el-switch v-model="status.Transcendent" v-on:change="onOption"
-                                                    active-color="#13ce66" inactive-color="#8a9799">
-                                                </el-switch>
-                                            </el-col>
-                                            <el-tooltip class="item" effect="dark" content='轉生100點，非轉生52點'
-                                                placement="top-start">
-                                                <el-col class="textcenter" :span="6">可用素質點</el-col>
-                                            </el-tooltip>
-                                            <el-col class="textcenter" :span="6">{{computeattribute.StatsPoint}}
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="2">
+                                            <el-col class="textcenter" :span="4">INT</el-col>
+                                            <el-col class="textcenter" :span="8" style="text-align: left;">
+                                                {{GetPureStats(status.INT)}} + {{status_total.INT-GetPureStats(status.INT)}}
                                             </el-col>
                                         </el-row>
-                                        <el-row
-                                            v-show="(computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint'])>=0"
-                                            class="statusbox" type="flex" align="middle">
-                                            <el-tooltip class="item" effect="dark"
-                                                content='計算素質欄中第一個 " + 號" 前的數值 例:120+10+5 取120' placement="top-start">
-                                                <el-col class="textcenter" :span="6">已消耗點數</el-col>
-                                            </el-tooltip>
-                                            <el-col class="textcenter" :span="6">{{computeattribute.RaisingStatsPoint}}
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">餘
-                                                {{computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint']}}點
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="2">
+                                            <el-col class="textcenter" :span="4">DEX</el-col>
+                                            <el-col class="textcenter" :span="8" style="text-align: left;">
+                                                {{GetPureStats(status.DEX)}} + {{status_total.DEX-GetPureStats(status.DEX)}}
                                             </el-col>
                                         </el-row>
-                                        <el-row
-                                            v-show="(computeattribute['StatsPoint']-computeattribute['RaisingStatsPoint'])<0"
-                                            class="statusbox" type="flex" align="middle" style="color: red;">
-                                            <el-tooltip class="item" effect="dark"
-                                                content='計算素質欄中第一個 " + 號" 前的數值 例:120+10+5 取120' placement="top-start">
-                                                <el-col class="textcenter" :span="6">已消耗點數</el-col>
-                                            </el-tooltip>
-                                            <el-col class="textcenter" :span="6">{{computeattribute.RaisingStatsPoint}}
-                                            </el-col>
-                                            <el-col class="textcenter" :span="12">不足
-                                                {{computeattribute['RaisingStatsPoint']-computeattribute['StatsPoint']}}點
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="2">
+                                            <el-col class="textcenter" :span="4">LUK</el-col>
+                                            <el-col class="textcenter" :span="8" style="text-align: left;">
+                                                {{GetPureStats(status.LUK)}} + {{status_total.LUK-GetPureStats(status.LUK)}}
                                             </el-col>
                                         </el-row>
                                     </div>
-                                </div>
-                            </el-collapse-transition>
+                                </el-collapse-transition>
+                            </div>
                         </el-row>
                         <el-row class="titlebox" type="flex" align="middle" justify="end"
                             style="height:40px; padding: 0px 5px;">
                             <el-col :span="3">
                             </el-col>
-                            <el-col v-if="UIPanel['EnemyPanel']" class="textcenter" :span="18"
+                            <el-col class="textcenter" :span="18"
                                 style="text-align: center;">
                                 <span class="textcenter">敵方</span>
-                            </el-col>
-                            <el-col v-else="!UIPanel['EnemyPanel']" class="textcenter" :span="18"
-                                style="text-align: left;">
-                                <span class="textcenter">敵方: [{{enemyattribute.name}}] [Lv{{enemyattribute.level}}]
-                                    [{{elementtypelist[enemyattribute.elemental].label}}Lv{{enemyattribute.elementallevel}}]
-                                    [{{sizetypelist[enemyattribute.size].label}}]</span>
                             </el-col>
                             <el-col v-if="UIPanel['EnemyPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('EnemyPanel')" size="mini"><i
@@ -2808,22 +2813,21 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-collapse-transition>
-                                <div v-show="UIPanel['EnemyPanel']">
-                                    <div class="boxborder EnemyBlock">
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle"
-                                            justify="center">
-                                            <el-col :span="24">
-                                                <div class="textcenter grid-content">
-                                                    <el-select value-key="id" v-model="enemyattribute"
-                                                        v-on:change="onSelectEnemy" placeholder="選擇敵方">
-                                                        <el-option v-for="item in enemylist" :key="item.id"
-                                                            :label="item.name" :value="item">
-                                                        </el-option>
-                                                    </el-select>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
+                            <div class="boxborder EnemyBlock">
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle" justify="center">
+                                    <el-col :span="12" offset="12">
+                                        <div class="textcenter grid-content">
+                                            <el-select value-key="id" v-model="enemyattribute"
+                                                v-on:change="onSelectEnemy" placeholder="選擇敵方">
+                                                <el-option v-for="item in enemylist" :key="item.id"
+                                                    :label="item.name" :value="item">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['EnemyPanel']">
                                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                             align="middle">
                                             <el-col :span="6" class="textcenter"><span>屬性</span>
@@ -2939,8 +2943,39 @@
                                             </el-col>
                                         </el-row>
                                     </div>
-                                </div>
-                            </el-collapse-transition>
+                                </el-collapse-transition>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['EnemyPanel']==false">
+                                        <el-row class="statusbox" type="flex" align="middle" :gutter="4">
+                                            <el-col class="textcenter" :span="24">
+                                                Lv:{{enemyattribute.level}} / {{elementtypelist[enemyattribute.elemental].label}} {{enemyattribute.elementallevel}} / {{sizetypelist[enemyattribute.size].label}}
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="4">
+                                            <el-tooltip class="item" effect="dark" content="影響最終暴率" placement="bottom-start">
+                                                <el-col class="textcenter">LUK</el-col>
+                                            </el-tooltip>
+                                            <el-col style="text-align: left;">
+                                                {{enemyattribute.LUK}}
+                                            </el-col>
+                                            <el-tooltip class="item" effect="dark" content="影響強酸火煙瓶"     placement="bottom-start">
+                                                <el-col class="textcenter">VIT</el-col>
+                                            </el-tooltip>
+                                            <el-col style="text-align: left;">
+                                                {{enemyattribute.VIT}}
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="4">
+                                            <el-col style="text-align: left;">
+                                                DEF {{enemyattribute.StatusDEF}}(減) + {{enemyattribute.WeaponDEF}}(乘)
+                                            </el-col>
+                                            <el-col style="text-align: left;">
+                                                MDEF {{enemyattribute.StatusMDEF}}(減) + {{enemyattribute.WeaponMDEF}}(乘)
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-collapse-transition>
+                            </div>
                         </el-row>
                         <el-row class="titlebox" type="flex" align="middle" justify="end"
                             style="height:40px; padding: 0px 5px;">
@@ -2956,14 +2991,14 @@
                             </el-col>
                         </el-row> 
                         <el-row>
-                                <div class="Item" v-for="(item, index) in ConsumActiveFiltered()" v-bind:key="item.id" 
-                                    style="height:40px; padding: 3px 10px;">
-                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                        <el-col class="textcenter" :span="24">
-                                            <span class="EffectType">{{ item.name }}</span>
-                                        </el-col>
-                                    </el-row>
-                                </div>
+                            <div class="Item" v-for="(item, index) in ConsumActiveFiltered()" v-bind:key="item.id" 
+                                style="height:40px; padding: 3px 10px;">
+                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
+                                    <el-col class="textcenter" :span="24">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                </el-row>
+                            </div>
                         </el-row> 
                         <el-row>
                             <div class="boxborder EffectListBlock">
@@ -3267,20 +3302,6 @@
                                     <el-col class="textcenter" :span="6">{{option.EquipSkillAddDamage}}</el-col>
                                     <el-col class="textcenter" :span="4">%</el-col>
                                 </el-row>
-                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="12">武器修練ATK增加</el-col>
-                                    <el-col class="textcenter" :span="6">
-                                        <span>{{skilloption.WeaponMasteryATK}}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="2">
-                                        <span>+</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-input v-model.number="skilloption.WeaponMasteryATKInput"
-                                            v-on:change="onOption" placeholder="ATK">
-                                        </el-input>
-                                    </el-col>
-                                </el-row>
                             </div>
                         </el-row>
                         
@@ -3292,7 +3313,7 @@
                                     <span class="textcenter">職業技能</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="6" style="text-align: right;">
-                                    <el-button v-on:click="OpenPanel('SupportSkillDialog')" size="small">
+                                    <el-button v-on:click="OpenSupportSkill()" size="small">
                                         額外技能
                                     </el-button>
                                 </el-col>
@@ -3307,6 +3328,20 @@
                             </el-row>
                         <el-row>
                             <div class="boxborder OptionBlock">
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">武器修練ATK增加</el-col>
+                                    <el-col class="textcenter" :span="6">
+                                        <span>{{skilloption.WeaponMasteryATK}}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <span>+</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">
+                                        <el-input v-model.number="skilloption.WeaponMasteryATKInput"
+                                            v-on:change="onOption" placeholder="ATK">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
                                 <div v-for="(item, index) in SupportSkill_JobMaped"
                                     v-bind:key="item.id">
                                     <el-row 
@@ -3383,7 +3418,7 @@
                             <div class="boxborder OptionBlock">
                                 <div v-for="(item, index) in DefaultDB_SupportSkill"
                                     v-bind:key="item.id">
-                                    <div v-if="IsActiveOtherSupportSkill(item, index)==true" >
+                                    <div v-if="UIPanel['SupportSkillPanel']?IsActiveOtherSupportSkill(item.skill):IsSelectOtherSupportSkill(item.skill)" >
                                     <el-row
                                         :class="item.skill.passive?'optionbox':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
                                         justify="end" style="height:40px;">
@@ -3405,7 +3440,7 @@
                                         <el-col v-else :span="4" >
                                         </el-col>
                                         <el-col class="textcenter" :span="4">
-                                            <el-switch v-model="item.skill.active" v-on:change="onAllSupportSkill(index)"
+                                            <el-switch v-model="item.skill.active" v-on:change="onAllSupportSkill(item.skill)"
                                                 active-color="#13ce66" inactive-color="#8a9799">
                                             </el-switch>
                                         </el-col>
@@ -4938,10 +4973,10 @@
                                 </el-row>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" style="text-align: right;">
                                         <span>ASPD:{{attritube['ASPD']}} 攻擊間隔:</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="10">
+                                    <el-col class="textcenter">
                                         <span>{{computeattribute['AspdDelay']}} s</span>
                                     </el-col>
                                 </el-row>
@@ -4957,17 +4992,17 @@
                                     v-show="(computeattribute['CastTime']+computeattribute['DelayTime'])>computeattribute['AspdDelay']">
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="textcenter" :span="10">
+                                        <el-col class="textcenter">
                                             <span>詠唱+延遲 > 攻擊間隔時間</span>
                                         </el-col>
                                     </el-row>
                                 </div>
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                     style="height:40px;">
-                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                    <el-col class="bg-purple" style="text-align: right;">
                                         <span>每秒攻擊次數:</span>
                                     </el-col>
-                                    <el-col class="textcenter" :span="10">
+                                    <el-col class="textcenter">
                                         <span>{{computeattribute['HitperSec']}}</span>
                                     </el-col>
                                 </el-row>
@@ -5004,6 +5039,7 @@
                 OtherSupportSkill: [],
                 OtherSupportSkill_Actived: [],
                 //ui
+                SupportSkillJob: 'AB',
                 SupportSkillJobGroup: [],
                 DefaultDB_SupportSkill_Filter: [],
                 //save
@@ -5243,7 +5279,7 @@
                 ClassInfo: {},
                 status: {
                     Level: 200, JOBLevel: 70, Transcendent: false, classid: 'AB', UseJobMaxPoint: false,
-                    STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
+                    STR: 1, AGI: 1, VIT: 1, INT: 1, DEX: 1, LUK: 1,
                     ASPD: 0, HP: 0, SP: 0, MHP: 0, MSP: 0,
                 },
                 status_add: {
@@ -5596,7 +5632,7 @@
                     WeaponSizeTableDialog: false,
 
                     StatusPanel: true,
-                    EnemyPanel: true,
+                    EnemyPanel: false,
                     SkillPanel: false,
                     SupportSkillPanel: false,
                     ATKPanel: true,
@@ -6133,6 +6169,11 @@
                     if (this.status.INT == '') this.status.INT = 0;
                     if (this.status.DEX == '') this.status.DEX = 0;
                     if (this.status.LUK == '') this.status.LUK = 0;
+                },
+                GetPureStats(str) {
+                    var _String = str + '';
+                    var _Val = Number(_String.split('+', 1)[0]);
+                    return _Val;
                 },
                 RaisingStats(str) {
                     var _String = str + '';
@@ -6947,16 +6988,27 @@
                     }
                 },
                 onChangeSupportClass(){
-                    console.log("GG0 "+this.SupportSkillJobGroup);
-                    var selectjob = this.SupportSkillJobGroup;
-                    console.log("GG1 "+selectjob);
-                    if(selectjob.length <= 0 ) this.OtherSupportSkill = [];
+                    var selectjob = this.SupportSkillJob;
+                    this.OtherSupportSkill = [];
                     this.OtherSupportSkill = this.DefaultDB_SupportSkill.filter(post => {
                         return post.skill.class.split(',').some(v=>
                         {
-                            return selectjob.indexOf(v) > -1;
+                            return selectjob == v;
                         });
                     });
+                },
+                OpenSupportSkill()
+                {
+                    this.OpenPanel('SupportSkillDialog');
+                },
+                SelectSupportSkill(skill)
+                {
+                    skill.select = true;
+                },
+                UnselectSupportSkill(skill)
+                {
+                    skill.select = false;
+                    skill.active = false;
                 },
                 onSupportSkill(index){
                     var conflictlist = this.SupportSkill_JobMaped[index].skill.conflict.split(',');
@@ -6968,8 +7020,8 @@
                     });
                     this.onOption();
                 },
-                onAllSupportSkill(index){
-                    var conflictlist = this.DefaultDB_SupportSkill[index].skill.conflict.split(',');
+                onAllSupportSkill(skill){
+                    var conflictlist = skill.conflict.split(',');
                     this.DefaultDB_SupportSkill.forEach( function(item, i) {
                         if( conflictlist.indexOf(item.skill.id) > -1 )
                         {
@@ -6978,8 +7030,9 @@
                     });
                     this.onOption();
                 },
-                onOtherSupportSkill(index){
-                    var conflictlist = this.OtherSupportSkill[index].skill.conflict.split(',');
+                onOtherSupportSkill(skill){
+                    var conflictlist = skill.conflict.split(',');
+                    skill.select = skill.active;
                     this.DefaultDB_SupportSkill.forEach( function(item, i) {
                         if( conflictlist.indexOf(item.skill.id) > -1 )
                         {
@@ -7005,10 +7058,15 @@
                     else
                         return false;
                 },
-                IsActiveOtherSupportSkill(item, index){
-                    var classlist = (item.skill.class).split(',');
+                IsSelectOtherSupportSkill(skill){
+                    var classlist = (skill.class).split(',');
                     if( classlist.indexOf(this.status.classid) > -1 ) return false;
-                    return this.DefaultDB_SupportSkill[index].skill.active;
+                    return skill.select;
+                },
+                IsActiveOtherSupportSkill(skill){
+                    var classlist = (skill.class).split(',');
+                    if( classlist.indexOf(this.status.classid) > -1 ) return false;
+                    return skill.active;
                 },
                 buildSupportSkill()
                 {
@@ -7042,6 +7100,7 @@
                         if( _idx>-1 )
                         {
                             item.skill.active = true;
+                            item.skill.select = true;
                             if( item.skill.argnum >= 1 )
                             {
                                 item.skill.arg1 = A.StoreDB_SupportSkill[_idx+1];
@@ -8438,132 +8497,132 @@
                     );
 
                     this.DefaultDB_SupportSkill.push(
-                        //{ skill: { id: 'TEST1', name: '測試用1', maxlv: 10, lv: 10, class: 'RK,RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'TEST2', Note: '', } },
-                        //{ skill: { id: 'TEST2', name: '測試用2', maxlv: 10, lv: 10, class: 'RK,RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'TEST1', Note: '', } },
-                        { skill: { id: 'SM_SWORD', name: '單手劍使用熟練度', maxlv: 10, lv: 10, class: 'RK,RG,SC,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SM_TWOHAND', name: '雙手劍使用熟練度', maxlv: 10, lv: 10, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'KN_TWOHANDQUICKEN', name: '雙手劍攻擊速度增加', maxlv: 10, lv: 10, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'KN_SPEARMASTERY', name: '長矛使用熟練度', maxlv: 10, lv: 10, class: 'RK,RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'CR_SPEARQUICKEN', name: '長矛加速術', maxlv: 10, lv: 10, class: 'RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'KN_RIDING', name: '騎乘術', maxlv: 5, lv: 5, class: 'RK,RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'RK_DRAGONTRAINING', name: '龍駕馭', maxlv: 5, lv: 5, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SM_MAGNUM', name: '怒爆', maxlv: 10, lv: 10, class: 'RK,RG,SN', changelv: false, argnum: 0, arg1: 20, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'LK_AURABLADE', name: '靈氣劍', maxlv: 5, lv: 5, class: 'RK', changelv: false, argnum: 0, arg1: 8, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'LK_CONCENTRATION', name: '集中攻擊', maxlv: 5, lv: 5, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'LK_BERSERK', name: '狂怒之槍', maxlv: 1, lv: 1, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'RK_GIANTGROWTH', name: '突里薩茲:力量成長(盧1)', maxlv: 1, lv: 1, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'RK_FIGHTINGSPIRIT', name: '艾伊瓦茲盧:提升鬥志(盧5)', maxlv: 1, lv: 1, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'RK_LUXANIMA', name: '力量根源:盧恩爆發(盧10)', maxlv: 1, lv: 1, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'CR_TRUST', name: '信任', maxlv: 10, lv: 10, class: 'RG,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'LG_INSPIRATION', name: '靈感', maxlv: 10, lv: 10, class: 'RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'LG_SHIELDSPELL', name: '盾咒(ATK)', maxlv: 1, lv: 1, class: 'RG', changelv: false, argnum: 1, arg1: 0, arg1desc: '盾牌DEF', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        //{ skill: { id: '', name: '天使之擊', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'AS_KATAR', name: '拳刃修練', maxlv: 10, lv: 10, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'ASC_EDP', name: '致命塗毒', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 25, arg1desc: '', arg2: 300, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'GC_VENOMIMPRESS', name: '毒耐性弱化', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'ASC_KATAR', name: '高階拳刃修練', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 20, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'GC_DARKCROW', name: '致命爪痕', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'GC_POISONINGWEAPON:1', name: '劇毒武器:熱病', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:2', Note: '', } },
-                        { skill: { id: 'GC_POISONINGWEAPON:2', name: '劇毒武器:狂笑', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:1', Note: '', } },
-                        { skill: { id: 'GC_POISONINGWEAPON', name: '劇毒武器:其他', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'GC_POISONINGWEAPON:1,GC_POISONINGWEAPON:2', Note: '', } },
+                        //{ skill: { id: 'TEST1', name: '測試用1', maxlv: 10, lv: 10, class: 'RK,RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'TEST2', Note: '', } },
+                        //{ skill: { id: 'TEST2', name: '測試用2', maxlv: 10, lv: 10, class: 'RK,RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'TEST1', Note: '', } },
+                        { skill: { id: 'SM_SWORD', name: '單手劍使用熟練度', maxlv: 10, lv: 10, class: 'RK,RG,SC,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SM_TWOHAND', name: '雙手劍使用熟練度', maxlv: 10, lv: 10, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'KN_TWOHANDQUICKEN', name: '雙手劍攻擊速度增加', maxlv: 10, lv: 10, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'KN_SPEARMASTERY', name: '長矛使用熟練度', maxlv: 10, lv: 10, class: 'RK,RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'CR_SPEARQUICKEN', name: '長矛加速術', maxlv: 10, lv: 10, class: 'RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'KN_RIDING', name: '騎乘術', maxlv: 5, lv: 5, class: 'RK,RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'RK_DRAGONTRAINING', name: '龍駕馭', maxlv: 5, lv: 5, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SM_MAGNUM', name: '怒爆', maxlv: 10, lv: 10, class: 'RK,RG,SN', changelv: false, argnum: 0, arg1: 20, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'LK_AURABLADE', name: '靈氣劍', maxlv: 5, lv: 5, class: 'RK', changelv: false, argnum: 0, arg1: 8, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'LK_CONCENTRATION', name: '集中攻擊', maxlv: 5, lv: 5, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'LK_BERSERK', name: '狂怒之槍', maxlv: 1, lv: 1, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'RK_GIANTGROWTH', name: '突里薩茲:力量成長(盧1)', maxlv: 1, lv: 1, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'RK_FIGHTINGSPIRIT', name: '艾伊瓦茲盧:提升鬥志(盧5)', maxlv: 1, lv: 1, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'RK_LUXANIMA', name: '力量根源:盧恩爆發(盧10)', maxlv: 1, lv: 1, class: 'RK', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'CR_TRUST', name: '信任', maxlv: 10, lv: 10, class: 'RG,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'LG_INSPIRATION', name: '靈感', maxlv: 10, lv: 10, class: 'RG', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'LG_SHIELDSPELL', name: '盾咒(ATK)', maxlv: 1, lv: 1, class: 'RG', changelv: false, argnum: 1, arg1: 0, arg1desc: '盾牌DEF', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        //{ skill: { id: '', name: '天使之擊', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AS_KATAR', name: '拳刃修練', maxlv: 10, lv: 10, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'ASC_EDP', name: '致命塗毒', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 25, arg1desc: '', arg2: 300, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'GC_VENOMIMPRESS', name: '毒耐性弱化', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'ASC_KATAR', name: '高階拳刃修練', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 20, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'GC_DARKCROW', name: '致命爪痕', maxlv: 5, lv: 5, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'GC_POISONINGWEAPON:1', name: '劇毒武器:熱病', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:2', Note: '', } },
+                        { skill: { id: 'GC_POISONINGWEAPON:2', name: '劇毒武器:狂笑', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:1', Note: '', } },
+                        { skill: { id: 'GC_POISONINGWEAPON', name: '劇毒武器:其他', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON:1,GC_POISONINGWEAPON:2', Note: '', } },
                         
-                        { skill: { id: 'AL_INCAGI', name: '加速術', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'AB_CANTO', Note: '', } },
-                        { skill: { id: 'AL_BLESSING', name: '天使之賜福', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'AB_CLEMENTIA', Note: '', } },
-                        { skill: { id: 'AB_CANTO', name: '純白百合花', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 1, arg1: 70, arg1desc: '施展者JOB等級', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'AL_INCAGI', Note: '', } },
-                        { skill: { id: 'AB_CLEMENTIA', name: '慈悲術', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 1, arg1: 70, arg1desc: '施展者JOB等級', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'AL_BLESSING', Note: '', } },
-                        { skill: { id: 'PR_SUFFRAGIUM', name: '犧牲祈福', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'PR_IMPOSITIO', name: '神威祈福', maxlv: 5, lv: 5, class: 'AB,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'PR_LEXAETERNA', name: '天使之怒', maxlv: 1, lv: 1, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'HP_BASILICA', name: '神聖殿堂', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'AB_LAUDARAMUS', name: '折枝讚頌', maxlv: 4, lv: 4, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'AB_EXPIATIO', name: '贖罪', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'ALL_ODINS_POWER', name: '奧丁之神力', maxlv: 2, lv: 2, class: 'AB', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'AB_SECRAMENT', name: '聖典', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'AB_ORATIO', name: '祈禱文', maxlv: 10, lv: 10, class: 'AB', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'MO_IRONHAND', name: '鐵沙掌', maxlv: 10, lv: 10, class: 'SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'MO_CALLSPIRITS', name: '蓄氣(氣彈數)', maxlv: 5, lv: 5, class: 'SU,SN', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SR_GENTLETOUCH_CHANGE', name: '點穴-反', maxlv: 5, lv: 5, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SR_GENTLETOUCH_REVITALIZE', Note: '', } },
-                        { skill: { id: 'SR_GENTLETOUCH_REVITALIZE', name: '點穴-活', maxlv: 5, lv: 5, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SR_GENTLETOUCH_CHANGE', Note: '', } },
-                        { skill: { id: 'SR_RAISINGDRAGON', name: '潛龍昇天', maxlv: 1, lv: 1, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'AM_AXEMASTERY', name: '斧頭/單手劍使用熟練度', maxlv: 10, lv: 10, class: 'GE,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'GN_TRAINING_SWORD', name: '單手劍使用熟練度(基因)', maxlv: 5, lv: 5, class: 'GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'MH_PYROCLASTIC', name: '火山塵暴', maxlv: 10, lv: 10, class: 'GE', changelv: false, argnum: 1, arg1: 1, arg1desc: '生命體等級', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'AC_OWL', name: '鶚梟之眼', maxlv: 10, lv: 0, class: 'RA,MI,WA,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'AC_CONCENTRATION', name: '心神凝聚', maxlv: 10, lv: 10, class: 'RA,MI,WA,SN', changelv: false, argnum: 2, arg1: 0, arg1desc: '裝備AGI', arg2: 0, arg2desc: '裝備DEX', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SN_SIGHT', name: '狙殺瞄準', maxlv: 10, lv: 10, class: 'RA', changelv: false, argnum: 0, arg1: 20, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        //{ skill: { id: 'HT_BEASTBANE', name: '動物殺手', maxlv: 10, lv: 10, class: 'RA', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'RA_UNLIMIT', name: '精英狙擊', maxlv: 5, lv: 5, class: 'RA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'RA_RESEARCHTRAP', name: '陷阱研究', maxlv: 10, lv: 10, class: 'RA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WL_RECOGNIZEDSPELL', name: '魔法省悟', maxlv: 5, lv: 5, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'HW_MAGICPOWER', name: '魔力增幅', maxlv: 10, lv: 10, class: 'WL', changelv: false, argnum: 0, arg1: 100, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'MagicAddicted', name: '魔力中毒', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WL_TELEKINESIS_INTENSE', name: '終極念力', maxlv: 5, lv: 5, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'MC_LOUD', name: '大聲吶喊', maxlv: 1, lv: 1, class: 'ME,GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'BS_MAXIMIZE', name: '武器值最大化', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'BS_WEAPONPERFECT', name: '無視體型攻擊', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'BS_OVERTHRUST25', name: '兇砍 25%', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: 'BS_OVERTHRUST15,BS_OVERTHRUST100', } },
-                        { skill: { id: 'BS_OVERTHRUST15', name: '兇砍(隊伍) 15%', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'BS_OVERTHRUST25,BS_OVERTHRUST100', Note: '', } },
-                        { skill: { id: 'BS_OVERTHRUST100', name: '兇砍最大值 100%', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'BS_OVERTHRUST25,BS_OVERTHRUST15', Note: '', } },
-                        { skill: { id: 'BS_ADRENALINE', name: '速度激發', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'BS_HILTBINDING', name: '武器保有', maxlv: 1, lv: 1, class: 'ME,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'BS_WEAPONRESEARCH', name: '武器研究', maxlv: 10, lv: 10, class: 'ME,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'NC_TRAININGAXE', name: '斧頭使用熟練度', maxlv: 10, lv: 10, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'NC_MADOLICENCE', name: '魔導機甲執照', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'BA_MUSICALLESSON', name: '操控樂器/練習舞蹈', maxlv: 10, lv: 0, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WM_LESSON', name: '課程', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'BA_POEMBRAGI', name: '布萊奇之詩', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'MI_RUSH_WINDMILL', name: '朝風車突擊', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'DC_FORTUNEKISS', name: '女神之吻', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'BA_APPLEIDUN', name: '伊登的蘋果', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WM_FRIGG_SONG', name: '豐年頌', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WA_MOONLIT_SERENADE', name: '月光小夜曲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WA_SWING_DANCE', name: '搖擺舞', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WM_LERADS_DEW', name: '雷拉多露水', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WM_UNLIMITED_HUMMING_VOICE', name: '無限哼唱聲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'WM_DANCE_WITH_WUG', name: '與狼共舞', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SA_ADVANCEDBOOK', name: '進化之書', maxlv: 10, lv: 10, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SA_DRAGONOLOGY', name: '龍知識', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SO_STRIKING', name: '打擊強化', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 1, arg1: 20, arg1desc: '屬附總等級', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SO_FIRE_INSIGNIA', name: '火之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_WATER_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
-                        { skill: { id: 'SO_WATER_INSIGNIA', name: '水之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
-                        { skill: { id: 'SO_WIND_INSIGNIA', name: '風之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
-                        { skill: { id: 'SO_EARTH_INSIGNIA', name: '地之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_WIND_INSIGNIA', Note: '', } },
-                        { skill: { id: 'SO_FIRE_INSIGNIA_ENEMY', name: '火之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_WATER_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
-                        { skill: { id: 'SO_WATER_INSIGNIA_ENEMY', name: '水之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
-                        { skill: { id: 'SO_WIND_INSIGNIA_ENEMY', name: '風之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WATER_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
-                        { skill: { id: 'SO_EARTH_INSIGNIA_ENEMY', name: '地之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WATER_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY', Note: '', } },
-                        { skill: { id: 'SA_VOLCANO', name: '火元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SA_DELUGE,SA_VIOLENTGALE', Note: '', } },
-                        { skill: { id: 'SA_DELUGE', name: '水元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SA_VOLCANO,SA_VIOLENTGALE', Note: '', } },
-                        { skill: { id: 'SA_VIOLENTGALE', name: '風元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SA_VOLCANO,SA_DELUGE', Note: '', } },
+                        { skill: { id: 'AL_INCAGI', name: '加速術', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AB_CANTO', Note: '', } },
+                        { skill: { id: 'AL_BLESSING', name: '天使之賜福', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AB_CLEMENTIA', Note: '', } },
+                        { skill: { id: 'AB_CANTO', name: '純白百合花', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 1, arg1: 70, arg1desc: '施展者JOB等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AL_INCAGI', Note: '', } },
+                        { skill: { id: 'AB_CLEMENTIA', name: '慈悲術', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 1, arg1: 70, arg1desc: '施展者JOB等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AL_BLESSING', Note: '', } },
+                        { skill: { id: 'PR_SUFFRAGIUM', name: '犧牲祈福', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'PR_IMPOSITIO', name: '神威祈福', maxlv: 5, lv: 5, class: 'AB,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'PR_LEXAETERNA', name: '天使之怒', maxlv: 1, lv: 1, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'HP_BASILICA', name: '神聖殿堂', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AB_LAUDARAMUS', name: '折枝讚頌', maxlv: 4, lv: 4, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AB_EXPIATIO', name: '贖罪', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'ALL_ODINS_POWER', name: '奧丁之神力', maxlv: 2, lv: 2, class: 'AB', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AB_SECRAMENT', name: '聖典', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AB_ORATIO', name: '祈禱文', maxlv: 10, lv: 10, class: 'AB', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'MO_IRONHAND', name: '鐵沙掌', maxlv: 10, lv: 10, class: 'SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'MO_CALLSPIRITS', name: '蓄氣(氣彈數)', maxlv: 5, lv: 5, class: 'SU,SN', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SR_GENTLETOUCH_CHANGE', name: '點穴-反', maxlv: 5, lv: 5, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SR_GENTLETOUCH_REVITALIZE', Note: '', } },
+                        { skill: { id: 'SR_GENTLETOUCH_REVITALIZE', name: '點穴-活', maxlv: 5, lv: 5, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SR_GENTLETOUCH_CHANGE', Note: '', } },
+                        { skill: { id: 'SR_RAISINGDRAGON', name: '潛龍昇天', maxlv: 1, lv: 1, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AM_AXEMASTERY', name: '斧頭/單手劍使用熟練度', maxlv: 10, lv: 10, class: 'GE,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'GN_TRAINING_SWORD', name: '單手劍使用熟練度(基因)', maxlv: 5, lv: 5, class: 'GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'MH_PYROCLASTIC', name: '火山塵暴', maxlv: 10, lv: 10, class: 'GE', changelv: false, argnum: 1, arg1: 1, arg1desc: '生命體等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AC_OWL', name: '鶚梟之眼', maxlv: 10, lv: 0, class: 'RA,MI,WA,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AC_CONCENTRATION', name: '心神凝聚', maxlv: 10, lv: 10, class: 'RA,MI,WA,SN', changelv: false, argnum: 2, arg1: 0, arg1desc: '裝備AGI', arg2: 0, arg2desc: '裝備DEX', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SN_SIGHT', name: '狙殺瞄準', maxlv: 10, lv: 10, class: 'RA', changelv: false, argnum: 0, arg1: 20, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        //{ skill: { id: 'HT_BEASTBANE', name: '動物殺手', maxlv: 10, lv: 10, class: 'RA', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'RA_UNLIMIT', name: '精英狙擊', maxlv: 5, lv: 5, class: 'RA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'RA_RESEARCHTRAP', name: '陷阱研究', maxlv: 10, lv: 10, class: 'RA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WL_RECOGNIZEDSPELL', name: '魔法省悟', maxlv: 5, lv: 5, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'HW_MAGICPOWER', name: '魔力增幅', maxlv: 10, lv: 10, class: 'WL', changelv: false, argnum: 0, arg1: 100, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'MagicAddicted', name: '魔力中毒', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WL_TELEKINESIS_INTENSE', name: '終極念力', maxlv: 5, lv: 5, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'MC_LOUD', name: '大聲吶喊', maxlv: 1, lv: 1, class: 'ME,GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BS_MAXIMIZE', name: '武器值最大化', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BS_WEAPONPERFECT', name: '無視體型攻擊', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BS_OVERTHRUST25', name: '兇砍 25%', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: 'BS_OVERTHRUST15,BS_OVERTHRUST100', } },
+                        { skill: { id: 'BS_OVERTHRUST15', name: '兇砍(隊伍) 15%', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'BS_OVERTHRUST25,BS_OVERTHRUST100', Note: '', } },
+                        { skill: { id: 'BS_OVERTHRUST100', name: '兇砍最大值 100%', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'BS_OVERTHRUST25,BS_OVERTHRUST15', Note: '', } },
+                        { skill: { id: 'BS_ADRENALINE', name: '速度激發', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BS_HILTBINDING', name: '武器保有', maxlv: 1, lv: 1, class: 'ME,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BS_WEAPONRESEARCH', name: '武器研究', maxlv: 10, lv: 10, class: 'ME,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NC_TRAININGAXE', name: '斧頭使用熟練度', maxlv: 10, lv: 10, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NC_MADOLICENCE', name: '魔導機甲執照', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BA_MUSICALLESSON', name: '操控樂器/練習舞蹈', maxlv: 10, lv: 0, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WM_LESSON', name: '課程', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BA_POEMBRAGI', name: '布萊奇之詩', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'MI_RUSH_WINDMILL', name: '朝風車突擊', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'DC_FORTUNEKISS', name: '女神之吻', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'BA_APPLEIDUN', name: '伊登的蘋果', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WM_FRIGG_SONG', name: '豐年頌', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WA_MOONLIT_SERENADE', name: '月光小夜曲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WA_SWING_DANCE', name: '搖擺舞', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WM_LERADS_DEW', name: '雷拉多露水', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WM_UNLIMITED_HUMMING_VOICE', name: '無限哼唱聲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WM_DANCE_WITH_WUG', name: '與狼共舞', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SA_ADVANCEDBOOK', name: '進化之書', maxlv: 10, lv: 10, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SA_DRAGONOLOGY', name: '龍知識', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SO_STRIKING', name: '打擊強化', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 1, arg1: 20, arg1desc: '屬附總等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SO_FIRE_INSIGNIA', name: '火之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_WATER_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_WATER_INSIGNIA', name: '水之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_WIND_INSIGNIA', name: '風之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_EARTH_INSIGNIA', name: '地之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_WIND_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_FIRE_INSIGNIA_ENEMY', name: '火之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_WATER_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
+                        { skill: { id: 'SO_WATER_INSIGNIA_ENEMY', name: '水之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
+                        { skill: { id: 'SO_WIND_INSIGNIA_ENEMY', name: '風之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WATER_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
+                        { skill: { id: 'SO_EARTH_INSIGNIA_ENEMY', name: '地之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WATER_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY', Note: '', } },
+                        { skill: { id: 'SA_VOLCANO', name: '火元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_DELUGE,SA_VIOLENTGALE', Note: '', } },
+                        { skill: { id: 'SA_DELUGE', name: '水元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_VOLCANO,SA_VIOLENTGALE', Note: '', } },
+                        { skill: { id: 'SA_VIOLENTGALE', name: '風元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_VOLCANO,SA_DELUGE', Note: '', } },
                         
-                        { skill: { id: 'NJ_NEN', name: '念', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'KO_KAHU_ENTEN', name: '火符:炎天', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'KO_HYOUHU_HUBUKI,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
-                        { skill: { id: 'KO_HYOUHU_HUBUKI', name: '冰符:吹雪', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
-                        { skill: { id: 'KO_KAZEHU_SEIRAN', name: '風符:青嵐', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_HYOUHU_HUBUKI,KO_DOHU_KOUKAI', Note: '', } },
-                        { skill: { id: 'KO_DOHU_KOUKAI', name: '地符:剛塊', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_HYOUHU_HUBUKI,KO_KAZEHU_SEIRAN,', Note: '', } },
-                        { skill: { id: 'KO_IZAYOI', name: '十六夜', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'OB_ZANGETSU', name: '變形的上弦月', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'KG_KAGEMUSYA', name: '影子武士', maxlv: 5, lv: 5, class: 'KO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'TK_SEVENWIND', name: '溫暖的風', maxlv: 1, lv: 1, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'TK_RUN', name: '跑步', maxlv: 10, lv: 10, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NJ_NEN', name: '念', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'KO_KAHU_ENTEN', name: '火符:炎天', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'KO_HYOUHU_HUBUKI,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
+                        { skill: { id: 'KO_HYOUHU_HUBUKI', name: '冰符:吹雪', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
+                        { skill: { id: 'KO_KAZEHU_SEIRAN', name: '風符:青嵐', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_HYOUHU_HUBUKI,KO_DOHU_KOUKAI', Note: '', } },
+                        { skill: { id: 'KO_DOHU_KOUKAI', name: '地符:剛塊', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_HYOUHU_HUBUKI,KO_KAZEHU_SEIRAN,', Note: '', } },
+                        { skill: { id: 'KO_IZAYOI', name: '十六夜', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'OB_ZANGETSU', name: '變形的上弦月', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'KG_KAGEMUSYA', name: '影子武士', maxlv: 5, lv: 5, class: 'KO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'TK_SEVENWIND', name: '溫暖的風', maxlv: 1, lv: 1, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'TK_RUN', name: '跑步', maxlv: 10, lv: 10, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         
-                        { skill: { id: 'TK_POWER', name: '加油', maxlv: 5, lv: 5, class: 'SE', changelv: false, argnum: 1, arg1: 1, arg1desc: '隊友數(包含自己)', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SG_HATE', name: '日月星的憎惡(怪物)', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SG_Miracle', name: '日月星的奇蹟', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SG_FUSION', name: '日月星的融合', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SP_SOULCOLLECT', name: '靈魂蓄積(數)', maxlv: 20, lv: 20, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SP_SOULSHADOW', name: '影子靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SP_SOULFAIRY,SP_SOULFALCON,SP_SOULGOLEM', Note: '', } },
-                        { skill: { id: 'SP_SOULFAIRY', name: '精靈靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFALCON,SP_SOULGOLEM', Note: '', } },
-                        { skill: { id: 'SP_SOULFALCON', name: '隼鷹靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFAIRY,SP_SOULGOLEM', Note: '', } },
-                        { skill: { id: 'SP_SOULGOLEM', name: '巨人靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFAIRY,SP_SOULFALCON', Note: '', } },
-                        { skill: { id: 'SP_SOULCURSE', name: '邪惡靈魂詛咒', maxlv: 1, lv: 1, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SU_POWEROFLIFE', name: '生命力量 (遠傷20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SU_POWEROFLAND', name: '大地力量 (Matk20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SU_BUNCHOFSHRIMP', name: '蝦群', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SU_ARCLOUSEDASH', name: '捲甲蟲暴衝', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SU_CHATTERING', name: '喵喵/喵喵不休', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'NV_BREAKTHROUGH', name: '突破極限', maxlv: 5, lv: 0, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'NV_TRANSCENDENCE', name: '心靈超越', maxlv: 5, lv: 0, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'TK_POWER', name: '加油', maxlv: 5, lv: 5, class: 'SE', changelv: false, argnum: 1, arg1: 1, arg1desc: '隊友數(包含自己)', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SG_HATE', name: '日月星的憎惡(怪物)', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SG_Miracle', name: '日月星的奇蹟', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SG_FUSION', name: '日月星的融合', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SP_SOULCOLLECT', name: '靈魂蓄積(數)', maxlv: 20, lv: 20, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SP_SOULSHADOW', name: '影子靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULFAIRY,SP_SOULFALCON,SP_SOULGOLEM', Note: '', } },
+                        { skill: { id: 'SP_SOULFAIRY', name: '精靈靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFALCON,SP_SOULGOLEM', Note: '', } },
+                        { skill: { id: 'SP_SOULFALCON', name: '隼鷹靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFAIRY,SP_SOULGOLEM', Note: '', } },
+                        { skill: { id: 'SP_SOULGOLEM', name: '巨人靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFAIRY,SP_SOULFALCON', Note: '', } },
+                        { skill: { id: 'SP_SOULCURSE', name: '邪惡靈魂詛咒', maxlv: 1, lv: 1, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SU_POWEROFLIFE', name: '生命力量 (遠傷20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SU_POWEROFLAND', name: '大地力量 (Matk20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SU_BUNCHOFSHRIMP', name: '蝦群', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SU_ARCLOUSEDASH', name: '捲甲蟲暴衝', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SU_CHATTERING', name: '喵喵/喵喵不休', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NV_BREAKTHROUGH', name: '突破極限', maxlv: 5, lv: 0, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NV_TRANSCENDENCE', name: '心靈超越', maxlv: 5, lv: 0, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                     );
 
                     this.enemylist.push(
@@ -8687,6 +8746,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-5-26', content: '調整素質/敵方/輔助技能區域折疊功能<br>額外輔助技能現在可以使用開關讓他顯示在主畫面' },
                         { id: '2021-5-25', content: '加強屬性相剋表的辨識度跟功能<br>修正劇毒武器:狂笑 共延錯誤' },
                         { id: '2021-5-24', content: '調整技能區域' },
                         { id: '2021-5-23', content: '增加預設技能 流星墜落<br>增加輔助技能 跑步(被動)' },
