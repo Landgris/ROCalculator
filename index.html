@@ -3566,6 +3566,18 @@
                                                     </el-col>
                                                 </el-row>
                                             </el-col>
+                                            <el-col :span="12"
+                                                v-show="weapon.type.id=='Guns'">
+                                                <el-row :gutter="4" type="flex" align="middle" justify="space-around">
+                                                    <el-col :span="12" style="text-align: right;">
+                                                        <span>子彈ATK:</span>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <el-input v-model.number="weapon.ArrowATK" placeholder="子彈ATK">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-row>
+                                            </el-col>
                                         </el-row>
                                         <el-row v-show="weapon.type.id!='Empty'">
                                             <el-row class="" :gutter="4" type="flex" align="middle"
@@ -5246,7 +5258,7 @@
                     { id: 'Bows', label: '弓', sizefix: { small: 100, middle: 100, large: 75 }, baseaspd: '', isRangedattack: true, isTwohand: true },
                     { id: 'Instruments', label: '樂器', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
                     { id: 'Whips', label: '鞭子', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
-                    { id: 'Guns', label: '槍', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: true, isTwohand: true },
+                    { id: 'Guns', label: '槍彈', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: true, isTwohand: true },
                     { id: 'Shuriken', label: '風魔飛鏢', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true },
                 ],
                 lefthandweapon: false,
@@ -7169,7 +7181,7 @@
                     if (this.IsSupportActive('GN_TRAINING_SWORD')){ if(this.weapon.type.id == 'Daggers' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=50; this.attritube['HIT'] += 15;} }
                     if (this.IsSupportActive('SA_ADVANCEDBOOK')){ if(this.weapon.type.id == 'Books' ){ this.skilloption.WeaponMasteryATK+=30; this.attritube['ASPDP'] += 5;} }
                     if (this.IsSupportActive('TK_RUN')){ if(this.weapon.type.id == 'Empty' ){ this.skilloption.WeaponMasteryATK+=this.GetSupportSkill('TK_RUN').lv*10;} }
-
+                    if (this.IsSupportActive('RL_RICHS_COIN')){ if(this.weapon.type.id == 'Guns' ){ this.skilloption.WeaponMasteryATK+=30;} }
                     
                     //雙手劍攻擊速度增加
                     if (this.IsSupportActive('SM_TWOHAND')) {
@@ -7648,6 +7660,19 @@
                             this.option.EquipSkillAddDamage += 20;
                         }
                     }
+                    //瘋狂凱斯樂
+                    if (this.IsSupportActive('GS_MADNESSCANCEL')){
+                        this.attritube['ATK'] += 100;
+                    }
+                    //格林狂熱
+                    if (this.IsSupportActive('GS_GATLINGFEVER')){
+                        this.attritube['ATK'] += 120;
+                    }
+                    //白金祭壇
+                    if (this.IsSupportActive('RL_P_ALTER')){
+                        this.attritube['ATK'] += 150;
+                    }
+
                     //生命力量
                     if (this.IsSupportActive('SU_POWEROFLIFE')){
                         this.attritube['CRI'] += 20;
@@ -8478,6 +8503,8 @@
                         { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*200*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'KO_JYUMONJIKIRI(buff)', name: '幽冥十字斬(十字創傷)', level: 10, formula: 'SLV*200*BLV/100+BLV*SLV', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'RL_R_TRIP', name: '圓桌舞蹈', level: 10, formula: '(500+SLV*200)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+              
                         { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_SOLARBURST', name: '太陽爆炸', level: 10, formula: '(1000+SLV*220)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_NEWMOONKICK', name: '朔月腳', level: 7, formula: '(600+SLV*100+((SLV>3)?100:0))', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8603,9 +8630,14 @@
                         { skill: { id: 'KO_IZAYOI', name: '十六夜', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'OB_ZANGETSU', name: '變形的上弦月', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'KG_KAGEMUSYA', name: '影子武士', maxlv: 5, lv: 5, class: 'KO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        
+                        { skill: { id: 'RL_RICHS_COIN', name: '富翁的財貨', maxlv: 1, lv: 1, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'GS_MADNESSCANCEL', name: '瘋狂凱斯樂', maxlv: 1, lv: 1, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'RL_P_ALTER', Note: '', } },
+                        { skill: { id: 'GS_GATLINGFEVER', name: '格林狂熱', maxlv: 10, lv: 10, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'RL_P_ALTER', name: '白金祭壇', maxlv: 5, lv: 5, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GS_MADNESSCANCEL', Note: '', } },
+                        
                         { skill: { id: 'TK_SEVENWIND', name: '溫暖的風', maxlv: 1, lv: 1, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'TK_RUN', name: '跑步', maxlv: 10, lv: 10, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
-                        
                         { skill: { id: 'TK_POWER', name: '加油', maxlv: 5, lv: 5, class: 'SE', changelv: false, argnum: 1, arg1: 1, arg1desc: '隊友數(包含自己)', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SG_HATE', name: '日月星的憎惡(怪物)', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SG_Miracle', name: '日月星的奇蹟', maxlv: 10, lv: 0, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
@@ -8747,6 +8779,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-6-10', content: '增加預設技能 圓桌舞蹈<br>增加輔助技能 富翁的財貨/瘋狂凱斯樂/格林狂熱/白金祭壇<br>武器類型槍藥現在可以設定子彈ATK' },
                         { id: '2021-6-2', content: '增加預設敵方 蘭達(紅椒)' },
                         { id: '2021-5-26', content: '調整素質/敵方/輔助技能區域折疊功能<br>額外輔助技能現在可以使用開關讓他顯示在主畫面' },
                         { id: '2021-5-25', content: '加強屬性相剋表的辨識度跟功能<br>修正劇毒武器:狂笑 共延錯誤' },
@@ -8867,6 +8900,7 @@
                         { id: 3, coop: '測試協力', name: '水絳' },
                         { id: 3, coop: '測試協力', name: '蒼之聖典' },
                         { id: 3, coop: '測試協力', name: '查爾斯 ︴★﹑莓〃琥珀°' },
+                        { id: 3, coop: '測試協力', name: '波利 懶惰牛' },
                         { id: 4, coop: '公式協力', name: '查爾斯 烈焰' },
                         { id: 4, coop: '公式協力', name: '阿松' },
                         { id: 0, coop: '公式協力', name: '琉璃廣' },
