@@ -2189,6 +2189,22 @@
                                         </el-row>
                                     </div>
                                 </el-collapse-transition>
+                                <el-collapse-transition>
+                                    <div v-if="item.Cri!=null && item.editable && item.active" >
+                                        <el-row
+                                            class="optionbox textcenter" style="padding: 0px 10px;"
+                                            type="flex" align="middle" justify="middle">
+                                            <el-col class="textcenter" :span="8">
+                                                <span>爆擊率%提升</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="2">
+                                            </el-col>
+                                            <el-col class="textcenter" :span="14">
+                                                <el-slider v-model="item.Cri" :min="11" :max="33" @change="ComputConsumAndOption()"></el-slider>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-collapse-transition>
                             </div>
                         </el-row>
                     </el-scrollbar>
@@ -6047,7 +6063,7 @@
                 OnComputeConsumable(){
                     this.consumableeffecttypelist = _.cloneDeep(this.consumableeffecttypelist_init);
 
-                    var _statusgtag = [ 'STR', 'AGI', 'VIT', 'INT', 'DEX', 'LUK', 'ATK', 'MATK'];
+                    var _statusgtag = [ 'STR', 'AGI', 'VIT', 'INT', 'DEX', 'LUK', 'ATK', 'MATK', 'Cri'];
                     var _ATKMATKUP = { ATKUP:0, MATKUP:0 };
                     var _atkmatkuptag = [ 'ATKUP', 'MATKUP'];
                     var _FixedCast = 0;
@@ -7184,7 +7200,7 @@
                     if (this.IsSupportActive('RL_RICHS_COIN')){ if(this.weapon.type.id == 'Guns' ){ this.skilloption.WeaponMasteryATK+=30;} }
                     
                     //雙手劍攻擊速度增加
-                    if (this.IsSupportActive('SM_TWOHAND')) {
+                    if (this.IsSupportActive('KN_TWOHANDQUICKEN')) {
                         if (this.weapon.type.id == 'TwoHandedSword') {
                             this.attritube['CRI'] += 12;
                             this.attritube['HIT'] += 20;
@@ -8700,7 +8716,7 @@
                         { id:14617, name:'體力棒棒條', active:false, group:'StatusG', VIT:15},
                         { id:14619, name:'智力棒棒條', active:false, group:'StatusG', INT:15, MATKUP:11, editable:true},
                         { id:14620, name:'靈巧棒棒條', active:false, group:'StatusG', DEX:15},
-                        { id:14621, name:'幸運棒棒條', active:false, group:'StatusG', LUK:15, Cri:11},
+                        { id:14621, name:'幸運棒棒條', active:false, group:'StatusG', LUK:15, Cri:11, editable:true},
                         { id:14886, name:'終極料理', active:false, group:'StatusG', STR:10, AGI:10, VIT:10, INT:10, DEX:10, LUK:10, ATK:30, MATK:30},
                         { id:12883, name:'萬能年糕', active:false, group:'StatusG', STR:10, AGI:10, VIT:10, INT:10, DEX:10, LUK:10, ATK:30, MATK:30},
                         { id:100098, name:'活力激發劑', active:false, group:'StatusG', STR:20, AGI:20, VIT:20, INT:20, DEX:20, LUK:20},
@@ -8779,6 +8795,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-6-15', content: '修正雙手劍攻擊加速沒有效果的BUG<br>修正幸運棒棒條可以調整隨機的爆擊率' },
                         { id: '2021-6-10', content: '增加預設技能 圓桌舞蹈<br>增加輔助技能 富翁的財貨/瘋狂凱斯樂/格林狂熱/白金祭壇<br>武器類型槍藥現在可以設定子彈ATK' },
                         { id: '2021-6-2', content: '增加預設敵方 蘭達(紅椒)' },
                         { id: '2021-5-26', content: '調整素質/敵方/輔助技能區域折疊功能<br>額外輔助技能現在可以使用開關讓他顯示在主畫面' },
