@@ -4939,7 +4939,16 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>裝備變動詠唱%:</span>
+                                                <span>變動詠唱(秒):</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['VCTS']}} s</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>變動詠唱(裝備%):</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['EQVCTP']}} %</span>
@@ -4948,16 +4957,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>變動詠唱:</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="10">
-                                                <span>{{attritube['EQVCTP']}} s</span>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                            style="height:40px;">
-                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>輔助技能變動詠唱%:</span>
+                                                <span>變動詠唱(輔助技能%):</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['SK1VCTP']}} %</span>
@@ -4966,7 +4966,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>指定技能變動詠唱%:</span>
+                                                <span>變動詠唱(指定技能%):</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['SK2VCTP']}} %</span>
@@ -6821,7 +6821,7 @@
                         this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(100 / 100));
                     }
 
-                    var _paradiv = this.skill.hitnumber;
+                    var _paradiv = eval(this.SkillFormulaReplace(this.skill.hitnumber));
                     if (_paradiv == 0) _paradiv = 1;
                     if (_paradiv < 0) {
                         _paradiv *= -1;
@@ -7647,6 +7647,7 @@
                         if (this.enemyattribute.elemental == 1) { this.attritube['ElementalAtkPercent'] += 30; }
                     }
                     if (this.IsSupportActive('KO_KAZEHU_SEIRAN')){
+                        if (this.skill.id == 'NJ_HUUJIN') this.computeattribute['SpecialMATK1'] += this.GetSupportSkill('KO_KAZEHU_SEIRAN').lv * 20;
                         if (this.skill.id == 'NJ_KAMAITACHI') this.computeattribute['SpecialMATK1'] += this.GetSupportSkill('KO_KAZEHU_SEIRAN').lv * 100;
                         if (this.enemyattribute.elemental == 2) { this.attritube['ElementalAtkPercent'] += 30; }
                     }
@@ -8514,6 +8515,7 @@
                         { skill: { id: 'NJ_BAKUENRYU', name: '爆炎龍', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 0.6, VCT: 2.4, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_HYOUSENSOU', name: '冰閃槍', level: 10, formula: '70', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 2, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_HYOUSYOURAKU', name: '冰晶落', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 2, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'NJ_HUUJIN', name: '風刃', level: 10, formula: '150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "Math.floor(SLV/2)+1", elemental: 3, FCT: 1.1, VCT: "0.4+SLV*0.4", CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_KAMAITACHI', name: '朔風', level: 5, formula: '100+SLV*100', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8795,6 +8797,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-6-17', content: '增加預設技能 風刃<br>修正一般總覽 變動詠唱(秒)顯示錯誤' },
                         { id: '2021-6-15', content: '修正雙手劍攻擊加速沒有效果的BUG<br>修正幸運棒棒條可以調整隨機的爆擊率' },
                         { id: '2021-6-10', content: '增加預設技能 圓桌舞蹈<br>增加輔助技能 富翁的財貨/瘋狂凱斯樂/格林狂熱/白金祭壇<br>武器類型槍藥現在可以設定子彈ATK' },
                         { id: '2021-6-2', content: '增加預設敵方 蘭達(紅椒)' },
