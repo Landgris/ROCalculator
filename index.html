@@ -368,7 +368,9 @@
                         <el-row :gutter="4" type="flex" align="middle">
                             <el-col class="textcenter">
                                 <br>
-                                連絡信箱:valkyrie7744533@gmail.com<br>
+                                聯絡方式<br>
+                                遊戲內:巴基力 蘭禮 200等獵靈士<br>
+                                信箱:valkyrie7744533@gmail.com<br>
                                 Twitter @Landgris<br>
                                 PTT ID: valkyria<br>
                                 巴哈 ID: randgris<br>
@@ -427,18 +429,16 @@
                     <el-row>
                         <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                             <el-row :gutter="4" type="flex" align="left">
-                                大更新!!<br>
-                                增加了儲存配置功能<br>
-                                重寫輔助技能區域，總算可以跟著儲存了!<br>
-                                輔助技能資料是我自己整理的QQ 麻煩各位找到錯誤立刻跟我說<br>
-
-                                Lv200更新版本!!<br>
-
+                                因為一些事情耍蠢很貴的裝備就這樣消失了，最近更新會暫緩<br>
+                                雖然也沒什麼需要太大更動了<br>
+                                <br>
+                                每天使用人數約500人，可是GP怎麼只有200多QQ<br>
+                                <br>
                                 對念屬怪傷害計算會有些微誤差 調查中<br>
-
+                                <br>
                                 計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
                                 不會計算雙持狀況下的普攻傷害<br><br>
-                                希望有人可以整理分享裝備模擬心得幫文章推上去QQ<br>
+                                <br>
                             </el-row>
                         </div>
                     </el-row>
@@ -6618,8 +6618,9 @@
                         // 技能增傷裝
                         this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                         this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
-                    }
-                    else{
+                    //}
+                    //else{
+                    //靈氣劍技能有效
                         var parasp6 = Number(this.computeattribute['SpecialATK8']);
                         this.computeattribute.atkc8_min += parasp6;
                         this.computeattribute.atkc8_max += parasp6
@@ -7173,8 +7174,8 @@
                     this.computeattribute['SpecialATK2'] = 0;   // 練習舞蹈 砲彈ATK
                     this.computeattribute['SpecialATK3'] = 0;   // 毒弱
                     this.computeattribute['SpecialATK4'] = 0;   // 修練 神威
-                    this.computeattribute['SpecialATK5'] = 0;   // 狙殺
-                    this.computeattribute['SpecialATK6'] = 0;   // 兇砍 狂怒之槍 盧1
+                    this.computeattribute['SpecialATK5'] = 0;   // 狙殺 盧1 兇砍
+                    this.computeattribute['SpecialATK6'] = 0;   // 狂怒之槍 
                     this.computeattribute['SpecialATK7'] = 0;   // 虎砲
                     this.computeattribute['SpecialATK8'] = 0;   // 靈氣劍
                     this.computeattribute['SpecialATKFront'] = 0;   // 前ATK前ATK
@@ -7224,6 +7225,10 @@
                     if (this.IsSupportActive('RK_GIANTGROWTH')){
                         this.status_add.STR += 30;
                         this.attritube['MELDP'] += 15;
+                        if (this.skill.id != 'RK_STORMBLAST')
+                        {
+                            this.computeattribute['SpecialATK5'] += 250;
+                        }
                         this.computeattribute['SpecialATK6'] += 250;
                     }
                     // 艾伊瓦茲:提升鬥志(盧5) 
@@ -7316,12 +7321,15 @@
                     }
                     // 兇砍
                     if (this.IsSupportActive('BS_OVERTHRUST25')){
+                        this.computeattribute['SpecialATK5'] += 5 * 5;
                         this.computeattribute['SpecialATK6'] += 5 * 5;
                     }
                     if (this.IsSupportActive('BS_OVERTHRUST15')){
+                        this.computeattribute['SpecialATK5'] += 5 * 3;
                         this.computeattribute['SpecialATK6'] += 5 * 3;
                     }
                     if (this.IsSupportActive('BS_OVERTHRUST100')){
+                        this.computeattribute['SpecialATK5'] += 5 * 20;
                         this.computeattribute['SpecialATK6'] += 5 * 20;
                     }
                     // 火山塵暴
@@ -8515,7 +8523,7 @@
                         { skill: { id: 'NJ_BAKUENRYU', name: '爆炎龍', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 0.6, VCT: 2.4, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_HYOUSENSOU', name: '冰閃槍', level: 10, formula: '70', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 2, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_HYOUSYOURAKU', name: '冰晶落', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 2, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'NJ_HUUJIN', name: '風刃', level: 10, formula: '150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "Math.floor(SLV/2)+1", elemental: 3, FCT: 1.1, VCT: "0.4+SLV*0.4", CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'NJ_HUUJIN', name: '風刃', level: 10, formula: '150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "DOWN(SLV/2)+1", elemental: 3, FCT: 1.1, VCT: "0.4+SLV*0.4", CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_KAMAITACHI', name: '朔風', level: 5, formula: '100+SLV*100', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8797,6 +8805,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-6-28', content: '修正輔助技能 盧1(風暴衝擊外)/兇砍/靈氣劍 現在可以為技能增傷' },
                         { id: '2021-6-17', content: '增加預設技能 風刃<br>修正一般總覽 變動詠唱(秒)顯示錯誤' },
                         { id: '2021-6-15', content: '修正雙手劍攻擊加速沒有效果的BUG<br>修正幸運棒棒條可以調整隨機的爆擊率' },
                         { id: '2021-6-10', content: '增加預設技能 圓桌舞蹈<br>增加輔助技能 富翁的財貨/瘋狂凱斯樂/格林狂熱/白金祭壇<br>武器類型槍藥現在可以設定子彈ATK' },
