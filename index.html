@@ -430,9 +430,10 @@
                         <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                             <el-row :gutter="4" type="flex" align="left">
                                 因為一些事情耍蠢很貴的裝備就這樣消失了，最近更新會暫緩<br>
-                                雖然也沒什麼需要太大更動了<br>
+                                雖然也沒什麼需要太大更動了 全職業優化那天應該要改超久(望<br>
                                 <br>
                                 每天使用人數約500人，可是GP怎麼只有200多QQ<br>
+                                不然斗內也可以 (ry<br>
                                 <br>
                                 對念屬怪傷害計算會有些微誤差 調查中<br>
                                 <br>
@@ -666,6 +667,16 @@
                             </el-row>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
+                                    <span>一半暴傷</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-switch v-model="skill.halfcridmg" active-color="#13ce66"
+                                        v-on:change="onOption" inactive-color="#8a9799">
+                                    </el-switch>
+                                </el-col>
+                            </el-row>
+                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col class="textcenter" :span="12">
                                     <span>使用加農砲彈</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
@@ -786,6 +797,8 @@
                                                         </el-col>
                                                         <el-col v-if="item.skill.halfcri" class="skilltag" :span="3">一半暴率
                                                         </el-col>
+                                                        <el-col v-if="item.skill.halfcridmg" class="skilltag" :span="3">一半暴傷
+                                                        </el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag" :span="3">砲彈
                                                         </el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF" class="skilltag"
@@ -851,6 +864,8 @@
                                                             :span="3">暴擊</el-col>
                                                         <el-col v-if="item.skill.halfcri" class="skilltag skillline"
                                                             :span="3">一半暴率</el-col>
+                                                        <el-col v-if="item.skill.halfcridmg" class="skilltag skillline"
+                                                            :span="3">一半暴傷</el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag skillline"
                                                             :span="3">砲彈</el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF"
@@ -3217,6 +3232,13 @@
                                     <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                         <el-col class="textcenter" :span="12">
                                             <span>一半暴率</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="skill.halfcridmg">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>一半暴傷</span>
                                         </el-col>
                                     </el-row>
                                 </div>
@@ -6524,6 +6546,7 @@
                     this.computeattribute.atkc6_max = this.computeattribute.atkc5_max;
                     //暴擊增傷
                     var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
+                    if( this.skill.halfcridmg ) para_crid = Number(1) + Math.floor(Number(this.attritube['CRIDP']) * 0.5) / 100;
                     if( isNA ){
                         if( isCRI ){
                             this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
@@ -7367,6 +7390,9 @@
                         this.status_add.INT += 10;
                         this.attritube['SP'] += 400;
                     }
+                    if (this.skill.id == 'SN_SHARPSHOOTING'){
+                        this.attritube['CRI'] += 45;
+                    }
                     // 練習舞蹈
                     if (this.IsSupportActive('BA_MUSICALLESSON')){
                         this.attritube['ATK'] += 3 * 10;
@@ -8152,6 +8178,7 @@
                     if (this.skill.laterformula == null) this.skill.laterformula = false;
                     if (this.skill.laterranged == null) this.skill.laterranged = false;
                     if (this.skill.halfcri == null) this.skill.halfcri = false;
+                    if (this.skill.halfcridmg == null) this.skill.halfcridmg = false;
                     if (this.skill.VCT == null) this.skill.VCT = 0;
                     if (this.skill.FCT == null) this.skill.FCT = 0;
                     if (this.skill.CD == null) this.skill.CD = 0;
@@ -8377,6 +8404,7 @@
                     if (this.skill.laterformula == null) this.skill.laterformula = false;
                     if (this.skill.laterranged == null) this.skill.laterranged = false;
                     if (this.skill.halfcri == null) this.skill.halfcri = false;
+                    if (this.skill.halfcridmg == null) this.skill.halfcridmg = false;
                     if (this.skill.VCT == null) this.skill.VCT = 0;
                     if (this.skill.FCT == null) this.skill.FCT = 0;
                     if (this.skill.CD == null) this.skill.CD = 0;
@@ -8500,7 +8528,7 @@
                         { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.25*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'SLV*240+ELV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
                         { skill: { id: 'SR_TIGERCANNON(ex)', name: '虎砲(大地崩纏後)', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.5*(BLV/100)*1.3333', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'SLV*500+ELV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
                         { skill: { id: 'SR_RIDEINLIGHTNING', name: '雷光彈', level: 5, formula: "(SLV*40+((WTI=='Knuckles')?SLV*50:0))*BLV/100", class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '技能等級=氣彈消耗數, 使用拳套時增傷', } },
-                        { skill: { id: 'SR_RAMPAGEBLASTER', name: '爆氣散彈', level: 5, formula: '(1000+350*SLV)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為爆氣等級*200', } },
+                        { skill: { id: 'SR_RAMPAGEBLASTER', name: '爆氣散彈', level: 5, formula: '(1000+350*SLV)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 10, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為爆氣等級*200', } },
                         { skill: { id: 'SR_RAMPAGEBLASTER(ex)', name: '爆氣散彈(標記)', level: 5, formula: '(1000+350*SLV+500+SLV*200)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為爆氣等級*200', } },
                         { skill: { id: 'SR_KNUCKLEARROW', name: '修羅身彈', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SR_KNUCKLEARROW(ex)', name: '修羅身彈(BOSS)', level: 10, formula: '(500+SLV*200)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8805,6 +8833,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-7-7', content: '修正預設技能 銳利射擊現在有暴擊率45%<br>修正預設技能 爆氣散彈共延獨延時間<br>技能設定增加一半爆傷' },
                         { id: '2021-6-28', content: '修正輔助技能 盧1(風暴衝擊外)/兇砍/靈氣劍 現在可以為技能增傷' },
                         { id: '2021-6-17', content: '增加預設技能 風刃<br>修正一般總覽 變動詠唱(秒)顯示錯誤' },
                         { id: '2021-6-15', content: '修正雙手劍攻擊加速沒有效果的BUG<br>修正幸運棒棒條可以調整隨機的爆擊率' },
