@@ -6026,7 +6026,7 @@
                         this.subweapon.refinelevel = 0;
                         this.subweapon.ATK = 0;
                         this.subweapon.MATK = 0;
-                        this.weapon.ShieldWeight = 0;
+                        this.subweapon.ShieldWeight = 0;
                     }
 
                     this.ComputRefineATK();
@@ -8823,7 +8823,7 @@
                         { str1: 'WLV', str2: 'this.weapon.level.id', description: '代入武器等級' },
                         { str1: 'WGT', str2: 'this.weapon.Weight', description: '代入武器重量' },
                         { str1: 'WTI', str2: 'this.weapon.type.id', description: '代入武器類型' },
-                        { str1: 'SHW', str2: 'this.weapon.ShieldWeight', description: '代入盾牌重量' },
+                        { str1: 'SHW', str2: 'this.subweapon.ShieldWeight', description: '代入盾牌重量' },
                         { str1: 'ELV', str2: 'this.enemyattribute.level', description: '代入敵方等級' },
                         { str1: 'ESIZE', str2: 'this.enemyattribute.size', description: '代入敵方體型' },
                         { str1: 'EVit', str2: 'this.enemyattribute.VIT', description: '代入敵方VIT' },
@@ -8833,6 +8833,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-7-9', content: '修正公式關鍵字 SHW盾牌重量沒有效果的問題' },
                         { id: '2021-7-7', content: '修正預設技能 銳利射擊現在有暴擊率45%<br>修正預設技能 爆氣散彈共延獨延時間<br>技能設定增加一半爆傷' },
                         { id: '2021-6-28', content: '修正輔助技能 盧1(風暴衝擊外)/兇砍/靈氣劍 現在可以為技能增傷' },
                         { id: '2021-6-17', content: '增加預設技能 風刃<br>修正一般總覽 變動詠唱(秒)顯示錯誤' },
