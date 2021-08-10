@@ -4740,7 +4740,7 @@
                                                 <span>{{attritube.StatusATK+computeattribute['SpecialATKFront']}} + {{attritube.WeaponATK}}</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        <el-row v-if="TestMode" class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                                 <span>P.ATK:</span>
@@ -4809,7 +4809,7 @@
                                                 <span>{{attritube['CRIDP']}} %</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        <el-row v-if="TestMode" class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                                 <span>CRI DamageRate:</span>
@@ -4919,7 +4919,7 @@
                                                 <span>{{attritube.StatusMATK}} + {{attritube.WeaponMATK}}</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        <el-row v-if="TestMode" class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                                 <span>S.MATK</span>
@@ -6421,6 +6421,12 @@
                     if (this.status.INT == '') this.status.INT = 0;
                     if (this.status.DEX == '') this.status.DEX = 0;
                     if (this.status.LUK == '') this.status.LUK = 0;
+                    if (this.status.POW == '') this.status.POW = 0;
+                    if (this.status.STA == '') this.status.STA = 0;
+                    if (this.status.WIS == '') this.status.WIS = 0;
+                    if (this.status.SPL == '') this.status.SPL = 0;
+                    if (this.status.CON == '') this.status.CON = 0;
+                    if (this.status.CRT == '') this.status.CRT = 0;
                 },
                 GetPureStats(str) {
                     var _String = str + '';
@@ -6447,6 +6453,12 @@
                     if (this.status.INT == '') this.status.INT = 0;
                     if (this.status.DEX == '') this.status.DEX = 0;
                     if (this.status.LUK == '') this.status.LUK = 0;
+                    if (this.status.POW == null) this.status.POW = 0;
+                    if (this.status.STA == null) this.status.STA = 0;
+                    if (this.status.WIS == null) this.status.WIS = 0;
+                    if (this.status.SPL == null) this.status.SPL = 0;
+                    if (this.status.CON == null) this.status.CON = 0;
+                    if (this.status.CRT == null) this.status.CRT = 0;
                     try {
 
                         if (this.status.classid == null) this.status.classid = 'AB';
