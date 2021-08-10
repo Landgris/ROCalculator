@@ -1125,7 +1125,7 @@
                                     <el-col class="textcenter" :span="12">
                                         <el-input v-if="PreviewETL[0]"
                                             v-model="PreviewETL[GetETLIndex('VIT')].totalvalue"
-                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                            v-on:keyup.enter.native="OnEditEquipEffect('VIT')" placeholder="效果參數">
                                         </el-input>
                                     </el-col>
                                 </el-row>
@@ -1136,7 +1136,7 @@
                                     <el-col class="textcenter" :span="12">
                                         <el-input v-if="PreviewETL[0]"
                                             v-model="PreviewETL[GetETLIndex('INT')].totalvalue"
-                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                            v-on:keyup.enter.native="OnEditEquipEffect('INT')" placeholder="效果參數">
                                         </el-input>
                                     </el-col>
                                 </el-row>
@@ -1147,7 +1147,7 @@
                                     <el-col class="textcenter" :span="12">
                                         <el-input v-if="PreviewETL[0]"
                                             v-model="PreviewETL[GetETLIndex('DEX')].totalvalue"
-                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                            v-on:keyup.enter.native="OnEditEquipEffect('DEX')" placeholder="效果參數">
                                         </el-input>
                                     </el-col>
                                 </el-row>
@@ -1158,10 +1158,78 @@
                                     <el-col class="textcenter" :span="12">
                                         <el-input v-if="PreviewETL[0]"
                                             v-model="PreviewETL[GetETLIndex('LUK')].totalvalue"
-                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                            v-on:keyup.enter.native="OnEditEquipEffect('LUK')" placeholder="效果參數">
                                         </el-input>
                                     </el-col>
                                 </el-row>
+                                <div v-if="TestMode">
+                                    <el-row :class="PreviewETL[GetETLIndex('POW')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="12">
+                                            POW
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <el-input v-if="PreviewETL[0]"
+                                                v-model="PreviewETL[GetETLIndex('POW')].totalvalue"
+                                                v-on:keyup.enter.native="OnEditEquipEffect('POW')" placeholder="效果參數">
+                                            </el-input>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :class="PreviewETL[GetETLIndex('STA')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="12">
+                                            STA
+                                        </el-col>
+                                        <el-col class="textcenter" :span="12">
+                                            <el-input v-if="PreviewETL[0]"
+                                                v-model="PreviewETL[GetETLIndex('STA')].totalvalue"
+                                                v-on:keyup.enter.native="OnEditEquipEffect('STA')" placeholder="效果參數">
+                                            </el-input>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :class="PreviewETL[GetETLIndex('WIS')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="12">
+                                            WIS
+                                        </el-col>
+                                        <el-col class="textcenter" :span="12">
+                                            <el-input v-if="PreviewETL[0]"
+                                                v-model="PreviewETL[GetETLIndex('WIS')].totalvalue"
+                                                v-on:keyup.enter.native="OnEditEquipEffect('WIS')" placeholder="效果參數">
+                                            </el-input>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :class="PreviewETL[GetETLIndex('SPL')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="12">
+                                            SPL
+                                        </el-col>
+                                        <el-col class="textcenter" :span="12">
+                                            <el-input v-if="PreviewETL[0]"
+                                                v-model="PreviewETL[GetETLIndex('SPL')].totalvalue"
+                                                v-on:keyup.enter.native="OnEditEquipEffect('SPL')" placeholder="效果參數">
+                                            </el-input>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :class="PreviewETL[GetETLIndex('CON')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="12">
+                                            CON
+                                        </el-col>
+                                        <el-col class="textcenter" :span="12">
+                                            <el-input v-if="PreviewETL[0]"
+                                                v-model="PreviewETL[GetETLIndex('CON')].totalvalue"
+                                                v-on:keyup.enter.native="OnEditEquipEffect('CON')" placeholder="效果參數">
+                                            </el-input>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :class="PreviewETL[GetETLIndex('CRT')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="12">
+                                            CRT
+                                        </el-col>
+                                        <el-col class="textcenter" :span="12">
+                                            <el-input v-if="PreviewETL[0]"
+                                                v-model="PreviewETL[GetETLIndex('CRT')].totalvalue"
+                                                v-on:keyup.enter.native="OnEditEquipEffect('CRT')" placeholder="效果參數">
+                                            </el-input>
+                                        </el-col>
+                                    </el-row>
+                                </div>
                                 <el-row :class="PreviewETL[GetETLIndex('AllStatus')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
                                         全能力
@@ -2712,6 +2780,102 @@
                                                 <el-col class="textcenter" :span="1">=</el-col>
                                                 <el-col class="textcenter" :span="4">{{status_total.LUK}}</el-col>
                                             </el-row>
+                                            <div v-if="TestMode">
+                                                <el-row class="statusbox textcenter" type="flex" align="middle"
+                                                    style="height:40px;">
+                                                    四轉特性素質Lv240: 159 point
+                                                </el-row>
+                                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                    style="height:40px;">
+                                                    <el-col class="textcenter" :span="3">POW</el-col>
+                                                    <el-col :span="10">
+                                                        <el-input v-model="status.POW" v-on:input="onOption"
+                                                            v-on:change="onStatusChange" placeholder="POW">
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_add.POW}}</el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_job.POW}}</el-col>
+                                                    <el-col class="textcenter" :span="1">=</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_total.POW}}</el-col>
+                                                </el-row>
+                                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                    style="height:40px;">
+                                                    <el-col class="textcenter" :span="3">STA</el-col>
+                                                    <el-col :span="10">
+                                                        <el-input v-model="status.STA" v-on:input="onOption"
+                                                            v-on:change="onStatusChange" placeholder="STA">
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_add.STA}}</el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_job.STA}}</el-col>
+                                                    <el-col class="textcenter" :span="1">=</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_total.STA}}</el-col>
+                                                </el-row>
+                                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                    style="height:40px;">
+                                                    <el-col class="textcenter" :span="3">WIS</el-col>
+                                                    <el-col :span="10">
+                                                        <el-input v-model="status.WIS" v-on:input="onOption"
+                                                            v-on:change="onStatusChange" placeholder="WIS">
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_add.WIS}}</el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_job.WIS}}</el-col>
+                                                    <el-col class="textcenter" :span="1">=</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_total.WIS}}</el-col>
+                                                </el-row>
+                                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                    style="height:40px;">
+                                                    <el-col class="textcenter" :span="3">SPL</el-col>
+                                                    <el-col :span="10">
+                                                        <el-input v-model="status.SPL" v-on:input="onOption"
+                                                            v-on:change="onStatusChange" placeholder="SPL">
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_add.SPL}}</el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_job.SPL}}</el-col>
+                                                    <el-col class="textcenter" :span="1">=</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_total.SPL}}</el-col>
+                                                </el-row>
+                                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                    style="height:40px;">
+                                                    <el-col class="textcenter" :span="3">CON</el-col>
+                                                    <el-col :span="10">
+                                                        <el-input v-model="status.CON" v-on:input="onOption"
+                                                            v-on:change="onStatusChange" placeholder="CON">
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_add.CON}}</el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_job.CON}}</el-col>
+                                                    <el-col class="textcenter" :span="1">=</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_total.CON}}</el-col>
+                                                </el-row>
+                                                <el-row class="statusbox bg-purple-light" type="flex" align="middle"
+                                                    style="height:40px;">
+                                                    <el-col class="textcenter" :span="3">CRT</el-col>
+                                                    <el-col :span="10">
+                                                        <el-input v-model="status.CRT" v-on:input="onOption"
+                                                            v-on:change="onStatusChange" placeholder="CRT">
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_add.CRT}}</el-col>
+                                                    <el-col class="textcenter" :span="1">+</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_job.CRT}}</el-col>
+                                                    <el-col class="textcenter" :span="1">=</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_total.CRT}}</el-col>
+                                                </el-row>
+                                            </div>
                                             <el-row class="statusbox bg-purple-light" type="flex" align="middle">
                                                 <el-col class="textcenter" :span="12">ASPD</el-col>
                                                 <el-col :span="12">
@@ -4579,6 +4743,15 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>P.ATK:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube.PATK}}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                                 <span>修練Atk:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
@@ -4634,6 +4807,15 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="4">
                                                 <span>{{attritube['CRIDP']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>CRI DamageRate:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube.CRIDR}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -4735,6 +4917,15 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube.StatusMATK}} + {{attritube.WeaponMATK}}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>S.MATK</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube.SMATK}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5208,6 +5399,12 @@
                     { label: 'DEX', id: 'DEX', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'LUK', id: 'LUK', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: '全能力', id: 'AllStatus', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'POW', id: 'POW', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'STA', id: 'STA', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'WIS', id: 'WIS', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'SPL', id: 'SPL', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'CON', id: 'CON', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'CRT', id: 'CRT', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
 
                     { label: 'Atk', id: 'Atk', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'Atk %', id: 'AtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -5330,18 +5527,22 @@
                 status: {
                     Level: 200, JOBLevel: 70, Transcendent: false, classid: 'AB', UseJobMaxPoint: false,
                     STR: 1, AGI: 1, VIT: 1, INT: 1, DEX: 1, LUK: 1,
+                    POW: 0, STA: 0, WIS: 0, SPL: 0, CON: 0, CRT: 0,
                     ASPD: 0, HP: 0, SP: 0, MHP: 0, MSP: 0,
                 },
                 status_add: {
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
+                    POW: 0, STA: 0, WIS: 0, SPL: 0, CON: 0, CRT: 0,
                 },
                 status_add_init: {},
                 status_job: {
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
+                    POW: 0, STA: 0, WIS: 0, SPL: 0, CON: 0, CRT: 0,
                 },
                 status_job_init: {},
                 status_total: {
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
+                    POW: 0, STA: 0, WIS: 0, SPL: 0, CON: 0, CRT: 0,
                 },
                 status_total_init: {},
                 /*
@@ -5356,6 +5557,7 @@
                 attritube: {
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0, DEF: 0, MDEF: 0, HP: 0, HPP: 0, SP: 0, SPP: 0,
+                    PATK: 0, SMATK: 0, CRIDR: 0, RES: 0, MRES: 0,
                     ASPD: 0, ASPDP: 0, CRI: 0, HIT: 0, CRIDP: 0, RNGDP: 0, MELDP: 0,
                     SK1VCTP: 0, SK2VCTP: 0, EQVCTP: 0, VCTS:0, FCT: 0, FCTP: 0, CD: 0, GCD: 0,
                     BYPASSDEF: 0, BYPASSMDEF: 0,
@@ -6259,6 +6461,12 @@
                         this.status_total.INT = Number(eval(this.status.INT)) + Number(this.status_add.INT) + Number(this.status_job.INT);
                         this.status_total.DEX = Number(eval(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
                         this.status_total.LUK = Number(eval(this.status.LUK)) + Number(this.status_add.LUK) + Number(this.status_job.LUK);
+                        this.status_total.POW = Number(eval(this.status.POW)) + Number(this.status_add.POW) + Number(this.status_job.POW);
+                        this.status_total.STA = Number(eval(this.status.STA)) + Number(this.status_add.STA) + Number(this.status_job.STA);
+                        this.status_total.WIS = Number(eval(this.status.WIS)) + Number(this.status_add.WIS) + Number(this.status_job.WIS);
+                        this.status_total.SPL = Number(eval(this.status.SPL)) + Number(this.status_add.SPL) + Number(this.status_job.SPL);
+                        this.status_total.CON = Number(eval(this.status.CON)) + Number(this.status_add.CON) + Number(this.status_job.CON);
+                        this.status_total.CRT = Number(eval(this.status.CRT)) + Number(this.status_add.CRT) + Number(this.status_job.CRT);
 
                         this.computeattribute['TransSTR'] = this.status_total.STR;
                         var TempDEX = this.status_total.DEX;
@@ -6273,6 +6481,11 @@
                             Math.floor(this.status.Level / 4) +
                             Math.floor(this.status_total.DEX / 5)
                         );
+                        this.attritube['StatusATK'] += this.status_total.POW * 5;
+                        this.attritube['StatusMATK'] += this.status_total.SPL * 5;
+                        this.attritube['PATK'] = Math.floor(this.status_total.POW/3) + Math.floor(this.status_total.CON/5);
+                        this.attritube['SMATK'] = Math.floor(this.status_total.SPL/3) + Math.floor(this.status_total.CON/5);
+                        this.attritube['CRIDR'] = Math.floor(this.status_total.CRT/3);
 
                         this.attritube['CRI'] += 2.2 + this.status_total.LUK * 0.3;
                         if (this.weapon.type.id == 'Katars') 
@@ -6514,6 +6727,9 @@
                     this.computeattribute.atkc5_min += Number(para7) + Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
                     this.computeattribute.atkc5_max += Number(para7) + Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
 
+                    this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.attritube['PATK'] / 100));
+                    this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.attritube['PATK'] / 100));
+
                     if (this.IsSupportActive('TK_POWER')) {
                         var paraKihop = Number(1) + Number((this.GetSupportSkill('TK_POWER').arg1 - 1) * this.GetSupportSkill('TK_POWER').lv * 2 / 100);
                         this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, paraKihop);
@@ -6655,14 +6871,14 @@
                     if( isNA ){
                         // 普攻暴擊 *1.4
                         if( isCRI ){
-                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.option.BaseCriticalValue / 100));
-                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number((this.option.BaseCriticalValue+this.attritube['CRIDR']) / 100));
+                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number((this.option.BaseCriticalValue+this.attritube['CRIDR']) / 100));
                         }
                     }else{
                         // 技能暴擊 *1.4
                         if (this.skill.critical && isCRI) {
-                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.option.BaseCriticalValue / 100));
-                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.option.BaseCriticalValue / 100));
+                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number((this.option.BaseCriticalValue+this.attritube['CRIDR']) / 100));
+                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number((this.option.BaseCriticalValue+this.attritube['CRIDR']) / 100));
                         }
                     }
 
@@ -6766,6 +6982,9 @@
                     this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.matkpercent_min, para5);
                     this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.matkpercent_max, para5);
 
+                    //this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.matkpercent_min, Number(1) + Number(this.attritube['SMATK'] / 100));
+                    //this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.matkpercent_max, Number(1) + Number(this.attritube['SMATK'] / 100));
+
                     var para_elemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalMatkPercent').totalvalue) / 100;
                     var para_magicelemt = Number(1) + Number(this.attritube['ElementalMagicPercent']) / 100;
                     var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceMatkPercent').totalvalue) / 100;
@@ -6781,6 +7000,8 @@
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_size);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_mons);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_mons);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, Number(1) + Number(this.attritube['SMATK'] / 100));
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, Number(1) + Number(this.attritube['SMATK'] / 100));
 
                     this.computeattribute.matk1_min = this.MulOper(this.computeattribute.finalmatk_min, Number(1) + Number(this.enemyattribute.sizeResist / 100));
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.finalmatk_max, Number(1) + Number(this.enemyattribute.sizeResist / 100));
@@ -7824,6 +8045,12 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='DEX').totalvalue);
                     this.status_add.LUK += Number(this.effecttypelist.find(x => x.id == 'LUK').totalvalue) + _AllStatus
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='LUK').totalvalue);
+                    this.status_add.POW += Number(this.effecttypelist.find(x => x.id == 'POW').totalvalue);
+                    this.status_add.STA += Number(this.effecttypelist.find(x => x.id == 'STA').totalvalue);
+                    this.status_add.WIS += Number(this.effecttypelist.find(x => x.id == 'WIS').totalvalue);
+                    this.status_add.SPL += Number(this.effecttypelist.find(x => x.id == 'SPL').totalvalue);
+                    this.status_add.CON += Number(this.effecttypelist.find(x => x.id == 'CON').totalvalue);
+                    this.status_add.CRT += Number(this.effecttypelist.find(x => x.id == 'CRT').totalvalue);
 
                     this.attritube['HP'] += Number(this.effecttypelist.find(x => x.id == 'HP').totalvalue) + _AllStatus
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='HP').totalvalue);
@@ -9011,6 +9238,7 @@
                         { id: 0, coop: '公式協力', name: '賴喵' },
                         { id: 4, coop: '公式測試協力', name: '查爾斯 鶴之翼' },
                         { id: 5, coop: 'KRO測試協力', name: 'PTT sqky990 霧雨さとり' },
+                        { id: 5, coop: 'KRO測試協力', name: 'PTT 梡' },
                         { id: 1, coop: '測試協力', name: '少爺 & 太太' },
                         { id: 2, coop: '測試協力', name: '夕華。' },
                         { id: 3, coop: '測試協力', name: '水絳' },
