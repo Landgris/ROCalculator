@@ -1437,6 +1437,17 @@
                             <el-scrollbar wrap-class="EquipEffectList-container" :native="false" :noresize="false">
                                 <el-row>
                                     <div class="aboutbox" style="padding: 5px 5px; text-align:left">
+                                        <el-row v-if="TestMode" :class="PreviewETL[GetETLIndex('PATK')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                P.ATK
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('PATK')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect('PATK')" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
                                         <el-row :class="PreviewETL[GetETLIndex('Atk')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
                                                 Atk
@@ -1601,6 +1612,17 @@
                             <el-scrollbar wrap-class="EquipEffectList-container" :native="false" :noresize="false">
                                 <el-row>
                                     <div class="aboutbox" style="padding: 5px 5px; text-align:left">
+                                        <el-row v-if="TestMode" :class="PreviewETL[GetETLIndex('SMATK')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                S.MATK
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('SMATK')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect('SMATK')" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
                                         <el-row :class="PreviewETL[GetETLIndex('Matk')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
                                                 Matk
@@ -5405,6 +5427,8 @@
                     { label: 'SPL', id: 'SPL', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'CON', id: 'CON', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'CRT', id: 'CRT', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'PATK', id: 'PATK', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'SMATK', id: 'SMATK', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
 
                     { label: 'Atk', id: 'Atk', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'Atk %', id: 'AtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -6495,8 +6519,10 @@
                         );
                         this.attritube['StatusATK'] += this.status_total.POW * 5;
                         this.attritube['StatusMATK'] += this.status_total.SPL * 5;
-                        this.attritube['PATK'] = Math.floor(this.status_total.POW/3) + Math.floor(this.status_total.CON/5);
-                        this.attritube['SMATK'] = Math.floor(this.status_total.SPL/3) + Math.floor(this.status_total.CON/5);
+                        this.attritube['PATK'] = Math.floor(this.status_total.POW/3) + Math.floor(this.status_total.CON/5) +
+                                                Number(this.effecttypelist.find(x => x.id == 'PATK').totalvalue);
+                        this.attritube['SMATK'] = Math.floor(this.status_total.SPL/3) + Math.floor(this.status_total.CON/5) +
+                                                Number(this.effecttypelist.find(x => x.id == 'SMATK').totalvalue);
                         this.attritube['CRIDR'] = Math.floor(this.status_total.CRT/3);
 
                         this.attritube['CRI'] += 2.2 + this.status_total.LUK * 0.3;
