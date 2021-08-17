@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>RO Calculator</title>
-    <!-- 
+    <!--
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-clipboard2/0.3.1/vue-clipboard.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
-    
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63581889-2"></script>
     <script>
@@ -27,6 +27,11 @@
         gtag('config', 'UA-63581889-2');
     </script>
     <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+        }
+
         [v-cloak] {
             display: none;
         }
@@ -243,7 +248,7 @@
 
         .textcenter {
             text-align: center;
-            vertical-align: middle; 
+            vertical-align: middle;
         }
 
         .titlebox {
@@ -290,7 +295,7 @@
             font-size: 24px;
             font-weight: bold;
         }
-        
+
         .ElementTableCellST25 {
             text-align: center;
             color: rgb(70, 70, 70);
@@ -1567,7 +1572,7 @@
                                                 </el-input>
                                             </el-col>
                                         </el-row>
-                                        
+
                                         <el-row :class="PreviewETL[GetETLIndex('RangedDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
                                                 遠傷 %
@@ -2513,7 +2518,7 @@
         <el-dialog :visible.sync="UIPanel['SupportSkillDialog']" v-on:close="ClosePanel('SupportSkillDialog')"
             custom-class="Dialogue-container" width="40%" top="58px" center>
             <span slot="title">輔助技能</span>
-            
+
             <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
                     style="height:40px;padding: 0px 5px;" :span="8" >
                     <el-col class="textcenter" :span="6" style="text-align: right;">
@@ -2964,7 +2969,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="2">
                                             <el-col class="textcenter" :span="6">Base/Job</el-col>
                                             <el-col class="textcenter" :span="6" style="text-align: left;">
-                                                {{status.Level}} / {{status.JOBLevel}} 
+                                                {{status.Level}} / {{status.JOBLevel}}
                                             </el-col>
                                             <el-col v-if="status.UseJobMaxPoint" class="textcenter el-icon-check skilltag" :span="12" >
                                                 Job加成點
@@ -3206,9 +3211,9 @@
                                     設定
                                 </el-button>
                             </el-col>
-                        </el-row> 
+                        </el-row>
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumActiveFiltered()" v-bind:key="item.id" 
+                            <div class="Item" v-for="(item, index) in ConsumActiveFiltered()" v-bind:key="item.id"
                                 style="height:40px; padding: 3px 10px;">
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
                                     <el-col class="textcenter" :span="24">
@@ -3216,7 +3221,7 @@
                                     </el-col>
                                 </el-row>
                             </div>
-                        </el-row> 
+                        </el-row>
                         <el-row>
                             <div class="boxborder EffectListBlock">
                                 <el-row>
@@ -3528,7 +3533,7 @@
                                 </el-row>
                             </div>
                         </el-row>
-                        
+
                         <el-row class="titlebox" type="flex" align="middle" justify="end"
                                 style="height:40px; padding: 0px 5px;">
                                 <el-col class="textcenter" :span="9">
@@ -3568,7 +3573,7 @@
                                 </el-row>
                                 <div v-for="(item, index) in SupportSkill_JobMaped"
                                     v-bind:key="item.id">
-                                    <el-row 
+                                    <el-row
                                         v-show="!UIPanel['SupportSkillPanel'] | item.skill.active"
                                         :class="item.skill.passive?'optionbox':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
                                         justify="end" style="height:40px;">
@@ -3669,7 +3674,7 @@
                                             </el-switch>
                                         </el-col>
                                     </el-row>
-                                    
+
                                     <el-collapse-transition>
                                         <div v-show="item.skill.active">
                                             <el-row v-show="GetSupportSkill(item.skill.id).argnum >= 1"
@@ -4414,7 +4419,7 @@
                                             </el-row>
                                         </div>
                                     </el-collapse-transition>
-                                    
+
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple-light" :span="10" style="text-align: right;">
@@ -4452,7 +4457,7 @@
                                             <span>{{computeattribute.normalattack_DPS | currency }}</span>
                                         </el-col>
                                     </el-row>
-                                    
+
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
@@ -4496,7 +4501,7 @@
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
                                             <span>技能暴擊傷害({{attritube['CRI']}} %)</span>
                                         </el-col>
-                                        <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max" 
+                                        <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max"
                                             class="textcenter" :span="10">
                                             <span>{{computeattribute.SkillDamageCRI_min | currency }} ~
                                                 {{computeattribute.SkillDamageCRI_max | currency }}</span>
@@ -4510,7 +4515,7 @@
                                         <el-col class="bg-purple" :span="10" style="text-align: right;">
                                             <span>技能暴擊傷害(平均)</span>
                                         </el-col>
-                                        <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max" 
+                                        <el-col v-if="computeattribute.SkillDamageCRI_min != computeattribute.SkillDamageCRI_max"
                                             class="textcenter" :span="10">
                                             <span>{{computeattribute.SkillDamageCRI_avg | currency }}</span>
                                         </el-col>
@@ -5468,7 +5473,7 @@
                     { label: 'HP', id: 'HP', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'SP %', id: 'SPPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: 'SP', id: 'SP', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
-                    
+
                     { label: '無視體型攻擊', id: 'WeaponPerfection', totalvalue: '0', opersymbol: '', suffixsymbol: '' },
                     { label: '浸透勁效果', id: 'WeaponOccult', totalvalue: '0', opersymbol: '', suffixsymbol: '' },
 
@@ -5570,7 +5575,7 @@
                 },
                 status_total_init: {},
                 /*
-                 SK1VCTP %布萊齊 犧牲祈福 
+                 SK1VCTP %布萊齊 犧牲祈福
                  SK2VCTP %指定技能 小雪獸卡
                  EQVCTP %變詠裝
                  VCTS 變詠秒
@@ -5729,7 +5734,7 @@
                     enemymdef: 0,
 
                     SpecialATK0: 0, // 地符
-                    SpecialATK1: 0, // 特殊技能加值  體型修正之前 打擊強化、點穴(半)、祈禱文 
+                    SpecialATK1: 0, // 特殊技能加值  體型修正之前 打擊強化、點穴(半)、祈禱文
                     SpecialATK2: 0, // 特殊加值  種族體型屬性階級+ATK%分支(後ATK)+SpecialATK2   舞蹈練習 砲彈
                     SpecialATK3: 0, // 特殊屬性乘值  ATK%分支 屬性倍率之後 素質ATK之前  要分開乘 但 毒弱 紋章 通常只會有一種
                     SpecialATK4: 0, // 修練加值 修練 神威
@@ -5741,8 +5746,8 @@
                     SpecialATKFront: 0,
                     SpecialRLHand: 0,   //特殊乘值 左右手修練 刺客/忍者
 
-                    atkc0_min: 0,   //武器基礎ATK x [ 1 + ( STR ÷ 200 ) - ( 武器等級 x 0.05 ) 
-                    atkc0_max: 0,   //武器基礎ATK x [ 1 + ( STR ÷ 200 ) + ( 武器等級 x 0.05 ) 
+                    atkc0_min: 0,   //武器基礎ATK x [ 1 + ( STR ÷ 200 ) - ( 武器等級 x 0.05 )
+                    atkc0_max: 0,   //武器基礎ATK x [ 1 + ( STR ÷ 200 ) + ( 武器等級 x 0.05 )
 
                     atkc1_min: 0,   // atkc0 + 精煉ATK  + SpecialATK1 )
                     atkc1_max: 0,
@@ -5775,8 +5780,8 @@
 
                     atkc6_min: 0,
                     atkc6_max: 0,
-                    atkskillcritical_min: 0,  //技能暴擊 
-                    atkskillcritical_max: 0,  //技能暴擊 
+                    atkskillcritical_min: 0,  //技能暴擊
+                    atkskillcritical_max: 0,  //技能暴擊
                     //x 本身 ( 1 + 遠距增傷% ) x ( 1 +暴擊增傷卡裝% )
                     //x 對方為喵族 ( 1 + 10% )x 對方 ( 1 -  遠距減傷% ) x ( 1 - 種族減傷%) x ( 1 - 暴擊減傷%)
 
@@ -5799,7 +5804,7 @@
                     atkc9_min: 0,// x ( 1 + 技能增傷的卡裝%) x ( 1 + 技能增傷的技能% )
                     atkc9_max: 0,
                     atkc9_avg: 0,
-                    
+
                     atkmulti_min: 0,
                     atkmulti_max: 0,
                     SkillDamage_min: 0,
@@ -5964,7 +5969,7 @@
                         })
                         .sum();
                     console.log(ef);
-                    
+
                     //方法2 參考 https://stackoverflow.com/questions/33739726/linq-js-get-subitems
                     var result = Enumerable.from(this.equipspartlist)
                         .where("($.effectlist).some(function (x) { return x.EffectType.id == 'ATK'; })")
@@ -6276,7 +6281,7 @@
                     for( var l=0; l<this.consumablelist.length; ++l ){
                         this.consumablelist[l]['active'] = false;
                     }
-                    this.OnComputeConsumable();    
+                    this.OnComputeConsumable();
                     this.onOption();
                 },
                 OnEditConsumable(id){
@@ -6301,7 +6306,7 @@
                     this.$set(this.consumablelist[_idx],
                                 'active',
                                 !_active);
-                    this.OnComputeConsumable();    
+                    this.OnComputeConsumable();
                     this.onOption();
                 },
                 ComputConsumAndOption(){
@@ -6526,7 +6531,7 @@
                         this.attritube['CRIDR'] = Math.floor(this.status_total.CRT/3);
 
                         this.attritube['CRI'] += 2.2 + this.status_total.LUK * 0.3;
-                        if (this.weapon.type.id == 'Katars') 
+                        if (this.weapon.type.id == 'Katars')
                         {
                             this.attritube['CRI'] = this.attritube['CRI'] * 2;
                         }
@@ -6568,7 +6573,7 @@
                             /*                             _BaseHP = Enumerable.From(this.classlist)
                                                                 .Where("$.id == '" + this.status.classid + "'")
                                                                 .Select("$.basehp[" + Number(this.status.Level - 99) + "]")
-                                                                .Single(); 
+                                                                .Single();
                                                         _BaseSP = Enumerable.From(this.classlist)
                                                                 .Where("$.id == '" + this.status.classid + "'")
                                                                 .Select("$.basesp[" + Number(this.status.Level - 99) + "]")
@@ -6841,7 +6846,7 @@
                         }
                     }
 
-                    //技能倍率 
+                    //技能倍率
                     var para_na = Number(this.computeattribute['SpecialATK6']);
                     var para8 = Math.floor(Number(this.option.SkillPercent)) + Number(this.computeattribute['SpecialATK5']);
                     para_na = Number(1) + Number(para_na / 100);
@@ -6905,7 +6910,7 @@
 
                     this.computeattribute.atkc9_min = this.computeattribute.atkc8_min;
                     this.computeattribute.atkc9_max = this.computeattribute.atkc8_max;
-                    
+
                     if( isNA ){
                         // 普攻暴擊 *1.4
                         if( isCRI ){
@@ -7064,7 +7069,7 @@
 
                     this.computeattribute.matk2_min = this.computeattribute.skillmatk_min;
                     this.computeattribute.matk2_max = this.computeattribute.skillmatk_max;
-                    
+
                     if (this.option.IgnoreMDEF == false) {
                         var parabypassMDEF = Number(1) - Number(this.attritube['BYPASSMDEF']) / 100;
                         var paraMDEF = ((1000 + this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)) /
@@ -7078,7 +7083,7 @@
 
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk3_min, Number(this.skilloption.ElementalPercent / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk3_max, Number(this.skilloption.ElementalPercent / 100));
-                    
+
                     //this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
                     //this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
 
@@ -7124,7 +7129,7 @@
                         weaponmatk_min: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 -  武器等級 x 0.10 ))
                         weaponmatk_max: 0,  // statusmatk + (( 武器MATK + 精煉MATK ) x ( 1 +  武器等級 x 0.10 ))
                         equipmatk_min: 0,   // weaponmatk_min x (1 + 0.05 × 魔力增幅等級 ) + 卡裝MATK )
-                        equipmatk_max: 0, 
+                        equipmatk_max: 0,
                         matkpercent_min: 0, // equipmatk_min x 本身( 1 + MATK增傷%)
                         matkpercent_max: 0,
                         finalmatk_min: 0,   // x ( 1 + 我方屬性增傷%) x ( 1 + 對方屬性增傷%) x ( 1+ 種族增傷%) x (1 + 體型增傷%)
@@ -7154,7 +7159,7 @@
                     this.computeattribute.DragonBreathDMG = Math.floor(this.computeattribute.DragonBreathDMG * Number(this.option.SkillPercent / 100));
 
                     this.computeattribute.DragonBreathDMG = this.MulOper(this.computeattribute.DragonBreathDMG, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
-                  
+
                     if (this.option.IgnoreDEF == false) {
                         if (this.skill.transWeaponDEF) {
                             this.computeattribute.DragonBreathDMG = this.computeattribute.DragonBreathDMG - Number(this.enemyattribute.WeaponDEF) - Number(this.enemyattribute.StatusDEF);
@@ -7162,7 +7167,7 @@
                     }
                     //技能增傷裝
                     this.computeattribute.DragonBreathDMG = this.MulOper(this.computeattribute.DragonBreathDMG, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
-                    
+
                     //遠程增傷
                     var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
                     if (this.skill.ranged) {
@@ -7205,10 +7210,10 @@
                             this.ComputeATKAtttibute(true, true);
                             this.ComputeATKAtttibute(true, false);
                             this.computeattribute.normalattack_DPS = this.ComputeATKDPS(
-                                this.computeattribute.normalattack_min,  
+                                this.computeattribute.normalattack_min,
                                 this.computeattribute.normalattack_max,
-                                this.computeattribute.normalcritical_min,  
-                                this.computeattribute.normalcritical_max,  
+                                this.computeattribute.normalcritical_min,
+                                this.computeattribute.normalcritical_max,
                             );
                             this.ComputeATKAtttibute(false, true);
                             this.ComputeATKAtttibute(false, false);
@@ -7234,7 +7239,7 @@
                                     _Damage = this.ComputeMATKAtttibute(-i*100);
                                     _DamageTotalMin += Number(_Damage.Min);
                                     _DamageTotalMax += Number(_Damage.Max);
-                                } 
+                                }
                                 this.computeattribute.matk4_min = _DamageTotalMin;
                                 this.computeattribute.matk4_max = _DamageTotalMax;
                                 this.computeattribute.matk4_avg = (_DamageTotalMin+_DamageTotalMax)*0.5;
@@ -7247,11 +7252,11 @@
                                 this.computeattribute.matkmulti_max = Number(_Damage.Max);
                                 this.computeattribute.matkmulti_avg = (this.computeattribute.matkmulti_min+this.computeattribute.matkmulti_max)*0.5;
                             }
-                            
+
                             this.computeattribute.matkmulti_DPS = this.ComputeMATKDPS(
                                 this.computeattribute.matkmulti_min,
                                 this.computeattribute.matkmulti_max
-                            ); 
+                            );
                             this.OpenPanel('MATKPanel');
                             break;
                         case 2:
@@ -7284,7 +7289,7 @@
                             return v==this.status.classid | v=='Universal'
                         });
                     });
-                    
+
                     this.ClassInfo = Enumerable.From(this.classlist)
                             .Where("$.id == '" + this.status.classid + "'")
                             .Single();
@@ -7457,7 +7462,7 @@
                     this.computeattribute['SpecialATK3'] = 0;   // 毒弱
                     this.computeattribute['SpecialATK4'] = 0;   // 修練 神威
                     this.computeattribute['SpecialATK5'] = 0;   // 狙殺 盧1 兇砍
-                    this.computeattribute['SpecialATK6'] = 0;   // 狂怒之槍 
+                    this.computeattribute['SpecialATK6'] = 0;   // 狂怒之槍
                     this.computeattribute['SpecialATK7'] = 0;   // 虎砲
                     this.computeattribute['SpecialATK8'] = 0;   // 靈氣劍
                     this.computeattribute['SpecialATKFront'] = 0;   // 前ATK前ATK
@@ -7481,7 +7486,7 @@
                     if (this.IsSupportActive('SA_ADVANCEDBOOK')){ if(this.weapon.type.id == 'Books' ){ this.skilloption.WeaponMasteryATK+=30; this.attritube['ASPDP'] += 5;} }
                     if (this.IsSupportActive('TK_RUN')){ if(this.weapon.type.id == 'Empty' ){ this.skilloption.WeaponMasteryATK+=this.GetSupportSkill('TK_RUN').lv*10;} }
                     if (this.IsSupportActive('RL_RICHS_COIN')){ if(this.weapon.type.id == 'Guns' ){ this.skilloption.WeaponMasteryATK+=30;} }
-                    
+
                     //雙手劍攻擊速度增加
                     if (this.IsSupportActive('KN_TWOHANDQUICKEN')) {
                         if (this.weapon.type.id == 'TwoHandedSword') {
@@ -7513,7 +7518,7 @@
                         }
                         this.computeattribute['SpecialATK6'] += 250;
                     }
-                    // 艾伊瓦茲:提升鬥志(盧5) 
+                    // 艾伊瓦茲:提升鬥志(盧5)
                     if (this.IsSupportActive('RK_FIGHTINGSPIRIT')){
                         this.attritube['ATK'] += 70;
                     }
@@ -7526,7 +7531,7 @@
                         this.attritube['HPP'] += 30;
                         this.attritube['SPP'] += 30;
                     }
-                    
+
                     // 信任
                     if (this.IsSupportActive('CR_TRUST')) {
                         this.attritube['HP'] += 2000;
@@ -7831,7 +7836,7 @@
                     if (this.IsSupportActive('SR_GENTLETOUCH_CHANGE')){
                         //this.computeattribute['SpecialATK1'] += (this.status_total.STR / 2 + this.status_total.DEX / 4) * 5 / 5;
                         this.attritube['ASPDP'] += this.status_total.AGI * 5 / 60;
-                        
+
                         this.attritube['ATK'] += 40;
                         this.attritube['ATKP'] += 5;
                         if (this.skill.id.includes('SR_RAMPAGEBLASTER') || this.skill.id.includes('SR_KNUCKLEARROW'))
@@ -8340,7 +8345,7 @@
                 onSaveStatus() {
                     // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
                     // let copy = $.extend(true, {}, obj); //使用 jquery.extend
-                    // JSON.parse(JSON.stringify(this.)) 
+                    // JSON.parse(JSON.stringify(this.))
                     if (this.StatusName.trim() == '') return;
                     this.StoreDB_Status.unshift({
                         uuid: this._uuid(), name: this.StatusName
@@ -8429,7 +8434,7 @@
                 onSaveSkill() {
                     // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
                     // let copy = $.extend(true, {}, obj); //使用 jquery.extend
-                    // JSON.parse(JSON.stringify(this.)) 
+                    // JSON.parse(JSON.stringify(this.))
                     if (this.skill.formula == '') { this.option.SkillFormulaError = "公式為空"; return; }
                     if (this.skill.name == '') { this.option.SkillFormulaError = "技能名為空"; return; }
                     if (this.skill.level < 1) this.skill.level = 1;
@@ -8527,7 +8532,7 @@
                     this.$set(this.TempAllSet, 'Damage', 0);
                     this.$set(this.TempAllSet, 'DamageDPS', 0);
                     this.$set(this.TempAllSet, 'NormalAttackDPS', 0);
-                    
+
                     var _hitnumbervalue = eval(this.SkillFormulaReplace(this.skill.hitnumber));
                     switch (this.skill.DamageTypeIdx) {
                         case 0:
@@ -8691,7 +8696,7 @@
                     return window.btoa(unescape(encodeURIComponent(str)));
                 },
                 // http://levy.work/2017-03-24-black-magic-js-atob-with-utf8/
-                // 使用utf-8字符集解析base64字符串 
+                // 使用utf-8字符集解析base64字符串
                 atou(str) {
                     return decodeURIComponent(escape(atob(str.replace(/-/g, "+").replace(/_/g, "/").replace(/%/g, '%25'))));
                 },
@@ -8784,9 +8789,9 @@
                         { skill: { id: 'RK_HUNDREDSPEAR', name: '百矛穿刺', level: 10, formula: "(600+SLV*200)*BLV/100+5*50", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: "(11-SLV)/10", CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5*50的5為螺旋擊刺等級', } },
                         { skill: { id: 'RK_SONICWAVE', name: '音速衝擊波', level: 10, formula: "(500+SLV*100)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: true, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'RK_STORMBLAST', name: '風暴衝擊', level: 1, formula: "(10+DOWN(STR/8))*100*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '不被突里薩茲:力量成長增傷', } },
-                        
+
                         { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/150*1.2', class: 'RK', DamageTypeIdx: 2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '現有HPSP影響傷害', } },
-                        
+
                         { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '(700+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 1, VCT: 5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(1000+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 1, VCT: 6, CD: 7, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_JACKFROST', name: '凍僵術', level: 5, formula: '(1000+SLV*300)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 1, VCT: 4, CD: 4, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8796,37 +8801,37 @@
                         { skill: { id: 'WL_HELLINFERNO', name: '地獄火焰(暗)', level: 5, formula: '(SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 7, FCT: 1, VCT: 3, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '暗火須分開計算再加總，待修正', } },
                         { skill: { id: 'WL_HELLINFERNO(fire)', name: '地獄火焰(火)', level: 5, formula: '(SLV*400)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 1, FCT: 1, VCT: 3, CD: 3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '暗火須分開計算再加總，待修正', } },
                         { skill: { id: 'WL_COMET', name: '毀滅慧星', level: 5, formula: '(2500+SLV*500)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 2, VCT: 10, CD: 20, GCD: 1.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
+
                         { skill: { id: 'AB_ADORAMUS', name: '謳歌', level: 10, formula: '(330+SLV*70)*BLV/100', class: 'AB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 6, FCT: 0.5, VCT: 2, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
+
                         { skill: { id: 'GC_CROSSIMPACT', name: '十字斬', level: 5, formula: '(1000+SLV*150)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'GC_ROLLINGCUTTER', name: '迴旋刀刃', level: 5, formula: '(50+SLV*80)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'GC_CROSSRIPPERSLASHER', name: '迴旋十字斬', level: 5, formula: '(SLV*80)*BLV/100+(3*AGI+10*200)', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10*200 的10為迴旋刀刃次數，最高10', } },
                         { skill: { id: 'ASC_BREAKER', name: '心靈震波', level: 10, formula: '(SLV*140+STR+INT)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0.25, VCT: 0.25, CD: 0.15, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
-                        { skill: { id: 'NC_AXETORNADO', name: '戰斧颶風', level: 5, formula: 'DOWN((200+100*SLV+VIT)*BLV/100)*((AEI==3)?1.25:1)', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '攻擊屬性為風時倍率1.25倍', } },  
+
+                        { skill: { id: 'NC_AXETORNADO', name: '戰斧颶風', level: 5, formula: 'DOWN((200+100*SLV+VIT)*BLV/100)*((AEI==3)?1.25:1)', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '攻擊屬性為風時倍率1.25倍', } },
                         { skill: { id: 'NC_AXEBOOMERANG', name: '迴旋斧', level: 5, formula: '((50*SLV)+WGT+250)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: "5-(SLV-1)*0.5", GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '武器重量影響、魔導機甲執照不影響', } },
                         { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(300+((ESIZE<2)?((ESIZE<1)?400:350):300)*SLV)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: "(7-SLV)/10", VCT: "(12+SLV*2)/10", CD: "(15*SLV)/100", GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據敵方體型變動', } },
                         { skill: { id: 'NC_VULCANARM', name: '火神砲', level: 3, formula: '(SLV*70+DEX)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NC_BOOSTKNUCKLE', name: '噴射飛拳', level: 5, formula: '((200+SLV*100)+DEX)*BLV/120', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
+
                         { skill: { id: 'RA_AIMEDBOLT', name: '瞄準標靶', level: 10, formula: '(500+SLV*20)*BLV/100', class: 'RA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 1, VCT: 4, CD: 1, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SN_SHARPSHOOTING', name: '銳利射擊', level: 5, formula: '(150+200*SLV)*(BLV/100)', class: 'RA', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0.15, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'RA_ARROWSTORM', name: '箭雨風暴', level: 10, formula: '(1000+SLV*80)*BLV/100', class: 'RA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 3.8, CD: 3.2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
+
                         { skill: { id: 'LG_CANNONSPEAR', name: '加農砲攻擊', level: 5, formula: '(50+STR)*SLV*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'LG_BANISHINGPOINT', name: '放逐攻擊', level: 10, formula: '(SLV*50+10*30)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'LG_EXEEDBREAK', name: '強化衝擊', level: 5, formula: '(SLV*100+(JLV*10)+(WLV*WGT*(BLV/100)))+100', class: 'RG', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 7, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據JOBLV、武器等級、武器重量變動', } },
                         { skill: { id: 'LG_RAYOFGENESIS', name: '創世之光', level: 10, formula: '(SLV*200)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 6, FCT: 0.5, VCT: "0.5+SLV*0.5", CD: 3.5, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'PA_PRESSURE', name: '神之威壓', level: 5, formula: '(500+SLV*150)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 6, FCT: 0.4, VCT: 1, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
+
                         { skill: { id: 'SO_PSYCHIC_WAVE', name: '超自然波', level: 5, formula: '(70*SLV+INT*3)*BLV/100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.6, VCT: 12, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SO_VARETYR_SPEAR', name: '聖槍刺擊', level: 10, formula: '(((5+5)*120)+SLV*(INT/2))*BLV/100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 3, FCT: 1, VCT: 1, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5+5為風附等級+打強等級', } },
                         { skill: { id: 'SO_DIAMONDDUST', name: '鑽石星塵', level: 5, formula: '(1000+INT*SLV)*BLV/100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 2, FCT: 0, VCT: 7, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為水附等級*200', } },
                         { skill: { id: 'SO_EARTHGRAVE', name: '大地墳場', level: 5, formula: '(1000+INT*SLV)*BLV/100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 4, FCT: 1, VCT: 3, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '1000為地附等級*200', } },
                         { skill: { id: 'SO_CLOUD_KILL', name: '雲殺', level: 5, formula: 'SLV*40*BLV/100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 5, FCT: 0, VCT: 3.1, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SO_SPELLFIST', name: '魔力拳', level: 10, formula: '(SLV/2+10)*100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: true, hitnumber: 1, elemental: 1, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10為施放的火箭/冰箭/雷擊技能等級', } },
-                        
+
                         { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
                         { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈>5)', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 100, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
                         { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.25*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 5, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'SLV*240+ELV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
@@ -8837,20 +8842,20 @@
                         { skill: { id: 'SR_KNUCKLEARROW', name: '修羅身彈', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SR_KNUCKLEARROW(ex)', name: '修羅身彈(BOSS)', level: 10, formula: '(500+SLV*200)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SR_GATEOFHELL', name: '羅剎破凰擊', level: 10, formula: '500*SLV*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: '(SP-100)*3+BLV*10+((Mhp>HP)?(Mhp-HP):0)', SpecialMATK1: 0, Note: '現有HPSP影響傷害', } },
-                        
+
                         { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(AGI/2*(SLV-1)+300)*BLV/120', class: 'SC', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SC_FATALMENACE', name: '致命威脅', level: 10, formula: "(100+SLV*100)*BLV/100*((WTI=='Daggers')?2:1)", class: 'SC', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "(WTI=='Daggers')?-2:1", elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
+
                         { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: '(SLV*350+INT/(6-5))*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為手推車改良等級', } },
                         { skill: { id: 'GN_HELLS_PLANT', name: '地獄植物', level: 5, formula: '(SLV*100+INT*5)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為生物挑撥等級', } },
                         { skill: { id: 'GN_SPORE_EXPLOSION', name: '爆炸孢子', level: 10, formula: '(SLV*180+INT+200)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'CR_ACIDDEMONSTRATION', name: '強酸火煙瓶投擲', level: 10, formula: '(SLV*200+INT*2+EVit*10)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '須調整敵方VIT', } },
-            
+
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_SEVERE_RAINSTORM', name: '大暴雨', level: 5, formula: "(DEX+AGI)*(SLV/5)*BLV/100*((WTI=='Instruments'|WTI=='Whips')?1.666:1)", class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 0, FCT: 0.5, VCT: 3.5, CD: 7, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_METALICSOUND', name: '重金屬音樂', level: 10, formula: '(600+SLV*120)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 5.5, CD: 2.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WM_REVERBERATION', name: '殘響', level: 5, formula: '(700+SLV*300)*BLV/100', class: 'MI,WA', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0.5, CD: 0.15, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        
+
                         { skill: { id: 'NJ_KOUENKA', name: '火炎花', level: 10, formula: '90', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_BAKUENRYU', name: '爆炎龍', level: 5, formula: '150+SLV*150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 0.6, VCT: 2.4, CD: 0, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NJ_HYOUSENSOU', name: '冰閃槍', level: 10, formula: '70', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 12, elemental: 2, FCT: 1.4, VCT: 5.6, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8864,13 +8869,13 @@
                         { skill: { id: 'RL_R_TRIP', name: '圓桌舞蹈', level: 10, formula: '(500+SLV*200)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'RL_D_TAIL', name: '魔獸擺尾', level: 10, formula: '(SLV*250)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 5, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'RL_D_TAIL(buff)', name: '魔獸擺尾(血色烙印)', level: 10, formula: '(SLV*500)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 5, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-              
+
                         { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_SOLARBURST', name: '太陽爆炸', level: 10, formula: '(1000+SLV*220)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_NEWMOONKICK', name: '朔月腳', level: 7, formula: '(600+SLV*100+((SLV>3)?100:0))', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_FULLMOONKICK', name: '滿月腳', level: 10, formula: '(1100+SLV*100)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SJ_FALLINGSTAR', name: '流星殞落', level: 10, formula: '(100+SLV*100)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '對主要目標會有兩次相同傷害', } },
-                        
+
                         { skill: { id: 'SP_SPA', name: '艾斯帕', level: 10, formula: '(500+SLV*250)*BLV/100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 10, formula: '(1100+SLV*200)*BLV/100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SP_CURSEEXPLOSION', name: '邪靈爆炸', level: 10, formula: '400+SLV*100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 7, FCT: 1, VCT: 3, CD: 1, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8912,7 +8917,7 @@
                         { skill: { id: 'GC_POISONINGWEAPON:1', name: '劇毒武器:熱病', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:2', Note: '', } },
                         { skill: { id: 'GC_POISONINGWEAPON:2', name: '劇毒武器:狂笑', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:1', Note: '', } },
                         { skill: { id: 'GC_POISONINGWEAPON', name: '劇毒武器:其他', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON:1,GC_POISONINGWEAPON:2', Note: '', } },
-                        
+
                         { skill: { id: 'AL_INCAGI', name: '加速術', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AB_CANTO', Note: '', } },
                         { skill: { id: 'AL_BLESSING', name: '天使之賜福', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AB_CLEMENTIA', Note: '', } },
                         { skill: { id: 'AB_CANTO', name: '純白百合花', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 1, arg1: 70, arg1desc: '施展者JOB等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AL_INCAGI', Note: '', } },
@@ -8981,7 +8986,7 @@
                         { skill: { id: 'SA_VOLCANO', name: '火元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_DELUGE,SA_VIOLENTGALE', Note: '', } },
                         { skill: { id: 'SA_DELUGE', name: '水元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_VOLCANO,SA_VIOLENTGALE', Note: '', } },
                         { skill: { id: 'SA_VIOLENTGALE', name: '風元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_VOLCANO,SA_DELUGE', Note: '', } },
-                        
+
                         { skill: { id: 'NJ_NEN', name: '念', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'KO_KAHU_ENTEN', name: '火符:炎天', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'KO_HYOUHU_HUBUKI,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
                         { skill: { id: 'KO_HYOUHU_HUBUKI', name: '冰符:吹雪', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
@@ -8990,12 +8995,12 @@
                         { skill: { id: 'KO_IZAYOI', name: '十六夜', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'OB_ZANGETSU', name: '變形的上弦月', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'KG_KAGEMUSYA', name: '影子武士', maxlv: 5, lv: 5, class: 'KO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
-                        
+
                         { skill: { id: 'RL_RICHS_COIN', name: '富翁的財貨', maxlv: 1, lv: 1, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'GS_MADNESSCANCEL', name: '瘋狂凱斯樂', maxlv: 1, lv: 1, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'RL_P_ALTER', Note: '', } },
                         { skill: { id: 'GS_GATLINGFEVER', name: '格林狂熱', maxlv: 10, lv: 10, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'RL_P_ALTER', name: '白金祭壇', maxlv: 5, lv: 5, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GS_MADNESSCANCEL', Note: '', } },
-                        
+
                         { skill: { id: 'TK_SEVENWIND', name: '溫暖的風', maxlv: 1, lv: 1, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'TK_RUN', name: '跑步', maxlv: 10, lv: 10, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'TK_POWER', name: '加油', maxlv: 5, lv: 5, class: 'SE', changelv: false, argnum: 1, arg1: 1, arg1desc: '隊友數(包含自己)', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
@@ -9009,14 +9014,14 @@
                         { skill: { id: 'SJ_LIGHTOFSUN', name: '太陽光輝', maxlv: 5, lv: 5, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SJ_LIGHTOFMOON,SJ_LIGHTOFSTAR', Note: '', } },
                         { skill: { id: 'SJ_LIGHTOFMOON', name: '月亮光輝', maxlv: 5, lv: 5, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SJ_LIGHTOFSUN,SJ_LIGHTOFSTAR', Note: '', } },
                         { skill: { id: 'SJ_LIGHTOFSTAR', name: '星星光輝', maxlv: 5, lv: 5, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SJ_LIGHTOFSUN,SJ_LIGHTOFMOON', Note: '', } },
-                        
+
                         { skill: { id: 'SP_SOULCOLLECT', name: '靈魂蓄積(數)', maxlv: 20, lv: 20, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SP_SOULSHADOW', name: '影子靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULFAIRY,SP_SOULFALCON,SP_SOULGOLEM', Note: '', } },
                         { skill: { id: 'SP_SOULFAIRY', name: '精靈靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFALCON,SP_SOULGOLEM', Note: '', } },
                         { skill: { id: 'SP_SOULFALCON', name: '隼鷹靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFAIRY,SP_SOULGOLEM', Note: '', } },
                         { skill: { id: 'SP_SOULGOLEM', name: '巨人靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFAIRY,SP_SOULFALCON', Note: '', } },
                         { skill: { id: 'SP_SOULCURSE', name: '邪惡靈魂詛咒', maxlv: 1, lv: 1, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
-                        
+
                         { skill: { id: 'SU_POWEROFLIFE', name: '生命力量 (遠傷20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_POWEROFLAND', name: '大地力量 (Matk20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_BUNCHOFSHRIMP', name: '蝦群', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
@@ -9118,7 +9123,7 @@
                         { id:12662, name:'變身卷軸(惡耗女妖)', active:false, group:'TransScroll', MATK:25},
                         { id:22754, name:'變身卷軸(行妖術者)', active:false, group:'TransScroll', MATK:50},
                         { id:22755, name:'變身卷軸(風魔巫師)', active:false, group:'TransScroll', MATK:50},
-                    ); 
+                    );
 
                     this.KeywordReplaceList.push(
                         { str1: 'STR', str2: 'this.status_total.STR', description: '代入總STR' },
@@ -9317,7 +9322,7 @@
                 inputtest(item) {
                     console.log(item);
                 },
-                
+
                 ConsumGroupFiltered(group) {
                     return this.consumablelist.filter(
                         function(row){
