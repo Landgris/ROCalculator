@@ -4567,7 +4567,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>物理對屬性%:</span>
+                                                <span>對屬性魔物%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['ElementalAtkPercent']}} %</span>
@@ -4576,7 +4576,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>物理階級%:</span>
+                                                <span>階級%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['LevelAtkPercent']}} %</span>
@@ -4585,7 +4585,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>物理種族%:</span>
+                                                <span>種族%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{effecttypelist[GetETLIndex('RaceAtkPercent')].totalvalue}} %</span>
@@ -4594,7 +4594,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>物理體型%:</span>
+                                                <span>體型%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube['SizeAtkPercent']}} %</span>
@@ -4612,7 +4612,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>屬性抗性%:</span>
+                                                <span>敵方屬性抗性減少%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{computeattribute['SpecialATK3']}} %</span>
@@ -4704,7 +4704,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>魔法階級%:</span>
+                                                <span>階級%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{effecttypelist[GetETLIndex('LevelMatkPercent')].totalvalue}} %</span>
@@ -4713,7 +4713,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>魔法種族%:</span>
+                                                <span>種族%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{effecttypelist[GetETLIndex('RaceMatkPercent')].totalvalue}} %</span>
@@ -4722,7 +4722,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>魔法體型%:</span>
+                                                <span>體型%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{effecttypelist[GetETLIndex('SizeMatkPercent')].totalvalue}} %</span>
@@ -4740,7 +4740,7 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>屬性抗性%:</span>
+                                                <span>敵方屬性抗性減少%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{computeattribute['SpecialATK3']}} %</span>
@@ -5150,7 +5150,7 @@
                     { label: '物理種族 %', id: 'RaceAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理體型 %', id: 'SizeAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '對屬性魔物Atk %', id: 'ElementalAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '對屬性魔物 %', id: 'ElementalAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理特定魔物 %', id: 'MonsterAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '近傷 %', id: 'MeleeDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -5162,7 +5162,7 @@
                     { label: '魔法種族 %', id: 'RaceMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '魔法體型 %', id: 'SizeMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '魔法階級 %', id: 'LevelMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
-                    { label: '對屬性魔物Matk %', id: 'ElementalMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '對屬性魔物 %', id: 'ElementalMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '屬性魔法 %', id: 'ElementalMagicPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '魔法特定魔物 %', id: 'MonsterMatkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '無視魔法防禦 %', id: 'BypassMDEFPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -8863,6 +8863,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-8-17', content: '調整部分效果文字 變得更簡潔跟統一<br>調整計算機邊界樣式 by wildsky' },
                         { id: '2021-8-9', content: '增加預設技能 神之威壓' },
                         { id: '2021-8-6', content: '增加預設技能 創世之光' },
                         { id: '2021-7-27', content: '修正輔助技能 宇宙英姿ALL+5' },
