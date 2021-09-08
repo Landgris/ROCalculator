@@ -3694,11 +3694,20 @@
                                     <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                         v-show="subweapon.type.id==1">
                                         <el-col :span="6" style="text-align: right;">
+                                            <span>盾牌精煉: </span>
+                                        </el-col>
+                                        <el-col :span="6">
+                                            <div class="grid-content">
+                                                <el-input v-model.number="subweapon.refinelevel" placeholder="SRL">
+                                                </el-input>
+                                            </div>
+                                        </el-col>
+                                        <el-col :span="6" style="text-align: right;">
                                             <span>盾牌重量: </span>
                                         </el-col>
                                         <el-col :span="6">
                                             <div class="grid-content">
-                                                <el-input v-model.number="subweapon.ShieldWeight" placeholder="SHWGT">
+                                                <el-input v-model.number="subweapon.ShieldWeight" placeholder="SHW">
                                                 </el-input>
                                             </div>
                                         </el-col>
@@ -7305,6 +7314,10 @@
                         this.attritube['MELDP'] += 10;
                         this.attritube['GCD'] += 10;
                     }
+                    // 潛擊
+                    if (this.IsSupportActive('RG_RAID')){
+                        this.computeattribute['SpecialATK3'] += 15;
+                    }
                     // 大聲吶喊
                     if (this.IsSupportActive('MC_LOUD')){
                         this.status_add.STR += 4;
@@ -8530,6 +8543,7 @@
                         { skill: { id: 'LG_CANNONSPEAR', name: '加農砲攻擊', level: 5, formula: '(50+STR)*SLV*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'LG_BANISHINGPOINT', name: '放逐攻擊', level: 10, formula: '(SLV*50+10*30)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'LG_EXEEDBREAK', name: '強化衝擊', level: 5, formula: '(SLV*100+(JLV*10)+(WLV*WGT*(BLV/100)))+100', class: 'RG', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 7, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據JOBLV、武器等級、武器重量變動', } },
+                        { skill: { id: 'LG_SHIELDPRESS', name: '重壓盾擊', level: 10, formula: '(200*SLV+STR+SHW)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'VIT*SRL', SpecialMATK1: 0, Note: '依據VIT、盾牌重量精煉值變動', } },
                         { skill: { id: 'LG_RAYOFGENESIS', name: '創世之光', level: 10, formula: '(SLV*200)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 6, FCT: 0.5, VCT: "0.5+SLV*0.5", CD: 3.5, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'PA_PRESSURE', name: '神之威壓', level: 5, formula: '(500+SLV*150)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 6, FCT: 0.4, VCT: 1, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
 
@@ -8625,7 +8639,8 @@
                         { skill: { id: 'GC_POISONINGWEAPON:1', name: '劇毒武器:熱病', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:2', Note: '', } },
                         { skill: { id: 'GC_POISONINGWEAPON:2', name: '劇毒武器:狂笑', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:1', Note: '', } },
                         { skill: { id: 'GC_POISONINGWEAPON', name: '劇毒武器:其他', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON:1,GC_POISONINGWEAPON:2', Note: '', } },
-
+                        { skill: { id: 'RG_RAID', name: '潛擊狀態(對Boss階級)', maxlv: 1, lv: 1, class: 'SC', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                 
                         { skill: { id: 'AL_INCAGI', name: '加速術', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AB_CANTO', Note: '', } },
                         { skill: { id: 'AL_BLESSING', name: '天使之賜福', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AB_CLEMENTIA', Note: '', } },
                         { skill: { id: 'AB_CANTO', name: '純白百合花', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 1, arg1: 70, arg1desc: '施展者JOB等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AL_INCAGI', Note: '', } },
@@ -8851,6 +8866,7 @@
                         { str1: 'WLV', str2: 'this.weapon.level.id', description: '代入武器等級' },
                         { str1: 'WGT', str2: 'this.weapon.Weight', description: '代入武器重量' },
                         { str1: 'WTI', str2: 'this.weapon.type.id', description: '代入武器類型' },
+                        { str1: 'SRL', str2: 'this.subweapon.refinelevel', description: '代入盾牌精煉' },
                         { str1: 'SHW', str2: 'this.subweapon.ShieldWeight', description: '代入盾牌重量' },
                         { str1: 'ELV', str2: 'this.enemyattribute.level', description: '代入敵方等級' },
                         { str1: 'ESIZE', str2: 'this.enemyattribute.size', description: '代入敵方體型' },
@@ -8861,6 +8877,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-9-8', content: '增加輔助技能 潛擊<br>增加預設技能 重壓盾擊<br>增加公式關鍵字 SRL盾牌精煉值<br>增加盾牌精煉輸入欄位' },
                         { id: '2021-9-6', content: '修正預設輔助技能 怒爆會把攻擊屬性改成火的BUG' },
                         { id: '2021-8-17', content: '調整部分效果文字 變得更簡潔跟統一<br>調整計算機邊界樣式 by wildsky' },
                         { id: '2021-8-9', content: '增加預設技能 神之威壓' },
