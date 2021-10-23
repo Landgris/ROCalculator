@@ -3240,6 +3240,16 @@
                                     <el-col class="textcenter" :span="6">{{option.EquipSkillAddDamage}}</el-col>
                                     <el-col class="textcenter" :span="4">%</el-col>
                                 </el-row>
+                                <el-row  v-show="status.classid=='GE'" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="8">手推車重量</el-col>
+                                    <el-col class="textcenter" :span="8" >
+                                        <el-input-number v-model.number="skilloption.CarWeight" :min="0" :max="10500" :maxlength="5" v-on:input="onOption" :controls=false placeholder="手推車重量">
+                                        </el-input-number>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="8" >
+                                        Max: 10500
+                                    </el-col>
+                                </el-row>
                             </div>
                         </el-row>
 
@@ -5427,6 +5437,7 @@
                     ElementalPercent: 0,        //屬性倍率
                     WeaponMasteryATKInput: 0,
                     WeaponMasteryATK: 0,        //武器修練
+                    CarWeight: 10500,               //手推車重量
                 },
                 option_init: '',
                 option:
@@ -8222,6 +8233,7 @@
                     if (this.skill.SpecialMATK1 == null) this.skill.SpecialMATK1 = 0;
                     if (this.skill.DamageTypeIdx == null) this.skill.DamageTypeIdx = 0;
                     this.skilloption.AttackElementalIdx = this.skill.elemental;
+                    this.skilloption.CarWeight = 10500;
                     this.ComputElementalPercent();  // -> onOption
                 },
                 onRemoveSkillSave(saveid) {
@@ -8447,6 +8459,7 @@
                     if (this.skill.SpecialATK8 == null) this.skill.SpecialATK8 = 0;
                     if (this.skill.SpecialMATK1 == null) this.skill.SpecialMATK1 = 0;
                     if (this.skill.DamageTypeIdx == null) this.skill.DamageTypeIdx = 0;
+                    if (this.skilloption.CarWeight == null) this.skilloption.CarWeight = 10500;
                     if (this.status.UseJobMaxPoint == null) this.status.UseJobMaxPoint = false;
                     if (this.status.MHP == null) {this.status.MHP = 0; console.log("yaaaa")}
                     if (this.status.MSP == null) this.status.MSP = 0;
@@ -8569,6 +8582,8 @@
                         { skill: { id: 'SC_FATALMENACE', name: '致命威脅', level: 10, formula: "(100+SLV*100)*BLV/100*((WTI=='Daggers')?2:1)", class: 'SC', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "(WTI=='Daggers')?-2:1", elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
 
                         { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: '(SLV*350+INT/(6-5))*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為手推車改良等級', } },
+                        { skill: { id: 'GN_CART_TORNADO', name: '手推車龍捲風', level: 10, formula: '1000+250+DOWN(CRW/(150-((STR>120)?120:STR)))', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '預設改造5等，須調整手推車重量(Max:10500)', } },
+                        
                         { skill: { id: 'GN_HELLS_PLANT', name: '地獄植物', level: 5, formula: '(SLV*100+INT*5)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為生物挑撥等級', } },
                         { skill: { id: 'GN_SPORE_EXPLOSION', name: '爆炸孢子', level: 10, formula: '(SLV*180+INT+200)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'CR_ACIDDEMONSTRATION', name: '強酸火煙瓶投擲', level: 10, formula: '(SLV*200+INT*2+EVit*10)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '須調整敵方VIT', } },
@@ -8869,6 +8884,7 @@
                         { str1: 'WTI', str2: 'this.weapon.type.id', description: '代入武器類型' },
                         { str1: 'SRL', str2: 'this.subweapon.refinelevel', description: '代入盾牌精煉' },
                         { str1: 'SHW', str2: 'this.subweapon.ShieldWeight', description: '代入盾牌重量' },
+                        { str1: 'CRW', str2: 'this.skilloption.CarWeight', description: '代入手推車重量' },
                         { str1: 'ELV', str2: 'this.enemyattribute.level', description: '代入敵方等級' },
                         { str1: 'ESIZE', str2: 'this.enemyattribute.size', description: '代入敵方體型' },
                         { str1: 'EVit', str2: 'this.enemyattribute.VIT', description: '代入敵方VIT' },
@@ -8878,6 +8894,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-10-23', content: '增加預設技能 手推車龍捲風<br>增加設定手推車重量<br>增加公式關鍵字 手推車重量 CRW' },
                         { id: '2021-9-22', content: '增加預設技能 強制驅逐' },
                         { id: '2021-9-8', content: '增加輔助技能 潛擊<br>增加預設技能 重壓盾擊<br>增加公式關鍵字 SRL盾牌精煉值<br>增加盾牌精煉輸入欄位' },
                         { id: '2021-9-6', content: '修正預設輔助技能 怒爆會把攻擊屬性改成火的BUG' },
@@ -9018,6 +9035,7 @@
                         { id: 3, coop: '測試協力', name: '蒼之聖典' },
                         { id: 3, coop: '測試協力', name: '查爾斯 ︴★﹑莓〃琥珀°' },
                         { id: 3, coop: '測試協力', name: '波利 懶惰牛' },
+                        { id: 3, coop: '測試協力', name: '巴基力 咱們來shopping吧' },
                         { id: 4, coop: '公式協力', name: '查爾斯 烈焰' },
                         { id: 4, coop: '公式協力', name: '阿松' },
                         { id: 0, coop: '公式協力', name: '琉璃廣' },
