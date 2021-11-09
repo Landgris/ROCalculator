@@ -3587,6 +3587,26 @@
                                                 </el-col>
                                             </el-row>
                                         </el-row>
+                                        <el-row v-if="TestMode" :gutter="4" type="flex" align="middle" justify="start">
+                                            <el-row :gutter="4" type="flex" align="middle" justify="space-around">
+                                                <el-col :span="12" style="text-align: right;">
+                                                    <span>箭矢ATK:</span>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <el-input v-model.number="weapon.ArrowATK" placeholder="箭矢ATK">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row :gutter="4" type="flex" align="middle" justify="space-around">
+                                                <el-col :span="12" style="text-align: right;">
+                                                    <span>子彈ATK:</span>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <el-input v-model.number="weapon.ArrowATK" placeholder="子彈ATK">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
+                                        </el-row>
                                     </el-row>
                                     <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                         <el-col class="textcenter" :span="4">
