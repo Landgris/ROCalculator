@@ -3599,10 +3599,10 @@
                                             </el-row>
                                             <el-row :gutter="4" type="flex" align="middle" justify="space-around">
                                                 <el-col :span="12" style="text-align: right;">
-                                                    <span>子彈ATK:</span>
+                                                    <span>砲彈ATK:</span>
                                                 </el-col>
                                                 <el-col :span="12">
-                                                    <el-input v-model.number="weapon.ArrowATK" placeholder="子彈ATK">
+                                                    <el-input v-model.number="weapon.BulletATK" placeholder="砲彈ATK">
                                                     </el-input>
                                                 </el-col>
                                             </el-row>
@@ -8891,6 +8891,12 @@
                         { str1: 'INT', str2: 'this.status_total.INT', description: '代入總INT' },
                         { str1: 'DEX', str2: 'this.status_total.DEX', description: '代入總DEX' },
                         { str1: 'LUK', str2: 'this.status_total.LUK', description: '代入總LUK' },
+                        { str1: 'POW', str2: 'this.status_total.POW', description: '代入總POW' },
+                        { str1: 'STA', str2: 'this.status_total.STA', description: '代入總STA' },
+                        { str1: 'WIS', str2: 'this.status_total.WIS', description: '代入總WIS' },
+                        { str1: 'SPL', str2: 'this.status_total.SPL', description: '代入總SPL' },
+                        { str1: 'CON', str2: 'this.status_total.CON', description: '代入總CON' },
+                        { str1: 'CRT', str2: 'this.status_total.CRT', description: '代入總CRT' },
                         { str1: 'BLV', str2: 'this.status.Level', description: '代入角色基本等級' },
                         { str1: 'JLV', str2: 'this.status.JOBLevel', description: '代入角色職業等級' },
                         { str1: 'HP', str2: 'this.status.HP', description: '代入HP' },
