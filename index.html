@@ -154,7 +154,7 @@
                                     龍之氣息 / 龍之氣息(水)、龍駕馭、音速衝擊波、風暴衝擊、風壓飛刃、致命爆裂<br>
                                     盾咒LV3、放逐攻擊、加農砲攻擊、創世之光、靈感<br>
                                     加農砲、噴射飛拳、戰斧颶風、火神砲<br>
-                                    手推車龍捲風、手推車加農砲<br>
+                                    手推車龍捲風、手推車加農砲、火山塵暴<br>
                                     心靈震波、迴旋十字斬、十字斬、致命爪痕<br>
                                     自動魅影念咒、三角射擊<br>
                                     魔力增幅、靈魂爆炸、毀滅彗星<br>
@@ -7407,7 +7407,7 @@
                     }
                     // 火山塵暴
                     if (this.IsSupportActive('MH_PYROCLASTIC')){
-                        this.attritube['ATK'] += Number(this.GetSupportSkill('MH_PYROCLASTIC').arg1) + 10 * 10;
+                        this.attritube['ATK'] += Number(this.GetSupportSkill('MH_PYROCLASTIC').arg1) + 10 * 20;
                     }
                     if (this.skill.cannon) {
                         this.computeattribute['SpecialATK2'] += this.weapon.BulletATK;
