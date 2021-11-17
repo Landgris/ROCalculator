@@ -6580,7 +6580,7 @@
                     var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
                     //if( this.skill.halfcridmg ) 
                     //if( this.IsSupportActive('SG_FUSION') == false){
-                        para_crid = Number(1) + Math.floor(Number(this.attritube['CRIDP']) * 0.5) / 100;
+                        para_crid = Number(1) + Number(this.attritube['CRIDP']) * 0.5 / 100;
                     //}
                     if( isNA ){
                         if( isCRI ){
@@ -7516,7 +7516,8 @@
                     }
                     // 打強
                     if (this.IsSupportActive('SO_STRIKING')){
-                        this.computeattribute['SpecialATK1'] += 100;
+                        this.attritube['ATK'] += 100;
+                        //this.computeattribute['SpecialATK1'] += 100;   //old
                     }
                     // 雲毒
                     if (this.IsSupportActive('SO_CLOUD_POSION')){
@@ -8780,7 +8781,7 @@
                         { skill: { id: 'WM_DANCE_WITH_WUG', name: '與狼共舞', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SA_ADVANCEDBOOK', name: '進化之書', maxlv: 10, lv: 10, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SA_DRAGONOLOGY', name: '龍知識', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'SO_STRIKING', name: '打擊強化', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 1, arg1: 20, arg1desc: '屬附總等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SO_STRIKING', name: '打擊強化', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SO_CLOUD_POSION', name: '雲毒', maxlv: 1, lv: 1, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },                   
                         { skill: { id: 'SO_FIRE_INSIGNIA', name: '火之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_WATER_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
                         { skill: { id: 'SO_WATER_INSIGNIA', name: '水之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
@@ -8968,6 +8969,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-11-18', content: '調整暴傷小數點問題<br>輔助技能打擊強化 變更為卡裝ATK' },
                         { id: '2021-11-17', content: '調整風壓飛刃、致命威脅的連擊公式順序' },
                         { id: '2021-11-16', content: '四轉前優化公式(全數完成) 有問題麻煩在回報 感謝' },
                         { id: '2021-11-15', content: '四轉前優化公式(有部分未完成請參考巴哈文章)<br>暴傷在計算時皆降為一半 ' },
