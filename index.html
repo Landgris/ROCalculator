@@ -9232,6 +9232,9 @@
                 this.onChangeClass();
                 this.onChangeSupportClass();
                 this.OpenPanel('General');
+                window.onbeforeunload = e => {   //關閉 重新整理
+                    return ''
+                };
             }
 
         })
