@@ -33,7 +33,7 @@
     <div id="App" v-cloak>
 
         <el-dialog :visible.sync="UIPanel['AboutDialog']" v-on:close="ClosePanel('AboutDialog')"
-            custom-class="Dialogue-container" width="45%" top="58px" center>
+            custom-class="Dialogue-container" width="45%" top="50px" center>
             <span slot="title">關於</span>
             <el-row :gutter="6">
                 <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
@@ -97,7 +97,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['DonateDialog']" v-on:close="ClosePanel('DonateDialog')"
-            custom-class="Dialogue-container" width="45%" top="58px" center>
+            custom-class="Dialogue-container" width="45%" top="50px" center>
             <el-row :gutter="6">
                 <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
                 <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
@@ -134,7 +134,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['UpdateLogDialog']" v-on:close="ClosePanel('UpdateLogDialog')"
-            custom-class="Dialogue-container" width="80%" top="58px" center>
+            custom-class="Dialogue-container" width="80%" top="50px" center>
             <span slot="title">更新內容</span>
             <el-row :gutter="6">
                 <el-col span="12">
@@ -147,23 +147,10 @@
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
                                     ●▅▇█▇▆▆▅▄▇ ヽ(・×・´)ゞ<br>
-                                    最近都在FF14跟AOE4 不過還是會上來RO測試一下新公式<br>
                                     四轉前優化更新!!!!!!! 詳細請參考巴哈文章<br><br>
-                                    現在測到的問題 雲殺沒有實裝毒耐性降低<br>
-                                    所有技能暴擊的暴傷加成減半<br><br>
-                                    全部的技能都已經修改好了 以下:<br>
-                                    龍之氣息、龍駕馭、音速衝擊波、風暴衝擊、風壓飛刃、致命爆裂<br>
-                                    盾咒LV3、放逐攻擊、支配烙印、支配烙印(半月斬)、加農砲攻擊、創世之光、靈感<br>
-                                    加農砲、噴射飛拳、戰斧颶風、火神砲<br>
-                                    手推車龍捲風、手推車加農砲、火山塵暴<br>
-                                    心靈震波、迴旋十字斬、十字斬、致命爪痕<br>
-                                    自動魅影念咒、三角射擊、致命威脅<br>
-                                    魔力增幅、靈魂爆炸、毀滅彗星<br>
-                                    自然波、魔力拳、打擊強化、鑽石星塵、大地墳場、聖槍刺擊、雲殺、劇毒猛擊<br>
-                                    謳歌<br>
-                                    虎砲、雷光彈<br>
-                                    銳利射擊、瞄準標靶、箭雨風暴<br>
-                                    重金屬音樂、大暴雨<br><br>
+                                    雲殺沒有實裝毒耐性降低<br>
+                                    <br>
+                                    暴擊技能預設都是暴傷減半<br>
                                     <br>
                                     新增了需要配合前一招影響倍率的技能:<br>
                                     劇毒猛擊(雲毒) 瞄準標靶 箭雨風暴(微風) 創世之光(靈感) 支配烙印(半月斬)<br>
@@ -209,7 +196,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['SpecialthanksDialog']" v-on:close="ClosePanel('SpecialthanksDialog')"
-            custom-class="Dialogue-container" width="60%" top="58px" center>
+            custom-class="Dialogue-container" width="60%" top="50px" center>
             <span slot="title">特別感謝</span>
             <el-row :gutter="6">
                 <el-col :span="12">
@@ -248,7 +235,7 @@
                 </el-col>
             </el-row>
         </el-dialog>
-        <el-dialog :visible.sync="UIPanel['SkillDBDialog']" custom-class="Dialogue-container" width="85%" top="58px"
+        <el-dialog :visible.sync="UIPanel['SkillDBDialog']" custom-class="Dialogue-container" width="85%" top="50px"
             v-on:close="ClosePanel('SkillDBDialog')" center>
             <span slot="title">技能清單</span>
             <el-row :gutter="2">
@@ -714,7 +701,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['EquipEffectDialog']" custom-class="EffectList-container" width="70%"
-            top="58px" v-on:close="ClosePanel('EquipEffectDialog')" center>
+            top="50px" v-on:close="ClosePanel('EquipEffectDialog')" center>
             <span slot="title">增加 <b>{{EquipSelectLabel}}</b> 裝備效果</span>
             <div class="statusbox titlebox" style="padding: 5px 5px; height: 40px;">
                 <el-row :gutter="6" type="flex" align="middle">
@@ -752,7 +739,7 @@
             </div>
 
         </el-dialog>
-        <el-dialog :visible.sync="UIPanel['EditEquipDialog']" custom-class="EffectList-container" width="70%" top="58px"
+        <el-dialog :visible.sync="UIPanel['EditEquipDialog']" custom-class="EffectList-container" width="70%" top="50px"
             v-on:close="ClosePanel('EditEquipDialog')" center>
             <span slot="title">編輯裝備 <b>{{EquipSelectLabel}}</b></span>
             <el-row class="statusbox titlebox" style="padding: 5px 5px; height: 60px;":gutter="4" type="flex" align="middle" justify="end" >
@@ -1476,7 +1463,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['EquipDBDialog']" v-on:close="ClosePanel('EquipDBDialog')"
-            custom-class="Dialogue-container" width="70%" top="58px" center>
+            custom-class="Dialogue-container" width="70%" top="50px" center>
             <span slot="title">裝備清單</span>
             <el-row :gutter="6">
                 <div class="statusbox titlebox" style="padding: 5px 5px;">
@@ -1575,7 +1562,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['EquipTextDialog']" v-on:close="ClosePanel('EquipTextDialog')"
-            custom-class="Dialogue-container" width="40%" top="58px" :show-close=false center>
+            custom-class="Dialogue-container" width="40%" top="50px" :show-close=false center>
             <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:50px; padding: 0px 0px;">
                 <el-col :span="12">
                     <el-button v-on:click="CopyEquipText('Equip')">複製裝備文字</el-button>
@@ -1591,7 +1578,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['StatusDBDialog']" v-on:close="ClosePanel('StatusDBDialog')"
-            custom-class="Dialogue-container" width="85%" top="58px" center>
+            custom-class="Dialogue-container" width="85%" top="50px" center>
             <span slot="title">角色清單</span>
             <el-row :gutter="2">
                 <el-col :span="8">
@@ -1799,7 +1786,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['AllSetDBDialog']" v-on:close="ClosePanel('AllSetDBDialog')"
-            custom-class="Dialogue-container" width="85%" top="58px" center>
+            custom-class="Dialogue-container" width="85%" top="50px" center>
             <span slot="title">配置清單(測試)</span>
             <el-row :gutter="2">
                     <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
@@ -1860,7 +1847,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['AllSetDBSaveDialog']" v-on:close="ClosePanel('AllSetDBSaveDialog')"
-            custom-class="Dialogue-container" width="40%" top="58px" center>
+            custom-class="Dialogue-container" width="40%" top="50px" center>
             <span slot="title">儲存配置</span>
             <el-row :gutter="2">
                 <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
@@ -1915,7 +1902,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['ConsumableDBDialog']" custom-class="Dialogue-container" width="80%"
-            top="58px" v-on:close="ClosePanel('ConsumableDBDialog')" center>
+            top="50px" v-on:close="ClosePanel('ConsumableDBDialog')" center>
             <span slot="title">使用消耗品</span>
             <el-row class="statusbox titlebox" style="padding: 5px 5px; height: 60px;":gutter="4" type="flex" align="middle" justify="end" >
                 <el-col :span="2">
@@ -2193,7 +2180,7 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['ElementTableDialog']" v-on:close="ClosePanel('ElementTableDialog')"
-            custom-class="Dialogue-container" width="65%" top="58px" center>
+            custom-class="Dialogue-container" width="65%" top="50px" center>
             <span slot="title">屬性相剋倍率表</span>
             <el-row >
                 <el-row type="flex" class="titlebox textcenter" align="middle" justify="center"
@@ -2249,7 +2236,7 @@
         </el-dialog>
 
         <el-dialog :visible.sync="UIPanel['SupportSkillDialog']" v-on:close="ClosePanel('SupportSkillDialog')"
-            custom-class="Dialogue-container" width="40%" top="58px" center>
+            custom-class="Dialogue-container" width="40%" top="50px" center>
             <span slot="title">輔助技能</span>
 
             <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
@@ -6415,14 +6402,31 @@
                 ComputeCastDelay() {
                     var _MaxCastTime = 999;
                     var _StatusDI = (this.status_total.DEX * 2 + this.status_total.INT);
+                    var _GCDRate = (1 - (-this.attritube['GCD']) / 100) * 100;
                     this.computeattribute.CastDEXINT = this.status_total.INT * 0.5 + this.status_total.DEX;
                     if (_StatusDI > 530) _StatusDI = 530;
                     this.computeattribute.CastTime =
                         (eval(this.SkillFormulaReplace(this.skill.VCT)) + this.attritube['VCTS']) * (1 - Math.sqrt(_StatusDI / 530)) * (1 + this.attritube['EQVCTP'] / 100) * (1 + this.attritube['SK1VCTP'] / 100) * (1 + this.attritube['SK2VCTP'] / 100) +
                         this.clamp((eval(this.SkillFormulaReplace(this.skill.FCT)) - (-this.attritube['FCT'])), 0, 999) * (1 - (-this.attritube['FCTP']) / 100);
                     this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 10000) / 10000, 0, _MaxCastTime);
-                    this.computeattribute.DelayTime = Math.max(Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * (1 - (-this.attritube['GCD']) / 100) * 100) / 100,
+                    this.computeattribute.DelayTime = Math.max(
+                        Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * _GCDRate) / 100,
                         eval(this.SkillFormulaReplace(this.skill.CD)) - (-this.attritube['CD']));
+
+                    if(this.IsSupportActive('WL_RELEASE'))   
+                    {   //詠唱0 GCD維持
+                        this.computeattribute.CastTime = 0;
+                        this.computeattribute.DelayTime = Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * _GCDRate) / 100;
+                    } 
+                    if(this.IsSupportActive('WL_READING_SB'))   
+                    {   //固詠1 變詠5 GCD0.5
+                        this.computeattribute.CastTime =
+                            (5 + this.attritube['VCTS']) * (1 - Math.sqrt(_StatusDI / 530)) * (1 + this.attritube['EQVCTP'] / 100) * (1 + this.attritube['SK1VCTP'] / 100) * (1 + this.attritube['SK2VCTP'] / 100) +
+                            this.clamp((1 - (-this.attritube['FCT'])), 0, 999) * (1 - (-this.attritube['FCTP']) / 100);
+                        this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 10000) / 10000, 0, _MaxCastTime);
+                        this.computeattribute.DelayTime = Math.floor(0.5 * _GCDRate) / 100 +
+                            Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * _GCDRate) / 100;
+                    }
                     this.computeattribute.AspdDelay = Math.floor((200 - this.attritube.ASPD) / 50 * 100) / 100;
                     var _MAxDelay = Math.max(this.computeattribute.CastTime + this.computeattribute.DelayTime, this.computeattribute.AspdDelay);
                     this.computeattribute.HitperSec = Math.floor(1 / _MAxDelay * 100) / 100;
@@ -8621,6 +8625,7 @@
                         { skill: { id: 'LG_OVERBRAND(ex)', name: '支配烙印(半月斬)', level: 5, formula: '(SLV*450+STR+DEX)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0, CD: 0.3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'LG_EXEEDBREAK', name: '強化衝擊', level: 5, formula: '(SLV*100+(JLV*10)+(WLV*WGT*(BLV/100)))+100', class: 'RG', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 7, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據JOBLV、武器等級、武器重量變動', } },
                         { skill: { id: 'LG_SHIELDPRESS', name: '重壓盾擊', level: 10, formula: '(200*SLV+STR+SHW)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'VIT*SRL', SpecialMATK1: 0, Note: '依據VIT、盾牌重量精煉值變動', } },
+                        { skill: { id: 'LG_EARTHDRIVE', name: '大地毀滅', level: 5, formula: '(380*SLV+STR+VIT)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 1, CD: "(8-SLV)", GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },     
                         { skill: { id: 'LG_RAYOFGENESIS', name: '創世之光', level: 10, formula: '(300+SLV*200+2*INT)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 6, FCT: 0.5, VCT: 5, CD: 2, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'LG_RAYOFGENESIS(ex)', name: '創世之光(靈感)', level: 10, formula: '(1000+SLV*200+2*INT)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 6, FCT: 0.5, VCT: 5, CD: 2, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'PA_PRESSURE', name: '神之威壓', level: 5, formula: '(500+SLV*150)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 6, FCT: 0.4, VCT: 1, CD: 1, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8752,6 +8757,8 @@
                         //{ skill: { id: 'HT_BEASTBANE', name: '動物殺手', maxlv: 10, lv: 10, class: 'RA', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'RA_UNLIMIT', name: '精英狙擊', maxlv: 5, lv: 5, class: 'RA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'RA_RESEARCHTRAP', name: '陷阱研究', maxlv: 10, lv: 10, class: 'RA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'WL_RELEASE', name: '釋放', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'WL_READING_SB', Note: '', } },
+                        { skill: { id: 'WL_READING_SB', name: '閱讀魔法書+釋放', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'WL_RELEASE', Note: '', } },
                         { skill: { id: 'WL_RECOGNIZEDSPELL', name: '魔法省悟', maxlv: 5, lv: 5, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'HW_MAGICPOWER', name: '魔力增幅', maxlv: 10, lv: 10, class: 'WL', changelv: false, argnum: 0, arg1: 50, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'MagicAddicted', name: '魔力中毒', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
@@ -8969,6 +8976,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-11-25', content: '增加預設技能 大地毀滅<br>增加輔助技能 釋放/閱讀魔法書+釋放<br>　　　　　　 會改變當前技能的詠唱跟延遲來模擬連續施放(不計施法動作)' },
                         { id: '2021-11-19', content: '增加重整/關閉時的提醒視窗<br>修正預設技能 支配烙印的獨延時間' },
                         { id: '2021-11-18', content: '調整暴傷小數點問題<br>輔助技能打擊強化 變更為卡裝ATK' },
                         { id: '2021-11-17', content: '調整風壓飛刃、致命威脅的連擊公式順序' },
