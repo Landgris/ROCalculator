@@ -739,7 +739,7 @@
             </div>
 
         </el-dialog>
-        <el-dialog :visible.sync="UIPanel['EditEquipDialog']" custom-class="EffectList-container" width="70%" top="50px"
+        <el-dialog :visible.sync="UIPanel['EditEquipDialog']" custom-class="EffectList-container" width="80%" top="50px"
             v-on:close="ClosePanel('EditEquipDialog')" center>
             <span slot="title">編輯裝備 <b>{{EquipSelectLabel}}</b></span>
             <el-row class="statusbox titlebox" style="padding: 5px 5px; height: 60px;":gutter="4" type="flex" align="middle" justify="end" >
@@ -1021,6 +1021,7 @@
                     <el-scrollbar wrap-class="EquipEffectList-container" :native="false" :noresize="false">
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 10px; text-align:left">
+
                                 <el-row :class="PreviewETL[GetETLIndex('SkillDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
                                         技能增傷 %
@@ -1148,6 +1149,17 @@
                                     <el-col class="textcenter" :span="12">
                                         <el-input v-if="PreviewETL[0]"
                                             v-model="PreviewETL[GetETLIndex('Cri')].totalvalue"
+                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row :class="PreviewETL[GetETLIndex('ElementDamageDealtIncreasedPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        屬性耐性減少%
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-input v-if="PreviewETL[0]"
+                                            v-model="PreviewETL[GetETLIndex('ElementDamageDealtIncreasedPercent')].totalvalue"
                                             v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
                                         </el-input>
                                     </el-col>
@@ -1300,6 +1312,18 @@
                                             <el-col class="textcenter" :span="12">
                                                 <el-input v-if="PreviewETL[0]"
                                                     v-model="PreviewETL[GetETLIndex('RangedDamagePercent')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+
+                                        <el-row :class="PreviewETL[GetETLIndex('RangedDamageDealtIncreasedPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                遠傷耐性減少%
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('RangedDamageDealtIncreasedPercent')].totalvalue"
                                                     v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
                                                 </el-input>
                                             </el-col>
@@ -4574,6 +4598,15 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>遠傷耐性減少%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['RNGDDI']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                                 <span>近傷%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
@@ -4652,19 +4685,19 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>忽略物防(乘算) %:</span>
+                                                <span>屬性耐性減少%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{attritube['BYPASSDEF']}} %</span>
+                                                <span>{{attritube['ELEDDI']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>敵方屬性抗性減少%:</span>
+                                                <span>忽略物防(乘算) %:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute['SpecialATK3']}} %</span>
+                                                <span>{{attritube['BYPASSDEF']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -4780,19 +4813,19 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>忽略魔防(乘算) %:</span>
+                                                <span>屬性耐性減少%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{attritube['BYPASSMDEF']}} %</span>
+                                                <span>{{attritube['ELEDDI']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>敵方屬性抗性減少%:</span>
+                                                <span>忽略魔防(乘算) %:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute['SpecialATK3']}} %</span>
+                                                <span>{{attritube['BYPASSMDEF']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -4836,10 +4869,19 @@
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                             style="height:40px;">
                                             <el-col class="bg-purple-light" :span="10" style="text-align: right;">
-                                                <span>屬性抗性%:</span>
+                                                <span>遠傷耐性減少%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute['SpecialATK3']}} %</span>
+                                                <span>{{attritube['RNGDDI']}} %</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>屬性耐性減少%:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ELEDDI']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5204,6 +5246,7 @@
                     { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '近傷 %', id: 'MeleeDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '遠傷耐性減少 %', id: 'RangedDamageDealtIncreasedPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '無視物理防禦 %', id: 'BypassDEFPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
 
                     { label: 'Matk', id: 'Matk', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
@@ -5219,6 +5262,7 @@
                     { label: '技能增傷 %', id: 'SkillDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '技能獨延', id: 'CDTime', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\s' },
                     { label: '技能後(共)延%', id: 'GCDPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
+                    { label: '屬性耐性減少 %', id: 'ElementDamageDealtIncreasedPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '變詠 %', id: 'VariableCastPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '變詠', id: 'VariableCastSecond', totalvalue: '0', opersymbol: '\-', suffixsymbol: 's' },
                     { label: '指定技能變詠 %', id: 'SPSkillVariableCastPercent', totalvalue: '0', opersymbol: '\-', suffixsymbol: '\%' },
@@ -5346,7 +5390,8 @@
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0, DEF: 0, MDEF: 0, HP: 0, HPP: 0, SP: 0, SPP: 0,
                     PATK: 0, SMATK: 0, CRIDR: 0, RES: 0, MRES: 0,
-                    ASPD: 0, ASPDP: 0, CRI: 0, HIT: 0, CRIDP: 0, RNGDP: 0, MELDP: 0,
+                    ASPD: 0, ASPDP: 0, CRI: 0, HIT: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, 
+                    ELEDDI: 0, RNGDDI: 0,  //damage dealt increased    ELEDDI = Element RNGDDI = Range 
                     SK1VCTP: 0, SK2VCTP: 0, EQVCTP: 0, VCTS:0, FCT: 0, FCTP: 0, CD: 0, GCD: 0,
                     BYPASSDEF: 0, BYPASSMDEF: 0,
                     WeaponPerfection: 0, WeaponOccult: 0,
@@ -5494,9 +5539,9 @@
                     enemymdef: 0,
 
                     SpecialATK0: 0, // 地符
-                    SpecialATK1: 0, // 特殊技能加值  體型修正之前 打擊強化、點穴(半)、祈禱文
+                    SpecialATK1: 0, // 無用 壞掉的祈禱文
                     SpecialATK2: 0, // 特殊加值  種族體型屬性階級+ATK%分支(後ATK)+SpecialATK2   舞蹈練習 砲彈
-                    SpecialATK3: 0, // 特殊屬性乘值  ATK%分支 屬性倍率之後 素質ATK之前  要分開乘 但 毒弱 紋章 通常只會有一種
+                    SpecialATK3: 0, // 無用
                     SpecialATK4: 0, // 修練加值 修練 神威
                     // 技能倍率*SpecialATK5+SpecialATK6
                     SpecialATK5: 0, // 特殊技能乘值  技能倍率後 DEF之前  狙殺
@@ -5535,7 +5580,7 @@
 
                     atkc5_min: 0,
                     atkc5_max: 0,
-                    //atkc4_max x 屬性倍率 x (1 + SpecialATK3) x (使用左手武器時 1 - 25%)
+                    //atkc4_max x 屬性倍率 x (1 + 屬耐) x (使用左手武器時 1 - 25%)
                     // + 素質ATK x 2+ 修煉ATK + 武器強悍 + SpecialATK4
 
                     atkc6_min: 0,
@@ -6519,8 +6564,8 @@
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc4_min, Number(this.skilloption.ElementalPercent / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc4_max, Number(this.skilloption.ElementalPercent / 100));
 
-                    this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
-                    this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+                    this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.attritube['ELEDDI'] / 100));
+                    this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.attritube['ELEDDI'] / 100));
 
                     var para7 = Number(this.attritube['StatusATK']);
                     if( isNA ) { //普攻
@@ -6668,6 +6713,9 @@
                         this.computeattribute.atkc8_max = Math.floor(this.computeattribute.atkc7_max * Number(this.computeattribute['SpecialRLHand'] / 100));
                     }
 
+                    this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.attritube['RNGDDI'] / 100));
+                    this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.attritube['RNGDDI'] / 100));
+
                     if( isNA == false ){
                         var parasp6 = Number(this.computeattribute['SpecialATK7']);
                         this.computeattribute.atkc8_min += parasp6;
@@ -6799,11 +6847,8 @@
                     //    Number(this.effecttypelist.find(x => x.id == 'LevelMatkPercent').totalvalue / 100);
 
                     var para4 = Number(1) + Number(this.attritube['MATKP'] / 100);
-                    var para5 = Number(1) + Number(this.effecttypelist.find(x => x.id == 'LevelMatkPercent').totalvalue / 100);
                     this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.equipmatk_min, para4);
                     this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.equipmatk_max, para4);
-                    this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.matkpercent_min, para5);
-                    this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.matkpercent_max, para5);
 
                     //this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.matkpercent_min, Number(1) + Number(this.attritube['SMATK'] / 100));
                     //this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.matkpercent_max, Number(1) + Number(this.attritube['SMATK'] / 100));
@@ -6813,6 +6858,7 @@
                     var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceMatkPercent').totalvalue) / 100;
                     var para_size = Number(1) + Number(this.effecttypelist.find(x => x.id == 'SizeMatkPercent').totalvalue) / 100;
                     var para_mons = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MonsterMatkPercent').totalvalue) / 100;
+                    var para_level = Number(1) + Number(this.effecttypelist.find(x => x.id == 'LevelMatkPercent').totalvalue / 100);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.matkpercent_min, para_elemt);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.matkpercent_max, para_elemt);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_magicelemt);
@@ -6821,6 +6867,8 @@
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_race);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_size);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_size);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_level);
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_level);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_mons);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_mons);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, Number(1) + Number(this.attritube['SMATK'] / 100));
@@ -6835,8 +6883,8 @@
                     this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.enemyattribute.levelResist / 100));
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.enemyattribute.levelResist / 100));
 
-                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
-                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.attritube['ELEDDI'] / 100));
+                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.attritube['ELEDDI'] / 100));
 
                     if (this.skill.laterformula == false) {
                         var para_skillpercent = Math.floor(this.option.SkillPercent) + Number(this.computeattribute['SpecialMATK1']) + Number(mflag);
@@ -6863,9 +6911,6 @@
 
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk3_min, Number(this.skilloption.ElementalPercent / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk3_max, Number(this.skilloption.ElementalPercent / 100));
-
-                    //this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
-                    //this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
 
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialMATK2'] / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialMATK2'] / 100));
@@ -6938,7 +6983,7 @@
                     this.option.SkillPercent = Math.floor(this.option.SkillPercent) * 100;
                     this.computeattribute.DragonBreathDMG = Math.floor(this.computeattribute.DragonBreathDMG * Number(this.option.SkillPercent / 100));
 
-                    this.computeattribute.DragonBreathDMG = this.MulOper(this.computeattribute.DragonBreathDMG, Number(1) + Number(this.computeattribute['SpecialATK3'] / 100));
+                    this.computeattribute.DragonBreathDMG = this.MulOper(this.computeattribute.DragonBreathDMG, Number(1) + Number(attritube['ELEDDI']/ 100));
 
                     if (this.option.IgnoreDEF == false) {
                         if (this.skill.transWeaponDEF) {
@@ -7062,6 +7107,9 @@
                             return v==this.status.classid
                         });
                     });
+
+                    if(this.TestMode == false)
+                    this.StoreDB_JobMapedSkill = this.StoreDB_JobMapedSkill.filter(post => post.skill.intest == null);
 
                     this.SupportSkill_JobMaped = this.DefaultDB_SupportSkill.filter(post => {
                         return post.skill.class.split(',').some(v=>
@@ -7237,9 +7285,9 @@
                     if (this.skilloption.WeaponMasteryATKInput == '') this.skilloption.WeaponMasteryATKInput = 0;
                     this.skilloption.WeaponMasteryATK = this.skilloption.WeaponMasteryATKInput;
                     this.computeattribute['SpecialATK0'] = 0;   // 地符
-                    this.computeattribute['SpecialATK1'] = 0;   // 打強 點穴
+                    this.computeattribute['SpecialATK1'] = 0;   // 僅剩下壞掉的祈禱文
                     this.computeattribute['SpecialATK2'] = 0;   // 練習舞蹈 砲彈ATK
-                    this.computeattribute['SpecialATK3'] = 0;   // 毒弱
+                    this.computeattribute['SpecialATK3'] = 0;   // 暫時無
                     this.computeattribute['SpecialATK4'] = 0;   // 修練 神威
                     this.computeattribute['SpecialATK5'] = 0;   // 狙殺 盧1 兇砍
                     this.computeattribute['SpecialATK6'] = 0;   // 狂怒之槍
@@ -7362,7 +7410,7 @@
                     //毒耐性弱化
                     if (this.IsSupportActive('GC_VENOMIMPRESS')){
                         if (this.skilloption.AttackElementalIdx == 5) {
-                            this.computeattribute['SpecialATK3'] = this.GetSupportSkill('GC_VENOMIMPRESS').lv * 10;
+                            this.attritube['ELEDDI'] += this.GetSupportSkill('GC_VENOMIMPRESS').lv * 10;
                         }
                     }
                     // 劇毒武器
@@ -7381,7 +7429,7 @@
                     }
                     // 潛擊
                     if (this.IsSupportActive('RG_RAID')){
-                        this.computeattribute['SpecialATK3'] += 15;
+                        this.attritube['ELEDDI'] += 15;
                     }
                     // 自動魅影念咒
                     if (this.IsSupportActive('SC_AUTOSHADOWSPELL')){
@@ -7412,6 +7460,14 @@
                     // 火山塵暴
                     if (this.IsSupportActive('MH_PYROCLASTIC')){
                         this.attritube['ATK'] += Number(this.GetSupportSkill('MH_PYROCLASTIC').arg1) + 10 * 20;
+                    }
+                    // 手推車加速
+                    if (this.IsSupportActive('GN_CARTBOOST')){
+                        this.attritube['ATK'] += 50;
+                    }
+                    // 爆炸孢子狀態
+                    if (this.IsSupportActive('GN_SPORE')){
+                        this.attritube['RNGDDI'] = 5;
                     }
                     if (this.skill.cannon) {
                         this.computeattribute['SpecialATK2'] += this.weapon.BulletATK;
@@ -7504,7 +7560,7 @@
                     }
                     // 魔力中毒
                     if (this.IsSupportActive('MagicAddicted')){
-                        this.computeattribute['SpecialATK3'] += 50;
+                        this.attritube['ELEDDI'] += 50;
                     }
                     // 終極念力
                     if (this.IsSupportActive('WL_TELEKINESIS_INTENSE')){
@@ -7526,7 +7582,7 @@
                     // 雲毒
                     if (this.IsSupportActive('SO_CLOUD_POSION')){
                         if (this.skilloption.AttackElementalIdx == 5) {
-                            this.computeattribute['SpecialATK3'] += 25;
+                            this.attritube['ELEDDI'] += 25;
                         }
                     }
                     // 紋章
@@ -7680,7 +7736,7 @@
                                     this.computeattribute['SpecialATK1'] += this.weapon.ATK * ((this.GetSupportSkill('AB_ORATIO').lv * 2) / 100);
                                     break;
                                 case 1:
-                                    //this.computeattribute['SpecialATK3'] += (this.GetSupportSkill('AB_ORATIO').lv * 2);
+                                    //this.attritube['ELEDDI'] += (this.GetSupportSkill('AB_ORATIO').lv * 2);
                                     break;
                                 case 2:
                                     break;
@@ -7721,7 +7777,7 @@
                     }
                     if (this.IsSupportActive('SP_SOULCURSE')){
                         if (this.skilloption.AttackElementalIdx == 7) {
-                            this.computeattribute['SpecialATK3'] += 100;
+                            this.attritube['ELEDDI'] += 100;
                         }
                     }
                     //念
@@ -7915,6 +7971,8 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='RangedDamagePercent').totalvalue);
                     this.attritube['MELDP'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='MeleeDamagePercent').totalvalue);
+                    this.attritube['RNGDDI'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamageDealtIncreasedPercent').totalvalue);
+                    this.attritube['ELEDDI'] += Number(this.effecttypelist.find(x => x.id == 'ElementDamageDealtIncreasedPercent').totalvalue);
                     this.attritube['BYPASSDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassDEFPercent').totalvalue);
                     if (this.attritube['BYPASSDEF'] > 100) this.attritube['BYPASSDEF'] = 100;
                     this.attritube['BYPASSMDEF'] += Number(this.effecttypelist.find(x => x.id == 'BypassMDEFPercent').totalvalue);
@@ -8656,8 +8714,9 @@
                         { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: '(SLV*350+2*INT/(6-5))*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為手推車改良等級', } },
                         { skill: { id: 'GN_CART_TORNADO', name: '手推車龍捲風', level: 10, formula: '2000+250+DOWN(CRW/(150-((STR>120)?120:STR)))', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '預設改造5等，須調整手推車重量(Max:10500)', } },
                         
+                        { skill: { id: 'GN_CRAZYWEED', name: '瘋狂野草', level: 10, formula: '(700+SLV*100)*BLV/100', class: 'GE', DamageTypeIdx: 0, intest: true, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 7.5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'GN_HELLS_PLANT', name: '地獄植物', level: 5, formula: '(SLV*100+INT*5)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為生物挑撥等級', } },
-                        { skill: { id: 'GN_SPORE_EXPLOSION', name: '爆炸孢子', level: 10, formula: '(SLV*180+INT+200)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 1.5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'GN_SPORE_EXPLOSION', name: '爆炸孢子', level: 10, formula: '(400+SLV*200+INT)*BLV/100', class: 'GE', DamageTypeIdx: 0, intest: true, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 1.5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'CR_ACIDDEMONSTRATION', name: '強酸火煙瓶投擲', level: 10, formula: '(SLV*200+INT*2+EVit*10)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '須調整敵方VIT', } },
 
                         { skill: { id: 'CG_ARROWVULCAN', name: '奧義箭亂舞', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'MI,WA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -9, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 1.5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -8751,6 +8810,8 @@
                         { skill: { id: 'AM_AXEMASTERY', name: '斧頭/單手劍使用熟練度', maxlv: 10, lv: 10, class: 'GE,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'GN_TRAINING_SWORD', name: '單手劍使用熟練度(基因)', maxlv: 5, lv: 5, class: 'GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'MH_PYROCLASTIC', name: '火山塵暴', maxlv: 10, lv: 10, class: 'GE', changelv: false, argnum: 1, arg1: 1, arg1desc: '生命體等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'GN_CARTBOOST', name: '手推車加速', maxlv: 5, lv: 5, class: 'GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'GN_SPORE', name: '爆炸孢子狀態', maxlv: 1, lv: 1, class: 'GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'AC_OWL', name: '鶚梟之眼', maxlv: 10, lv: 0, class: 'RA,MI,WA,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'AC_CONCENTRATION', name: '心神凝聚', maxlv: 10, lv: 10, class: 'RA,MI,WA,SN', changelv: false, argnum: 2, arg1: 0, arg1desc: '裝備AGI', arg2: 0, arg2desc: '裝備DEX', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SN_SIGHT', name: '狙殺瞄準', maxlv: 10, lv: 10, class: 'RA', changelv: false, argnum: 0, arg1: 20, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
@@ -8976,6 +9037,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-11-28', content: '調整魔法攻擊對階級%的公式位置<br>增加輔助技能 手推車加速/ 爆炸孢子狀態<br>調整屬性抗性為屬性耐性<br>增加遠傷耐性<br>裝備設定增加 屬性耐性、遠傷耐性' },
                         { id: '2021-11-25', content: '增加預設技能 大地毀滅<br>增加輔助技能 釋放/閱讀魔法書+釋放<br>　　　　　　 會改變當前技能的詠唱跟延遲來模擬連續施放(不計施法動作)' },
                         { id: '2021-11-19', content: '增加重整/關閉時的提醒視窗<br>修正預設技能 支配烙印的獨延時間' },
                         { id: '2021-11-18', content: '調整暴傷小數點問題<br>輔助技能打擊強化 變更為卡裝ATK' },
