@@ -6983,7 +6983,7 @@
                     this.option.SkillPercent = Math.floor(this.option.SkillPercent) * 100;
                     this.computeattribute.DragonBreathDMG = Math.floor(this.computeattribute.DragonBreathDMG * Number(this.option.SkillPercent / 100));
 
-                    this.computeattribute.DragonBreathDMG = this.MulOper(this.computeattribute.DragonBreathDMG, Number(1) + Number(attritube['ELEDDI']/ 100));
+                    this.computeattribute.DragonBreathDMG = this.MulOper(this.computeattribute.DragonBreathDMG, Number(1) + Number(this.attritube['ELEDDI']/ 100));
 
                     if (this.option.IgnoreDEF == false) {
                         if (this.skill.transWeaponDEF) {
@@ -9037,6 +9037,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2021-12-3', content: '修正上次更新導致龍火無法計算的BUG' },
                         { id: '2021-11-28', content: '調整魔法攻擊對階級%的公式位置<br>增加輔助技能 手推車加速/ 爆炸孢子狀態<br>調整屬性抗性為屬性耐性<br>增加遠傷耐性<br>裝備設定增加 屬性耐性、遠傷耐性' },
                         { id: '2021-11-25', content: '增加預設技能 大地毀滅<br>增加輔助技能 釋放/閱讀魔法書+釋放<br>　　　　　　 會改變當前技能的詠唱跟延遲來模擬連續施放(不計施法動作)' },
                         { id: '2021-11-19', content: '增加重整/關閉時的提醒視窗<br>修正預設技能 支配烙印的獨延時間' },
