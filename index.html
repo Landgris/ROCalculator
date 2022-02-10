@@ -7706,8 +7706,8 @@
                     }
                     //潛龍昇天
                     if (this.IsSupportActive('SR_RAISINGDRAGON')){
-                        this.attritube['HPP'] += 12;
-                        this.attritube['SPP'] += 12;
+                        this.attritube['HPP'] += 10;
+                        this.attritube['SPP'] += 10;
                     }
                     //犧牲祈福
                     if (this.IsSupportActive('PR_SUFFRAGIUM')){
@@ -7989,7 +7989,7 @@
                     this.attritube['FCT'] = -1 * Math.abs(this.attritube['FCT']);
                     this.attritube['EQVCTP'] += Number(this.effecttypelist.find(x => x.id == 'VariableCastPercent').totalvalue)
                                                 +Number(this.consumableeffecttypelist.find(x=>x.id=='VariableCastPercent').totalvalue);
-                    this.attritube['EQVCTP'] = -1 * this.clamp(Math.abs(this.attritube['EQVCTP']), -100, 100);
+                    this.attritube['EQVCTP'] = -1 * this.clamp(this.attritube['EQVCTP'], -200, 200);
                     this.attritube['VCTS'] += Number(this.effecttypelist.find(x => x.id == 'VariableCastSecond').totalvalue);
                     this.attritube['VCTS'] = -1 * Math.abs(this.attritube['VCTS']);
                     this.attritube['SK1VCTP'] = -1 * this.clamp(Math.abs(this.attritube['SK1VCTP']), 0, 100);
@@ -8698,7 +8698,7 @@
                         { skill: { id: 'SO_SPELLFIST', name: '魔力拳', level: 10, formula: '1000+SLV*20', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: true, hitnumber: 1, elemental: 1, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10為施放的火箭/冰箭/雷擊技能等級', } },
 
                         { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
-                        { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈>5)', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 100, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
+                        { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈>5)', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
                         { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.25*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'SLV*240+ELV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
                         { skill: { id: 'SR_TIGERCANNON(ex)', name: '虎砲(大地崩纏後)', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.5*(BLV/100)*1.3333', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 3, GCD: 1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 'SLV*500+ELV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
                         { skill: { id: 'SR_RIDEINLIGHTNING', name: '雷光彈', level: 5, formula: "(SLV*40+((WTI=='Knuckles')?SLV*50:0))*BLV/100", class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 0, VCT: 1, CD: 0.5, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '技能等級=氣彈消耗數, 使用拳套時增傷', } },
@@ -9037,6 +9037,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2022-2-10', content: '修正變動詠唱% 為負的時候計算錯誤' },
                         { id: '2022-1-20', content: '修正預設技能 重金屬音樂 傷害次數-2改為2<br>修正預設技能 戰斧颶風傷害次數1改為-6' },
                         { id: '2021-12-3', content: '修正上次更新導致龍火無法計算的BUG' },
                         { id: '2021-11-28', content: '調整魔法攻擊對階級%的公式位置<br>增加輔助技能 手推車加速/ 爆炸孢子狀態<br>調整屬性抗性為屬性耐性<br>增加遠傷耐性<br>裝備設定增加 屬性耐性、遠傷耐性' },
