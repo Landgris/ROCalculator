@@ -2622,7 +2622,7 @@
                                                     <el-col class="textcenter" :span="1">+</el-col>
                                                     <el-col class="textcenter" :span="4">{{status_job.SPL}}</el-col>
                                                     <el-col class="textcenter" :span="1">=</el-col>
-                                                    <el-col class="textcenter" :span="4">{{status_total.SPL}}</el-col>
+                                                    <el-col class="textcenter" :span="4">{{status_total.S_P_L}}</el-col>
                                                 </el-row>
                                                 <el-row class="statusbox bg-purple-light" type="flex" align="middle"
                                                     style="height:40px;">
@@ -6355,7 +6355,7 @@
                         this.status_total.POW = Number(eval(this.status.POW)) + Number(this.status_add.POW) + Number(this.status_job.POW);
                         this.status_total.STA = Number(eval(this.status.STA)) + Number(this.status_add.STA) + Number(this.status_job.STA);
                         this.status_total.WIS = Number(eval(this.status.WIS)) + Number(this.status_add.WIS) + Number(this.status_job.WIS);
-                        this.status_total.SPL = Number(eval(this.status.SPL)) + Number(this.status_add.SPL) + Number(this.status_job.SPL);
+                        this.status_total.S_P_L = Number(eval(this.status.SPL)) + Number(this.status_add.SPL) + Number(this.status_job.SPL);
                         this.status_total.CON = Number(eval(this.status.CON)) + Number(this.status_add.CON) + Number(this.status_job.CON);
                         this.status_total.CRT = Number(eval(this.status.CRT)) + Number(this.status_add.CRT) + Number(this.status_job.CRT);
 
@@ -6373,10 +6373,10 @@
                             Math.floor(this.status_total.DEX / 5)
                         );
                         this.attritube['StatusATK'] += this.status_total.POW * 5;
-                        this.attritube['StatusMATK'] += this.status_total.SPL * 5;
+                        this.attritube['StatusMATK'] += this.status_total.S_P_L * 5;
                         this.attritube['PATK'] = Math.floor(this.status_total.POW/3) + Math.floor(this.status_total.CON/5) +
                                                 Number(this.effecttypelist.find(x => x.id == 'PATK').totalvalue);
-                        this.attritube['SMATK'] = Math.floor(this.status_total.SPL/3) + Math.floor(this.status_total.CON/5) +
+                        this.attritube['SMATK'] = Math.floor(this.status_total.S_P_L/3) + Math.floor(this.status_total.CON/5) +
                                                 Number(this.effecttypelist.find(x => x.id == 'SMATK').totalvalue);
                         if(this.weapon.level.id == 5)
                         {
@@ -6405,7 +6405,7 @@
                                 _Pt += Math.floor(i / 10) + 13;
                             } else if (i <= 185) {
                                 _Pt += 28 + Math.floor((i - 150) / 7);
-                            } else if (i > 185) {
+                            } else if (i <= 200) {
                                 _Pt += 33 + Math.floor((i - 185) / 7);
                             }
                         }
@@ -6415,8 +6415,8 @@
                             this.RaisingStats(this.status.INT) + this.RaisingStats(this.status.DEX) + this.RaisingStats(this.status.LUK);
 
                         this.computeattribute['RaisingTStatsPoint'] =
-                            Number(this.status.POW) + Number(this.status.STA) + Number(this.status.WIS) +
-                            Number(this.status.SPL) + Number(this.status.CON) + Number(this.status.CRT);
+                            this.GetPureStats(this.status.POW) + this.GetPureStats(this.status.STA) + this.GetPureStats(this.status.WIS) +
+                            this.GetPureStats(this.status.SPL) + this.GetPureStats(this.status.CON) + this.GetPureStats(this.status.CRT);
 
                         // over 100 level
                         var _BaseHP = 35, _BaseSP = 10;
@@ -6642,11 +6642,14 @@
                             this.enemyattribute.elementallevel);
                     }
                     para7 = this.MulOper(Number(para7), Number(para7ele / 100));
-                    this.computeattribute.atkc5_min += Number(para7) + Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
-                    this.computeattribute.atkc5_max += Number(para7) + Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
+                    this.computeattribute.atkc5_min += Number(para7) + /*Number(this.skilloption.WeaponMasteryATK) + */ Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
+                    this.computeattribute.atkc5_max += Number(para7) + /*Number(this.skilloption.WeaponMasteryATK) + */ Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
 
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.attritube['PATK'] / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.attritube['PATK'] / 100));
+
+                    this.computeattribute.atkc5_min += Number(this.skilloption.WeaponMasteryATK);
+                    this.computeattribute.atkc5_max += Number(this.skilloption.WeaponMasteryATK);
 
                     if (this.IsSupportActive('TK_POWER')) {
                         var paraKihop = Number(1) + Number((this.GetSupportSkill('TK_POWER').arg1 - 1) * this.GetSupportSkill('TK_POWER').lv * 2 / 100);
@@ -7078,7 +7081,13 @@
                     if (this.skill.level == '') this.skill.level = 1;
                     var _formula = this.skill.formula;
                     if (this.status.level < 100) _formula = _formula.replace(new RegExp("BLV", "g"), "100");
-                    this.option.SkillPercent = eval(this.SkillFormulaReplace(_formula));
+                    try{
+                        var f = this.SkillFormulaReplace(_formula);
+                        this.option.SkillPercent = eval(f);
+                    } catch (e) {
+                        console.log( "SkillPercent error:" + e);
+                        console.log( "_formula:" + _formula + " try declare to " + f);
+                    }
                     this.ComputeCastDelay();
                     this.ClosePanel('ATKPanel');
                     this.ClosePanel('MATKPanel');
@@ -7144,10 +7153,50 @@
                     }
                 },
                 SkillFormulaReplace(f) {
+                    try{
                     for (x of this.KeywordReplaceList) {
                         f = f.toString().replace(new RegExp(x.str1, "g"), x.str2);
                     }
                     return f;
+                    } catch (e) {
+                    console.log( "錯誤:" + e);
+                    }
+                   /*
+                    var originstring = f;
+                    var currentindex = 0;
+                    var newstring = "";
+                    var tempstring = "";
+                    var findindex = -1;
+                    console.log("originstring: "+originstring);
+                    try{
+                    while (currentindex < originstring.length)
+                    {
+                        originstring = originstring.slice(currentindex,200);
+                        for (x of this.KeywordReplaceList) {
+                            findindex = originstring.indexOf(x.str1, currentindex);
+                            if (findindex > -1)
+                            {
+                                var slicestring = originstring.slice(currentindex, findindex);
+                                currentindex += x.str1.length;
+                                newstring.concat(slicestring);
+                                newstring.concat(x.str2);
+                            }
+                        }
+                        if( findindex == -1)
+                        {
+                            var slicestring = originstring.slice(currentindex);
+                            newstring.concat(slicestring);
+                            console.log("notfind: "+originstring + "," + newstring);
+                            break;
+                        }
+                    }
+                    console.log("new: "+newstring);
+
+                    } catch (e) {
+                    console.log( "錯誤:" + e);
+                    }
+                    return newstring;
+                    */
                 },
                 onSpecialATKChange() {
                     this.onSkillPercentChange();
@@ -9079,7 +9128,7 @@
                         { str1: 'POW', str2: 'this.status_total.POW', description: '代入總POW' },
                         { str1: 'STA', str2: 'this.status_total.STA', description: '代入總STA' },
                         { str1: 'WIS', str2: 'this.status_total.WIS', description: '代入總WIS' },
-                        { str1: 'SPL', str2: 'this.status_total.SPL', description: '代入總SPL' },
+                        { str1: 'SPL', str2: 'this.status_total.S_P_L', description: '代入總SPL' },   //SP
                         { str1: 'CON', str2: 'this.status_total.CON', description: '代入總CON' },
                         { str1: 'CRT', str2: 'this.status_total.CRT', description: '代入總CRT' },
                         { str1: 'BLV', str2: 'this.status.Level', description: '代入角色基本等級' },
@@ -9105,6 +9154,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2022-3-26', content: '修正關鍵字SPL錯誤<br>修正特質點使用+號總量計算出錯(NaN)<br>修正等級超過200時基本素質點還持續增加<br>修正修練ATK位置錯誤' },
                         { id: '2022-3-22', content: '新增特質點 200等以上會開啟<br>代入JOB滿等加成素質點為JOB50的四轉職業(包含特質點)<br>增加五級武器選項<br>增加Grade設定<br>裝備設定增加特質點、PATK、SMATK<br>一般總覽增加PATK、SMATK<br>職業名稱更改為三轉/四轉' },
                         { id: '2022-2-10', content: '修正變動詠唱% 為負的時候計算錯誤' },
                         { id: '2022-1-20', content: '修正預設技能 重金屬音樂 傷害次數-2改為2<br>修正預設技能 戰斧颶風傷害次數1改為-6' },
