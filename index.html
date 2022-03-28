@@ -3337,7 +3337,7 @@
                                     v-bind:key="item.id">
                                     <el-row
                                         v-show="!UIPanel['SupportSkillPanel'] | item.skill.active"
-                                        :class="item.skill.passive?'optionbox':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
+                                        :class="item.skill.passive?'optionbox':item.skill.trans=='4th'?'bg-4thskill-light':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
                                         justify="end" style="height:40px;">
                                         <el-col class="textcenter" style="text-align: right;">
                                             <span class="EffectType">{{ item.skill.name }}</span>
@@ -6374,10 +6374,8 @@
                         );
                         this.attritube['StatusATK'] += this.status_total.POW * 5;
                         this.attritube['StatusMATK'] += this.status_total.S_P_L * 5;
-                        this.attritube['PATK'] = Math.floor(this.status_total.POW/3) + Math.floor(this.status_total.CON/5) +
-                                                Number(this.effecttypelist.find(x => x.id == 'PATK').totalvalue);
-                        this.attritube['SMATK'] = Math.floor(this.status_total.S_P_L/3) + Math.floor(this.status_total.CON/5) +
-                                                Number(this.effecttypelist.find(x => x.id == 'SMATK').totalvalue);
+                        this.attritube['PATK'] += Math.floor(this.status_total.POW/3) + Math.floor(this.status_total.CON/5);
+                        this.attritube['SMATK'] += Math.floor(this.status_total.S_P_L/3) + Math.floor(this.status_total.CON/5);
                         if(this.weapon.level.id == 5)
                         {
                             this.attritube['PATK'] += this.weapon.refinelevel * 2;
@@ -7544,6 +7542,15 @@
                         this.attritube['MELDP'] += 10;
                         this.attritube['GCD'] += 10;
                     }
+                    // 影刃旋舞
+                    if (this.IsSupportActive('SHC_SHADOW_SENSE')){
+                        if (this.weapon.type.id == 'Daggers' ) {
+                            this.attritube['CRI'] += 50;
+                        }
+                        if (this.weapon.type.id == 'Katars' ) {
+                            this.attritube['CRI'] += 25;
+                        }
+                    }
                     // 潛擊
                     if (this.IsSupportActive('RG_RAID')){
                         this.attritube['ELEDDI'] += 15;
@@ -7552,6 +7559,13 @@
                     if (this.IsSupportActive('SC_AUTOSHADOWSPELL')){
                         this.attritube['MATK'] += 50;
                     }
+                    // 短劍&弓弩精熟
+                    if (this.IsSupportActive('ABC_DAGGER_AND_BOW_M')){
+                        if(this.enemyattribute.size == 0) this.attritube['SizeAtkPercent'] += 10;
+                        if(this.enemyattribute.size == 1) this.attritube['SizeAtkPercent'] += 15;
+                        if(this.enemyattribute.size == 2) this.attritube['SizeAtkPercent'] += 20;
+                    }
+
                     // 大聲吶喊
                     if (this.IsSupportActive('MC_LOUD')){
                         this.status_add.STR += 4;
@@ -7675,6 +7689,20 @@
                         this.attritube['ASPDP'] += 25;
                         this.attritube['RNGDP'] += 5;
                     }
+                    // 舞台禮儀
+                    if (this.IsSupportActive('TR_STAGE_MANNER')){
+                        this.attritube['PATK'] += 15;
+                        this.attritube['SMATK'] += 15;
+                    }
+                    // 暮色小夜曲
+                    if (this.IsSupportActive('TR_JAWAII_SERENADE')){
+                        this.attritube['SMATK'] += 15;
+                    }
+                    // 普隆德拉進行曲
+                    if (this.IsSupportActive('TR_PRON_MARCH')){
+                        this.attritube['PATK'] += 15;
+                    }
+
                     // 魔力中毒
                     if (this.IsSupportActive('MagicAddicted')){
                         this.attritube['ELEDDI'] += 50;
@@ -7685,6 +7713,10 @@
                             this.computeattribute['SpecialMATK2'] += 200;
                             this.attritube['SK1VCTP'] += 50;
                         }
+                    }
+                    // 雙手杖使用熟練度
+                    if (this.IsSupportActive('AG_TWOHANDSTAFF')){
+                            this.attritube['SMATK'] += this.GetSupportSkill('AG_TWOHANDSTAFF').lv * 2;
                     }
                     // 龍知識
                     if (this.IsSupportActive('SA_DRAGONOLOGY')){
@@ -7774,6 +7806,29 @@
                             this.attritube['ElementalMagicPercent'] += _e[_lv];
                         }
                     }
+                    // 魔法書精熟
+                    if (this.IsSupportActive('EM_MAGIC_BOOK_M')){
+                        var _lv = this.GetSupportSkill('EM_MAGIC_BOOK_M').lv;
+                        if (this.skilloption.AttackElementalIdx == 1) {
+                            this.attritube['ElementalMagicPercent'] += _lv;
+                        }
+                        if (this.skilloption.AttackElementalIdx == 2) {
+                            this.attritube['ElementalMagicPercent'] += _lv;
+                        }
+                        if (this.skilloption.AttackElementalIdx == 3) {
+                            this.attritube['ElementalMagicPercent'] += _lv;
+                        }
+                        if (this.skilloption.AttackElementalIdx == 4) {
+                            this.attritube['ElementalMagicPercent'] += _lv;
+                        }
+                        if (this.skilloption.AttackElementalIdx == 5) {
+                            this.attritube['ElementalMagicPercent'] += _lv;
+                        }
+                    }
+                    // 咒力賦予
+                    if (this.IsSupportActive('EM_SPELL_ENCHANTING')){
+                        this.attritube['SMATK'] += this.GetSupportSkill('EM_SPELL_ENCHANTING').lv*4;
+                    }
                     // 加速
                     if (this.IsSupportActive('AL_INCAGI')){
                         this.status_add.AGI += 12;
@@ -7826,6 +7881,12 @@
                         this.attritube['HPP'] += 10;
                         this.attritube['SPP'] += 10;
                     }
+                    //堅毅信念
+                    if (this.IsSupportActive('IQ_POWERFUL_FAITH')){
+                        this.attritube['ATK'] += 30;
+                        this.attritube['PATK'] += 15;
+                    }
+
                     //犧牲祈福
                     if (this.IsSupportActive('PR_SUFFRAGIUM')){
                         this.attritube['SK1VCTP'] += 5 + this.GetSupportSkill('PR_SUFFRAGIUM').lv * 5;
@@ -7864,9 +7925,27 @@
                     if (this.IsSupportActive('AB_LAUDARAMUS')){
                         this.attritube['CRIDP'] += Number(this.GetSupportSkill('AB_LAUDARAMUS').lv) * 5;
                     }
+                    //贖罪
                     if (this.IsSupportActive('AB_EXPIATIO')){
                         this.attritube['BYPASSDEF'] += Number(this.GetSupportSkill('AB_EXPIATIO').lv) * 5;
                         this.attritube['BYPASSMDEF'] += Number(this.GetSupportSkill('AB_EXPIATIO').lv) * 5;
+                    }
+                    //全心奉獻
+                    if (this.IsSupportActive('CD_RELIGIO')){
+                        this.status_add.SPL += 10;
+                        this.status_add.WIS += 10;
+                        this.status_add.STA += 10;
+                    }
+                    //祝福讚歌
+                    if (this.IsSupportActive('CD_BENEDICTUM')){
+                        this.status_add.POW += 10;
+                        this.status_add.CON += 10;
+                        this.status_add.CRT += 10;
+                    }
+                    //神聖權能
+                    if (this.IsSupportActive('CD_COMPETENTIA')){
+                        this.attritube['PATK'] += 50;
+                        this.attritube['SMATK'] += 50;
                     }
                     //融合
                     if (this.IsSupportActive('SG_FUSION')){
@@ -8080,6 +8159,9 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='MATK').totalvalue);
                     this.attritube['MATKP'] += Number(this.effecttypelist.find(x => x.id == 'MatkPercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='MatkPercent').totalvalue);
+                                            
+                    this.attritube['PATK'] += Number(this.effecttypelist.find(x => x.id == 'PATK').totalvalue);
+                    this.attritube['SMATK'] += Number(this.effecttypelist.find(x => x.id == 'SMATK').totalvalue);
                     this.attritube['CRI'] += Number(this.effecttypelist.find(x => x.id == 'Cri').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='Cri').totalvalue);
                     this.attritube['CRIDP'] += Number(this.effecttypelist.find(x => x.id == 'CriDamagePercent').totalvalue)
@@ -8903,9 +8985,12 @@
                         { skill: { id: 'GC_POISONINGWEAPON:1', name: '劇毒武器:熱病', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:2', Note: '', } },
                         { skill: { id: 'GC_POISONINGWEAPON:2', name: '劇毒武器:狂笑', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON,GC_POISONINGWEAPON:1', Note: '', } },
                         { skill: { id: 'GC_POISONINGWEAPON', name: '劇毒武器:其他', maxlv: 1, lv: 1, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GC_POISONINGWEAPON:1,GC_POISONINGWEAPON:2', Note: '', } },
+                        { skill: { id: 'SHC_SHADOW_SENSE', name: '影刃旋舞', maxlv: 10, lv: 10, class: 'GX', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        
                         { skill: { id: 'RG_RAID', name: '潛擊狀態(對Boss階級)', maxlv: 1, lv: 1, class: 'SC', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SC_AUTOSHADOWSPELL', name: '自動魅影念咒', maxlv: 1, lv: 1, class: 'SC', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
-                 
+                        { skill: { id: 'ABC_DAGGER_AND_BOW_M', name: '短劍&弓弩精熟', maxlv: 10, lv: 10, class: 'SC', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        
                         { skill: { id: 'AL_INCAGI', name: '加速術', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AB_CANTO', Note: '', } },
                         { skill: { id: 'AL_BLESSING', name: '天使之賜福', maxlv: 10, lv: 10, class: 'AB,SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AB_CLEMENTIA', Note: '', } },
                         { skill: { id: 'AB_CANTO', name: '純白百合花', maxlv: 3, lv: 3, class: 'AB', changelv: false, argnum: 1, arg1: 70, arg1desc: '施展者JOB等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'AL_INCAGI', Note: '', } },
@@ -8919,11 +9004,17 @@
                         { skill: { id: 'ALL_ODINS_POWER', name: '奧丁之神力', maxlv: 2, lv: 2, class: 'AB', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'AB_SECRAMENT', name: '聖典', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'AB_ORATIO', name: '祈禱文', maxlv: 10, lv: 10, class: 'AB', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'CD_RELIGIO', name: '全心奉獻', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        { skill: { id: 'CD_BENEDICTUM', name: '祝福讚歌', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        { skill: { id: 'CD_COMPETENTIA', name: '神聖權能', maxlv: 5, lv: 5, class: 'AB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        
                         { skill: { id: 'MO_IRONHAND', name: '鐵沙掌', maxlv: 10, lv: 10, class: 'SU,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'MO_CALLSPIRITS', name: '蓄氣(氣彈數)', maxlv: 5, lv: 5, class: 'SU,SN', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SR_GENTLETOUCH_CHANGE', name: '點穴-反', maxlv: 5, lv: 5, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SR_GENTLETOUCH_REVITALIZE', Note: '', } },
                         { skill: { id: 'SR_GENTLETOUCH_REVITALIZE', name: '點穴-活', maxlv: 5, lv: 5, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SR_GENTLETOUCH_CHANGE', Note: '', } },
                         { skill: { id: 'SR_RAISINGDRAGON', name: '潛龍昇天', maxlv: 1, lv: 1, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'IQ_POWERFUL_FAITH', name: '堅毅信念', maxlv: 5, lv: 5, class: 'SU', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        
                         { skill: { id: 'AM_AXEMASTERY', name: '斧頭/單手劍使用熟練度', maxlv: 10, lv: 10, class: 'GE,SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'GN_TRAINING_SWORD', name: '單手劍使用熟練度(基因)', maxlv: 5, lv: 5, class: 'GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'MH_PYROCLASTIC', name: '火山塵暴', maxlv: 10, lv: 10, class: 'GE', changelv: false, argnum: 1, arg1: 1, arg1desc: '生命體等級', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
@@ -8941,6 +9032,8 @@
                         { skill: { id: 'HW_MAGICPOWER', name: '魔力增幅', maxlv: 10, lv: 10, class: 'WL', changelv: false, argnum: 0, arg1: 50, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'MagicAddicted', name: '魔力中毒', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'WL_TELEKINESIS_INTENSE', name: '終極念力', maxlv: 5, lv: 5, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'AG_TWOHANDSTAFF', name: '雙手杖使用熟練度', maxlv: 10, lv: 10, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        
                         { skill: { id: 'MC_LOUD', name: '大聲吶喊', maxlv: 1, lv: 1, class: 'ME,GE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'BS_MAXIMIZE', name: '武器值最大化', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'BS_WEAPONPERFECT', name: '無視體型攻擊', maxlv: 5, lv: 5, class: 'ME', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
@@ -8964,6 +9057,10 @@
                         { skill: { id: 'WM_LERADS_DEW', name: '雷拉多露水', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'WM_UNLIMITED_HUMMING_VOICE', name: '無限哼唱聲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'WM_DANCE_WITH_WUG', name: '與狼共舞', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'TR_STAGE_MANNER', name: '舞台禮儀', maxlv: 10, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        { skill: { id: 'TR_PRON_MARCH', name: '普隆德拉進行曲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        { skill: { id: 'TR_JAWAII_SERENADE', name: '暮色小夜曲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        
                         { skill: { id: 'SA_ADVANCEDBOOK', name: '進化之書', maxlv: 10, lv: 10, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SA_DRAGONOLOGY', name: '龍知識', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SO_STRIKING', name: '打擊強化', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
@@ -8979,7 +9076,9 @@
                         { skill: { id: 'SA_VOLCANO', name: '火元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_DELUGE,SA_VIOLENTGALE', Note: '', } },
                         { skill: { id: 'SA_DELUGE', name: '水元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_VOLCANO,SA_VIOLENTGALE', Note: '', } },
                         { skill: { id: 'SA_VIOLENTGALE', name: '風元素領域', maxlv: 5, lv: 5, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SA_VOLCANO,SA_DELUGE', Note: '', } },
-
+                        { skill: { id: 'EM_MAGIC_BOOK_M', name: '魔法書精熟', maxlv: 10, lv: 10, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        { skill: { id: 'EM_SPELL_ENCHANTING', name: '咒力賦予', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        
                         { skill: { id: 'NJ_NEN', name: '念', maxlv: 5, lv: 5, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'KO_KAHU_ENTEN', name: '火符:炎天', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'KO_HYOUHU_HUBUKI,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
                         { skill: { id: 'KO_HYOUHU_HUBUKI', name: '冰符:吹雪', maxlv: 10, lv: 10, class: 'KO,OB', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'KO_KAHU_ENTEN,KO_KAZEHU_SEIRAN,KO_DOHU_KOUKAI', Note: '', } },
@@ -9154,6 +9253,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2022-3-28', content: '增加四轉輔助技能' },
                         { id: '2022-3-26', content: '修正關鍵字SPL錯誤<br>修正特質點使用+號總量計算出錯(NaN)<br>修正等級超過200時基本素質點還持續增加<br>修正修練ATK位置錯誤' },
                         { id: '2022-3-22', content: '新增特質點 200等以上會開啟<br>代入JOB滿等加成素質點為JOB50的四轉職業(包含特質點)<br>增加五級武器選項<br>增加Grade設定<br>裝備設定增加特質點、PATK、SMATK<br>一般總覽增加PATK、SMATK<br>職業名稱更改為三轉/四轉' },
                         { id: '2022-2-10', content: '修正變動詠唱% 為負的時候計算錯誤' },
