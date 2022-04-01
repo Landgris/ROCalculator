@@ -7387,7 +7387,7 @@
                     this.attritube = Object.assign({}, this.attritube_init);
                     this.status_job = _.cloneDeep(this.status_job_init);
                     if (this.status.UseJobMaxPoint){
-                            if(this.status.Level>=200){
+                            if(this.status.Level>=200 && this.ClassInfo.TJobMaxPoint!=null){
                                 this.status_job.STR += this.ClassInfo.TJobMaxPoint[0];
                                 this.status_job.AGI += this.ClassInfo.TJobMaxPoint[1];
                                 this.status_job.VIT += this.ClassInfo.TJobMaxPoint[2];
@@ -9349,7 +9349,7 @@
                     );
 
                     this.UpdateLogList.push(
-                        { id: '2022-4-1', content: '修正等級201以上基本素質點數錯誤' },
+                        { id: '2022-4-1', content: '修正等級201以上基本素質點數錯誤<br>修正讀取擴充職業紀錄失敗BUG' },
                         { id: '2022-3-30', content: '增加四轉輔助技能<br>增加預設技能 豔紅魔矢,深淵墳場,終結深淵攻擊' },
                         { id: '2022-3-28', content: '增加四轉輔助技能' },
                         { id: '2022-3-26', content: '修正關鍵字SPL錯誤<br>修正特質點使用+號總量計算出錯(NaN)<br>修正等級超過200時基本素質點還持續增加<br>修正修練ATK位置錯誤' },
