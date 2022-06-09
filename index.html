@@ -1281,6 +1281,18 @@
                                             </el-col>
                                         </el-row>
 
+                                        <el-row :class="PreviewETL[GetETLIndex('CRIDR')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                C.RATE
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('CRIDR')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect('CRIDR')" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+
                                         <el-row :class="PreviewETL[GetETLIndex('MeleeDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
                                                 近傷 %
@@ -5274,6 +5286,7 @@
                     { label: 'CRT', id: 'CRT', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'P.ATK', id: 'PATK', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'S.MATK', id: 'SMATK', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'C.RATE', id: 'CRIDR', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
 
                     { label: 'Atk', id: 'Atk', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'Atk %', id: 'AtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -8349,6 +8362,7 @@
                                             
                     this.attritube['PATK'] += Number(this.effecttypelist.find(x => x.id == 'PATK').totalvalue);
                     this.attritube['SMATK'] += Number(this.effecttypelist.find(x => x.id == 'SMATK').totalvalue);
+                    this.attritube['CRIDR'] += Number(this.effecttypelist.find(x => x.id == 'CRIDR').totalvalue);
                     this.attritube['CRI'] += Number(this.effecttypelist.find(x => x.id == 'Cri').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='Cri').totalvalue);
                     this.attritube['CRIDP'] += Number(this.effecttypelist.find(x => x.id == 'CriDamagePercent').totalvalue)
@@ -9510,6 +9524,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2022-6-9', content: '增加裝備效果 C.Rate' },
                         { id: '2022-5-24', content: '增加預設技能 靈魂連擊' },
                         { id: '2022-5-18', content: '修正虎砲額外技能倍率公式(不顯示)<br>調整輔助技能 舞台禮儀顯示等級' },
                         { id: '2022-4-24', content: '修正龍火倍率錯誤<br>增加預設技能 節奏射擊,玫瑰箭矢,金屬狂怒,殘響,風暴斬擊,橫揮斬<br>增加四轉輔助技能 憤怒風暴,天龍光環,衝擊(狀態),撼動(狀態)<br>移除一半暴傷選項(現為預設全部)' },
