@@ -210,14 +210,14 @@ html, body {
 
 .obsidianbox {
     text-align: center;
-    background: #7a7a7a;
-    color:white;
+    background: #e0fdff;
+    color:#0a0b38;
 }
 
 .goldbox {
     text-align: center;
-    background: #FFD700;
-    color:#082567;
+    background: #fff09a;
+    color:#0a0b38;
 }
 
 .textcenter {
