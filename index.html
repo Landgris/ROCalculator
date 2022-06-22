@@ -157,8 +157,6 @@
                                     <br>
                                     400GP了 感謝支持ヽ(・×・´)ゞ<br>
                                     <br>
-                                    對念屬怪傷害計算會有些微誤差 調查中<br>
-                                    <br>
                                     計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
                                     不會計算雙持狀況下的普攻傷害<br><br>
                                     雲殺沒有實裝毒耐性降低<br>
@@ -6690,8 +6688,8 @@
                             this.enemyattribute.elementallevel);
                     }
                     para7 = this.MulOper(Number(para7), Number(para7ele / 100));
-                    this.computeattribute.atkc5_min += Number(para7) + /*Number(this.skilloption.WeaponMasteryATK) + */ Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
-                    this.computeattribute.atkc5_max += Number(para7) + /*Number(this.skilloption.WeaponMasteryATK) + */ Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
+                    this.computeattribute.atkc5_min += Number(para7) + Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
+                    this.computeattribute.atkc5_max += Number(para7) + Number(this.computeattribute['SpecialATK4']) + Number(this.computeattribute['SpecialATKFront']);
 
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.attritube['PATK'] / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.attritube['PATK'] / 100));
@@ -6920,17 +6918,12 @@
                     return _DPS;
                 },
                 MulOper(value, percent) {
-                    if (percent > 1) {
-                        var _S = Math.round(value * (Number(percent) * 100));
-                        var _L = Math.floor(_S / 100);
-                        return _L;
-                    }
+                    var _S = Math.round(value * (Number(percent) * 100));
+                    var _L = Math.floor(_S / 100);
                     if (percent < 1) {
-                        var _S = Math.round(value * (Number(percent) * 100));
-                        var _L = Math.ceil(_S / 100);
-                        return _L;
+                        _L = _L+1;
                     }
-                    return value * percent;
+                    return _L;
                 },
                 ComputeMATKAtttibute(mflag=0) {
                     var _MATKDamageMin = 0;
@@ -9524,6 +9517,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2022-6-22', content: '修改倍率小於1時計算ATK誤差1的問題(物理念屬)' },
                         { id: '2022-6-9', content: '增加裝備效果 C.Rate' },
                         { id: '2022-5-24', content: '增加預設技能 靈魂連擊' },
                         { id: '2022-5-18', content: '修正虎砲額外技能倍率公式(不顯示)<br>調整輔助技能 舞台禮儀顯示等級' },
