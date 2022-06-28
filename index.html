@@ -147,6 +147,8 @@
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
                                     ●▅▇█▇▆▆▅▄▇ ヽ(・×・´)ゞ<br>
+                                    現在屬性相剋為KRO最新版本(TwRO下周更新) 可切換為當前版本<br>
+                                    <br>
                                     四轉更新! 詳細請參考巴哈 鶴之翼的文章<br>
                                     【情報】四轉、五級武器&二級防具、Grade相關資訊統整 (02/04 補上鐵匠祝福&精煉機率資訊)<br>
                                     https://forum.gamer.com.tw/Co.php?bsn=4212&sn=2875981<br>
@@ -2216,7 +2218,19 @@
         <el-dialog :visible.sync="UIPanel['ElementTableDialog']" v-on:close="ClosePanel('ElementTableDialog')"
             custom-class="Dialogue-container" width="65%" top="50px" center>
             <span slot="title">屬性相剋倍率表</span>
-            <el-row >
+            <el-row type="flex" class="titlebox textcenter" align="middle" justify="end"
+                style="height:40px;" :span="8">
+                <el-col class="textcenter" :span="8">
+                </el-col>
+                <el-col class="textcenter" :span="4">
+                    <span>使用新版屬性表</span>
+                </el-col>
+                <el-col class="textcenter" :span="4">
+                    <el-switch :value="ElementTableLastest" v-on:change="SwitchElementalVersion()"
+                        active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                </el-col>
+            </el-row>
+            <el-row>
                 <el-row type="flex" class="titlebox textcenter" align="middle" justify="center"
                     style="height:40px;" :span="8">
                     <el-col class="textcenter" :span="4" style="font-size: 24px;">
@@ -5191,6 +5205,8 @@
 
                 ElementTableShow: [],
                 ElementTableIndex: 1,
+                ElementTableLastest: true,
+                ElementTableVersion: 2, // 1: old, 2: new
 
                 TestMode: false,
                 StoreDB_QuickCalc: [],
@@ -5487,7 +5503,8 @@
                     { id: 9, label: '不死' }
                 ],
                 elementlevel: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
-                elementalmap: [
+                elementalmap:[],
+                elementalmap_old: [
                     100, 100, 100, 100, 100, 100, 100, 100, 70, 100,
                     100, 25, 90, 100, 150, 100, 75, 100, 100, 125,
                     100, 150, 25, 90, 100, 100, 75, 100, 100, 100,
@@ -5528,6 +5545,48 @@
                     100, 75, 75, 75, 75, -25, 200, -100, 100, -100,
                     0, 25, 25, 25, 25, 25, 0, 0, 200, 175,
                     100, 25, 25, 25, 25, -25, 175, 0, 100, 0
+                ],
+                elementalmap_fix: [
+                    100, 100, 100, 100, 100, 100, 100, 100, 90, 100,
+                    100, 25, 90, 100, 150, 150, 100, 100, 100, 125,
+                    100, 150, 25, 90, 100, 150, 100, 100, 100, 100,
+                    100, 100, 150, 25, 90, 150, 100, 100, 100, 100,
+                    100, 90, 100, 150, 25, 150, 100, 100, 100, 100,
+                    100, 150, 150, 150, 150, 0, 75, 75, 75, 75,
+                    100, 100, 100, 100, 100, 75, 0, 125, 100, 125,
+                    100, 100, 100, 100, 100, 75, 125, 0, 100, 0,
+                    90, 100, 100, 100, 100, 75, 90, 90, 125, 100,
+                    100, 90, 100, 100, 100, 75, 125, 0, 100, 0,
+                    100, 100, 100, 100, 100, 100, 100, 100, 70, 100,
+                    100, 0, 80, 100, 175, 150, 100, 100, 100, 150,
+                    100, 175, 0, 80, 100, 150, 100, 100, 100, 100,
+                    100, 100, 175, 0, 80, 150, 100, 100, 100, 100,
+                    100, 80, 100, 175, 0, 150, 100, 100, 100, 100,
+                    100, 150, 150, 150, 150, 0, 75, 75, 75, 50,
+                    100, 100, 100, 100, 100, 75, 0, 150, 100, 150,
+                    100, 100, 100, 100, 100, 75, 150, 0, 100, 0,
+                    70, 100, 100, 100, 100, 75, 80, 80, 150, 125,
+                    100, 80, 100, 100, 100, 50, 150, 0, 125, 0,
+                    100, 100, 100, 100, 100, 100, 100, 100, 50, 100,
+                    100, 0, 70, 100, 200, 125, 100, 100, 100, 175,
+                    100, 200, 0, 70, 100, 125, 100, 100, 100, 100,
+                    100, 100, 200, 0, 70, 125, 100, 100, 100, 100,
+                    100, 70, 100, 200, 0, 125, 100, 100, 100, 100,
+                    100, 125, 125, 125, 125, 0, 50, 50, 50, 25,
+                    100, 100, 100, 100, 100, 50, 0, 175, 100, 175,
+                    100, 100, 100, 100, 100, 50, 175, 0, 100, 0,
+                    50, 100, 100, 100, 100, 50, 70, 70, 175, 150,
+                    100, 70, 100, 100, 100, 25, 175, 0, 150, 0,
+                    100, 100, 100, 100, 100, 100, 100, 100, 0, 100,
+                    100, 0, 60, 100, 200, 125, 100, 100, 100, 200,
+                    100, 200, 0, 60, 100, 125, 100, 100, 100, 100,
+                    100, 100, 200, 0, 60, 125, 100, 100, 100, 100,
+                    100, 60, 100, 200, 0, 125, 100, 100, 100, 100,
+                    100, 125, 125, 125, 125, 0, 50, 50, 50, 0,
+                    100, 100, 100, 100, 100, 50, 0, 200, 100, 200,
+                    100, 100, 100, 100, 100, 50, 200, 0, 100, 0,
+                    0, 100, 100, 100, 100, 50, 60, 60, 200, 175,
+                    100, 60, 100, 100, 100, 0, 200, 0, 175, 0
                 ],
                 enemyattribute: {
                     name: '',
@@ -5806,6 +5865,10 @@
                 },
                 OpenPanel(id) {
                     this.UIPanel[id] = true;
+                },
+                SwitchElementalVersion(){
+                    this.ElementTableLastest = !this.ElementTableLastest;
+                    this.elementalmap = this.ElementTableLastest? this.elementalmap_fix : this.elementalmap_old;
                 },
                 CombineEquipsAttribute() {
                     this.effecttypelist.forEach(element => {
@@ -9076,7 +9139,7 @@
                         { skill: { id: 'GC_CROSSRIPPERSLASHER', name: '迴旋十字斬', level: 5, formula: '(SLV*80)*BLV/100+(3*AGI+10*200)', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.2, GCD: 0.3, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '10*200 的10為迴旋刀刃次數，最高10', } },
                         { skill: { id: 'ASC_BREAKER', name: '心靈震波', level: 10, formula: '(SLV*150+STR+INT)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0.25, VCT: 0.25, CD: 0.3, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
 
-                        { skill: { id: 'NC_AXETORNADO', name: '戰斧颶風', level: 5, formula: '(100+200*SLV+VIT)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -6, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '攻擊屬性為風時倍率1.25倍', } },
+                        { skill: { id: 'NC_AXETORNADO', name: '戰斧颶風', level: 5, formula: '(200+180*SLV+VIT)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -6, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NC_AXEBOOMERANG', name: '迴旋斧', level: 5, formula: '(250+50*SLV+WGT)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: "5-(SLV-1)*0.5", GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '武器重量影響、魔導機甲執照不影響', } },
                         { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(400+350*SLV)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: "(6-SLV)/10", VCT: "(10+SLV*2)/10", CD: "(3*SLV)/100", GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據敵方體型變動', } },
                         { skill: { id: 'NC_VULCANARM', name: '火神砲', level: 3, formula: '(230*SLV+DEX)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0.2, CD: 0.1, GCD: 0.1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9131,7 +9194,8 @@
                         { skill: { id: 'SR_KNUCKLEARROW', name: '修羅身彈', level: 10, formula: '(500+SLV*100)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SR_KNUCKLEARROW(ex)', name: '修羅身彈(BOSS)', level: 10, formula: '(500+SLV*200)*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SR_GATEOFHELL', name: '羅剎破凰擊', level: 10, formula: '500*SLV*BLV/100', class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: '(SP-100)*3+BLV*10+((Mhp>HP)?(Mhp-HP):0)', SpecialMATK1: 0, Note: '現有HPSP影響傷害', } },
-
+                        { skill: { id: 'IQ_THIRD_FLAME_BOMB', name: '火焰彈', level: 5, formula: '(DOWN(Mhp*0.2)+SLV*650+POW*5)*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '氣彈每5增加1攻擊次數,最高3(預設)', } },
+                        
                         { skill: { id: 'SC_TRIANGLESHOT', name: '三角射擊', level: 10, formula: '(230*SLV+AGI*3)*BLV/100', class: 'SC', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SC_FATALMENACE', name: '致命威脅', level: 10, formula: "(AGI*2+SLV*120)*BLV/100", class: 'SC', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "(WTI=='Daggers')?2:1", elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'SC_FATALMENACE(ex)', name: '致命威脅(深淵匕首)', level: 10, formula: "(AGI*3+SLV*150)*BLV/100", class: 'SC', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "(WTI=='Daggers')?2:1", elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9523,6 +9587,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2022-6-28', content: '新屬性相剋表(預設/可開關)<br>增加預設技能 火焰彈' },
                         { id: '2022-6-24', content: '增加 盧恩龍爵, 聖裁者 Lv250的HPSP' },
                         { id: '2022-6-22', content: '修改倍率小於1時計算ATK誤差1的問題(物理念屬)' },
                         { id: '2022-6-9', content: '增加裝備效果 C.Rate' },
@@ -9786,6 +9851,8 @@
                 this.status_total_init = Object.assign({}, this.status_total);
                 this.option_init = Object.assign({}, this.option);
                 this.consumableeffecttypelist_init = _.cloneDeep(this.consumableeffecttypelist);
+                this.ElementTableLastest = false;
+                this.SwitchElementalVersion();
 
                 this.onSelectEnemy(this.enemylist[0]);
                 this.effectdialogue.EffectType = this.effecttypelist[0];
