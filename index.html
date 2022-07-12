@@ -147,22 +147,27 @@
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
                                     ●▅▇█▇▆▆▅▄▇ ヽ(・×・´)ゞ<br>
-                                    現在屬性相剋為KRO最新版本(TwRO下周更新) 可切換為當前版本<br>
+                                    <br>
+                                    紋章(敵方)現在所有技能都會增傷，使用時須注意<br>
+                                    屬性相剋為當前遊戲版本(同KRO) 可切換為舊版本<br>
                                     <br>
                                     四轉更新! 詳細請參考巴哈 鶴之翼的文章<br>
                                     【情報】四轉、五級武器&二級防具、Grade相關資訊統整 (02/04 補上鐵匠祝福&精煉機率資訊)<br>
                                     https://forum.gamer.com.tw/Co.php?bsn=4212&sn=2875981<br>
                                     <br>
                                     200等開始就會有特質點可以設定<br>
-                                    新的HPSP、主動技能倍率跟輔助技能效果等待測試<br>
+                                    HPSP只支援250等的龍爵聖裁<br>
+                                    主動技能倍率等待測試<br>
                                     可能要很久才會補上了，歡迎提供<br>
                                     <br>
                                     400GP了 感謝支持ヽ(・×・´)ゞ<br>
                                     <br>
-                                    計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
-                                    不會計算雙持狀況下的普攻傷害<br><br>
-                                    雲殺沒有實裝毒耐性降低<br>
-                                    暴擊技能預設都是暴傷減半<br>
+                                    注意事項:<br>
+                                    ⭐建議先計算好當前配裝並且傷害正確後才開始配裝<br>
+                                    ⭐紋章(敵方)現在所有技能都會增傷，使用時須注意<br>
+                                    ⭐計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
+                                      不會計算雙持狀況下的普攻傷害<br><br>
+                                    ⭐暴擊技能預設都是暴傷減半<br>
                                     <br>
                                 </el-row>
                             </div>
@@ -6942,6 +6947,9 @@
                             }
                         }
                     }
+                    this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
+                    this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
+
                     // 天怒
                     if (this.IsSupportActive('PR_LEXAETERNA')) {
                         this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(100 / 100));
@@ -7946,26 +7954,55 @@
                     }
                     // 紋章
                     if (this.IsSupportActive('SO_FIRE_INSIGNIA')) {
-                        if (this.skilloption.AttackElementalIdx == 1) {
+                        if(this.GetSupportSkill('SO_FIRE_INSIGNIA').lv==2)
+                        {
+                            this.attritube['ATK'] += 50;
+                            this.attritube['ATKP'] += 10;
+                        }
+                        if(this.GetSupportSkill('SO_FIRE_INSIGNIA').lv==3)
+                        {
                             this.attritube['MATK'] += 50;
-                            this.attritube['ElementalMagicPercent'] += 25;
+                            if (this.skilloption.AttackElementalIdx == 1) {
+                                this.attritube['ElementalMagicPercent'] += 25;
+                            }
                         }
                     }
                     if (this.IsSupportActive('SO_WATER_INSIGNIA')) {
-                        if (this.skilloption.AttackElementalIdx == 2) {
-                            this.attritube['SK1VCTP'] += 30;
-                            this.attritube['ElementalMagicPercent'] += 25;
+                        if(this.GetSupportSkill('SO_WATER_INSIGNIA').lv==2)
+                        {
+                            this.attritube['ATKP'] += 10;
+                        }
+                        if(this.GetSupportSkill('SO_WATER_INSIGNIA').lv==3)
+                        {
+                            if (this.skilloption.AttackElementalIdx == 2) {
+                                this.attritube['SK1VCTP'] += 30;
+                                this.attritube['ElementalMagicPercent'] += 25;
+                            }
                         }
                     }
                     if (this.IsSupportActive('SO_WIND_INSIGNIA')) {
-                        if (this.skilloption.AttackElementalIdx == 3) {
-                            this.attritube['GCD'] += 50;
-                            this.attritube['ElementalMagicPercent'] += 25;
+                        if(this.GetSupportSkill('SO_WIND_INSIGNIA').lv==2)
+                        {
+                            this.attritube['ATKP'] += 10;
+                        }
+                        if(this.GetSupportSkill('SO_WIND_INSIGNIA').lv==3)
+                        {
+                            if(this.skilloption.AttackElementalIdx == 3) {
+                                this.attritube['GCD'] += 50;
+                                this.attritube['ElementalMagicPercent'] += 25;
+                            }
                         }
                     }
                     if (this.IsSupportActive('SO_EARTH_INSIGNIA')) {
-                        if (this.skilloption.AttackElementalIdx == 4) {
-                            this.attritube['ElementalMagicPercent'] += 25;
+                        if(this.GetSupportSkill('SO_EARTH_INSIGNIA').lv==2)
+                        {
+                            this.attritube['ATKP'] += 10;
+                        }
+                        if(this.GetSupportSkill('SO_EARTH_INSIGNIA').lv==3)
+                        {
+                            if (this.skilloption.AttackElementalIdx == 4) {
+                                this.attritube['ElementalMagicPercent'] += 25;
+                            }
                         }
                     }
                     if (this.IsSupportActive('SO_FIRE_INSIGNIA_ENEMY')) {
@@ -9140,6 +9177,7 @@
                         { skill: { id: 'ASC_BREAKER', name: '心靈震波', level: 10, formula: '(SLV*150+STR+INT)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0.25, VCT: 0.25, CD: 0.3, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
 
                         { skill: { id: 'NC_AXETORNADO', name: '戰斧颶風', level: 5, formula: '(200+180*SLV+VIT)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -6, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'NC_AXETORNADO(ex)', name: '戰斧颶風(踏滅)', level: 5, formula: '(360+250*SLV+VIT)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -6, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'NC_AXEBOOMERANG', name: '迴旋斧', level: 5, formula: '(250+50*SLV+WGT)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: "5-(SLV-1)*0.5", GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '武器重量影響、魔導機甲執照不影響', } },
                         { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(400+350*SLV)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: "(6-SLV)/10", VCT: "(10+SLV*2)/10", CD: "(3*SLV)/100", GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '依據敵方體型變動', } },
                         { skill: { id: 'NC_VULCANARM', name: '火神砲', level: 3, formula: '(230*SLV+DEX)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0.2, CD: 0.1, GCD: 0.1, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9391,10 +9429,10 @@
                         { skill: { id: 'SA_DRAGONOLOGY', name: '龍知識', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SO_STRIKING', name: '打擊強化', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SO_CLOUD_POSION', name: '雲毒', maxlv: 1, lv: 1, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },                   
-                        { skill: { id: 'SO_FIRE_INSIGNIA', name: '火之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_WATER_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
-                        { skill: { id: 'SO_WATER_INSIGNIA', name: '水之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
-                        { skill: { id: 'SO_WIND_INSIGNIA', name: '風之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
-                        { skill: { id: 'SO_EARTH_INSIGNIA', name: '地之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_WIND_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_FIRE_INSIGNIA', name: '火之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_WATER_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_WATER_INSIGNIA', name: '水之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WIND_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_WIND_INSIGNIA', name: '風之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_EARTH_INSIGNIA', Note: '', } },
+                        { skill: { id: 'SO_EARTH_INSIGNIA', name: '地之紋章(我方)', maxlv: 3, lv: 3, class: 'SO', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA,SO_WATER_INSIGNIA,SO_WIND_INSIGNIA', Note: '', } },
                         { skill: { id: 'SO_FIRE_INSIGNIA_ENEMY', name: '火之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_WATER_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
                         { skill: { id: 'SO_WATER_INSIGNIA_ENEMY', name: '水之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WIND_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
                         { skill: { id: 'SO_WIND_INSIGNIA_ENEMY', name: '風之紋章(敵方)', maxlv: 3, lv: 3, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SO_FIRE_INSIGNIA_ENEMY,SO_WATER_INSIGNIA_ENEMY,SO_EARTH_INSIGNIA_ENEMY', Note: '', } },
@@ -9587,6 +9625,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2022-7-12', content: '增加預設技能 戰斧颶風(踏滅)<br>紋章(敵方)現在所有技能都會增傷，使用時須注意<br>紋章(我方)現在可以選擇等級' },
                         { id: '2022-6-28', content: '新屬性相剋表(預設/可開關)<br>增加預設技能 火焰彈' },
                         { id: '2022-6-24', content: '增加 盧恩龍爵, 聖裁者 Lv250的HPSP' },
                         { id: '2022-6-22', content: '修改倍率小於1時計算ATK誤差1的問題(物理念屬)' },
