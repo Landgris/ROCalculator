@@ -7037,14 +7037,14 @@
                     var para_size = Number(1) + Number(this.attritube['SizeMatkPercent']) / 100;
                     var para_mons = Number(1) + Number(this.effecttypelist.find(x => x.id == 'MonsterMatkPercent').totalvalue) / 100;
                     var para_level = Number(1) + Number(this.effecttypelist.find(x => x.id == 'LevelMatkPercent').totalvalue / 100);
-                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.matkpercent_min, para_elemt);
-                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.matkpercent_max, para_elemt);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.matkpercent_min, para_size);
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.matkpercent_max, para_size);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_elemt);
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_elemt);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_magicelemt);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_magicelemt);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_race);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_race);
-                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_size);
-                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_size);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_level);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_level);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_mons);
@@ -7063,6 +7063,9 @@
 
                     this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.attritube['ELEDDI'] / 100));
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.attritube['ELEDDI'] / 100));
+
+                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.attritube['MELDDI'] / 100));
+                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.attritube['MELDDI'] / 100));
 
                     if (this.skill.laterformula == false) {
                         var para_skillpercent = Math.floor(this.option.SkillPercent) + Number(this.computeattribute['SpecialMATK1']) + Number(mflag);
@@ -9626,6 +9629,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2022-10-4', content: '調整法傷計算 體型的公式位置 目前為>Matk% >體型 >對屬性怪 >屬性 >種族 >階級 >特定怪 >SMATK' },
                         { id: '2022-7-27', content: '增加預設技能 狂暴射擊<br>更新加農砲攻擊獨延/暴率' },
                         { id: '2022-7-12', content: '增加預設技能 戰斧颶風(踏滅)<br>紋章(敵方)現在所有技能都會增傷，使用時須注意<br>紋章(我方)現在可以選擇等級' },
                         { id: '2022-6-28', content: '新屬性相剋表(預設/可開關)<br>增加預設技能 火焰彈' },
