@@ -6486,6 +6486,11 @@
                             this.attritube['PATK'] += this.weapon.refinelevel * 2;
                             this.attritube['SMATK'] += this.weapon.refinelevel * 2;
                         }
+                        if(this.subweapon.level.id == 5)
+                        {
+                            this.attritube['PATK'] += this.subweapon.refinelevel * 2;
+                            this.attritube['SMATK'] += this.subweapon.refinelevel * 2;
+                        }
                         this.attritube['CRIDR'] += Math.floor(this.status_total.CRT/3);
 
                         this.attritube['CRI'] += 2.2 + this.status_total.LUK * 0.3;
@@ -9629,6 +9634,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2023-3-28', content: '副手精煉現在會增加PATK SMATK(精煉值*2)' },
                         { id: '2022-10-4', content: '調整法傷計算 體型的公式位置 目前為>Matk% >體型 >對屬性怪 >屬性 >種族 >階級 >特定怪 >SMATK' },
                         { id: '2022-7-27', content: '增加預設技能 狂暴射擊<br>更新加農砲攻擊獨延/暴率' },
                         { id: '2022-7-12', content: '增加預設技能 戰斧颶風(踏滅)<br>紋章(敵方)現在所有技能都會增傷，使用時須注意<br>紋章(我方)現在可以選擇等級' },
