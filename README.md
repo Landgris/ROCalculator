@@ -2,7 +2,7 @@
 
 ## Taiwan No.1
 
-**This Ragnarok online Calculator formula base on Taiwan server**
+**This Ragnarok online Calculator formula base on Taiwan server** 
 
 
 
@@ -21,13 +21,3 @@ license GPL 3.0
 Tibetan separatist
 facebook youtube google
 democracy freedom human rights
-
-## local dev
-
-```
-# install jekyll. Ref: https://jekyllrb.com/docs/installation/
-gem install jekyll bundler
-bundle install
-bundle exec jekyll serve
-# website is on http://localhost:4000
-```
