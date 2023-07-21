@@ -1,0 +1,473 @@
+{% raw %}
+                <el-col :span="6">
+                    <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
+                        <el-row class="titlebox" :gutter="4" type="flex" align="middle" justify="end"
+                            style="height:40px; padding: 0px 5px;">
+                            <el-col class="textcenter" :span="9">
+                            </el-col>
+                            <el-col class="textcenter" :span="6">
+                                <span class="textcenter">技能</span>
+                            </el-col>
+                            <el-col class="textcenter" :span="6" style="text-align: right;">
+                                <el-tooltip class="item" effect="dark" content="讀取已經儲存的技能" placement="left">
+                                    <el-button v-on:click="TogglePanel('SkillDBDialog')" size="mini">
+                                        技能設定
+                                    </el-button>
+                                </el-tooltip>
+                            </el-col>
+                            <el-col v-if="UIPanel['SkillPanel']" class="textcenter" :span="3">
+                                <el-button type="info" v-on:click="TogglePanel('SkillPanel')" size="mini"><i
+                                        class="el-icon-arrow-up"></i></el-button>
+                            </el-col>
+                            <el-col v-else="!UIPanel['SkillPanel']" class="textcenter" :span="3">
+                                <el-button type="info" v-on:click="TogglePanel('SkillPanel')" size="mini"><i
+                                        class="el-icon-arrow-down"></i></el-button>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="boxborder OptionBlock">
+                                <el-row v-if="JobMapedSkillId!=''" class="statusbox bg-purple-light":gutter="4" type="flex" align="middle">
+                                    <el-col :span="12" class="textcenter"><span>技能名</span>
+                                    </el-col>
+                                    <el-col :span="12">
+                                        <div class="grid-content">
+                                            <el-select v-model="JobMapedSkillId" v-on:change="onLoadJobMapSkill()"
+                                                placeholder="" no-data-text="no skill">
+                                                <el-option v-for="item in StoreDB_JobMapedSkill" :key="item.skill.id"
+                                                    :label="item.skill.name" :value="item.skill.id">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row v-else="JobMapedSkillId==''" class="statusbox bg-purple-light" :gutter="4"
+                                    type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">技能名</el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        {{skill.name}}
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle" justify="space-around" style="color:darkolivegreen; height: 60px; font-size: 30;">
+                                    <el-col class="textcenter" :span="12">
+                                           <span> Lv  {{skill.level}}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                            <span>{{option.SkillPercent | currency2}} %</span>
+                                    </el-col>
+                                </el-row>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['SkillPanel']">
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col :span="20">
+                                                <el-input v-model="skill.formula" v-on:change="onSkillPercentChange"
+                                                    placeholder="Skill %">
+                                                </el-input>
+                                            </el-col>
+                                            <el-col :span="2">
+                                                <el-popover placement="right-start" title="公式關鍵字" width="350"
+                                                    trigger="click">
+                                                    <el-scrollbar wrap-class="DBlist-container" :native="false"
+                                                        :noresize="false">
+                                                        <el-table :data="KeywordReplaceList" stripe style="width: 100%">
+                                                            <el-table-column prop="str1" label="關鍵字" width="100">
+                                                            </el-table-column>
+                                                            <el-table-column prop="description" label="功能" width="220">
+                                                            </el-table-column>
+                                                        </el-table>
+                                                    </el-scrollbar>
+                                                    <el-button slot="reference">?</el-button>
+                                                </el-popover>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">技能等級</el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-model.number="skill.level"
+                                                    v-on:change="onSkillPercentChange" placeholder="技能等級">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害"
+                                                placement="bottom-start">
+                                                <el-col class="textcenter" :span="12">傷害次數</el-col>
+                                            </el-tooltip>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-model.number="skill.hitnumber"
+                                                    v-on:change="onSkillPercentChange" placeholder="傷害次數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">固定詠唱</el-col>
+                                            <el-col :span="12">
+                                                <el-input v-model="skill.FCT" v-on:input="onOption" placeholder="時間">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">變動詠唱</el-col>
+                                            <el-col :span="12">
+                                                <el-input v-model="skill.VCT" v-on:input="onOption" placeholder="時間">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">獨立延遲</el-col>
+                                            <el-col :span="12">
+                                                <el-input v-model="skill.CD" v-on:input="onOption" placeholder="時間">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">共通延遲</el-col>
+                                            <el-col :span="12">
+                                                <el-input v-model="skill.GCD" v-on:input="onOption" placeholder="時間">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>傷害類型</span>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div class="textcenter">
+                                                    <el-select value-key="id" v-model="skill.DamageTypeIdx"
+                                                        v-on:change="onSkillPercentChange" placeholder="傷害類型">
+                                                        <el-option v-for="item in DamageType" :key="item.id"
+                                                            :label="item.label" :value="item.id">
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-collapse-transition>
+                                <div v-show="skill.ranged">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>技能遠傷</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="skill.critical">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>技能暴擊</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="skill.halfcri">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>一半暴率</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="skill.cannon">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>使用加農砲彈</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="skill.transWeaponDEF">
+                                    <el-tooltip class="item" effect="dark" content="將乘算DEF(後DEF)改為減算DEF"
+                                        placement="bottom-start">
+                                        <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                            <el-col class="textcenter" :span="12">
+                                                <span>半無視防禦</span>
+                                            </el-col>
+                                        </el-row>
+                                    </el-tooltip>
+                                </div>
+                                <div v-show="skill.laterranged">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>後計算技能遠傷</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <div v-show="skill.laterformula">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>後計算技能倍率</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <el-collapse-transition>
+                                    <div v-show="UIPanel['SkillPanel']==false">
+                                        <el-row class="statusbox" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="12">{{ DamageType[skill.DamageTypeIdx].label }}</el-col>
+                                            <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害"
+                                                placement="bottom-start">
+                                                <el-col class="textcenter" :span="6">傷害次數</el-col>
+                                            </el-tooltip>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.hitnumber)) }}</el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="6">固定詠唱</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.FCT)) }} s</el-col>
+                                            <el-col class="textcenter" :span="6">變動詠唱</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.VCT)) }} s</el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" :gutter="4" type="flex"
+                                            align="middle">
+                                            <el-col class="textcenter" :span="6">獨立延遲</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.CD)) }} s</el-col>
+                                            <el-col class="textcenter" :span="6">共通延遲</el-col>
+                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.GCD)) }} s</el-col>
+                                        </el-row>
+                                    </div>
+                                </el-collapse-transition>
+
+                                <div v-show="skill.Note!=''">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" style="color:rgb(29, 149, 170);">
+                                            <span>備註: {{ skill.Note }}</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        <el-button v-on:click="onOpenElementTable" :span="4" size="mini" type="success" round>
+                                            屬性相剋表
+                                        </el-button>
+                                        <span>攻擊屬性</span>
+                                    </el-col>
+                                    <el-col :span="12">
+                                        <div class="textcenter">
+                                            <el-select value-key="id" v-model="skilloption.AttackElementalIdx"
+                                                v-on:change="ComputElementalPercent" placeholder="攻擊屬性">
+                                                <el-option v-for="item in elementtypelist" :key="item.id"
+                                                    :label="item.label" :value="item.id">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">技能傷害增加</el-col>
+                                    <!--                                     <el-col :span="6">
+                                        <el-input v-model.number="option.EquipSkillAddDamage" v-on:change="onOption"
+                                            placeholder="Skill %">
+                                        </el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">+</el-col>
+                                    <el-col :span="6">
+                                        {{this.effecttypelist.find(x => x.id == 'SkillDamagePercent').totalvalue}}
+                                    </el-col> -->
+                                    <el-col class="textcenter" :span="6">{{option.EquipSkillAddDamage}}</el-col>
+                                    <el-col class="textcenter" :span="4">%</el-col>
+                                </el-row>
+                                <el-row  v-show="status.classid=='GE'" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="8">手推車重量</el-col>
+                                    <el-col class="textcenter" :span="8" >
+                                        <el-input-number v-model.number="skilloption.CarWeight" :min="0" :max="10500" :maxlength="5" v-on:input="onOption" :controls=false placeholder="手推車重量">
+                                        </el-input-number>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="8" >
+                                        Max: 10500
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
+
+                        <el-row class="titlebox" type="flex" align="middle" justify="end"
+                                style="height:40px; padding: 0px 5px;">
+                                <el-col class="textcenter" :span="9">
+                                </el-col>
+                                <el-col class="textcenter" :span="6">
+                                    <span class="textcenter">職業技能</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="6" style="text-align: right;">
+                                    <el-button v-on:click="OpenSupportSkill()" size="small">
+                                        額外技能
+                                    </el-button>
+                                </el-col>
+                                <el-col v-if="UIPanel['SupportSkillPanel']" class="textcenter" :span="3">
+                                    <el-button type="info" v-on:click="TogglePanel('SupportSkillPanel')" size="mini"><i
+                                            class="el-icon-arrow-down"></i></el-button>
+                                </el-col>
+                                <el-col v-else="!UIPanel['SupportSkillPanel']" class="textcenter" :span="3">
+                                    <el-button type="info" v-on:click="TogglePanel('SupportSkillPanel')" size="mini"><i
+                                            class="el-icon-arrow-up"></i></el-button>
+                                </el-col>
+                            </el-row>
+                        <el-row>
+                            <div class="boxborder OptionBlock">
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">武器修練ATK增加</el-col>
+                                    <el-col class="textcenter" :span="6">
+                                        <span>{{skilloption.WeaponMasteryATK}}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="2">
+                                        <span>+</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">
+                                        <el-input v-model.number="skilloption.WeaponMasteryATKInput"
+                                            v-on:change="onOption" placeholder="ATK">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <div v-for="(item, index) in SupportSkill_JobMaped"
+                                    v-bind:key="item.id">
+                                    <el-row
+                                        v-show="!UIPanel['SupportSkillPanel'] | item.skill.active"
+                                        :class="item.skill.passive?'optionbox':item.skill.trans=='4th'?'bg-4thskill-light':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
+                                        justify="end" style="height:40px;">
+                                        <el-col class="textcenter" style="text-align: right;">
+                                            <span class="EffectType">{{ item.skill.name }}</span>
+                                        </el-col>
+                                        <el-col v-else :span="2" >
+                                        </el-col>
+                                        <el-col v-if="item.skill.maxlv>1" class="textcenter" :span="4" justify="start">
+                                            <el-col v-if="item.skill.changelv==false" class="textcenter">
+                                                <span class="">{{ item.skill.maxlv }}</span>
+                                            </el-col>
+                                            <el-col v-else class="textcenter">
+                                                    <el-input v-model.number="item.skill.lv" v-on:change="onOption" size="small" style="text-align:center;"
+                                                        placeholder="level">
+                                                    </el-input>
+                                            </el-col>
+                                        </el-col>
+                                        <el-col v-else :span="4" >
+                                        </el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <el-switch v-model="item.skill.active" v-on:change="onSupportSkill(index)"
+                                                active-color="#13ce66" inactive-color="#8a9799">
+                                            </el-switch>
+                                        </el-col>
+                                    </el-row>
+                                    <el-collapse-transition>
+                                        <div v-show="item.skill.active">
+                                            <el-row v-show="GetSupportSkill(item.skill.id).argnum >= 1"
+                                                class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                justify="center">
+                                                <el-col class="textcenter" style="text-align: right;">
+                                                    <span class="EffectType">{{ item.skill.arg1desc }}</span>
+                                                </el-col>
+                                                <el-col v-else :span="2" >
+                                                </el-col>
+                                                <el-col class="textcenter" :span="6" justify="start">
+                                                    <el-col class="textcenter">
+                                                        <el-input v-model.number="item.skill.arg1" v-on:change="onOption" size="small" style="text-align:center;"
+                                                            placeholder="level">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-col>
+                                                <el-col :span="2" >
+                                                </el-col>
+                                            </el-row>
+                                            <el-row  v-show="GetSupportSkill(item.skill.id).argnum >= 2"
+                                                class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                justify="center">
+                                                <el-col class="textcenter" style="text-align: right;">
+                                                    <span class="EffectType">{{ item.skill.arg2desc }}</span>
+                                                </el-col>
+                                                <el-col v-else :span="2" >
+                                                </el-col>
+                                                <el-col class="textcenter" :span="6" justify="start">
+                                                    <el-col class="textcenter">
+                                                        <el-input v-model.number="item.skill.arg2" v-on:change="onOption" size="small" style="text-align:center;"
+                                                            placeholder="level">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-col>
+                                                <el-col :span="2" >
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-collapse-transition>
+                                </div>
+                            </div>
+                        </el-row>
+                        <el-row>
+                            <div class="boxborder OptionBlock">
+                                <div v-for="(item, index) in DefaultDB_SupportSkill"
+                                    v-bind:key="item.id">
+                                    <div v-if="UIPanel['SupportSkillPanel']?IsActiveOtherSupportSkill(item.skill):IsSelectOtherSupportSkill(item.skill)" >
+                                    <el-row
+                                        :class="item.skill.passive?'optionbox':item.skill.trans=='4th'?'bg-4thskill-light':'optionbox bg-purple-light'" :gutter="1" type="flex" align="middle"
+                                        justify="end" style="height:40px;">
+                                        <el-col class="textcenter" style="text-align: right;">
+                                            <span class="EffectType">{{ item.skill.name }}</span>
+                                        </el-col>
+                                        <el-col v-else :span="2" >
+                                        </el-col>
+                                        <el-col v-if="item.skill.maxlv>1" class="textcenter" :span="4" justify="start">
+                                            <el-col v-if="item.skill.changelv==false" class="textcenter">
+                                                <span class="">{{ item.skill.maxlv }}</span>
+                                            </el-col>
+                                            <el-col v-else class="textcenter">
+                                                    <el-input v-model.number="item.skill.lv" v-on:change="onOption" size="small" style="text-align:center;"
+                                                        placeholder="level">
+                                                    </el-input>
+                                            </el-col>
+                                        </el-col>
+                                        <el-col v-else :span="4" >
+                                        </el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <el-switch v-model="item.skill.active" v-on:change="onAllSupportSkill(item.skill)"
+                                                active-color="#13ce66" inactive-color="#8a9799">
+                                            </el-switch>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-collapse-transition>
+                                        <div v-show="item.skill.active">
+                                            <el-row v-show="GetSupportSkill(item.skill.id).argnum >= 1"
+                                                class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                justify="center">
+                                                <el-col class="textcenter" style="text-align: right;">
+                                                    <span class="EffectType">{{ item.skill.arg1desc }}</span>
+                                                </el-col>
+                                                <el-col v-else :span="2" >
+                                                </el-col>
+                                                <el-col class="textcenter" :span="6" justify="start">
+                                                    <el-col class="textcenter">
+                                                        <el-input v-model.number="item.skill.arg1" v-on:change="onOption" size="small" style="text-align:center;"
+                                                            placeholder="level">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-col>
+                                                <el-col :span="2" >
+                                                </el-col>
+                                            </el-row>
+                                            <el-row  v-show="GetSupportSkill(item.skill.id).argnum >= 2"
+                                                class="optionsubbox" :gutter="4" type="flex" align="middle"
+                                                justify="center">
+                                                <el-col class="textcenter" style="text-align: right;">
+                                                    <span class="EffectType">{{ item.skill.arg2desc }}</span>
+                                                </el-col>
+                                                <el-col v-else :span="2" >
+                                                </el-col>
+                                                <el-col class="textcenter" :span="6" justify="start">
+                                                    <el-col class="textcenter">
+                                                        <el-input v-model.number="item.skill.arg2" v-on:change="onOption" size="small" style="text-align:center;"
+                                                            placeholder="level">
+                                                        </el-input>
+                                                    </el-col>
+                                                </el-col>
+                                                <el-col :span="2" >
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-collapse-transition>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-row>
+                    </el-scrollbar>
+                </el-col>
+{% endraw %}
