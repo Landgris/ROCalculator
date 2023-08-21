@@ -6736,8 +6736,8 @@
                     this.computeattribute.atkc4_min = this.MulOper(this.computeattribute.atkc4_min, Number(1) - Number(this.enemyattribute.raceResist / 100));
                     this.computeattribute.atkc4_max = this.MulOper(this.computeattribute.atkc4_max, Number(1) - Number(this.enemyattribute.raceResist / 100));
 
-                    this.computeattribute.atkc4_min = this.computeattribute.atkc4_min + Number(this.computeattribute['SpecialATK2']);
-                    this.computeattribute.atkc4_max = this.computeattribute.atkc4_max + Number(this.computeattribute['SpecialATK2']);
+                    //this.computeattribute.atkc4_min = this.computeattribute.atkc4_min + Number(this.computeattribute['SpecialATK2']);
+                    //this.computeattribute.atkc4_max = this.computeattribute.atkc4_max + Number(this.computeattribute['SpecialATK2']);
 
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc4_min, Number(this.skilloption.ElementalPercent / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc4_max, Number(this.skilloption.ElementalPercent / 100));
@@ -6773,8 +6773,8 @@
                     this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, Number(1) + Number(this.attritube['PATK'] / 100));
                     this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, Number(1) + Number(this.attritube['PATK'] / 100));
 
-                    this.computeattribute.atkc5_min += Number(this.skilloption.WeaponMasteryATK);
-                    this.computeattribute.atkc5_max += Number(this.skilloption.WeaponMasteryATK);
+                    this.computeattribute.atkc5_min += Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK2']);
+                    this.computeattribute.atkc5_max += Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK2']);
 
                     if (this.IsSupportActive('TK_POWER')) {
                         var paraKihop = Number(1) + Number((10 + this.GetSupportSkill('TK_POWER').lv * 15) / 100);
@@ -9634,6 +9634,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2023-8-22', content: '修正箭矢/砲彈 公式位置' },
                         { id: '2023-7-22', content: '修正龍之氣息公式 之前的版本傷害較低' },
                         { id: '2023-5-9', content: '修正戰斧颶風(踏滅) 公式' },
                         { id: '2023-3-28', content: '副手精煉現在會增加PATK SMATK(精煉值*2)' },
