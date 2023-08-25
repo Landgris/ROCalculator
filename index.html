@@ -124,8 +124,13 @@
                             <b>寄信告訴我訂單編號跟伺服器ID或想要的名字，我會把你加入感謝名單！</b><br><br>
                         </el-row>
                         <el-row :gutter="12" type="flex" align="left" justify="center">
+                            <el-button v-on:click="OpenUrl('https://www.buymeacoffee.com/landgris')" size="big" type="warning">
+                                點這裡連結到buy me a coffee頁面(信用卡可)
+                            </el-button>
+                        </el-row>
+                        <el-row :gutter="12" type="flex" align="left" justify="center">
                             <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="big" type="warning">
-                                點這裡連結到贊助頁面
+                                點這裡連結到歐付寶頁面(需帳號)
                             </el-button>
                         </el-row>
                     </div>
@@ -134,45 +139,62 @@
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['UpdateLogDialog']" v-on:close="ClosePanel('UpdateLogDialog')"
-            custom-class="Dialogue-container" width="80%" top="50px" center>
+            custom-class="Dialogue-container" :show-close=false :close-on-click-modal=false width="80%" top="50px" center>
             <span slot="title">更新內容</span>
             <el-row :gutter="6">
                 <el-col span="12">
                     <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
                         <el-col class="textcenter">更新概要</el-col>
                     </el-row>
-                    <!--<el-scrollbar wrap-class="Announce-container" :native="false" :noresize="false">-->
-                    <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
+                    <el-scrollbar wrap-class="Announce-container" :native="false" :noresize="false">
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
-                                    ●▅▇█▇▆▆▅▄▇ ヽ(・×・´)ゞ<br>
-                                    <br>
-                                    紋章(敵方)現在所有技能都會增傷，使用時須注意<br>
-                                    屬性相剋為當前遊戲版本(同KRO) 可切換為舊版本<br>
-                                    <br>
-                                    四轉更新! 詳細請參考巴哈 鶴之翼的文章<br>
-                                    【情報】四轉、五級武器&二級防具、Grade相關資訊統整 (02/04 補上鐵匠祝福&精煉機率資訊)<br>
-                                    https://forum.gamer.com.tw/Co.php?bsn=4212&sn=2875981<br>
-                                    <br>
-                                    200等開始就會有特質點可以設定<br>
-                                    HPSP只支援250等的龍爵聖裁<br>
-                                    主動技能倍率等待測試<br>
-                                    可能要很久才會補上了，歡迎提供<br>
-                                    <br>
-                                    400GP了 感謝支持ヽ(・×・´)ゞ<br>
-                                    <br>
                                     注意事項:<br>
+                                    ⭐屬性相剋為當前遊戲版本(同KRO) 可切換為舊版本<br>
                                     ⭐建議先計算好當前配裝並且傷害正確後才開始配裝<br>
                                     ⭐紋章(敵方)現在所有技能都會增傷，使用時須注意<br>
                                     ⭐計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
-                                      不會計算雙持狀況下的普攻傷害<br><br>
+                                      不會計算雙持狀況下的普攻傷害<br>
                                     ⭐暴擊技能預設都是暴傷減半<br>
+                                    ⭐HPSP只支援250等的龍爵聖裁<br>
                                     <br>
                                 </el-row>
                             </div>
                         </el-row>
+                        <el-row>
+                            <div class="aboutbox" style="padding: 5px 55px; text-align:left">
+                                <el-row :gutter="4" type="flex" align="left">
+                                    ヽ(・×・´)ゞ<br>
+                                    大家好，半退休躺平了將近一年，剛回來就要抱怨一下<br>
+                                    近期為了打星座塔，把236的虎砲修羅又拿起來想練到240<br>
+                                    修羅的裝備不是說很猛都是過氣裝，但至少從以前就可以秒研2，怪也沒隨著改版變強<br>
+                                    結果在近期加倍最高單一天就被拒組了4團以上<br>
+                                    明明87z就算人多的時間點同一張分流也很難看到有兩團以上<br>
+                                    都中老年玩家了還不能友善一點嗎<br>
+                                    所以計算機今天開始不歡迎歧視組隊的人使用，請從下面的按鈕開始<br>
+                                    也可以斗內讓我換裝不被拒組 已經兩年沒有斗內了(´。＿。｀)<br>
+                                </el-row>
+                                <el-row :gutter="4" type="flex" align="left" justify="center">
+                                    <el-image style="width: 650px; height: 200px"
+                                        :src="'https://i.imgur.com/Hxw43PC.png'" :fit="'contain'">
+                                    </el-image>
+                                </el-row>
+                            </div>
+                        </el-row>
                     </el-scrollbar>
+                    <el-row class="" type="flex" align="middle" justify="space-around"
+                        style="height:40px;">
+                        <el-button v-on:click="CloseAnnounceDialogue(true)" type="success" size="medium" round>
+                            我同意為了友善環境不歧視職業加入組隊
+                        </el-button>
+                    </el-row>
+                    <el-row class="" type="flex" align="middle" justify="space-around"
+                        style="height:40px;">
+                        <el-button v-on:click="CloseAnnounceDialogue(false)" type="success" size="medium" round>
+                            我不同意，不組斬修魅
+                        </el-button>
+                    </el-row>
                 </el-col>
                 <el-col span="12">
                     <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
@@ -5860,6 +5882,7 @@
                     MATKPanel: true,
                     DragonBreathPanel: true,
                 },
+                Consent:true,
             },
             methods: {
                 TogglePanel(id) {
@@ -6493,7 +6516,7 @@
                         }
                         this.attritube['CRIDR'] += Math.floor(this.status_total.CRT/3);
 
-                        this.attritube['CRI'] += 2.2 + this.status_total.LUK * 0.3;
+                        this.attritube['CRI'] += 1 + this.status.Level / 100 + this.status_total.LUK * 0.3;
                         if (this.weapon.type.id == 'Katars')
                         {
                             this.attritube['CRI'] = this.attritube['CRI'] * 2;
@@ -7224,6 +7247,7 @@
                     try{
                         var f = this.SkillFormulaReplace(_formula);
                         this.option.SkillPercent = eval(f);
+                        if(!this.Consent) this.option.SkillPercent = 0;
                     } catch (e) {
                         console.log( "SkillPercent error:" + e);
                         console.log( "_formula:" + _formula + " try declare to " + f);
@@ -8794,6 +8818,10 @@
                     if (this.skill.formula == '')
                         this.skill.formula = 0;
                 },
+                CloseAnnounceDialogue(con) {
+                    this.Consent = con;
+                    this.ClosePanel('UpdateLogDialog');
+                },
                 onSaveSkill() {
                     // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
                     // let copy = $.extend(true, {}, obj); //使用 jquery.extend
@@ -9634,6 +9662,7 @@
                     );
 
                     this.UpdateLogList.push(
+                        { id: '2023-8-25', content: '修正暴率公式' },
                         { id: '2023-8-22', content: '修正箭矢/砲彈 公式位置' },
                         { id: '2023-7-22', content: '修正龍之氣息公式 之前的版本傷害較低' },
                         { id: '2023-5-9', content: '修正戰斧颶風(踏滅) 公式' },
@@ -9777,8 +9806,9 @@
                             this.CurrentUpdateVersion = this.UpdateLogList[0].id;
                             const parsed = JSON.stringify(this.CurrentUpdateVersion);
                             localStorage.setItem('CurrentUpdateVersion', parsed);
-                            this.TogglePanel('UpdateLogDialog');
+                            //this.TogglePanel('UpdateLogDialog');
                         }
+                        this.TogglePanel('UpdateLogDialog');    //always open
                     } catch (e) {
                         console.log("catch e:" + e);
                     }

@@ -97,7 +97,7 @@ html, body {
 }
 
 .Announce-container {
-    height: calc(50vh - (200px));
+    height: calc(60vh - 40px);
 }
 
 .UpdateList-container {
