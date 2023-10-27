@@ -75,16 +75,8 @@
                         <el-row :gutter="4" type="flex" align="middle">
                             <el-col class="textcenter">
                                 <br>
-                                Toss A Coin To Your Witcher<br>
-                                <span>如果覺得計算機有幫助到你，很想很想斗內的話點這個　</span><a href="https://pse.is/T52DP"
-                                    target="_blank"><span style="color:steelblue">歐付寶</span></a><br>
-                            </el-col>
-                        </el-row>
-                        <el-row :gutter="4" type="flex" align="middle">
-                            <el-col class="textcenter">
-                                <br>
                                 聯絡方式<br>
-                                遊戲內:巴基力 蘭禮 200等獵靈士<br>
+                                遊戲內:巴基力 蘭禮 230等704<br>
                                 信箱:valkyrie7744533@gmail.com<br>
                                 Twitter @Landgris<br>
                                 PTT ID: valkyria<br>
@@ -118,7 +110,7 @@
                             除了修正BUG、增加新功能、填各職業技能坑、各種測試公式、還要隨版本更新跑<br>
                             為了可以更雲玩家還增加了200等的素質點數<br><br>
                             如果覺得這個計算機有幫助你選擇到適合的裝備、或是計算是否打的贏某隻怪物<br>
-                            想要斗內的話可以按下面的連結，我會非常感謝<br><br>
+                            想要斗內的話可以按下方按紐，我會非常感謝<br><br>
                         </el-row>
                         <el-row :gutter="4" type="flex" align="left" justify="center">
                             <b>寄信告訴我訂單編號跟伺服器ID或想要的名字，我會把你加入感謝名單！</b><br><br>
@@ -144,13 +136,15 @@
             <el-row :gutter="6">
                 <el-col span="12">
                     <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
-                        <el-col class="textcenter">更新概要</el-col>
+                        <el-col class="textcenter">使用說明</el-col>
                     </el-row>
                     <el-scrollbar wrap-class="Announce-container" :native="false" :noresize="false">
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
                                     注意事項:<br>
+                                    ⭐目前遊戲版本武器體型懲罰是套用到卡裝ATK，之後官方會修正回來(也就是體型懲罰只影響武器ATK)<br>
+                                    ⭐請不要在巴哈單純回覆按計算機，配裝思路跟比較優劣也是很好討論的點<br>
                                     ⭐RES因為沒有怪物資料所以不列入計算<br>
                                     ⭐屬性相剋為當前遊戲版本(同KRO) 可切換為舊版本<br>
                                     ⭐建議先計算好當前配裝並且傷害正確後才開始配裝<br>
@@ -166,8 +160,8 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
-                                    ヽ(・×・´)ゞ<br>
-                                    超級大改版<br>
+                                    ヽ(・×・´)ゞ 請大家不要職業歧視 另外因為技能倍率大改現在伊甸裝也很夠打了<br>
+                                    <br>超級大改版<br>
                                     目前僅新增六大職的更改技能<br>
                                     公式參考小月鈴所測試的【討論】四轉職暨二次上位擴充職全技能實測<br>
                                     https://forum.gamer.com.tw/C.php?bsn=4212&snA=435523<br>
@@ -7593,7 +7587,8 @@
                     if (this.IsSupportActive('SA_ADVANCEDBOOK')){ if(this.weapon.type.id == 'Books' ){ this.skilloption.WeaponMasteryATK+=30; this.attritube['ASPDP'] += 5;} }
                     if (this.IsSupportActive('TK_RUN')){ if(this.weapon.type.id == 'Empty' ){ this.skilloption.WeaponMasteryATK+=this.GetSupportSkill('TK_RUN').lv*10;} }
                     if (this.IsSupportActive('RL_RICHS_COIN')){ if(this.weapon.type.id == 'Guns' ){ this.skilloption.WeaponMasteryATK+=30;} }
-
+                    if (this.IsSupportActive('GN_CARTBOOST')){ this.skilloption.WeaponMasteryATK+=50; }
+                    
                     //雙手劍攻擊速度增加
                     if (this.IsSupportActive('KN_TWOHANDQUICKEN')) {
                         if (this.weapon.type.id == 'TwoHandedSword') {
@@ -7788,10 +7783,6 @@
                     // 火山塵暴
                     if (this.IsSupportActive('MH_PYROCLASTIC')){
                         this.attritube['ATK'] += Number(this.GetSupportSkill('MH_PYROCLASTIC').arg1) + 10 * 20;
-                    }
-                    // 手推車加速
-                    if (this.IsSupportActive('GN_CARTBOOST')){
-                        this.attritube['ATK'] += 50;
                     }
                     // 爆炸孢子狀態
                     if (this.IsSupportActive('GN_SPORE')){
@@ -9192,8 +9183,8 @@
                         { skill: { id: 'DK_MADNESS_CRUSHER', name: '狂暴粉碎', level: 5, formula: "(400+SLV*800+POW*7+WLV*WGT)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0, CD: 0, GCD: 0.25, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'DK_DRAGONIC_AURA', name: '天龍光環', level: 10, formula: "(SLV*3650+POW*10)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'DK_DRAGONIC_AURA(ex)', name: '天龍光環(人形/天使)', level: 10, formula: "(SLV*3800+POW*10)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'DK_DRAGONIC_BREATH', name: '天龍之氣', level: 10, formula: "(50+(350+0.00625*Mhp+0.0125*Msp)*SLV+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'DK_DRAGONIC_BREATH(ex)', name: '天龍之氣(天龍光環)', level: 10, formula: "(50+(350+0.00875*Mhp+0.0175*Msp)*SLV+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'DK_DRAGONIC_BREATH', name: '天龍氣息', level: 10, formula: "(50+(350+0.00625*Mhp+0.0125*Msp)*SLV+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0.5, VCT: 2, CD: 0.5, GCD: 0.15, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'DK_DRAGONIC_BREATH(ex)', name: '天龍氣息(天龍光環)', level: 10, formula: "(50+(350+0.00875*Mhp+0.0175*Msp)*SLV+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0.5, VCT: 2, CD: 0.5, GCD: 0.15, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         
                         { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '(700+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 1, VCT: 5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(1000+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 1, VCT: 6, CD: 7, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9273,8 +9264,8 @@
                         { skill: { id: 'MT_AXE_STOMP', name: '戰斧踏滅(雙手斧)', level: 5, formula: '(350+850*SLV+POW*5)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'MT_MIGHTY_SMASH', name: '強力粉碎', level: 10, formula: '(100+300*SLV+POW*7)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'MT_MIGHTY_SMASH(ex)', name: '強力粉碎(踏滅)', level: 10, formula: '(150+300*SLV+POW*7)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'MT_TRIPLE_LASER', name: '三連雷射', level: 5, formula: '(300+600*SLV+POW*10)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0.2, CD: 0.25, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
-                        { skill: { id: 'MT_SPARK_BLASTER', name: '閃光衝擊波', level: 10, formula: '(250+750*SLV+POW*7)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'MT_TRIPLE_LASER', name: '三連雷射', level: 5, formula: '(300+600*SLV+POW*10)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0.5, VCT: 1, CD: 0.25, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'MT_SPARK_BLASTER', name: '閃光衝擊波', level: 10, formula: '(250+750*SLV+POW*7)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 0.7, GCD: 0.25, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         
                         { skill: { id: 'SN_SHARPSHOOTING', name: '銳利射擊', level: 5, formula: '(300+300*SLV)*(BLV/100)', class: 'RA', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0.15, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'RA_AIMEDBOLT', name: '瞄準標靶', level: 10, formula: '(500+SLV*20)*BLV/100', class: 'RA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 1, VCT: 4, CD: 1, GCD: 2, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9362,6 +9353,10 @@
                         { skill: { id: 'GN_HELLS_PLANT', name: '地獄植物', level: 5, formula: '(SLV*100+INT*5)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '5為生物挑撥等級', } },
                         { skill: { id: 'GN_SPORE_EXPLOSION', name: '爆炸孢子', level: 10, formula: '(400+SLV*200+INT)*BLV/100', class: 'GE', DamageTypeIdx: 0, intest: true, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 1.5, CD: 5, GCD: 0.5, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'CR_ACIDDEMONSTRATION', name: '強酸火煙瓶投擲', level: 10, formula: '(SLV*200+INT*2+EVit*10)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '須調整敵方VIT', } },
+                        { skill: { id: 'BO_ACIDIFIED_ZONE_GROUND', name: '強酸禁地', level: 5, formula: '(SLV*400+POW*6)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 7, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'BO_ACIDIFIED_ZONE_GROUND(ex1)', name: '強酸禁地(研究)', level: 5, formula: '(SLV*600+POW*9)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 7, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        { skill: { id: 'BO_ACIDIFIED_ZONE_GROUND(ex2)', name: '強酸禁地(研究/無形/植物)', level: 5, formula: '(SLV*600+POW*13.5)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 7, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
+                        
                         { skill: { id: 'BO_EXPLOSIVE_POWDER', name: '爆炸炸藥', level: 5, formula: '(400+450*SLV+POW*7)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'BO_EXPLOSIVE_POWDER(ex)', name: '爆炸炸藥(研究報告)', level: 5, formula: '(400+550*SLV+POW*10)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
                         { skill: { id: 'BO_MAYHEMIC_THORNS', name: '混亂的荊棘', level: 10, formula: '(200+250*SLV+POW*7)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0, SpecialATK1: 0, SpecialATK2: 0, SpecialATK3: 0, SpecialATK4: 0, SpecialATK5: 0, SpecialATK6: 0, SpecialATK7: 0, SpecialMATK1: 0, Note: '', } },
@@ -9742,7 +9737,8 @@
                     );
                     
                     this.UpdateLogList.push(
-                        { id: '2023-10-25', content: '增加預設技能 死侍武器,狂暴粉碎,天龍之氣,天龍光環,瞬間斬擊,盾牌投擲,末日審判,戰斧踏滅,強力粉碎,三連雷射,閃光衝擊波,爆炸炸藥,混亂的荊棘,野蠻衝擊,永恆斬擊,深淵匕首,靈巧刺擊,狂暴射擊,焰火之徑,萬紫千紅,冰晶飛瀑,冰刃斬,龍捲風暴,暴風加農砲,毀滅颶風,地層震動,巨石降臨,震裂術,致命放射,神秘幻滅,星際突襲,元素破壞,聖靈鎮魂,制裁謳歌,驅魔風暴,聖光打擊,破壞擊,毀滅風暴<br><br>調整預設技能 橫揮斬,風暴斬擊,深淵墳場,終結深淵攻擊,豔紅魔矢,水晶波爆,靈魂連擊,毒液沼澤,灼熱岩漿,鑽石風暴,雷霆陣地,大地驅動,爆破衝擊,第三擊：火焰彈,漸進狙擊,金屬狂怒,節奏射擊,玫瑰箭矢' },
+                        { id: '2023-10-27', content: '修正手推車加速 更改為修練ATK<br>調整詠唱延遲 天龍氣息、三連雷射、閃光衝擊波' },
+                        { id: '2023-10-25', content: '增加預設技能 死侍武器,狂暴粉碎,天龍氣息,天龍光環,瞬間斬擊,盾牌投擲,末日審判,戰斧踏滅,強力粉碎,三連雷射,閃光衝擊波,爆炸炸藥,混亂的荊棘,野蠻衝擊,永恆斬擊,深淵匕首,靈巧刺擊,狂暴射擊,焰火之徑,萬紫千紅,冰晶飛瀑,冰刃斬,龍捲風暴,暴風加農砲,毀滅颶風,地層震動,巨石降臨,震裂術,致命放射,神秘幻滅,星際突襲,元素破壞,聖靈鎮魂,制裁謳歌,驅魔風暴,聖光打擊,破壞擊,毀滅風暴<br><br>調整預設技能 橫揮斬,風暴斬擊,深淵墳場,終結深淵攻擊,豔紅魔矢,水晶波爆,靈魂連擊,毒液沼澤,灼熱岩漿,鑽石風暴,雷霆陣地,大地驅動,爆破衝擊,第三擊：火焰彈,漸進狙擊,金屬狂怒,節奏射擊,玫瑰箭矢' },
                         { id: '2023-8-26', content: '增加預設技能 爆破衝擊' },
                         { id: '2023-8-25', content: '修正暴率公式' },
                         { id: '2023-8-22', content: '修正箭矢/砲彈 公式位置' },
