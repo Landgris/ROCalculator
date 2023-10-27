@@ -162,11 +162,13 @@
                                 <el-row :gutter="4" type="flex" align="left">
                                     ヽ(・×・´)ゞ 請大家不要職業歧視 另外因為技能倍率大改現在伊甸裝也很夠打了<br>
                                     <br>超級大改版<br>
-                                    目前僅新增六大職的更改技能<br>
+                                    目前僅新增六大職的更改的傷害技能以及擴充上位的輔助技能<br>
                                     公式參考小月鈴所測試的【討論】四轉職暨二次上位擴充職全技能實測<br>
                                     https://forum.gamer.com.tw/C.php?bsn=4212&snA=435523<br>
-                                    <br>新增的有<br>
+                                    <br>新增的主動傷害技能有<br>
                                     死侍武器,狂暴粉碎,天龍之氣,天龍光環,瞬間斬擊,盾牌投擲,末日審判,戰斧踏滅,強力粉碎,三連雷射,閃光衝擊波,爆炸炸藥,混亂的荊棘,野蠻衝擊,永恆斬擊,深淵匕首,靈巧刺擊,狂暴射擊,焰火之徑,萬紫千紅,冰晶飛瀑,冰刃斬,龍捲風暴,暴風加農砲,毀滅颶風,地層震動,巨石降臨,震裂術,致命放射,神秘幻滅,星際突襲,元素破壞,聖靈鎮魂,制裁謳歌,驅魔風暴,聖光打擊,破壞擊,毀滅風暴<br>
+                                    <br>新增的擴充上位輔助技能有<br>
+                                    引魂術研究,符咒研究,武士符,法師符,五行符,天地神靈,兵法修練,P.F.I,榴彈精通,王牌出手,專注瞄準,靈物互動,靈物祝福,神龜海洋慶典,神龜沙雕節,自學策略,自學魔法<br>
                                     <br>調整的有<br>
                                     橫揮斬,風暴斬擊,深淵墳場,終結深淵攻擊,豔紅魔矢,水晶波爆,靈魂連擊,毒液沼澤,灼熱岩漿,鑽石風暴,雷霆陣地,大地驅動,爆破衝擊,第三擊：火焰彈,漸進狙擊,金屬狂怒,節奏射擊,玫瑰箭矢<br>
                                     <br>麻煩有錯誤或是沒有填上固詠變詠延遲等資料的話在巴哈上留言跟我說<br>
@@ -4861,7 +4863,7 @@
                                                 <span>對屬性魔物%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{effecttypelist[GetETLIndex('ElementalMatkPercent')].totalvalue}} %</span>
+                                                <span>{{attritube['ElementalMatkPercent']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5263,17 +5265,17 @@
 
                     { id: 'GE', label: '基因學者/生命締造者', TranscendentClass: true, JobMaxPoint:[5,6,8,12,8,4], TJobMaxPoint:[5,6,8,12,8,4,6,3,4,4,6,10], basehp: [4730, 4766, 4853, 4940, 5027, 5113, 5200, 5287, 5374, 5461, 5548, 5635, 5722, 5809, 5896, 5982, 6069, 6156, 6243, 6330, 6417, 6504, 6591, 6678, 6765, 6851, 6938, 7025, 7112, 7199, 7286, 7373, 7460, 7547, 7634, 7720, 7807, 7894, 7981, 8068, 8155, 8242, 8329, 8416, 8503, 8589, 8676, 8763, 8850, 8937, 9024, 9111, 9198, 9285, 9372, 9459, 9546, 9633, 9720, 9807, 9894, 9980, 10141, 10303, 10466, 10630, 10795, 10961, 11128, 11296, 11465, 11635, 11806, 11978, 12151, 12325, 12500, 12800, 13133, 13461, 13757, 13991, 14271, 14642, 15008, 15353, 15752, 19998, 20407, 20816, 21223, 21632, 22041, 22448, 22857, 23266, 23673, 24082, 24491, 24898, 25307, 25715], basesp: [900, 910, 919, 928, 937, 946, 955, 964, 973, 982, 991, 1000, 1009, 1018, 1027, 1036, 1045, 1054, 1063, 1072, 1081, 1090, 1099, 1108, 1117, 1126, 1135, 1144, 1153, 1162, 1171, 1180, 1189, 1198, 1207, 1216, 1225, 1234, 1243, 1252, 1261, 1270, 1279, 1288, 1297, 1306, 1315, 1324, 1333, 1342, 1351, 1360, 1369, 1378, 1387, 1396, 1405, 1414, 1423, 1432, 1441, 1450, 1460, 1470, 1480, 1490, 1500, 1511, 1522, 1533, 1544, 1555, 1567, 1579, 1591, 1603, 1615, 1625, 1636, 1646, 1657, 1667, 1678, 1689, 1700, 1710, 1721, 2165, 2177, 2191, 2205, 2218, 2231, 2245, 2258, 2271, 2285, 2298, 2311, 2325, 2338, 2352], baseaspd: 0 },
 
-                    { id: 'KO', label: '影狼', TranscendentClass: false, JobMaxPoint:[7,10,6,6,9,5], basehp: [4300, 4426, 4554, 4684, 4814, 0, 0, 0, 5348, 0, 0, 0, 5932, 0, 6186, 0, 0, 0, 0, 0, 0, 7022, 0, 0, 0, 0, 7998, 0, 0, 0, 0, 8807, 8972, 9138, 9306, 9476, 9646, 9817, 9990, 10165, 10340, 10516, 10694, 10874, 11054, 0, 0, 0, 0, 0, 12162, 0, 0, 0, 0, 0, 13316, 0, 0, 0, 0, 0, 0, 14719, 0, 0, 0, 0, 0, 15969, 0, 16397, 16612, 16828, 0, 17266, 17486, 17667, 18223, 18434, 18804, 19198, 19411, 19616, 20208, 20418, 20838, 21123, 21458, 21793, 22128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25812], basesp: [522, 530, 538, 546, 554, 0, 0, 0, 586, 0, 0, 0, 628, 0, 634, 0, 0, 0, 0, 0, 0, 690, 0, 0, 0, 0, 730, 0, 0, 0, 0, 770, 778, 786, 794, 802, 810, 818, 826, 834, 842, 850, 858, 866, 874, 0, 0, 0, 0, 0, 922, 0, 0, 0, 0, 0, 1014, 0, 0, 0, 0, 0, 0, 1116, 0, 0, 0, 0, 0, 1164, 0, 1180, 1188, 1196, 0, 1212, 1220, 1224, 1228, 1232, 1237, 1241, 1249, 1261, 1271, 1279, 1287, 1298, 1307, 1316, 1326, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1429], baseaspd: 0 },
-                    { id: 'OB', label: '朧', TranscendentClass: false, JobMaxPoint:[7,10,6,6,8,6], basehp: [4300, 4426, 4554, 4684, 4814, 0, 0, 0, 5348, 0, 0, 0, 5932, 0, 6186, 0, 0, 0, 0, 0, 0, 7022, 0, 0, 0, 0, 7998, 0, 0, 0, 0, 8807, 8972, 9138, 9306, 9476, 9646, 9817, 9990, 10165, 10340, 10516, 10694, 10874, 11054, 0, 0, 0, 0, 0, 12162, 0, 0, 0, 0, 0, 13316, 0, 0, 0, 0, 0, 0, 14719, 0, 0, 0, 0, 0, 15969, 0, 16397, 16612, 16828, 0, 17266, 17486, 17667, 18223, 18434, 18804, 19198, 19411, 19616, 20208, 20418, 20838, 21123, 21458, 21793, 22128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25812], basesp: [522, 530, 538, 546, 554, 0, 0, 0, 586, 0, 0, 0, 628, 0, 634, 0, 0, 0, 0, 0, 0, 690, 0, 0, 0, 0, 730, 0, 0, 0, 0, 770, 778, 786, 794, 802, 810, 818, 826, 834, 842, 850, 858, 866, 874, 0, 0, 0, 0, 0, 922, 0, 0, 0, 0, 0, 1014, 0, 0, 0, 0, 0, 0, 1116, 0, 0, 0, 0, 0, 1164, 0, 1180, 1188, 1196, 0, 1212, 1220, 1224, 1228, 1232, 1237, 1241, 1249, 1261, 1271, 1279, 1287, 1298, 1307, 1316, 1326, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1429], baseaspd: 0 },
+                    { id: 'KO', label: '影狼/流浪忍者', TranscendentClass: false, JobMaxPoint:[7,10,6,6,9,5], basehp: [4300, 4426, 4554, 4684, 4814, 0, 0, 0, 5348, 0, 0, 0, 5932, 0, 6186, 0, 0, 0, 0, 0, 0, 7022, 0, 0, 0, 0, 7998, 0, 0, 0, 0, 8807, 8972, 9138, 9306, 9476, 9646, 9817, 9990, 10165, 10340, 10516, 10694, 10874, 11054, 0, 0, 0, 0, 0, 12162, 0, 0, 0, 0, 0, 13316, 0, 0, 0, 0, 0, 0, 14719, 0, 0, 0, 0, 0, 15969, 0, 16397, 16612, 16828, 0, 17266, 17486, 17667, 18223, 18434, 18804, 19198, 19411, 19616, 20208, 20418, 20838, 21123, 21458, 21793, 22128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25812], basesp: [522, 530, 538, 546, 554, 0, 0, 0, 586, 0, 0, 0, 628, 0, 634, 0, 0, 0, 0, 0, 0, 690, 0, 0, 0, 0, 730, 0, 0, 0, 0, 770, 778, 786, 794, 802, 810, 818, 826, 834, 842, 850, 858, 866, 874, 0, 0, 0, 0, 0, 922, 0, 0, 0, 0, 0, 1014, 0, 0, 0, 0, 0, 0, 1116, 0, 0, 0, 0, 0, 1164, 0, 1180, 1188, 1196, 0, 1212, 1220, 1224, 1228, 1232, 1237, 1241, 1249, 1261, 1271, 1279, 1287, 1298, 1307, 1316, 1326, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1429], baseaspd: 0 },
+                    { id: 'OB', label: '朧/疾風忍者 ', TranscendentClass: false, JobMaxPoint:[7,10,6,6,8,6], basehp: [4300, 4426, 4554, 4684, 4814, 0, 0, 0, 5348, 0, 0, 0, 5932, 0, 6186, 0, 0, 0, 0, 0, 0, 7022, 0, 0, 0, 0, 7998, 0, 0, 0, 0, 8807, 8972, 9138, 9306, 9476, 9646, 9817, 9990, 10165, 10340, 10516, 10694, 10874, 11054, 0, 0, 0, 0, 0, 12162, 0, 0, 0, 0, 0, 13316, 0, 0, 0, 0, 0, 0, 14719, 0, 0, 0, 0, 0, 15969, 0, 16397, 16612, 16828, 0, 17266, 17486, 17667, 18223, 18434, 18804, 19198, 19411, 19616, 20208, 20418, 20838, 21123, 21458, 21793, 22128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25812], basesp: [522, 530, 538, 546, 554, 0, 0, 0, 586, 0, 0, 0, 628, 0, 634, 0, 0, 0, 0, 0, 0, 690, 0, 0, 0, 0, 730, 0, 0, 0, 0, 770, 778, 786, 794, 802, 810, 818, 826, 834, 842, 850, 858, 866, 874, 0, 0, 0, 0, 0, 922, 0, 0, 0, 0, 0, 1014, 0, 0, 0, 0, 0, 0, 1116, 0, 0, 0, 0, 0, 1164, 0, 1180, 1188, 1196, 0, 1212, 1220, 1224, 1228, 1232, 1237, 1241, 1249, 1261, 1271, 1279, 1287, 1298, 1307, 1316, 1326, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1429], baseaspd: 0 },
 
-                    { id: 'RE', label: '反叛者', TranscendentClass: false, JobMaxPoint:[3,8,6,8,11,7], basehp: [0, 5319, 5458, 5599, 5740, 5883, 6026, 6171, 6316, 6463, 6610, 6758, 6906, 7056, 7206, 7358, 7510, 7664, 7818, 0, 0, 8287, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15886, 0, 0, 0, 0, 16879, 0, 17282, 0, 0, 0, 18098, 18304, 0, 18555, 18679, 18807, 19060, 19315, 19704, 19969, 20103, 20375, 20652, 20907, 0, 21418, 21674, 21929, 0, 0, 0, 0, 0, 0, 0, 0, 24230], basesp: [0, 462, 468, 474, 480, 486, 492, 498, 504, 510, 516, 522, 528, 534, 540, 546, 552, 558, 564, 0, 0, 582, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 936, 0, 0, 0, 0, 1026, 0, 1062, 0, 0, 0, 1134, 1152, 0, 1168, 1180, 1184, 1188, 1192, 1204, 1213, 1221, 1230, 1240, 1249, 0, 1268, 1277, 1286, 0, 0, 0, 0, 0, 0, 0, 0, 1370], baseaspd: 0 },
+                    { id: 'RE', label: '反叛者/夜行使', TranscendentClass: false, JobMaxPoint:[3,8,6,8,11,7], basehp: [0, 5319, 5458, 5599, 5740, 5883, 6026, 6171, 6316, 6463, 6610, 6758, 6906, 7056, 7206, 7358, 7510, 7664, 7818, 0, 0, 8287, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15886, 0, 0, 0, 0, 16879, 0, 17282, 0, 0, 0, 18098, 18304, 0, 18555, 18679, 18807, 19060, 19315, 19704, 19969, 20103, 20375, 20652, 20907, 0, 21418, 21674, 21929, 0, 0, 0, 0, 0, 0, 0, 0, 24230], basesp: [0, 462, 468, 474, 480, 486, 492, 498, 504, 510, 516, 522, 528, 534, 540, 546, 552, 558, 564, 0, 0, 582, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 936, 0, 0, 0, 0, 1026, 0, 1062, 0, 0, 0, 1134, 1152, 0, 1168, 1180, 1184, 1188, 1192, 1204, 1213, 1221, 1230, 1240, 1249, 0, 1268, 1277, 1286, 0, 0, 0, 0, 0, 0, 0, 0, 1370], baseaspd: 0 },
 
-                    { id: 'SE', label: '拳皇', TranscendentClass: false, JobMaxPoint:[12,10,6,3,9,3], basehp: [4300, 4426, 4554, 4684, 4814, 4945, 0, 5213, 0, 0, 5622, 0, 0, 6224, 0, 0, 6476, 6622, 0, 0, 0, 0, 7374, 0, 0, 0, 7998, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12940, 0, 0, 0, 12162, 12352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14924, 0, 0, 0, 15758, 0, 0, 16397, 0, 0, 0, 17266, 17486, 0, 0, 0, 18401, 18604, 18801, 0, 19594, 0, 20843, 0, 21347, 0, 0, 22499, 0, 0, 23651, 0, 0, 0, 0, 0, 0, 26340], basesp: [522, 530, 538, 546, 554, 562, 0, 578, 0, 0, 602, 0, 0, 626, 0, 0, 650, 658, 0, 0, 0, 0, 698, 0, 0, 0, 730, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 786, 0, 0, 0, 922, 930, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1124, 0, 0, 0, 1156, 0, 0, 1180, 0, 0, 0, 1212, 1220, 0, 0, 0, 1254, 1258, 1263, 0, 1281, 0, 1295, 0, 1312, 0, 0, 1337, 0, 0, 1361, 0, 0, 0, 0, 0, 0, 1420], baseaspd: 0 },
+                    { id: 'SE', label: '拳皇/天帝', TranscendentClass: false, JobMaxPoint:[12,10,6,3,9,3], basehp: [4300, 4426, 4554, 4684, 4814, 4945, 0, 5213, 0, 0, 5622, 0, 0, 6224, 0, 0, 6476, 6622, 0, 0, 0, 0, 7374, 0, 0, 0, 7998, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12940, 0, 0, 0, 12162, 12352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14924, 0, 0, 0, 15758, 0, 0, 16397, 0, 0, 0, 17266, 17486, 0, 0, 0, 18401, 18604, 18801, 0, 19594, 0, 20843, 0, 21347, 0, 0, 22499, 0, 0, 23651, 0, 0, 0, 0, 0, 0, 26340], basesp: [522, 530, 538, 546, 554, 562, 0, 578, 0, 0, 602, 0, 0, 626, 0, 0, 650, 658, 0, 0, 0, 0, 698, 0, 0, 0, 730, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 786, 0, 0, 0, 922, 930, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1124, 0, 0, 0, 1156, 0, 0, 1180, 0, 0, 0, 1212, 1220, 0, 0, 0, 1254, 1258, 1263, 0, 1281, 0, 1295, 0, 1312, 0, 0, 1337, 0, 0, 1361, 0, 0, 0, 0, 0, 0, 1420], baseaspd: 0 },
 
-                    { id: 'SL', label: '獵靈士', TranscendentClass: false, JobMaxPoint:[3,7,7,11,13,2], basehp: [4300, 4333, 4412, 0, 0, 0, 4728, 4807, 4886, 4965, 5044, 5123, 5202, 5281, 5360, 5439, 5518, 5597, 5676, 5755, 5834, 5913, 5992, 6071, 6150, 6229, 6308, 6387, 6466, 6545, 6624, 6703, 6782, 6861, 6940, 7021, 7098, 7177, 7256, 7335, 7414, 7493, 0, 0, 0, 7809, 0, 0, 0, 8125, 0, 0, 0, 0, 0, 0, 0, 0, 8836, 0, 0, 0, 0, 9438, 0, 9765, 8576, 0, 0, 10431, 0, 10770, 10941, 11113, 11286, 11460, 11635, 0, 12365, 12618, 12877, 13273, 13546, 13965, 14402, 14841, 15158, 15517, 15891, 16265, 16639, 17013, 17387, 17761, 18135, 18509, 18882, 19256, 19630, 20004, 20378, 20752], basesp: [674, 910, 919, 0, 0, 0, 955, 964, 973, 982, 991, 1000, 1009, 1018, 1027, 1036, 1045, 1054, 1063, 1072, 1081, 1090, 1099, 1108, 1117, 1126, 1135, 1144, 1153, 1162, 1171, 1180, 1189, 1198, 1207, 1216, 1225, 1234, 1243, 1252, 1261, 1270, 0, 0, 0, 1306, 0, 0, 0, 1342, 0, 0, 0, 0, 0, 0, 0, 0, 1423, 0, 0, 0, 0, 1470, 0, 1490, 1500, 0, 0, 1533, 0, 1555, 1567, 1579, 1591, 1603, 1615, 0, 1636, 1651, 1665, 1672, 1686, 1693, 1700, 1708, 1729, 1734, 1744, 1754, 1764, 1774, 1784, 1794, 1804, 1814, 1824, 1835, 1845, 1855, 1865, 1875], baseaspd: 0 },
+                    { id: 'SL', label: '獵靈士/契靈士', TranscendentClass: false, JobMaxPoint:[3,7,7,11,13,2], basehp: [4300, 4333, 4412, 0, 0, 0, 4728, 4807, 4886, 4965, 5044, 5123, 5202, 5281, 5360, 5439, 5518, 5597, 5676, 5755, 5834, 5913, 5992, 6071, 6150, 6229, 6308, 6387, 6466, 6545, 6624, 6703, 6782, 6861, 6940, 7021, 7098, 7177, 7256, 7335, 7414, 7493, 0, 0, 0, 7809, 0, 0, 0, 8125, 0, 0, 0, 0, 0, 0, 0, 0, 8836, 0, 0, 0, 0, 9438, 0, 9765, 8576, 0, 0, 10431, 0, 10770, 10941, 11113, 11286, 11460, 11635, 0, 12365, 12618, 12877, 13273, 13546, 13965, 14402, 14841, 15158, 15517, 15891, 16265, 16639, 17013, 17387, 17761, 18135, 18509, 18882, 19256, 19630, 20004, 20378, 20752], basesp: [674, 910, 919, 0, 0, 0, 955, 964, 973, 982, 991, 1000, 1009, 1018, 1027, 1036, 1045, 1054, 1063, 1072, 1081, 1090, 1099, 1108, 1117, 1126, 1135, 1144, 1153, 1162, 1171, 1180, 1189, 1198, 1207, 1216, 1225, 1234, 1243, 1252, 1261, 1270, 0, 0, 0, 1306, 0, 0, 0, 1342, 0, 0, 0, 0, 0, 0, 0, 0, 1423, 0, 0, 0, 0, 1470, 0, 1490, 1500, 0, 0, 1533, 0, 1555, 1567, 1579, 1591, 1603, 1615, 0, 1636, 1651, 1665, 1672, 1686, 1693, 1700, 1708, 1729, 1734, 1744, 1754, 1764, 1774, 1784, 1794, 1804, 1814, 1824, 1835, 1845, 1855, 1865, 1875], baseaspd: 0 },
 
-                    { id: 'SUM', label: '喵族召喚師', TranscendentClass: false, JobMaxPoint:[0,7,5,9,12,5], basehp: [5956, 6120, 0, 6360, 6480, 0, 0, 0, 0, 0, 0, 0, 0, 7725, 7875, 0, 0, 0, 0, 0, 0, 0, 9739, 9390, 9570, 9750, 9945, 10140, 10335, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12675, 12900, 0, 0, 0, 0, 0, 14355, 0, 14865, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18750, 0, 0, 19650, 19439, 0, 0, 0, 0, 0, 21885, 0, 0, 22875, 23220, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24740, 24904, 0, 0, 25432, 25608, 25784, 25960, 0, 0, 26487, 0, 26839, 0, 27190, 27366], basesp: [253, 257, 0, 265, 269, 0, 0, 0, 0, 0, 0, 0, 0, 316, 322, 0, 0, 0, 0, 0, 0, 0, 423, 387, 395, 403, 412, 421, 430, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 542, 553, 0, 0, 0, 0, 0, 626, 0, 642, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 835, 0, 0, 883, 800, 0, 0, 0, 0, 0, 1002, 0, 0, 1056, 1074, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1110, 1114, 0, 0, 1124, 1128, 1131, 1134, 0, 0, 1144, 0, 1151, 0, 1157, 1161], baseaspd: 0 },
-                    { id: 'SN', label: '超級初心者', TranscendentClass: false, JobMaxPoint:[7,7,6,6,6,5], basehp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3780, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5580, 0, 0, 0, 0, 5830, 0, 0, 5980, 0, 6080, 6130, 0, 0, 0, 6330, 0, 0, 6480, 0, 6580, 6630, 6680, 6730, 6780, 6830, 6880, 6930, 6980, 7030, 7080, 7130, 7180, 7338, 7462, 7587, 7675, 7802, 7480, 7530, 7580], basesp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 234, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 414, 0, 0, 0, 0, 439, 0, 0, 454, 0, 464, 469, 0, 0, 0, 489, 0, 0, 504, 0, 514, 519, 524, 529, 534, 539, 544, 549, 554, 559, 564, 569, 574, 579, 584, 589, 594, 599, 604, 609, 614], baseaspd: 0 },
+                    { id: 'SUM', label: '喵族召喚師/魂靈師', TranscendentClass: false, JobMaxPoint:[0,7,5,9,12,5], basehp: [5956, 6120, 0, 6360, 6480, 0, 0, 0, 0, 0, 0, 0, 0, 7725, 7875, 0, 0, 0, 0, 0, 0, 0, 9739, 9390, 9570, 9750, 9945, 10140, 10335, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12675, 12900, 0, 0, 0, 0, 0, 14355, 0, 14865, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18750, 0, 0, 19650, 19439, 0, 0, 0, 0, 0, 21885, 0, 0, 22875, 23220, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24740, 24904, 0, 0, 25432, 25608, 25784, 25960, 0, 0, 26487, 0, 26839, 0, 27190, 27366], basesp: [253, 257, 0, 265, 269, 0, 0, 0, 0, 0, 0, 0, 0, 316, 322, 0, 0, 0, 0, 0, 0, 0, 423, 387, 395, 403, 412, 421, 430, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 542, 553, 0, 0, 0, 0, 0, 626, 0, 642, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 835, 0, 0, 883, 800, 0, 0, 0, 0, 0, 1002, 0, 0, 1056, 1074, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1110, 1114, 0, 0, 1124, 1128, 1131, 1134, 0, 0, 1144, 0, 1151, 0, 1157, 1161], baseaspd: 0 },
+                    { id: 'SN', label: '超級初心者/終極初學者', TranscendentClass: false, JobMaxPoint:[7,7,6,6,6,5], basehp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3780, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5580, 0, 0, 0, 0, 5830, 0, 0, 5980, 0, 6080, 6130, 0, 0, 0, 6330, 0, 0, 6480, 0, 6580, 6630, 6680, 6730, 6780, 6830, 6880, 6930, 6980, 7030, 7080, 7130, 7180, 7338, 7462, 7587, 7675, 7802, 7480, 7530, 7580], basesp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 234, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 414, 0, 0, 0, 0, 439, 0, 0, 454, 0, 464, 469, 0, 0, 0, 489, 0, 0, 504, 0, 514, 519, 524, 529, 534, 539, 544, 549, 554, 559, 564, 569, 574, 579, 584, 589, 594, 599, 604, 609, 614], baseaspd: 0 },
                 ],
                 equipspartlist: [
                     { id: 'weaponr', label: '主手', equipname: '', effectlist: [] },
@@ -5497,6 +5499,7 @@
                     WeaponPerfection: 0, WeaponOccult: 0,
                     ElementalMagicPercent: 0,
                     SizeMatkPercent: 0,
+                    ElementalMatkPercent: 0,
                     ElementalAtkPercent: 0,
                     LevelAtkPercent: 0,
                     SizeAtkPercent: 0,
@@ -7050,7 +7053,7 @@
                     //this.computeattribute.matkpercent_min = this.MulOper(this.computeattribute.matkpercent_min, Number(1) + Number(this.attritube['SMATK'] / 100));
                     //this.computeattribute.matkpercent_max = this.MulOper(this.computeattribute.matkpercent_max, Number(1) + Number(this.attritube['SMATK'] / 100));
 
-                    var para_elemt = Number(1) + Number(this.effecttypelist.find(x => x.id == 'ElementalMatkPercent').totalvalue) / 100;
+                    var para_elemt = Number(1) + Number(this.attritube['ElementalMatkPercent']) / 100;
                     var para_magicelemt = Number(1) + Number(this.attritube['ElementalMagicPercent']) / 100;
                     var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceMatkPercent').totalvalue) / 100;
                     var para_size = Number(1) + Number(this.attritube['SizeMatkPercent']) / 100;
@@ -8295,12 +8298,48 @@
                             this.attritube['ELEDDI'] += 100;
                         }
                     }
-                    //念
+                    // 引魂術研究
+                    if (this.IsSupportActive('SOA_SOUL_MASTERY')){
+                        this.status_add.SPL += this.GetSupportSkill('SOA_SOUL_MASTERY').lv;
+                    }
+                    // 符咒研究
+                    if (this.IsSupportActive('SOA_TALISMAN_MASTERY')){
+                        this.attritube['SMATK'] += this.GetSupportSkill('SOA_TALISMAN_MASTERY').lv;
+                    }
+                    // 武士符
+                    if (this.IsSupportActive('SOA_TALISMAN_OF_WARRIOR')){
+                        this.attritube['PATK'] += this.GetSupportSkill('SOA_TALISMAN_OF_WARRIOR').lv * 2;
+                    }
+                    // 法師符
+                    if (this.IsSupportActive('SOA_TALISMAN_OF_MAGICIAN')){
+                        this.attritube['SMATK'] += this.GetSupportSkill('SOA_TALISMAN_OF_MAGICIAN').lv * 2;
+                    }
+                    // 五行符
+                    if (this.IsSupportActive('SOA_TALISMAN_OF_FIVE_ELEMENTS')){
+                        var _value = this.GetSupportSkill('SOA_TALISMAN_OF_FIVE_ELEMENTS').lv * 4
+                        if (this.enemyattribute.elemental == 0 ||
+                            this.enemyattribute.elemental == 1 ||
+                            this.enemyattribute.elemental == 2 ||
+                            this.enemyattribute.elemental == 3 ||
+                            this.enemyattribute.elemental == 4 ) 
+                        {
+                            this.attritube['ElementalAtkPercent'] += _value;
+                            this.attritube['ElementalMatkPercent'] += _value;
+                        }
+                    }
+                    // 天地神靈
+                    if (this.IsSupportActive('SOA_SOUL_OF_HEAVEN_AND_EARTH')){
+                        this.attritube['RNGDP'] += this.GetSupportSkill('SOA_TALISMAN_MASTERY').lv * 2 + 5;
+                        this.attritube['MELDP'] += this.GetSupportSkill('SOA_TALISMAN_MASTERY').lv * 2 + 5;
+                        this.attritube['ElementalMagicPercent'] += this.GetSupportSkill('SOA_TALISMAN_MASTERY').lv * 2 + 5;
+                    }
+
+                    // 念
                     if (this.IsSupportActive('NJ_NEN')){
                         this.status_add.STR += 5;
                         this.status_add.INT += 5;
                     }
-                    //符
+                    // 符
                     if (this.IsSupportActive('KO_KAHU_ENTEN')){
                         if (this.skill.id == 'NJ_KOUENKA') this.computeattribute['SpecialMATK1'] += this.GetSupportSkill('KO_KAHU_ENTEN').lv * 20;
                         if (this.skill.id == 'NJ_BAKUENRYU') this.computeattribute['SpecialMATK1'] += this.GetSupportSkill('KO_KAHU_ENTEN').lv * 100;
@@ -8354,6 +8393,27 @@
                     if (this.IsSupportActive('RL_P_ALTER')){
                         this.attritube['ATK'] += 150;
                     }
+                    //P.F.I
+                    if (this.IsSupportActive('NW_P_F_I')){
+                        this.attritube['PATK'] += this.GetSupportSkill('NW_P_F_I').lv + 2;
+                    }
+                    //榴彈精通
+                    if (this.IsSupportActive('NW_GRENADE_MASTERY')){
+                        this.status_add.CON += this.GetSupportSkill('NW_GRENADE_MASTERY').lv;
+                    }
+                    //王牌出手
+                    if (this.IsSupportActive('NW_HIDDEN_CARD')){
+                        this.attritube['PATK'] += this.GetSupportSkill('NW_HIDDEN_CARD').lv * 3;
+                        this.attritube['RNGDP'] += this.GetSupportSkill('NW_HIDDEN_CARD').lv * 10;
+                    }
+                    //專注瞄準
+                    if (this.IsSupportActive('NW_INTENSIVE_AIM')){
+                        this.attritube['ATK'] += 150;
+                        this.attritube['HIT'] += 250;
+                        this.attritube['CRI'] += 30;
+                    }
+
+
                     //日月星宇宙英姿
                     if (this.IsSupportActive('SJ_SUNSTANCE')){
                         this.attritube['ATKP'] += 5;
@@ -8391,6 +8451,11 @@
                             this.option.EquipSkillAddDamage += this.GetSupportSkill('SJ_LIGHTOFSTAR').lv * 5;
                         }
                     }
+                    // 兵法修練
+                    if (this.IsSupportActive('SKE_WAR_BOOK_MASTERY')){
+                        this.attritube['PATK'] += this.GetSupportSkill('SKE_WAR_BOOK_MASTERY').lv + 2;
+                        this.attritube['HIT'] += this.GetSupportSkill('SKE_WAR_BOOK_MASTERY').lv * 3;
+                    }
 
                     //生命力量
                     if (this.IsSupportActive('SU_POWEROFLIFE')){
@@ -8420,6 +8485,39 @@
                             this.attritube['RNGDP'] += 10;
                         }
                     }
+                    //靈物互動
+                    if (this.IsSupportActive('SH_MYSTICAL_CREATURE_MASTERY')){
+                        var _value = this.GetSupportSkill('SH_MYSTICAL_CREATURE_MASTERY').lv % 2==1 ? 1 : 2;
+                        this.attritube['PATK'] += _value;
+                        this.attritube['SMATK'] += _value;
+                    }
+                    //靈物祝福
+                    if (this.IsSupportActive('SH_BLESSING_OF_MYSTICAL_CREATURES')){
+                            var _value = this.GetSupportSkill('SH_BLESSING_OF_MYSTICAL_CREATURES').lv * 10;
+                            this.attritube['PATK'] += _value;
+                            this.attritube['SMATK'] += _value;
+                    }
+                    //神龜海洋慶典
+                    if (this.IsSupportActive('SH_MARINE_FESTIVAL_OF_KI_SUL')){
+                        if ( this.IsSupportActive('CD_BENEDICTUM') == false)
+                        {
+                            var _value = this.GetSupportSkill('SH_BLESSING_OF_MYSTICAL_CREATURES').lv * 2;
+                            this.status_add.POW += _value;
+                            this.status_add.CRT += _value;
+                            this.status_add.CON += _value;
+                        }
+                    }
+                    //神龜沙雕節
+                    if (this.IsSupportActive('SH_SANDY_FESTIVAL_OF_KI_SUL')){
+                        if ( this.IsSupportActive('CD_RELIGIO') == false)
+                        {
+                            var _value = this.GetSupportSkill('SH_SANDY_FESTIVAL_OF_KI_SUL').lv * 2;
+                            this.status_add.SPL += _value;
+                            this.status_add.WIS += _value;
+                            this.status_add.STA += _value;
+                        }
+                    }
+
                     //突破極限
                     if (this.IsSupportActive('NV_BREAKTHROUGH')){
                         this.attritube['ATK'] += 100;
@@ -8431,6 +8529,14 @@
                         this.attritube['MATK'] += 100;
                         this.attritube['HP'] += 2000;
                         this.attritube['SP'] += 200;
+                    }
+                    //自學策略
+                    if (this.IsSupportActive('HN_SELFSTUDY_TATICS')){
+                        this.attritube['PATK'] += this.GetSupportSkill('HN_SELFSTUDY_TATICS').lv; 
+                    }
+                    //自學魔法
+                    if (this.IsSupportActive('HN_SELFSTUDY_SOCERY')){
+                        this.attritube['SMATK'] += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; 
                     }
 
                     // 奧汀神力
@@ -8525,6 +8631,8 @@
                     this.attritube['ElementalMagicPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMagicPercent').totalvalue)
                                                                 +Number(this.consumableeffecttypelist.find(x=>x.id=='ElementalMagicPercent').totalvalue);
                     this.attritube['SizeMatkPercent'] += Number(this.effecttypelist.find(x => x.id == 'SizeMatkPercent').totalvalue);
+                    this.attritube['ElementalMatkPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalMatkPercent').totalvalue);
+
                     this.attritube['ElementalAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'ElementalAtkPercent').totalvalue);
 
                     this.attritube['LevelAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue)
@@ -9575,6 +9683,10 @@
                         { skill: { id: 'GS_MADNESSCANCEL', name: '瘋狂凱斯樂', maxlv: 1, lv: 1, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'RL_P_ALTER', Note: '', } },
                         { skill: { id: 'GS_GATLINGFEVER', name: '格林狂熱', maxlv: 10, lv: 10, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'RL_P_ALTER', name: '白金祭壇', maxlv: 5, lv: 5, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'GS_MADNESSCANCEL', Note: '', } },
+                        { skill: { id: 'NW_P_F_I', name: 'P.F.I', maxlv: 10, lv: 10, class: 'RE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NW_GRENADE_MASTERY', name: '榴彈精通', maxlv: 10, lv: 10, class: 'RE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NW_HIDDEN_CARD', name: '王牌出手', maxlv: 10, lv: 10, class: 'RE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NW_INTENSIVE_AIM', name: '專注瞄準', maxlv: 1, lv: 1, class: 'RE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
 
                         { skill: { id: 'TK_SEVENWIND', name: '溫暖的風', maxlv: 1, lv: 1, class: 'SE', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'TK_RUN', name: '跑步', maxlv: 10, lv: 10, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
@@ -9589,6 +9701,7 @@
                         { skill: { id: 'SJ_LIGHTOFSUN', name: '太陽光輝', maxlv: 5, lv: 5, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SJ_LIGHTOFMOON,SJ_LIGHTOFSTAR', Note: '', } },
                         { skill: { id: 'SJ_LIGHTOFMOON', name: '月亮光輝', maxlv: 5, lv: 5, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SJ_LIGHTOFSUN,SJ_LIGHTOFSTAR', Note: '', } },
                         { skill: { id: 'SJ_LIGHTOFSTAR', name: '星星光輝', maxlv: 5, lv: 5, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SJ_LIGHTOFSUN,SJ_LIGHTOFMOON', Note: '', } },
+                        { skill: { id: 'SKE_WAR_BOOK_MASTERY', name: '兵法修練', maxlv: 10, lv: 10, class: 'SE', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
 
                         { skill: { id: 'SP_SOULCOLLECT', name: '靈魂蓄積(數)', maxlv: 20, lv: 20, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SP_SOULSHADOW', name: '影子靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULFAIRY,SP_SOULFALCON,SP_SOULGOLEM', Note: '', } },
@@ -9596,14 +9709,28 @@
                         { skill: { id: 'SP_SOULFALCON', name: '隼鷹靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFAIRY,SP_SOULGOLEM', Note: '', } },
                         { skill: { id: 'SP_SOULGOLEM', name: '巨人靈魂', maxlv: 5, lv: 5, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: 'SP_SOULSHADOW,SP_SOULFAIRY,SP_SOULFALCON', Note: '', } },
                         { skill: { id: 'SP_SOULCURSE', name: '邪惡靈魂詛咒', maxlv: 1, lv: 1, class: 'SL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
-
+                        { skill: { id: 'SOA_SOUL_MASTERY', name: '引魂術研究', maxlv: 10, lv: 10, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SOA_TALISMAN_MASTERY', name: '符咒研究', maxlv: 10, lv: 10, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SOA_TALISMAN_OF_WARRIOR', name: '武士符', maxlv: 5, lv: 5, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SOA_TALISMAN_OF_MAGICIAN', name: '法師符', maxlv: 5, lv: 5, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SOA_TALISMAN_OF_FIVE_ELEMENTS', name: '五行符', maxlv: 5, lv: 5, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SOA_SOUL_OF_HEAVEN_AND_EARTH', name: '天地神靈', maxlv: 10, lv: 10, class: 'SL', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        
                         { skill: { id: 'SU_POWEROFLIFE', name: '生命力量 (遠傷20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_POWEROFLAND', name: '大地力量 (Matk20%)', maxlv: 1, lv: 1, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_BUNCHOFSHRIMP', name: '蝦群', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_ARCLOUSEDASH', name: '捲甲蟲暴衝', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SU_CHATTERING', name: '喵喵/喵喵不休', maxlv: 5, lv: 5, class: 'SUM', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'NV_BREAKTHROUGH', name: '突破極限', maxlv: 5, lv: 0, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
-                        { skill: { id: 'NV_TRANSCENDENCE', name: '心靈超越', maxlv: 5, lv: 0, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SH_MYSTICAL_CREATURE_MASTERY', name: '靈物互動', maxlv: 10, lv: 10, class: 'SUM', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SH_BLESSING_OF_MYSTICAL_CREATURES', name: '靈物祝福', maxlv: 5, lv: 5, class: 'SUM', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SH_MARINE_FESTIVAL_OF_KI_SUL', name: '神龜海洋慶典', maxlv: 5, lv: 5, class: 'SUM', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SH_SANDY_FESTIVAL_OF_KI_SUL', name: '神龜沙雕節', maxlv: 5, lv: 5, class: 'SUM', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        
+                        { skill: { id: 'NV_BREAKTHROUGH', name: '突破極限', maxlv: 5, lv: 5, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'NV_TRANSCENDENCE', name: '心靈超越', maxlv: 5, lv: 5, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'HN_SELFSTUDY_TATICS', name: '自學策略', maxlv: 10, lv: 10, class: 'SN', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'HN_SELFSTUDY_SOCERY', name: '自學魔法', maxlv: 10, lv: 10, class: 'SN', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
+                    
                     );
 
                     this.enemylist.push(
@@ -9614,11 +9741,11 @@
                         { id: 21064, name: '測試用魔物(小)', level: 100, hp: 2000000000, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 21065, name: '測試用魔物(中)', level: 100, hp: 2000000000, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 21066, name: '測試用魔物(大)', level: 100, hp: 2000000000, LUK: 0, VIT:0, elemental: 0, elementallevel: 1, size: 2, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3800, name: '不祥果樹龜', level: 157, hp: 508335, LUK: 60, VIT:0, elemental: 0, elementallevel: 2, size: 0, StatusDEF: 146, WeaponDEF: 288, StatusMDEF: 61, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3802, name: '不祥岩石龜', level: 161, hp: 592310, LUK: 50, VIT:0, elemental: 4, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 406, StatusMDEF: 50, WeaponMDEF: 116, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3803, name: '不祥火焰龜', level: 162, hp: 527390, LUK: 89, VIT:0, elemental: 1, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 400, StatusMDEF: 50, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3801, name: '不祥水靈龜', level: 159, hp: 549071, LUK: 60, VIT:0, elemental: 2, elementallevel: 2, size: 0, StatusDEF: 139, WeaponDEF: 146, StatusMDEF: 64, WeaponMDEF: 80, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 3799, name: '不祥風靈龜', level: 160, hp: 592508, LUK: 30, VIT:0, elemental: 3, elementallevel: 2, size: 0, StatusDEF: 110, WeaponDEF: 339, StatusMDEF: 51, WeaponMDEF: 82, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        //{ id: 3800, name: '不祥果樹龜', level: 157, hp: 508335, LUK: 60, VIT:0, elemental: 0, elementallevel: 2, size: 0, StatusDEF: 146, WeaponDEF: 288, StatusMDEF: 61, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        //{ id: 3802, name: '不祥岩石龜', level: 161, hp: 592310, LUK: 50, VIT:0, elemental: 4, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 406, StatusMDEF: 50, WeaponMDEF: 116, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        //{ id: 3803, name: '不祥火焰龜', level: 162, hp: 527390, LUK: 89, VIT:0, elemental: 1, elementallevel: 2, size: 0, StatusDEF: 165, WeaponDEF: 400, StatusMDEF: 50, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        //{ id: 3801, name: '不祥水靈龜', level: 159, hp: 549071, LUK: 60, VIT:0, elemental: 2, elementallevel: 2, size: 0, StatusDEF: 139, WeaponDEF: 146, StatusMDEF: 64, WeaponMDEF: 80, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
+                        //{ id: 3799, name: '不祥風靈龜', level: 160, hp: 592508, LUK: 30, VIT:0, elemental: 3, elementallevel: 2, size: 0, StatusDEF: 110, WeaponDEF: 339, StatusMDEF: 51, WeaponMDEF: 82, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3213, name: '闇●盧恩騎士', level: 179, hp: 2448000, LUK: 60, VIT:0, elemental: 1, elementallevel: 4, size: 1, StatusDEF: 189, WeaponDEF: 400, StatusMDEF: 57, WeaponMDEF: 200, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3208, name: '闇●十字斬首者', level: 179, hp: 2380000, LUK: 80, VIT:0, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 62, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 3230, name: '闇●魅影追蹤者', level: 178, hp: 2040000, LUK: 50, VIT:0, elemental: 5, elementallevel: 4, size: 1, StatusDEF: 119, WeaponDEF: 160, StatusMDEF: 57, WeaponMDEF: 100, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
@@ -9737,6 +9864,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2023-10-28', content: '增加預設輔助技能 引魂術研究,符咒研究,武士符,法師符,五行符,天地神靈,兵法修練,P.F.I,榴彈精通,王牌出手,專注瞄準,靈物互動,靈物祝福,神龜海洋慶典,神龜沙雕節,自學策略,自學魔法' },
                         { id: '2023-10-27', content: '修正手推車加速 更改為修練ATK<br>調整詠唱延遲 天龍氣息、三連雷射、閃光衝擊波' },
                         { id: '2023-10-25', content: '增加預設技能 死侍武器,狂暴粉碎,天龍氣息,天龍光環,瞬間斬擊,盾牌投擲,末日審判,戰斧踏滅,強力粉碎,三連雷射,閃光衝擊波,爆炸炸藥,混亂的荊棘,野蠻衝擊,永恆斬擊,深淵匕首,靈巧刺擊,狂暴射擊,焰火之徑,萬紫千紅,冰晶飛瀑,冰刃斬,龍捲風暴,暴風加農砲,毀滅颶風,地層震動,巨石降臨,震裂術,致命放射,神秘幻滅,星際突襲,元素破壞,聖靈鎮魂,制裁謳歌,驅魔風暴,聖光打擊,破壞擊,毀滅風暴<br><br>調整預設技能 橫揮斬,風暴斬擊,深淵墳場,終結深淵攻擊,豔紅魔矢,水晶波爆,靈魂連擊,毒液沼澤,灼熱岩漿,鑽石風暴,雷霆陣地,大地驅動,爆破衝擊,第三擊：火焰彈,漸進狙擊,金屬狂怒,節奏射擊,玫瑰箭矢' },
                         { id: '2023-8-26', content: '增加預設技能 爆破衝擊' },
