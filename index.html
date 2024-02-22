@@ -8576,8 +8576,16 @@
                     }
                     //靈物互動
                     if (this.IsSupportActive('SH_MYSTICAL_CREATURE_MASTERY')){
-                        var _value = this.GetSupportSkill('SH_MYSTICAL_CREATURE_MASTERY').lv % 2==1 ? 1 : 2;
-                        _value = _value == 10 ? _value-1 : _value;
+                        var _lv = this.GetSupportSkill('SH_MYSTICAL_CREATURE_MASTERY').lv;
+                        var _value = 0;
+                        if (_lv % 2 == 0)
+                        {
+                            _value = _lv / 2 * 3;
+                        }
+                        else
+                        {
+                            _value = _lv + Math.floor(_lv / 2);
+                        }
                         this.attritube['PATK'] += _value;
                         this.attritube['SMATK'] += _value;
                     }
