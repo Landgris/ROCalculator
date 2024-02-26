@@ -6932,6 +6932,7 @@
                         this.computeattribute.atkc8_min = Math.floor(this.computeattribute.atkc7_min * Number(this.computeattribute['SpecialRLHand'] / 100));
                         this.computeattribute.atkc8_max = Math.floor(this.computeattribute.atkc7_max * Number(this.computeattribute['SpecialRLHand'] / 100));
                     }
+                    /*
                     if (this.skill.ranged){
                         this.computeattribute.atkc8_min = Math.floor(this.computeattribute.atkc8_min * Number(1 + this.attritube['RNGDDI'] / 100));
                         this.computeattribute.atkc8_max = Math.floor(this.computeattribute.atkc8_max * Number(1 + this.attritube['RNGDDI'] / 100));
@@ -6939,6 +6940,7 @@
                         this.computeattribute.atkc8_min = Math.floor(this.computeattribute.atkc8_min * Number(1 + this.attritube['MELDDI'] / 100));
                         this.computeattribute.atkc8_max = Math.floor(this.computeattribute.atkc8_max * Number(1 + this.attritube['MELDDI'] / 100));
                     }
+                    */
                     if( isNA == false ){
                         var parasp6 = Number(this.computeattribute['SpecialATK7']);
                         this.computeattribute.atkc8_min += parasp6;
@@ -7034,8 +7036,14 @@
                     let SpectialBuffATK_min = _RG_RAIDATK_min + _MT_QUAKE_min + _GN_SPORE_min + _IQ_OLEUM_SANCTUM_min + _GC_DARKCROW_min;
                     let SpectialBuffATK_max = _RG_RAIDATK_max + _MT_QUAKE_max + _GN_SPORE_max + _IQ_OLEUM_SANCTUM_max + _GC_DARKCROW_max;
 
-                    this.computeattribute.atkc9_min = SpectialBuffATK_min;
-                    this.computeattribute.atkc9_max = SpectialBuffATK_max;
+                    if (SpectialBuffATK_min != 0)
+                    {
+                        this.computeattribute.atkc9_min = SpectialBuffATK_min;
+                    }
+                    if (SpectialBuffATK_max != 0)
+                    {
+                        this.computeattribute.atkc9_max = SpectialBuffATK_max;
+                    }
 
                     this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
                     this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
