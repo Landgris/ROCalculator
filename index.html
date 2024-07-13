@@ -4774,7 +4774,7 @@
                                                 <span>種族%:</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{effecttypelist[GetETLIndex('RaceAtkPercent')].totalvalue}} %</span>
+                                                <span>{{attritube['RaceAtkPercent']}} %</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -5524,6 +5524,7 @@
                     ElementalAtkPercent: 0,
                     LevelAtkPercent: 0,
                     SizeAtkPercent: 0,
+                    RaceAtkPercent: 0,
                 },
                 HP_JOB_A: 0, HP_JOB_B: 0,
                 attritube_init: {},
@@ -6734,7 +6735,7 @@
                     this.computeattribute.weaponatk_min += this.attritube['ATK'];
                     this.computeattribute.weaponatk_max += this.attritube['ATK'];
 
-                    var para_race = Number(1) + Number(this.effecttypelist.find(x => x.id == 'RaceAtkPercent').totalvalue) / 100;
+                    var para_race = Number(1) + Number(this.attritube['RaceAtkPercent']) / 100;
                     var para_size = Number(1) + Number(this.attritube['SizeAtkPercent']) / 100;
                     var para_elemt = Number(1) + Number(this.attritube['ElementalAtkPercent']) / 100;
                     var para_level = Number(1) + Number(this.attritube['LevelAtkPercent']) / 100;
@@ -7985,6 +7986,21 @@
                     if (this.IsSupportActive('TR_PRON_MARCH')){
                         this.attritube['PATK'] += 15;
                     }
+                    // 神秘交響曲
+                    if (this.IsSupportActive('TR_MYSTIC_SYMPHONY')){
+                        if(this.skill.id.includes('TR_RHYTHMSHOOTING')||this.skill.id.includes('TR_ROSEBLOSSOM'))
+                        {
+                            this.option.EquipSkillAddDamage += 100;
+                        }
+                    }
+                    // 神秘交響曲(人形/魚貝)
+                    if (this.IsSupportActive('TR_MYSTIC_SYMPHONY(ex)')){
+                        if(this.skill.id.includes('TR_RHYTHMSHOOTING')||this.skill.id.includes('TR_ROSEBLOSSOM'))
+                        {
+                            this.option.EquipSkillAddDamage += 100;
+                        }
+                        this.attritube['RaceAtkPercent'] += 40;
+                    }
 
                     // 魔力中毒
                     if (this.IsSupportActive('MagicAddicted')){
@@ -8746,6 +8762,7 @@
                     this.attritube['LevelAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'LevelAtkPercent').totalvalue)
                                                         +Number(this.consumableeffecttypelist.find(x=>x.id=='LevelAtkPercent').totalvalue);
                     this.attritube['SizeAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'SizeAtkPercent').totalvalue);
+                    this.attritube['RaceAtkPercent'] += Number(this.effecttypelist.find(x => x.id == 'RaceAtkPercent').totalvalue);
 
                     this.attritube['WeaponPerfection'] += Number(this.effecttypelist.find(x => x.id == 'WeaponPerfection').totalvalue);
                     this.attritube['WeaponOccult'] += Number(this.effecttypelist.find(x => x.id == 'WeaponOccult').totalvalue);
@@ -9820,6 +9837,8 @@
                         { skill: { id: 'TR_STAGE_MANNER', name: '舞台禮儀', maxlv: 5, lv: 10, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
                         { skill: { id: 'TR_PRON_MARCH', name: '普隆德拉進行曲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
                         { skill: { id: 'TR_JAWAII_SERENADE', name: '暮色小夜曲', maxlv: 5, lv: 5, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        { skill: { id: 'TR_MYSTIC_SYMPHONY', name: '神秘交響曲', maxlv: 1, lv: 1, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: 'TR_MYSTIC_SYMPHONY(ex)', Note: '', } },
+                        { skill: { id: 'TR_MYSTIC_SYMPHONY(ex)', name: '神秘交響曲(人形/魚貝)', maxlv: 1, lv: 1, class: 'MI,WA', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: 'TR_MYSTIC_SYMPHONY', Note: '', } },
                         
                         { skill: { id: 'SA_ADVANCEDBOOK', name: '進化之書', maxlv: 10, lv: 10, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SA_DRAGONOLOGY', name: '龍知識', maxlv: 5, lv: 5, class: 'SO', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
@@ -10042,9 +10061,10 @@
                     );
                     
                     this.UpdateLogList.push(
-                        { id: '2023-4-4', content: '修正高階拳刃修練公式位置' },
-                        { id: '2023-3-5', content: '增加 流浪忍者JOB滿等加成素質' },
-                        { id: '2023-2-26', content: '特殊增殤 致命爪痕,爆炸孢子,聖油洗禮,潛擊,撼動狀態<br>修正預設技能 天龍氣息倍率<br>增加預設輔助技能 深淵殺手<br>修正預設技能 鐵虎空心爪延遲' },
+                        { id: '2024-7-13', content: '增加預設輔助技能 神秘交響曲' },
+                        { id: '2024-4-4', content: '修正高階拳刃修練公式位置' },
+                        { id: '2024-3-5', content: '增加 流浪忍者JOB滿等加成素質' },
+                        { id: '2024-2-26', content: '特殊增殤 致命爪痕,爆炸孢子,聖油洗禮,潛擊,撼動狀態<br>修正預設技能 天龍氣息倍率<br>增加預設輔助技能 深淵殺手<br>修正預設技能 鐵虎空心爪延遲' },
                         { id: '2024-2-22', content: '修正預設輔助技能 靈物互動10等效果,急速交流等級<br>修正預設技能倍率錯誤 鐵虎空心爪,鐵虎咆嘯,虎高空亂打,玄鹿葉風,玄鹿砲' },
                         { id: '2023-8-22', content: '修正預設輔助技能 潛龍昇天現在有暴率20%' },
                         { id: '2023-12-15', content: '修正預設輔助技能 邪惡靈魂詛咒預設為BOSS時屬耐降低20%' },
