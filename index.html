@@ -8017,7 +8017,7 @@
                     if (this.IsSupportActive('AG_TWOHANDSTAFF')){
                         this.attritube['SMATK'] += this.GetSupportSkill('AG_TWOHANDSTAFF').lv * 2;
                     }
-                    // 魔力巔峰
+                    // 魔力巔峰1
                     if (this.IsSupportActive('AG_CLIMAX(Lv1)')){
                         //水晶波爆
                         if (this.IsSupportActive('AG_CRYSTAL_IMPACT(Lv1)'))
@@ -8027,7 +8027,20 @@
                             }
                         }
                     }
-                    // 魔力巔峰
+                    // 魔力巔峰3
+                    if (this.IsSupportActive('AG_CLIMAX(Lv3)')){
+                        //萬紫千紅
+                        if (this.skill.id == 'AG_ALL_BLOOM')    //目前skill萬紫有兩個, 萬紫千紅(巔峰5)不包含在這內
+                        {
+                            this.option.EquipSkillAddDamage += 300;
+                        }
+                        //毀滅颶風
+                        if (this.skill.id == 'AG_DESTRUCTIVE_HURRICANE') 
+                        {
+                            this.option.EquipSkillAddDamage += 150;
+                        }
+                    }
+                    // 魔力巔峰4
                     if (this.IsSupportActive('AG_CLIMAX(Lv4)')){
                         //萬紫千紅
                         if (this.IsSupportActive('AG_ALL_BLOOM(Lv4)'))
@@ -9434,7 +9447,6 @@
                         { skill: { id: 'AG_CRIMSON_ARROW(all)', name: '豔紅魔矢(總和)', level: 5, formula: '(SLV*350+SPL*3)*BLV/100+(SLV*700+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 1, FCT: 1.5, VCT: 0, CD: 0.3, GCD: 0.5, Note: '', } },
                         { skill: { id: 'AG_CRIMSON_ARROW(ex)', name: '豔紅魔矢(爆炸)', level: 5, formula: '(SLV*700+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 1, FCT: 1.5, VCT: 0, CD: 0.3, GCD: 0.5, Note: '', } },
                         { skill: { id: 'AG_ALL_BLOOM', name: '萬紫千紅', level: 5, formula: '(200+SLV*1200+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "SLV*2", elemental: 1, FCT: 0, VCT: 0, CD: 6, GCD: 0.5, Note: '花朵數量為SLV*4，隨機命中', } },
-                        { skill: { id: 'AG_ALL_BLOOM(3)', name: '萬紫千紅(巔峰3)', level: 5, formula: '(200+SLV*1200+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "SLV*2", elemental: 1, FCT: 0, VCT: 0, CD: 6, GCD: 0.5, SpecialMATK3: 300, Note: '花朵數量為SLV*4，隨機命中', } },
                         { skill: { id: 'AG_ALL_BLOOM(5)', name: '萬紫千紅(巔峰5)', level: 5, formula: '(200+SLV*1200+SPL*5+85000)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "SLV*2", elemental: 1, FCT: 0, VCT: 0, CD: 6, GCD: 0.5, Note: '花朵數量為SLV*4，隨機命中', } },
                         { skill: { id: 'AG_RAIN_OF_CRYSTAL', name: '冰晶飛瀑', level: 5, formula: '(180+SLV*760+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 8, elemental: 2, FCT: 0, VCT: 0, CD: 5, GCD: 0.25, Note: '', } },
                         { skill: { id: 'AG_FROZEN_SLASH', name: '冰刃斬', level: 5, formula: '(250+SLV*900+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 2, FCT: 0, VCT: 0, CD: 0.45, GCD: 0.5, Note: '', } },
@@ -9448,8 +9460,7 @@
                         { skill: { id: 'AG_STORM_CANNON(ex)', name: '暴風加農砲(巔峰)', level: 5, formula: '(SLV*1250+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 3, FCT: 1.5, VCT: 0, CD: 0.3, GCD: 0.5, Note: '', } },         
                         { skill: { id: 'AG_DESTRUCTIVE_HURRICANE', name: '毀滅颶風', level: 5, formula: '(250+SLV*2800+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 3, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, Note: '', } },         
                         { skill: { id: 'AG_DESTRUCTIVE_HURRICANE(1)', name: '毀滅颶風(巔峰1)', level: 5, formula: '(250+SLV*2800+SPL*5+12500)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 3, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, Note: '', } },         
-                        { skill: { id: 'AG_DESTRUCTIVE_HURRICANE(3)', name: '毀滅颶風(巔峰3)', level: 5, formula: '(250+SLV*2800+SPL*5+12500)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 3, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialMATK3: 200, Note: '', } },         
-                        { skill: { id: 'AG_DESTRUCTIVE_HURRICANE(5)', name: '毀滅颶風(巔峰5)', level: 5, formula: '(250+SLV*2800+SPL*5+12500)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 3, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialMATK3: 50, Note: '', } },         
+                        { skill: { id: 'AG_DESTRUCTIVE_HURRICANE(5)', name: '毀滅颶風(巔峰5)', level: 5, formula: '(250+SLV*2800+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 3, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, SpecialMATK3: -20, Note: '', } },         
                         { skill: { id: 'AG_STRANTUM_TREMOR', name: '地層震動', level: 5, formula: '(100+SLV*730+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 4, FCT: 0, VCT: 0, CD: 5, GCD: 0.25, Note: '', } },         
                         { skill: { id: 'AG_ROCK_DOWN', name: '巨石降臨', level: 5, formula: '(SLV*950+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 4, FCT: 0, VCT: 0, CD: 0.3, GCD: 0.5, Note: '', } },         
                         { skill: { id: 'AG_ROCK_DOWN(ex)', name: '巨石降臨(巔峰)', level: 5, formula: '(SLV*1250+SPL*5)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 4, FCT: 0, VCT: 0, CD: 0.3, GCD: 0.5, Note: '', } },         
@@ -9800,11 +9811,11 @@
                         { skill: { id: 'WL_TELEKINESIS_INTENSE', name: '終極念力', maxlv: 5, lv: 5, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'AG_TWOHANDSTAFF', name: '雙手杖使用熟練度', maxlv: 10, lv: 10, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
                         { skill: { id: 'AG_CLIMAX(Lv1)', name: '魔力巔峰Lv1', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: 'AG_CLIMAX(Lv2),AG_CLIMAX(Lv3),AG_CLIMAX(Lv4)', Note: '', } },
-                        { skill: { id: 'AG_CRYSTAL_IMPACT(Lv1)', name: '水晶波爆Lv1', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
                         //{ skill: { id: 'AG_CLIMAX(Lv2)', name: '魔力巔峰Lv2', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: 'AG_CLIMAX(Lv1),AG_CLIMAX(Lv3),AG_CLIMAX(Lv4)', Note: '', } },
-                        //{ skill: { id: 'AG_CLIMAX(Lv3)', name: '魔力巔峰Lv3', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: 'AG_CLIMAX(Lv1),AG_CLIMAX(Lv2),AG_CLIMAX(Lv4)', Note: '', } },
+                        { skill: { id: 'AG_CLIMAX(Lv3)', name: '魔力巔峰Lv3', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: 'AG_CLIMAX(Lv1),AG_CLIMAX(Lv2),AG_CLIMAX(Lv4)', Note: '', } },
                         { skill: { id: 'AG_CLIMAX(Lv4)', name: '魔力巔峰Lv4', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: 'AG_CLIMAX(Lv1),AG_CLIMAX(Lv2),AG_CLIMAX(Lv3),', Note: '', } },
                         { skill: { id: 'AG_ALL_BLOOM(Lv4)', name: '萬紫千紅Lv4', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
+                        { skill: { id: 'AG_CRYSTAL_IMPACT(Lv1)', name: '水晶波爆Lv1', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
                         { skill: { id: 'AG_VIOLENT_QUAKE(Lv4)', name: '震裂術Lv4', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
                         { skill: { id: 'AG_DESTRUCTIVE_HURRICANE(Lv4)', name: '毀滅颶風Lv4', maxlv: 1, lv: 1, class: 'WL', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, trans:'4th', conflict: '', Note: '', } },
                         
@@ -10061,6 +10072,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2024-7-29', content: '刪除預設技能 萬紫千紅(巔峰3),毀滅颶風(巔峰3) 改由預設輔助技能 魔力巔峰(Lv3)<br>增加預設技能魔力巔峰(Lv3)<br>修正萬紫千紅,毀滅颶風在顛峰3時倍率位置' },
                         { id: '2024-7-13', content: '增加預設輔助技能 神秘交響曲' },
                         { id: '2024-4-4', content: '修正高階拳刃修練公式位置' },
                         { id: '2024-3-5', content: '增加 流浪忍者JOB滿等加成素質' },
