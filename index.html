@@ -9670,6 +9670,8 @@
                         { skill: { id: 'NW_ONLY_ONE_BULLET(ex)', name: '獨一槍彈(手槍)', level: 5, formula: '(1200+(3400+350*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '手槍，瞄準計數為10', } },
                         { skill: { id: 'NW_SPIRAL_SHOOTING', name: '螺旋射擊(榴彈槍)', level: 5, formula: '(1200+(1700+150*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '榴彈槍，瞄準計數為10', } },
                         { skill: { id: 'NW_SPIRAL_SHOOTING(ex)', name: '螺旋射擊(來福)', level: 5, formula: '(1400+(2800+150*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '來福槍，瞄準計數為10', } },
+                        { skill: { id: 'NW_WILD_FIRE', name: '曠野之火(霰彈)', level: 5, formula: '(1000+(2450+500*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '霰彈槍，瞄準計數為10', } },
+                        { skill: { id: 'NW_WILD_FIRE(ex)', name: '曠野之火(榴彈槍)', level: 5, formula: '(1000+(2300+500*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '榴彈槍，瞄準計數為10', } },
                         
                         { skill: { id: 'TK_JUMPKICK', name: '飛腳踢', level: 7, formula: '30+SLV*10', class: 'SE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, Note: '', } },
                         { skill: { id: 'SJ_PROMINENCEKICK', name: '紅焰腳', level: 7, formula: '150+SLV*50', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, Note: '', } },
@@ -10077,6 +10079,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2023-8-13', content: '增加預設技能 曠野之火' },
                         { id: '2024-8-3', content: '修改預設技能 風暴斬擊,狂暴粉碎,橫揮斬,戰斧踏滅,強力粉碎,三連雷射,閃光衝擊波,暗影刺擊,野蠻衝擊,冰刃斬,暴風加農砲,毀滅颶風,巨石降臨,聖光打擊,聖靈鎮魂,制裁謳歌,漸進狙擊,毀滅風暴,盾牌投擲,瞬間斬擊,聖十字雨,爆炸炸藥,混亂的荊棘,靈巧刺擊,深淵匕首,狂暴射擊,爆破衝擊,金屬狂怒,節奏射擊,詭影狩獵,詭影舞動,詭影閃光,風魔飛鏢-掌握,風魔飛鏢-構築,火焰砲,冷焰砲,雷電砲,禽龍砲,獨一槍彈,螺旋射擊,梅格競直擊,曠野之火,天羅萬象,青龍符,白虎符,朱雀符,玄武符,雙重怪物互擊,巨型音速投擲,連續盾擊衝撞,鐵虎空心爪,玄鹿葉風,玄鹿炮<br>新增預設技能 螺旋擊刺Max<br>修改預設輔助技能 加油' },
                         { id: '2024-8-1', content: '增加 260等特質點<br>代入JOB滿等加成素質點更改為四轉JOB 55等' },
                         { id: '2024-7-29', content: '刪除預設技能 萬紫千紅(巔峰3),毀滅颶風(巔峰3) 改由預設輔助技能 魔力巔峰(Lv3)<br>增加預設輔助技能 魔力巔峰(Lv3)<br>修正萬紫千紅,毀滅颶風在顛峰3時倍率位置' },
