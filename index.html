@@ -7107,8 +7107,8 @@
                 MulOper(value, percent) {
                     var _S = Math.round(value * (Number(percent) * 100));
                     var _L = Math.floor(_S / 100);
-                    if (percent < 1) {
-                        _L = _L+1;
+                    if (percent < 1 && _S % 100 !== 0) {
+                        _L = _L + 1;
                     }
                     return _L;
                 },
@@ -10096,6 +10096,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2024-10-7', content: '修正當倍率相乘後進位的判斷' },
                         { id: '2024-10-2', content: '增加預設技能 死靈淨化<br>普攻暴擊傷害不再被減半' },
                         { id: '2024-9-6', content: '修改預設技能 野蠻衝擊(魅影強化)攻擊次數<br>增加預設消耗品 特性增強藥劑' },
                         { id: '2024-8-13', content: '增加預設技能 曠野之火<br>修改預設技能 強力粉碎攻擊次數' },
