@@ -9533,6 +9533,8 @@
                     if (this.status.UseJobMaxPoint == null) this.status.UseJobMaxPoint = false;
                     if (this.status.MHP == null) {this.status.MHP = 0; console.log("yaaaa")}
                     if (this.status.MSP == null) this.status.MSP = 0;
+                    if (this.enemyattribute.RES == null) this.enemyattribute.RES = 0;
+                    if (this.enemyattribute.MRES == null) this.enemyattribute.MRES = 0;
                 },
                 LoadDB() {
                     if (localStorage.getItem('StoreDB_Status')) {
@@ -10135,7 +10137,6 @@
                         { id: 21064, name: '測試用魔物(小)', level: 100, hp: 2000000000, LUK: 0, VIT: 0, elemental: 0, elementallevel: 1, size: 0, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, RES: 0, MRES: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 21065, name: '測試用魔物(中)', level: 100, hp: 2000000000, LUK: 0, VIT: 0, elemental: 0, elementallevel: 1, size: 1, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, RES: 0, MRES: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 21066, name: '測試用魔物(大)', level: 100, hp: 2000000000, LUK: 0, VIT: 0, elemental: 0, elementallevel: 1, size: 2, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, RES: 0, MRES: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
-                        { id: 21066, name: '測試用魔物(大)', level: 100, hp: 2000000000, LUK: 0, VIT: 0, elemental: 0, elementallevel: 1, size: 2, StatusDEF: 50, WeaponDEF: 0, StatusMDEF: 25, WeaponMDEF: 0, RES: 0, MRES: 0, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 20893, name: '提亞拉公主', level: 240, hp: 1311066424, LUK: 75, VIT: 358, elemental: 9, elementallevel: 4, size: 1, StatusDEF: 299, WeaponDEF: 836, StatusMDEF: 144, WeaponMDEF: 99, RES: 430, MRES: 400, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 20892, name: '魔劍士薩克萊', level: 240, hp: 1311066424, LUK: 75, VIT: 358, elemental: 0, elementallevel: 4, size: 1, StatusDEF: 306, WeaponDEF: 862, StatusMDEF: 120, WeaponMDEF: 92, RES: 445, MRES: 288, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
                         { id: 22152, name: '深層黑暗捕蟲堇妖', level: 264, hp: 81679820, LUK: 409, VIT: 294, elemental: 5, elementallevel: 3, size: 1, StatusDEF: 279, WeaponDEF: 198, StatusMDEF: 166, WeaponMDEF: 222, RES: 919, MRES: 1511, sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0, rangedResist: 0, raceResist: 0, criResist: 0, doram: false },
@@ -10268,6 +10269,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2024-12-12-1', content: '修正讀取配置時傷害NaN的問題' },
                         { id: '2024-12-12', content: '增加預設魔物' },
                         { id: '2024-12-11', content: '增加魔物設定M/RES<br>增加裝備編輯設定無視M/RES<br>物理魔法計算增加M/RES<br>增加預設輔助技能 神聖防護' },
                         { id: '2024-12-8', content: '修正盧恩龍爵JOB加成錯誤<br>增加帶入盧恩龍爵、帝國聖衛軍、聖裁者Level 240/250/260的HP、SP' },
