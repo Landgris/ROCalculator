@@ -9851,8 +9851,8 @@
                         { skill: { id: 'SJ_FALLINGSTAR', name: '流星殞落', level: 10, formula: '(100+SLV*100)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -6, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, Note: '對主要目標會有兩次相同傷害', } },
                         { skill: { id: 'SKE_ALL_IN_THE_SKY', name: '天羅萬象', level: 10, formula: '(250+1200*SLV+POW*10)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, Note: '', } },
                         { skill: { id: 'SKE_ALL_IN_THE_SKY(ex)', name: '天羅萬象(人形/惡魔)', level: 10, formula: '(250+1200*SLV+POW*10)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, Note: '', } },
-                        { skill: { id: 'SKE_MIDNIGHT_KICK', name: '天晨一月', level: 10, formula: '(600+(1200+5*10)*SLV+POW*5)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '天氣修練預設10', } },
-                        { skill: { id: 'SKE_MIDNIGHT_KICK(ex)', name: '天晨一月(午夜)', level: 10, formula: '(1550+(1400+5*10)*SLV+POW*5)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '天氣修練預設10', } },
+                        { skill: { id: 'SKE_MIDNIGHT_KICK', name: '天晨一月', level: 5, formula: '(600+(1200+5*10)*SLV+POW*5)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '天氣修練預設10', } },
+                        { skill: { id: 'SKE_MIDNIGHT_KICK(ex)', name: '天晨一月(午夜)', level: 5, formula: '(1550+(1400+5*10)*SLV+POW*5)*BLV/100', class: 'SE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '天氣修練預設10', } },
                         
                         { skill: { id: 'SP_SPA', name: '艾斯帕', level: 10, formula: '(500+SLV*250)*BLV/100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 0.5, CD: 0, GCD: 0, Note: '', } },
                         { skill: { id: 'SP_SWHOO', name: '艾斯核', level: 10, formula: '(1100+SLV*200)*BLV/100', class: 'SL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 1, VCT: 0.5, CD: 2, GCD: 0.5, Note: '', } },
@@ -10271,6 +10271,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-1-10', content: '修正預設技能 天晨一月預設等級' },
                         { id: '2024-12-22', content: '增加預設技能 天晨一月' },
                         { id: '2024-12-12-1', content: '修正讀取配置時傷害NaN的問題' },
                         { id: '2024-12-12', content: '增加預設魔物' },
