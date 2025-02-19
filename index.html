@@ -142,10 +142,9 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
-                                    新年快樂! <br> 另外那個超無用能力者雖然同名但是那不是我<br>
                                     注意事項:<br>
                                     ⭐請不要在巴哈單純回覆按計算機，配裝思路跟比較優劣也是很好討論的點<br>
-                                    ⭐M/RES計算已經加入，技能半無視防禦會自動套用無視RES，如果有錯誤麻煩告知<br>
+                                    ⭐M/RES計算已經加入，技能設定無視RES，如果有錯誤麻煩告知<br>
                                     ⭐屬性相剋為當前遊戲版本(同KRO) 可切換為舊版本<br>
                                     ⭐建議先計算好當前配裝並且傷害正確後才開始配裝<br>
                                     ⭐紋章(敵方)現在所有技能都會增傷，使用時須注意<br>
@@ -161,7 +160,7 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
-                                    <br>杜腐製作的計算機操作教學<br>
+                                    杜腐製作的計算機操作教學<br>
                                     https://forum.gamer.com.tw/C.php?bsn=4212&snA=436996<br>
                                     <br>公式感謝小月鈴所測試的
                                     <br>【討論】四轉職暨二次上位擴充職全技能實測<br>
@@ -170,8 +169,9 @@
                                     <br>遊戲版本參考杜腐整理的
                                     <br>【討論】kRO 迄今技能調整／優化整理<br>
                                     https://forum.gamer.com.tw/C.php?bsn=4212&snA=436731<br>
-                                    <br>💖【廣告】家人在賣多買的貓貓食物/玩具 懇請支持<br>
-                                    https://mall.iopenmall.tw/008035/<br>
+                                    <br>💖【廣告】朋友兼職販售的貓貓食物/玩具 懇請支持<br>
+                                    https://mall.iopenmall.tw/008035<br>
+                                    https://tw.shp.ee/P7hfSJn<br>
                                 </el-row>
                             </div>
                         </el-row>
@@ -3315,7 +3315,7 @@
                                     </el-tooltip>
                                 </div>
                                 <div v-show="skill.ignoreRES">
-                                    <el-tooltip class="item" effect="dark" content="RES，最高為50%
+                                    <el-tooltip class="item" effect="dark" content="RES，最高為50%"
                                         placement="bottom-start">
                                         <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                             <el-col class="textcenter" :span="12">
@@ -7024,13 +7024,16 @@
                         }
                     }
                     //敵方RES
-                    if (isNA==false && this.skill.transWeaponDEF==false)
+                    if (isNA==false)
                     {
-                        var parabypassRES = Number(1) - Number(this.attritube['BYPASSRES']) / 100;
-                        var paraRES = ((2000 + this.MulOper(Number(this.enemyattribute.RES), parabypassRES)) /
-                            (2000 + 5 * this.MulOper(Number(this.enemyattribute.RES), parabypassRES)));
-                        this.computeattribute.atkc7_min = Math.floor(this.computeattribute.atkc7_min * paraRES);
-                        this.computeattribute.atkc7_max = Math.floor(this.computeattribute.atkc7_max * paraRES);
+                        if (this.skill.ignoreRES == null || this.skill.ignoreRES == false)
+                        {
+                            var parabypassRES = Number(1) - Number(this.attritube['BYPASSRES']) / 100;
+                            var paraRES = ((2000 + this.MulOper(Number(this.enemyattribute.RES), parabypassRES)) /
+                                (2000 + 5 * this.MulOper(Number(this.enemyattribute.RES), parabypassRES)));
+                            this.computeattribute.atkc7_min = Math.floor(this.computeattribute.atkc7_min * paraRES);
+                            this.computeattribute.atkc7_max = Math.floor(this.computeattribute.atkc7_max * paraRES);
+                        }
                     }
 
                     this.computeattribute.atkc8_min = this.computeattribute.atkc7_min;
@@ -7298,7 +7301,7 @@
                         this.computeattribute.matk2_min = Math.floor(this.computeattribute.skillmatk_min * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
                         this.computeattribute.matk2_max = Math.floor(this.computeattribute.skillmatk_max * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
                     }
-                    //敵方MRES
+                    if (this.skill.ignoreRES == null || this.skill.ignoreRES == false)
                     {
                         var parabypassMRES = Number(1) - Number(this.attritube['BYPASSMRES']) / 100;
                         var paraMRES = ((2000 + this.MulOper(Number(this.enemyattribute.MRES), parabypassMRES)) /
@@ -9597,7 +9600,7 @@
                         { skill: { id: 'RK_HUNDREDSPEAR(ex)', name: '百矛穿刺(天龍光環)', level: 10, formula: "(700+SLV*350)*BLV/100+5*50", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: "(11-SLV)/10", CD: 3, GCD: 0.5, Note: '5*50的5為螺旋擊刺等級', } },
                         { skill: { id: 'RK_SONICWAVE', name: '音速衝擊波', level: 10, formula: "(550+SLV*200)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: true, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 1.75, GCD: 0.5, Note: '', } },
                         { skill: { id: 'RK_STORMBLAST', name: '風暴衝擊', level: 1, formula: "(10+DOWN(STR/5.7))*100*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, Note: '不被突里薩茲:力量成長增傷', } },
-                        { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息(天龍光環)', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/100*DOWN((90+5*10+POW/5)*(1+PATK/100))/100', class: 'RK', DamageTypeIdx: 2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, Note: '現有HPSP影響傷害，5*10為龍駕馭5等', } },
+                        { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息(天龍光環)', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/100*DOWN((90+5*10+POW/5)*(1+PATK/100))/100', class: 'RK', DamageTypeIdx: 2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, Note: '現有HPSP影響傷害，5*10為龍駕馭5等', } },
                         { skill: { id: 'DK_STORMSLASH', name: '風暴斬擊', level: 5, formula: "(200+SLV*400+POW*5)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "SLV", elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '突里薩茲盧恩石:力量成長狀態下，60%機率雙倍傷害', } },
                         { skill: { id: 'DK_HACKANDSLASHER', name: '橫揮斬(雙手劍)', level: 10, formula: "(200+SLV*750+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0.25, Note: '', } },
                         { skill: { id: 'DK_HACKANDSLASHER', name: '橫揮斬(雙手矛)', level: 10, formula: "(200+SLV*750+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0.25, Note: '', } },
@@ -9605,8 +9608,8 @@
                         { skill: { id: 'DK_MADNESS_CRUSHER', name: '狂暴粉碎', level: 5, formula: "(350+SLV*1600+POW*10+WLV*WGT)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0, CD: 0.35, GCD: 0.25, Note: '', } },
                         { skill: { id: 'DK_DRAGONIC_AURA', name: '天龍光環', level: 10, formula: "(SLV*3650+POW*10)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, Note: '', } },
                         { skill: { id: 'DK_DRAGONIC_AURA(ex)', name: '天龍光環(人形/天使)', level: 10, formula: "(SLV*3800+POW*10)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, Note: '', } },
-                        { skill: { id: 'DK_DRAGONIC_BREATH', name: '天龍氣息', level: 10, formula: "(50+(350+0.00625*Mhp+0.0125*Msp)*SLV+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0.5, VCT: 2, CD: 0.5, GCD: 0.15, Note: '', } },
-                        { skill: { id: 'DK_DRAGONIC_BREATH(ex)', name: '天龍氣息(天龍光環)', level: 10, formula: "(50+(350+0.00875*Mhp+0.0175*Msp)*SLV+POW*10)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0.5, VCT: 2, CD: 0.5, GCD: 0.15, Note: '', } },
+                        { skill: { id: 'DK_DRAGONIC_BREATH', name: '天龍氣息', level: 10, formula: "(50+(350+0.00625*Mhp+0.0125*Msp)*SLV+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0.5, VCT: 2, CD: 0.5, GCD: 0.15, Note: '', } },
+                        { skill: { id: 'DK_DRAGONIC_BREATH(ex)', name: '天龍氣息(天龍光環)', level: 10, formula: "(50+(350+0.00875*Mhp+0.0175*Msp)*SLV+POW*10)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0.5, VCT: 2, CD: 0.5, GCD: 0.15, Note: '', } },
                         
                         { skill: { id: 'WL_CRIMSONROCK', name: '碧血隕石', level: 5, formula: '(700+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 1, FCT: 1, VCT: 5, CD: 5, GCD: 0.5, Note: '', } },
                         { skill: { id: 'WL_EARTHSTRAIN', name: '地牛翻身', level: 5, formula: '(1000+SLV*600)*BLV/100', class: 'WL', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 4, FCT: 1, VCT: 6, CD: 7, GCD: 0.5, Note: '', } },
@@ -9670,22 +9673,22 @@
                         { skill: { id: 'SHC_ETERNAL_SLASH', name: '永恆斬擊', level: 5, formula: '(SLV*265+POW*2)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.75, GCD: 0.5, Note: '', } },
                         { skill: { id: 'SHC_ETERNAL_SLASH(ex)', name: '永恆斬擊(魅影強化)', level: 5, formula: '(SLV*365+POW*3)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.75, GCD: 0.5, Note: '', } },
                         { skill: { id: 'SHC_IMPACT_CRATER', name: '神力撞擊', level: 5, formula: '(SLV*80+POW*3)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 10, elemental: 0, FCT: 0, VCT: 0, CD: 1.5, GCD: 0, Note: '攻擊次數為迴旋刀刃旋轉次數', } },
-                        { skill: { id: 'SHC_SHADOW_STAB', name: '暗影刺擊', level: 5, formula: '(SLV*350+POW*5)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, halfcri:true, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '', } },
-                        { skill: { id: 'SHC_SHADOW_STAB(ex)', name: '暗影刺擊(偽裝強化)', level: 5, formula: '(SLV*400+POW*7)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, halfcri:true, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '', } },
+                        { skill: { id: 'SHC_SHADOW_STAB', name: '暗影刺擊', level: 5, formula: '(SLV*350+POW*5)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: false, laterformula: false, halfcri:true, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '', } },
+                        { skill: { id: 'SHC_SHADOW_STAB(ex)', name: '暗影刺擊(偽裝強化)', level: 5, formula: '(SLV*400+POW*7)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: false, laterformula: false, halfcri:true, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '', } },
                         { skill: { id: 'SHC_FATAL_SHADOW_CROW', name: '致命影爪', level: 10, formula: '(SLV*1300+POW*10)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0, GCD: 0, Note: '', } },
                         { skill: { id: 'SHC_FATAL_SHADOW_CROW(ex)', name: '致命影爪(人類/龍)', level: 10, formula: '(SLV*1450+POW*10)*BLV/100', class: 'GX', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, halfcri:true, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0, GCD: 0, Note: '', } },
                         
                         { skill: { id: 'NC_AXETORNADO', name: '戰斧颶風', level: 5, formula: '(200+180*SLV+VIT)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -6, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, Note: '', } },
                         { skill: { id: 'NC_AXETORNADO(ex)', name: '戰斧颶風(踏滅)', level: 5, formula: '(230+250*SLV+VIT*2)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -6, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, Note: '', } },
                         { skill: { id: 'NC_AXEBOOMERANG', name: '迴旋斧', level: 5, formula: '(250+50*SLV+WGT)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: "5-(SLV-1)*0.5", GCD: 0, Note: '武器重量影響、魔導機甲執照不影響', } },
-                        { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(400+350*SLV)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: "(6-SLV)/10", VCT: "(10+SLV*2)/10", CD: "(3*SLV)/100", GCD: 0.5, Note: '依據敵方體型變動', } },
+                        { skill: { id: 'NC_ARMSCANNON', name: '加農砲', level: 5, formula: '(400+350*SLV)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, ignoreRES: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: "(6-SLV)/10", VCT: "(10+SLV*2)/10", CD: "(3*SLV)/100", GCD: 0.5, Note: '依據敵方體型變動', } },
                         { skill: { id: 'NC_VULCANARM', name: '火神砲', level: 3, formula: '(230*SLV+DEX)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0.2, CD: 0.1, GCD: 0.1, Note: '', } },
                         { skill: { id: 'NC_BOOSTKNUCKLE', name: '噴射飛拳', level: 5, formula: '(300+SLV*200+DEX)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0.2, CD: 0, GCD: 0, Note: '', } },
                         { skill: { id: 'MT_AXE_STOMP', name: '戰斧踏滅(雙手斧)', level: 5, formula: '(400+950*SLV+POW*5)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0, Note: '', } },
                         { skill: { id: 'MT_MIGHTY_SMASH', name: '強力粉碎', level: 10, formula: '(25+180*SLV+POW*7)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0.25, Note: '', } },
                         { skill: { id: 'MT_MIGHTY_SMASH(ex)', name: '強力粉碎(踏滅)', level: 10, formula: '(50+180*SLV+POW*10)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 7, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0.25, Note: '', } },
                         { skill: { id: 'MT_TRIPLE_LASER', name: '三連雷射', level: 5, formula: '(550+900*SLV+POW*12)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0.5, VCT: 1, CD: 0.35, GCD: 0.25, Note: '', } },
-                        { skill: { id: 'MT_SPARK_BLASTER', name: '閃光衝擊波', level: 10, formula: '(250+900*SLV+POW*7)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 0.5, GCD: 0.25, Note: '', } },
+                        { skill: { id: 'MT_SPARK_BLASTER', name: '閃光衝擊波', level: 10, formula: '(250+900*SLV+POW*7)*BLV/100', class: 'ME', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: false, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 0.5, GCD: 0.25, Note: '', } },
                         
                         { skill: { id: 'SN_SHARPSHOOTING', name: '銳利射擊', level: 5, formula: '(300+300*SLV)*(BLV/100)', class: 'RA', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0.5, CD: 0.15, GCD: 0.5, Note: '', } },
                         { skill: { id: 'RA_AIMEDBOLT', name: '瞄準標靶', level: 10, formula: '(500+SLV*20)*BLV/100', class: 'RA', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 1, VCT: 4, CD: 1, GCD: 2, Note: '', } },
@@ -9737,8 +9740,8 @@
                         { skill: { id: 'EM_ELEMENTAL_BUSTER', name: '元素破壞', level: 5, formula: '(500+SLV*2200+SPL*10)*BLV/100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.5, VCT: 0, CD: 5, GCD: 0.5, Note: '屬性為召喚的高階精靈', } },
                         { skill: { id: 'EM_ELEMENTAL_BUSTER(ex)', name: '元素破壞(龍族/無型)', level: 5, formula: '(500+SLV*2350+SPL*10)*BLV/100', class: 'SO', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 10, elemental: 1, FCT: 1.5, VCT: 0, CD: 5, GCD: 0.5, Note: '屬性為召喚的高階精靈', } },
                         
-                        { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
-                        { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈>5)', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
+                        { skill: { id: 'MO_EXTREMITYFIST', name: '阿修羅霸凰拳', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
+                        { skill: { id: 'MO_EXTREMITYFIST(over5)', name: '阿修羅霸凰拳(氣彈>5)', level: 5, formula: '(8+DOWN(SP/10))*100', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 2, CD: 0, GCD: 1, SpecialATK7: 1000, SpecialMATK1: 0, Note: '額外選項的氣彈數量為0', } },
                         { skill: { id: 'SR_TIGERCANNON', name: '虎砲', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.25*(BLV/100)', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 3, GCD: 1, SpecialATK7: 'SLV*240+BLV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
                         { skill: { id: 'SR_TIGERCANNON(ex)', name: '虎砲(大地崩纏後)', level: 10, formula: '(Mhp*(SLV*0.02+0.1)+Msp*(SLV*0.01+0.05))*0.5*(BLV/100)*1.3333', class: 'SU', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 2, CD: 3, GCD: 1, SpecialATK7: 'SLV*500+BLV*40', SpecialMATK1: 0, Note: '氣彈-2 最大HPSP影響傷害', } },
                         { skill: { id: 'SR_RIDEINLIGHTNING', name: '雷光彈', level: 5, formula: "(SLV*40+((WTI=='Knuckles')?SLV*50:0))*BLV/100", class: 'SU', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 5, elemental: 0, FCT: 0, VCT: 1, CD: 0.5, GCD: 0, Note: '技能等級=氣彈消耗數, 使用拳套時增傷', } },
@@ -9767,7 +9770,7 @@
                         { skill: { id: 'ABC_CHAIN_REACTION_SHOT(2)', name: '連鎖射擊(第二)', level: 5, formula: '(600+2350*SLV+CON*15)*BLV/100', class: 'SC', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '', } },
                         { skill: { id: 'ABC_FRENZY_SHOT', name: '狂暴射擊', level: 10, formula: '(400*SLV+CON*15)*BLV/100', class: 'SC', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 3, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '2~3下，預設為3，可修改傷害次數', } },
                         
-                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: '(SLV*350+2*INT/(6-5))*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, laterranged: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, Note: '5為手推車改良等級', } },
+                        { skill: { id: 'GN_CARTCANNON', name: '手推車加農砲', level: 5, formula: '(SLV*350+2*INT/(6-5))*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: true, transWeaponDEF: true, ignoreRES: true, laterranged: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 3, CD: 0, GCD: 0.5, Note: '5為手推車改良等級', } },
                         { skill: { id: 'GN_CART_TORNADO', name: '手推車龍捲風', level: 10, formula: '2000+250+DOWN(CRW/(150-((STR>120)?120:STR)))', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 1, Note: '預設改造5等，須調整手推車重量(Max:10500)', } },
                         { skill: { id: 'GN_CRAZYWEED', name: '瘋狂野草', level: 10, formula: '(700+SLV*100)*BLV/100', class: 'GE', DamageTypeIdx: 0, intest: true, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 7.5, CD: 5, GCD: 0.5, Note: '', } },
                         { skill: { id: 'GN_HELLS_PLANT', name: '地獄植物', level: 5, formula: '(SLV*100+INT*5)*BLV/100', class: 'GE', DamageTypeIdx: 0, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterranged: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.3, GCD: 0, Note: '5為生物挑撥等級', } },
@@ -9805,7 +9808,7 @@
                         { skill: { id: 'NJ_HUUJIN', name: '風刃', level: 10, formula: '150', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "DOWN(SLV/2)+1", elemental: 3, FCT: 1.1, VCT: "0.4+SLV*0.4", CD: 0, GCD: 0, Note: '', } },
                         { skill: { id: 'NJ_KAMAITACHI', name: '朔風', level: 5, formula: '100+SLV*100', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 3, FCT: 0.8, VCT: 3.2, CD: 0, GCD: 0, Note: '', } },
                         { skill: { id: 'KO_HUUMARANKA', name: '風魔飛鏢之飛舞', level: 10, formula: '((STR*5)+150*SLV+500)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1.5, CD: 3, GCD: 0.5, Note: '', } },
-                        { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, Note: '', } },
+                        { skill: { id: 'KO_BAKURETSU', name: '爆炸飛刀', level: 5, formula: '(50+DEX/4)*SLV*10*0.4*BLV/100+JLV*10', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: true, laterformula: false, laterranged: true, hitnumber: 1, elemental: 0, FCT: 0, VCT: 1.8, CD: 3, GCD: 1, Note: '', } },
                         { skill: { id: 'KO_JYUMONJIKIRI', name: '幽冥十字斬(初次)', level: 10, formula: 'SLV*200*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, Note: '', } },
                         { skill: { id: 'KO_JYUMONJIKIRI(buff)', name: '幽冥十字斬(十字創傷)', level: 10, formula: 'SLV*200*BLV/100+BLV*SLV', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 3.1, GCD: 0, Note: '', } },
                         { skill: { id: 'SS_SEKIENHOU', name: '火焰砲', level: 10, formula: '(500+(1000+70*10)*SLV+SPL*5)*BLV/100', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -3, elemental: 1, FCT: 2, VCT: 1, CD: 0.7, GCD: 0, Note: '10為暗戰炮等級', } },
@@ -9835,10 +9838,10 @@
                         { skill: { id: 'RL_BANISHING_BUSTER', name: '強制驅逐', level: 10, formula: '(1000+SLV*200)*BLV/120', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 1, VCT: 1, CD: 2, GCD: 0, Note: '', } },
                         { skill: { id: 'NW_MAGAZINE_FOR_ONE', name: '梅格競直擊(格林)', level: 5, formula: '(250+(500+100*10)*SLV+CON*2)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 10, elemental: 0, FCT: 1, VCT: 0, CD: 0.5, GCD: 1, Note: '格林機關槍，瞄準計數為10', } },
                         { skill: { id: 'NW_MAGAZINE_FOR_ONE(ex)', name: '梅格競直擊(手槍)', level: 5, formula: '(300+(800+100*10)*SLV+CON*2)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 6, elemental: 0, FCT: 1, VCT: 0, CD: 0.5, GCD: 1, Note: '手槍，瞄準計數為10', } },
-                        { skill: { id: 'NW_THE_VIGILANTE_AT_NIGHT', name: '夜裡的警惕(格林)', level: 5, formula: '((300+100*10)*SLV+CON*2)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: false, hitnumber: 7, elemental: 0, FCT: 1.5, VCT: 0, CD: 0, GCD: 1, Note: '格林機關槍，瞄準計數為10', } },
+                        { skill: { id: 'NW_THE_VIGILANTE_AT_NIGHT', name: '夜裡的警惕(格林)', level: 5, formula: '((300+100*10)*SLV+CON*2)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: false, laterformula: false, laterranged: false, hitnumber: 7, elemental: 0, FCT: 1.5, VCT: 0, CD: 0, GCD: 1, Note: '格林機關槍，瞄準計數為10', } },
                         { skill: { id: 'NW_THE_VIGILANTE_AT_NIGHT(ex)', name: '夜裡的警惕(霰彈)', level: 5, formula: '((800+200*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 4, elemental: 0, FCT: 1.5, VCT: 0, CD: 0, GCD: 1, Note: '霰彈槍，瞄準計數為10', } },
                         { skill: { id: 'NW_ONLY_ONE_BULLET', name: '獨一槍彈(來福)', level: 5, formula: '(1200+(3000+350*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '來福槍，瞄準計數為10', } },
-                        { skill: { id: 'NW_ONLY_ONE_BULLET(ex)', name: '獨一槍彈(手槍)', level: 5, formula: '(1200+(3400+350*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '手槍，瞄準計數為10', } },
+                        { skill: { id: 'NW_ONLY_ONE_BULLET(ex)', name: '獨一槍彈(手槍)', level: 5, formula: '(1200+(3400+350*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '手槍，瞄準計數為10', } },
                         { skill: { id: 'NW_SPIRAL_SHOOTING', name: '螺旋射擊(榴彈槍)', level: 5, formula: '(1200+(1700+150*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '榴彈槍，瞄準計數為10', } },
                         { skill: { id: 'NW_SPIRAL_SHOOTING(ex)', name: '螺旋射擊(來福)', level: 5, formula: '(1400+(2800+150*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '來福槍，瞄準計數為10', } },
                         { skill: { id: 'NW_WILD_FIRE', name: '曠野之火(霰彈)', level: 5, formula: '(1000+(2450+500*10)*SLV+CON*3)*BLV/100', class: 'RE', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '霰彈槍，瞄準計數為10', } },
@@ -10272,6 +10275,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-2-19', content: '修正無視RES錯誤, 現在技能半無視防禦跟無視RES分開設定' },
                         { id: '2025-1-10', content: '修正預設技能 天晨一月預設等級' },
                         { id: '2024-12-22', content: '增加預設技能 天晨一月' },
                         { id: '2024-12-12-1', content: '修正讀取配置時傷害NaN的問題' },
