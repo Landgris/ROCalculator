@@ -8803,6 +8803,13 @@
                         this.attritube['PATK'] += _value;
                         this.attritube['SMATK'] += _value;
                     }
+                    //玄鹿五色角
+                    if (this.IsSupportActive('SH_COLORS_OF_HYUN_ROK')){
+                        if (this.skill.id == 'SU_CN_METEOR') 
+                        {
+                            this.option.EquipSkillAddDamage += 50;
+                        }
+                    }
 
                     //突破極限
                     if (this.IsSupportActive('NV_BREAKTHROUGH')){
@@ -9927,7 +9934,7 @@
                         
                         { skill: { id: 'SU_PICKYPECK', name: '小雞啄擊', level: 5, formula: 'DOWN((200+SLV*100)*2.2)', class: 'SUM', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 0, VCT: 1, CD: 0, GCD: 1, Note: '', } },
                         { skill: { id: 'SU_SV_STEMSPEAR', name: '獼猴桃梗槍', level: 5, formula: '700', class: 'SUM', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 1, GCD: 1, Note: '', } },
-                        { skill: { id: 'SU_CN_METEOR', name: '貓薄荷隕石', level: 5, formula: '200+SLV*100', class: 'SUM', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 3, VCT: 4, CD: 5, GCD: 1, Note: '', } },
+                        { skill: { id: 'SU_CN_METEOR', name: '貓薄荷隕石', level: 5, formula: '(200+SLV*100+INT*5)*BLV/100', class: 'SUM', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -5, elemental: 0, FCT: 3, VCT: 4, CD: 5, GCD: 1, Note: '', } },
                         { skill: { id: 'SH_CHUL_HO_SONIC_CLAW', name: '鐵虎空心爪', level: 7, formula: '(850+1650*SLV+50*10+POW*5)*BLV/100', class: 'SUM', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 0.25, GCD: 0.5, Note: '10為靈物互動等級', } },
                         { skill: { id: 'SH_CHUL_HO_SONIC_CLAW(ex)', name: '鐵虎空心爪(交流)', level: 7, formula: '(850+2050*SLV+100*10+POW*5)*BLV/100', class: 'SUM', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 0.25, GCD: 0.5, Note: '10為靈物互動等級', } },
                         { skill: { id: 'SH_HOWLING_OF_CHUL_HO', name: '鐵虎咆嘯', level: 7, formula: '(600+1050*SLV+50*10+POW*5)*BLV/100', class: 'SUM', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '10為靈物互動等級', } },
@@ -10169,6 +10176,7 @@
                         { skill: { id: 'SH_MARINE_FESTIVAL_OF_KI_SUL', name: '神龜海洋慶典', maxlv: 5, lv: 5, class: 'SUM', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SH_SANDY_FESTIVAL_OF_KI_SUL', name: '神龜沙雕節', maxlv: 5, lv: 5, class: 'SUM', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'SH_TEMPORARY_COMMUNION', name: '急速交流', maxlv: 5, lv: 5, class: 'SUM', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: false, select: false, active: false, conflict: '', Note: '', } },
+                        { skill: { id: 'SH_COLORS_OF_HYUN_ROK', name: '玄鹿五色角(玄鹿)', maxlv: 1, lv: 1, class: 'SUM', changelv: true, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         
                         { skill: { id: 'NV_BREAKTHROUGH', name: '突破極限(超初被動)', maxlv: 5, lv: 5, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
                         { skill: { id: 'NV_TRANSCENDENCE', name: '心靈超越', maxlv: 5, lv: 5, class: 'SN', changelv: false, argnum: 0, arg1: 0, arg1desc: '', arg2: 0, arg2desc: '', passive: true, select: false, active: false, conflict: '', Note: '', } },
@@ -10325,6 +10333,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-2-28', content: '調整預設技能 貓薄荷隕石公式<br>增加預設輔助技能 玄鹿五色角' },
                         { id: '2025-2-27', content: '修正一些文字錯誤' },
                         { id: '2025-2-24', content: '增加預設技能 天晨一陽<br>終初技能公式調整(自學魔法、自學策略影響的倍率改到輔助技能內)<br>刪除預設技能 刪除水晶波爆(巔峰3),水晶波爆(巔峰4),震裂術(巔峰3),毀滅颶風(巔峰5)(改由調整輔助技能巔峰等級)' },
                         { id: '2025-2-19', content: '修正無視RES錯誤, 現在技能半無視防禦跟無視RES分開設定' },
