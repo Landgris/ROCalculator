@@ -6994,7 +6994,7 @@
                     //高階拳刃修練
                     if (this.IsSupportActive('ASC_KATAR') && this.weapon.type.id == 'Katars') {
                         var paraAdvancedKatarReserchValue = Number(1) + Number(this.GetSupportSkill('ASC_KATAR').arg1 / 100);
-                        para_na = para_na * paraAdvancedKatarReserchValue;
+                        para_na += this.GetSupportSkill('ASC_KATAR').arg1; //同SpecialATK6
                         para8 = para8 * paraAdvancedKatarReserchValue;
                     }
                     para_na = Number(1) + Number(para_na / 100);
@@ -10333,6 +10333,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-3-16', content: '修正預設輔助技能 高階拳刃修練普攻沒計算的問題' },
                         { id: '2025-2-28', content: '調整預設技能 貓薄荷隕石公式<br>增加預設輔助技能 玄鹿五色角' },
                         { id: '2025-2-27', content: '修正一些文字錯誤' },
                         { id: '2025-2-24', content: '增加預設技能 天晨一陽<br>終初技能公式調整(自學魔法、自學策略影響的倍率改到輔助技能內)<br>刪除預設技能 刪除水晶波爆(巔峰3),水晶波爆(巔峰4),震裂術(巔峰3),毀滅颶風(巔峰5)(改由調整輔助技能巔峰等級)' },
