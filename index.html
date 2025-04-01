@@ -6788,6 +6788,15 @@
                         this.computeattribute.DelayTime = Math.floor(0.5 * _GCDRate) / 100 +
                             Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * _GCDRate) / 100;
                     }
+                    
+                    if( this.IsConsumableActive(777777) )
+                    {
+                        //秒7肯貝特
+                        this.computeattribute.CastTime = 0;
+                        this.computeattribute.DelayTime = 0;
+                        this.attritube.ASPD = 193;
+                    }
+                    
                     this.computeattribute.AspdDelay = Math.floor((200 - this.attritube.ASPD) / 50 * 100) / 100;
                     var _MAxDelay = Math.max(this.computeattribute.CastTime + this.computeattribute.DelayTime, this.computeattribute.AspdDelay);
                     this.computeattribute.HitperSec = Math.floor(1 / _MAxDelay * 100) / 100;
@@ -10272,6 +10281,7 @@
                         { id:23475, name:'極限藥水', active:false, group:'sp', HPPercent:5, SPPercent:5, RangedDamagePercent:5, CriDamagePercent:5, ElementalMagicPercent:5},
                         { id:14536, name:'研磨劑', active:false, group:'sp', Cri:30},
                         { id:100293, name:'齊爾-D-01卷軸', active:false, group:'sp', GCDPercent:30},
+                        { id:777777, name:'秒7肯貝特', active:false, group:'sp'},
 
                         { id:12791, name:'戰鬥藥', active:false, group:'Radio1', LevelAtkPercent:5, MatkPercent:5, HPPercent:-3, SPPercent:-3},
                         { id:12792, name:'高級戰鬥藥', active:false, group:'Radio1', LevelAtkPercent:10, MatkPercent:10, HPPercent:-5, SPPercent:-5},
@@ -10333,6 +10343,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-4-1', content: '增加預設消耗品 秒7肯貝特(啟用後攻速193並且詠唱延遲都變為0)' },
                         { id: '2025-3-16', content: '修正預設輔助技能 高階拳刃修練普攻沒計算的問題' },
                         { id: '2025-2-28', content: '調整預設技能 貓薄荷隕石公式<br>增加預設輔助技能 玄鹿五色角' },
                         { id: '2025-2-27', content: '修正一些文字錯誤' },
