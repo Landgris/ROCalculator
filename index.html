@@ -9778,8 +9778,8 @@
                         { skill: { id: 'IG_SHIELD_SHOOTING', name: '盾牌投擲', level: 5, formula: '(650+(2850+50*10)*SLV+POW*7+SRL*25+SHW)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -7, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0, Note: '防盾精熟係數待測', } },
                         { skill: { id: 'IG_GRAND_JUDGEMENT', name: '末日審判', level: 5, formula: '(250+1500*SLV+POW*10)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: true, critical: true, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '', } },
                         { skill: { id: 'IG_GRAND_JUDGEMENT(ex)', name: '末日審判(植物/昆蟲)', level: 5, formula: '(350+1650*SLV+POW*10)*BLV/100', class: 'RG', DamageTypeIdx: 0, ranged: true, critical: true, halfcri:false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -10, elemental: 0, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '', } },
-                        { skill: { id: 'IG_CROSS_RAIN', name: '聖十字雨', level: 10, formula: '((320+10*10)*SLV+SPL*7)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 9, elemental: 6, FCT: 0, VCT: 0, CD: 2.4, GCD: 0, Note: '10*10為矛&劍精熟等級', } },
-                        { skill: { id: 'IG_CROSS_RAIN(ex)', name: '聖十字雨(抗性神盾)', level: 10, formula: '((450+15*10)*SLV+SPL*7)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 9, elemental: 6, FCT: 0, VCT: 0, CD: 2.4, GCD: 0, Note: '15*10為矛&劍精熟等級', } },
+                        { skill: { id: 'IG_CROSS_RAIN', name: '聖十字雨', level: 10, formula: '((320+10*10)*SLV+SPL*7)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 8, elemental: 6, FCT: 0, VCT: 0, CD: 2.4, GCD: 0, Note: '10*10為矛&劍精熟等級', } },
+                        { skill: { id: 'IG_CROSS_RAIN(ex)', name: '聖十字雨(抗性神盾)', level: 10, formula: '((450+15*10)*SLV+SPL*7)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 8, elemental: 6, FCT: 0, VCT: 0, CD: 2.4, GCD: 0, Note: '15*10為矛&劍精熟等級', } },
                         { skill: { id: 'IG_JUDGEMENT_CROSS', name: '交錯審判', level: 10, formula: '(1950*SLV+SPL*10)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 6, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '', } },
                         { skill: { id: 'IG_JUDGEMENT_CROSS(ex)', name: '交錯審判(植物/昆蟲)', level: 10, formula: '(2100*SLV+SPL*10)*BLV/100', class: 'RG', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 6, FCT: 0, VCT: 0, CD: 0.5, GCD: 0, Note: '', } },
                         
@@ -10343,6 +10343,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-4-2', content: '調整預設技能 聖十字雨攻擊次數' },
                         { id: '2025-4-1', content: '增加預設消耗品 秒7肯貝特(啟用後攻速193並且詠唱延遲都變為0)' },
                         { id: '2025-3-16', content: '修正預設輔助技能 高階拳刃修練普攻沒計算的問題' },
                         { id: '2025-2-28', content: '調整預設技能 貓薄荷隕石公式<br>增加預設輔助技能 玄鹿五色角' },
