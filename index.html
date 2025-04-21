@@ -6944,7 +6944,6 @@
                     this.computeattribute.atkc5_max += Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK2']);
 
                     if (this.IsSupportActive('TK_POWER')) {
-                        //var paraKihop = Number(1) + Number((10 + this.GetSupportSkill('TK_POWER').lv * 20) / 100);
                         var paraKihop = Number(1) + Number((this.GetSupportSkill('TK_POWER').lv * 20) / 100);
                         this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, paraKihop);
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, paraKihop);
