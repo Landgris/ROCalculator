@@ -3950,6 +3950,23 @@
                                                 </div>
                                             </el-col>
                                         </el-row>
+                                        <el-row v-if="this.subweapon.level.id==5"
+                                            class="" :gutter="4" type="flex" align="middle"
+                                            justify="space-around">
+                                            <el-col :span="4" style="text-align: right;">
+                                                <span>Grade等級</span>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-select value-key="id" v-model="subweapon.grade"
+                                                    v-on:change="onSelectedWeaponLevel" placeholder="Grade等級">
+                                                    <el-option v-for="item in weapongradelist" :key="item.id"
+                                                        :label="item.label" :value="item">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-col>
+                                            <el-col :span="12" style="text-align: right;">
+                                            </el-col>
+                                        </el-row>
                                         <el-row class="" :gutter="4" type="flex" align="middle" justify="start">
                                             <el-col :span="6" style="text-align: right;">
                                                 <span>武器ATK: </span>
@@ -4044,7 +4061,7 @@
                                     </el-row>
                                 </div>
                                 <!--裝備-->
-                                <div class="Item" v-for="(item,eqindex) in equipspartlist.slice(2,14)">
+                                <div class="Item" v-for="(item,eqindex) in equipspartlist.slice(2,16)">
                                     <div class="bg-purple-light" style="padding: 0px 4px;">
                                         <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                             <el-col class="textcenter" :span="4">
@@ -5383,8 +5400,8 @@
                     { id: 'costume', label: '服飾', equipname: '', effectlist: [] },
                     { id: 'cardset', label: '套卡', equipname: '', effectlist: [] },
                     { id: 'other', label: '自訂', equipname: '', effectlist: [] },
-                    { id: 'weaponrcard', label: '武器卡片', equipname: '', effectlist: [] },
-                    { id: 'weaponlcard', label: '武器卡片', equipname: '', effectlist: [] },
+                    { id: 'pet', label: '寵物', equipname: '', effectlist: [] },
+                    { id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
                     { id: 'helmcard', label: '頭飾卡片', equipname: '', effectlist: [] },
                     { id: 'helm1card', label: '頭飾卡片', equipname: '', effectlist: [] },
                     { id: 'helm2card', label: '頭下卡片', equipname: '', effectlist: [] },
@@ -5397,6 +5414,8 @@
                     { id: 'costumeenchant', label: '服飾附魔', equipname: '', effectlist: [] },
                     { id: 'cardset2', label: '套卡2', equipname: '', effectlist: [] },
                     { id: 'other2', label: '自訂2', equipname: '', effectlist: [] },
+                    { id: 'pet', label: '寵物2', equipname: '', effectlist: [] },
+                    { id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
                 ],
                 effecttypelist: [
                     { label: 'STR', id: 'STR', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
@@ -6288,7 +6307,8 @@
                         console.log(this.weapon.grade.id);
                         console.log(this.weaponlevellist[this.weapon.level.id - 1].upgradeatk[this.weapon.grade.id]);
                         this.weapon.refineatk =  Math.floor(this.weapon.refinelevel *this.weaponlevellist[this.weapon.level.id - 1].upgradeatk[this.weapon.grade.id]);
-                        this.weapon.refinematk = this.weapon.refineatk;
+                        this.subweapon.refinematk = this.subweapon.refinelevel * this.weaponlevellist[this.subweapon.level.id - 1].upgradeatk[this.weapon.grade.id];
+                        this.weapon.refinematk = this.weapon.refineatk + this.subweapon.refinematk;
                         this.weapon.refineatk2 = 0;
                     }else{
                         this.weapon.refineatk = this.weapon.refinelevel * this.weaponlevellist[this.weapon.level.id - 1].upgradeatk;
@@ -6924,7 +6944,8 @@
                     this.computeattribute.atkc5_max += Number(this.skilloption.WeaponMasteryATK) + Number(this.computeattribute['SpecialATK2']);
 
                     if (this.IsSupportActive('TK_POWER')) {
-                        var paraKihop = Number(1) + Number((10 + this.GetSupportSkill('TK_POWER').lv * 20) / 100);
+                        //var paraKihop = Number(1) + Number((10 + this.GetSupportSkill('TK_POWER').lv * 20) / 100);
+                        var paraKihop = Number(1) + Number((this.GetSupportSkill('TK_POWER').lv * 20) / 100);
                         this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, paraKihop);
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, paraKihop);
                     }
@@ -10343,6 +10364,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-4-22', content: '修正預設輔助技能 加油倍率<br>副手為五級武器時，增加階級設定(用於增加Matk)<br>裝備欄位增加寵物/符文石碑' },
                         { id: '2025-4-2', content: '調整預設技能 聖十字雨攻擊次數' },
                         { id: '2025-4-1', content: '增加預設消耗品 秒7肯貝特(啟用後攻速193並且詠唱延遲都變為0)' },
                         { id: '2025-3-16', content: '修正預設輔助技能 高階拳刃修練普攻沒計算的問題' },
