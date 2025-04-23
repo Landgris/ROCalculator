@@ -3798,18 +3798,18 @@
                                         </el-col>
                                         <el-col class="textcenter">
                                             <div>
-                                                <el-input v-model="equipspartlist[14].equipname"
+                                                <el-input v-model="equipspartlist[16].equipname"
                                                     placeholder="卡片名稱">
                                                 </el-input>
                                             </div>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="onClearEquipPart(14)" size="mini">
+                                            <el-button v-on:click="onClearEquipPart(16)" size="mini">
                                                 清空
                                             </el-button>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="OpenEditEquipDialogue(14)" type="success"
+                                            <el-button v-on:click="OpenEditEquipDialogue(16)" type="success"
                                                 plain>
                                                 編輯
                                             </el-button>
@@ -3839,7 +3839,7 @@
                                         </div>
                                     </el-row>
                                     <el-row>
-                                        <div class="Item bg-purple-light2" v-for="(item, index) in equipspartlist[14].effectlist"
+                                        <div class="Item bg-purple-light2" v-for="(item, index) in equipspartlist[16].effectlist"
                                             v-bind:key="item.effecttypelist" >
                                             <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                 justify="end" style="height:40px;">
@@ -3856,7 +3856,7 @@
                                                     <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                 </el-col>
                                                     <el-col class="textcenter"  :span="5">
-                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(14, index)"></el-checkbox>
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(16, index)"></el-checkbox>
                                                     </el-col>
                                             </el-row>
                                         </div>
@@ -3996,18 +3996,18 @@
                                         </el-col>
                                         <el-col class="textcenter">
                                             <div>
-                                                <el-input v-model="equipspartlist[1+14].equipname"
+                                                <el-input v-model="equipspartlist[1+16].equipname"
                                                     placeholder="卡片名稱">
                                                 </el-input>
                                             </div>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="onClearEquipPart(1+14)" size="mini">
+                                            <el-button v-on:click="onClearEquipPart(1+16)" size="mini">
                                                 清空
                                             </el-button>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="OpenEditEquipDialogue(1+14)" type="success"
+                                            <el-button v-on:click="OpenEditEquipDialogue(1+16)" type="success"
                                                 plain>
                                                 編輯
                                             </el-button>
@@ -4037,7 +4037,7 @@
                                         </div>
                                     </el-row>
                                     <el-row>
-                                        <div v-for="(item, index) in equipspartlist[1+14].effectlist"
+                                        <div v-for="(item, index) in equipspartlist[1+16].effectlist"
                                             v-bind:key="item.effecttypelist" class="bg-purple-light2">
                                             <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                 justify="end" style="height:40px;">
@@ -4054,7 +4054,7 @@
                                                     <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                 </el-col>
                                                 <el-col class="textcenter"  :span="5">
-                                                    <el-checkbox v-model="item.Enable" @change="EnableEffect(1+14, index)"></el-checkbox>
+                                                    <el-checkbox v-model="item.Enable" @change="EnableEffect(1+16, index)"></el-checkbox>
                                                 </el-col>
                                             </el-row>
                                         </div>
@@ -4096,18 +4096,18 @@
                                             </el-col>
                                             <el-col class="textcenter">
                                                 <div>
-                                                    <el-input v-model="equipspartlist[eqindex+2+14].equipname"
+                                                    <el-input v-model="equipspartlist[eqindex+2+16].equipname"
                                                         placeholder="卡片名稱">
                                                     </el-input>
                                                 </div>
                                             </el-col>
                                             <el-col class="textcenter" :span="5">
-                                                <el-button v-on:click="onClearEquipPart(eqindex+2+14)" size="mini">
+                                                <el-button v-on:click="onClearEquipPart(eqindex+2+16)" size="mini">
                                                     清空
                                                 </el-button>
                                             </el-col>
                                             <el-col class="textcenter" :span="5">
-                                                <el-button v-on:click="OpenEditEquipDialogue(eqindex+2+14)" type="success"
+                                                <el-button v-on:click="OpenEditEquipDialogue(eqindex+2+16)" type="success"
                                                     plain>
                                                     編輯
                                                 </el-button>
@@ -4137,7 +4137,7 @@
                                             </div>
                                         </el-row>
                                         <el-row>
-                                            <div v-for="(item, index) in equipspartlist[eqindex+2+14].effectlist"
+                                            <div v-for="(item, index) in equipspartlist[eqindex+2+16].effectlist"
                                                 v-bind:key="item.effecttypelist" class="bg-purple-light2">
                                                 <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                     justify="end" style="height:40px;">
@@ -4154,7 +4154,7 @@
                                                         <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                     </el-col>
                                                     <el-col class="textcenter"  :span="5">
-                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+2+14, index)"></el-checkbox>
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+2+16, index)"></el-checkbox>
                                                     </el-col>
                                                 </el-row>
                                             </div>
@@ -5351,7 +5351,7 @@
                     { id: 'GX', label: '十字斬首者/十字影武', TranscendentClass: true, JobMaxPoint:[8,11,6,5,9,4], TJobMaxPoint:[8,11,6,5,9,4,12,8,4,0,7,7], basehp: [6050, 6093, 6208, 6324, 6441, 6559, 6678, 6798, 6920, 7043, 7167, 7292, 7418, 7545, 7673, 7802, 7932, 8063, 8196, 8330, 8465, 8601, 8738, 8876, 9015, 9155, 9296, 9438, 9582, 9727, 9873, 10020, 10168, 10317, 10467, 10618, 10770, 10923, 11078, 11234, 11391, 11549, 11708, 11868, 12029, 12191, 12354, 12518, 12684, 12851, 13019, 13188, 13351, 13518, 13684, 13850, 14016, 14182, 14349, 14515, 14681, 14830, 14966, 15103, 15241, 15380, 15520, 15661, 15803, 15946, 16090, 16235, 16381, 16528, 16676, 16825, 16975, 17196, 17368, 17628, 17857, 18072, 18361, 18563, 18897, 19237, 19449, 24630, 24962, 25293, 25626, 25958, 26291, 26623, 26955, 27287, 0, 27952, 28283, 28616, 28948, 29281], basesp: [400, 410, 414, 418, 422, 426, 430, 434, 438, 442, 446, 450, 454, 458, 462, 466, 470, 474, 478, 482, 486, 490, 494, 498, 502, 506, 510, 514, 518, 522, 526, 530, 534, 538, 542, 546, 550, 554, 558, 562, 566, 570, 574, 578, 582, 586, 590, 594, 598, 602, 606, 610, 670, 695, 700, 715, 730, 745, 760, 785, 790, 805, 810, 815, 820, 825, 830, 836, 842, 848, 854, 860, 867, 874, 881, 888, 895, 900, 905, 910, 916, 921, 926, 931, 937, 942, 947, 1191, 1197, 1203, 1210, 1217, 1223, 1230, 1237, 1243, 0, 1257, 1263, 1270, 1276, 1283], baseaspd: 0 },
                     { id: 'AB', label: '大主教/樞機主教', TranscendentClass: true, JobMaxPoint:[6,7,7,12,7,4], TJobMaxPoint:[6,7,7,12,7,4,8,5,5,9,4,7], basehp: [4300, 4333, 4412, 4491, 4570, 4649, 4728, 4807, 4886, 4965, 5044, 5123, 5202, 5281, 5360, 5439, 5518, 5597, 5676, 5755, 5834, 5913, 5992, 6071, 6150, 6229, 6308, 6387, 6466, 6545, 6624, 6703, 6782, 6861, 6940, 7019, 7098, 7177, 7256, 7335, 7414, 7493, 7572, 7651, 7730, 7809, 7888, 7967, 8046, 8125, 8204, 8283, 8362, 8441, 8520, 8599, 8678, 8757, 8836, 8915, 8994, 9115, 9276, 9438, 9601, 9765, 9930, 10096, 10263, 10431, 10600, 10770, 10941, 11113, 11286, 11460, 11635, 11949, 12272, 12628, 13006, 13345, 13718, 14034, 14427, 14831, 15245, 19457, 19918, 20380, 20841, 21303, 21765, 22226, 22687, 23148, 23611, 24072, 24533, 24995, 25456, 25918], basesp: [800, 810, 818, 826, 834, 842, 850, 858, 866, 874, 882, 890, 898, 906, 914, 922, 930, 938, 946, 954, 962, 970, 978, 986, 994, 1002, 1010, 1018, 1026, 1034, 1042, 1050, 1058, 1066, 1074, 1082, 1090, 1098, 1106, 1114, 1122, 1130, 1138, 1146, 1154, 1162, 1170, 1178, 1186, 1194, 1202, 1210, 1258, 1286, 1334, 1372, 1410, 1458, 1466, 1474, 1482, 1490, 1499, 1508, 1517, 1526, 1535, 1545, 1555, 1565, 1575, 1585, 1596, 1607, 1618, 1629, 1640, 1651, 1663, 1674, 1686, 1697, 1709, 1721, 1733, 1745, 1757, 2211, 2226, 2241, 2256, 2271, 2286, 2301, 2316, 2331, 2346, 2361, 2376, 2391, 2406, 2421], baseaspd: 0 },
 
-                    { id: 'RA', label: '遊俠/風鷹狩獵者', TranscendentClass: true, JobMaxPoint:[2,12,8,9,8,4], TJobMaxPoint:[2,12,8,9,8,4,9,5,5,4,10,4], basehp: [4800, 4828, 4918, 5009, 5101, 5194, 5288, 5382, 5477, 5573, 5670, 5768, 5867, 5967, 6068, 6170, 6273, 6377, 6482, 6588, 6694, 6801, 6909, 7018, 7128, 7239, 7351, 7464, 7578, 7693, 7809, 7926, 8044, 8162, 8281, 8401, 8522, 8644, 8767, 8891, 9016, 9142, 9269, 9397, 9526, 9656, 9786, 9917, 10049, 10182, 10316, 10451, 10585, 10719, 10853, 10987, 11121, 11255, 11389, 11523, 11657, 11790, 11926, 12063, 12201, 12340, 12480, 12621, 12763, 12906, 13050, 13195, 13341, 13488, 13636, 13785, 13935, 14088, 14384, 14657, 14965, 15280, 15493, 15757, 16040, 16281, 16607, 21068,21407,21746,22085,22425,22763,23102,23441,23780,24118,24457,24796,25135,25475,25813], basesp: [400, 410, 414, 418, 422, 426, 430, 434, 438, 442, 446, 450, 454, 458, 462, 466, 470, 474, 478, 482, 486, 490, 494, 498, 502, 506, 510, 514, 518, 522, 526, 530, 534, 538, 542, 546, 550, 554, 558, 562, 566, 570, 574, 578, 582, 586, 590, 594, 598, 602, 606, 610, 650, 675, 680, 695, 710, 725, 740, 765, 770, 785, 790, 795, 800, 805, 810, 816, 822, 828, 834, 840, 847, 854, 861, 868, 875, 881, 887, 893, 899, 906, 912, 918, 924, 931, 937, 1178,1187,1195,1202,1211,1218,1226,1233,1242,1250,1257,1266,1273,1281,1290], baseaspd: 0 },
+                    { id: 'RA', label: '遊俠/風鷹狩獵者', TranscendentClass: true, JobMaxPoint:[2,12,8,9,8,4], TJobMaxPoint:[2,12,8,9,8,4,9,5,5,4,11,4], basehp: [4800, 4828, 4918, 5009, 5101, 5194, 5288, 5382, 5477, 5573, 5670, 5768, 5867, 5967, 6068, 6170, 6273, 6377, 6482, 6588, 6694, 6801, 6909, 7018, 7128, 7239, 7351, 7464, 7578, 7693, 7809, 7926, 8044, 8162, 8281, 8401, 8522, 8644, 8767, 8891, 9016, 9142, 9269, 9397, 9526, 9656, 9786, 9917, 10049, 10182, 10316, 10451, 10585, 10719, 10853, 10987, 11121, 11255, 11389, 11523, 11657, 11790, 11926, 12063, 12201, 12340, 12480, 12621, 12763, 12906, 13050, 13195, 13341, 13488, 13636, 13785, 13935, 14088, 14384, 14657, 14965, 15280, 15493, 15757, 16040, 16281, 16607, 21068,21407,21746,22085,22425,22763,23102,23441,23780,24118,24457,24796,25135,25475,25813], basesp: [400, 410, 414, 418, 422, 426, 430, 434, 438, 442, 446, 450, 454, 458, 462, 466, 470, 474, 478, 482, 486, 490, 494, 498, 502, 506, 510, 514, 518, 522, 526, 530, 534, 538, 542, 546, 550, 554, 558, 562, 566, 570, 574, 578, 582, 586, 590, 594, 598, 602, 606, 610, 650, 675, 680, 695, 710, 725, 740, 765, 770, 785, 790, 795, 800, 805, 810, 816, 822, 828, 834, 840, 847, 854, 861, 868, 875, 881, 887, 893, 899, 906, 912, 918, 924, 931, 937, 1178,1187,1195,1202,1211,1218,1226,1233,1242,1250,1257,1266,1273,1281,1290], baseaspd: 0 },
 
                     { id: 'WL', label: '咒術士/禁咒魔導士', TranscendentClass: true, JobMaxPoint:[1,7,8,15,8,4], TJobMaxPoint:[1,7,8,15,8,4,0,8,7,13,9,1], basehp: [3200, 3313, 3383, 3455, 3528, 3601, 3675, 3749, 3824, 3899, 3975, 4051, 4129, 4208, 4287, 4367, 4447, 4528, 4609, 4691, 4773, 4857, 4941, 5026, 5112, 5198, 5285, 5372, 5460, 5548, 5638, 5728, 5819, 5911, 6003, 6096, 6189, 6283, 6377, 6473, 6569, 6666, 6763, 6861, 6960, 7059, 7159, 7259, 7361, 7463, 7566, 7669, 7771, 7874, 7976, 8079, 8181, 8284, 8386, 8489, 8591, 8730, 8891, 9053, 9216, 9380, 9545, 9711, 9878, 10046, 10215, 10385, 10556, 10728, 10901, 11075, 11250, 11610, 11900, 12222, 12564, 12865, 13251, 13556, 13990, 14382, 14755, 18857, 19306, 19760, 20213, 20668, 21122, 21576, 22030, 22483, 22937, 23391, 23845, 24298, 24753, 25207], basesp: [900, 910, 919, 928, 937, 946, 955, 964, 973, 982, 991, 1000, 1009, 1018, 1027, 1036, 1045, 1054, 1063, 1072, 1081, 1090, 1099, 1108, 1117, 1126, 1135, 1144, 1153, 1162, 1171, 1180, 1189, 1198, 1207, 1216, 1225, 1234, 1243, 1252, 1261, 1270, 1279, 1288, 1297, 1306, 1315, 1324, 1333, 1342, 1351, 1360, 1369, 1378, 1387, 1396, 1405, 1414, 1423, 1432, 1441, 1450, 1460, 1470, 1480, 1490, 1500, 1511, 1522, 1533, 1544, 1555, 1567, 1579, 1591, 1603, 1615, 1626, 1640, 1653, 1665, 1678, 1691, 1704, 1717, 1730, 1744, 2262, 2278, 2295, 2311, 2327, 2345, 2361, 2377, 2393, 2410, 2427], baseaspd: 0 },
 
@@ -5402,6 +5402,8 @@
                     { id: 'other', label: '自訂', equipname: '', effectlist: [] },
                     { id: 'pet', label: '寵物', equipname: '', effectlist: [] },
                     { id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
+                    { id: 'weaponrcard', label: '武器卡片', equipname: '', effectlist: [] },
+                    { id: 'weaponlcard', label: '武器卡片', equipname: '', effectlist: [] },
                     { id: 'helmcard', label: '頭飾卡片', equipname: '', effectlist: [] },
                     { id: 'helm1card', label: '頭飾卡片', equipname: '', effectlist: [] },
                     { id: 'helm2card', label: '頭下卡片', equipname: '', effectlist: [] },
@@ -10370,6 +10372,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-4-23', content: '修正裝備欄位儲存格錯誤<br>修正風鷹JOB滿時的CON加乘' },
                         { id: '2025-4-22', content: '修正預設輔助技能 加油倍率<br>副手為五級武器時，增加階級設定(用於增加Matk)<br>裝備欄位增加寵物/符文石碑' },
                         { id: '2025-4-2', content: '調整預設技能 聖十字雨攻擊次數' },
                         { id: '2025-4-1', content: '增加預設消耗品 秒7肯貝特(啟用後攻速193並且詠唱延遲都變為0)' },
