@@ -7595,12 +7595,13 @@
                     console.log(this.status.classid+" --");
 
                     //追蹤
-                    let selectedJobId = this.status.classid; // 這是職業代號（ID）
-                    let selectedJobLabel = this.classlist.find(job => job.id === selectedJobId)?.label || "未知職業"; 
+                    let selectedJobId = this.status.classid; 
+                    console.log("職業選擇已觸發: ", this.status.classid);
                     gtag("event", "job_selected", {
                         "event_category": "職業選擇",
-                        "event_label": selectedJobLabel
+                        "event_label": this.classlist.find(job => job.id === this.status.classid)?.label || "未知職業"
                     });
+
 
                     this.StoreDB_JobMapedSkill = this.DefaultDB_Skill.filter(post => {
                         return post.skill.class.split(',').some(v=>
@@ -9571,6 +9572,17 @@
                         this.StoreDB_SupportSkill = _.cloneDeep(AllsetObject.SupportSkill);
                         this.parseSupportSkill();
                     }
+
+                    // 確保職業 ID 正確讀取
+                    let savedJobId = AllsetObject.Status.classid;
+                    let savedJobLabel = this.classlist.find(job => job.id === savedJobId)?.label || "未知職業";
+
+                    // 發送事件到 GA
+                    gtag("event", "job_selected", {
+                        "event_category": "職業選擇",
+                        "event_label": savedJobLabel,
+                        "event_action": "載入存檔"
+                    });
 
                     this.CheckParam();
                     this.CombineEquipsAttribute();
