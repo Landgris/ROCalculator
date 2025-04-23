@@ -23,7 +23,6 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'UA-63581889-2');
     </script>
     <link rel='stylesheet' href='./styles.css' />
@@ -2499,7 +2498,7 @@
                                     </el-col>
                                     <el-col :span="12">
                                         <div class="grid-content">
-                                            <el-select v-model="status.classid" v-on:change="onChangeClass"
+                                            <el-select id="jobSelect" v-model="status.classid" v-on:change="onChangeClass"
                                                 placeholder="">
                                                 <el-option v-for="item in classlist" :key="item.id"
                                                     :label="item.label" :value="item.id">
@@ -7594,6 +7593,15 @@
                 },
                 onChangeClass(){
                     console.log(this.status.classid+" --");
+
+                    //追蹤
+                    let selectedJobId = this.status.classid; // 這是職業代號（ID）
+                    let selectedJobLabel = this.classlist.find(job => job.id === selectedJobId)?.label || "未知職業"; 
+                    gtag("event", "job_selected", {
+                        "event_category": "職業選擇",
+                        "event_label": selectedJobLabel
+                    });
+
                     this.StoreDB_JobMapedSkill = this.DefaultDB_Skill.filter(post => {
                         return post.skill.class.split(',').some(v=>
                         {
