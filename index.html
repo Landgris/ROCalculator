@@ -6822,7 +6822,7 @@
                     {
                         //秒7肯貝特
                         this.computeattribute.CastTime = 0;
-                        this.computeattribute.DelayTime = 0;
+                        this.computeattribute.DelayTime = eval(this.SkillFormulaReplace(this.skill.CD)) - (-this.attritube['CD']);
                         this.attritube.ASPD = 193;
                     }
                     
@@ -10372,7 +10372,7 @@
                     );
                     
                     this.UpdateLogList.push(
-                        { id: '2025-4-23', content: '修正裝備欄位儲存格錯誤<br>修正風鷹JOB滿時的CON加乘' },
+                        { id: '2025-4-23', content: '修正裝備欄位儲存格錯誤<br>修正風鷹JOB滿時的CON加乘<br>秒7肯貝特功能調整:獨延不會被修改成0' },
                         { id: '2025-4-22', content: '修正預設輔助技能 加油倍率<br>副手為五級武器時，增加階級設定(用於增加Matk)<br>裝備欄位增加寵物/符文石碑' },
                         { id: '2025-4-2', content: '調整預設技能 聖十字雨攻擊次數' },
                         { id: '2025-4-1', content: '增加預設消耗品 秒7肯貝特(啟用後攻速193並且詠唱延遲都變為0)' },
