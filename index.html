@@ -3860,27 +3860,6 @@
                                                 </el-button>
                                             </el-col>
                                         </el-row>
-                                        <el-row>
-                                            <div v-for="(item, index) in equipspartlist[eqindex].effectlist" v-bind:key="item.effecttypelist">
-                                                <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end" style="height:40px;">
-                                                    <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
-                                                    </el-col>
-                                                    <el-col class="textcenter" :span="2">
-                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
-                                                    </el-col>
-                                                    <el-col class="textcenter" :span="3">
-                                                        <span class="">{{ item.EffectNumber != 9999 ? item.EffectNumber : '' }}</span>
-                                                    </el-col>
-                                                    <el-col class="textcenter" :span="2">
-                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
-                                                    </el-col>
-                                                    <el-col class="textcenter" :span="5">
-                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+30, index)"></el-checkbox>
-                                                    </el-col>
-                                                </el-row>
-                                            </div>
-                                        </el-row>
                                     </div>
                                     <el-row>
                                         <div class="Item" v-for="(item, index) in equipspartlist[0].effectlist"
