@@ -7723,7 +7723,8 @@
                     console.log("職業選擇已觸發: ", this.status.classid);
                     gtag("event", "job_selected", {
                         "event_category": "職業選擇",
-                        "event_label": this.classlist.find(job => job.id === this.status.classid)?.label || "未知職業"
+                        "event_label": this.classlist.find(job => job.id === this.status.classid)?.label || "未知職業",
+                        "event_action": "手動選擇"
                     });
 
 
