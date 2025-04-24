@@ -75,7 +75,7 @@
                             <el-col class="textcenter">
                                 <br>
                                 聯絡方式<br>
-                                遊戲內:巴基力 蘭禮 230等704<br>
+                                遊戲內:巴基力 蘭星 240等終初<br>
                                 信箱:valkyrie7744533@gmail.com<br>
                                 Twitter @Landgris<br>
                                 PTT ID: valkyria<br>
@@ -104,10 +104,9 @@
                         <el-row :gutter="4" type="flex" align="left" justify="center">
                             這個計算機是希望大家在換裝備的時候可以不用借裝或是買到才發現傷害怎麼沒變？！<br>
                             就可以先用算的少走一些冤枉路<br><br>
-                            從去年12月完成後一直更新到現在<br>
+                            從2019年12月完成後一直更新到現在<br>
                             沒想到時間過這麼快! 好險有在寫更新紀錄，沒事就可以看看到底加了多少東西<br>
                             除了修正BUG、增加新功能、填各職業技能坑、各種測試公式、還要隨版本更新跑<br>
-                            為了可以更雲玩家還增加了200等的素質點數<br><br>
                             如果覺得這個計算機有幫助你選擇到適合的裝備、或是計算是否打的贏某隻怪物<br>
                             想要斗內的話可以按下方按紐，我會非常感謝<br><br>
                         </el-row>
@@ -116,12 +115,10 @@
                         </el-row>
                         <el-row :gutter="12" type="flex" align="left" justify="center">
                             <el-button v-on:click="OpenUrl('https://www.buymeacoffee.com/landgris')" size="big" type="warning">
-                                點這裡連結到buy me a coffee頁面(信用卡可)
+                                點這裡→buy me a coffee
                             </el-button>
-                        </el-row>
-                        <el-row :gutter="12" type="flex" align="left" justify="center">
                             <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="big" type="warning">
-                                點這裡連結到歐付寶頁面(需帳號)
+                                點這裡→歐付寶(需帳號)
                             </el-button>
                         </el-row>
                     </div>
@@ -131,7 +128,7 @@
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['UpdateLogDialog']" v-on:close="ClosePanel('UpdateLogDialog')"
             custom-class="Dialogue-container" :show-close=false :close-on-click-modal=false width="80%" top="50px" center>
-            <span slot="title">更新內容</span>
+            <span slot="title">歡迎使用計算機</span>
             <el-row :gutter="6">
                 <el-col span="12">
                     <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
@@ -190,10 +187,31 @@
                 </el-col>
                 <el-col span="12">
                     <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
+                        <el-col class="textcenter">Toss A Coin To Your Witcher</el-col>
+                    </el-row>
+                        <el-row :gutter="4" type="flex" align="left" justify="center">
+                            這個計算機是希望大家在換裝備的時候可以不用借裝或是買到才發現傷害怎麼沒變？！<br>
+                            就可以先用算的少走一些冤枉路<br><br>
+                            從2019年12月完成後一直更新到現在<br>
+                            沒想到時間過這麼快! 好險有在寫更新紀錄，沒事就可以看看到底加了多少東西<br>
+                            除了修正BUG、增加新功能、填各職業技能坑、各種測試公式、還要隨版本更新跑<br>
+                            如果覺得這個計算機有幫助你選擇到適合的裝備、或是計算是否打的贏某隻怪物<br>
+                            想要斗內的話可以按下方按紐，我會非常感謝<br><br>
+                            寄信告訴我訂單編號跟伺服器ID或想要的名字，我會把你加入感謝名單！<br><br>
+                        </el-row>
+                        <el-row :gutter="12" type="flex" align="left" justify="center">
+                            <el-button v-on:click="OpenUrl('https://www.buymeacoffee.com/landgris')" size="big" type="warning">
+                                點這裡→buy me a coffee
+                            </el-button>
+                            <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="big" type="warning">
+                                點這裡→歐付寶(需帳號)
+                            </el-button>
+                        </el-row>
+                    <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
                         <el-col class="textcenter">更新紀錄</el-col>
                     </el-row>
-                    <!--<el-scrollbar wrap-class="UpdateList-container" :native="false" :noresize="false">-->
-                    <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
+                    <el-scrollbar wrap-class="UpdateList-container" :native="false" :noresize="false">
+                    <!--<el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">-->
                         <div v-for="(item, index) in UpdateLogList" v-bind:key="item.id">
                             <div style="padding: 2px 5px;">
                                 <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -1575,9 +1593,12 @@
                         </el-col>
                         <el-col class="textcenter" style="text-align: left;" :span="18">
                             <el-checkbox-group v-model="StoreDB_EquipFliterGroup" v-on:change="onFliterEquipPart"
-                                fill="#909399" text-color="white">
-                                <el-checkbox-button v-for="item in equipspartlist" :label="item.label" :key="item.id">
-                                    {{item.label}}
+                            fill="#909399" text-color="white">
+                                <el-checkbox-button 
+                                    v-for="item in uniqueEquipParts" 
+                                    :label="item.label" 
+                                    :key="item.id">
+                                    {{ item.label }}
                                 </el-checkbox-button>
                             </el-checkbox-group>
                         </el-col>
@@ -3656,7 +3677,7 @@
                                     <el-row class="bg-purple" :gutter="4" style="padding: 5px 5px;">
                                         <el-row :gutter="4" type="flex" align="middle" justify="start">
                                             <el-col :span="4" style="text-align: right;">
-                                                <span>主手武器</span>
+                                                <span>類型</span>
                                             </el-col>
                                             <el-col :span="8">
                                                 <el-select value-key="id" v-model="weapon.type"
@@ -3792,13 +3813,13 @@
                                     <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                         <el-col class="textcenter" :span="4">
                                             <div>
-                                                <span></span>
+                                                <span>卡片</span>
                                             </div>
                                         </el-col>
                                         <el-col class="textcenter">
                                             <div>
                                                 <el-input v-model="equipspartlist[14].equipname"
-                                                    placeholder="卡片名稱">
+                                                    placeholder="名稱">
                                                 </el-input>
                                             </div>
                                         </el-col>
@@ -3814,6 +3835,53 @@
                                             </el-button>
                                         </el-col>
                                     </el-row>
+                                    <!-- 擴增武器卡片欄位 -->
+                                    <div class="Item" v-for="(item, eqindex) in equipspartlist.slice(30, 33)">
+                                        <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="4">
+                                                <div>
+                                                    <span>卡片</span>
+                                                </div>
+                                            </el-col>
+                                            <el-col class="textcenter">
+                                                <div>
+                                                    <el-input v-model="equipspartlist[eqindex+30].equipname" placeholder="名稱">
+                                                    </el-input>
+                                                </div>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="5">
+                                                <el-button v-on:click="onClearEquipPart(eqindex+30)" size="mini">
+                                                    清空
+                                                </el-button>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="5">
+                                                <el-button v-on:click="OpenEditEquipDialogue(eqindex+30)" type="success" plain>
+                                                    編輯
+                                                </el-button>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <div v-for="(item, index) in equipspartlist[eqindex].effectlist" v-bind:key="item.effecttypelist">
+                                                <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end" style="height:40px;">
+                                                    <el-col class="textcenter" style="text-align: right;" :span="12">
+                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <span class="">{{ item.EffectNumber != 9999 ? item.EffectNumber : '' }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="5">
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+30, index)"></el-checkbox>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                    </div>
                                     <el-row>
                                         <div class="Item" v-for="(item, index) in equipspartlist[0].effectlist"
                                             v-bind:key="item.effecttypelist">
@@ -3860,6 +3928,29 @@
                                             </el-row>
                                         </div>
                                     </el-row>
+                                        <div class="Item bg-purple-light2" v-for="(item, eqindex) in equipspartlist.slice(30, 33)">
+                                            <el-row>
+                                            <div v-for="(effect, index) in item.effectlist" v-bind:key="effect.effecttypelist">
+                                                <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end" style="height:40px;">
+                                                    <el-col class="textcenter" style="text-align: right;" :span="12">
+                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].label }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].opersymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <span class="">{{ effect.EffectNumber != 9999 ? effect.EffectNumber : '' }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].suffixsymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="5">
+                                                        <el-checkbox v-model="effect.Enable" @change="EnableEffect(eqindex + 30, index)"></el-checkbox>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                        </div>
                                 </div>
                                 <!--副手-->
                                 <div class="bg-purple" style="padding: 0px 2px;">
@@ -3891,7 +3982,7 @@
                                     <el-row class="statusbox bg-purple" :gutter="4" type="flex" align="middle"
                                         justify="start" v-show="weapon.type.isTwohand?false:true">
                                         <el-col :span="4" style="text-align: right;">
-                                            <span>副手裝備</span>
+                                            <span>類型</span>
                                         </el-col>
                                         <el-col :span="8">
                                             <el-select value-key="id" v-model="subweapon.type"
@@ -4154,6 +4245,56 @@
                                                     </el-col>
                                                     <el-col class="textcenter"  :span="5">
                                                         <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+2+14, index)"></el-checkbox>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                    </div>
+                                </div>
+
+                                <!-- 石碑寵物 -->
+                                <div class="Item" v-for="(item, eqindex) in equipspartlist.slice(28, 30)">
+                                    <div class="bg-purple-light" style="padding: 0px 4px;">
+                                        <el-row class="effectline" :gutter="4" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="4">
+                                                <div>
+                                                    <span>{{item.label}}</span>
+                                                </div>
+                                            </el-col>
+                                            <el-col class="textcenter">
+                                                <div>
+                                                    <el-input v-model="equipspartlist[eqindex+28].equipname" placeholder="名稱">
+                                                    </el-input>
+                                                </div>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="5">
+                                                <el-button v-on:click="onClearEquipPart(eqindex+28)" size="mini">
+                                                    清空
+                                                </el-button>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="5">
+                                                <el-button v-on:click="OpenEditEquipDialogue(eqindex+28)" type="success" plain>
+                                                    編輯
+                                                </el-button>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <div v-for="(item, index) in equipspartlist[eqindex+28].effectlist" v-bind:key="item.effecttypelist">
+                                                <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end" style="height:40px;">
+                                                    <el-col class="textcenter" style="text-align: right;" :span="12">
+                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <span class="">{{ item.EffectNumber != 9999 ? item.EffectNumber : '' }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="2">
+                                                        <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="5">
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+28, index)"></el-checkbox>
                                                     </el-col>
                                                 </el-row>
                                             </div>
@@ -5413,8 +5554,13 @@
                     { id: 'costumeenchant', label: '服飾附魔', equipname: '', effectlist: [] },
                     { id: 'cardset2', label: '套卡2', equipname: '', effectlist: [] },
                     { id: 'other2', label: '自訂2', equipname: '', effectlist: [] },
-                    //{ id: 'pet', label: '寵物', equipname: '', effectlist: [] },
-                    //{ id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
+                    //index28
+                    { id: 'pet', label: '寵物', equipname: '', effectlist: [] },
+                    { id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
+                    //index30~32
+                    { id: 'weaponrcard', label: '武器卡片', equipname: '', effectlist: [] },
+                    { id: 'weaponrcard', label: '武器卡片', equipname: '', effectlist: [] },
+                    { id: 'weaponrcard', label: '武器卡片', equipname: '', effectlist: [] },
                 ],
                 effecttypelist: [
                     { label: 'STR', id: 'STR', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
@@ -9140,31 +9286,36 @@
                     var idx = this.equipspartlist.findIndex(x => x.id == this.StoreDB_Equip[_dbidx].equip.id);
                     if (idx > -1) {
                         console.log("Load Equip " + idx + ": " + this.StoreDB_Equip[_dbidx].equip.equipname);
-                        if (idx == 8 || idx == 9)
-                        {
-                            idx = 8;
-                            if( this.equipspartlist[9].equipname == '' ) { idx = 9; }
-                            if( this.equipspartlist[8].equipname == '' ) { idx = 8; }
+
+                        
+                        // 特殊處理：雙手裝備（如 8 和 9，14 和 15 等）
+                        if (idx == 8 || idx == 9) {
+                            idx = this.equipspartlist[9].equipname == '' ? 9 : 8;
                         }
-                        if (idx == 14 || idx == 15)
-                        {
-                            idx = 14;
-                            if( this.equipspartlist[15].equipname == '' ) { idx = 15; }
-                            if( this.equipspartlist[14].equipname == '' ) { idx = 14; }
+                        if (idx == 16 || idx == 17) {
+                            idx = this.equipspartlist[17].equipname == '' ? 17 : 16;
                         }
-                        if (idx == 16 || idx == 17)
-                        {
-                            idx = 16;
-                            if( this.equipspartlist[17].equipname == '' ) { idx = 17; }
-                            if( this.equipspartlist[16].equipname == '' ) { idx = 16; }
+                        if (idx == 22 || idx == 23) {
+                            idx = this.equipspartlist[23].equipname == '' ? 23 : 22;
                         }
-                        if (idx == 22 || idx == 23)
-                        {
-                            idx = 22;
-                            if( this.equipspartlist[23].equipname == '' ) { idx = 23; }
-                            if( this.equipspartlist[22].equipname == '' ) { idx = 22; }
+                        
+                        // 判定並處理武器卡片欄位 14, 30, 31, 32
+                        if (idx == 14 || idx == 30 || idx == 31 || idx == 32) {
+                            if (this.equipspartlist[14].equipname == '') {
+                                idx = 14;
+                            } else if (this.equipspartlist[30].equipname == '') {
+                                idx = 30;
+                            } else if (this.equipspartlist[31].equipname == '') {
+                                idx = 31;
+                            } else if (this.equipspartlist[32].equipname == '') {
+                                idx = 32;
+                            } else {
+                                idx = 14; // 如果都已裝備，覆蓋原始位置
+                            }
                         }
+                        // 確保效果列表中的 Enable 屬性有值
                         this.StoreDB_Equip[_dbidx].equip.effectlist.forEach(x=>x.Enable=x.Enable==null?true:x.Enable);
+                        // 將裝備載入到對應的裝備欄位
                         this.$set(this.equipspartlist,
                             idx,
                             {
@@ -9201,6 +9352,17 @@
                         this.onFliterEquipPart();
                     }
                     this.OpenPanel('EquipDBDialog');
+                },
+                //裝備DB上面的選單按紐
+                uniqueEquipParts() {
+                    const seen = new Set();
+                    return this.equipspartlist.filter(item => {
+                        if (seen.has(item.id)) {
+                            return false; // 如果已經處理過該 id，則過濾掉
+                        }
+                        seen.add(item.id); // 將新的 id 加入到 seen 中
+                        return true; // 保留該項目
+                    });
                 },
                 onFliterEquipSearch() {
                     this.StoreDB_EquipFliterGroup = [];
@@ -10391,6 +10553,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-4-25', content: '裝備欄位增加主手卡片234/寵物/符文石碑<br>主手卡片載入時會優先空白欄位<br>' },
                         { id: '2025-4-24', content: '裝備欄位刪除寵物/符文石碑<br>預設輔助技能 日月星的憎惡(怪物)增傷上限為75%' },
                         { id: '2025-4-23', content: '修正裝備欄位儲存格錯誤<br>修正風鷹JOB滿時的CON加乘<br>秒7肯貝特功能調整:獨延不會被修改成0' },
                         { id: '2025-4-22', content: '修正預設輔助技能 加油倍率<br>副手為五級武器時，增加階級設定(用於增加Matk)<br>裝備欄位增加寵物/符文石碑' },

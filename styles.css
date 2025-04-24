@@ -101,7 +101,7 @@ html, body {
 }
 
 .UpdateList-container {
-    height: calc(50vh - 85px);
+    height: calc(60vh - 250px);
 }
 
 .AboutList-container {
