@@ -3797,18 +3797,18 @@
                                         </el-col>
                                         <el-col class="textcenter">
                                             <div>
-                                                <el-input v-model="equipspartlist[16].equipname"
+                                                <el-input v-model="equipspartlist[14].equipname"
                                                     placeholder="卡片名稱">
                                                 </el-input>
                                             </div>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="onClearEquipPart(16)" size="mini">
+                                            <el-button v-on:click="onClearEquipPart(14)" size="mini">
                                                 清空
                                             </el-button>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="OpenEditEquipDialogue(16)" type="success"
+                                            <el-button v-on:click="OpenEditEquipDialogue(14)" type="success"
                                                 plain>
                                                 編輯
                                             </el-button>
@@ -3838,7 +3838,7 @@
                                         </div>
                                     </el-row>
                                     <el-row>
-                                        <div class="Item bg-purple-light2" v-for="(item, index) in equipspartlist[16].effectlist"
+                                        <div class="Item bg-purple-light2" v-for="(item, index) in equipspartlist[14].effectlist"
                                             v-bind:key="item.effecttypelist" >
                                             <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                 justify="end" style="height:40px;">
@@ -3855,7 +3855,7 @@
                                                     <span lass="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                 </el-col>
                                                     <el-col class="textcenter"  :span="5">
-                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(16, index)"></el-checkbox>
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(14, index)"></el-checkbox>
                                                     </el-col>
                                             </el-row>
                                         </div>
@@ -3995,18 +3995,18 @@
                                         </el-col>
                                         <el-col class="textcenter">
                                             <div>
-                                                <el-input v-model="equipspartlist[1+16].equipname"
+                                                <el-input v-model="equipspartlist[1+14].equipname"
                                                     placeholder="卡片名稱">
                                                 </el-input>
                                             </div>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="onClearEquipPart(1+16)" size="mini">
+                                            <el-button v-on:click="onClearEquipPart(1+14)" size="mini">
                                                 清空
                                             </el-button>
                                         </el-col>
                                         <el-col class="textcenter" :span="5">
-                                            <el-button v-on:click="OpenEditEquipDialogue(1+16)" type="success"
+                                            <el-button v-on:click="OpenEditEquipDialogue(1+14)" type="success"
                                                 plain>
                                                 編輯
                                             </el-button>
@@ -4036,7 +4036,7 @@
                                         </div>
                                     </el-row>
                                     <el-row>
-                                        <div v-for="(item, index) in equipspartlist[1+16].effectlist"
+                                        <div v-for="(item, index) in equipspartlist[1+14].effectlist"
                                             v-bind:key="item.effecttypelist" class="bg-purple-light2">
                                             <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                 justify="end" style="height:40px;">
@@ -4053,14 +4053,14 @@
                                                     <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                 </el-col>
                                                 <el-col class="textcenter"  :span="5">
-                                                    <el-checkbox v-model="item.Enable" @change="EnableEffect(1+16, index)"></el-checkbox>
+                                                    <el-checkbox v-model="item.Enable" @change="EnableEffect(1+14, index)"></el-checkbox>
                                                 </el-col>
                                             </el-row>
                                         </div>
                                     </el-row>
                                 </div>
                                 <!--裝備-->
-                                <div class="Item" v-for="(item,eqindex) in equipspartlist.slice(2,16)">
+                                <div class="Item" v-for="(item,eqindex) in equipspartlist.slice(2,14)">
                                     <div class="bg-purple-light" style="padding: 0px 4px;">
                                         <el-row class="effectline" :gutter="4" type="flex" align="middle">
                                             <el-col class="textcenter" :span="4">
@@ -4095,18 +4095,18 @@
                                             </el-col>
                                             <el-col class="textcenter">
                                                 <div>
-                                                    <el-input v-model="equipspartlist[eqindex+2+16].equipname"
+                                                    <el-input v-model="equipspartlist[eqindex+2+14].equipname"
                                                         placeholder="卡片名稱">
                                                     </el-input>
                                                 </div>
                                             </el-col>
                                             <el-col class="textcenter" :span="5">
-                                                <el-button v-on:click="onClearEquipPart(eqindex+2+16)" size="mini">
+                                                <el-button v-on:click="onClearEquipPart(eqindex+2+14)" size="mini">
                                                     清空
                                                 </el-button>
                                             </el-col>
                                             <el-col class="textcenter" :span="5">
-                                                <el-button v-on:click="OpenEditEquipDialogue(eqindex+2+16)" type="success"
+                                                <el-button v-on:click="OpenEditEquipDialogue(eqindex+2+14)" type="success"
                                                     plain>
                                                     編輯
                                                 </el-button>
@@ -4136,7 +4136,7 @@
                                             </div>
                                         </el-row>
                                         <el-row>
-                                            <div v-for="(item, index) in equipspartlist[eqindex+2+16].effectlist"
+                                            <div v-for="(item, index) in equipspartlist[eqindex+2+14].effectlist"
                                                 v-bind:key="item.effecttypelist" class="bg-purple-light2">
                                                 <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                     justify="end" style="height:40px;">
@@ -4153,7 +4153,7 @@
                                                         <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].suffixsymbol }}</span>
                                                     </el-col>
                                                     <el-col class="textcenter"  :span="5">
-                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+2+16, index)"></el-checkbox>
+                                                        <el-checkbox v-model="item.Enable" @change="EnableEffect(eqindex+2+14, index)"></el-checkbox>
                                                     </el-col>
                                                 </el-row>
                                             </div>
@@ -5399,8 +5399,6 @@
                     { id: 'costume', label: '服飾', equipname: '', effectlist: [] },
                     { id: 'cardset', label: '套卡', equipname: '', effectlist: [] },
                     { id: 'other', label: '自訂', equipname: '', effectlist: [] },
-                    { id: 'pet', label: '寵物', equipname: '', effectlist: [] },
-                    { id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
                     { id: 'weaponrcard', label: '武器卡片', equipname: '', effectlist: [] },
                     { id: 'weaponlcard', label: '武器卡片', equipname: '', effectlist: [] },
                     { id: 'helmcard', label: '頭飾卡片', equipname: '', effectlist: [] },
@@ -5415,8 +5413,8 @@
                     { id: 'costumeenchant', label: '服飾附魔', equipname: '', effectlist: [] },
                     { id: 'cardset2', label: '套卡2', equipname: '', effectlist: [] },
                     { id: 'other2', label: '自訂2', equipname: '', effectlist: [] },
-                    { id: 'pet', label: '寵物2', equipname: '', effectlist: [] },
-                    { id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
+                    //{ id: 'pet', label: '寵物', equipname: '', effectlist: [] },
+                    //{ id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
                 ],
                 effecttypelist: [
                     { label: 'STR', id: 'STR', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
@@ -6975,6 +6973,7 @@
                                 break;
                         }
                         paraSLSO = 1 + Math.floor(paraSLSO / 3) / 100;
+                        paraSLSO = Math.min(paraSLSO, 1.75);
                         this.computeattribute.atkc5_min = this.MulOper(this.computeattribute.atkc5_min, paraSLSO);
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, paraSLSO);
                     }
@@ -10392,6 +10391,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-4-24', content: '裝備欄位刪除寵物/符文石碑<br>預設輔助技能 日月星的憎惡(怪物)增傷上限為75%' },
                         { id: '2025-4-23', content: '修正裝備欄位儲存格錯誤<br>修正風鷹JOB滿時的CON加乘<br>秒7肯貝特功能調整:獨延不會被修改成0' },
                         { id: '2025-4-22', content: '修正預設輔助技能 加油倍率<br>副手為五級武器時，增加階級設定(用於增加Matk)<br>裝備欄位增加寵物/符文石碑' },
                         { id: '2025-4-2', content: '調整預設技能 聖十字雨攻擊次數' },
