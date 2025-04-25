@@ -108,7 +108,7 @@
                             沒想到時間過這麼快! 好險有在寫更新紀錄，沒事就可以看看到底加了多少東西<br>
                             除了修正BUG、增加新功能、填各職業技能坑、各種測試公式、還要隨版本更新跑<br>
                             如果覺得這個計算機有幫助你選擇到適合的裝備、或是計算是否打的贏某隻怪物<br>
-                            想要斗內的話可以按下方按紐，我會非常感謝<br><br>
+                            想要斗內的話可以按下方按鈕，我會非常感謝<br><br>
                         </el-row>
                         <el-row :gutter="4" type="flex" align="left" justify="center">
                             <b>寄信告訴我訂單編號跟伺服器ID或想要的名字，我會把你加入感謝名單！</b><br><br>
@@ -196,7 +196,7 @@
                             沒想到時間過這麼快! 好險有在寫更新紀錄，沒事就可以看看到底加了多少東西<br>
                             除了修正BUG、增加新功能、填各職業技能坑、各種測試公式、還要隨版本更新跑<br>
                             如果覺得這個計算機有幫助你選擇到適合的裝備、或是計算是否打的贏某隻怪物<br>
-                            想要斗內的話可以按下方按紐，我會非常感謝<br><br>
+                            想要斗內的話可以按下方按鈕，我會非常感謝<br><br>
                             寄信告訴我訂單編號跟伺服器ID或想要的名字，我會把你加入感謝名單！<br><br>
                         </el-row>
                         <el-row :gutter="12" type="flex" align="left" justify="center">
@@ -1579,7 +1579,7 @@
             <span slot="title">裝備清單</span>
             <el-row :gutter="6">
                 <div class="statusbox titlebox" style="padding: 5px 5px;">
-                    <el-row :gutter="4" type="flex" align="middle" style="height:80px;">
+                    <el-row :gutter="4" type="flex" align="middle" style="height:120px;">
                         <el-row class="statusbox bg-purple-light" :span="4" :gutter="4" type="flex" align="middle">
                             <el-col class="textcenter" >
                                     <el-input v-model="StoreDB_SearchString" @input="onFliterEquipSearch" placeholder="搜尋" clearable>
@@ -1594,13 +1594,13 @@
                         <el-col class="textcenter" style="text-align: left;" :span="18">
                             <el-checkbox-group v-model="StoreDB_EquipFliterGroup" v-on:change="onFliterEquipPart"
                             fill="#909399" text-color="white">
-                                <el-checkbox-button 
-                                    v-for="item in uniqueEquipParts" 
-                                    :label="item.label" 
-                                    :key="item.id">
-                                    {{ item.label }}
-                                </el-checkbox-button>
-                            </el-checkbox-group>
+                            <el-checkbox-button 
+                                v-for="item in uniqueEquipParts()" 
+                                :label="item.label" 
+                                :key="item.id">
+                                {{ item.label }}
+                            </el-checkbox-button>
+                        </el-checkbox-group>
                         </el-col>
                     </el-row>
                 </div>
@@ -1620,7 +1620,7 @@
                         </el-col>
                     </el-row>
                 </div>
-                <el-scrollbar wrap-class="EquipList-container" :native="false" :noresize="false">
+                <el-scrollbar wrap-class="EquipDBList-container" :native="false" :noresize="false">
                     <div v-for="(item, index) in StoreDB_EquipFilterList" v-bind:key="item.uuid">
                         <div style="padding: 5px 5px;">
                             <el-row class="effectline" :class="index%2==0?'bg-purple-light':'bg-purple'">
@@ -2521,6 +2521,7 @@
                                         <div class="grid-content">
                                             <el-select id="jobSelect" v-model="status.classid" v-on:change="onChangeClass"
                                                 placeholder="">
+                                                <el-option :key="'default'" :label="'請選擇'" :value="''" disabled></el-option>
                                                 <el-option v-for="item in classlist" :key="item.id"
                                                     :label="item.label" :value="item.id">
                                                 </el-option>
@@ -5523,7 +5524,7 @@
                     { id: 'weaponlcard', label: '武器卡片', equipname: '', effectlist: [] },
                     { id: 'helmcard', label: '頭飾卡片', equipname: '', effectlist: [] },
                     { id: 'helm1card', label: '頭飾卡片', equipname: '', effectlist: [] },
-                    { id: 'helm2card', label: '頭下卡片', equipname: '', effectlist: [] },
+                    { id: 'helm2card', label: '頭飾卡片', equipname: '', effectlist: [] },
                     { id: 'armorcard', label: '衣服卡片', equipname: '', effectlist: [] },
                     { id: 'robecard', label: '披肩卡片', equipname: '', effectlist: [] },
                     { id: 'shoescard', label: '靴子卡片', equipname: '', effectlist: [] },
@@ -5531,8 +5532,8 @@
                     { id: 'acc2card', label: '飾品卡片', equipname: '', effectlist: [] },
                     { id: 'shadowenchant', label: '影子附魔', equipname: '', effectlist: [] },
                     { id: 'costumeenchant', label: '服飾附魔', equipname: '', effectlist: [] },
-                    { id: 'cardset2', label: '套卡2', equipname: '', effectlist: [] },
-                    { id: 'other2', label: '自訂2', equipname: '', effectlist: [] },
+                    { id: 'cardset2', label: '套卡', equipname: '', effectlist: [] },
+                    { id: 'other2', label: '自訂', equipname: '', effectlist: [] },
                     //index28
                     { id: 'pet', label: '寵物', equipname: '', effectlist: [] },
                     { id: 'runetablet', label: '石碑', equipname: '', effectlist: [] },
@@ -5699,7 +5700,7 @@
                 subweapon_init: {},
                 ClassInfo: {},
                 status: {
-                    Level: 250, JOBLevel: 55, Transcendent: false, classid: 'AB', UseJobMaxPoint: false,
+                    Level: 250, JOBLevel: 55, Transcendent: false, classid: '', UseJobMaxPoint: false,
                     STR: 1, AGI: 1, VIT: 1, INT: 1, DEX: 1, LUK: 1,
                     POW: 0, STA: 0, WIS: 0, SPL: 0, CON: 0, CRT: 0,
                     ASPD: 0, HP: 0, SP: 0, MHP: 0, MSP: 0,
@@ -6718,7 +6719,8 @@
                     if (this.status.CRT == null || this.status.Level <200 ) this.status.CRT = 0;
                     try {
 
-                        if (this.status.classid == null) this.status.classid = 'AB';
+                        //if (this.status.classid == null) this.status.classid = 'AB';
+                        if (this.status.classid == null) return;
                         this.ClassInfo = Enumerable.From(this.classlist)
                             .Where("$.id == '" + this.status.classid + "'")
                             .Single();
@@ -7716,7 +7718,11 @@
                     this.onSkillPercentChange();
                 },
                 onChangeClass(){
-                    console.log(this.status.classid+" --");
+                    console.log("onChangeClass: " + this.status.classid);
+                    if (!this.status.classid) {
+                        console.log("未選擇職業，跳過處理");
+                        return;
+                    }
 
                     //追蹤
                     let selectedJobId = this.status.classid; 
@@ -7896,6 +7902,10 @@
                     this.onOption();
                 },
                 onOption() {
+                    if (!this.status.classid) {
+                        console.log("未選擇職業，跳過計算");
+                        return;
+                    }
                     this.status_add = Object.assign({}, this.status_add_init);
                     this.attritube = Object.assign({}, this.attritube_init);
                     this.status_job = _.cloneDeep(this.status_job_init);
@@ -9333,15 +9343,15 @@
                     }
                     this.OpenPanel('EquipDBDialog');
                 },
-                //裝備DB上面的選單按紐
+                //裝備DB上面的選單按鈕
                 uniqueEquipParts() {
                     const seen = new Set();
                     return this.equipspartlist.filter(item => {
-                        if (seen.has(item.id)) {
-                            return false; // 如果已經處理過該 id，則過濾掉
+                        if (seen.has(item.label)) {
+                            return false;
                         }
-                        seen.add(item.id); // 將新的 id 加入到 seen 中
-                        return true; // 保留該項目
+                        seen.add(item.label);
+                        return true;
                     });
                 },
                 onFliterEquipSearch() {
@@ -9358,9 +9368,12 @@
                         this.StoreDB_EquipFliterGroup.splice(0,1);
                     }
                     var _tempgroup = this.StoreDB_EquipFliterGroup;
+                    
+                    // 如果有選擇特定的裝備部位進行篩選
                     this.StoreDB_EquipFilterList = _tempgroup.length > 0 ?
                         this.StoreDB_Equip.filter(
                             function (saverow) {
+                                // 篩選條件：檢查裝備的標籤是否在篩選組中
                                 return _tempgroup.indexOf(saverow.equip.label) > -1;
                             }
                         ).sort((a, b) => a.equip.label > b.equip.label ? 1 :
@@ -9370,6 +9383,8 @@
                         :
                         this.StoreDB_Equip
                         ;
+
+                    // 初始化每個篩選結果的預覽狀態
                     for( var i=0; i<this.StoreDB_EquipFilterList.length; ++i)
                     {
                         this.$set( this.StoreDB_EquipFilterList[i], 'preview', false);
@@ -9505,6 +9520,16 @@
                     return this.StoreDB_JobMapedSkill.findIndex(x=>x.skill.id==skillid);
                 },
                 onLoadJobMapSkill(){
+                    if (!this.status.classid) {
+                        console.log("未選擇職業，無法載入技能");
+                        return;
+                    }
+
+                    var _dbidx = this.GetJobMapSkillIdx(this.JobMapedSkillId);
+                    if (_dbidx === -1) {
+                        console.log("未找到對應的技能");
+                        return;
+                    }
                     var _dbidx = this.GetJobMapSkillIdx(this.JobMapedSkillId);
                     this.skill = _.cloneDeep(this.StoreDB_JobMapedSkill[_dbidx].skill);
                     this.LoadSkill();
@@ -10072,10 +10097,10 @@
                         { skill: { id: 'SS_ANTENPOU', name: '暗戰砲', level: 10, formula: '(450+950*SLV+SPL*5)*BLV/100', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: -2, elemental: 7, FCT: 2, VCT: 1, CD: 0.3, GCD: 0, Note: '', } },
                         { skill: { id: 'SS_ANKOKURYUUAKUMU', name: '暗黑龍 - 噩夢', level: 1, formula: '(15500+SPL*10)*BLV/100', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 7, FCT: 2, VCT: 0, CD: 1, GCD: 0.2, Note: '', } },
                         { skill: { id: 'SS_ANKOKURYUUAKUMU(ex)', name: '暗黑龍 - 噩夢(火)', level: 1, formula: '(15500+SPL*10)*BLV/100', class: 'KO,OB', DamageTypeIdx: 1, ranged: false, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 1, FCT: 2, VCT: 0, CD: 1, GCD: 0.2, Note: '噩夢狀態追加', } },
-                        { skill: { id: 'SS_KUNAIWAIKYOKU', name: '飛刀-扭曲', level: 10, formula: '(300+(600+10*10)*SLV+POW*3)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, Note: '10為飛刀-曲折等級', } },
-                        { skill: { id: 'SS_KUNAIKAITEN', name: '飛刀-旋轉', level: 5, formula: '(800+(700+70*10)*SLV+POW*4)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 4, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, Note: '10為飛刀-扭曲等級，計算4下', } },
-                        { skill: { id: 'SS_KUNAIKUSSETSU', name: '飛刀-曲折', level: 10, formula: '(200+(360+10*5)*SLV+POW*5)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 8, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, Note: '5為飛刀-旋轉等級，計算8下', } },
-                        { skill: { id: 'SS_HITOUAKUMU', name: '飛刀-噩夢', level: 1, formula: '(18000+POW*10)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -8, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0, Note: '5為飛刀-旋轉等級，計算8下', } },
+                        { skill: { id: 'SS_KUNAIWAIKYOKU', name: '飛刀-扭曲', level: 10, formula: '(300+(600+10*10)*SLV+POW*3)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -2, elemental: 0, FCT: 0, VCT: 0.3, CD: 0.4, GCD: 0.5, Note: '10為飛刀-曲折等級', } },
+                        { skill: { id: 'SS_KUNAIKAITEN', name: '飛刀-旋轉', level: 5, formula: '(800+(700+70*10)*SLV+POW*4)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 4, elemental: 0, FCT: 0, VCT: 0, CD: 2, GCD: 0.5, Note: '10為飛刀-扭曲等級，計算4下', } },
+                        { skill: { id: 'SS_KUNAIKUSSETSU', name: '飛刀-曲折', level: 10, formula: '(200+(360+10*5)*SLV+POW*5)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 8, elemental: 0, FCT: 0.5, VCT: 1.5, CD: 2, GCD: 0.5, Note: '5為飛刀-旋轉等級，計算8下', } },
+                        { skill: { id: 'SS_HITOUAKUMU', name: '飛刀-噩夢', level: 1, formula: '(18000+POW*10)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -8, elemental: 0, FCT: 0, VCT: 2, CD: 1, GCD: 0.5, Note: '5為飛刀-旋轉等級，計算8下', } },
                         { skill: { id: 'SS_FUUMASHOUAKU', name: '風魔飛鏢-掌握', level: 10, formula: '(850+(350+5*10)*SLV+POW*3)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: 21, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '10為風魔飛鏢-構築等級，計算20下', } },
                         { skill: { id: 'SS_FUUMAKOUCHIKU', name: '風魔飛鏢-構築', level: 10, formula: '(600+(1200+30*10)*SLV+POW*5)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -3, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '10為風魔飛鏢-掌握等級，計算20下', } },
                         { skill: { id: 'SS_FUUMAKOUCHIKU(ex)', name: '風魔飛鏢-構築(暗器)', level: 10, formula: '(600+(1500+30*10)*SLV+POW*5)*BLV/100', class: 'KO,OB', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, laterranged: false, hitnumber: -6, elemental: 0, FCT: 0, VCT: 0, CD: 1, GCD: 0, Note: '10為風魔飛鏢-掌握等級，計算20下', } },
@@ -10533,6 +10558,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-4-26', content: '調整預設技能的詠唱延遲 飛刀-扭曲/飛刀-旋轉/飛刀-曲折/飛刀-噩夢<br>調整裝備DB篩選選項,同類型將整合成一個按鈕<br>開啟計算機時預設職業為空' },
                         { id: '2025-4-25', content: '裝備欄位增加主手卡片234/寵物/符文石碑<br>主手卡片載入時會優先空白欄位<br>' },
                         { id: '2025-4-24', content: '裝備欄位刪除寵物/符文石碑<br>預設輔助技能 日月星的憎惡(怪物)增傷上限為75%' },
                         { id: '2025-4-23', content: '修正裝備欄位儲存格錯誤<br>修正風鷹JOB滿時的CON加乘<br>秒7肯貝特功能調整:獨延不會被修改成0' },
@@ -10819,31 +10845,19 @@
             },
             filters: {
                 currency(val) {
-                    return val.toFixed(0).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
-                    /* return price.toLocaleString('en-US');  寫法二：轉為千分號*/
+                    if (isNaN(val) || val == null) {
+                        return '0'; // 預設值
+                    }
+                    return val.toFixed(0).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
                 },
                 currency2(val) {
-                    return val.toFixed(2)
+                    if (isNaN(val) || val == null) {
+                        return '0.00'; // 預設值
+                    }
+                    return val.toFixed(2);
                 },
             },
             computed: {
-                /*
-                StoreDB_EquipFiltered() {
-                    var _tempgroup = this.StoreDB_EquipFliterGroup;
-                    return _tempgroup.length > 0 ?
-                        this.StoreDB_Equip.filter(
-                            function (saverow) {
-                                return _tempgroup.indexOf(saverow.equip.label) > -1;
-                            }
-                        ).sort((a, b) => a.equip.label > b.equip.label ? 1 :
-                            a.equip.label === b.equip.label ?
-                                ((a.date > b.date) ? -1 : 1) : -1
-                        )
-                        :
-                        this.StoreDB_Equip
-                        ;
-                },
-                */
 
             },
             mounted() {

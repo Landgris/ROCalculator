@@ -76,6 +76,10 @@ html, body {
     height: calc(100vh - (50px + 35px + 24px));
 }
 
+.EquipDBList-container {
+    height: calc(100vh - (50px + 35px + 24px + 260px));
+}
+
 .EquipList-container {
     height: calc(100vh - (50px + 35px + 240px));
 }
