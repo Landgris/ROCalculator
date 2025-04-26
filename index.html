@@ -9668,6 +9668,15 @@
                     });
                     const parsed = JSON.stringify(this.StoreDB_AllSet);
                     localStorage.setItem('StoreDB_AllSet', parsed);
+
+                    // 確保技能名稱正確讀取
+                    let savedSkillName = this.skill?.name || "未知技能";
+                    // 發送事件到 GA - 技能名稱統計
+                    gtag("event", "skill_used", {
+                        "event_category": "技能統計",
+                        "event_label": savedSkillName,
+                        "event_action": "存檔"
+                    });
                     this.ClosePanel('AllSetDBSaveDialog');
                 },
                 onSortupAllSet(dbidx){
@@ -9759,7 +9768,7 @@
                         "event_label": savedJobLabel,
                         "event_action": "載入存檔"
                     });
-                    
+
                     // 確保技能名稱正確讀取
                     let savedSkillName = this.skill?.name || "未知技能";
                     // 發送事件到 GA - 技能名稱統計
