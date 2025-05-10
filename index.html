@@ -9914,7 +9914,7 @@
                         { skill: { id: 'RK_DRAGONBREATH', name: '龍之氣息(天龍光環)', level: 10, formula: '(DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/100*DOWN((90+5*10+POW/5)*(1+PATK/100))/100', class: 'RK', DamageTypeIdx: 2, ranged: true, critical: false, cannon: false, transWeaponDEF: true, ignoreRES: true, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 2, CD: 0, GCD: 2, Note: '現有HPSP影響傷害，5*10為龍駕馭5等', } },
                         { skill: { id: 'DK_STORMSLASH', name: '風暴斬擊', level: 5, formula: "(200+SLV*400+POW*5)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: "SLV", elemental: 0, FCT: 0, VCT: 0, CD: 0.35, GCD: 0, Note: '突里薩茲盧恩石:力量成長狀態下，60%機率雙倍傷害', } },
                         { skill: { id: 'DK_HACKANDSLASHER', name: '橫揮斬(雙手劍)', level: 10, formula: "(200+SLV*750+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0.25, Note: '', } },
-                        { skill: { id: 'DK_HACKANDSLASHER', name: '橫揮斬(雙手矛)', level: 10, formula: "(200+SLV*750+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0.25, Note: '', } },
+                        { skill: { id: 'DK_HACKANDSLASHER(spear)', name: '橫揮斬(雙手矛)', level: 10, formula: "(200+SLV*750+POW*7)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0.7, GCD: 0.25, Note: '', } },
                         { skill: { id: 'DK_SERVANTWEAPON', name: '死侍武器', level: 5, formula: "(500+SLV*400+POW*5)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: false, critical: true, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 2, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0, Note: '', } },
                         { skill: { id: 'DK_MADNESS_CRUSHER', name: '狂暴粉碎', level: 5, formula: "(350+SLV*1600+POW*10+WLV*WGT)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0.5, VCT: 0, CD: 0.35, GCD: 0.25, Note: '', } },
                         { skill: { id: 'DK_DRAGONIC_AURA', name: '天龍光環', level: 10, formula: "(SLV*3650+POW*10)*BLV/100", class: 'RK', DamageTypeIdx: 0, ranged: true, critical: false, cannon: false, transWeaponDEF: false, laterformula: false, hitnumber: 1, elemental: 0, FCT: 0, VCT: 0, CD: 0, GCD: 0.5, Note: '', } },
@@ -10586,6 +10586,7 @@
                     );
                     
                     this.UpdateLogList.push(
+                        { id: '2025-5-10', content: '調整預設技能 橫揮斬不能選擇的問題' },
                         { id: '2025-4-26', content: '調整預設技能的詠唱延遲 飛刀-扭曲/飛刀-旋轉/飛刀-曲折/飛刀-噩夢<br>調整裝備DB篩選選項,同類型將整合成一個按鈕<br>開啟計算機時預設職業為空<br>調整預設技能公式 天龍氣息<br>調整物理無視防禦計算: 現在無視100%時將一起無視減算DEF' },
                         { id: '2025-4-25', content: '裝備欄位增加主手卡片234/寵物/符文石碑<br>主手卡片載入時會優先空白欄位<br>' },
                         { id: '2025-4-24', content: '裝備欄位刪除寵物/符文石碑<br>預設輔助技能 日月星的憎惡(怪物)增傷上限為75%' },
