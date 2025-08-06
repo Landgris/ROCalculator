@@ -1,7 +1,7 @@
 [
     {
         "id": "RK",
-        "label": "盧恩騎士/盧恩龍爵",
+        "label": "騎士/盧恩騎士/盧恩龍爵",
         "TranscendentClass": true,
         "JobMaxPoint": [6,6,7,10,9,5],
         "TJobMaxPoint": [6,8,7,8,8,6,10,6,3,5,6,8],
@@ -11,7 +11,7 @@
     },
     {
         "id": "GX",
-        "label": "十字斬首者/十字影武",
+        "label": "刺客/十字斬首者/十字影武",
         "TranscendentClass": true,
         "JobMaxPoint": [8,11,6,5,9,4],
         "TJobMaxPoint": [8,11,6,5,9,4,12,8,4,0,7,7],
@@ -19,7 +19,7 @@
     },
     {
         "id": "AB",
-        "label": "大主教/樞機主教",
+        "label": "祭司/大主教/樞機主教",
         "TranscendentClass": true,
         "JobMaxPoint": [6,7,7,12,7,4],
         "TJobMaxPoint": [6,7,7,12,7,4,8,5,5,9,4,7],
@@ -27,7 +27,7 @@
     },
     {
         "id": "RA",
-        "label": "遊俠/風鷹狩獵者",
+        "label": "獵人/遊俠/風鷹狩獵者",
         "TranscendentClass": true,
         "JobMaxPoint": [2,12,8,9,8,4],
         "TJobMaxPoint": [2,12,8,9,8,4,9,5,5,4,11,4],
@@ -35,7 +35,7 @@
     },
     {
         "id": "WL",
-        "label": "咒術士/禁咒魔導士",
+        "label": "巫師/咒術士/禁咒魔導士",
         "TranscendentClass": true,
         "JobMaxPoint": [1,7,8,15,8,4],
         "TJobMaxPoint": [1,7,8,15,8,4,0,8,7,13,9,1],
@@ -43,7 +43,7 @@
     },
     {
         "id": "ME",
-        "label": "機械工匠/機甲神匠",
+        "label": "鐵匠/機械工匠/機甲神匠",
         "TranscendentClass": true,
         "JobMaxPoint": [10,6,10,6,5,6],
         "TJobMaxPoint": [10,6,10,6,5,6,9,10,5,0,7,7],
@@ -51,7 +51,7 @@
     },
     {
         "id": "RG",
-        "label": "皇家禁衛軍/帝國聖衛軍",
+        "label": "十字軍/皇家禁衛軍/帝國聖衛軍",
         "TranscendentClass": true,
         "JobMaxPoint": [9,3,9,10,9,3],
         "TJobMaxPoint": [9,3,9,10,9,3,7,11,6,7,4,3],
@@ -61,7 +61,7 @@
     },
     {
         "id": "SC",
-        "label": "魅影追蹤者/深淵追跡者",
+        "label": "流氓/魅影追蹤者/深淵追跡者",
         "TranscendentClass": true,
         "JobMaxPoint": [8,9,8,6,6,6],
         "TJobMaxPoint": [8,9,8,6,6,6,8,8,4,7,5,6],
@@ -69,7 +69,7 @@
     },
     {
         "id": "SU",
-        "label": "修羅/聖裁者",
+        "label": "武僧/修羅/聖裁者",
         "TranscendentClass": true,
         "JobMaxPoint": [10,10,6,8,8,1],
         "TJobMaxPoint": [10,10,6,8,8,1,11,8,5,3,5,6],
@@ -79,7 +79,7 @@
     },
     {
         "id": "MI",
-        "label": "宮廷樂師/天籟頌者",
+        "label": "詩人/宮廷樂師/天籟頌者",
         "TranscendentClass": true,
         "JobMaxPoint": [7,7,7,9,10,3],
         "TJobMaxPoint": [7,7,7,9,10,3,6,7,4,6,11,4],
@@ -87,7 +87,7 @@
     },
     {
         "id": "WA",
-        "label": "浪跡舞者/樂之舞靈",
+        "label": "舞孃/浪跡舞者/樂之舞靈",
         "TranscendentClass": true,
         "JobMaxPoint": [7,9,7,9,9,2],
         "TJobMaxPoint": [7,9,6,10,8,3,6,7,4,6,11,4],
@@ -95,7 +95,7 @@
     },
     {
         "id": "SO",
-        "label": "妖術師/元素支配者",
+        "label": "賢者/妖術師/元素支配者",
         "TranscendentClass": true,
         "JobMaxPoint": [4,4,8,13,9,5],
         "TJobMaxPoint": [4,4,8,13,9,5,3,8,7,12,5,3],
@@ -103,7 +103,7 @@
     },
     {
         "id": "GE",
-        "label": "基因學者/生命締造者",
+        "label": "煉金/基因學者/生命締造者",
         "TranscendentClass": true,
         "JobMaxPoint": [5,6,8,12,8,4],
         "TJobMaxPoint": [5,6,8,12,8,4,7,4,4,4,7,12],
