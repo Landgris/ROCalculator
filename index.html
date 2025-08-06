@@ -8826,9 +8826,9 @@
                     if (this.IsSupportActive('SA_VOLCANO')) {
                         if (this.skilloption.AttackElementalIdx == 1) {
                             var _lv = this.GetSupportSkill('SA_VOLCANO').lv;
-                            var _a = [0,3,6,9,12,15];
                             var _e = [0,10,14,17,19,20];
                             this.attritube['ATK'] += _a[_lv];
+                            this.attritube['MATK'] += 5+lv*5;
                             this.attritube['ElementalMagicPercent'] += _e[_lv];
                         }
                     }
@@ -8848,6 +8848,7 @@
                             var _lv = this.GetSupportSkill('SA_VIOLENTGALE').lv;
                             var _e = [0,10,14,17,19,20];
                             this.attritube['ElementalMagicPercent'] += _e[_lv];
+                            this.attritube['Flee'] += _lv * 3;
                         }
                     }
                     // 魔法書精熟
