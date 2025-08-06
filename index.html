@@ -10443,10 +10443,13 @@
                 // 新增：從 JSON 檔案載入技能資料
                 async loadSkillsFromJSON(filename = null) {
                     const skillFile = filename || this.currentSkillFile;
-                    console.log(`Attempting to load skills from: ${skillFile}`);
+                    // 加上時間戳記來避免快取問題
+                    const timestamp = new Date().getTime();
+                    const skillFileWithCache = `${skillFile}?v=${timestamp}`;
+                    console.log(`Attempting to load skills from: ${skillFileWithCache}`);
                     
                     try {
-                        const response = await fetch(skillFile);
+                        const response = await fetch(skillFileWithCache);
                         console.log(`Fetch response status: ${response.status}`);
                         
                         if (!response.ok) {
@@ -10940,10 +10943,13 @@
                     try {
                         // 使用傳入的檔名，如果沒有則使用當前檔案
                         const file = filename || this.currentSupportSkillFile;
+                        // 加上時間戳記來避免快取問題
+                        const timestamp = new Date().getTime();
+                        const fileWithCache = `${file}?v=${timestamp}`;
                         
-                        console.log(`Loading support skills from: ${file}`);
+                        console.log(`Loading support skills from: ${fileWithCache}`);
                         
-                        const response = await fetch(file);
+                        const response = await fetch(fileWithCache);
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
