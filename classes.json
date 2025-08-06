@@ -1,0 +1,168 @@
+[
+    {
+        "id": "RK",
+        "label": "盧恩騎士/盧恩龍爵",
+        "TranscendentClass": true,
+        "JobMaxPoint": [6,6,7,10,9,5],
+        "TJobMaxPoint": [6,8,7,8,8,6,10,6,3,5,6,8],
+        "Tbasehp": [42047,44922,47917],
+        "Tbasesp": [2360,2646,2961],
+        "baseaspd": 0
+    },
+    {
+        "id": "GX",
+        "label": "十字斬首者/十字影武",
+        "TranscendentClass": true,
+        "JobMaxPoint": [8,11,6,5,9,4],
+        "TJobMaxPoint": [8,11,6,5,9,4,12,8,4,0,7,7],
+        "baseaspd": 0
+    },
+    {
+        "id": "AB",
+        "label": "大主教/樞機主教",
+        "TranscendentClass": true,
+        "JobMaxPoint": [6,7,7,12,7,4],
+        "TJobMaxPoint": [6,7,7,12,7,4,8,5,5,9,4,7],
+        "baseaspd": 0
+    },
+    {
+        "id": "RA",
+        "label": "遊俠/風鷹狩獵者",
+        "TranscendentClass": true,
+        "JobMaxPoint": [2,12,8,9,8,4],
+        "TJobMaxPoint": [2,12,8,9,8,4,9,5,5,4,11,4],
+        "baseaspd": 0
+    },
+    {
+        "id": "WL",
+        "label": "咒術士/禁咒魔導士",
+        "TranscendentClass": true,
+        "JobMaxPoint": [1,7,8,15,8,4],
+        "TJobMaxPoint": [1,7,8,15,8,4,0,8,7,13,9,1],
+        "baseaspd": 0
+    },
+    {
+        "id": "ME",
+        "label": "機械工匠/機甲神匠",
+        "TranscendentClass": true,
+        "JobMaxPoint": [10,6,10,6,5,6],
+        "TJobMaxPoint": [10,6,10,6,5,6,9,10,5,0,7,7],
+        "baseaspd": 0
+    },
+    {
+        "id": "RG",
+        "label": "皇家禁衛軍/帝國聖衛軍",
+        "TranscendentClass": true,
+        "JobMaxPoint": [9,3,9,10,9,3],
+        "TJobMaxPoint": [9,3,9,10,9,3,7,11,6,7,4,3],
+        "Tbasehp": [42218,45557,49081],
+        "Tbasesp": [2451,2613,2783],
+        "baseaspd": 0
+    },
+    {
+        "id": "SC",
+        "label": "魅影追蹤者/深淵追跡者",
+        "TranscendentClass": true,
+        "JobMaxPoint": [8,9,8,6,6,6],
+        "TJobMaxPoint": [8,9,8,6,6,6,8,8,4,7,5,6],
+        "baseaspd": 0
+    },
+    {
+        "id": "SU",
+        "label": "修羅/聖裁者",
+        "TranscendentClass": true,
+        "JobMaxPoint": [10,10,6,8,8,1],
+        "TJobMaxPoint": [10,10,6,8,8,1,11,8,5,3,5,6],
+        "Tbasehp": [40387,43581,46952],
+        "Tbasesp": [2381,2708,3077],
+        "baseaspd": 0
+    },
+    {
+        "id": "MI",
+        "label": "宮廷樂師/天籟頌者",
+        "TranscendentClass": true,
+        "JobMaxPoint": [7,7,7,9,10,3],
+        "TJobMaxPoint": [7,7,7,9,10,3,6,7,4,6,11,4],
+        "baseaspd": 0
+    },
+    {
+        "id": "WA",
+        "label": "浪跡舞者/樂之舞靈",
+        "TranscendentClass": true,
+        "JobMaxPoint": [7,9,7,9,9,2],
+        "TJobMaxPoint": [7,9,6,10,8,3,6,7,4,6,11,4],
+        "baseaspd": 0
+    },
+    {
+        "id": "SO",
+        "label": "妖術師/元素支配者",
+        "TranscendentClass": true,
+        "JobMaxPoint": [4,4,8,13,9,5],
+        "TJobMaxPoint": [4,4,8,13,9,5,3,8,7,12,5,3],
+        "baseaspd": 0
+    },
+    {
+        "id": "GE",
+        "label": "基因學者/生命締造者",
+        "TranscendentClass": true,
+        "JobMaxPoint": [5,6,8,12,8,4],
+        "TJobMaxPoint": [5,6,8,12,8,4,7,4,4,4,7,12],
+        "baseaspd": 0
+    },
+    {
+        "id": "KO",
+        "label": "影狼/流浪忍者",
+        "TranscendentClass": false,
+        "JobMaxPoint": [7,10,6,6,9,5],
+        "TJobMaxPoint": [10,12,6,4,9,3,10,10,4,0,6,8],
+        "baseaspd": 0
+    },
+    {
+        "id": "OB",
+        "label": "朧/疾風忍者",
+        "TranscendentClass": false,
+        "JobMaxPoint": [7,10,6,6,8,6],
+        "TJobMaxPoint": [4,8,5,10,10,3,4,8,10,3,6,7],
+        "baseaspd": 0
+    },
+    {
+        "id": "RE",
+        "label": "反叛者/夜行使",
+        "TranscendentClass": false,
+        "JobMaxPoint": [3,8,6,8,11,7],
+        "TJobMaxPoint": [3,8,6,8,11,7,11,6,5,0,10,5],
+        "baseaspd": 0
+    },
+    {
+        "id": "SE",
+        "label": "拳皇/天帝",
+        "TranscendentClass": false,
+        "JobMaxPoint": [12,10,6,3,9,3],
+        "TJobMaxPoint": [12,10,6,3,9,3,12,10,2,0,6,7],
+        "baseaspd": 0
+    },
+    {
+        "id": "SL",
+        "label": "獵靈士/契靈士",
+        "TranscendentClass": false,
+        "JobMaxPoint": [3,7,7,11,13,2],
+        "TJobMaxPoint": [3,7,7,11,13,2,0,8,7,16,7,3],
+        "baseaspd": 0
+    },
+    {
+        "id": "SUM",
+        "label": "喵族召喚師/魂靈師",
+        "TranscendentClass": false,
+        "JobMaxPoint": [0,7,5,9,12,5],
+        "TJobMaxPoint": [5,7,5,9,12,5,8,6,5,8,7,4],
+        "baseaspd": 0
+    },
+    {
+        "id": "SN",
+        "label": "超級初心者/終極初學者",
+        "TranscendentClass": false,
+        "JobMaxPoint": [7,7,6,6,6,5],
+        "TJobMaxPoint": [10,5,6,10,5,6,9,5,4,9,8,3],
+        "baseaspd": 0
+    }
+]

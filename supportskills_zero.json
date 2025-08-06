@@ -1,0 +1,7 @@
+[
+    { "skill": { "id": "SM_SWORD", "name": "單手劍使用熟練度", "maxlv": 10, "lv": 10, "class": "RK,RG,SC,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "範例：被動技能，多職業適用" } },
+    { "skill": { "id": "AL_BLESSING", "name": "天使之祝福", "maxlv": 10, "lv": 10, "class": "AB,SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "AB_CLEMENTIA", "Note": "範例：主動技能，有衝突技能" } },
+    { "skill": { "id": "PR_IMPOSITIO", "name": "神聖祈禱", "maxlv": 5, "lv": 5, "class": "AB,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "範例：增益技能" } },
+    { "skill": { "id": "ASC_EDP", "name": "致命塗毒", "maxlv": 5, "lv": 5, "class": "GX", "changelv": false, "argnum": 0, "arg1": 25, "arg1desc": "", "arg2": 300, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "範例：有參數的技能" } },
+    { "skill": { "id": "DK_DRAGONIC_AURA", "name": "天龍光環", "maxlv": 10, "lv": 10, "class": "RK", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "trans": "4th", "conflict": "", "Note": "範例：四轉技能" } }
+]

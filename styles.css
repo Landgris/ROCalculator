@@ -89,7 +89,22 @@ html, body {
 }
 
 .SkillList-container {
-    height: calc(100vh - (50px + 35px + 200px));
+    height: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+/* 確保Element UI的滾動條樣式正確 */
+.el-scrollbar .el-scrollbar__wrap {
+    overflow-x: hidden;
+}
+
+.el-scrollbar .el-scrollbar__view {
+    padding: 5px;
 }
 
 .EquipText-container {
@@ -292,3 +307,5 @@ html, body {
     border: 1px solid #0c7a47;
     border-radius: 2px;
 }
+
+
