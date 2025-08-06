@@ -308,4 +308,112 @@ html, body {
     border-radius: 2px;
 }
 
+/* 修正下拉選單在底部時的顯示問題 */
+.el-select-dropdown {
+    max-height: 300px !important;
+    z-index: 9999 !important;
+    padding-bottom: 8px !important;
+    /* 移除這裡的 overflow-y，讓內部的 wrap 處理滾動 */
+}
+
+.el-select-dropdown.is-multiple .el-select-dropdown__item {
+    padding-right: 40px;
+}
+
+/* 確保下拉選單在空間不足時能向上展開 */
+.el-popper[x-placement^="top"] {
+    margin-bottom: 12px;
+}
+
+.el-popper[x-placement^="bottom"] {
+    margin-top: 12px;
+}
+
+/* 當下拉選單項目過多時，限制高度並添加滾動條 - 只在這裡設置滾動 */
+.el-select-dropdown__wrap {
+    max-height: 280px !important;
+    overflow-y: auto !important;
+    padding-bottom: 8px !important;
+}
+
+.el-select-dropdown__list {
+    padding: 6px 0 8px 0 !important;
+}
+
+/* 確保選項項目有足夠的底部空間 */
+.el-select-dropdown__item {
+    padding: 8px 20px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 1px !important;
+}
+
+.el-select-dropdown__item:last-child {
+    margin-bottom: 4px !important;
+}
+
+/* 修正滾動條樣式 */
+.el-select-dropdown__wrap::-webkit-scrollbar {
+    width: 6px;
+}
+
+.el-select-dropdown__wrap::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.el-select-dropdown__wrap::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.el-select-dropdown__wrap::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* 強制修正選單底部空間問題 */
+.el-scrollbar__view {
+    padding-bottom: 10px !important;
+}
+
+/* 確保彈出層有足夠的z-index */
+.el-popper {
+    z-index: 10000 !important;
+}
+
+/* 自定義下拉選單樣式，解決底部遮擋問題 */
+.custom-select-dropdown {
+    max-height: 300px !important;
+    /* 移除 overflow-y，讓 __wrap 處理滾動 */
+    padding: 8px 0 12px 0 !important;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+.custom-select-dropdown .el-select-dropdown__item {
+    padding: 8px 20px !important;
+    line-height: 1.5 !important;
+    height: auto !important;
+    margin-bottom: 0 !important;
+}
+
+.custom-select-dropdown .el-select-dropdown__item:last-child {
+    margin-bottom: 8px !important;
+    padding-bottom: 12px !important;
+}
+
+.custom-select-dropdown .el-select-dropdown__wrap {
+    max-height: 300px !important;
+    overflow-y: auto !important;
+    padding-bottom: 12px !important;
+}
+
+.custom-select-dropdown .el-scrollbar__view {
+    padding-bottom: 12px !important;
+}
+
+/* 強制確保所有下拉選單都有足夠的底部空間 */
+.el-select-dropdown__item:last-of-type {
+    margin-bottom: 8px !important;
+    padding-bottom: 12px !important;
+}
+
 
