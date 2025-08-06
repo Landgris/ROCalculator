@@ -156,6 +156,7 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
+                                    現在可以切換樂園版本(Zero)! 在網址後面加上"?zero"就會進行切換<br><br>
                                     杜腐製作的計算機操作教學<br>
                                     https://forum.gamer.com.tw/C.php?bsn=4212&snA=436996<br>
                                     <br>公式感謝小月鈴所測試的
@@ -492,7 +493,9 @@
                                 <el-col :span="12">
                                     <div class="textcenter">
                                         <el-select value-key="id" v-model="skill.DamageTypeIdx"
-                                            v-on:change="onSkillPercentChange" placeholder="傷害類型">
+                                            v-on:change="onSkillPercentChange" placeholder="傷害類型"
+                                            popper-append-to-body
+                                            :popper-options="{ placement: 'auto' }">
                                             <el-option v-for="item in DamageType" :key="item.id" :label="item.label"
                                                 :value="item.id">
                                             </el-option>
@@ -507,7 +510,9 @@
                                 <el-col :span="12">
                                     <div class="textcenter">
                                         <el-select value-key="id" v-model="skilloption.AttackElementalIdx"
-                                            v-on:change="ComputElementalPercent" placeholder="攻擊屬性">
+                                            v-on:change="ComputElementalPercent" placeholder="攻擊屬性"
+                                            popper-append-to-body
+                                            :popper-options="{ placement: 'auto' }">
                                             <el-option v-for="item in elementtypelist" :key="item.id"
                                                 :label="item.label" :value="item.id">
                                             </el-option>
@@ -544,7 +549,17 @@
                                             <span style="font-weight: bold;">技能版本：</span>
                                         </el-col>
                                         <el-col :span="10">
-                                            <el-select v-model="currentSkillFile" @change="switchSkillFile" placeholder="請選擇技能版本" style="width: 100%;">
+                                            <el-select v-model="currentSkillFile" @change="switchSkillFile" placeholder="請選擇技能版本" 
+                                                style="width: 100%;" 
+                                                popper-append-to-body
+                                                :popper-options="{ 
+                                                    placement: 'auto',
+                                                    modifiers: {
+                                                        preventOverflow: { enabled: true, padding: 10 },
+                                                        flip: { enabled: true }
+                                                    }
+                                                }"
+                                                popper-class="custom-select-dropdown">
                                                 <el-option 
                                                     v-for="file in availableSkillFiles" 
                                                     :key="file" 
@@ -573,7 +588,17 @@
                                             <span style="font-weight: bold;">支援技能版本：</span>
                                         </el-col>
                                         <el-col :span="10">
-                                            <el-select v-model="currentSupportSkillFile" @change="switchSupportSkillFile" placeholder="請選擇支援技能版本" style="width: 100%;">
+                                            <el-select v-model="currentSupportSkillFile" @change="switchSupportSkillFile" placeholder="請選擇支援技能版本" 
+                                                style="width: 100%;" 
+                                                popper-append-to-body
+                                                :popper-options="{ 
+                                                    placement: 'auto',
+                                                    modifiers: {
+                                                        preventOverflow: { enabled: true, padding: 10 },
+                                                        flip: { enabled: true }
+                                                    }
+                                                }"
+                                                popper-class="custom-select-dropdown">
                                                 <el-option 
                                                     v-for="file in availableSupportSkillFiles" 
                                                     :key="file" 
@@ -807,7 +832,9 @@
                 <el-row :gutter="6" type="flex" align="middle">
                     <el-col class="textcenter" :span="11">
                         <el-select value-key="id" v-model="effectdialogue.EffectType" v-on:change="onSelectedDrug"
-                            placeholder="選擇效果">
+                            placeholder="選擇效果"
+                            popper-append-to-body
+                            :popper-options="{ placement: 'auto' }">
                             <el-option v-for="item in effecttypelist" :key="item.id" :label="item.label" :value="item">
                             </el-option>
                         </el-select>
@@ -2494,7 +2521,16 @@
                     <el-col class="textcenter" :span="12">
                         <div class="grid-content">
                             <el-select v-model="SupportSkillJob" v-on:change="onChangeSupportClass"
-                                placeholder="">
+                                placeholder="" 
+                                popper-append-to-body
+                                :popper-options="{ 
+                                    placement: 'auto',
+                                    modifiers: {
+                                        preventOverflow: { enabled: true, padding: 10 },
+                                        flip: { enabled: true }
+                                    }
+                                }"
+                                popper-class="custom-select-dropdown">
                                 <el-option v-for="item in classlist" :key="item.id"
                                     :label="item.label" :value="item.id">
                                 </el-option>
@@ -2584,7 +2620,7 @@
                 <el-col :span="1">
                 </el-col>
                 <el-col :span="2" class="textcenter">
-                    TwRO
+                    {{ isZeroMode ? 'TwROZero' : 'TwRO' }}
                 </el-col>
                 <el-col :span="1">
                     <el-button v-on:click="TogglePanel('AboutDialog')" size="small">
@@ -2638,7 +2674,16 @@
                                     <el-col :span="12">
                                         <div class="grid-content">
                                             <el-select id="jobSelect" v-model="status.classid" v-on:change="onChangeClass"
-                                                placeholder="">
+                                                placeholder="" 
+                                                popper-append-to-body
+                                                :popper-options="{ 
+                                                    placement: 'auto',
+                                                    modifiers: {
+                                                        preventOverflow: { enabled: true, padding: 10 },
+                                                        flip: { enabled: true }
+                                                    }
+                                                }"
+                                                popper-class="custom-select-dropdown">
                                                 <el-option :key="'default'" :label="'請選擇'" :value="''" disabled></el-option>
                                                 <el-option v-for="item in classlist" :key="item.id"
                                                     :label="item.label" :value="item.id">
@@ -3027,7 +3072,16 @@
                                     <el-col :span="12" offset="12">
                                         <div class="textcenter grid-content">
                                             <el-select value-key="id" v-model="enemyattribute"
-                                                v-on:change="onSelectEnemy" placeholder="選擇敵方">
+                                                v-on:change="onSelectEnemy" placeholder="選擇敵方"
+                                                popper-append-to-body
+                                                :popper-options="{ 
+                                                    placement: 'auto',
+                                                    modifiers: {
+                                                        preventOverflow: { enabled: true, padding: 10 },
+                                                        flip: { enabled: true }
+                                                    }
+                                                }"
+                                                popper-class="custom-select-dropdown">
                                                 <el-option v-for="item in enemylist" :key="item.id"
                                                     :label="item.name" :value="item">
                                                 </el-option>
@@ -3044,7 +3098,9 @@
                                             <el-col :span="6">
                                                 <div class="grid-content bg-purple">
                                                     <el-select v-model="enemyattribute.elemental"
-                                                        v-on:change="ComputElementalPercent" placeholder="敵方屬性">
+                                                        v-on:change="ComputElementalPercent" placeholder="敵方屬性"
+                                                        popper-append-to-body
+                                                        :popper-options="{ placement: 'auto' }">
                                                         <el-option v-for="item in elementtypelist" :key="item.id"
                                                             :label="item.label" :value="item.id">
                                                         </el-option>
@@ -3056,7 +3112,9 @@
                                             <el-col :span="4">
                                                 <div class="grid-content bg-purple">
                                                     <el-select value-key="id" v-model="enemyattribute.elementallevel"
-                                                        v-on:change="ComputElementalPercent" placeholder="屬性等級">
+                                                        v-on:change="ComputElementalPercent" placeholder="屬性等級"
+                                                        popper-append-to-body
+                                                        :popper-options="{ placement: 'auto' }">
                                                         <el-option v-for="item in elementlevel" :key="item.id"
                                                             :label="item.id" :value="item.id">
                                                         </el-option>
@@ -3745,7 +3803,7 @@
                     </el-scrollbar>
                 </el-col>
                 <el-col :span="6">
-                    <el-row class="titlebox" type="flex" align="middle" justify="space-around"
+                    <el-row class="titlebox" type="flex" align="middle" justify="end"
                         style="height:40px; padding: 0px 5px;">
                         <el-col class="textcenter" :span="6"> </el-col>
                         <el-col class="textcenter" :span="2"> </el-col>
@@ -4484,7 +4542,7 @@
                         <el-row>
                             <div class="Attribute">
                                 <div v-show="UIPanel['ATKPanel']">
-                                    <el-row class="titlebox" type="flex" align="middle"
+                                    <el-row class="titlebox" type="flex" align="middle" justify="end"
                                         style="height:40px; padding: 0px 5px;">
                                         <el-col class="textcenter" :span="3">
                                         </el-col>
@@ -4719,7 +4777,7 @@
                                     </el-row>
                                 </div>
                                 <div v-show="UIPanel['MATKPanel']">
-                                    <el-row class="titlebox" type="flex" align="middle"
+                                    <el-row class="titlebox" type="flex" align="middle" justify="end"
                                         style="height:40px; padding: 0px 5px;">
                                         <el-col class="textcenter" :span="3">
                                         </el-col>
@@ -4868,7 +4926,7 @@
                                     </el-row>
                                 </div>
                                 <div v-show="UIPanel['DragonBreathPanel']">
-                                    <el-row class="titlebox" type="flex" align="middle" style="height:40px;">
+                                    <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:40px;">
                                         <el-col class="textcenter" :span="2">
                                         </el-col>
                                         <el-col class="textcenter" :span="20">
@@ -4894,7 +4952,7 @@
                                         </el-col>
                                     </el-row>
                                 </div>
-                                <el-row class="titlebox" type="flex" align="middle"
+                                <el-row class="titlebox" type="flex" align="middle" justify="end"
                                     style="height:40px; padding: 0px 5px;">
                                     <el-col class="textcenter" :span="3">
                                     </el-col>
@@ -4910,38 +4968,38 @@
                                                 class="el-icon-arrow-down"></i></el-button>
                                     </el-col>
                                 </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>HP%:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{attritube['HPP']}} %</span>
-                                    </el-col>
-                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>HP:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{attritube['HP']}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:40px;">
-                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>SP%:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{attritube['SPP']}} %</span>
-                                    </el-col>
-                                    <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                        <span>SP:</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <span>{{attritube['SP']}}</span>
-                                    </el-col>
-                                </el-row>
                                 <el-collapse-transition>
                                 <div v-show="UIPanel['Survival']">
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                            <span>HP%:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <span>{{attritube['HPP']}} %</span>
+                                        </el-col>
+                                        <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                            <span>HP:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <span>{{attritube['HP']}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                            <span>SP%:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <span>{{attritube['SPP']}} %</span>
+                                        </el-col>
+                                        <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                            <span>SP:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <span>{{attritube['SP']}}</span>
+                                        </el-col>
+                                    </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple-light" :span="12" style="text-align: right;">
@@ -4968,6 +5026,21 @@
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="6" style="text-align: right;">
+                                            <span>HP恢復%:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            <span>{{attritube['HPRegenPercent']}} %</span>
+                                        </el-col>
+                                        <el-col class="bg-purple-light" :span="6" style="text-align: right;">
+                                            <span>SP恢復%:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            <span>{{attritube['SPRegenPercent']}} %</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
                                         <el-col class="bg-purple-light" :span="8" style="text-align: right;">
                                             <span>HP恢復:</span>
                                         </el-col>
@@ -4983,7 +5056,7 @@
                                     </el-row>
                                 </div>
                                 </el-collapse-transition>
-                                <el-row class="titlebox" type="flex" align="middle"
+                                <el-row class="titlebox" type="flex" align="middle" justify="end"
                                     style="height:40px; padding: 0px 5px;">
                                     <el-col class="textcenter" :span="3">
                                     </el-col>
@@ -5402,7 +5475,7 @@
                                     </div>
                                 </div>
                                 </el-collapse-transition>
-                                <el-row class="titlebox" type="flex" align="middle"
+                                <el-row class="titlebox" type="flex" align="middle" justify="end"
                                     style="height:40px; padding: 0px 5px;">
                                     <el-col class="textcenter" :span="3">
                                     </el-col>
@@ -5607,6 +5680,9 @@
                 // 支援技能檔案設定
                 currentSupportSkillFile: 'supportskills.json', // 當前支援技能檔案
                 availableSupportSkillFiles: ['supportskills_zero.json', 'supportskills.json'], // 可用的支援技能檔案列表
+                
+                // Zero模式標記
+                isZeroMode: false, // 是否處於Zero模式
                 
                 //save
                 StoreDB_SupportSkill: [],
@@ -7068,8 +7144,9 @@
                         var spRegenPercent = 1 + this.attritube['SPRegenPercent'] / 100;
                         this.attritube['SPRegen'] = Math.floor(baseSPRegen * spRegenPercent);
                         
-                        // HPRegen = 1 * HPRegenPercent (基礎恢復為1，乘以百分比加成)
-                        var baseHPRegen = 1;
+                        // HPRegen = max(1, Floor(MAX_HP/200)) + Floor(VIT/5), 再乘以HPRegenPercent
+                        var baseHPRegen = Math.max(1, Math.floor(this.status.MHP / 200));
+                        baseHPRegen += Math.floor(this.status_total.VIT / 5);
                         var hpRegenPercent = 1 + this.attritube['HPRegenPercent'] / 100;
                         this.attritube['HPRegen'] = Math.floor(baseHPRegen * hpRegenPercent);
                         
@@ -7447,6 +7524,13 @@
                         this.computeattribute.atkc8_max += parasp6
                     };
 
+                    //野蠻兇砍
+                    if (this.IsSupportActive('WS_MELTDOWN')) {
+                        var MeltDownValue = Number(this.GetSupportSkill('WS_MELTDOWN').lv * 100) + (this.GetPureStats(this.status.LUK) * 10);
+                        this.computeattribute.atkc8_min += MeltDownValue;
+                        this.computeattribute.atkc8_max += MeltDownValue;
+                    }
+
                     this.computeattribute.atkc9_min = this.computeattribute.atkc8_min;
                     this.computeattribute.atkc9_max = this.computeattribute.atkc8_max;
 
@@ -7485,6 +7569,9 @@
                     let _GC_DARKCROW_min = 0, _GC_DARKCROW_max = 0;
 
                     if (this.IsSupportActive('RG_RAID')) {
+                        [_RG_RAIDATK_min, _RG_RAIDATK_max] = SpectialBuff(30);
+                    }
+                    else if (this.IsSupportActive('RG_RAID(boss)')) {
                         [_RG_RAIDATK_min, _RG_RAIDATK_max] = SpectialBuff(15);
                     }
                     if (this.IsSupportActive('MT_QUAKE')) {
@@ -8190,6 +8277,7 @@
                     if (this.IsSupportActive('BS_WEAPONRESEARCH')){ this.skilloption.WeaponMasteryATK+=20; this.attritube['HIT'] += 20;}
                     if (this.IsSupportActive('NC_TRAININGAXE')){ if(this.weapon.type.id == 'Axes' ){ this.skilloption.WeaponMasteryATK+=50; this.attritube['HIT'] += 30;} }
                     if (this.IsSupportActive('NC_TRAININGAXE')){ if(this.weapon.type.id == 'Maces' ){ this.skilloption.WeaponMasteryATK+=40; this.attritube['HIT'] += 20;} }
+                    if (this.IsSupportActive('PR_MACEMASTERY')){ if(this.weapon.type.id == 'Maces' ){ this.skilloption.WeaponMasteryATK+=30; this.attritube['CRI'] += 20;} }
                     if (this.IsSupportActive('NC_MADOLICENCE')){ this.skilloption.WeaponMasteryATK+=75;}
                     if (this.IsSupportActive('AM_AXEMASTERY')) { if(this.weapon.type.id == 'Axes' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=30; } }
                     if (this.IsSupportActive('GN_TRAINING_SWORD')){ if(this.weapon.type.id == 'Daggers' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=50; this.attritube['HIT'] += 15;} }
@@ -8258,6 +8346,7 @@
                         if (this.weapon.type.id == 'Spears') {
                             this.attritube['CRI'] += 30;
                             this.attritube['ASPDP'] += 30;
+                            this.attritube['FLEE'] += 20;
                         }
                     }
                     // 盾咒
@@ -8306,6 +8395,11 @@
                         if (this.weapon.type.id == 'Axes' || this.weapon.type.id == 'Maces') {
                             this.attritube['ASPDP'] += 40;
                         }
+                        this.attritube['HIT'] += 20;
+                    }
+                    //超音速投擲
+                    if (this.IsSupportActive('AS_SONICACCEL')){
+                            this.option.EquipSkillAddDamage += 90;
                     }
                     //毒耐性弱化
                     if (this.IsSupportActive('GC_VENOMIMPRESS')){
@@ -8455,6 +8549,11 @@
                     if (this.IsSupportActive('WM_LESSON')){
                         this.attritube['SP'] += 300;
                     }
+                    // 吹口哨
+                    if (this.IsSupportActive('BA_WHISTLE')){
+                        this.attritube['FLEE'] += 40;
+                        this.attritube['PerfectFLEE'] += 5;
+                    }
                     // 布萊奇
                     if (this.IsSupportActive('BA_POEMBRAGI')){
                         this.attritube['SK1VCTP'] += 2 * 10;
@@ -8464,10 +8563,18 @@
                     if (this.IsSupportActive('MI_RUSH_WINDMILL')){
                         this.attritube['ATK'] += 20+2*10;
                     }
+                    // 哼唱之音
+                    if (this.IsSupportActive('DC_HUMMING')){
+                        this.attritube['HIT'] += 40;
+                    }
                     // 女神之吻
                     if (this.IsSupportActive('DC_FORTUNEKISS')){
                         this.attritube['CRI'] += 10;
                         this.attritube['CRIDP'] += 20;
+                    }
+                    // 為您服務
+                    if (this.IsSupportActive('DC_SERVICEFORYOU')){
+                        this.attritube['SPP'] += 20;
                     }
                     // 伊登的蘋果
                     if (this.IsSupportActive('BA_APPLEIDUN')){
@@ -8838,6 +8945,11 @@
                         this.status_add.DEX += 10 + jc;
                         this.attritube['HIT'] += 20;
                     }
+                    // 移花接木
+                    if (this.IsSupportActive('MO_DODGE')){
+                        this.attritube['FLEE'] += 15;
+                    }
+                    // 蓄氣
                     if (this.IsSupportActive('MO_CALLSPIRITS')){
                         this.skilloption.WeaponMasteryATK += this.GetSupportSkill('MO_CALLSPIRITS').lv * 3;
                     }
@@ -8876,7 +8988,14 @@
                         this.attritube['ATK'] += 30;
                         this.attritube['PATK'] += 15;
                     }
-
+                    //幸運之頌歌
+                    if (this.IsSupportActive('PR_GLORIA')){
+                        this.status_add.LUK += 30;
+                    }
+                    //聖母之頌歌
+                    if (this.IsSupportActive('PR_MAGNIFICAT')){
+                        this.attritube['SPRegenPercent'] += 100;
+                    }
                     //犧牲祈福
                     if (this.IsSupportActive('PR_SUFFRAGIUM')){
                         this.attritube['SK1VCTP'] += 5 + this.GetSupportSkill('PR_SUFFRAGIUM').lv * 5;
@@ -10082,6 +10201,11 @@
                     if (this.enemyattribute.MRES == null) this.enemyattribute.MRES = 0;
                 },
                 LoadDB() {
+                    // 首先檢查網址參數是否包含 'zero'
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const isZeroMode = urlParams.has('zero') || window.location.href.toLowerCase().includes('zero');
+                    this.isZeroMode = isZeroMode; // 設定標記
+                    
                     if (localStorage.getItem('StoreDB_Status')) {
                         try {
                             this.StoreDB_Status = JSON.parse(localStorage.getItem('StoreDB_Status'));
@@ -10089,6 +10213,24 @@
                             console.log("catch e:" + e);
                         }
                     }
+                    
+                    // 根據模式覆蓋等級設定（在載入localStorage後執行，確保優先級）
+                    if (isZeroMode) {
+                        // Zero模式：BaseLevel 60, JobLevel 50
+                        this.status.Level = 60;
+                        this.status.JOBLevel = 50;
+                        console.log('🎯 Zero模式已啟用 - 預設等級設定為 BaseLevel: 60, JobLevel: 50');
+                    } else {
+                        // 一般模式：BaseLevel 250, JobLevel 55（保持原有設定）
+                        if (this.status.Level === 0 || this.status.Level === 60) {
+                            this.status.Level = 250;
+                        }
+                        if (this.status.JOBLevel === 0 || this.status.JOBLevel === 50) {
+                            this.status.JOBLevel = 55;
+                        }
+                        console.log('⚔️ 一般模式 - 等級設定為 BaseLevel: ' + this.status.Level + ', JobLevel: ' + this.status.JOBLevel);
+                    }
+                    
                     if (localStorage.getItem('StoreDB_Equip')) {
                         try {
                             this.StoreDB_Equip = JSON.parse(localStorage.getItem('StoreDB_Equip'));
@@ -10134,15 +10276,25 @@
                                             //this.equipspartlist[i].equipname = Object.assign({}, '111')
                                         } */
 
+                    // Zero模式的等級設定已在前面處理過了
+                    
                     // 讀取用戶選擇的技能檔案
                     const savedSkillFile = localStorage.getItem('selectedSkillFile');
-                    if (savedSkillFile && this.availableSkillFiles.includes(savedSkillFile)) {
+                    if (isZeroMode) {
+                        // Zero模式：強制使用Zero版本檔案
+                        this.currentSkillFile = 'skills_zero.json';
+                        console.log('🎯 Zero模式已啟用 - 自動載入Zero版本技能檔案');
+                    } else if (savedSkillFile && this.availableSkillFiles.includes(savedSkillFile)) {
                         this.currentSkillFile = savedSkillFile;
                     }
                     
                     // 讀取用戶選擇的支援技能檔案
                     const savedSupportSkillFile = localStorage.getItem('selectedSupportSkillFile');
-                    if (savedSupportSkillFile && this.availableSupportSkillFiles.includes(savedSupportSkillFile)) {
+                    if (isZeroMode) {
+                        // Zero模式：強制使用Zero版本檔案
+                        this.currentSupportSkillFile = 'supportskills_zero.json';
+                        console.log('🎯 Zero模式已啟用 - 自動載入Zero版本支援技能檔案');
+                    } else if (savedSupportSkillFile && this.availableSupportSkillFiles.includes(savedSupportSkillFile)) {
                         this.currentSupportSkillFile = savedSupportSkillFile;
                     }
 
