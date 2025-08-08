@@ -1200,6 +1200,30 @@
                                         </el-input>
                                     </el-col>
                                 </el-row>
+
+                                <el-row :class="PreviewETL[GetETLIndex('DEF')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        DEF
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-input v-if="PreviewETL[0]"
+                                            v-model="PreviewETL[GetETLIndex('DEF')].totalvalue"
+                                            v-on:keyup.enter.native="OnEditEquipEffect('DEF')" placeholder="效果參數">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+
+                                <el-row :class="PreviewETL[GetETLIndex('MDEF')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        MDEF
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-input v-if="PreviewETL[0]"
+                                            v-model="PreviewETL[GetETLIndex('MDEF')].totalvalue"
+                                            v-on:keyup.enter.native="OnEditEquipEffect('MDEF')" placeholder="效果參數">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
                             </div>
                         </el-row>
                     </el-scrollbar>
@@ -5011,6 +5035,36 @@
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="6" style="text-align: right;">
+                                            <span>DEF:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            <span>{{attritube['SoftDEF']}}+{{attritube['HardDEF']}}</span>
+                                        </el-col>
+                                        <el-col class="bg-purple-light" :span="6" style="text-align: right;">
+                                            <span>減傷率:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            <span>{{Math.floor((100 - ((4000 + attritube['HardDEF']) / (4000 + attritube['HardDEF'] * 10)) * 100) * 100) / 100}}%</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="6" style="text-align: right;">
+                                            <span>MDEF:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            <span>{{attritube['SoftMDEF']}}+{{attritube['HardMDEF']}}</span>
+                                        </el-col>
+                                        <el-col class="bg-purple-light" :span="6" style="text-align: right;">
+                                            <span>減傷率:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            <span>{{Math.floor((100 - ((1000 + attritube['HardMDEF']) / (1000 + attritube['HardMDEF'] * 10)) * 100) * 100) / 100}}%</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
                                         <el-col class="bg-purple-light" :span="8" style="text-align: right;">
                                             <span>FLEE:</span>
                                         </el-col>
@@ -5042,16 +5096,31 @@
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                            <span>HP恢復:</span>
+                                            <span>HP自然恢復:</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="4">
                                             <span>{{attritube['HPRegen']}}</span>
                                         </el-col>
                                         <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                            <span>SP恢復:</span>
+                                            <span>SP自然恢復:</span>
                                         </el-col>
                                         <el-col class="textcenter" :span="4">
                                             <span>{{attritube['SPRegen']}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                        style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                            <span>HP藥水恢復率:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <span>{{Math.floor(attritube['HPPotionRate'] * 10000) / 100}}%</span>
+                                        </el-col>
+                                        <el-col class="bg-purple-light" :span="8" style="text-align: right;">
+                                            <span>SP藥水恢復率:</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="4">
+                                            <span>{{Math.floor(attritube['SPPotionRate'] * 10000) / 100}}%</span>
                                         </el-col>
                                     </el-row>
                                 </div>
@@ -5830,6 +5899,8 @@
                     { label: 'HP', id: 'HP', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'SP %', id: 'SPPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: 'SP', id: 'SP', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'DEF', id: 'DEF', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: 'MDEF', id: 'MDEF', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'HIT', id: 'HIT', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'FLEE', id: 'FLEE', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: '完全迴避', id: 'PerfectFlee', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
@@ -5973,8 +6044,9 @@
                 attritube: {
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0,
-                    DEF: 0, MDEF: 0, HP: 0, HPP: 0, SP: 0, SPP: 0,
+                    SoftDEF: 0, HardDEF: 0, SoftMDEF:0, HardMDEF: 0, HP: 0, HPP: 0, SP: 0, SPP: 0,
                     HIT: 0, FLEE: 0, PerfectFlee: 0, SPRegen: 0, HPRegen: 0, SPRegenPercent: 0, HPRegenPercent: 0,
+                    HPPotionRate: 0, SPPotionRate: 0,
                     PATK: 0, SMATK: 0, CRIDR: 0, RES: 0, MRES: 0,
                     ASPD: 0, ASPDP: 0, CRI: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, 
                     ELEDDI: 0, RNGDDI: 0, MELDDI: 0,  //damage dealt increased    ELEDDI = Element RNGDDI = Range MELDDI=melee
@@ -7149,6 +7221,29 @@
                         baseHPRegen += Math.floor(this.status_total.VIT / 5);
                         var hpRegenPercent = 1 + this.attritube['HPRegenPercent'] / 100;
                         this.attritube['HPRegen'] = Math.floor(baseHPRegen * hpRegenPercent);
+                        
+                        // 計算藥水恢復率
+                        // HP藥水恢復率: Floor[ 1 + total_VIT × 0.02 + SM_RECOVERY_level × 0.1 ] × ( 1 + AM_LEARNINGPOTION_level × 0.05 )
+                        var smRecoveryLevel = this.IsSupportActive('SM_RECOVERY') ? this.GetSupportSkill('SM_RECOVERY').lv : 0;
+                        var mgSrecoveryLevel = this.IsSupportActive('MG_SRECOVERY') ? this.GetSupportSkill('MG_SRECOVERY').lv : 0;
+                        var amLearningPotionLevel = this.IsSupportActive('AM_LEARNINGPOTION') ? this.GetSupportSkill('AM_LEARNINGPOTION').lv : 0;
+                        
+                        // HP藥水恢復率計算
+                        var hpPotionBaseRate = Math.floor(1 + this.status_total.VIT * 0.02 + smRecoveryLevel * 0.1);
+                        this.attritube['HPPotionRate'] = hpPotionBaseRate * (1 + amLearningPotionLevel * 0.05);
+                        
+                        // SP藥水恢復率計算
+                        var spPotionBaseRate = Math.floor(1 + this.status_total.INT * 0.01 + mgSrecoveryLevel * 0.1);
+                        this.attritube['SPPotionRate'] = spPotionBaseRate * (1 + amLearningPotionLevel * 0.05);
+                        
+                        // 計算防禦力
+                        // SoftDEF = floor((VIT ÷ 2) + (AGI ÷ 5) + (BaseLv ÷ 2))
+                        this.attritube['SoftDEF'] = Math.floor((this.status_total.VIT / 2) + (this.status_total.AGI / 5) + (this.status.Level / 2));
+                        
+                        // SoftMDEF = floor((INT + (VIT ÷ 5) + (DEX ÷ 5) + (BaseLv ÷ 4))
+                        this.attritube['SoftMDEF'] = Math.floor(this.status_total.INT + (this.status_total.VIT / 5) + (this.status_total.DEX / 5) + (this.status.Level / 4));
+                        
+                        // HardDEF 和 HardMDEF 由裝備效果系統提供，在 onOption() 中計算
                         
                         this.computeattribute['SpecialATK7'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK7));
                         this.onSkillPercentChange();
@@ -9086,8 +9181,8 @@
                         this.attritube['HIT'] += 15;
                     }
                     if (this.IsSupportActive('SP_SOULGOLEM')){
-                        this.attritube['DEF'] += 60 * 5;
-                        this.attritube['MDEF'] += 15 + 5 * 5;
+                        this.attritube['HardDEF'] += 60 * 5;
+                        this.attritube['HardMDEF'] += 15 + 5 * 5;
                     }
                     if (this.IsSupportActive('SP_SOULCURSE')){
                         if (this.skilloption.AttackElementalIdx == 7) {
@@ -9433,8 +9528,8 @@
                         var _lv = this.GetSupportSkill('ALL_ODINS_POWER').lv;
                         this.attritube['ATK'] += _lv * 30 + 40;
                         this.attritube['MATK'] += _lv * 30 + 40;
-                        this.attritube['DEF'] -= _lv * 20;
-                        this.attritube['MDEF'] -= _lv * 20;
+                        this.attritube['HardDEF'] -= _lv * 20;
+                        this.attritube['HardMDEF'] -= _lv * 20;
                     }
 
                     var _AllStatus = Number(this.effecttypelist.find(x => x.id == 'AllStatus').totalvalue);
@@ -9470,6 +9565,10 @@
                     this.attritube['SP'] += Number(this.effecttypelist.find(x => x.id == 'SP').totalvalue) + _AllStatus;
                     this.attritube['SPP'] += Number(this.effecttypelist.find(x => x.id == 'SPPercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='SPPercent').totalvalue);
+                    
+                    // DEF和MDEF來自裝備效果，累積到HardDEF和HardMDEF
+                    this.attritube['HardDEF'] += Number(this.effecttypelist.find(x => x.id == 'DEF').totalvalue);
+                    this.attritube['HardMDEF'] += Number(this.effecttypelist.find(x => x.id == 'MDEF').totalvalue);
 
                     // 新增的5個屬性：從裝備效果中加總
                     this.attritube['HIT'] += Number(this.effecttypelist.find(x => x.id == 'HIT').totalvalue)
