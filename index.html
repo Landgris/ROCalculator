@@ -7261,8 +7261,8 @@
                     this.computeattribute.atkc2_max += Number(this.weapon.ArrowATK);
 
                     var para5 = 0; //屬性
-                    if (this.IsSupportActive('SM_MAGNUM')) { para5 = 1; }
-                    else if (this.IsSupportActive('ASC_EDP')) { para5 = 5; }
+                    if (this.IsSupportActive('ASC_EDP')) { para5 = 5; }
+                    else if (this.IsSupportActive('SM_MAGNUM')) { para5 = 1; }
                     var para5value = this.getElementalPercent(para5,
                         this.enemyattribute.elemental,
                         this.enemyattribute.elementallevel);
@@ -8379,15 +8379,14 @@
                             this.attritube['ElementalMagicPercent'] += 15;
                         }
                     }
-                    // 怒暴
-                    if (this.IsSupportActive('SM_MAGNUM')){
-                        this.option.MagnumPoison2Value = 20;
-                    }
-                    // 致毒
+                    // 怒暴和致毒互斥，優先致毒
                     if (this.IsSupportActive('ASC_EDP')){
                         this.option.MagnumPoison2Value = 25;
                     }
-                    if (this.IsSupportActive('ASC_EDP') == false && this.IsSupportActive('SM_MAGNUM') == false) {
+                    else if (this.IsSupportActive('SM_MAGNUM')){
+                        this.option.MagnumPoison2Value = 20;
+                    }
+                    else {
                         this.option.MagnumPoison2Value = 0;
                     }
                     //速度激發
