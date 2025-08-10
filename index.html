@@ -2966,14 +2966,32 @@
                                                     </el-input>
                                                 </el-col>
                                             </el-row>
-                                            <el-row class="statusbox" type="flex" align="middle">
-                                                <el-col class="textcenter" :span="12">
-                                                    <span>代入JOB滿等加成素質點</span>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-between">
+                                                <el-col class="textcenter" :span="7">
+                                                    <span>代入JOB加成</span>
                                                 </el-col>
-                                                <el-col class="textcenter" :span="12">
+                                                <el-col :span="7" style="display: flex; align-items: center; justify-content: center;">
                                                     <el-switch v-model="status.UseJobMaxPoint" v-on:change="onOption"
                                                         active-color="#13ce66" inactive-color="#8a9799">
                                                     </el-switch>
+                                                </el-col>
+                                                <el-col :span="10" style="display: flex; align-items: center;">
+                                                    <el-select v-model="status.JobMaxPointType"
+                                                        :disabled="!status.UseJobMaxPoint"
+                                                        placeholder="選擇加成來源"
+                                                        popper-append-to-body
+                                                        :popper-options="{ 
+                                                            placement: 'auto',
+                                                            modifiers: {
+                                                                preventOverflow: { enabled: true, padding: 10 },
+                                                                flip: { enabled: true }
+                                                            }
+                                                        }"
+                                                        popper-class="custom-select-dropdown"
+                                                        @change="onOption">
+                                                        <el-option :key="'default'" :label="'請選擇'" :value="''" disabled></el-option>
+                                                        <el-option v-for="item in jobMaxPointTypeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                                                    </el-select>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="statusbox" type="flex" align="middle">
@@ -5732,7 +5750,14 @@
                 StoreDB_Skill: [],
                 StoreDB_JobMapedSkill: [],
                 JobMapedSkillId: '',
-                
+
+                // 新增：Job加成來源下拉選單選項
+                jobMaxPointTypeList: [
+                    { label: '二轉', value: '2nd' },
+                    { label: '三轉', value: '3rd' },
+                    { label: '四轉', value: '4th' }
+                ],
+
                 // 技能檔案設定
                 currentSkillFile: 'skills.json', // 當前技能檔案
                 availableSkillFiles: ['skills_zero.json', 'skills.json'], // 可用的技能檔案列表
@@ -5745,14 +5770,14 @@
                 SupportSkillJob: 'AB',
                 SupportSkillJobGroup: [],
                 DefaultDB_SupportSkill_Filter: [],
-                
+
                 // 支援技能檔案設定
                 currentSupportSkillFile: 'supportskills.json', // 當前支援技能檔案
                 availableSupportSkillFiles: ['supportskills_zero.json', 'supportskills.json'], // 可用的支援技能檔案列表
-                
+
                 // Zero模式標記
                 isZeroMode: false, // 是否處於Zero模式
-                
+
                 //save
                 StoreDB_SupportSkill: [],
 
@@ -6008,7 +6033,7 @@
                 subweapon_init: {},
                 ClassInfo: {},
                 status: {
-                    Level: 250, JOBLevel: 55, Transcendent: false, classid: '', UseJobMaxPoint: false,
+                    Level: 250, JOBLevel: 55, Transcendent: false, classid: '', UseJobMaxPoint: false, JobMaxPointType: '',
                     STR: 1, AGI: 1, VIT: 1, INT: 1, DEX: 1, LUK: 1,
                     POW: 0, STA: 0, WIS: 0, SPL: 0, CON: 0, CRT: 0,
                     ASPD: 0, HP: 0, SP: 0, MHP: 0, MSP: 0,
@@ -7215,6 +7240,10 @@
                         var baseSPRegen = (1 + Math.floor(this.status_total.INT / 6) + Math.floor(this.status.MSP / 100));
                         var spRegenPercent = 1 + this.attritube['SPRegenPercent'] / 100;
                         this.attritube['SPRegen'] = Math.floor(baseSPRegen * spRegenPercent);
+                        // 聖母之頌歌：最終SPRegen*2（所有加成後再乘）
+                        if (this.IsSupportActive && this.IsSupportActive('PR_MAGNIFICAT')) {
+                            this.attritube['SPRegen'] *= 2;
+                        }
                         
                         // HPRegen = max(1, Floor(MAX_HP/200)) + Floor(VIT/5), 再乘以HPRegenPercent
                         var baseHPRegen = Math.max(1, Math.floor(this.status.MHP / 200));
@@ -8321,27 +8350,37 @@
                     this.attritube = Object.assign({}, this.attritube_init);
                     this.status_job = _.cloneDeep(this.status_job_init);
                     if (this.status.UseJobMaxPoint){
-                            if(this.status.Level>=200 && this.ClassInfo.TJobMaxPoint!=null){
-                                this.status_job.STR += this.ClassInfo.TJobMaxPoint[0];
-                                this.status_job.AGI += this.ClassInfo.TJobMaxPoint[1];
-                                this.status_job.VIT += this.ClassInfo.TJobMaxPoint[2];
-                                this.status_job.INT += this.ClassInfo.TJobMaxPoint[3];
-                                this.status_job.DEX += this.ClassInfo.TJobMaxPoint[4];
-                                this.status_job.LUK += this.ClassInfo.TJobMaxPoint[5];
-                                this.status_job.POW += this.ClassInfo.TJobMaxPoint[6];
-                                this.status_job.STA += this.ClassInfo.TJobMaxPoint[7];
-                                this.status_job.WIS += this.ClassInfo.TJobMaxPoint[8];
-                                this.status_job.SPL += this.ClassInfo.TJobMaxPoint[9];
-                                this.status_job.CON += this.ClassInfo.TJobMaxPoint[10];
-                                this.status_job.CRT += this.ClassInfo.TJobMaxPoint[11];
-                            }else{
-                                this.status_job.STR += this.ClassInfo.JobMaxPoint[0];
-                                this.status_job.AGI += this.ClassInfo.JobMaxPoint[1];
-                                this.status_job.VIT += this.ClassInfo.JobMaxPoint[2];
-                                this.status_job.INT += this.ClassInfo.JobMaxPoint[3];
-                                this.status_job.DEX += this.ClassInfo.JobMaxPoint[4];
-                                this.status_job.LUK += this.ClassInfo.JobMaxPoint[5];
-                            }
+                        if (this.status.JobMaxPointType === '4th' && this.status.Level >= 200 && this.ClassInfo.fourthJobMaxPT != null) {
+                            // 四轉加成
+                            this.status_job.STR += this.ClassInfo.fourthJobMaxPT[0];
+                            this.status_job.AGI += this.ClassInfo.fourthJobMaxPT[1];
+                            this.status_job.VIT += this.ClassInfo.fourthJobMaxPT[2];
+                            this.status_job.INT += this.ClassInfo.fourthJobMaxPT[3];
+                            this.status_job.DEX += this.ClassInfo.fourthJobMaxPT[4];
+                            this.status_job.LUK += this.ClassInfo.fourthJobMaxPT[5];
+                            this.status_job.POW += this.ClassInfo.fourthJobMaxPT[6];
+                            this.status_job.STA += this.ClassInfo.fourthJobMaxPT[7];
+                            this.status_job.WIS += this.ClassInfo.fourthJobMaxPT[8];
+                            this.status_job.SPL += this.ClassInfo.fourthJobMaxPT[9];
+                            this.status_job.CON += this.ClassInfo.fourthJobMaxPT[10];
+                            this.status_job.CRT += this.ClassInfo.fourthJobMaxPT[11];
+                        } else if (this.status.JobMaxPointType === '3rd' && this.ClassInfo.thirdJobMaxPT != null) {
+                            // 三轉加成
+                            this.status_job.STR += this.ClassInfo.thirdJobMaxPT[0];
+                            this.status_job.AGI += this.ClassInfo.thirdJobMaxPT[1];
+                            this.status_job.VIT += this.ClassInfo.thirdJobMaxPT[2];
+                            this.status_job.INT += this.ClassInfo.thirdJobMaxPT[3];
+                            this.status_job.DEX += this.ClassInfo.thirdJobMaxPT[4];
+                            this.status_job.LUK += this.ClassInfo.thirdJobMaxPT[5];
+                        } else if (this.status.JobMaxPointType === '2nd' && this.ClassInfo.secondJobMaxPT != null) {
+                            // 二轉加成
+                            this.status_job.STR += this.ClassInfo.secondJobMaxPT[0];
+                            this.status_job.AGI += this.ClassInfo.secondJobMaxPT[1];
+                            this.status_job.VIT += this.ClassInfo.secondJobMaxPT[2];
+                            this.status_job.INT += this.ClassInfo.secondJobMaxPT[3];
+                            this.status_job.DEX += this.ClassInfo.secondJobMaxPT[4];
+                            this.status_job.LUK += this.ClassInfo.secondJobMaxPT[5];
+                        }
                     }
 
                     this.option.EquipSkillAddDamage = 0;
@@ -9089,7 +9128,7 @@
                     }
                     //聖母之頌歌
                     if (this.IsSupportActive('PR_MAGNIFICAT')){
-                        this.attritube['SPRegenPercent'] += 100;
+                        //改 最後ComputStatus時*2
                     }
                     //犧牲祈福
                     if (this.IsSupportActive('PR_SUFFRAGIUM')){
@@ -10927,13 +10966,13 @@
                     this.classlist = [];
                     // 這裡可以添加一些基本的預設職業資料
                     this.classlist.push(
-                        { id: 0, label: '初心者', TranscendentClass: false, JobMaxPoint: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
-                        { id: 1, label: '劍士', TranscendentClass: false, JobMaxPoint: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
-                        { id: 2, label: '法師', TranscendentClass: false, JobMaxPoint: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
-                        { id: 3, label: '弓箭手', TranscendentClass: false, JobMaxPoint: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
-                        { id: 4, label: '服事', TranscendentClass: false, JobMaxPoint: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
-                        { id: 5, label: '商人', TranscendentClass: false, JobMaxPoint: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
-                        { id: 6, label: '盜賊', TranscendentClass: false, JobMaxPoint: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 }
+                        { id: 0, label: '初心者', TranscendentClass: false, secondJobMaxPT: [0,0,0,0,0,0], thirdJobMaxPT: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
+                        { id: 1, label: '劍士', TranscendentClass: false, secondJobMaxPT: [0,0,0,0,0,0], thirdJobMaxPT: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
+                        { id: 2, label: '法師', TranscendentClass: false, secondJobMaxPT: [0,0,0,0,0,0], thirdJobMaxPT: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
+                        { id: 3, label: '弓箭手', TranscendentClass: false, secondJobMaxPT: [0,0,0,0,0,0], thirdJobMaxPT: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
+                        { id: 4, label: '服事', TranscendentClass: false, secondJobMaxPT: [0,0,0,0,0,0], thirdJobMaxPT: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
+                        { id: 5, label: '商人', TranscendentClass: false, secondJobMaxPT: [0,0,0,0,0,0], thirdJobMaxPT: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 },
+                        { id: 6, label: '盜賊', TranscendentClass: false, secondJobMaxPT: [0,0,0,0,0,0], thirdJobMaxPT: [10,10,10,10,10,10,10,10,10,10], baseaspd: 2000 }
                     );
                 },
 
@@ -11259,6 +11298,13 @@
                 this.consumableeffecttypelist_init = _.cloneDeep(this.consumableeffecttypelist);
                 this.ElementTableLastest = false;
                 this.SwitchElementalVersion();
+
+                // 設定 JobMaxPointType 預設值
+                if (this.isZeroMode) {
+                    this.status.JobMaxPointType = '2nd';
+                } else {
+                    this.status.JobMaxPointType = '4th';
+                }
 
                 this.onSelectEnemy(this.enemylist[0]);
                 this.effectdialogue.EffectType = this.effecttypelist[0];

@@ -21,7 +21,7 @@
     { "skill": { "id": "PR_GLORIA", "name": "幸運之頌歌", "maxlv": 5, "lv": 5, "class": "AB", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "PR_MAGNIFICAT", "name": "聖母之頌歌", "maxlv": 5, "lv": 5, "class": "AB", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     
-    { "skill": { "id": "MG_SRECOVERY", "name": "禪心", "maxlv": 10, "lv": 10, "class": "WL,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "MG_SRECOVERY", "name": "禪心", "maxlv": 10, "lv": 10, "class": "WL,SO,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     
     { "skill": { "id": "MO_IRONHAND", "name": "鐵沙掌", "maxlv": 10, "lv": 10, "class": "SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "MO_DODGE", "name": "移花接木", "maxlv": 10, "lv": 10, "class": "SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
