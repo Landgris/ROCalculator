@@ -5044,15 +5044,6 @@
                                     </el-row>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
-                                        <el-col class="bg-purple-light" :span="12" style="text-align: right;">
-                                            <span>HIT:</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="12">
-                                            <span>{{attritube['HIT']}}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
                                         <el-col class="bg-purple-light" :span="6" style="text-align: right;">
                                             <span>DEF:</span>
                                         </el-col>
@@ -5111,21 +5102,35 @@
                                             <span>{{attritube['SPRegenPercent']}} %</span>
                                         </el-col>
                                     </el-row>
-                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                        style="height:40px;">
-                                        <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                            <span>HP自然恢復:</span>
+                                    <!-- HP自然恢復合併顯示 -->
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="8" style="text-align: right; padding-right: 16px;">
+                                            <span>HP自然恢復</span>
                                         </el-col>
-                                        <el-col class="textcenter" :span="4">
-                                            <span>{{attritube['HPRegen']}}</span>
-                                        </el-col>
-                                        <el-col class="bg-purple-light" :span="8" style="text-align: right;">
-                                            <span>SP自然恢復:</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="4">
-                                            <span>{{attritube['SPRegen']}}</span>
+                                        <el-col class="textcenter" :span="16" style="text-align: left; padding-left: 8px;">
+                                            <template v-if="attritube['HPRegen60s']">
+                                                <span>每6秒回{{attritube['HPRegen']}}，每60秒回{{attritube['HPRegen60s']}}<br>平均每秒回{{attritube['HPRegenPerSec']}}</span>
+                                            </template>
+                                            <template v-else>
+                                                <span>每6秒回{{attritube['HPRegen']}}<br>平均每秒回{{attritube['HPRegenPerSec']}}</span>
+                                            </template>
                                         </el-col>
                                     </el-row>
+                                    <!-- SP自然恢復合併顯示 -->
+                                    <el-row class="statusbox" type="flex" align="middle" justify="space-around" style="height:40px;">
+                                        <el-col class="bg-purple-light" :span="8" style="text-align: right; padding-right: 16px;">
+                                            <span>SP自然恢復</span>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="16" style="text-align: left; padding-left: 8px;">
+                                            <template v-if="attritube['SPRegen80s']">
+                                                <span>每8秒回{{attritube['SPRegen']}}，每80秒回{{attritube['SPRegen80s']}}<br>平均每秒回{{attritube['SPRegenPerSec']}}</span>
+                                            </template>
+                                            <template v-else>
+                                                <span>每8秒回{{attritube['SPRegen']}}<br>平均每秒回{{attritube['SPRegenPerSec']}}</span>
+                                            </template>
+                                        </el-col>
+                                    </el-row>
+                                    </template>
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple-light" :span="8" style="text-align: right;">
@@ -5169,6 +5174,15 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{attritube.StatusATK+computeattribute['SpecialATKFront']}} + {{attritube.WeaponATK}}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>HIT:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube.HIT}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -7244,13 +7258,34 @@
                         if (this.IsSupportActive && this.IsSupportActive('PR_MAGNIFICAT')) {
                             this.attritube['SPRegen'] *= 2;
                         }
-                        
-                        // HPRegen = max(1, Floor(MAX_HP/200)) + Floor(VIT/5), 再乘以HPRegenPercent
+                        // SP自然恢復（每8秒）
+                        if (this.IsSupportActive && this.IsSupportActive('MG_SRECOVERY')) {
+                            var mgSrecoveryLevel = this.GetSupportSkill('MG_SRECOVERY').lv;
+                            var extraSP = mgSrecoveryLevel * 3 + Math.floor(this.status.MSP * 0.02);
+                            this.attritube['SPRegen80s'] = this.attritube['SPRegen'] * 10 + extraSP * 8;
+                            this.attritube['SPRegenPerSec'] = ((this.attritube['SPRegen80s'] / 80)).toFixed(2);
+                        } else {
+                            this.attritube['SPRegen80s'] = null;
+                            this.attritube['SPRegenPerSec'] = ((this.attritube['SPRegen'] / 8)).toFixed(2);
+                        }
+
+                        // HP自然恢復（每6秒）
                         var baseHPRegen = Math.max(1, Math.floor(this.status.MHP / 200));
                         baseHPRegen += Math.floor(this.status_total.VIT / 5);
                         var hpRegenPercent = 1 + this.attritube['HPRegenPercent'] / 100;
                         this.attritube['HPRegen'] = Math.floor(baseHPRegen * hpRegenPercent);
-                        
+
+                        // HP自然恢復（每60秒/每秒，僅SM_RECOVERY啟動時顯示）
+                        if (this.IsSupportActive && this.IsSupportActive('SM_RECOVERY')) {
+                            var smRecoveryLevel = this.GetSupportSkill('SM_RECOVERY').lv;
+                            var extraHP = smRecoveryLevel * 5 + Math.floor(this.status.MHP * 0.02);
+                            this.attritube['HPRegen60s'] = this.attritube['HPRegen'] * 10 + extraHP * 6;
+                            this.attritube['HPRegenPerSec'] = ((this.attritube['HPRegen60s'] / 60)).toFixed(2);
+                        } else {
+                            this.attritube['HPRegen60s'] = null;
+                            this.attritube['HPRegenPerSec'] = ((this.attritube['HPRegen'] / 6)).toFixed(2);
+                        }
+
                         // 計算藥水恢復率
                         // HP藥水恢復率: Floor[ 1 + total_VIT × 0.02 + SM_RECOVERY_level × 0.1 ] × ( 1 + AM_LEARNINGPOTION_level × 0.05 )
                         var smRecoveryLevel = this.IsSupportActive('SM_RECOVERY') ? this.GetSupportSkill('SM_RECOVERY').lv : 0;
