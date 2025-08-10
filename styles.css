@@ -1,3 +1,54 @@
+/* 裝備 titlebox 上方預留空間 */
+.equip-titlebox-fix {
+    margin: 5px 0px 0px 0px;
+}
+/* 裝備區塊專用，預留 title 高度 50px */
+.body2col-container-equip {
+    height: calc(100vh - (50px + 35px + 8px + 52px));
+}
+.body2col-container-panel {
+    height: calc(100vh - (50px + 35px + 8px + 62px)); /* 比原本多預留56px給按鈕列 */
+}
+
+/* 新增：第四區面板切換按鈕美化 */
+.panel-switch-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 54px;
+    margin-bottom: 8px;
+    background: #f5f7fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 0 16px;
+}
+/* 讓按鈕內容垂直水平置中，主色與 .bg-purple 一致 */
+.panel-switch-btns .el-button {
+    flex: 1 1 0;
+    margin: 0 8px;
+    font-size: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: background 0.2s, color 0.2s;
+    background: #d3dce6;
+    color: #305079;
+    border: none;
+}
+.panel-switch-btns .el-button.primary, .panel-switch-btns .el-button--primary {
+    background: #305079;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(67,100,247,0.08);
+}
+.panel-switch-btns .el-button:not(.el-button--primary) {
+    background: #d3dce6;
+    color: #305079;
+    border: none;
+}
 html, body {
     margin: 0;
     padding: 0;
