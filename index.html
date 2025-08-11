@@ -2109,6 +2109,9 @@
                                         <el-col class="textcenter">
                                             <span>{{ item.AllSet.Name }}</span>
                                         </el-col>
+                                        <el-col class="textcenter" :span="2">
+                                            <span>Lv.{{ item.AllSet.Status.Level }}</span>
+                                        </el-col>
                                         <el-col class="textcenter" :span="4">
                                             <span>{{ item.AllSet.SkillName }}</span>
                                         </el-col>
@@ -10223,7 +10226,6 @@
                 onLoadAllSetSave(AllsetObject) {
                     this.skill.name = AllsetObject.SkillName;
                     for (eqi = 0; eqi < this.equipspartlist.length; ++eqi) {
-                        //AllsetObject.Equip[eqi].effectlist.forEach(x=>x.Enable=x.Enable==null?true:x.Enable);
                         var cardnull = (AllsetObject.Equip[eqi]==null)?true:false;
                         this.$set(this.equipspartlist,
                             eqi,
@@ -10240,6 +10242,17 @@
                     if (this.subweapon == null) this.subweapon = _.cloneDeep(this.subweapon_init);
 
                     this.status = _.cloneDeep(AllsetObject.Status);
+                    // 自動判斷 JobMaxPointType
+                    if (!this.status.JobMaxPointType || this.status.JobMaxPointType === '') {
+                        const lv = this.status.Level || 0;
+                        if (lv < 100) {
+                            this.status.JobMaxPointType = '2nd';
+                        } else if (lv > 200) {
+                            this.status.JobMaxPointType = '4th';
+                        } else {
+                            this.status.JobMaxPointType = '3rd';
+                        }
+                    }
                     console.log(this.status);
                     this.CheckParam();
                     console.log(this.status);
