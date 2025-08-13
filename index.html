@@ -440,6 +440,16 @@
                                     </el-switch>
                                 </el-col>
                             </el-row>
+                            <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                <el-col class="textcenter" :span="12">
+                                    <span>使用手推車</span>
+                                </el-col>
+                                <el-col class="textcenter" :span="12">
+                                    <el-switch v-model="skill.cart" active-color="#13ce66" v-on:change="onOption"
+                                        inactive-color="#8a9799">
+                                    </el-switch>
+                                </el-col>
+                            </el-row>
                             <el-tooltip class="item" effect="dark" content="將乘算DEF(後DEF)改為減算DEF"
                                 placement="bottom-start">
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
@@ -649,6 +659,8 @@
                                                         </el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag" :span="3">砲彈
                                                         </el-col>
+                                                        <el-col v-if="item.skill.cart" class="skilltag" :span="3">手推車
+                                                        </el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF" class="skilltag"
                                                             :span="5">半無視DEF</el-col>
                                                         <el-col v-if="item.skill.ignoreRES" class="skilltag"
@@ -716,6 +728,8 @@
                                                             :span="3">一半暴率</el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag skillline"
                                                             :span="3">砲彈</el-col>
+                                                        <el-col v-if="item.skill.cart" class="skilltag skillline"
+                                                            :span="3">手推車</el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF"
                                                             class="skilltag skillline" :span="5">半無視防禦</el-col>
                                                         <el-col v-if="item.skill.ignoreRES"
@@ -1859,214 +1873,6 @@
                 <el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">
                     <div class="text-wrapper">{{EquipText}}</div>
                 </el-scrollbar>
-            </el-row>
-        </el-dialog>
-        <el-dialog :visible.sync="UIPanel['StatusDBDialog']" v-on:close="ClosePanel('StatusDBDialog')"
-            custom-class="Dialogue-container" width="85%" top="50px" center>
-            <span slot="title">角色清單</span>
-            <el-row :gutter="2">
-                <el-col :span="8">
-                    <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
-                        style="height:40px;" :span="8">
-                        <span class="textcenter">目前素質</span>
-                    </el-row>
-                    <div style="padding: 0px 5px;">
-                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle" justify="end">
-                            <el-col v-if="StatusName!=''" class="textcenter">
-                                <el-button v-on:click="onSaveStatus" type="success" size="small">
-                                    儲存素質>>>
-                                </el-button>
-                            </el-col>
-                            <el-col v-if="StatusName==''" class="textcenter">
-                                <el-button v-on:click="onSaveStatus" type="danger" disabled size="small">
-                                    儲存前設定檔名
-                                </el-button>
-                            </el-col>
-                        </el-row>
-                        <el-row class="statusbox bg-purple-light" type="flex" align="middle" justify="space-around">
-                            <el-col class="textcenter">
-                                <span>角色存檔名</span>
-                            </el-col>
-                            <el-col class="textcenter">
-                                <el-input v-model="StatusName" placeholder="要儲存的角色檔名">
-                                </el-input>
-                            </el-col>
-                        </el-row>
-                        <el-scrollbar wrap-class="EquipList-container" :native="false" :noresize="false">
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle">
-                                <el-col :span="6" class="textcenter"><span>職業</span>
-                                </el-col>
-                                <el-col :span="18">
-                                    <div class="grid-content">
-                                        <el-select v-model="status.classid" v-on:change="onOption" placeholder="">
-                                            <el-option v-for="item in classlist" :key="item.id" :label="item.label"
-                                                :value="item.id">
-                                            </el-option>
-                                        </el-select>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle">
-                                <el-col class="textcenter" :span="6">HP</el-col>
-                                <el-col :span="6">
-                                    {{status.HP}}
-                                </el-col>
-                                <el-col class="textcenter" :span="6">SP</el-col>
-                                <el-col :span="6">
-                                    {{status.SP}}
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter">Level</el-col>
-                                <el-col>
-                                    <el-input v-model.number="status.Level" v-on:input="onOption" placeholder="Level">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter">JobLevel</el-col>
-                                <el-col>
-                                    <el-input v-model.number="status.JOBLevel" v-on:input="onOption"
-                                        placeholder="Level">
-                                    </el-input>
-                                </el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter" :span="3">STR</el-col>
-                                <el-col :span="10">
-                                    <el-input v-model="status.STR" v-on:input="onOption" v-on:change="onStatusChange"
-                                        placeholder="STR">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter" :span="1">+</el-col>
-                                <el-col class="textcenter" :span="4">{{status_add.STR}}</el-col>
-                                <el-col class="textcenter" :span="1">=</el-col>
-                                <el-col class="textcenter" :span="4">{{status_total.STR}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter" :span="3">AGI</el-col>
-                                <el-col :span="10">
-                                    <el-input v-model="status.AGI" v-on:input="onOption" v-on:change="onStatusChange"
-                                        placeholder="AGI">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter" :span="1">+</el-col>
-                                <el-col class="textcenter" :span="4">{{status_add.AGI}}</el-col>
-                                <el-col class="textcenter" :span="1">=</el-col>
-                                <el-col class="textcenter" :span="4">{{status_total.AGI}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter" :span="3">VIT</el-col>
-                                <el-col :span="10">
-                                    <el-input v-model="status.VIT" v-on:input="onOption" v-on:change="onStatusChange"
-                                        placeholder="VIT">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter" :span="1">+</el-col>
-                                <el-col class="textcenter" :span="4">{{status_add.VIT}}</el-col>
-                                <el-col class="textcenter" :span="1">=</el-col>
-                                <el-col class="textcenter" :span="4">{{status_total.VIT}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter" :span="3">INT</el-col>
-                                <el-col :span="10">
-                                    <el-input v-model="status.INT" v-on:input="onOption" v-on:change="onStatusChange"
-                                        placeholder="INT">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter" :span="1">+</el-col>
-                                <el-col class="textcenter" :span="4">{{status_add.INT}}</el-col>
-                                <el-col class="textcenter" :span="1">=</el-col>
-                                <el-col class="textcenter" :span="4">{{status_total.INT}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter" :span="3">DEX</el-col>
-                                <el-col :span="10">
-                                    <el-input v-model="status.DEX" v-on:input="onOption" v-on:change="onStatusChange"
-                                        placeholder="DEX">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter" :span="1">+</el-col>
-                                <el-col class="textcenter" :span="4">{{status_add.DEX}}</el-col>
-                                <el-col class="textcenter" :span="1">=</el-col>
-                                <el-col class="textcenter" :span="4">{{status_total.DEX}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" style="height:40px;">
-                                <el-col class="textcenter" :span="3">LUK</el-col>
-                                <el-col :span="10">
-                                    <el-input v-model="status.LUK" v-on:input="onOption" v-on:change="onStatusChange"
-                                        placeholder="LUK">
-                                    </el-input>
-                                </el-col>
-                                <el-col class="textcenter" :span="1">+</el-col>
-                                <el-col class="textcenter" :span="4">{{status_add.LUK}}</el-col>
-                                <el-col class="textcenter" :span="1">=</el-col>
-                                <el-col class="textcenter" :span="4">{{status_total.LUK}}</el-col>
-                            </el-row>
-                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="12">ASPD</el-col>
-                                <el-col :span="12">
-                                    <el-input v-model="status.ASPD" v-on:input="onOption" placeholder="攻速">
-                                    </el-input>
-                                </el-col>
-                            </el-row>
-                        </el-scrollbar>
-                    </div>
-                </el-col>
-                <el-col :span="16">
-                    <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
-                        style="height:40px;" :span="16">
-                        <span class="textcenter">已儲存清單</span>
-                    </el-row>
-                    <div style="padding: 0px 5px;">
-                        <el-scrollbar wrap-class="StatusList-container" :native="false" :noresize="false">
-                            <div v-for="(item, index) in StoreDB_Status" v-bind:key="item.uuid">
-                                <div style="padding: 2px 5px;">
-                                    <el-row class="optionbox effectline"
-                                        :class="index%2==0?'bg-purple-light':'bg-purple'" :gutter="4" type="flex"
-                                        align="middle">
-                                        <el-col class="textcenter" :span="8">
-                                            <span>{{ item.name }}</span>
-                                        </el-col>
-                                        <el-col class="textcenter" :span="6">
-                                            <span class="">{{ item.classname }}</span>
-                                        </el-col>
-                                        <el-col class="textcenter">
-                                            <el-row class="" style="line-height: 2;" :gutter="4" type="flex"
-                                                align="middle">
-                                                <el-col class="statussavebox" :span="6">Lv {{item.status.Level}}
-                                                </el-col>
-                                                <el-col class="statussavebox" :span="6">JOBLv {{item.status.JOBLevel}}
-                                                </el-col>
-                                                <el-col class="statussavebox" :span="6">ASPD {{item.status.ASPD}}
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="" style="line-height: 2;" :gutter="4" type="flex"
-                                                align="middle">
-                                                <el-col class="statussavebox" :span="4">STR {{item.status.STR}}</el-col>
-                                                <el-col class="statussavebox" :span="4">AGI {{item.status.AGI}}</el-col>
-                                                <el-col class="statussavebox" :span="4">VIT {{item.status.VIT}}</el-col>
-                                                <el-col class="statussavebox" :span="4">INT {{item.status.INT}}</el-col>
-                                                <el-col class="statussavebox" :span="4">DEX {{item.status.DEX}}</el-col>
-                                                <el-col class="statussavebox" :span="4">LUK {{item.status.LUK}}</el-col>
-                                            </el-row>
-                                        </el-col>
-                                        <el-col :span="4">
-                                            <el-button v-on:click="onRemoveStatusSave(index)" icon="el-icon-delete"
-                                                type="danger" size="mini">
-                                            </el-button>
-                                        </el-col>
-                                        <el-col :span="6">
-                                            <el-button v-on:click="onLoadStatusSave(index)" icon="el-icon-check"
-                                                type="success" type="primary" size="small">
-                                                載入
-                                            </el-button>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                            </div>
-                        </el-scrollbar>
-
-                    </div>
-                </el-col>
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['AllSetDBDialog']" v-on:close="ClosePanel('AllSetDBDialog')"
@@ -3546,6 +3352,13 @@
                                         </el-col>
                                     </el-row>
                                 </div>
+                                <div v-show="skill.cart">
+                                    <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
+                                        <el-col class="textcenter" :span="12">
+                                            <span>使用手推車</span>
+                                        </el-col>
+                                    </el-row>
+                                </div>
                                 <div v-show="skill.transWeaponDEF">
                                     <el-tooltip class="item" effect="dark" content="將乘算DEF(後DEF)改為減算DEF"
                                         placement="bottom-start">
@@ -3647,7 +3460,7 @@
                                     <el-col class="textcenter" :span="6">{{option.EquipSkillAddDamage}}</el-col>
                                     <el-col class="textcenter" :span="4">%</el-col>
                                 </el-row>
-                                <el-row  v-show="status.classid=='GE'" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                <el-row  v-show="skill.cart === true" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="8">手推車重量</el-col>
                                     <el-col class="textcenter" :span="8" >
                                         <el-input-number v-model.number="skilloption.CarWeight" :min="0" :max="10500" :maxlength="5" v-on:input="onOption" :controls=false placeholder="手推車重量">
@@ -6218,6 +6031,7 @@
                     ranged: false,
                     critical: false,
                     cannon: false,
+                    cart: false,
                     transWeaponDEF: false,
                     ignoreRES: false,
                     laterformula: false,
@@ -6483,84 +6297,47 @@
                     this.elementalmap = this.ElementTableLastest? this.elementalmap_fix : this.elementalmap_old;
                 },
                 CombineEquipsAttribute() {
-                    this.effecttypelist.forEach(element => {
-                        var result = 0;
-                        if (element.id == 'FixedCastPercent') {
-                            result = Enumerable.From(this.equipspartlist)
-                                .Where("($.effectlist).some(function (x) { return x.EffectType.id == '" + element.id + "'; })")
-                                .Select(function (x) {
-                                    var xx = x.effectlist.filter(x => x.EffectType.id == (element.id.toString()))
-                                    return xx[0].Enable? Number(xx[0].EffectNumber):0;
-                                })
-                                .DefaultIfEmpty(0)
-                                .Max();
-                        } else {
-                            result = Enumerable.From(this.equipspartlist)
-                                 .Where("($.effectlist).some(function (x) { return x.EffectType.id == '" + element.id + "'; })")
-                                .Select(function (x) {
-                                    var xx = x.effectlist.filter(x => x.EffectType.id == (element.id.toString()))
-                                    return xx[0].Enable? Number(xx[0].EffectNumber):0;
-                                })
-                                .Sum();
-                        }
-                        element.totalvalue = result;
-                    });
-                    this.onOption();
-                    /*
-                    //全身裝的 ATK 效果加總
-                    //方法一
-                    var idd = 'ATK'
-                    var ef = Enumerable
-                        .from(this.equipspartlist)
-                        .where(function(e){ return e.effectlist.find(x=> x.EffectType.id == idd); })
-                        //.select("value, index => value.effectlist.filter(x => x.EffectType.id == 'ATK')")
-                        .select(function (x) {
-                            var xx = x.effectlist.filter(x => x.EffectType.id == (element.id.toString()))
-                            return Number(xx[0].EffectNumber);
-                        })
-                        .sum();
-                    console.log(ef);
-
-                    //方法2 參考 https://stackoverflow.com/questions/33739726/linq-js-get-subitems
-                    var result = Enumerable.from(this.equipspartlist)
-                        .where("($.effectlist).some(function (x) { return x.EffectType.id == 'ATK'; })")
-                        .select("Number($.effectlist[0].EffectNumber)")
-                        .sum();
-
-                    console.log("result:" + result);
-                    */
-                },
-                AddEffect() {
-                    if (this.effectdialogue.EffectNumber === '') { return; }
-
-                    // 檢查已經存在該效果後覆蓋
-                    if (this.equipspartlist[this.EquipSelectId].effectlist.length > 0) {
-                        var index = this.equipspartlist[this.EquipSelectId].effectlist.findIndex(x => this.effectdialogue.EffectType.label === x.EffectType.label);
-
-                        if (index > -1) {
-                            this.equipspartlist[this.EquipSelectId].effectlist[index] = {
-                                EffectNumber: Number(this.effectdialogue.EffectNumber),
-                                EffectType: this.effectdialogue.EffectType
-                            };
-                            console.log("CoverEffect: " + this.equipspartlist[this.EquipSelectId].effectlist[index].EffectType + " /" + this.equipspartlist[this.EquipSelectId].effectlist[index].EffectNumber);
-
-                            this.$set(this.equipspartlist[this.EquipSelectId].effectlist,
-                                index,
-                                {
-                                    EffectNumber: Number(this.equipspartlist[this.EquipSelectId].effectlist[index].EffectNumber),
-                                    EffectType: this.equipspartlist[this.EquipSelectId].effectlist[index].EffectType
-                                })
-                            this.effectdialogue.EffectNumber = '';
-                            this.ClosePanel('EquipEffectDialog');
-                            this.CombineEquipsAttribute();
-                            return;
+                    // 效能優化：只遍歷一次所有裝備和效果
+                    let effectSums = {};
+                    let fixedCastMax = 0;
+                    for (let equip of this.equipspartlist) {
+                        for (let eff of equip.effectlist) {
+                            if (!eff.Enable) continue;
+                            if (eff.EffectType.id === 'FixedCastPercent') {
+                                fixedCastMax = Math.max(fixedCastMax, Number(eff.EffectNumber));
+                            } else {
+                                effectSums[eff.EffectType.id] = (effectSums[eff.EffectType.id] || 0) + Number(eff.EffectNumber);
+                            }
                         }
                     }
-                    this.equipspartlist[this.EquipSelectId].effectlist.push({
-                        EffectNumber: Number(this.effectdialogue.EffectNumber),
-                        EffectType: this.effectdialogue.EffectType,
-                    })
-                    console.log("AddEffect: " + this.effectdialogue.EffectType + " /" + this.effectdialogue.EffectNumber);
+                    for (let element of this.effecttypelist) {
+                        if (element.id === 'FixedCastPercent') {
+                            element.totalvalue = fixedCastMax;
+                        } else {
+                            element.totalvalue = effectSums[element.id] || 0;
+                        }
+                    }
+                    this.onOption();
+                },
+                AddEffect() {
+                    if (this.effectdialogue.EffectNumber === '') return;
+                    const effectList = this.equipspartlist[this.EquipSelectId].effectlist;
+                    const typeLabel = this.effectdialogue.EffectType.label;
+                    const effectNum = Number(this.effectdialogue.EffectNumber);
+                    let idx = effectList.findIndex(x => x.EffectType.label === typeLabel);
+                    if (idx > -1) {
+                        this.$set(effectList, idx, {
+                            EffectNumber: effectNum,
+                            EffectType: this.effectdialogue.EffectType
+                        });
+                        console.log("CoverEffect: " + typeLabel + " /" + effectNum);
+                    } else {
+                        effectList.push({
+                            EffectNumber: effectNum,
+                            EffectType: this.effectdialogue.EffectType
+                        });
+                        console.log("AddEffect: " + typeLabel + " /" + effectNum);
+                    }
                     this.effectdialogue.EffectNumber = '';
                     this.ClosePanel('EquipEffectDialog');
                     this.CombineEquipsAttribute();
@@ -9925,51 +9702,6 @@
                     const parsed = JSON.stringify(this.StoreDB_Equip);
                     localStorage.setItem('StoreDB_Equip', parsed);
                 },
-                onSaveStatus() {
-                    // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
-                    // let copy = $.extend(true, {}, obj); //使用 jquery.extend
-                    // JSON.parse(JSON.stringify(this.))
-                    if (this.StatusName.trim() == '') return;
-                    this.StoreDB_Status.unshift({
-                        uuid: this._uuid(), name: this.StatusName
-                        , statusstring: this.StatusBulidString
-                        , classname: Enumerable.From(this.classlist).Where("$.id == '" + this.status.classid + "'").Select("$.label").Single()
-                        , status: JSON.parse(JSON.stringify(this.status))
-                    });
-                    this.SaveStatusDB();
-                },
-                OpenStatusDBDialogDialogue() {
-                    this.UIPanel['StatusDBDialog'] = true;
-                    this.StatusBulidString = '';
-                    for (const [key, value] of Object.entries(this.status)) {
-                        this.StatusBulidString += key + ":" + value + "/";
-                    }
-                    this.StatusBulidString = this.StatusBulidString.slice(0, this.StatusBulidString.length - 1);
-                },
-                onLoadStatusSave(saveid) {
-                    this.status = _.cloneDeep(this.StoreDB_Status[saveid].status);
-                    this.StatusName = this.StoreDB_Status[saveid].name;
-                    if (this.status.ASPD == null) this.status.ASPD = 0;
-                    if (this.status.MHP == null) this.status.MHP = 0;
-                    if (this.status.MSP == null) this.status.MSP = 0;
-                    if (this.status.HP == null) this.status.HP = 0;
-                    if (this.status.SP == null) this.status.SP = 0;
-                    if (this.status.Transcendent == null) this.status.Transcendent = false;
-                    if (this.status.classid == null) this.status.classid = "AB";
-                    if (this.status.UseJobMaxPoint == null) this.status.UseJobMaxPoint = false;
-                    this.onOption();
-                    this.ClosePanel('StatusDBDialog');
-                },
-                onRemoveStatusSave(saveid) {
-                    if (saveid > -1) {
-                        this.StoreDB_Status.splice(saveid, 1)
-                        this.SaveStatusDB();
-                    }
-                },
-                SaveStatusDB() {
-                    const parsed = JSON.stringify(this.StoreDB_Status);
-                    localStorage.setItem('StoreDB_Status', parsed);
-                },
                 onQuickCalcInput() {
                     try {
                         this.QuickCalc.solution = eval(this.QuickCalc.formula);
@@ -10078,6 +9810,7 @@
                     if (this.skill.ranged == null) this.skill.ranged = false;
                     if (this.skill.critical == null) this.skill.critical = false;
                     if (this.skill.cannon == null) this.skill.cannon = false;
+                    if (this.skill.cart == null) this.skill.cart = false;
                     if (this.skill.transWeaponDEF == null) this.skill.transWeaponDEF = false;
                     if (this.skill.ignoreRES == null) this.skill.ignoreRES = false;
                     if (this.skill.laterformula == null) this.skill.laterformula = false;
@@ -10345,6 +10078,7 @@
                     if (this.skill.ranged == null) this.skill.ranged = false;
                     if (this.skill.critical == null) this.skill.critical = false;
                     if (this.skill.cannon == null) this.skill.cannon = false;
+                    if (this.skill.cart == null) this.skill.cart = false;
                     if (this.skill.transWeaponDEF == null) this.skill.transWeaponDEF = false;
                     if (this.skill.ignoreRES == null) this.skill.ignoreRES = false;
                     if (this.skill.laterformula == null) this.skill.laterformula = false;
