@@ -3463,11 +3463,8 @@
                                 <el-row  v-show="skill.cart === true" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="8">手推車重量</el-col>
                                     <el-col class="textcenter" :span="8" >
-                                        <el-input-number v-model.number="skilloption.CarWeight" :min="0" :max="10500" :maxlength="5" v-on:input="onOption" :controls=false placeholder="手推車重量">
+                                        <el-input-number v-model.number="skilloption.CarWeight" :min="0" :max="cartWeightMax" :maxlength="5" v-on:input="onOption" :controls=false placeholder="手推車重量">
                                         </el-input-number>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="8" >
-                                        Max: 10500
                                     </el-col>
                                 </el-row>
                             </div>
@@ -6065,7 +6062,7 @@
                     ElementalPercent: 0,        //屬性倍率
                     WeaponMasteryATKInput: 0,
                     WeaponMasteryATK: 0,        //武器修練
-                    CarWeight: 10500,               //手推車重量
+                    CarWeight: 8000,               //手推車重量
                 },
                 option_init: '',
                 option:
@@ -8221,6 +8218,7 @@
                     if (this.IsSupportActive('TK_RUN')){ if(this.weapon.type.id == 'Empty' ){ this.skilloption.WeaponMasteryATK+=this.GetSupportSkill('TK_RUN').lv*10;} }
                     if (this.IsSupportActive('RL_RICHS_COIN')){ if(this.weapon.type.id == 'Guns' ){ this.skilloption.WeaponMasteryATK+=30;} }
                     if (this.IsSupportActive('GN_CARTBOOST')){ this.skilloption.WeaponMasteryATK+=50; }
+
                     
                     //雙手劍攻擊速度增加
                     if (this.IsSupportActive('KN_TWOHANDQUICKEN')) {
@@ -8433,6 +8431,22 @@
                     }
                     if (this.skill.cannon) {
                         this.computeattribute['SpecialATK2'] += this.weapon.BulletATK;
+                    }
+                    // 手推車重量限制與自動回復（GN_REMODELING_CART 關閉時自動修正）
+                    if (this.skilloption.CarWeight == null || isNaN(this.skilloption.CarWeight)) {
+                        this.skilloption.CarWeight = 8000;
+                    }
+                    //改造手推車
+                    if (this.IsSupportActive('GN_REMODELING_CART')) {
+                        // 上限 10500
+                        if (this.skilloption.CarWeight > 10500) {
+                            this.skilloption.CarWeight = 10500;
+                        }
+                    } else {
+                        // 上限 8000，若超過則自動回復
+                        if (this.skilloption.CarWeight > 8000) {
+                            this.skilloption.CarWeight = 8000;
+                        }
                     }
                     // 鶚梟之眼
                     if (this.IsSupportActive('AC_OWL')){
@@ -11055,6 +11069,10 @@
                 },
             },
             computed: {
+                cartWeightMax() {
+                    // 若 GN_REMODELING_CART 支援技能啟動則上限 10500，否則 8000
+                    return this.IsSupportActive && this.IsSupportActive('GN_REMODELING_CART') ? 10500 : 8000;
+                },
 
             },
             mounted() {
