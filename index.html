@@ -7057,11 +7057,11 @@
                         var amLearningPotionLevel = this.IsSupportActive('AM_LEARNINGPOTION') ? this.GetSupportSkill('AM_LEARNINGPOTION').lv : 0;
                         
                         // HP藥水恢復率計算
-                        var hpPotionBaseRate = Math.floor(1 + this.status_total.VIT * 0.02 + smRecoveryLevel * 0.1);
+                        var hpPotionBaseRate = 1 + this.status_total.VIT * 0.02 + smRecoveryLevel * 0.1;
                         this.attritube['HPPotionRate'] = hpPotionBaseRate * (1 + amLearningPotionLevel * 0.05);
                         
                         // SP藥水恢復率計算
-                        var spPotionBaseRate = Math.floor(1 + this.status_total.INT * 0.01 + mgSrecoveryLevel * 0.1);
+                        var spPotionBaseRate = 1 + this.status_total.INT * 0.01 + mgSrecoveryLevel * 0.1;
                         this.attritube['SPPotionRate'] = spPotionBaseRate * (1 + amLearningPotionLevel * 0.05);
                         
                         // 計算防禦力

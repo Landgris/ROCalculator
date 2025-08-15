@@ -14,7 +14,7 @@
     { "skill": { "id": "RG_BACKSTAP", "name": "背刺", "level": 10, "formula": "(300+40*SLV)*((WTI==\"Bows\")?0.5:1)", "class": "SC", "DamageTypeIdx": 0, "hitnumber": "((WTI==\"Daggers\")?2:1)", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": "弓傷害減半，短劍傷害次數+1"} },
     { "skill": { "id": "RG_RAID", "name": "潛擊", "level": 5, "formula": "100+150*SLV+AGI*3+DEX/2", "class": "SC", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": "需考慮隱匿延遲"} },
     
-    { "skill": { "id": "AC_DOUBLE", "name": "二連矢", "level": 10, "formula": "90+10*SLV", "class": "SC,RA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0.1, "Note": ""} },
+    { "skill": { "id": "AC_DOUBLE", "name": "二連矢", "level": 10, "formula": "90+10*SLV", "class": "SC,RA,MI,WA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0.1, "Note": ""} },
     { "skill": { "id": "HT_BLITZBEAT", "name": "閃電衝擊", "level": 5, "formula": "((AGI/2+DEX/10)*2+10*6+SLV*10)", "class": "RA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": "SLV", "elemental": 0, "FCT": 0, "VCT": 0.5, "CD": 0.3, "GCD": 0.3, "Note": "10*6的10為鋼製喙等級"} },
     
     { "skill": { "id": "BA_MUSICALSTRIKE", "name": "樂器攻擊/纏箭投擲", "level": 5, "formula": "100+40*SLV+INT", "class": "MI,WA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0.3, "Note": ""} },
@@ -33,6 +33,7 @@
     { "skill": { "id": "AM_ACIDTERROR", "name": "強酸攻擊", "level": 5, "formula": "200*SLV", "class": "GE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     
     { "skill": { "id": "WZ_EARTHSPIKE", "name": "地震術", "level": 5, "formula": "200+INT", "class": "WL,SO", "DamageTypeIdx": 1, "hitnumber": 5, "elemental": 4, "FCT": 0.28, "VCT": 1.12, "CD": 0.7, "GCD": 0.3, "Note": ""} },
+    { "skill": { "id": "MG_FIREBALL", "name": "火球術", "level": 10, "formula": "140+20*SLV", "class": "WL,SO", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 1, "FCT": "SLV>5?0.1:0.16", "VCT": "SLV>5?0.4:0.64", "CD": 0.35, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "WZ_HEAVENDRIVE", "name": "崩裂術", "level": 5, "formula": "200+INT", "class": "WL,SO", "DamageTypeIdx": 1, "hitnumber": 5, "elemental": 4, "FCT": 0.4, "VCT": 0.6, "CD": 0.5, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "MG_THUNDERSTORM", "name": "雷爆術", "level": 10, "formula": "100+INT", "class": "WL,SO", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 3, "FCT": 0.8, "VCT": 3.2, "CD": 1, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "WZ_JUPITEL", "name": "雷鳴術", "level": 10, "formula": "100", "class": "WL", "DamageTypeIdx": 1, "hitnumber": 12, "elemental": 3, "FCT": 0.56, "VCT": 2.24, "CD": 0, "GCD": 0, "Note": ""} },
