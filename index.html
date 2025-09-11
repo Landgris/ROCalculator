@@ -140,6 +140,7 @@
                                 <el-row :gutter="4" type="flex" align="left">
                                     注意事項:<br>
                                     ⭐請不要在巴哈單純回覆按計算機，配裝思路跟比較優劣也是很好討論的點<br>
+                                    ⭐樂園的遠傷請先暫時填在對特定魔物(後ATK加成)，等待官方回應<br>
                                     ⭐M/RES計算已經加入，技能設定無視RES，如果有錯誤麻煩告知<br>
                                     ⭐屬性相剋為當前遊戲版本(同KRO) 可切換為舊版本<br>
                                     ⭐建議先計算好當前配裝並且傷害正確後才開始配裝<br>
@@ -7449,7 +7450,7 @@
 
                     //野蠻兇砍
                     if (this.IsSupportActive('WS_MELTDOWN')) {
-                        var MeltDownValue = Number(this.GetSupportSkill('WS_MELTDOWN').lv * 100) + (this.GetPureStats(this.status.LUK) * 10);
+                        var MeltDownValue = Number(this.GetSupportSkill('WS_MELTDOWN').lv * 100) + (this.status.LUK * 10);
                         this.computeattribute.atkc8_min += MeltDownValue;
                         this.computeattribute.atkc8_max += MeltDownValue;
                     }
