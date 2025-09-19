@@ -4818,6 +4818,34 @@
                                             </el-col>
                                         </el-row>
                                     </div>
+                                    <div v-show="UIPanel['TrapPanel']">
+                                        <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:40px;">
+                                            <el-col class="textcenter" :span="2">
+                                            </el-col>
+                                            <el-col class="textcenter" :span="20">
+                                                <span class="textcenter">陷阱計算</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>基礎傷害</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.TrapBaseDMG | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>最終傷害</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.TrapDMG_min | currency }} ~
+                                                    {{computeattribute.TrapDMG_max | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
                                     <!-- 一般狀態面板 -->
                                     </el-collapse-transition>
                                     <el-row class="titlebox" type="flex" align="middle" justify="center"
@@ -4828,7 +4856,7 @@
                                     </el-row>
                                     <el-collapse-transition>
                                     <div v-show="UIPanel['General']">
-                                        <div v-if="skill.DamageTypeIdx==0">
+                                        <div v-if="skill.DamageTypeIdx==0 || skill.DamageTypeIdx==3">
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                                 style="height:40px;">
                                                 <el-col class="bg-purple-light" :span="10" style="text-align: right;">
@@ -6056,7 +6084,8 @@
                 DamageType: [
                     { id: 0, label: '物理傷害' },
                     { id: 1, label: '魔法傷害' },
-                    { id: 2, label: '龍息傷害' }
+                    { id: 2, label: '龍息傷害' },
+                    { id: 3, label: '陷阱傷害' }
                 ],
                 skilloption: {
                     AttackElementalIdx: 0,      //玩家攻擊屬性
@@ -6229,12 +6258,12 @@
 
                     DragonBreathDMG: 0,
                     DragonBreathDMG_DPS: 0,
+
+                    TrapDMG_min: 0,
+                    TrapDMG_max: 0,
+                    TrapBaseDMG: 0,
+
                     /*
-                        (DOWN(HP/50)+DOWN(SP/4))*SLV*BLV/150*1.2
-                        ｛〔（HP現值 / 50）+（MaxSP / 4）〕× 技能等級 × BaseLv /150 ×（0.95 + 龍騎術等級 × 0.05）
-                        －（目標素質DEF + 目標裝備DEF）｝
-                        ×（1 + 遠距攻擊力卡裝+%總和）
-                        × 屬性表
                     */
 
                     CastDEXINT: 0,      // INT*0.5 + DEX
@@ -7803,6 +7832,39 @@
                     this.computeattribute.DragonBreathDMG_DPS = Math.floor(this.computeattribute.DragonBreathDMG * this.computeattribute.HitperSec * 100) / 100;
 
                 },
+                ComputeTRAPAttibute() {
+                    // Damage = [DEX × (3 + Base_Lv ÷ 100) × (1 + INT ÷ 35)]
+                    let _DEX = Number(this.status_total.DEX) || 0;
+                    let _BaseLv = Number(this.status.Level) || 0;
+                    let _INT = Number(this.status_total.INT) || 0;
+                    let trapBase = (Number(this.skill.level)) * _DEX * (3 + _BaseLv/100.0) * (1 + _INT/35.0);
+                    this.computeattribute.TrapBaseDMG = trapBase;
+                    trapTotal = trapBase;
+
+                    // 屬性易傷
+                    trapTotal = this.MulOper(trapTotal, Number(1) + Number(this.attritube['ELEDDI']/ 100));
+
+                    // 技能增傷裝
+                    trapTotal = this.MulOper(trapTotal, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
+
+                    // 屬性增傷
+                    trapTotal = this.MulOper(trapTotal, Number(this.skilloption.ElementalPercent / 100));
+
+                    // 天怒
+                    if (this.IsSupportActive('PR_LEXAETERNA')) {
+                        trapTotal = this.MulOper(trapTotal, Number(1) + Number(100 / 100));
+                    }
+
+                    // 計算min/max
+                    this.computeattribute.TrapDMG_max = trapTotal * 1.1; // +10%
+                    this.computeattribute.TrapDMG_min = trapTotal; //
+                    // 陷阱研究 * 40
+                    if (this.IsSupportActive('RA_RESEARCHTRAP')) {
+                        this.computeattribute.TrapDMG_max += this.GetSupportSkill('RA_RESEARCHTRAP').lv * 40;
+                        this.computeattribute.TrapDMG_min += this.GetSupportSkill('RA_RESEARCHTRAP').lv * 40;
+                    }
+
+                },
                 onChangeEnemyStatus() {
 
                 },
@@ -7888,6 +7950,10 @@
                         case 2:
                             this.ComputeDRAGONBREATH();
                             this.OpenPanel('DragonBreathPanel');
+                            break;
+                        case 3:
+                            this.ComputeTRAPAttibute();
+                            this.OpenPanel('TrapPanel');
                             break;
                     }
                 },
