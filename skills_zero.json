@@ -7,7 +7,7 @@
     { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*2)*((WTI==\"Spears\")?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CR_SHIELDBOOMERANG", "name": "迴旋盾擊", "level": 5, "formula": "80*SLV+SHW+SRL*4", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     
-    { "skill": { "id": "AS_SONICBLOW", "name": "音速投擲", "level": 10, "formula": "200+100*SLV", "class": "GX", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 1, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "AS_SONICBLOW", "name": "音速投擲", "level": 10, "formula": "200+100*SLV", "class": "GX", "DamageTypeIdx": 0, "hitnumber": -8, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 1, "GCD": 0, "Note": ""} },
     { "skill": { "id": "AS_GRIMTOOTH", "name": "無影之牙", "level": 5, "formula": "100+20*SLV+AGI", "class": "GX", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 1, "GCD": 0, "Note": "LV3以上為遠距離(預設)"} },
     { "skill": { "id": "AS_SPLASHER", "name": "毒性感染", "level": 10, "formula": "400+100*SLV", "class": "GX", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0.2, "VCT": 0.8, "CD": 1, "GCD": 0, "Note": "CD隨等級降低，TODO"} },
     

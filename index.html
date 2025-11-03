@@ -1108,6 +1108,17 @@
                                         </el-input>
                                     </el-col>
                                 </el-row>
+                                <el-row :class="PreviewETL[GetETLIndex('AllStatus2')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        全特性素質
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-input v-if="PreviewETL[0]"
+                                            v-model="PreviewETL[GetETLIndex('AllStatus2')].totalvalue"
+                                            v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
                                 <el-row :class="PreviewETL[GetETLIndex('HPPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
                                         HP %
@@ -5720,6 +5731,7 @@
                     { label: 'SPL', id: 'SPL', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'CON', id: 'CON', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'CRT', id: 'CRT', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
+                    { label: '所有特性屬性', id: 'AllStatus2', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'P.ATK', id: 'PATK', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'S.MATK', id: 'SMATK', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'C.RATE', id: 'CRIDR', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
@@ -8895,7 +8907,7 @@
                         if (this.skill.id == 'SO_SPELLFIST' ) {
                             this.skilloption.AttackElementalIdx = 1;
                             if ( this.IsSupportActive('SO_EL_CONTROL(Lv1)') ){
-                                this.computeattribute['SpecialMATK1'] += 100;
+                                this.computeattribute['SpecialMATK1'] += 400;
                             }
                         }
                         if (this.skilloption.AttackElementalIdx == 1){
@@ -8907,7 +8919,7 @@
                         if (this.skill.id == 'SO_SPELLFIST' ) {
                             this.skilloption.AttackElementalIdx = 2;
                             if ( this.IsSupportActive('SO_EL_CONTROL(Lv1)') ){
-                                this.computeattribute['SpecialMATK1'] += 100;
+                                this.computeattribute['SpecialMATK1'] += 400;
                             }
                         }
                         if (this.skilloption.AttackElementalIdx == 2){
@@ -8919,7 +8931,7 @@
                         if (this.skill.id == 'SO_SPELLFIST' ) {
                             this.skilloption.AttackElementalIdx = 3;
                             if ( this.IsSupportActive('SO_EL_CONTROL(Lv1)') ){
-                                this.computeattribute['SpecialMATK1'] += 100;
+                                this.computeattribute['SpecialMATK1'] += 400;
                             }
                         }
                         if (this.skilloption.AttackElementalIdx == 3){
@@ -9467,17 +9479,18 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='DEX').totalvalue);
                     this.status_add.LUK += Number(this.effecttypelist.find(x => x.id == 'LUK').totalvalue) + _AllStatus
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='LUK').totalvalue);
-                    this.status_add.POW += Number(this.effecttypelist.find(x => x.id == 'POW').totalvalue)
+                    var _AllStatus2 = Number(this.effecttypelist.find(x => x.id == 'AllStatus2').totalvalue);
+                    this.status_add.POW += Number(this.effecttypelist.find(x => x.id == 'POW').totalvalue) + _AllStatus2
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='POW').totalvalue);
-                    this.status_add.STA += Number(this.effecttypelist.find(x => x.id == 'STA').totalvalue)
+                    this.status_add.STA += Number(this.effecttypelist.find(x => x.id == 'STA').totalvalue) + _AllStatus2
                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='STA').totalvalue);
-                    this.status_add.WIS += Number(this.effecttypelist.find(x => x.id == 'WIS').totalvalue)
+                    this.status_add.WIS += Number(this.effecttypelist.find(x => x.id == 'WIS').totalvalue) + _AllStatus2
                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='WIS').totalvalue);
-                    this.status_add.SPL += Number(this.effecttypelist.find(x => x.id == 'SPL').totalvalue)
+                    this.status_add.SPL += Number(this.effecttypelist.find(x => x.id == 'SPL').totalvalue) + _AllStatus2
                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='SPL').totalvalue);
-                    this.status_add.CON += Number(this.effecttypelist.find(x => x.id == 'CON').totalvalue)
+                    this.status_add.CON += Number(this.effecttypelist.find(x => x.id == 'CON').totalvalue) + _AllStatus2
                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='CON').totalvalue);
-                    this.status_add.CRT += Number(this.effecttypelist.find(x => x.id == 'CRT').totalvalue)
+                    this.status_add.CRT += Number(this.effecttypelist.find(x => x.id == 'CRT').totalvalue) + _AllStatus2
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='CRT').totalvalue);
 
                     this.attritube['HP'] += Number(this.effecttypelist.find(x => x.id == 'HP').totalvalue) + _AllStatus
