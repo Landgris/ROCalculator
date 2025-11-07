@@ -7403,6 +7403,10 @@
                         para_na += this.GetSupportSkill('ASC_KATAR').arg1; //同SpecialATK6
                         para8 = para8 * paraAdvancedKatarReserchValue;
                     }
+                    //超音投
+                    if (this.IsSupportActive('AS_SONICACCEL')){
+                        para8 = para8 * 1.9;
+                    }
                     para_na = Number(1) + Number(para_na / 100);
                     para8 = para8 + Number(this.computeattribute['SpecialATK5']);
                     para8 = Number(Math.floor(para8) / 100);
@@ -8408,10 +8412,6 @@
                             this.attritube['ASPDP'] += 40;
                         }
                         this.attritube['HIT'] += 20;
-                    }
-                    //超音速投擲
-                    if (this.IsSupportActive('AS_SONICACCEL')){
-                            this.option.EquipSkillAddDamage += 90;
                     }
                     //毒耐性弱化
                     if (this.IsSupportActive('GC_VENOMIMPRESS')){

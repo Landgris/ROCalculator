@@ -4,7 +4,7 @@
     { "skill": { "id": "KN_BRANDISHSPEAR", "name": "騎乘攻擊", "level": 10, "formula": "400+100*SLV+STR*5", "class": "RK", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -3, "elemental": 0, "FCT": 0.4, "VCT": 1.6, "CD": 4, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "MS_BOWLINGBASH", "name": "怪物互擊", "level": 10, "formula": "100+40*SLV+STR", "class": "RK", "DamageTypeIdx": 0, "hitnumber": 4, "elemental": 0, "FCT": 0.4, "VCT": 1.6, "CD": 4, "GCD": 0.3, "Note": "攻擊次數3~5次"} },
     
-    { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*2)*((WTI==\"Spears\")?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*((WTI==\"Spears\")?5:2))*((WTI==\"Spears\")?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CR_SHIELDBOOMERANG", "name": "迴旋盾擊", "level": 5, "formula": "80*SLV+SHW+SRL*4", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     
     { "skill": { "id": "AS_SONICBLOW", "name": "音速投擲", "level": 10, "formula": "200+100*SLV", "class": "GX", "DamageTypeIdx": 0, "hitnumber": -8, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 1, "GCD": 0, "Note": ""} },
@@ -33,7 +33,7 @@
     
     { "skill": { "id": "MC_CARTREVOLUTION", "name": "手推車攻擊", "level": 1, "formula": "150+CRW*100/8000", "class": "ME,GE", "DamageTypeIdx": 0, "cart":true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "MC_MAMMONITE", "name": "金錢攻擊", "level": 10, "formula": "100+50*SLV", "class": "ME,GE", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
-    { "skill": { "id": "AM_ACIDTERROR", "name": "強酸攻擊", "level": 5, "formula": "200*SLV", "class": "GE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "AM_ACIDTERROR", "name": "強酸攻擊", "level": 5, "formula": "200*SLV+1000", "class": "GE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     
     { "skill": { "id": "WZ_EARTHSPIKE", "name": "地震術", "level": 5, "formula": "200+INT", "class": "WL,SO", "DamageTypeIdx": 1, "hitnumber": 5, "elemental": 4, "FCT": 0.28, "VCT": 1.12, "CD": 0.7, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "MG_FIREBALL", "name": "火球術", "level": 10, "formula": "140+20*SLV", "class": "WL,SO", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 1, "FCT": "SLV>5?0.1:0.16", "VCT": "SLV>5?0.4:0.64", "CD": 0.35, "GCD": 0.3, "Note": ""} },
