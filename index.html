@@ -1529,6 +1529,18 @@
                                             </el-col>
                                         </el-row>
 
+                                        <el-row :class="PreviewETL[GetETLIndex('HitAtkDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                命中物理 %
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('HitAtkDamagePercent')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+
                                         <el-row :class="PreviewETL[GetETLIndex('CriDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
                                                 暴傷 %
@@ -5743,6 +5755,7 @@
                     { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '對屬性魔物 %', id: 'ElementalAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '物理特定魔物 %', id: 'MonsterAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '命中物理 %', id: 'HitAtkDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '近傷 %', id: 'MeleeDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '遠傷 %', id: 'RangedDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -5928,7 +5941,7 @@
                     HIT: 0, FLEE: 0, PerfectFlee: 0, SPRegen: 0, HPRegen: 0, SPRegenPercent: 0, HPRegenPercent: 0,
                     HPPotionRate: 0, SPPotionRate: 0,
                     PATK: 0, SMATK: 0, CRIDR: 0, RES: 0, MRES: 0,
-                    ASPD: 0, ASPDP: 0, CRI: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, 
+                    ASPD: 0, ASPDP: 0, CRI: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, HITAtkDP: 0, // HITAtkDP 命中物理傷害增加%
                     ELEDDI: 0, RNGDDI: 0, MELDDI: 0,  //damage dealt increased    ELEDDI = Element RNGDDI = Range MELDDI=melee
                     SK1VCTP: 0, SK2VCTP: 0, EQVCTP: 0, VCTS:0, FCT: 0, FCTP: 0, CD: 0, GCD: 0,
                     BYPASSDEF: 0, BYPASSMDEF: 0,
@@ -7347,19 +7360,25 @@
 
                     this.computeattribute.atkc6_min = this.computeattribute.atkc5_min;
                     this.computeattribute.atkc6_max = this.computeattribute.atkc5_max;
-                    //暴擊增傷
-                    if( isNA ){
-                        if( isCRI ){
-                            var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
-                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
-                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_crid);
-                        }
-                    }
-                    else{
-                        if( this.skill.critical && isCRI ){
-                            var para_crid = Number(1) + Number(this.attritube['CRIDP']) * 0.5 / 100;
-                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
-                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_crid);
+                    
+                    // 暴擊增傷 / HIT增傷
+                    var shouldApplyCrit = isNA ? isCRI : (this.skill.critical && isCRI);
+                    
+                    if (shouldApplyCrit) {
+                        var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
+                        this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
+                        this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_crid);
+                    } else {
+                        // HIT增傷 (特定技能例外)
+                        // https://forum.gamer.com.tw/C.php?bsn=4212&snA=439053
+                        var hitExcludeSkills = ['HT_LANDMINE', 'HT_BLASTMIN', 'HT_CLAYMORETRAP', 'HT_BLITZBEAT', 
+                                                'RK_DRAGONBREATH', 'SR_TIGERCANNON', 'SR_TIGERCANNON(ex)', 
+                                                'IQ_THIRD_FLAME_BOMB', 'DK_DRAGONIC_BREATH', 'DK_DRAGONIC_BREATH(ex)'];
+                        var shouldApplyHitDamage = isNA || !hitExcludeSkills.includes(this.skill.id);
+                        if (shouldApplyHitDamage) {
+                            var para_hitatkdp = Number(1) + Number(this.attritube['HITAtkDP']) / 100;
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_hitatkdp);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_hitatkdp);
                         }
                     }
 
@@ -9536,6 +9555,7 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='RangedDamagePercent').totalvalue);
                     this.attritube['MELDP'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='MeleeDamagePercent').totalvalue);
+                    this.attritube['HITAtkDP'] += Number(this.effecttypelist.find(x => x.id == 'HitAtkDamagePercent').totalvalue);
                     this.attritube['RNGDDI'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamageDealtIncreasedPercent').totalvalue);
                     this.attritube['MELDDI'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamageDealtIncreasedPercent').totalvalue);
                     this.attritube['ELEDDI'] += Number(this.effecttypelist.find(x => x.id == 'ElementDamageDealtIncreasedPercent').totalvalue);
