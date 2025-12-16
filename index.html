@@ -7559,6 +7559,7 @@
                     // 螺旋擊刺
                     if ( this.skill.id == "LK_SPIRALPIERCE") 
                     {
+                        var para_size = enemyattribute.size>1?1:enemyattribute.size>0?1.15:1.3;
                         this.computeattribute.atkc6_min = Math.floor(Math.floor((this.computeattribute.atkc6_min+this.weapon.Weight)*0.7)*para_size)+Number(this.skilloption.WeaponMasteryATK);
                         this.computeattribute.atkc6_max = Math.floor(Math.floor((this.computeattribute.atkc6_max+this.weapon.Weight)*0.7)*para_size)+Number(this.skilloption.WeaponMasteryATK);
                     }
