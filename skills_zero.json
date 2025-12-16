@@ -1,8 +1,8 @@
 [
     { "skill": { "id": "SM_BASH", "name": "狂擊", "level": 10, "formula": "100+30*SLV", "class": "RK,RG", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "KN_PIERCE", "name": "連刺攻擊", "level": 10, "formula": "100+10*SLV+STR*2", "class": "RK", "DamageTypeIdx": 0, "hitnumber": "ESIZE>0?(ESIZE>1?4:3):2", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": "體型變更次數"} },
-    { "skill": { "id": "KN_BRANDISHSPEAR", "name": "騎乘攻擊", "level": 10, "formula": "400+100*SLV+STR*5", "class": "RK", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -3, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 2, "GCD": 0.3, "Note": ""} },
-    { "skill": { "id": "MS_BOWLINGBASH", "name": "怪物互擊", "level": 10, "formula": "100+40*SLV+STR", "class": "RK", "DamageTypeIdx": 0, "hitnumber": 4, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 2, "GCD": 0.3, "Note": "攻擊次數3~5次"} },
+    { "skill": { "id": "KN_BRANDISHSPEAR", "name": "騎乘攻擊", "level": 10, "formula": "400+100*SLV+STR*5", "class": "RK", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -3, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 2, "GCD": 0.3, "Note": ""} },
+    { "skill": { "id": "MS_BOWLINGBASH", "name": "怪物互擊", "level": 10, "formula": "100+40*SLV+STR", "class": "RK", "DamageTypeIdx": 0, "hitnumber": 4, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 2, "GCD": 0.3, "Note": "攻擊次數3~5次"} },
     { "skill": { "id": "LK_SPIRALPIERCE", "name": "螺旋擊刺", "level": 5, "formula": "(150+50*SLV)*BLV/100", "class": "RK", "DamageTypeIdx": 0, "hitnumber": 5, "elemental": 0, "FCT": "0.07+SLV*0.01", "VCT": "0.24+SLV*0.04", "CD": 0.5, "GCD": 0.3, "Note": ""} },
     
     { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*((WTI==\"Spears\")?5:2))*((WTI==\"Spears\")?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
@@ -49,7 +49,7 @@
     { "skill": { "id": "NC_AXETORNADO", "name": "戰斧颶風", "level": 5, "formula": "(200+180*SLV+VIT)*BLV/100", "class": "ME", "DamageTypeIdx": 0, "hitnumber": -6, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 2, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "NC_AXEBOOMERANG", "name": "迴旋斧", "level": 5, "formula": "(250+50*SLV+WGT)*BLV/100", "class": "ME", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": "1.1-(SLV*0.1)", "GCD": 0, "Note": "武器重量影響、魔導機甲執照不影響"} },
     
-    { "skill": { "id": "CR_ACIDDEMONSTRATION", "name": "強酸火煙瓶投擲", "level": 10, "formula": "(SLV*400+INT*2+EVit*10)*BLV/100", "class": "GE", "DamageTypeIdx": 0, "hitnumber": -10, "elemental": 0, "FCT": 0.2, "VCT": 0.8, "CD": 0.5, "GCD": 0.3, "Note": "須調整敵方VIT"} },
+    { "skill": { "id": "CR_ACIDDEMONSTRATION", "name": "強酸火煙瓶投擲", "level": 10, "formula": "(SLV*400+INT*2+EVit*10)*BLV/100", "class": "GE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -10, "elemental": 0, "FCT": 0.2, "VCT": 0.8, "CD": 0.5, "GCD": 0.3, "Note": "須調整敵方VIT，對角色玩家只造成50%的傷害。"} },
     
     { "skill": { "id": "WZ_EARTHSPIKE", "name": "地震術", "level": 5, "formula": "200+INT", "class": "WL,SO", "DamageTypeIdx": 1, "hitnumber": 5, "elemental": 4, "FCT": 0.28, "VCT": 1.12, "CD": 0.7, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "MG_FIREBALL", "name": "火球術", "level": 10, "formula": "140+20*SLV", "class": "WL,SO", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 1, "FCT": "SLV>5?0.1:0.16", "VCT": "SLV>5?0.4:0.64", "CD": 0.35, "GCD": 0.3, "Note": ""} },
