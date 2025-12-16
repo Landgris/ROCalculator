@@ -9555,7 +9555,7 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='RangedDamagePercent').totalvalue);
                     this.attritube['MELDP'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='MeleeDamagePercent').totalvalue);
-                    this.attritube['HITAtkDP'] += Number(this.effecttypelist.find(x => x.id == 'HitAtkDamagePercent').totalvalue);
+                    this.attritube['HITAtkDP'] = Number(this.effecttypelist.find(x => x.id == 'HitAtkDamagePercent').totalvalue);
                     this.attritube['RNGDDI'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamageDealtIncreasedPercent').totalvalue);
                     this.attritube['MELDDI'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamageDealtIncreasedPercent').totalvalue);
                     this.attritube['ELEDDI'] += Number(this.effecttypelist.find(x => x.id == 'ElementDamageDealtIncreasedPercent').totalvalue);
