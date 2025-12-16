@@ -7,13 +7,22 @@
     { "skill": { "id": "CR_SPEARQUICKEN", "name": "長矛加速術", "maxlv": 10, "lv": 10, "class": "RG", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "KN_RIDING", "name": "騎乘術", "maxlv": 5, "lv": 5, "class": "RK,RG", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "SM_MAGNUM", "name": "怒爆", "maxlv": 10, "lv": 10, "class": "RK,RG,SN", "changelv": false, "argnum": 0, "arg1": 20, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "ASC_EDP", "Note": "" } },
+    { "skill": { "id": "LK_AURABLADE", "name": "靈氣劍", "maxlv": 5, "lv": 5, "class": "RK", "changelv": false, "argnum": 0, "arg1": 8, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "LK_CONCENTRATION", "name": "集中攻擊", "maxlv": 5, "lv": 5, "class": "RK", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
     { "skill": { "id": "CR_TRUST", "name": "信任", "maxlv": 10, "lv": 10, "class": "RG,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
     { "skill": { "id": "AS_KATAR", "name": "拳刃修練", "maxlv": 10, "lv": 10, "class": "GX", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "AS_SONICACCEL", "name": "超音速投擲", "maxlv": 1, "lv": 1, "class": "GX", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "ASC_EDP", "name": "致命塗毒", "maxlv": 5, "lv": 5, "class": "GX", "changelv": false, "argnum": 0, "arg1": 25, "arg1desc": "", "arg2": 300, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "ASC_KATAR", "name": "高階拳刃修練", "maxlv": 5, "lv": 5, "class": "GX", "changelv": false, "argnum": 0, "arg1": 20, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
     { "skill": { "id": "RG_RAID", "name": "潛擊狀態(對一般階級)", "maxlv": 1, "lv": 1, "class": "SC", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "RG_RAID(boss)", "Note": "" } },
     { "skill": { "id": "RG_RAID(boss)", "name": "潛擊狀態(對Boss階級)", "maxlv": 1, "lv": 1, "class": "SC", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "RG_RAID", "Note": "" } },
     { "skill": { "id": "AL_INCAGI", "name": "加速術", "maxlv": 10, "lv": 10, "class": "AB,SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "AB_CANTO","Note": "" } },
     { "skill": { "id": "AL_BLESSING", "name": "天使之賜福", "maxlv": 10, "lv": 10, "class": "AB,SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "AB_CLEMENTIA","Note": "" } },
+    { "skill": { "id": "AB_CANTO", "name": "純白百合花", "maxlv": 3, "lv": 3, "class": "AB", "changelv": false, "argnum": 1, "arg1": 70, "arg1desc": "施展者JOB等級", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "AL_INCAGI","Note": "" } },
+    { "skill": { "id": "AB_CLEMENTIA", "name": "慈悲術", "maxlv": 3, "lv": 3, "class": "AB", "changelv": false, "argnum": 1, "arg1": 70, "arg1desc": "施展者JOB等級", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "AL_BLESSING","Note": "" } },
     { "skill": { "id": "PR_SUFFRAGIUM", "name": "犧牲祈福", "maxlv": 3, "lv": 3, "class": "AB", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "PR_IMPOSITIO", "name": "神威祈福", "maxlv": 5, "lv": 5, "class": "AB,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "PR_LEXAETERNA", "name": "天使之怒", "maxlv": 1, "lv": 1, "class": "AB", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
@@ -25,11 +34,15 @@
     
     { "skill": { "id": "MO_IRONHAND", "name": "鐵沙掌", "maxlv": 10, "lv": 10, "class": "SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "MO_DODGE", "name": "移花接木", "maxlv": 10, "lv": 10, "class": "SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
-    
+    { "skill": { "id": "SR_RAISINGDRAGON", "name": "潛龍昇天", "maxlv": 1, "lv": 1, "class": "SU", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "MO_CALLSPIRITS", "name": "蓄氣(氣彈數)", "maxlv": 5, "lv": 5, "class": "SU,SN", "changelv": true, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
+    { "skill": { "id": "HW_MAGICPOWER", "name": "魔力增幅", "maxlv": 10, "lv": 10, "class": "WL", "changelv": false, "argnum": 0, "arg1": 50, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
     { "skill": { "id": "AM_AXEMASTERY", "name": "斧頭/單手劍使用熟練度", "maxlv": 10, "lv": 10, "class": "ME,GE,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "GN_TRAINING_SWORD", "name": "單手劍使用熟練度(基因)", "maxlv": 5, "lv": 5, "class": "GE", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "GN_CARTBOOST", "name": "手推車加速", "maxlv": 5, "lv": 5, "class": "GE", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
     { "skill": { "id": "AC_OWL", "name": "鶚梟之眼", "maxlv": 10, "lv": 0, "class": "RA,MI,WA,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "AC_CONCENTRATION", "name": "心神凝聚", "maxlv": 10, "lv": 10, "class": "RA,MI,WA,SN", "changelv": false, "argnum": 2, "arg1": 0, "arg1desc": "裝備AGI", "arg2": 0, "arg2desc": "裝備DEX", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "MC_LOUD", "name": "大聲吶喊", "maxlv": 1, "lv": 1, "class": "ME,GE", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
@@ -40,6 +53,8 @@
     { "skill": { "id": "WS_MELTDOWN", "name": "野蠻凶砍", "maxlv": 10, "lv": 10, "class": "ME", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "","Note": "" } },
     { "skill": { "id": "BS_ADRENALINE", "name": "速度激發", "maxlv": 5, "lv": 5, "class": "ME", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "BS_HILTBINDING", "name": "武器保有", "maxlv": 1, "lv": 1, "class": "ME,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "NC_TRAININGAXE", "name": "斧頭使用熟練度", "maxlv": 10, "lv": 10, "class": "ME", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
     { "skill": { "id": "BS_WEAPONRESEARCH", "name": "武器研究", "maxlv": 10, "lv": 10, "class": "ME,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "AM_LEARNINGPOTION", "name": "知識藥水", "maxlv": 10, "lv": 10, "class": "GE", "changelv": true, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     

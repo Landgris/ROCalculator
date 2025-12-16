@@ -4855,7 +4855,8 @@
                                                 <span>基礎傷害</span>
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
-                                                <span>{{computeattribute.TrapBaseDMG | currency }}</span>
+                                                <span>{{computeattribute.matkmulti_min | currency }} ~
+                                                    {{computeattribute.matkmulti_max | currency }}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -4869,6 +4870,125 @@
                                             </el-col>
                                         </el-row>
                                     </div>
+                                    <div v-show="UIPanel['MixedPanel']">
+                                        <el-row class="titlebox" type="flex" align="middle" justify="end"
+                                            style="height:40px; padding: 0px 5px;">
+                                            <el-col class="textcenter" :span="3">
+                                            </el-col>
+                                            <el-col class="textcenter" :span="18">
+                                                <span class="textcenter">混傷計算</span>
+                                            </el-col>
+                                            <el-col v-if="UIPanel['MixedCompute']" class="textcenter" :span="3">
+                                                <el-button type="info" v-on:click="TogglePanel('MixedCompute')" size="mini">
+                                                    <i class="el-icon-arrow-up"></i></el-button>
+                                            </el-col>
+                                            <el-col v-else class="textcenter" :span="3">
+                                                <el-button type="info" v-on:click="TogglePanel('MixedCompute')" size="mini">
+                                                    <i class="el-icon-arrow-down"></i></el-button>
+                                            </el-col>
+                                        </el-row>
+                                        <el-collapse-transition>
+                                            <div v-show="UIPanel['MixedCompute']">
+                                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                    style="height:40px;">
+                                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                        <span>基礎物理傷害</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <span>{{computeattribute.atkc6_min | currency }} ~
+                                                            {{computeattribute.atkc6_max | currency }}</span>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                    style="height:40px;">
+                                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                        <span>基礎魔法傷害</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <span>{{computeattribute.matk1_min | currency }} ~
+                                                            {{computeattribute.matk1_max | currency }}</span>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                    style="height:40px;">
+                                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                        <span>基礎傷害</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <span>{{computeattribute.matk2_min | currency }} ~
+                                                            {{computeattribute.matk2_max | currency }}</span>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                    style="height:40px;">
+                                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                        <span>DEF計算</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <span>{{computeattribute.mixedskilldef_min | currency }} ~
+                                                            {{computeattribute.mixedskilldef_max | currency }}</span>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                    style="height:40px;">
+                                                    <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                        <span>MDEF計算</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <span>{{computeattribute.mixedskillmdef_min | currency }} ~
+                                                            {{computeattribute.mixedskillmdef_max | currency }}</span>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-collapse-transition>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>技能傷害</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.matk4_min | currency }} ~
+                                                    {{computeattribute.matk4_max | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>技能傷害(平均)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.matk4_avg | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0" class="statusbox" type="flex"
+                                            align="middle" justify="space-around" style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>技能總傷害</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.matkmulti_min | currency }} ~
+                                                    {{computeattribute.matkmulti_max | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0" class="statusbox" type="flex"
+                                            align="middle" justify="space-around" style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>技能總傷害(平均)</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.matkmulti_avg | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="" :span="10" style="text-align: right;">
+                                                <span>技能DPS</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.matkmulti_DPS | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
                                     <!-- 一般狀態面板 -->
                                     </el-collapse-transition>
                                     <el-row class="titlebox" type="flex" align="middle" justify="center"
@@ -4879,7 +4999,7 @@
                                     </el-row>
                                     <el-collapse-transition>
                                     <div v-show="UIPanel['General']">
-                                        <div v-if="skill.DamageTypeIdx==0 || skill.DamageTypeIdx==3">
+                                        <div v-if="skill.DamageTypeIdx==0 || skill.DamageTypeIdx==3 || skill.DamageTypeIdx==4">
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                                 style="height:40px;">
                                                 <el-col class="bg-purple-light" :span="10" style="text-align: right;">
@@ -5094,7 +5214,7 @@
                                                 </el-col>
                                             </el-row>
                                         </div>
-                                        <div v-else-if="skill.DamageTypeIdx==1">
+                                        <div v-if="skill.DamageTypeIdx==1 || skill.DamageTypeIdx==4">
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                                 style="height:40px;">
                                                 <el-col class="bg-purple-light" :span="10" style="text-align: right;">
@@ -6110,7 +6230,8 @@
                     { id: 0, label: '物理傷害' },
                     { id: 1, label: '魔法傷害' },
                     { id: 2, label: '龍息傷害' },
-                    { id: 3, label: '陷阱傷害' }
+                    { id: 3, label: '陷阱傷害' },
+                    { id: 4, label: '混和傷害' }
                 ],
                 skilloption: {
                     AttackElementalIdx: 0,      //玩家攻擊屬性
@@ -6290,6 +6411,14 @@
 
                     /*
                     */
+                    mixedskill_min: 0,
+                    mixedskill_max: 0,
+                    mixedskilldef_min: 0,
+                    mixedskilldef_max: 0,
+                    mixedskillmdef_min: 0,
+                    mixedskillmdef_max: 0,
+                    /*
+                    */
 
                     CastDEXINT: 0,      // INT*0.5 + DEX
                     CastTime: 0,    // 詠唱時間
@@ -6304,6 +6433,7 @@
                     ATKCompute: false,
                     MATKCompute: false,
                     DragonBreathCompute: false,
+                    MixedCompute: false,
                     SpecialATKPage: false,
 
                     AboutDialog: false,
@@ -6328,9 +6458,11 @@
                     EnemyPanel: false,
                     SkillPanel: false,
                     SupportSkillPanel: false,
-                    ATKPanel: true,
-                    MATKPanel: true,
-                    DragonBreathPanel: true,
+                    ATKPanel: false,
+                    MATKPanel: false,
+                    DragonBreathPanel: false,
+                    TrapPanel: false,
+                    MixedPanel: false,
                 },
                 Consent:true,
             },
@@ -7235,6 +7367,14 @@
                         this.computeattribute.atkc2_min = Number(this.computeattribute.atkc1_min);
                         this.computeattribute.atkc2_max = Number(this.computeattribute.atkc1_max);
                     }
+
+                    // 螺旋擊刺無視體型
+                    if (this.skill.id == "LK_SPIRALPIERCE")
+                    {
+                        this.computeattribute.atkc2_min = Number(this.computeattribute.atkc1_min);
+                        this.computeattribute.atkc2_max = Number(this.computeattribute.atkc1_max);
+                    }
+
                     this.computeattribute.atkc2_min += Number(this.weapon.ArrowATK);
                     this.computeattribute.atkc2_max += Number(this.weapon.ArrowATK);
 
@@ -7338,6 +7478,13 @@
                         this.computeattribute.atkc5_max = this.MulOper(this.computeattribute.atkc5_max, paraKihop);
                     }
 
+                    // 螺旋擊刺 武器修練位置更動
+                    if (this.skill.id == "LK_SPIRALPIERCE")
+                    {
+                        this.computeattribute.atkc5_min -= Number(this.skilloption.WeaponMasteryATK);
+                        this.computeattribute.atkc5_max -= Number(this.skilloption.WeaponMasteryATK);
+                    }
+
                     var paraSLSO = 0;
                     // 奇蹟 憎恨
                     if (this.IsSupportActive('SG_Miracle') || this.IsSupportActive('SG_HATE')) {
@@ -7407,6 +7554,13 @@
                             this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
                             this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
                         }
+                    }
+
+                    // 螺旋擊刺
+                    if ( this.skill.id == "LK_SPIRALPIERCE") 
+                    {
+                        this.computeattribute.atkc6_min = Math.floor(Math.floor((this.computeattribute.atkc6_min+this.weapon.Weight)*0.7)*para_size)+Number(this.skilloption.WeaponMasteryATK);
+                        this.computeattribute.atkc6_max = Math.floor(Math.floor((this.computeattribute.atkc6_max+this.weapon.Weight)*0.7)*para_size)+Number(this.skilloption.WeaponMasteryATK);
                     }
 
                     //技能倍率
@@ -7897,6 +8051,84 @@
                     }
 
                 },
+                ComputeMixedAtttibute() {
+                    this.ComputeATKAtttibute(false, false);
+                    this.ComputeMATKAtttibute();
+                    
+                    this.computeattribute.matk2_min = Math.floor((this.computeattribute.matk1_min + this.computeattribute.atkc6_min)/2);
+                    this.computeattribute.matk2_max = Math.floor((this.computeattribute.matk1_min + this.computeattribute.atkc6_max)/2);
+                    
+                    var para_skillpercent = Math.floor(this.option.SkillPercent) + Number(this.computeattribute['SpecialMATK1']);
+                    this.computeattribute.mixedskill_min = Math.floor(this.computeattribute.matk2_min * Number(para_skillpercent / 100));
+                    this.computeattribute.mixedskill_max = Math.floor(this.computeattribute.matk2_max * Number(para_skillpercent / 100));
+                    
+                    // 計算敵方DEF
+                    if (!this.option.IgnoreDEF) {
+                        const bypassDEF = Number(this.attritube['BYPASSDEF']) / 100;
+                        const isBypassFull = bypassDEF >= 1; // 判斷是否穿透100%
+                        const weaponDEFMultiplier = isBypassFull ? 0 : (1 - bypassDEF);
+
+                        // 計算 WeaponDEF 的影響
+                        const weaponDEF = this.MulOper(Number(this.enemyattribute.WeaponDEF), weaponDEFMultiplier);
+
+                        if (isBypassFull) {
+                            // 當穿透100%時，無視 StatusDEF 和 WeaponDEF
+                            this.computeattribute.atkc7_min -= weaponDEF;
+                            this.computeattribute.atkc7_max -= weaponDEF;
+                        } else if (this.skill.transWeaponDEF) {
+                            // 當技能有 transWeaponDEF 特性時，WeaponDEF 變為減算
+                            this.computeattribute.atkc7_min -= weaponDEF + Number(this.enemyattribute.StatusDEF);
+                            this.computeattribute.atkc7_max -= weaponDEF + Number(this.enemyattribute.StatusDEF);
+                        } else {
+                            // 正常情況下，WeaponDEF 為百分比，StatusDEF 為減算
+                            const defMultiplier = (4000 + weaponDEF) / (4000 + 10 * weaponDEF);
+                            this.computeattribute.enemydef = (defMultiplier * 100).toFixed(2);
+                            this.computeattribute.mixedskilldef_min = Math.floor(this.computeattribute.mixedskill_min * defMultiplier) - Number(this.enemyattribute.StatusDEF);
+                            this.computeattribute.mixedskilldef_max = Math.floor(this.computeattribute.mixedskill_max * defMultiplier) - Number(this.enemyattribute.StatusDEF);
+                        }
+                    }
+
+                    if (this.option.IgnoreMDEF == false) {
+                        var parabypassMDEF = Number(1) - Number(this.attritube['BYPASSMDEF']) / 100;
+                        var paraMDEF = ((1000 + this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)) /
+                            (1000 + 10 * this.MulOper(Number(this.enemyattribute.WeaponMDEF), parabypassMDEF)));
+                        this.computeattribute.enemymdef = (paraMDEF * 100).toFixed(2);
+                        this.computeattribute.mixedskillmdef_min = Math.floor(this.computeattribute.mixedskilldef_min * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
+                        this.computeattribute.mixedskillmdef_max = Math.floor(this.computeattribute.mixedskilldef_max * paraMDEF) - Number(this.enemyattribute.StatusMDEF);
+                    }
+                    if (this.skill.ignoreRES == null || this.skill.ignoreRES == false)
+                    {
+                        var parabypassMRES = Number(1) - Number(this.attritube['BYPASSMRES']) / 100;
+                        var paraMRES = ((2000 + this.MulOper(Number(this.enemyattribute.MRES), parabypassMRES)) /
+                            (2000 + 5 * this.MulOper(Number(this.enemyattribute.MRES), parabypassMRES)));
+                        this.computeattribute.mixedskillmdef_min = Math.floor(this.computeattribute.mixedskillmdef_min * paraMRES);
+                        this.computeattribute.mixedskillmdef_max = Math.floor(this.computeattribute.mixedskillmdef_max * paraMRES);
+                    }
+                    this.computeattribute.matk3_min = this.MulOper(this.computeattribute.mixedskillmdef_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
+                    this.computeattribute.matk3_max = this.MulOper(this.computeattribute.mixedskillmdef_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
+
+                    this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk3_min, Number(this.skilloption.ElementalPercent / 100));
+                    this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk3_max, Number(this.skilloption.ElementalPercent / 100));
+
+                    this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialMATK3'] / 100));
+                    this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialMATK3'] / 100));
+
+                    var _paradiv = eval(this.SkillFormulaReplace(this.skill.hitnumber));
+                    if (_paradiv == 0) _paradiv = 1;
+                    if (_paradiv < 0) {
+                        _paradiv *= -1;
+                        this.computeattribute.matk4_min = Math.floor(this.computeattribute.matk4_min / _paradiv);
+                        this.computeattribute.matk4_max = Math.floor(this.computeattribute.matk4_max / _paradiv);
+                    }
+
+                    _MATKDamageMin = this.computeattribute.matk4_min * _paradiv;
+                    _MATKDamageMax = this.computeattribute.matk4_max * _paradiv;
+
+                    return {
+                        Min: _MATKDamageMin,
+                        Max: _MATKDamageMax
+                    };
+                },
                 onChangeEnemyStatus() {
 
                 },
@@ -7912,7 +8144,7 @@
                     if (this.skill.hitnumber == '') this.skill.hitnumber = 1;
                     if (this.skill.level == '') this.skill.level = 1;
                     var _formula = this.skill.formula;
-                    if (this.status.level < 100) _formula = _formula.replace(new RegExp("BLV", "g"), "100");
+                    if (this.status.Level < 100) _formula = _formula.replace(new RegExp("BLV", "g"), "100");
                     try{
                         var f = this.SkillFormulaReplace(_formula);
                         this.option.SkillPercent = eval(f);
@@ -7925,6 +8157,8 @@
                     this.ClosePanel('ATKPanel');
                     this.ClosePanel('MATKPanel');
                     this.ClosePanel('DragonBreathPanel');
+                    this.ClosePanel('TrapPanel');
+                    this.ClosePanel('MixedPanel');
                     switch (this.skill.DamageTypeIdx) {
                         case 0:
                             this.ComputeATKAtttibute(true, true);
@@ -7986,6 +8220,16 @@
                         case 3:
                             this.ComputeTRAPAttibute();
                             this.OpenPanel('TrapPanel');
+                            break;
+                        case 4:
+                            var _Damage = this.ComputeMixedAtttibute();
+                            
+                            this.computeattribute.matk4_avg = (this.computeattribute.matk4_min+this.computeattribute.matk4_max)*0.5;
+                            this.computeattribute.matkmulti_min = Number(_Damage.Min);
+                            this.computeattribute.matkmulti_max = Number(_Damage.Max);
+                            this.computeattribute.matkmulti_avg = (this.computeattribute.matkmulti_min+this.computeattribute.matkmulti_max)*0.5;
+                            
+                            this.OpenPanel('MixedPanel');
                             break;
                     }
                 },
