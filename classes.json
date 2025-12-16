@@ -155,7 +155,7 @@
         "TranscendentClass": false,
         "secondJobMaxPT": [0,0,0,0,0,0],
         "thirdJobMaxPT": [12,10,6,3,9,3],
-        "fourthJobMaxPT": [12,10,6,3,9,3,12,10,2,0,6,7],
+        "fourthJobMaxPT": [12,10,6,3,9,3,12,10,2,0,7,7],
         "baseaspd": 0
     },
     {
