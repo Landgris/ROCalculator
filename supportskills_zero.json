@@ -19,6 +19,8 @@
     
     { "skill": { "id": "RG_RAID", "name": "潛擊狀態(對一般階級)", "maxlv": 1, "lv": 1, "class": "SC", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "RG_RAID(boss)", "Note": "" } },
     { "skill": { "id": "RG_RAID(boss)", "name": "潛擊狀態(對Boss階級)", "maxlv": 1, "lv": 1, "class": "SC", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "RG_RAID", "Note": "" } },
+    { "skill": { "id": "SC_AUTOSHADOWSPELL", "name": "自動魅影念咒", "maxlv": 1, "lv": 1, "class": "SC", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
     { "skill": { "id": "AL_INCAGI", "name": "加速術", "maxlv": 10, "lv": 10, "class": "AB,SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "AB_CANTO","Note": "" } },
     { "skill": { "id": "AL_BLESSING", "name": "天使之賜福", "maxlv": 10, "lv": 10, "class": "AB,SU,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "AB_CLEMENTIA","Note": "" } },
     { "skill": { "id": "AB_CANTO", "name": "純白百合花", "maxlv": 3, "lv": 3, "class": "AB", "changelv": false, "argnum": 1, "arg1": 70, "arg1desc": "施展者JOB等級", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "AL_INCAGI","Note": "" } },
