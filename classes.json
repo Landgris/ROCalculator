@@ -4,6 +4,7 @@
         "label": "騎士/盧恩騎士/盧恩龍爵",
         "TranscendentClass": true,
         "secondJobMaxPT": [8,2,10,0,6,4],
+        "secondExtendJobMaxPT": [15,8,8,2,9,3],
         "thirdJobMaxPT": [6,6,7,10,9,5],
         "fourthJobMaxPT": [6,8,7,8,8,6,10,6,3,5,6,8],
         "Tbasehp": [42047,44922,47917],
@@ -15,6 +16,7 @@
         "label": "刺客/十字斬首者/十字影武",
         "TranscendentClass": true,
         "secondJobMaxPT": [6,10,2,4,8,0],
+        "secondExtendJobMaxPT": [9,15,3,0,10,8],
         "thirdJobMaxPT": [8,11,6,5,9,4],
         "fourthJobMaxPT": [8,11,6,5,9,4,12,8,4,0,7,7],
         "baseaspd": 0
@@ -24,6 +26,7 @@
         "label": "祭司/大主教/樞機主教",
         "TranscendentClass": true,
         "secondJobMaxPT": [5,4,5,5,4,7],
+        "secondExtendJobMaxPT": [7,8,7,12,9,2],
         "thirdJobMaxPT": [6,7,7,12,7,4],
         "fourthJobMaxPT": [6,7,7,12,7,4,8,5,5,9,4,7],
         "baseaspd": 0
@@ -33,6 +36,7 @@
         "label": "獵人/遊俠/風鷹狩獵者",
         "TranscendentClass": true,
         "secondJobMaxPT": [4,6,2,4,10,4],
+        "secondExtendJobMaxPT": [4,11,3,5,14,8],
         "thirdJobMaxPT": [2,12,8,9,8,4],
         "fourthJobMaxPT": [2,12,8,9,8,4,9,5,5,4,11,4],
         "baseaspd": 0
@@ -42,6 +46,7 @@
         "label": "巫師/咒術士/禁咒魔導士",
         "TranscendentClass": true,
         "secondJobMaxPT": [1,8,1,12,6,2],
+        "secondExtendJobMaxPT": [3,8,5,17,9,3],
         "thirdJobMaxPT": [1,7,8,15,8,4],
         "fourthJobMaxPT": [1,7,8,15,8,4,0,8,7,13,9,1],
         "baseaspd": 0
@@ -51,6 +56,7 @@
         "label": "鐵匠/機械工匠/機甲神匠",
         "TranscendentClass": true,
         "secondJobMaxPT": [6,2,6,2,12,2],
+        "secondExtendJobMaxPT": [6,7,6,6,12,8],
         "thirdJobMaxPT": [10,6,10,6,5,6],
         "fourthJobMaxPT": [10,6,10,6,5,6,9,10,5,0,7,7],
         "baseaspd": 0
@@ -60,6 +66,7 @@
         "label": "十字軍/皇家禁衛軍/帝國聖衛軍",
         "TranscendentClass": true,
         "secondJobMaxPT": [7,2,7,6,3,5],
+        "secondExtendJobMaxPT": [9,8,10,7,8,3],
         "thirdJobMaxPT": [9,3,9,10,9,3],
         "fourthJobMaxPT": [9,3,9,10,9,3,7,11,6,7,4,3],
         "Tbasehp": [42218,45557,49081],
@@ -71,6 +78,7 @@
         "label": "流氓/魅影追蹤者/深淵追跡者",
         "TranscendentClass": true,
         "secondJobMaxPT": [6,7,6,4,7,0],
+        "secondExtendJobMaxPT": [9,11,4,3,12,6],
         "thirdJobMaxPT": [8,9,8,6,6,6],
         "fourthJobMaxPT": [8,9,8,6,6,6,8,8,4,7,5,6],
         "baseaspd": 0
@@ -80,6 +88,7 @@
         "label": "武僧/修羅/聖裁者",
         "TranscendentClass": true,
         "secondJobMaxPT": [8,7,6,2,4,3],
+        "secondExtendJobMaxPT": [9,9,7,7,10,3],
         "thirdJobMaxPT": [10,10,6,8,8,1],
         "fourthJobMaxPT": [10,10,6,8,8,1,11,8,5,3,5,6],
         "Tbasehp": [40387,43581,46952],
@@ -91,6 +100,7 @@
         "label": "詩人/宮廷樂師/天籟頌者",
         "TranscendentClass": true,
         "secondJobMaxPT": [2,7,3,5,9,4],
+        "secondExtendJobMaxPT": [8,12,2,5,14,4],
         "thirdJobMaxPT": [7,7,7,9,10,3],
         "fourthJobMaxPT": [7,7,7,9,10,3,6,7,4,6,11,4],
         "baseaspd": 0
@@ -100,6 +110,7 @@
         "label": "舞孃/浪跡舞者/樂之舞靈",
         "TranscendentClass": true,
         "secondJobMaxPT": [2,7,3,5,5,8],
+        "secondExtendJobMaxPT": [6,14,2,5,16,2],
         "thirdJobMaxPT": [7,9,7,9,9,2],
         "fourthJobMaxPT": [7,9,6,10,8,3,6,7,4,6,11,4],
         "baseaspd": 0
@@ -109,6 +120,7 @@
         "label": "賢者/妖術師/元素支配者",
         "TranscendentClass": true,
         "secondJobMaxPT": [5,5,3,9,5,3],
+        "secondExtendJobMaxPT": [6,9,4,13,11,2],
         "thirdJobMaxPT": [4,4,8,13,9,5],
         "fourthJobMaxPT": [4,4,8,13,9,5,3,8,7,12,5,3],
         "baseaspd": 0
@@ -118,6 +130,7 @@
         "label": "煉金/基因學者/生命締造者",
         "TranscendentClass": true,
         "secondJobMaxPT": [5,6,3,7,9,0],
+        "secondExtendJobMaxPT": [4,6,3,7,14,11],
         "thirdJobMaxPT": [5,6,8,12,8,4],
         "fourthJobMaxPT": [5,6,8,12,8,4,7,4,4,4,7,12],
         "baseaspd": 0

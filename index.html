@@ -5739,9 +5739,10 @@
 
                 // 新增：Job加成來源下拉選單選項
                 jobMaxPointTypeList: [
-                    { label: '二轉', value: '2nd' },
-                    { label: '三轉', value: '3rd' },
-                    { label: '四轉', value: '4th' }
+                    { label: '二轉50', value: '2nd' },
+                    { label: '進階二轉70', value: '2nd_extend' },
+                    { label: '三轉50', value: '3rd' },
+                    { label: '四轉60', value: '4th' }
                 ],
 
                 // 技能檔案設定
@@ -8515,6 +8516,7 @@
                             this.status_job.INT += this.ClassInfo.thirdJobMaxPT[3];
                             this.status_job.DEX += this.ClassInfo.thirdJobMaxPT[4];
                             this.status_job.LUK += this.ClassInfo.thirdJobMaxPT[5];
+                            this.status.JOBLevel = 50;
                         } else if (this.status.JobMaxPointType === '2nd' && this.ClassInfo.secondJobMaxPT != null) {
                             // 二轉加成
                             this.status_job.STR += this.ClassInfo.secondJobMaxPT[0];
@@ -8523,6 +8525,16 @@
                             this.status_job.INT += this.ClassInfo.secondJobMaxPT[3];
                             this.status_job.DEX += this.ClassInfo.secondJobMaxPT[4];
                             this.status_job.LUK += this.ClassInfo.secondJobMaxPT[5];
+                            this.status.JOBLevel = 50;
+                        } else if (this.status.JobMaxPointType === '2nd_extend' && this.ClassInfo.secondExtendJobMaxPT != null) {
+                            // 進階二轉加成
+                            this.status_job.STR += this.ClassInfo.secondExtendJobMaxPT[0];
+                            this.status_job.AGI += this.ClassInfo.secondExtendJobMaxPT[1];
+                            this.status_job.VIT += this.ClassInfo.secondExtendJobMaxPT[2];
+                            this.status_job.INT += this.ClassInfo.secondExtendJobMaxPT[3];
+                            this.status_job.DEX += this.ClassInfo.secondExtendJobMaxPT[4];
+                            this.status_job.LUK += this.ClassInfo.secondExtendJobMaxPT[5];
+                            this.status.JOBLevel = 70;
                         }
                     }
 
@@ -10336,6 +10348,9 @@
                         const lv = this.status.Level || 0;
                         if (lv < 100) {
                             this.status.JobMaxPointType = '2nd';
+                            if( this.status.JOBLevel>50 ){
+                                this.status.JobMaxPointType = '2nd_extend';
+                            }
                         } else if (lv > 200) {
                             this.status.JobMaxPointType = '4th';
                         } else {
@@ -10479,10 +10494,10 @@
                     
                     // 根據模式覆蓋等級設定（在載入localStorage後執行，確保優先級）
                     if (isZeroMode) {
-                        // Zero模式：BaseLevel 60, JobLevel 50
-                        this.status.Level = 60;
-                        this.status.JOBLevel = 50;
-                        console.log('🎯 Zero模式已啟用 - 預設等級設定為 BaseLevel: 60, JobLevel: 50');
+                        // Zero模式：BaseLevel 80, JobLevel 70
+                        this.status.Level = 80;
+                        this.status.JOBLevel = 70;
+                        console.log('Zero模式已啟用 - 預設等級設定為 BaseLevel: 80, JobLevel: 70');
                     } else {
                         // 一般模式：BaseLevel 250, JobLevel 55（保持原有設定）
                         if (this.status.Level === 0 || this.status.Level === 60) {
