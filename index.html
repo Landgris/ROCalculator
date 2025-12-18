@@ -7513,7 +7513,7 @@
                     var shouldApplyCrit = isNA ? isCRI : (this.skill.critical && isCRI);
                     
                     if (shouldApplyCrit) {
-                        var para_crid = Number(1) + Number(this.attritube['CRIDP']) / 100;
+                        var para_crid = Number(1) + Number(this.attritube['CRIDP']) * 0.5 / 100;
                         this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
                         this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_crid);
                     } else {
