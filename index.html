@@ -7657,13 +7657,11 @@
                         // 技能增傷裝
                         this.computeattribute.atkc8_min = this.MulOper(this.computeattribute.atkc8_min, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
                         this.computeattribute.atkc8_max = this.MulOper(this.computeattribute.atkc8_max, Number(1) + Number(this.option.EquipSkillAddDamage / 100));
-                    //}
-                    //else{
-                    //靈氣劍技能有效
-                        var parasp6 = Number(this.computeattribute['SpecialATK8']);
-                        this.computeattribute.atkc8_min += parasp6;
-                        this.computeattribute.atkc8_max += parasp6
                     };
+                    //靈氣劍技能有效
+                    var parasp6 = Number(this.computeattribute['SpecialATK8']);
+                    this.computeattribute.atkc8_min += parasp6;
+                    this.computeattribute.atkc8_max += parasp6
 
                     //野蠻兇砍
                     if (this.IsSupportActive('WS_MELTDOWN')) {
