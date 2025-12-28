@@ -9,6 +9,7 @@
     { "skill": { "id": "SM_MAGNUM", "name": "怒爆", "maxlv": 10, "lv": 10, "class": "RK,RG,SN", "changelv": false, "argnum": 0, "arg1": 20, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "ASC_EDP", "Note": "" } },
     { "skill": { "id": "LK_AURABLADE", "name": "靈氣劍", "maxlv": 5, "lv": 5, "class": "RK", "changelv": false, "argnum": 0, "arg1": 8, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "LK_CONCENTRATION", "name": "集中攻擊", "maxlv": 5, "lv": 5, "class": "RK", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "LK_BERSERK", "name": "狂怒之槍", "maxlv": 1, "lv": 1, "class": "RK", "changelv": false, "argnum": 0, "arg1": 8, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     
     { "skill": { "id": "CR_TRUST", "name": "信任", "maxlv": 10, "lv": 10, "class": "RG,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     
@@ -66,7 +67,9 @@
     { "skill": { "id": "DC_HUMMING", "name": "哼唱之音", "maxlv": 10, "lv": 10, "class": "MI,WA", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "DC_FORTUNEKISS", "name": "女神之吻", "maxlv": 10, "lv": 10, "class": "MI,WA", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "DC_SERVICEFORYOU", "name": "為您服務", "maxlv": 10, "lv": 10, "class": "MI,WA", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    
     { "skill": { "id": "SA_ADVANCEDBOOK", "name": "進化之書", "maxlv": 10, "lv": 10, "class": "SO", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "PF_MINDBREAKER", "name": "精神撼動", "maxlv": 5, "lv": 5, "class": "SO", "changelv": true, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "","Note": "" } },
     { "skill": { "id": "SA_VOLCANO", "name": "火元素領域", "maxlv": 5, "lv": 5, "class": "SO", "changelv": true, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "SA_DELUGE,SA_VIOLENTGALE","Note": "" } },
     { "skill": { "id": "SA_DELUGE", "name": "水元素領域", "maxlv": 5, "lv": 5, "class": "SO", "changelv": true, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "SA_VOLCANO,SA_VIOLENTGALE","Note": "" } },
     { "skill": { "id": "SA_VIOLENTGALE", "name": "風元素領域", "maxlv": 5, "lv": 5, "class": "SO", "changelv": true, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "SA_VOLCANO,SA_DELUGE","Note": "" } }

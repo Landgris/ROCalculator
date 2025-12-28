@@ -7924,6 +7924,12 @@
                         this.computeattribute.matk4_min = Math.floor(this.computeattribute.matk4_min * Number(Math.floor(this.option.SkillPercent) / 100));
                         this.computeattribute.matk4_max = Math.floor(this.computeattribute.matk4_max * Number(Math.floor(this.option.SkillPercent) / 100));
                     }
+                    // 精神撼動
+                    if (this.IsSupportActive('PF_MINDBREAKER')){
+                        var paramblv = Number(1) + Number(this.GetSupportSkill('PF_MINDBREAKER').lv*20 / 100);
+                        this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, paramblv);
+                        this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, paramblv);
+                    }
                     /*
                     if (this.skill.laterformula == true) {
                         this.computeattribute.matk4_min = Math.floor(this.computeattribute.matk4_min * Number(Math.floor(this.option.SkillPercent) / 100));
@@ -9032,6 +9038,9 @@
                         }
                     }
 
+                    // 精神撼動
+                    if (this.IsSupportActive('PF_MINDBREAKER')){
+                    }
                     // 龍知識
                     if (this.IsSupportActive('SA_DRAGONOLOGY')){
                         this.status_add.INT += 3;

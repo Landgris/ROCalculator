@@ -3,30 +3,31 @@
     { "skill": { "id": "KN_PIERCE", "name": "連刺攻擊", "level": 10, "formula": "100+10*SLV+STR*2", "class": "RK", "DamageTypeIdx": 0, "hitnumber": "ESIZE>0?(ESIZE>1?4:3):2", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": "體型變更次數"} },
     { "skill": { "id": "KN_BRANDISHSPEAR", "name": "騎乘攻擊", "level": 10, "formula": "400+100*SLV+STR*5", "class": "RK", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -3, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 2, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "MS_BOWLINGBASH", "name": "怪物互擊", "level": 10, "formula": "100+40*SLV+STR", "class": "RK", "DamageTypeIdx": 0, "hitnumber": 4, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 2, "GCD": 0.3, "Note": "攻擊次數3~5次"} },
-    { "skill": { "id": "LK_SPIRALPIERCE", "name": "螺旋擊刺", "level": 5, "formula": "(150+50*SLV)*BLV/100", "class": "RK", "DamageTypeIdx": 0, "hitnumber": 5, "elemental": 0, "FCT": "0.07+SLV*0.01", "VCT": "0.24+SLV*0.04", "CD": 0.5, "GCD": 0.3, "Note": ""} },
+    { "skill": { "id": "LK_SPIRALPIERCE", "name": "螺旋擊刺", "level": 5, "formula": "(150+50*SLV)*BLV/100", "class": "RK", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 5, "elemental": 0, "FCT": "0.07+SLV*0.01", "VCT": "0.24+SLV*0.04", "CD": 0.5, "GCD": 0.3, "Note": ""} },
     
     { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*((WTI==\"Spears\")?5:2))*((WTI==\"Spears\")?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CR_GRANDCROSS", "name": "聖十字審判", "level": 10, "formula": "100+SLV*40", "class": "RG", "DamageTypeIdx": 4, "hitnumber": 3, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CR_SHIELDBOOMERANG", "name": "迴旋盾擊", "level": 5, "formula": "80*SLV+SHW+SRL*4", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "PA_SHIELDCHAIN", "name": "連續盾擊", "level": 5, "formula": "600+(400*SLV)+SHW+SRL*4", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "LG_CANNONSPEAR", "name": "加農砲攻擊", "level": 5, "formula": "(120+STR)*SLV*BLV/100", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "critical": true, "hitnumber": 1, "elemental": 0, "FCT": 0.1, "VCT": 0.4, "CD": 0, "GCD": 1, "Note": ""} },
     { "skill": { "id": "PA_SACRIFICE", "name": "捨命攻擊", "level": 5, "formula": "Mhp*0.09*(1+(SLV-1)*0.1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     
     { "skill": { "id": "AS_SONICBLOW", "name": "音速投擲", "level": 10, "formula": "200+100*SLV", "class": "GX", "DamageTypeIdx": 0, "hitnumber": -8, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 1, "GCD": 0, "Note": ""} },
     { "skill": { "id": "AS_GRIMTOOTH", "name": "無影之牙", "level": 5, "formula": "100+20*SLV+AGI", "class": "GX", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 1, "GCD": 0, "Note": "LV3以上為遠距離(預設)"} },
     { "skill": { "id": "AS_SPLASHER", "name": "毒性感染", "level": 10, "formula": "400+100*SLV", "class": "GX", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0.2, "VCT": 0.8, "CD": 1, "GCD": 0, "Note": "CD隨等級降低，TODO"} },
-    { "skill": { "id": "ASC_BREAKER", "name": "心靈震波", "level": 10, "formula": "150*SLV+STR+INT", "class": "GX", "DamageTypeIdx": 0, "ranged": true, "critical": true, "hitnumber": 1, "elemental": 0, "FCT": 0.1, "VCT": 0.4, "CD": 0.5, "GCD": 0.3, "Note": ""} },
+    { "skill": { "id": "ASC_BREAKER", "name": "心靈震波", "level": 10, "formula": "(150*SLV+STR+INT)*BLV/100", "class": "GX", "DamageTypeIdx": 0, "ranged": true, "critical": true, "hitnumber": 1, "elemental": 0, "FCT": 0.1, "VCT": 0.4, "CD": 0.5, "GCD": 0.3, "Note": "BLV調整成當前等級"} },
     { "skill": { "id": "ASC_METEORASSAULT", "name": "黑暗瞬間", "level": 10, "formula": "(200+120*SLV)*BLV/100", "class": "GX", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": ""} },
     
     { "skill": { "id": "RG_BACKSTAP", "name": "背刺", "level": 10, "formula": "(900+120*SLV)*((WTI==\"Bows\")?0.5:1)", "class": "SC", "DamageTypeIdx": 0, "hitnumber": "((WTI==\"Daggers\")?2:1)", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": "弓傷害減半，短劍傷害次數+1"} },
     { "skill": { "id": "RG_RAID", "name": "潛擊", "level": 5, "formula": "100+150*SLV+AGI*3+DEX/2", "class": "SC", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": "需考慮隱匿延遲"} },
-    { "skill": { "id": "SC_TRIANGLESHOT", "name": "三角射擊", "level": 10, "formula": "(230*SLV+AGI*3)*BLV/100", "class": "SC", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -3, "elemental": 0, "FCT": 0.2, "VCT": 0.8, "CD": 0, "GCD": 0.2, "Note": ""} },
+    { "skill": { "id": "SC_TRIANGLESHOT", "name": "三角射擊", "level": 10, "formula": "(230*SLV+AGI*3)*BLV/100", "class": "SC", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -3, "elemental": 0, "FCT": 0.2, "VCT": 0.8, "CD": 0, "GCD": 0.2, "Note": "BLV調整成當前等級"} },
     
     { "skill": { "id": "AC_DOUBLE", "name": "二連矢", "level": 10, "formula": "90+10*SLV", "class": "SC,RA,MI,WA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0.1, "Note": ""} },
     { "skill": { "id": "HT_BLITZBEAT", "name": "閃電衝擊", "level": 5, "formula": "((AGI/2+DEX/10)*2+10*6+SLV*10)", "class": "RA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": "SLV", "elemental": 0, "FCT": 0, "VCT": 0.5, "CD": 0.3, "GCD": 0.3, "Note": "10*6的10為鋼製喙等級"} },
     { "skill": { "id": "HT_LANDMINE", "name": "地雷陷阱", "level": 5, "formula": "100", "class": "RA", "DamageTypeIdx": 3, "hitnumber": 1, "elemental": 0, "FCT": 0.2, "VCT": 0.8, "CD": 0.5, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "HT_CLAYMORETRAP", "name": "爆散陷阱", "level": 5, "formula": "100", "class": "RA", "DamageTypeIdx": 3, "hitnumber": 1, "elemental": 1, "FCT": 0.2, "VCT": 0.8, "CD": 0.5, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "HT_BLASTMIN", "name": "定時爆炸陷阱", "level": 5, "formula": "100", "class": "RA", "DamageTypeIdx": 3, "hitnumber": 1, "elemental": 3, "FCT": 0.2, "VCT": 0.8, "CD": 0.5, "GCD": 0.3, "Note": ""} },
-    { "skill": { "id": "SN_SHARPSHOOTING", "name": "銳利射擊", "level": 5, "formula": "(300+300*SLV)*(BLV/100)", "class": "RA", "DamageTypeIdx": 0, "ranged": true, "critical": true, "hitnumber": 1, "elemental": 0, "FCT": 0.5, "VCT": 0.5, "CD": 0.15, "GCD": 0.5, "Note": ""} },
+    { "skill": { "id": "SN_SHARPSHOOTING", "name": "銳利射擊", "level": 5, "formula": "(300+300*SLV)*BLV/100", "class": "RA", "DamageTypeIdx": 0, "ranged": true, "critical": true, "hitnumber": 1, "elemental": 0, "FCT": 0.5, "VCT": 0.5, "CD": 0.15, "GCD": 0.5, "Note": ""} },
     
     { "skill": { "id": "BA_MUSICALSTRIKE", "name": "樂器攻擊/纏箭投擲", "level": 5, "formula": "100+40*SLV+INT", "class": "MI,WA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "CG_ARROWVULCAN", "name": "奧義箭亂舞", "level": 10, "formula": "(1000+SLV*200)*BLV/100", "class": "MI,WA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -9, "elemental": 0, "FCT": "0.18+SLV*0.02", "VCT": "0.72+SLV*0.08", "CD": 1.5, "GCD": 0.3, "Note": ""} },
@@ -46,7 +47,7 @@
     { "skill": { "id": "MC_CARTREVOLUTION", "name": "手推車攻擊", "level": 1, "formula": "150+CRW*100/8000", "class": "ME,GE", "DamageTypeIdx": 0, "cart":true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "MC_MAMMONITE", "name": "金錢攻擊", "level": 10, "formula": "100+50*SLV", "class": "ME,GE", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "AM_ACIDTERROR", "name": "強酸攻擊", "level": 5, "formula": "200*SLV+1000", "class": "GE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
-    { "skill": { "id": "NC_AXETORNADO", "name": "戰斧颶風", "level": 5, "formula": "(700*SLV+VIT)*BLV/100", "class": "ME", "DamageTypeIdx": 0, "hitnumber": -6, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 2, "GCD": 0.3, "Note": ""} },
+    { "skill": { "id": "NC_AXETORNADO", "name": "戰斧颶風", "level": 5, "formula": "(700*SLV+VIT*10)*BLV/100", "class": "ME", "DamageTypeIdx": 0, "hitnumber": -6, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 2, "GCD": 0.3, "Note": "BLV調整成當前等級"} },
     { "skill": { "id": "NC_AXEBOOMERANG", "name": "迴旋斧", "level": 5, "formula": "(250+50*SLV+WGT)*BLV/100", "class": "ME", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": "1.1-(SLV*0.1)", "GCD": 0, "Note": "武器重量影響、魔導機甲執照不影響"} },
     { "skill": { "id": "NC_POWERSWING", "name": "揮斧重擊", "level": 10, "formula": "300+100*SLV+STR+DEX", "class": "ME,GE", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": "SLV>5?0.2:0.3", "Note": ""} },
     
@@ -62,7 +63,7 @@
     { "skill": { "id": "WZ_VERMILION", "name": "怒雷強擊", "level": 10, "formula": "400+SLV*100+INT", "class": "WL", "DamageTypeIdx": 1, "hitnumber": -20, "elemental": 3, "FCT": 0.84, "VCT": 3.36, "CD": 1.5, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "WZ_STORMGUST", "name": "暴風雪", "level": 10, "formula": "70+SLV*50+INT", "class": "WL", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 2, "FCT": 1.2, "VCT": 4.8, "CD": 2.5, "GCD": 0.3, "Note": "倍率是單下，總傷害為10下滿"} },
     { "skill": { "id": "HW_NAPALMVULCAN", "name": "念力連擊", "level": 5, "formula": "70*SLV*BLV/100", "class": "WL", "DamageTypeIdx": 1, "hitnumber": "SLV", "elemental": 8, "FCT": 0.1, "VCT": 0.4, "CD": 0.3, "GCD": 0.5, "Note": ""} },
-    { "skill": { "id": "HW_GRAVITATION", "name": "重力原野", "level": 5, "formula": "SLV*100", "class": "WL", "DamageTypeIdx": 1, "hitnumber": "SLV*2", "elemental": 0, "FCT": 1, "VCT": 4, "CD": "2+SLV*0.5", "GCD": 0.3, "Note": ""} },
+    { "skill": { "id": "HW_GRAVITATION", "name": "重力原野", "level": 5, "formula": "SLV*100*BLV/100", "class": "WL", "DamageTypeIdx": 1, "hitnumber": "SLV*2", "elemental": 0, "FCT": 1, "VCT": 4, "CD": "2+SLV*0.5", "GCD": 0.3, "Note": ""} },
     
     { "skill": { "id": "SO_SPELLFIST", "name": "魔力拳", "level": 10, "formula": "(100+INT/2)*10+SLV*100", "class": "SO", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 1, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": "10為施放的火箭/冰箭/雷擊技能等級"} }
     
