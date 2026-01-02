@@ -5,8 +5,8 @@
     { "skill": { "id": "MS_BOWLINGBASH", "name": "怪物互擊", "level": 10, "formula": "100+40*SLV+STR", "class": "RK", "DamageTypeIdx": 0, "hitnumber": 4, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 2, "GCD": 0.3, "Note": "攻擊次數3~5次"} },
     { "skill": { "id": "LK_SPIRALPIERCE", "name": "螺旋擊刺", "level": 5, "formula": "(150+50*SLV)*BLV/100", "class": "RK", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 5, "elemental": 0, "FCT": "0.07+SLV*0.01", "VCT": "0.24+SLV*0.04", "CD": 0.5, "GCD": 0.3, "Note": ""} },
     
-    { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*((WTI==\"Spears\")?5:2))*((WTI==\"Spears\")?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
-    { "skill": { "id": "CR_GRANDCROSS", "name": "聖十字審判", "level": 10, "formula": "100+SLV*40", "class": "RG", "DamageTypeIdx": 4, "hitnumber": 3, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*((WTI==\"Spears\")?5:2))*((WTI==\"Spears\")?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 6, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "CR_GRANDCROSS", "name": "聖十字審判", "level": 10, "formula": "100+SLV*40", "class": "RG", "DamageTypeIdx": 4, "hitnumber": 3, "elemental": 6, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CR_SHIELDBOOMERANG", "name": "迴旋盾擊", "level": 5, "formula": "80*SLV+SHW+SRL*4", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "PA_SHIELDCHAIN", "name": "連續盾擊", "level": 5, "formula": "600+(400*SLV)+SHW+SRL*4", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "LG_CANNONSPEAR", "name": "加農砲攻擊", "level": 5, "formula": "(120+STR)*SLV*BLV/100", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "critical": true, "hitnumber": 1, "elemental": 0, "FCT": 0.1, "VCT": 0.4, "CD": 0, "GCD": 1, "Note": ""} },
@@ -65,6 +65,6 @@
     { "skill": { "id": "HW_NAPALMVULCAN", "name": "念力連擊", "level": 5, "formula": "70*SLV*BLV/100", "class": "WL", "DamageTypeIdx": 1, "hitnumber": "SLV", "elemental": 8, "FCT": 0.1, "VCT": 0.4, "CD": 0.3, "GCD": 0.5, "Note": ""} },
     { "skill": { "id": "HW_GRAVITATION", "name": "重力原野", "level": 5, "formula": "SLV*100*BLV/100", "class": "WL", "DamageTypeIdx": 1, "hitnumber": "SLV*2", "elemental": 0, "FCT": 1, "VCT": 4, "CD": "2+SLV*0.5", "GCD": 0.3, "Note": ""} },
     
-    { "skill": { "id": "SO_SPELLFIST", "name": "魔力拳", "level": 10, "formula": "(100+INT/2)*10+SLV*100", "class": "SO", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 1, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": "10為施放的火箭/冰箭/雷擊技能等級"} }
+    { "skill": { "id": "SO_SPELLFIST", "name": "魔力拳", "level": 10, "formula": "1000+SLV*100", "class": "SO", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 1, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": "10為施放的火箭/冰箭/雷擊技能等級"} }
     
 ]
