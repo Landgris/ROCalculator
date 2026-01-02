@@ -43,6 +43,8 @@
     
     { "skill": { "id": "PR_MAGNUS", "name": "十字驅魔攻擊", "level": 10, "formula": "100", "class": "AB", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 6, "FCT": 0.5, "VCT": 2, "CD": 3, "GCD": 0.3, "Note": "每3秒一次"} },
     { "skill": { "id": "PR_MAGNUS(ex)", "name": "十字驅魔攻擊(對暗不死惡魔)", "level": 10, "formula": "130", "class": "AB", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 6, "FCT": 0.5, "VCT": 2, "CD": 3, "GCD": 0.3, "Note": "每3秒一次"} },
+    { "skill": { "id": "AB_DUPLELIGHT(2)", "name": "二道聖光(魔法)", "level": 10, "formula": "800+80*SLV", "class": "AB", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "AB_DUPLELIGHT(1)", "name": "二道聖光(物理)", "level": 10, "formula": "500+50*SLV", "class": "AB", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     
     { "skill": { "id": "MC_CARTREVOLUTION", "name": "手推車攻擊", "level": 1, "formula": "150+CRW*100/8000", "class": "ME,GE", "DamageTypeIdx": 0, "cart":true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "MC_MAMMONITE", "name": "金錢攻擊", "level": 10, "formula": "100+50*SLV", "class": "ME,GE", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
