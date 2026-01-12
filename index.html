@@ -157,8 +157,10 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
-                                    現在可以切換樂園版本(Zero)! 在網址後面加上"?zero"就會進行切換<br><br>
-                                    杜腐製作的計算機操作教學<br>
+                                    增加了德魯伊的輔助技能跟JOB點, 感謝酒虎(杜腐)在巴哈的整理<br>
+                                    https://forum.gamer.com.tw/C.php?bsn=4212&snA=439427<br><br>
+                                    在網址後面加上"?zero"會切換樂園版本(Zero)<br>
+                                    酒虎(杜腐)製作的計算機操作教學<br>
                                     https://forum.gamer.com.tw/C.php?bsn=4212&snA=436996<br>
                                     <br>公式感謝小月鈴所測試的
                                     <br>【討論】四轉職暨二次上位擴充職全技能實測<br>
@@ -9693,6 +9695,117 @@
                         if (this.skill.id == 'HN_GROUND_GRAVITATION'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; }
                         //地面重力 重力場
                         if (this.skill.id == 'HN_GROUND_GRAVITATION(dot)'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; }
+                    }
+
+                    //DR
+                    //변신 : 맹수 / 變身:猛獸
+                    if (this.IsSupportActive('DR_WEREWOLF')){
+                        this.attritube['HPP'] += 10;
+                    }
+                    //격앙 : 맹수 / 狂暴:猛獸
+                    if (this.IsSupportActive('DR_ENRAGE_WOLF')){
+                        this.attritube['MELDP'] += 10;
+                    }
+                    //피의 포효 / 血之咆哮
+                    if (this.IsSupportActive('DR_BLOOD_HOWLING')){
+                        this.status_add.STR += 10;
+                        this.status_add.LUK += 10;
+                        this.attritube['HIT'] += 10;
+                    }
+                    //맹수의 후각 / 猛獸嗅覺
+                    if (this.IsSupportActive('DR_BEASTY_NOSE')){
+                        this.attritube['ASPDP'] += 10;
+                    }
+                    //격앙 : 맹금 / 狂暴:猛禽
+                    if (this.IsSupportActive('DR_ENRAGE_RAPTOR')){
+                        this.attritube['RNGDP'] += 10;
+                    }
+                    //깃털 고르기 / 理羽
+                    if (this.IsSupportActive('DR_PREENING')){
+                        this.status_add.AGI += 10;
+                        this.status_add.DEX += 10;
+                        this.attritube['FLEE'] += 50;
+                    }
+                    //예리한 시각 / 敏銳視野
+                    if (this.IsSupportActive('DR_SHARPE_EYES')){
+                        this.attritube['HIT'] += 50;
+                    }
+                    //자연의 방패 / 自然之盾
+                    if (this.IsSupportActive('DR_NATURE_SHIELD')){
+                        this.status_add.INT += 10;
+                        this.status_add.VIT += 10;
+                        this.attritube['HardMDEF'] += 10;
+                        this.attritube['HardDEF'] += 100;
+                    }
+                    //자연의 이치 / 自然之理
+                    if (this.IsSupportActive('DR_NATURE_LOGIC')){
+                        this.attritube['MATK'] += 70;
+                    }
+                    //맹수의 본능 / 猛獸本能
+                    if (this.IsSupportActive('KR_WOLF_INSTINCT')){
+                        switch (this.enemyattribute.size) {
+                            case 0:
+                                this.attritube['SizeAtkPercent'] += 10;
+                                break;
+                            case 1:
+                                this.attritube['SizeAtkPercent'] += 8;
+                                break;
+                            case 2:
+                                this.attritube['SizeAtkPercent'] += 5;
+                                break;
+                        }
+                    }
+                    //맹금의 본능 / 猛禽本能
+                    if (this.IsSupportActive('KR_RAPTORIAL_INSTINCT')){
+                        switch (this.enemyattribute.size) {
+                            case 0:
+                                this.attritube['SizeAtkPercent'] += 5;
+                                break;
+                            case 1:
+                                this.attritube['SizeAtkPercent'] += 8;
+                                break;
+                            case 2:
+                                this.attritube['SizeAtkPercent'] += 10;
+                                break;
+                        }
+                    }
+                    //어스 버드 / 大地迸發
+                    if (this.IsSupportActive('KR_EARTH_BUD')){
+                        this.attritube['HPP'] += 10;
+                    }
+                    //자연의 활력 / 自然活力
+                    if (this.IsSupportActive('KR_NATURE_VIGOUR')){
+                        this.attritube['SPP'] += 10;
+                        this.attritube['SPRegenPercent'] += 50;
+                    }
+                    //식스 센스 / 第六感 / Sixth Sense
+                    if (this.IsSupportActive('AT_SIXTH_SENSE')){
+                        this.attritube['PATK'] += 10;
+                        this.attritube['CRI'] += 10;
+                    }
+                    //플립 플랩 / 翻騰 / Flip Flap
+                    if (this.IsSupportActive('AT_FLIP_FLAP')){
+                        this.attritube['RNGDP'] += 30;
+                        this.attritube['CRI'] += 15;
+                    }
+                    //질풍 가속 / 疾風加速
+                    if (this.IsSupportActive('AT_PINION_SHOT(ex)')){
+                        this.attritube['RNGDP'] += 15;
+                        this.attritube['MELDP'] += 15;
+                        this.attritube['ElementalMagicPercent'] += 15;
+                    }
+                    //자연의 도움 / 自然助力 / Nature's Aid
+                    if (this.IsSupportActive('AT_NATURE_AID')){
+                        this.attritube['SMATK'] += 20;
+                    }
+                    //자연의 조화 / 自然調和 / Harmony of Nature
+                    if (this.IsSupportActive('AT_NATURE_HARMONY')){
+                        if (this.skilloption.AttackElementalIdx == 4 || 
+                            this.skilloption.AttackElementalIdx == 2 || 
+                            this.skilloption.AttackElementalIdx == 1 
+                        ){
+                            this.attritube['ElementalMagicPercent'] += this.GetSupportSkill('AT_NATURE_HARMONY').lv * 30;
+                        }
                     }
 
                     //幻想叢書 001

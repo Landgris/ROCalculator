@@ -197,5 +197,14 @@
         "thirdJobMaxPT": [7,7,6,6,6,5],
         "fourthJobMaxPT": [10,5,6,10,5,6,9,5,4,9,8,3],
         "baseaspd": 0
+    },
+    {
+        "id": "DR",
+        "label": "Druid/Karnos/Alitea",
+        "TranscendentClass": false,
+        "secondJobMaxPT": [6,2,3,6,6,2],
+        "thirdJobMaxPT": [7,5,5,7,7,4],
+        "fourthJobMaxPT": [12,10,6,3,9,3,12,10,3,0,8,7],
+        "baseaspd": 0
     }
 ]

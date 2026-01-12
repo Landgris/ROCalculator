@@ -303,6 +303,8 @@
     { "skill": { "id": "HN_HELLS_DRIVE", "name": "地獄毀滅(突破規矩)", "level": 10, "formula": "(1700+(900+4*10)*SLV+SPL*3)*BLV/100*1.7", "class": "SN", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 4, "FCT": 1, "VCT": 0, "CD": 0.8, "GCD": 0, "Note": ""} },
     { "skill": { "id": "HN_NAPALM_VULCAN_STRIKE", "name": "念力連擊攻擊(突破規矩)", "level": 10, "formula": "(350+(650+4*10)*SLV+SPL*3)*BLV/100*1.7", "class": "SN", "DamageTypeIdx": 1, "hitnumber": -7, "elemental": 8, "FCT": 1, "VCT": 0, "CD": 0.3, "GCD": 0, "Note": ""} },
     { "skill": { "id": "HN_GROUND_GRAVITATION", "name": "地面重力(衝擊突破規矩)", "level": 10, "formula": "(3000+(1500+4*10)*SLV+SPL*10)*BLV/100*1.5", "class": "SN", "DamageTypeIdx": 1, "hitnumber": -2, "elemental": 0, "FCT": 1.5, "VCT": 0, "CD": 5, "GCD": 0, "Note": ""} },
-    { "skill": { "id": "HN_GROUND_GRAVITATION(dot)", "name": "地面重力(重力場突破規矩)", "level": 10, "formula": "(800+(700+4*10)*SLV+SPL*2)*BLV/100*1.5", "class": "SN", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.5, "GCD": 0, "Note": ""} }
+    { "skill": { "id": "HN_GROUND_GRAVITATION(dot)", "name": "地面重力(重力場突破規矩)", "level": 10, "formula": "(800+(700+4*10)*SLV+SPL*2)*BLV/100*1.5", "class": "SN", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.5, "GCD": 0, "Note": ""} },
+    
+    { "skill": { "id": "NormalAttack", "name": "普攻", "level": 10, "formula": "100", "class": "DR", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} }
     
 ]
