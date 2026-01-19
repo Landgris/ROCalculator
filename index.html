@@ -1265,13 +1265,14 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 10px; text-align:left">
 
-                                <el-row :class="GetAllSkillETLIndex('SkillDamagePercent') > -1 && PreviewETL[GetAllSkillETLIndex('SkillDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                              <!--  <el-row :class="GetAllSkillETLIndex('SkillDamagePercent') > -1 && PreviewETL[GetAllSkillETLIndex('SkillDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                    <el-col class="textcenter">
                                         <el-button v-on:click="OpenSkillSelectDialog" size="mini" type="primary">
                                             選擇指定技能
                                         </el-button>
                                     </el-col>
                                 </el-row>
+                            -->
                                 <el-row :class="GetAllSkillETLIndex('SkillDamagePercent') > -1 && PreviewETL[GetAllSkillETLIndex('SkillDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
                                         所有技能增傷 %
