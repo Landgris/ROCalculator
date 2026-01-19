@@ -942,7 +942,12 @@
                                         <el-col class="textcenter" :span="2">
                                         </el-col>
                                         <el-col class="textcenter" style="text-align: right;">
-                                            <span class="EffectType">{{ item.label }}</span>
+                                            <span class="EffectType">
+                                                <template v-if="item.id === 'SkillDamagePercent' || item.id === 'CDTime'">
+                                                    {{ item.targetSkillId ? getSkillName(item.targetSkillId) : '所有技能' }} 
+                                                </template>
+                                                {{ item.label }}
+                                            </span>
                                         </el-col>
                                         <el-col class="textcenter" :span="2">
                                             <span class="">{{ item.opersymbol }}</span>
@@ -1261,25 +1266,32 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 10px; text-align:left">
 
-                                <el-row :class="PreviewETL[GetETLIndex('SkillDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                <el-row :class="GetAllSkillETLIndex('SkillDamagePercent') > -1 && PreviewETL[GetAllSkillETLIndex('SkillDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                   <el-col class="textcenter">
+                                        <el-button v-on:click="OpenSkillSelectDialog" size="mini" type="primary">
+                                            選擇指定技能
+                                        </el-button>
+                                    </el-col>
+                                </el-row>
+                                <el-row :class="GetAllSkillETLIndex('SkillDamagePercent') > -1 && PreviewETL[GetAllSkillETLIndex('SkillDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
-                                        技能增傷 %
+                                        所有技能增傷 %
                                     </el-col>
                                     <el-col class="textcenter" :span="12">
-                                        <el-input v-if="PreviewETL[0]"
-                                            v-model="PreviewETL[GetETLIndex('SkillDamagePercent')].totalvalue"
+                                        <el-input v-if="PreviewETL[0] && GetAllSkillETLIndex('SkillDamagePercent') > -1"
+                                            v-model="PreviewETL[GetAllSkillETLIndex('SkillDamagePercent')].totalvalue"
                                             v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
                                         </el-input>
                                     </el-col>
                                 </el-row>
 
-                                <el-row :class="PreviewETL[GetETLIndex('CDTime')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                <el-row :class="GetAllSkillETLIndex('CDTime') > -1 && PreviewETL[GetAllSkillETLIndex('CDTime')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
-                                        技能獨延
+                                        所有技能獨延
                                     </el-col>
                                     <el-col class="textcenter" :span="12">
-                                        <el-input v-if="PreviewETL[0]"
-                                            v-model="PreviewETL[GetETLIndex('CDTime')].totalvalue"
+                                        <el-input v-if="PreviewETL[0] && GetAllSkillETLIndex('CDTime') > -1"
+                                            v-model="PreviewETL[GetAllSkillETLIndex('CDTime')].totalvalue"
                                             v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
                                         </el-input>
                                     </el-col>
@@ -1783,6 +1795,66 @@
                 </el-col>
             </el-row>
         </el-dialog>
+
+        <!-- 技能選擇對話框 -->
+        <el-dialog :visible.sync="UIPanel['SkillSelectDialog']" custom-class="EffectList-container" width="60%" top="50px"
+            v-on:close="ClosePanel('SkillSelectDialog')" center>
+            <span slot="title">選擇技能</span>
+            <el-scrollbar wrap-class="EquipEffectList-container" :native="false" :noresize="false" style="height: 600px;">
+                <el-row :gutter="6">
+                    <el-col :span="24">
+                        <div class="statusbox" style="padding: 10px;">
+                            <el-row :gutter="10" type="flex" align="middle" style="margin-bottom: 10px;">
+                                <el-col :span="16">
+                                    <el-input v-model="skillSearchText" placeholder="搜尋技能名稱或ID" clearable>
+                                    </el-input>
+                                </el-col>
+                                <el-col :span="8">
+                                    <el-checkbox v-model="filterCurrentClassOnly">
+                                        僅顯示目前職業
+                                    </el-checkbox>
+                                </el-col>
+                            </el-row>
+                            <el-table :data="filteredSkillsList" stripe style="width: 100%" max-height="500">
+                                <el-table-column label="技能名稱" width="200">
+                                    <template slot-scope="scope">
+                                        {{ getSkillName(scope.row.skill.id) }}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="skill.id" label="技能ID" width="180">
+                                </el-table-column>
+                                <el-table-column prop="skill.class" label="職業" width="80">
+                                </el-table-column>
+                                <el-table-column label="技能增傷 %" width="120">
+                                    <template slot-scope="scope">
+                                        <el-input-number v-model="scope.row.damagePercent" 
+                                            size="small" :min="0" :max="999" :precision="0"
+                                            controls-position="right" style="width: 100%;">
+                                        </el-input-number>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="獨延減少(秒)" width="120">
+                                    <template slot-scope="scope">
+                                        <el-input-number v-model="scope.row.cdReduction" 
+                                            size="small" :min="0" :max="99" :precision="1" :step="0.1"
+                                            controls-position="right" style="width: 100%;">
+                                        </el-input-number>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="操作" width="80">
+                                    <template slot-scope="scope">
+                                        <el-button size="mini" type="primary" @click="applySkillEffect(scope.row)">
+                                            套用
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-scrollbar>
+        </el-dialog>
+
         <el-dialog :visible.sync="UIPanel['EquipDBDialog']" v-on:close="ClosePanel('EquipDBDialog')"
             custom-class="Dialogue-container" width="70%" top="50px" center>
             <span slot="title">裝備清單</span>
@@ -1864,7 +1936,12 @@
                                     <div v-for="(effect, index) in item.equip.effectlist" v-bind:key="item.uuid">
                                         <el-row class="previeweffectbox3 effectline" :gutter="1" type="flex" align="middle" justify="center">
                                             <el-col class="textcenter" style="text-align: right;" :span="4">
-                                                <span class="EffectType">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].label }}</span>
+                                                <span class="EffectType">
+                                                    <template v-if="effect.EffectType.id === 'SkillDamagePercent' || effect.EffectType.id === 'CDTime'">
+                                                        {{ effect.targetSkillId ? getSkillName(effect.targetSkillId) : '所有技能' }} 
+                                                    </template>
+                                                    {{ effecttypelist[GetETLIndex(effect.EffectType.id)].label }}
+                                                </span>
                                             </el-col>
                                             <el-col class="textcenter" :span="1">
                                                 <span class="">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].opersymbol }}</span>
@@ -3472,20 +3549,19 @@
                                         </div>
                                     </el-col>
                                 </el-row>
-                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
-                                    <el-col class="textcenter" :span="12">技能傷害增加</el-col>
-                                    <!--                                     <el-col :span="6">
-                                        <el-input v-model.number="option.EquipSkillAddDamage" v-on:change="onOption"
-                                            placeholder="Skill %">
-                                        </el-input>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">+</el-col>
-                                    <el-col :span="6">
-                                        {{this.effecttypelist.find(x => x.id == 'SkillDamagePercent').totalvalue}}
-                                    </el-col> -->
-                                    <el-col class="textcenter" :span="6">{{option.EquipSkillAddDamage}}</el-col>
-                                    <el-col class="textcenter" :span="4">%</el-col>
-                                </el-row>
+                                <div v-for="(skillEffect, index) in equipmentSkillEffects" :key="index">
+                                    <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                        <el-col class="textcenter" :span="12">
+                                            {{ skillEffect.skillName }} {{ skillEffect.type }}
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            {{ skillEffect.value }}
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            {{ skillEffect.unit }}
+                                        </el-col>
+                                    </el-row>
+                                </div>
                                 <el-row  v-show="skill.cart === true" class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                     <el-col class="textcenter" :span="8">手推車重量</el-col>
                                     <el-col class="textcenter" :span="8" >
@@ -3929,7 +4005,12 @@
                                             <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                 justify="end" style="height:40px;">
                                                 <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                    <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                    <span class="EffectType">
+                                                        <template v-if="item.EffectType.id === 'SkillDamagePercent' || item.EffectType.id === 'CDTime'">
+                                                            {{ item.targetSkillId ? getSkillName(item.targetSkillId) : '所有技能' }} 
+                                                        </template>
+                                                        {{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}
+                                                    </span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="2">
                                                     <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
@@ -3952,7 +4033,12 @@
                                             <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                 justify="end" style="height:40px;">
                                                 <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                    <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                    <span class="EffectType">
+                                                        <template v-if="item.EffectType.id === 'SkillDamagePercent' || item.EffectType.id === 'CDTime'">
+                                                            {{ item.targetSkillId ? getSkillName(item.targetSkillId) : '所有技能' }} 
+                                                        </template>
+                                                        {{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}
+                                                    </span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="2">
                                                     <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
@@ -3974,7 +4060,12 @@
                                             <div v-for="(effect, index) in item.effectlist" v-bind:key="effect.effecttypelist">
                                                 <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end" style="height:40px;">
                                                     <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].label }}</span>
+                                                        <span class="EffectType">
+                                                            <template v-if="effect.EffectType.id === 'SkillDamagePercent' || effect.EffectType.id === 'CDTime'">
+                                                                {{ effect.targetSkillId ? getSkillName(effect.targetSkillId) : '所有技能' }} 
+                                                            </template>
+                                                            {{ effecttypelist[GetETLIndex(effect.EffectType.id)].label }}
+                                                        </span>
                                                     </el-col>
                                                     <el-col class="textcenter" :span="2">
                                                         <span class="">{{ effecttypelist[GetETLIndex(effect.EffectType.id)].opersymbol }}</span>
@@ -4150,7 +4241,12 @@
                                             <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                 justify="end" style="height:40px;">
                                                 <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                    <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                    <span class="EffectType">
+                                                        <template v-if="item.EffectType.id === 'SkillDamagePercent' || item.EffectType.id === 'CDTime'">
+                                                            {{ item.targetSkillId ? getSkillName(item.targetSkillId) : '所有技能' }} 
+                                                        </template>
+                                                        {{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}
+                                                    </span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="2">
                                                     <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
@@ -4173,7 +4269,12 @@
                                             <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                 justify="end" style="height:40px;">
                                                 <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                    <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                    <span class="EffectType">
+                                                        <template v-if="item.EffectType.id === 'SkillDamagePercent' || item.EffectType.id === 'CDTime'">
+                                                            {{ item.targetSkillId ? getSkillName(item.targetSkillId) : '所有技能' }} 
+                                                        </template>
+                                                        {{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}
+                                                    </span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="2">
                                                     <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
@@ -4250,7 +4351,12 @@
                                                 <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                     justify="end" style="height:40px;">
                                                     <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                        <span class="EffectType">
+                                                            <template v-if="item.EffectType.id === 'SkillDamagePercent' || item.EffectType.id === 'CDTime'">
+                                                                {{ item.targetSkillId ? getSkillName(item.targetSkillId) : '所有技能' }} 
+                                                            </template>
+                                                            {{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}
+                                                        </span>
                                                     </el-col>
                                                     <el-col class="textcenter" :span="2">
                                                         <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
@@ -4273,7 +4379,12 @@
                                                 <el-row class="effectline" :gutter="4" type="flex" align="middle"
                                                     justify="end" style="height:40px;">
                                                     <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                        <span class="EffectType">
+                                                            <template v-if="item.EffectType.id === 'SkillDamagePercent' || item.EffectType.id === 'CDTime'">
+                                                                {{ item.targetSkillId ? getSkillName(item.targetSkillId) : '所有技能' }} 
+                                                            </template>
+                                                            {{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}
+                                                        </span>
                                                     </el-col>
                                                     <el-col class="textcenter" :span="2">
                                                         <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
@@ -4323,7 +4434,12 @@
                                             <div v-for="(item, index) in equipspartlist[eqindex+28].effectlist" v-bind:key="item.effecttypelist">
                                                 <el-row class="effectline" :gutter="4" type="flex" align="middle" justify="end" style="height:40px;">
                                                     <el-col class="textcenter" style="text-align: right;" :span="12">
-                                                        <span class="EffectType">{{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}</span>
+                                                        <span class="EffectType">
+                                                            <template v-if="item.EffectType.id === 'SkillDamagePercent' || item.EffectType.id === 'CDTime'">
+                                                                {{ item.targetSkillId ? getSkillName(item.targetSkillId) : '所有技能' }} 
+                                                            </template>
+                                                            {{ effecttypelist[GetETLIndex(item.EffectType.id)].label }}
+                                                        </span>
                                                     </el-col>
                                                     <el-col class="textcenter" :span="2">
                                                         <span class="">{{ effecttypelist[GetETLIndex(item.EffectType.id)].opersymbol }}</span>
@@ -5809,11 +5925,22 @@
                 DonatethanksList: [],
                 UpdateLogList: [],
                 CurrentUpdateVersion: '',
-                TStatusPoint: [7,10,13,16,19,26,29,32,35,38,45,48,51,54,57,64,67,70,73,76,83,86,89,92,95,102,105,108,111,114,121,124,127,130,133,140,143,146,149,152,159,162,165,168,171,178,181,184,187,190,197,235,235,235,235,235,235,235,235,235,235],
+                TStatusPoint: [7,10,13,16,19,26,29,32,35,38,45,48,51,54,57,64,67,70,73,76,83,86,89,92,95,102,105,108,111,114,121,124,127,130,133,140,143,146,149,152,159,162,165,168,171,178,181,184,187,190,197,200,203,206,209,216,219,221,224,227,235,238,241,244,247,254,257,260,263,266,273,276,279,282,285,292],
                 
                 // 職業數據會從 JSON 檔案載入
                 classlist: [],
-                classHpSpData: {}, // 用於存儲 HP/SP 數據
+                classHpSpData: {},
+                
+                // 技能數據
+                skillsList: [],
+                skillNameMap: {}, // 技能ID到名称的映射（从skillnameamap.csv加载）
+                skillSearchText: '',
+                filterCurrentClassOnly: false, // 僅顯示目前職業
+                selectedSkillForEquip: null, // 用於存儲 HP/SP 數據
+                supportSkillEffects: [], // 存储辅助技能的技能增伤效果
+
+                // 裝備數據版本控制
+                equipDataVersion: 1,  // 當前版本號
 
                 equipspartlist: [
                     { id: 'weaponr', label: '主手', equipname: '', effectlist: [] },
@@ -6445,6 +6572,7 @@
                     SpecialthanksDialog: false,
                     StatusDBDialog: false,
                     SkillDBDialog: false,
+                    SkillSelectDialog: false,
                     EquipDBDialog: false,
                     EquipEffectDialog: false,
                     EditEquipDialog: false,
@@ -6478,6 +6606,97 @@
                 },
                 OpenPanel(id) {
                     this.UIPanel[id] = true;
+                },
+                OpenSkillSelectDialog() {
+                    this.skillSearchText = '';
+                    this.OpenPanel('SkillSelectDialog');
+                },
+                // 根据技能ID获取技能名称（去除括号部分后查找）
+                getSkillName(skillId) {
+                    if (!skillId) return '未知技能';
+                    // 去除括号及其内容
+                    const baseSkillId = skillId.split('(')[0];
+                    // 从skillNameMap查找
+                    return this.skillNameMap[baseSkillId] || skillId;
+                },
+                applySkillEffect(row) {
+                    // 检查是否至少输入了一个数值（允许0，用于删除）
+                    if ((row.damagePercent === null || row.damagePercent === undefined) && 
+                        (row.cdReduction === null || row.cdReduction === undefined)) {
+                        this.$message.warning('請至少輸入一個數值（技能增傷% 或 獨延減少）');
+                        return;
+                    }
+                    
+                    // 处理技能增伤%
+                    if (row.damagePercent !== null && row.damagePercent !== undefined) {
+                        let damageIdx = this.PreviewETL.findIndex(x => 
+                            x.id === 'SkillDamagePercent' && x.targetSkillId === row.skill.id
+                        );
+                        
+                        if (row.damagePercent > 0) {
+                            // 数值大于0，添加或更新
+                            if (damageIdx > -1) {
+                                // 已存在相同技能的增伤，更新数值
+                                this.PreviewETL[damageIdx].totalvalue = row.damagePercent;
+                            } else {
+                                // 新增一个技能增伤效果项 - 复制effecttypelist的完整属性
+                                let effectType = this.effecttypelist.find(x => x.id === 'SkillDamagePercent');
+                                let newEffect = {
+                                    id: effectType.id,
+                                    label: effectType.label,
+                                    opersymbol: effectType.opersymbol,
+                                    suffixsymbol: effectType.suffixsymbol,
+                                    EffectType: effectType,
+                                    totalvalue: row.damagePercent,
+                                    targetSkillId: row.skill.id,
+                                    targetSkillName: row.skill.name
+                                };
+                                this.PreviewETL.push(newEffect);
+                            }
+                        } else {
+                            // 数值为0，删除效果项
+                            if (damageIdx > -1) {
+                                this.PreviewETL.splice(damageIdx, 1);
+                            }
+                        }
+                    }
+                    
+                    // 处理独延减少
+                    if (row.cdReduction !== null && row.cdReduction !== undefined) {
+                        let cdIdx = this.PreviewETL.findIndex(x => 
+                            x.id === 'CDTime' && x.targetSkillId === row.skill.id
+                        );
+                        
+                        if (row.cdReduction > 0) {
+                            // 数值大于0，添加或更新
+                            if (cdIdx > -1) {
+                                // 已存在相同技能的独延，更新数值
+                                this.PreviewETL[cdIdx].totalvalue = row.cdReduction;
+                            } else {
+                                // 新增一个独延效果项 - 复制effecttypelist的完整属性
+                                let effectType = this.effecttypelist.find(x => x.id === 'CDTime');
+                                let newEffect = {
+                                    id: effectType.id,
+                                    label: effectType.label,
+                                    opersymbol: effectType.opersymbol,
+                                    suffixsymbol: effectType.suffixsymbol,
+                                    EffectType: effectType,
+                                    totalvalue: row.cdReduction,
+                                    targetSkillId: row.skill.id,
+                                    targetSkillName: row.skill.name
+                                };
+                                this.PreviewETL.push(newEffect);
+                            }
+                        } else {
+                            // 数值为0，删除效果项
+                            if (cdIdx > -1) {
+                                this.PreviewETL.splice(cdIdx, 1);
+                            }
+                        }
+                    }
+                    
+                    this.$message.success('已套用技能效果：' + row.skill.name);
+                    this.ClosePanel('SkillSelectDialog');
                 },
                 SwitchElementalVersion(){
                     this.ElementTableLastest = !this.ElementTableLastest;
@@ -6563,12 +6782,39 @@
                     this.PreviewETL = _.cloneDeep(this.PreviewETL_init);
                     this.PreviewEN = this.equipspartlist[eqindex].equipname;
                     this.equipspartlist[eqindex].effectlist.forEach(element => {
-                        for (let preview of this.PreviewETL) {
-                            if (element.EffectType.id == preview.id) {
-                                preview.totalvalue = element.EffectNumber;
-                                break;
+                        // 如果有targetSkillId，表示是特定技能的效果，需要新增PreviewETL项
+                        if (element.targetSkillId) {
+                            // 检查是否已存在相同技能的效果项
+                            let existingIdx = this.PreviewETL.findIndex(x => 
+                                x.id === element.EffectType.id && x.targetSkillId === element.targetSkillId
+                            );
+                            
+                            if (existingIdx > -1) {
+                                // 已存在，更新数值
+                                this.PreviewETL[existingIdx].totalvalue = element.EffectNumber;
+                            } else {
+                                // 不存在，新增一个特定技能的效果项
+                                let effectType = this.effecttypelist.find(x => x.id === element.EffectType.id);
+                                let newEffect = {
+                                    id: effectType.id,
+                                    label: effectType.label,
+                                    opersymbol: effectType.opersymbol,
+                                    suffixsymbol: effectType.suffixsymbol,
+                                    EffectType: effectType,
+                                    totalvalue: element.EffectNumber,
+                                    targetSkillId: element.targetSkillId
+                                };
+                                this.PreviewETL.push(newEffect);
                             }
-                        };
+                        } else {
+                            // 没有targetSkillId，表示是"所有技能"的效果，更新现有PreviewETL项
+                            for (let preview of this.PreviewETL) {
+                                if (element.EffectType.id == preview.id && !preview.targetSkillId) {
+                                    preview.totalvalue = element.EffectNumber;
+                                    break;
+                                }
+                            }
+                        }
                     });
 
                 },
@@ -6577,6 +6823,10 @@
                 },
                 GetETLIndex(id) {
                     return this.PreviewETL.findIndex(i => i.id === id)
+                },
+                // 获取"所有技能"效果的索引（targetSkillId为null）
+                GetAllSkillETLIndex(id) {
+                    return this.PreviewETL.findIndex(i => i.id === id && (i.targetSkillId === null || i.targetSkillId === undefined))
                 },
                 OnEditEquipEffect(id) {
                     /*
@@ -6619,6 +6869,7 @@
                                     EffectNumber: Number(preview.totalvalue),
                                     EffectType: {id: preview.id},
                                     Enable: _enable,
+                                    targetSkillId: preview.targetSkillId || null
                                 })
                             _idx += 1;
                         }else{
@@ -6628,6 +6879,11 @@
                             }
                         }
                     }
+                    
+                    // 保存技能相關資訊（保持在裝備層級，不是 effectlist 中）
+                    // targetSkillId 和 targetSkillName 已經在 applySkillEffect 中設定
+                    // 這裡不需要再做什麼，只需確保不被清除
+                    
                     if( save ){
                         this.onSaveEquip(this.EquipSelectId);
                     }
@@ -7515,7 +7771,7 @@
                     var shouldApplyCrit = isNA ? isCRI : (this.skill.critical && isCRI);
                     
                     if (shouldApplyCrit) {
-                        var para_crid = Number(1) + Number(this.attritube['CRIDP']) * 0.5 / 100;
+                        var para_crid = Number(1) + Number(this.attritube['CRIDP']) * (isNA ? 1 : 0.5) / 100;
                         this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_crid);
                         this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_crid);
                     } else {
@@ -8545,6 +8801,7 @@
                     }
 
                     this.option.EquipSkillAddDamage = 0;
+                    this.supportSkillEffects = []; // 清空辅助技能增伤记录
                     if (this.skilloption.WeaponMasteryATKInput == '') this.skilloption.WeaponMasteryATKInput = 0;
                     this.skilloption.WeaponMasteryATK = this.skilloption.WeaponMasteryATKInput;
                     this.computeattribute['SpecialATK0'] = 0;   // 地符
@@ -8629,7 +8886,15 @@
                     // 天龍光環
                     if (this.IsSupportActive('DK_DRAGONIC_AURA')){
                         if (this.skill.id == 'RK_DRAGONBREATH' ) {
-                            this.option.EquipSkillAddDamage += 100;
+                            var dmg = 100;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('RK_DRAGONBREATH'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '天龍光環'
+                            });
                         }
                     }
 
@@ -8835,7 +9100,15 @@
                     if (this.IsSupportActive('WH_CALAMITYGALE')){
                         this.attritube['RNGDP'] += 350;
                         if( this.skill.id == 'WH_CRESCIVE_BOLT(min)' || this.skill.id == 'WH_CRESCIVE_BOLT(max)' ){
-                            this.option.EquipSkillAddDamage += 20;
+                            var dmg = 20;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('WH_CRESCIVE_BOLT'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '憤怒暴風'
+                            });
                         }
                     }
                     // 陷阱研究
@@ -8928,19 +9201,36 @@
                         this.attritube['PATK'] += 15;
                     }
                     // 神秘交響曲
-                    if (this.IsSupportActive('TR_MYSTIC_SYMPHONY')){
-                        if(this.skill.id.includes('TR_RHYTHMSHOOTING')||this.skill.id.includes('TR_ROSEBLOSSOM'))
-                        {
-                            this.option.EquipSkillAddDamage += 100;
-                        }
-                    }
-                    // 神秘交響曲(人形/魚貝)
                     if (this.IsSupportActive('TR_MYSTIC_SYMPHONY(ex)')){
                         if(this.skill.id.includes('TR_RHYTHMSHOOTING')||this.skill.id.includes('TR_ROSEBLOSSOM'))
                         {
-                            this.option.EquipSkillAddDamage += 100;
+                            var dmg = 100;
+                            this.option.EquipSkillAddDamage += dmg;
+                            var skillId = this.skill.id.split('(')[0];
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName(skillId),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '神秘交響曲(人形/魚貝)'
+                            });
                         }
                         this.attritube['RaceAtkPercent'] += 40;
+                    }
+                    else if (this.IsSupportActive('TR_MYSTIC_SYMPHONY')){
+                        if(this.skill.id.includes('TR_RHYTHMSHOOTING')||this.skill.id.includes('TR_ROSEBLOSSOM'))
+                        {
+                            var dmg = 100;
+                            this.option.EquipSkillAddDamage += dmg;
+                            var skillId = this.skill.id.split('(')[0];
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName(skillId),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '神秘交響曲'
+                            });
+                        }
                     }
 
                     // 魔力中毒
@@ -8961,7 +9251,7 @@
                     // 魔力巔峰1
                     if (this.IsSupportActive('AG_CLIMAX(Lv1)')){
                         //水晶波爆
-                        if (this.IsSupportActive('AG_CRYSTAL_IMPACT(Lv1)'))
+                        if (this.skill.id == 'AG_CRYSTAL_IMPACT')
                         {
                             if (this.skilloption.AttackElementalIdx == 2) {
                                 this.attritube['ElementalMagicPercent'] += 30;
@@ -8970,7 +9260,15 @@
                         //震裂術
                         if (this.skill.id == 'AG_VIOLENT_QUAKE')
                         {
-                            this.option.EquipSkillAddDamage -= 50;
+                            var dmg = -50;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('AG_VIOLENT_QUAKE'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '魔力巔峰1'
+                            });
                         }
                     }
                     // 魔力巔峰3
@@ -8978,22 +9276,54 @@
                         //萬紫千紅
                         if (this.skill.id == 'AG_ALL_BLOOM')    //目前skill萬紫有兩個, 萬紫千紅(巔峰5)不包含在這內
                         {
-                            this.option.EquipSkillAddDamage += 300;
+                            var dmg = 300;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('AG_ALL_BLOOM'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '魔力巔峰3'
+                            });
                         }
                         //水晶波爆
                         if (this.skill.id == 'AG_CRYSTAL_IMPACT') 
                         {
-                            this.option.EquipSkillAddDamage += 25;
+                            var dmg = 25;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('AG_CRYSTAL_IMPACT'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '魔力巔峰3'
+                            });
                         }
                         //毀滅颶風
                         if (this.skill.id == 'AG_DESTRUCTIVE_HURRICANE') 
                         {
-                            this.option.EquipSkillAddDamage += 150;
+                            var dmg = 150;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('AG_DESTRUCTIVE_HURRICANE'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '魔力巔峰3'
+                            });
                         }
                         //震裂術
                         if (this.skill.id == 'AG_VIOLENT_QUAKE')
                         {
-                            this.option.EquipSkillAddDamage += 200;
+                            var dmg = 200;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('AG_VIOLENT_QUAKE'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '魔力巔峰3'
+                            });
                         }
                     }
                     // 魔力巔峰4
@@ -9008,7 +9338,15 @@
                         //水晶波爆
                         if (this.skill.id == 'AG_CRYSTAL_IMPACT') 
                         {
-                            this.option.EquipSkillAddDamage += 50;
+                            var dmg = 50;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('AG_CRYSTAL_IMPACT'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '魔力巔峰4'
+                            });
                         }
                         //毀滅颶風
                         if (this.IsSupportActive('AG_DESTRUCTIVE_HURRICANE(Lv4)'))
@@ -9036,7 +9374,15 @@
                         //毀滅颶風
                         if (this.skill.id == 'AG_DESTRUCTIVE_HURRICANE') 
                         {
-                            this.option.EquipSkillAddDamage -= 20;
+                            var dmg = -20;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('AG_DESTRUCTIVE_HURRICANE'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '魔力巔峰5'
+                            });
                         }
                     }
 
@@ -9273,14 +9619,32 @@
                         this.attritube['ATKP'] += 5;
                         if (this.skill.id.includes('SR_RAMPAGEBLASTER') || this.skill.id.includes('SR_KNUCKLEARROW'))
                         {
-                            this.option.EquipSkillAddDamage += 30;
+                            var dmg = 30;
+                            this.option.EquipSkillAddDamage += dmg;
+                            var skillId = this.skill.id.split('(')[0];
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName(skillId),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '點穴-反'
+                            });
                         }
                     }
                     // 點穴-活
                     if (this.IsSupportActive('SR_GENTLETOUCH_REVITALIZE')){
                         if (this.skill.id.includes('SR_TIGERCANNON') || this.skill.id.includes('SR_GATEOFHELL'))
                         {
-                            this.option.EquipSkillAddDamage += 30;
+                            var dmg = 30;
+                            this.option.EquipSkillAddDamage += dmg;
+                            var skillId = this.skill.id.split('(')[0];
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName(skillId),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '點穴-活'
+                            });
                         }
                         this.attritube['HPP'] += 10;
                     }
@@ -9490,7 +9854,16 @@
                             this.skill.id == 'KO_JYUMONJIKIRI' ||
                             this.skill.id == 'KO_JYUMONJIKIRI(buff)'
                         ) {
-                            this.option.EquipSkillAddDamage += 20;
+                            var dmg = 20;
+                            this.option.EquipSkillAddDamage += dmg;
+                            var skillId = this.skill.id.split('(')[0];
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName(skillId),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '影子武士'
+                            });
                         }
                     }
                     //瘋狂凱斯樂
@@ -9548,19 +9921,43 @@
                     if (this.IsSupportActive('SJ_LIGHTOFSUN')){
                         if (this.skill.id == 'SJ_SOLARBURST')
                         {
-                            this.option.EquipSkillAddDamage += this.GetSupportSkill('SJ_LIGHTOFSUN').lv * 5;
+                            var dmg = this.GetSupportSkill('SJ_LIGHTOFSUN').lv * 5;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('SJ_SOLARBURST'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '日光輝'
+                            });
                         }
                     }
                     if (this.IsSupportActive('SJ_LIGHTOFMOON')){
                         if (this.skill.id == 'SJ_FULLMOONKICK')
                         {
-                            this.option.EquipSkillAddDamage += this.GetSupportSkill('SJ_LIGHTOFMOON').lv * 5;
+                            var dmg = this.GetSupportSkill('SJ_LIGHTOFMOON').lv * 5;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('SJ_FULLMOONKICK'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '月光輝'
+                            });
                         }
                     }
                     if (this.IsSupportActive('SJ_LIGHTOFSTAR')){
                         if (this.skill.id == 'SJ_FALLINGSTAR')
                         {
-                            this.option.EquipSkillAddDamage += this.GetSupportSkill('SJ_LIGHTOFSTAR').lv * 5;
+                            var dmg = this.GetSupportSkill('SJ_LIGHTOFSTAR').lv * 5;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('SJ_FALLINGSTAR'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '星光輝'
+                            });
                         }
                     }
                     // 兵法修練
@@ -9648,7 +10045,15 @@
                     if (this.IsSupportActive('SH_COLORS_OF_HYUN_ROK')){
                         if (this.skill.id == 'SU_CN_METEOR') 
                         {
-                            this.option.EquipSkillAddDamage += 50;
+                            var dmg = 50;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({
+                                skillName: this.getSkillName('SU_CN_METEOR'),
+                                type: '增傷',
+                                value: dmg,
+                                unit: '%',
+                                source: '玄鹿五色角'
+                            });
                         }
                     }
 
@@ -9668,33 +10073,73 @@
                     if (this.IsSupportActive('HN_SELFSTUDY_TATICS')){
                         this.attritube['PATK'] += this.GetSupportSkill('HN_SELFSTUDY_TATICS').lv; 
                         
+                        var tacticLv = this.GetSupportSkill('HN_SELFSTUDY_TATICS').lv;
                         //雙重怪物互擊
-                        if (this.skill.id == 'HN_DOUBLEBOWLINGBASH'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_TATICS').lv+5; }
+                        if (this.skill.id == 'HN_DOUBLEBOWLINGBASH'){ 
+                            var dmg = tacticLv + 5;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_DOUBLEBOWLINGBASH'), type: '增傷', value: dmg, unit: '%', source: '自學策略' });
+                        }
                         //巨型音速投擲
-                        if (this.skill.id == 'HN_MEGA_SONIC_BLOW'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_TATICS').lv+5; }
+                        if (this.skill.id == 'HN_MEGA_SONIC_BLOW'){ 
+                            var dmg = tacticLv + 5;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_MEGA_SONIC_BLOW'), type: '增傷', value: dmg, unit: '%', source: '自學策略' });
+                        }
                         //連續盾擊衝撞
-                        if (this.skill.id == 'HN_SHIELD_CHAIN_RUSH'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_TATICS').lv*2+10; }
+                        if (this.skill.id == 'HN_SHIELD_CHAIN_RUSH'){ 
+                            var dmg = tacticLv * 2 + 10;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_SHIELD_CHAIN_RUSH'), type: '增傷', value: dmg, unit: '%', source: '自學策略' });
+                        }
                         //螺旋擊刺Max
-                        if (this.skill.id == 'HN_SPIRAL_PIERCE_MAX'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_TATICS').lv+5; }
+                        if (this.skill.id == 'HN_SPIRAL_PIERCE_MAX'){ 
+                            var dmg = tacticLv + 5;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_SPIRAL_PIERCE_MAX'), type: '增傷', value: dmg, unit: '%', source: '自學策略' });
+                        }
                     }
                     //自學魔法
                     if (this.IsSupportActive('HN_SELFSTUDY_SOCERY')){
                         this.attritube['SMATK'] += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; 
                         
+                        var soceryLv = this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv;
                         //隕石術猛擊
-                        if (this.skill.id == 'HN_METEOR_STORM_BUSTER'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; }
+                        if (this.skill.id == 'HN_METEOR_STORM_BUSTER'){ 
+                            this.option.EquipSkillAddDamage += soceryLv;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_METEOR_STORM_BUSTER'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                        }
                         //雷鳴術風暴
-                        if (this.skill.id == 'HN_JUPITEL_THUNDER_STORM'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; }
+                        if (this.skill.id == 'HN_JUPITEL_THUNDER_STORM'){ 
+                            this.option.EquipSkillAddDamage += soceryLv;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_JUPITEL_THUNDER_STORM'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                        }
                         //新霜凍術
-                        if (this.skill.id == 'HN_JACK_FROST_NOVA'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; }
+                        if (this.skill.id == 'HN_JACK_FROST_NOVA'){ 
+                            this.option.EquipSkillAddDamage += soceryLv;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_JACK_FROST_NOVA'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                        }
                         //地獄毀滅
-                        if (this.skill.id == 'HN_HELLS_DRIVE'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; }
+                        if (this.skill.id == 'HN_HELLS_DRIVE'){ 
+                            this.option.EquipSkillAddDamage += soceryLv;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_HELLS_DRIVE'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                        }
                         //念力連擊攻擊
-                        if (this.skill.id == 'HN_NAPALM_VULCAN_STRIKE'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv*2; }
+                        if (this.skill.id == 'HN_NAPALM_VULCAN_STRIKE'){ 
+                            var dmg = soceryLv * 2;
+                            this.option.EquipSkillAddDamage += dmg;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_NAPALM_VULCAN_STRIKE'), type: '增傷', value: dmg, unit: '%', source: '自學魔法' });
+                        }
                         //地面重力 衝擊
-                        if (this.skill.id == 'HN_GROUND_GRAVITATION'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; }
+                        if (this.skill.id == 'HN_GROUND_GRAVITATION'){ 
+                            this.option.EquipSkillAddDamage += soceryLv;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_GROUND_GRAVITATION'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                        }
                         //地面重力 重力場
-                        if (this.skill.id == 'HN_GROUND_GRAVITATION(dot)'){ this.option.EquipSkillAddDamage += this.GetSupportSkill('HN_SELFSTUDY_SOCERY').lv; }
+                        if (this.skill.id == 'HN_GROUND_GRAVITATION(dot)'){ 
+                            this.option.EquipSkillAddDamage += soceryLv;
+                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_GROUND_GRAVITATION(dot)'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                        }
                     }
 
                     //DR
@@ -9984,7 +10429,20 @@
                     this.attritube['WeaponPerfection'] += Number(this.effecttypelist.find(x => x.id == 'WeaponPerfection').totalvalue);
                     this.attritube['WeaponOccult'] += Number(this.effecttypelist.find(x => x.id == 'WeaponOccult').totalvalue);
 
-                    this.option.EquipSkillAddDamage += Number(this.effecttypelist.find(x => x.id == 'SkillDamagePercent').totalvalue);
+                    // 僅計算裝備的技能增傷（不包含輔助技能的，已在onOption中處理）
+                    var currentSkillId = this.skill.id.split('(')[0];  // 去除變異技能的括號部分
+                    this.equipspartlist.forEach(equip => {
+                        if (!equip.effectlist) return;
+                        equip.effectlist.forEach(effect => {
+                            // 需要啟動才處理
+                            if (effect.Enable && effect.EffectType.id === 'SkillDamagePercent' && effect.EffectNumber && effect.EffectNumber !== 0) {
+                                // 如果targetSkillId為null/空（對所有技能生效）或匹配當前技能ID
+                                if (!effect.targetSkillId || effect.targetSkillId === '' || effect.targetSkillId === currentSkillId) {
+                                    this.option.EquipSkillAddDamage += Number(effect.EffectNumber);
+                                }
+                            }
+                        });
+                    });
 
                     this.ComputeSizefix();
                     if (this.attritube['WeaponPerfection'] > 0) {
@@ -10056,6 +10514,8 @@
                             label: _label,
                             equipname: '',
                             effectlist: [],
+                            targetSkillId: null,
+                            targetSkillName: null,
                         })
                     this.CombineEquipsAttribute();
                 },
@@ -10093,6 +10553,7 @@
                         }
                         // 確保效果列表中的 Enable 屬性有值
                         this.StoreDB_Equip[_dbidx].equip.effectlist.forEach(x=>x.Enable=x.Enable==null?true:x.Enable);
+                        
                         // 將裝備載入到對應的裝備欄位
                         this.$set(this.equipspartlist,
                             idx,
@@ -10103,6 +10564,8 @@
                                 label: this.equipspartlist[idx].label,
                                 equipname: this.StoreDB_Equip[_dbidx].equip.equipname,
                                 effectlist: _.cloneDeep(this.StoreDB_Equip[_dbidx].equip.effectlist),
+                                targetSkillId: this.StoreDB_Equip[_dbidx].equip.targetSkillId || null,
+                                targetSkillName: this.StoreDB_Equip[_dbidx].equip.targetSkillName || null,
                             })
                         this.CombineEquipsAttribute();
                     }
@@ -10186,9 +10649,181 @@
                 onFliterEquipPreview(index){
                     this.$set( this.StoreDB_EquipFilterList[index], 'preview', !this.StoreDB_EquipFilterList[index].preview);
                 },
+                // 裝備數據迁移主函數
+                migrateEquipData(loadedData) {
+                    const currentVersion = this.equipDataVersion;
+                    const dataVersion = loadedData.version || 0;
+                    
+                    if (dataVersion < currentVersion) {
+                        console.log('⚙️ 檢測到舊版本數據 (v' + dataVersion + ')，正在遷移到 v' + currentVersion + '...');
+                        
+                        if (dataVersion < 1) {
+                            loadedData = this.migrateToV1(loadedData);
+                        }
+                        
+                        console.log('✅ 數據遷移完成');
+                    }
+                    
+                    return loadedData;
+                },
+                // 遷移到版本 1：添加新字段
+                migrateToV1(data) {
+                    data.Equip = data.Equip || [];
+                    
+                    data.Equip.forEach(item => {
+                        if (!item.version) {
+                            item.version = 1;
+                        }
+                        
+                        if (item.equip && !item.equip.hasOwnProperty('targetSkillId')) {
+                            item.equip.targetSkillId = null;
+                            item.equip.targetSkillName = null;
+                        }
+                        
+                        if (item.equip && item.equip.effectlist) {
+                            // 为每个effect添加技能相关字段，并从装备级别复制技能信息
+                            const equipTargetSkillId = item.equip.targetSkillId || null;
+                            const equipTargetSkillName = item.equip.targetSkillName || null;
+                            
+                            item.equip.effectlist.forEach(effect => {
+                                if (!effect.hasOwnProperty('Enable')) {
+                                    effect.Enable = true;
+                                }
+                                // 如果effect没有技能信息，从装备级别复制
+                                if (!effect.hasOwnProperty('targetSkillId')) {
+                                    effect.targetSkillId = equipTargetSkillId;
+                                }
+                                if (!effect.hasOwnProperty('targetSkillName')) {
+                                    effect.targetSkillName = equipTargetSkillName;
+                                }
+                            });
+                        }
+                    });
+                    
+                    data.version = 1;
+                    return data;
+                },
+                // 加載裝備數據庫並執行遷移
+                LoadEquipDB() {
+                    if (localStorage.getItem('StoreDB_Equip')) {
+                        try {
+                            let loadedData = JSON.parse(localStorage.getItem('StoreDB_Equip'));
+                            
+                            // 兼容舊格式（直接是數組）
+                            if (Array.isArray(loadedData)) {
+                                console.log('📦 檢測到舊格式數據，正在轉換...');
+                                loadedData = {
+                                    version: 0,
+                                    Equip: loadedData
+                                };
+                            }
+                            
+                            // 執行遷移
+                            loadedData = this.migrateEquipData(loadedData);
+                            
+                            this.StoreDB_Equip = loadedData.Equip;
+                            Enumerable.From(this.StoreDB_Equip).OrderBy(x => x.equip.id);
+                            console.log('✅ 裝備數據已加載 (' + this.StoreDB_Equip.length + ' 件裝備)');
+                        } catch (e) {
+                            console.error('❌ 加載裝備數據失敗:', e);
+                            // 備份損壞的數據
+                            const backupKey = 'StoreDB_Equip_backup_' + Date.now();
+                            localStorage.setItem(backupKey, localStorage.getItem('StoreDB_Equip'));
+                            console.log('💾 已備份損壞數據到: ' + backupKey);
+                        }
+                    }
+                },
+                // 裝備索引輔助函數
+                getEquipIndex(slotName) {
+                    const indexMap = {
+                        'mainWeapon': 0, 'subWeapon': 1,
+                        'headUpper': 2, 'headMiddle': 3, 'headLower': 4,
+                        'armor': 5, 'garment': 6, 'shoes': 7,
+                        'accessory1': 8, 'accessory2': 9,
+                        'shadow': 10, 'costume': 11,
+                        'cardSet': 12, 'custom': 13,
+                        'mainWeaponCard': 14, 'subWeaponCard': 15,
+                        'headUpperCard': 16, 'headMiddleCard': 17, 'headLowerCard': 18,
+                        'armorCard': 19, 'garmentCard': 20, 'shoesCard': 21,
+                        'accessory1Card': 22, 'accessory2Card': 23,
+                        'shadowEnchant': 24, 'costumeEnchant': 25,
+                        'cardSet2': 26, 'custom2': 27,
+                        'pet': 28, 'runeTablet': 29,
+                        'mainWeaponCard2': 30, 'mainWeaponCard3': 31, 'mainWeaponCard4': 32
+                    };
+                    return indexMap[slotName] !== undefined ? indexMap[slotName] : -1;
+                },
+                // 導出所有數據為備份
+                exportAllData() {
+                    try {
+                        const allData = {
+                            version: this.equipDataVersion,
+                            exportDate: new Date().toISOString(),
+                            equipments: this.StoreDB_Equip,
+                            skills: this.StoreDB_Skill,
+                            allSets: this.StoreDB_AllSet,
+                            status: this.StoreDB_Status
+                        };
+                        
+                        const dataStr = JSON.stringify(allData, null, 2);
+                        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                        
+                        const exportFileDefaultName = 'ROCalc_backup_' + Date.now() + '.json';
+                        
+                        const linkElement = document.createElement('a');
+                        linkElement.setAttribute('href', dataUri);
+                        linkElement.setAttribute('download', exportFileDefaultName);
+                        linkElement.click();
+                        
+                        console.log('✅ 數據已導出為備份文件');
+                        this.$message.success('數據備份成功！');
+                    } catch (e) {
+                        console.error('❌ 導出失敗:', e);
+                        this.$message.error('導出失敗: ' + e.message);
+                    }
+                },
+                // 導入備份數據（需要配合文件選擇器使用）
+                importAllData(fileContent) {
+                    try {
+                        const data = JSON.parse(fileContent);
+                        
+                        // 驗證數據格式
+                        if (!data.version || !data.equipments) {
+                            throw new Error('無效的備份文件格式');
+                        }
+                        
+                        // 遷移數據
+                        const migratedData = this.migrateEquipData({
+                            version: data.version,
+                            Equip: data.equipments
+                        });
+                        
+                        // 應用數據
+                        this.StoreDB_Equip = migratedData.Equip;
+                        if (data.skills) this.StoreDB_Skill = data.skills;
+                        if (data.allSets) this.StoreDB_AllSet = data.allSets;
+                        
+                        // 保存到 localStorage
+                        this.SaveEquipDB();
+                        
+                        console.log('✅ 數據導入成功！');
+                        this.$message.success('數據導入成功！');
+                    } catch (e) {
+                        console.error('❌ 導入失敗:', e);
+                        this.$message.error('導入失敗: ' + e.message);
+                    }
+                },
                 SaveEquipDB() {
-                    const parsed = JSON.stringify(this.StoreDB_Equip);
+                    const dataToSave = {
+                        version: this.equipDataVersion,
+                        Equip: this.StoreDB_Equip.map(item => ({
+                            ...item,
+                            version: this.equipDataVersion
+                        }))
+                    };
+                    const parsed = JSON.stringify(dataToSave);
                     localStorage.setItem('StoreDB_Equip', parsed);
+                    console.log('💾 裝備數據已保存 (版本 ' + this.equipDataVersion + ')');
                 },
                 onQuickCalcInput() {
                     try {
@@ -10629,14 +11264,9 @@
                         console.log('⚔️ 一般模式 - 等級設定為 BaseLevel: ' + this.status.Level + ', JobLevel: ' + this.status.JOBLevel);
                     }
                     
-                    if (localStorage.getItem('StoreDB_Equip')) {
-                        try {
-                            this.StoreDB_Equip = JSON.parse(localStorage.getItem('StoreDB_Equip'));
-                            Enumerable.From(this.StoreDB_Equip).OrderBy(x => x.equip.id);
-                        } catch (e) {
-                            console.log("catch e:" + e);
-                        }
-                    }
+                    // 使用新的裝備數據加載函數（支持版本控制和遷移）
+                    this.LoadEquipDB();
+                    
                     if (localStorage.getItem('StoreDB_QuickCalc')) {
                         try {
                             this.StoreDB_QuickCalc = JSON.parse(localStorage.getItem('StoreDB_QuickCalc'));
@@ -10752,6 +11382,9 @@
                     // 職業資料從 JSON 檔案載入
                     this.loadClassesFromJSON();
                     this.loadClassHpSpFromJSON();
+                    
+                    // 載入技能名稱映射
+                    this.loadSkillNameMap();
                     
                     // 更新日誌從 JSON 檔案載入
                     this.loadUpdateLogsFromJSON();
@@ -10879,6 +11512,16 @@
                         // 載入新的技能資料
                         this.DefaultDB_Skill.push(...skillsData);
                         
+                        // 同時複製到 skillsList 供技能選擇功能使用，並初始化輸入欄位
+                        this.skillsList = [];
+                        skillsData.forEach(item => {
+                            this.skillsList.push({
+                                ...item,
+                                damagePercent: 0,
+                                cdReduction: 0
+                            });
+                        });
+                        
                         console.log(`Successfully loaded ${skillsData.length} skills from ${skillFile}`);
                         return true;
                     } catch (error) {
@@ -10901,6 +11544,35 @@
                         // 如果載入失敗，使用硬編碼的預設技能資料
                         this.loadDefaultSkills();
                         return false;
+                    }
+                },
+                
+                // 載入技能名稱映射（從skillnameamap.csv）
+                async loadSkillNameMap() {
+                    try {
+                        const response = await fetch('skillnameamap.csv?v=' + new Date().getTime());
+                        if (!response.ok) {
+                            console.warn('skillnameamap.csv not found, skill names will fallback to skills.json');
+                            return;
+                        }
+                        
+                        const csvText = await response.text();
+                        const lines = csvText.split('\n');
+                        
+                        // 跳過表頭，從第二行開始
+                        for (let i = 1; i < lines.length; i++) {
+                            const line = lines[i].trim();
+                            if (!line) continue;
+                            
+                            const [skillId, skillName] = line.split(',');
+                            if (skillId && skillName) {
+                                this.skillNameMap[skillId.trim()] = skillName.trim();
+                            }
+                        }
+                        
+                        console.log(`Loaded ${Object.keys(this.skillNameMap).length} skill names from CSV`);
+                    } catch (error) {
+                        console.error('Failed to load skill name map:', error);
                     }
                 },
                 
@@ -11550,7 +12222,128 @@
                     // 若 GN_REMODELING_CART 支援技能啟動則上限 10500，否則 8000
                     return this.IsSupportActive && this.IsSupportActive('GN_REMODELING_CART') ? 10500 : 8000;
                 },
-
+                filteredSkillsList() {
+                    // 先收集所有基础技能ID（不带括号的）
+                    const baseSkillIds = new Set();
+                    this.skillsList.forEach(item => {
+                        if (!item.skill.id.includes('(')) {
+                            baseSkillIds.add(item.skill.id);
+                        }
+                    });
+                    
+                    // 收集所有技能的基础ID（去除括号部分）
+                    const skillFamilies = new Map();
+                    this.skillsList.forEach(item => {
+                        const baseId = item.skill.id.split('(')[0];
+                        if (!skillFamilies.has(baseId)) {
+                            skillFamilies.set(baseId, []);
+                        }
+                        skillFamilies.get(baseId).push(item);
+                    });
+                    
+                    // 构建显示列表：如果有基础版本就显示基础版本，否则显示第一个变体但ID改为基础ID
+                    let baseSkills = [];
+                    skillFamilies.forEach((variants, baseId) => {
+                        // 查找是否有不带括号的基础版本
+                        const baseVersion = variants.find(v => !v.skill.id.includes('('));
+                        if (baseVersion) {
+                            baseSkills.push(baseVersion);
+                        } else {
+                            // 没有基础版本，显示第一个变体，但修改ID为基础ID（去除括号）
+                            const firstVariant = variants[0];
+                            const modifiedSkill = {
+                                skill: {
+                                    ...firstVariant.skill,
+                                    id: baseId  // 使用去除括号后的基础ID
+                                },
+                                targetSkillId: firstVariant.targetSkillId,
+                                inputValue: firstVariant.inputValue
+                            };
+                            baseSkills.push(modifiedSkill);
+                        }
+                    });
+                    
+                    // 按职业过滤
+                    if (this.filterCurrentClassOnly && this.status.classid) {
+                        baseSkills = baseSkills.filter(item => {
+                            if (!item.skill.class) return false;
+                            return item.skill.class.split(',').some(v => v.trim() === this.status.classid);
+                        });
+                    }
+                    
+                    // 按搜索文本过滤
+                    if (this.skillSearchText && this.skillSearchText.trim() !== '') {
+                        const searchLower = this.skillSearchText.toLowerCase();
+                        baseSkills = baseSkills.filter(item => {
+                            return item.skill.name.toLowerCase().includes(searchLower) ||
+                                   item.skill.id.toLowerCase().includes(searchLower);
+                        });
+                    }
+                    return baseSkills;
+                },
+                // 获取所有装备中的技能效果（增伤和独延）- 合并相同技能的效果
+                equipmentSkillEffects() {
+                    // 使用Map来合并相同技能的相同效果
+                    const effectsMap = new Map();
+                    
+                    // 歷遍每個裝備
+                    this.equipspartlist.forEach(equip => {
+                        if (!equip.effectlist) return;
+                        
+                        // 歷遍每個效果
+                        equip.effectlist.forEach(effect => {
+                            // 检查Enable状态，未启用的效果不计入
+                            if (!effect.Enable) return;
+                            
+                            if (effect.EffectType.id === 'SkillDamagePercent' && effect.EffectNumber && effect.EffectNumber !== 0) {
+                                // 生成唯一key: targetSkillId_SkillDamagePercent
+                                const targetSkillId = effect.targetSkillId || null;
+                                const key = `${targetSkillId}_SkillDamagePercent`;
+                                
+                                if (effectsMap.has(key)) {
+                                    // 已存在，累加数值
+                                    effectsMap.get(key).value += Number(effect.EffectNumber);
+                                } else {
+                                    // 不存在，新增
+                                    // 使用getSkillName方法查找技能名称
+                                    let skillName = targetSkillId ? this.getSkillName(targetSkillId) : '所有技能';
+                                    effectsMap.set(key, {
+                                        skillName: skillName,
+                                        type: '增傷',
+                                        value: Number(effect.EffectNumber),
+                                        unit: '%',
+                                        targetSkillId: targetSkillId
+                                    });
+                                }
+                            } else if (effect.EffectType.id === 'CDTime' && effect.EffectNumber && effect.EffectNumber !== 0) {
+                                // 生成唯一key: targetSkillId_CDTime
+                                const targetSkillId = effect.targetSkillId || null;
+                                const key = `${targetSkillId}_CDTime`;
+                                
+                                if (effectsMap.has(key)) {
+                                    // 已存在，累加数值
+                                    effectsMap.get(key).value += Number(effect.EffectNumber);
+                                } else {
+                                    // 不存在，新增
+                                    // 使用getSkillName方法查找技能名称
+                                    let skillName = targetSkillId ? this.getSkillName(targetSkillId) : '所有技能';
+                                    effectsMap.set(key, {
+                                        skillName: skillName,
+                                        type: '獨延減少',
+                                        value: Number(effect.EffectNumber),
+                                        unit: '秒',
+                                        targetSkillId: targetSkillId
+                                    });
+                                }
+                            }
+                        });
+                    });
+                    
+                    // 将Map转换为数组，并合并辅助技能的增伤效果
+                    const equipmentEffects = Array.from(effectsMap.values());
+                    const allEffects = [...equipmentEffects, ...this.supportSkillEffects];
+                    return allEffects;
+                }
             },
             mounted() {
                 this.LoadDB();
@@ -11631,7 +12424,5 @@
         });
 
     </script>
-
-    <body>
 
 </html>
