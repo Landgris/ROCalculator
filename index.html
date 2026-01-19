@@ -5933,7 +5933,7 @@
                 
                 // 技能數據
                 skillsList: [],
-                skillNameMap: {}, // 技能ID到名称的映射（从skillnameamap.csv加载）
+                skillNameMap: {}, // 技能ID到名称的映射（从skillnamemap.csv加载）
                 skillSearchText: '',
                 filterCurrentClassOnly: false, // 僅顯示目前職業
                 selectedSkillForEquip: null, // 用於存儲 HP/SP 數據
@@ -11547,12 +11547,12 @@
                     }
                 },
                 
-                // 載入技能名稱映射（從skillnameamap.csv）
+                // 載入技能名稱映射（從skillnamemap.csv）
                 async loadSkillNameMap() {
                     try {
-                        const response = await fetch('skillnameamap.csv?v=' + new Date().getTime());
+                        const response = await fetch('skillnamemap.csv?v=' + new Date().getTime());
                         if (!response.ok) {
-                            console.warn('skillnameamap.csv not found, skill names will fallback to skills.json');
+                            console.warn('skillnamemap.csv not found, skill names will fallback to skills.json');
                             return;
                         }
                         
