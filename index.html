@@ -140,16 +140,15 @@
                                 <el-row :gutter="4" type="flex" align="left">
                                     注意事項:<br>
                                     ⭐請不要在巴哈單純回覆按計算機，配裝思路跟比較優劣也是很好討論的點<br>
-                                    ⭐樂園的遠傷請先暫時填在對特定魔物(後ATK加成)，等待官方回應<br>
                                     ⭐M/RES計算已經加入，技能設定無視RES，如果有錯誤麻煩告知<br>
                                     ⭐屬性相剋為當前遊戲版本(同KRO) 可切換為舊版本<br>
                                     ⭐建議先計算好當前配裝並且傷害正確後才開始配裝<br>
                                     ⭐紋章(敵方)現在所有技能都會增傷，使用時須注意<br>
                                     ⭐計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
                                       不會計算雙持狀況下的普攻傷害<br>
-                                    ⭐暴擊技能預設都是暴傷減半<br>
+                                    ⭐普攻暴擊:爆傷100%, 技能暴擊:暴傷50%<br>
                                     ⭐HPSP只支援240/250/260等的龍爵/皇家/聖裁<br>
-                                    ⭐特質點目前只有260等，251~259沒有資料<br>
+                                    ⭐特質點新增至275等<br>
                                     <br>
                                 </el-row>
                             </div>
@@ -7669,6 +7668,21 @@
                     this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_posion);
                     this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_posion);
 
+                    if (this.isZeroMode)
+                    {
+                        var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
+                        if( isNA ){
+                            if (this.weapon.type.isRangedattack) {
+                                this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_ranged);
+                                this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_ranged);
+                            }
+                        }else{
+                            if (this.skill.ranged) {
+                                this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_ranged);
+                                this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_ranged);
+                            }
+                        }
+                    }
                     // 霸氣 ATK% 似乎不適用小於1進位
                     // 從MulOper改為Mathfloor 捨去
                     this.computeattribute.atkbranch_min = Math.floor(this.computeattribute.weaponatk_min * (this.attritube['ATKP']) / 100);
@@ -7793,25 +7807,27 @@
                     //近戰傷害
                     var para_melee = Number(1) + Number(this.attritube['MELDP']) / 100;
 
-                    if( isNA ){
-                        if (this.weapon.type.isRangedattack) {
-                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
-                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
+                    if( this.isZeroMode == false ){
+                        if( isNA ){
+                            if (this.weapon.type.isRangedattack) {
+                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
+                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
+                            }else{
+                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
+                            }
                         }else{
-                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
-                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
-                        }
-                    }else{
-                        if( this.skill.id == 'RK_WINDCUTTER' )
-                        {
-                            this.skill.ranged = (this.weapon.type.id == 'Spears')?true:false;
-                        }
-                        if (this.skill.ranged && this.skill.laterranged == false) {
-                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
-                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
-                        }else if(this.skill.ranged == false){
-                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
-                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
+                            if( this.skill.id == 'RK_WINDCUTTER' )
+                            {
+                                this.skill.ranged = (this.weapon.type.id == 'Spears')?true:false;
+                            }
+                            if (this.skill.ranged && this.skill.laterranged == false) {
+                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
+                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
+                            }else if(this.skill.ranged == false){
+                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
+                            }
                         }
                     }
 
