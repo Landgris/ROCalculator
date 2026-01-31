@@ -8126,6 +8126,8 @@
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.matkpercent_max, para_size);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_elemt);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_elemt);
+                    this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, Number(1) + Number(this.attritube['ELEDDI'] / 100));
+                    this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, Number(1) + Number(this.attritube['ELEDDI'] / 100));
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_magicelemt);
                     this.computeattribute.finalmatk_max = this.MulOper(this.computeattribute.finalmatk_max, para_magicelemt);
                     this.computeattribute.finalmatk_min = this.MulOper(this.computeattribute.finalmatk_min, para_race);
@@ -8146,11 +8148,6 @@
                     this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.enemyattribute.levelResist / 100));
                     this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.enemyattribute.levelResist / 100));
 
-                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.attritube['ELEDDI'] / 100));
-                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.attritube['ELEDDI'] / 100));
-
-                    this.computeattribute.matk1_min = this.MulOper(this.computeattribute.matk1_min, Number(1) + Number(this.attritube['MELDDI'] / 100));
-                    this.computeattribute.matk1_max = this.MulOper(this.computeattribute.matk1_max, Number(1) + Number(this.attritube['MELDDI'] / 100));
 
                     if (this.skill.laterformula == false) {
                         var para_skillpercent = Math.floor(this.option.SkillPercent) + Number(this.computeattribute['SpecialMATK1']) + Number(mflag);
@@ -8205,15 +8202,16 @@
                         this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, paramblv);
                         this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, paramblv);
                     }
-                    /*
-                    if (this.skill.laterformula == true) {
-                        this.computeattribute.matk4_min = Math.floor(this.computeattribute.matk4_min * Number(Math.floor(this.option.SkillPercent) / 100));
-                        this.computeattribute.matk4_max = Math.floor(this.computeattribute.matk4_max * Number(Math.floor(this.option.SkillPercent) / 100));
-                    } else {
-                        this.computeattribute.matk4_min = this.computeattribute.matk4_min;
-                        this.computeattribute.matk4_max = this.computeattribute.matk4_max;
+
+                    if (this.IsSupportActive('RG_RAID')) {
+                        this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, 1.3);
+                        this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, 1.3);
                     }
-                    */
+                    else if (this.IsSupportActive('RG_RAID(boss)')) {
+                        this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, 1.15);
+                        this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, 1.15);
+                    }
+
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
 
