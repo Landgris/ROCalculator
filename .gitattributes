@@ -1,0 +1,6 @@
+* text=auto
+*.json text eol=lf encoding=UTF-8
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf

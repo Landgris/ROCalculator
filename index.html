@@ -148,7 +148,7 @@
                                       不會計算雙持狀況下的普攻傷害<br>
                                     ⭐普攻暴擊:爆傷100%, 技能暴擊:暴傷50%<br>
                                     ⭐HPSP只支援240/250/260等的龍爵/皇家/聖裁<br>
-                                    ⭐特質點新增至275等<br>
+                                    ⭐四轉-特質點新增至275等, 職業加成為60等<br>
                                     <br>
                                 </el-row>
                             </div>
@@ -156,6 +156,7 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
+                                    四轉-4.1新增技能倍率的特殊加成等待測試(2026/2/3)<br><br>
                                     增加了德魯伊的輔助技能跟JOB點, 感謝酒虎(杜腐)在巴哈的整理<br>
                                     https://forum.gamer.com.tw/C.php?bsn=4212&snA=439427<br><br>
                                     在網址後面加上"?zero"會切換樂園版本(Zero)<br>
@@ -6151,7 +6152,7 @@
                 subweapon_init: {},
                 ClassInfo: {},
                 status: {
-                    Level: 250, JOBLevel: 55, Transcendent: false, classid: '', UseJobMaxPoint: false, JobMaxPointType: '',
+                    Level: 275, JOBLevel: 60, Transcendent: false, classid: '', UseJobMaxPoint: false, JobMaxPointType: '',
                     STR: 1, AGI: 1, VIT: 1, INT: 1, DEX: 1, LUK: 1,
                     POW: 0, STA: 0, WIS: 0, SPL: 0, CON: 0, CRT: 0,
                     ASPD: 0, HP: 0, SP: 0, MHP: 0, MSP: 0,
@@ -8785,6 +8786,7 @@
                             this.status_job.SPL += this.ClassInfo.fourthJobMaxPT[9];
                             this.status_job.CON += this.ClassInfo.fourthJobMaxPT[10];
                             this.status_job.CRT += this.ClassInfo.fourthJobMaxPT[11];
+                            this.status.JOBLevel = 60;
                         } else if (this.status.JobMaxPointType === '3rd' && this.ClassInfo.thirdJobMaxPT != null) {
                             // 三轉加成
                             this.status_job.STR += this.ClassInfo.thirdJobMaxPT[0];
@@ -9881,6 +9883,14 @@
                             });
                         }
                     }
+                    //四色符 SS_FOUR_CHARM
+                    if (this.IsSupportActive('SS_FOUR_CHARM')){
+                        if (this.skill.id == 'SS_SEKIENHOU') this.computeattribute['SpecialMATK1'] += 8500;
+                        if (this.skill.id == 'SS_REIKETSUHOU') this.computeattribute['SpecialMATK1'] += 7000;
+                        if (this.skill.id == 'SS_RAIDENPOU') this.computeattribute['SpecialMATK1'] += 8500;
+                        if (this.skill.id == 'SS_KINRYUUHOU') this.computeattribute['SpecialMATK1'] += 5500;
+                    }
+
                     //瘋狂凱斯樂
                     if (this.IsSupportActive('GS_MADNESSCANCEL')){
                         this.attritube['ATK'] += 100;
@@ -11269,12 +11279,12 @@
                         this.status.JOBLevel = 70;
                         console.log('Zero模式已啟用 - 預設等級設定為 BaseLevel: 80, JobLevel: 70');
                     } else {
-                        // 一般模式：BaseLevel 250, JobLevel 55（保持原有設定）
+                        // 一般模式：BaseLevel 275, JobLevel 60（保持原有設定）
                         if (this.status.Level === 0 || this.status.Level === 60) {
-                            this.status.Level = 250;
+                            this.status.Level = 275;
                         }
-                        if (this.status.JOBLevel === 0 || this.status.JOBLevel === 50) {
-                            this.status.JOBLevel = 55;
+                        if (this.status.JOBLevel === 0 || this.status.JOBLevel === 60) {
+                            this.status.JOBLevel = 60;
                         }
                         console.log('⚔️ 一般模式 - 等級設定為 BaseLevel: ' + this.status.Level + ', JobLevel: ' + this.status.JOBLevel);
                     }

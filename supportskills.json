@@ -1,4 +1,4 @@
-[                        
+﻿[                        
     { "skill": { "id": "SM_SWORD", "name": "單手劍使用熟練度", "maxlv": 10, "lv": 10, "class": "RK,RG,SC,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "SM_TWOHAND", "name": "雙手劍使用熟練度", "maxlv": 10, "lv": 10, "class": "RK", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "KN_TWOHANDQUICKEN", "name": "雙手劍攻擊速度增加", "maxlv": 10, "lv": 10, "class": "RK", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
@@ -145,6 +145,7 @@
     { "skill": { "id": "KO_IZAYOI", "name": "十六夜", "maxlv": 5, "lv": 5, "class": "KO,OB", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "OB_ZANGETSU", "name": "變形的上弦月", "maxlv": 5, "lv": 5, "class": "KO,OB", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "KG_KAGEMUSYA", "name": "影子武士", "maxlv": 5, "lv": 5, "class": "KO", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "SS_FOUR_CHARM", "name": "四色符", "maxlv": 1, "lv": 1, "class": "KO,OB", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "trans":"4th", "conflict": "","Note": "" } },
     { "skill": { "id": "RL_RICHS_COIN", "name": "富翁的財貨", "maxlv": 1, "lv": 1, "class": "RE", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "GS_MADNESSCANCEL", "name": "瘋狂凱斯樂", "maxlv": 1, "lv": 1, "class": "RE", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "RL_P_ALTER","Note": "" } },
     { "skill": { "id": "GS_GATLINGFEVER", "name": "格林狂熱", "maxlv": 10, "lv": 10, "class": "RE", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },

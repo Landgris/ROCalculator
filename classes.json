@@ -1,4 +1,4 @@
-[
+﻿[
     {
         "id": "RK",
         "label": "騎士/盧恩騎士/盧恩龍爵",
@@ -6,7 +6,7 @@
         "secondJobMaxPT": [8,2,10,0,6,4],
         "secondExtendJobMaxPT": [15,8,8,2,9,3],
         "thirdJobMaxPT": [6,6,7,10,9,5],
-        "fourthJobMaxPT": [6,8,7,8,8,6,10,6,3,5,6,8],
+        "fourthJobMaxPT": [6,8,7,8,8,6,10,7,3,5,7,8],
         "Tbasehp": [42047,44922,47917],
         "Tbasesp": [2360,2646,2961],
         "baseaspd": 0
@@ -18,7 +18,7 @@
         "secondJobMaxPT": [6,10,2,4,8,0],
         "secondExtendJobMaxPT": [9,15,3,0,10,8],
         "thirdJobMaxPT": [8,11,6,5,9,4],
-        "fourthJobMaxPT": [8,11,6,5,9,4,12,8,4,0,7,7],
+        "fourthJobMaxPT": [8,11,6,5,9,4,12,8,4,0,8,8],
         "baseaspd": 0
     },
     {
@@ -28,7 +28,7 @@
         "secondJobMaxPT": [5,4,5,5,4,7],
         "secondExtendJobMaxPT": [7,8,7,12,9,2],
         "thirdJobMaxPT": [6,7,7,12,7,4],
-        "fourthJobMaxPT": [6,7,7,12,7,4,8,5,5,9,4,7],
+        "fourthJobMaxPT": [6,7,7,12,7,4,8,5,5,10,5,7],
         "baseaspd": 0
     },
     {
@@ -38,7 +38,7 @@
         "secondJobMaxPT": [4,6,2,4,10,4],
         "secondExtendJobMaxPT": [4,11,3,5,14,8],
         "thirdJobMaxPT": [2,12,8,9,8,4],
-        "fourthJobMaxPT": [2,12,8,9,8,4,9,5,5,4,11,4],
+        "fourthJobMaxPT": [2,12,8,9,8,4,10,5,5,4,11,5],
         "baseaspd": 0
     },
     {
@@ -48,7 +48,7 @@
         "secondJobMaxPT": [1,8,1,12,6,2],
         "secondExtendJobMaxPT": [3,8,5,17,9,3],
         "thirdJobMaxPT": [1,7,8,15,8,4],
-        "fourthJobMaxPT": [1,7,8,15,8,4,0,8,7,13,9,1],
+        "fourthJobMaxPT": [1,7,8,15,8,4,0,8,8,14,9,1],
         "baseaspd": 0
     },
     {
@@ -58,7 +58,7 @@
         "secondJobMaxPT": [6,2,6,2,12,2],
         "secondExtendJobMaxPT": [6,7,6,6,12,8],
         "thirdJobMaxPT": [10,6,10,6,5,6],
-        "fourthJobMaxPT": [10,6,10,6,5,6,9,10,5,0,7,7],
+        "fourthJobMaxPT": [10,6,10,6,5,6,10,10,6,0,7,7],
         "baseaspd": 0
     },
     {
@@ -68,7 +68,7 @@
         "secondJobMaxPT": [7,2,7,6,3,5],
         "secondExtendJobMaxPT": [9,8,10,7,8,3],
         "thirdJobMaxPT": [9,3,9,10,9,3],
-        "fourthJobMaxPT": [9,3,9,10,9,3,7,11,6,7,4,3],
+        "fourthJobMaxPT": [9,3,9,10,9,3,8,11,6,8,4,3],
         "Tbasehp": [42218,45557,49081],
         "Tbasesp": [2451,2613,2783],
         "baseaspd": 0
@@ -80,7 +80,7 @@
         "secondJobMaxPT": [6,7,6,4,7,0],
         "secondExtendJobMaxPT": [9,11,4,3,12,6],
         "thirdJobMaxPT": [8,9,8,6,6,6],
-        "fourthJobMaxPT": [8,9,8,6,6,6,8,8,4,7,5,6],
+        "fourthJobMaxPT": [8,9,8,6,6,6,9,8,4,8,5,6],
         "baseaspd": 0
     },
     {
@@ -90,7 +90,7 @@
         "secondJobMaxPT": [8,7,6,2,4,3],
         "secondExtendJobMaxPT": [9,9,7,7,10,3],
         "thirdJobMaxPT": [10,10,6,8,8,1],
-        "fourthJobMaxPT": [10,10,6,8,8,1,11,8,5,3,5,6],
+        "fourthJobMaxPT": [10,10,6,8,8,1,11,8,6,3,6,6],
         "Tbasehp": [40387,43581,46952],
         "Tbasesp": [2381,2708,3077],
         "baseaspd": 0
@@ -102,7 +102,7 @@
         "secondJobMaxPT": [2,7,3,5,9,4],
         "secondExtendJobMaxPT": [8,12,2,5,14,4],
         "thirdJobMaxPT": [7,7,7,9,10,3],
-        "fourthJobMaxPT": [7,7,7,9,10,3,6,7,4,6,11,4],
+        "fourthJobMaxPT": [7,7,7,9,10,3,7,7,4,7,11,4],
         "baseaspd": 0
     },
     {
@@ -112,7 +112,7 @@
         "secondJobMaxPT": [2,7,3,5,5,8],
         "secondExtendJobMaxPT": [6,14,2,5,16,2],
         "thirdJobMaxPT": [7,9,7,9,9,2],
-        "fourthJobMaxPT": [7,9,6,10,8,3,6,7,4,6,11,4],
+        "fourthJobMaxPT": [7,9,6,10,8,3,7,7,4,7,11,4],
         "baseaspd": 0
     },
     {
@@ -122,7 +122,7 @@
         "secondJobMaxPT": [5,5,3,9,5,3],
         "secondExtendJobMaxPT": [6,9,4,13,11,2],
         "thirdJobMaxPT": [4,4,8,13,9,5],
-        "fourthJobMaxPT": [4,4,8,13,9,5,3,8,7,12,5,3],
+        "fourthJobMaxPT": [4,4,8,13,9,5,3,8,8,12,6,3],
         "baseaspd": 0
     },
     {
@@ -132,7 +132,7 @@
         "secondJobMaxPT": [5,6,3,7,9,0],
         "secondExtendJobMaxPT": [4,6,3,7,14,11],
         "thirdJobMaxPT": [5,6,8,12,8,4],
-        "fourthJobMaxPT": [5,6,8,12,8,4,7,4,4,4,7,12],
+        "fourthJobMaxPT": [5,6,8,12,8,4,8,5,4,4,7,12],
         "baseaspd": 0
     },
     {
@@ -141,7 +141,7 @@
         "TranscendentClass": false,
         "secondJobMaxPT": [1,8,1,5,6,4],
         "thirdJobMaxPT": [7,10,6,6,9,5],
-        "fourthJobMaxPT": [10,12,6,4,9,3,10,10,4,0,6,8],
+        "fourthJobMaxPT": [10,12,6,6,10,3,10,10,5,1,6,8],
         "baseaspd": 0
     },
     {
@@ -150,7 +150,7 @@
         "TranscendentClass": false,
         "secondJobMaxPT": [1,8,1,5,6,4],
         "thirdJobMaxPT": [7,10,6,6,8,6],
-        "fourthJobMaxPT": [4,8,5,10,10,3,4,8,10,3,6,7],
+        "fourthJobMaxPT": [6,8,6,10,10,3,5,8,10,4,6,7],
         "baseaspd": 0
     },
     {
@@ -159,7 +159,7 @@
         "TranscendentClass": false,
         "secondJobMaxPT": [4,1,1,5,9,7],
         "thirdJobMaxPT": [3,8,6,8,11,7],
-        "fourthJobMaxPT": [3,8,6,8,11,7,11,6,5,0,10,5],
+        "fourthJobMaxPT": [3,8,6,8,11,7,11,6,6,0,10,6],
         "baseaspd": 0
     },
     {
@@ -168,7 +168,7 @@
         "TranscendentClass": false,
         "secondJobMaxPT": [0,0,0,0,0,0],
         "thirdJobMaxPT": [12,10,6,3,9,3],
-        "fourthJobMaxPT": [12,10,6,3,9,3,12,10,2,0,7,7],
+        "fourthJobMaxPT": [12,10,6,3,9,3,12,10,3,0,8,7],
         "baseaspd": 0
     },
     {
@@ -186,7 +186,7 @@
         "TranscendentClass": false,
         "secondJobMaxPT": [0,0,0,0,0,0],
         "thirdJobMaxPT": [0,7,5,9,12,5],
-        "fourthJobMaxPT": [5,7,5,9,12,5,8,6,5,8,7,4],
+        "fourthJobMaxPT": [5,7,5,9,12,5,9,6,5,9,7,4],
         "baseaspd": 0
     },
     {
@@ -195,7 +195,7 @@
         "TranscendentClass": false,
         "secondJobMaxPT": [0,0,0,0,0,0],
         "thirdJobMaxPT": [7,7,6,6,6,5],
-        "fourthJobMaxPT": [10,5,6,10,5,6,9,5,4,9,8,3],
+        "fourthJobMaxPT": [10,5,6,10,6,6,10,5,4,10,8,3],
         "baseaspd": 0
     },
     {
