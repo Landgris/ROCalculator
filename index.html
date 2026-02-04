@@ -6486,8 +6486,8 @@
                     x 對方(1 - 俯身 90% )
                     */
 
-                    SpecialMATK1: 0, // 特殊技能加值  技能倍率後 用加的  忍者符咒
-                    SpecialMATK1: 0, // 特殊技能乘值  技能倍率後 用乘的  
+                    SpecialMATK1: 0, // 特殊技能加值  技能倍率 用加的  忍者符咒
+                    SpecialMATK2: 0, // 特殊技能乘值  技能倍率後 用乘的  
                     SpecialMATK3: 0, // 特殊技能乘值  mdef之後 屬性之前 終念 萬紫3
                     SpecialINSIGNIAENEMYMATK: 0, // 紋章
 
@@ -9885,10 +9885,11 @@
                     }
                     //四色符 SS_FOUR_CHARM
                     if (this.IsSupportActive('SS_FOUR_CHARM')){
-                        if (this.skill.id == 'SS_SEKIENHOU') this.computeattribute['SpecialMATK1'] += 8500;
-                        if (this.skill.id == 'SS_REIKETSUHOU') this.computeattribute['SpecialMATK1'] += 7000;
-                        if (this.skill.id == 'SS_RAIDENPOU') this.computeattribute['SpecialMATK1'] += 8500;
-                        if (this.skill.id == 'SS_KINRYUUHOU') this.computeattribute['SpecialMATK1'] += 5500;
+                        // 這個倍率在技能倍率跟BLV/100之前，但是因為之前把SpecialMATK1加在BLV之後 所以只能這樣處理
+                        if (this.skill.id == 'SS_SEKIENHOU') this.computeattribute['SpecialMATK1'] += 8500 * this.status.Level / 100;
+                        if (this.skill.id == 'SS_REIKETSUHOU') this.computeattribute['SpecialMATK1'] += 7000 * this.status.Level / 100;
+                        if (this.skill.id == 'SS_RAIDENPOU') this.computeattribute['SpecialMATK1'] += 8500 * this.status.Level / 100;
+                        if (this.skill.id == 'SS_KINRYUUHOU') this.computeattribute['SpecialMATK1'] += 5500 * this.status.Level / 100;
                     }
 
                     //瘋狂凱斯樂
