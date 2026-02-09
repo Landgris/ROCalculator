@@ -7809,7 +7809,25 @@
                     //近戰傷害
                     var para_melee = Number(1) + Number(this.attritube['MELDP']) / 100;
 
-                    if( this.isZeroMode == false ){
+                    if( this.skill.id == 'RK_WINDCUTTER' )
+                    {
+                        this.skill.ranged = (this.weapon.type.id == 'Spears')?true:false;
+                    }
+
+                    if( this.isZeroMode )
+                    {
+                        if( isNA ){
+                            if (this.weapon.type.isRangedattack == false) {
+                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
+                            }
+                        }else{
+                            if(this.skill.ranged == false){
+                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
+                            }
+                        }
+                    }else{
                         if( isNA ){
                             if (this.weapon.type.isRangedattack) {
                                 this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
@@ -7819,10 +7837,6 @@
                                 this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
                             }
                         }else{
-                            if( this.skill.id == 'RK_WINDCUTTER' )
-                            {
-                                this.skill.ranged = (this.weapon.type.id == 'Spears')?true:false;
-                            }
                             if (this.skill.ranged && this.skill.laterranged == false) {
                                 this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
                                 this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
@@ -7912,7 +7926,7 @@
                         this.computeattribute.atkc8_min = Math.floor(this.computeattribute.atkc7_min * Number(this.computeattribute['SpecialRLHand'] / 100));
                         this.computeattribute.atkc8_max = Math.floor(this.computeattribute.atkc7_max * Number(this.computeattribute['SpecialRLHand'] / 100));
                     }
-                    /*
+                    
                     if (this.skill.ranged){
                         this.computeattribute.atkc8_min = Math.floor(this.computeattribute.atkc8_min * Number(1 + this.attritube['RNGDDI'] / 100));
                         this.computeattribute.atkc8_max = Math.floor(this.computeattribute.atkc8_max * Number(1 + this.attritube['RNGDDI'] / 100));
@@ -7920,7 +7934,7 @@
                         this.computeattribute.atkc8_min = Math.floor(this.computeattribute.atkc8_min * Number(1 + this.attritube['MELDDI'] / 100));
                         this.computeattribute.atkc8_max = Math.floor(this.computeattribute.atkc8_max * Number(1 + this.attritube['MELDDI'] / 100));
                     }
-                    */
+                    
                     if( isNA == false ){
                         var parasp6 = Number(this.computeattribute['SpecialATK7']);
                         this.computeattribute.atkc8_min += parasp6;
@@ -9056,8 +9070,8 @@
                     }
                     //撼動
                     if (this.IsSupportActive('MT_QUAKE')){
-                        //this.attritube['MELDDI'] += 50;
-                        //this.attritube['RNGDDI'] += 50;
+                        this.attritube['MELDDI'] += 50;
+                        this.attritube['RNGDDI'] += 50;
                     }
 
 
