@@ -5,7 +5,7 @@
     { "skill": { "id": "MS_BOWLINGBASH", "name": "怪物互擊", "level": 10, "formula": "100+40*SLV+STR", "class": "RK", "DamageTypeIdx": 0, "hitnumber": 4, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 2, "GCD": 0.3, "Note": "攻擊次數3~5次"} },
     { "skill": { "id": "LK_SPIRALPIERCE", "name": "螺旋擊刺", "level": 5, "formula": "(150+50*SLV)*BLV/100", "class": "RK", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 5, "elemental": 0, "FCT": "0.07+SLV*0.01", "VCT": "0.24+SLV*0.04", "CD": 0.5, "GCD": 0.3, "Note": ""} },
     
-    { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*((WTI==\"Spears\")?5:2))*((WTI==\"Spears\")?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 6, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "CR_HOLYCROSS", "name": "聖十字攻擊", "level": 10, "formula": "(100+35*SLV+VIT*((WPT(Spears))?5:2))*((WPT(Spears))?2:1)", "class": "RG", "DamageTypeIdx": 0, "hitnumber": -2, "elemental": 6, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CR_GRANDCROSS", "name": "聖十字審判", "level": 10, "formula": "100+SLV*40", "class": "RG", "DamageTypeIdx": 4, "hitnumber": 3, "elemental": 6, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CR_SHIELDBOOMERANG", "name": "迴旋盾擊", "level": 5, "formula": "80*SLV+SHW+SRL*4", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "PA_SHIELDCHAIN", "name": "連續盾擊", "level": 5, "formula": "600+(400*SLV)+SHW+SRL*4", "class": "RG", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
@@ -18,7 +18,7 @@
     { "skill": { "id": "ASC_BREAKER", "name": "心靈震波", "level": 10, "formula": "(150*SLV+STR+INT)*BLV/100", "class": "GX", "DamageTypeIdx": 0, "ranged": true, "critical": true, "hitnumber": 1, "elemental": 0, "FCT": 0.1, "VCT": 0.4, "CD": 0.5, "GCD": 0.3, "Note": "BLV調整成當前等級"} },
     { "skill": { "id": "ASC_METEORASSAULT", "name": "黑暗瞬間", "level": 10, "formula": "(200+120*SLV)*BLV/100", "class": "GX", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": ""} },
     
-    { "skill": { "id": "RG_BACKSTAP", "name": "背刺", "level": 10, "formula": "(900+120*SLV)*((WTI==\"Bows\")?0.5:1)", "class": "SC", "DamageTypeIdx": 0, "hitnumber": "((WTI==\"Daggers\")?2:1)", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": "弓傷害減半，短劍傷害次數+1"} },
+    { "skill": { "id": "RG_BACKSTAP", "name": "背刺", "level": 10, "formula": "(900+120*SLV)*((WPT(Bows))?0.5:1)", "class": "SC", "DamageTypeIdx": 0, "hitnumber": "((WPT(Daggers))?2:1)", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": "弓傷害減半，短劍傷害次數+1"} },
     { "skill": { "id": "RG_RAID", "name": "潛擊", "level": 5, "formula": "100+150*SLV+AGI*3+DEX/2", "class": "SC", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0.7, "GCD": 0.3, "Note": "需考慮隱匿延遲"} },
     { "skill": { "id": "SC_TRIANGLESHOT", "name": "三角射擊", "level": 10, "formula": "(230*SLV+AGI*3)*BLV/100", "class": "SC", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -3, "elemental": 0, "FCT": 0.2, "VCT": 0.8, "CD": 0, "GCD": 0.2, "Note": "BLV調整成當前等級"} },
     
@@ -33,13 +33,13 @@
     { "skill": { "id": "CG_ARROWVULCAN", "name": "奧義箭亂舞", "level": 10, "formula": "(1000+SLV*200)*BLV/100", "class": "MI,WA", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -9, "elemental": 0, "FCT": "0.18+SLV*0.02", "VCT": "0.72+SLV*0.08", "CD": 1.5, "GCD": 0.3, "Note": ""} },
     
     { "skill": { "id": "MO_TRIPLEATTACK", "name": "六合拳", "level": 10, "formula": "100+20*SLV", "class": "SU", "DamageTypeIdx": 0, "hitnumber": -3, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
-    { "skill": { "id": "MO_CHAINCOMBO", "name": "連環全身掌", "level": 5, "formula": "(250+50*SLV)*((WTI==\"Knuckles\")?2:1)", "class": "SU", "DamageTypeIdx": 0, "hitnumber": "(WTI==\"Knuckles\")?-6:-4", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "MO_CHAINCOMBO", "name": "連環全身掌", "level": 5, "formula": "(250+50*SLV)*((WPT(Knuckles))?2:1)", "class": "SU", "DamageTypeIdx": 0, "hitnumber": "(WPT(Knuckles))?-6:-4", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "MO_COMBOFINISH", "name": "猛龍誇強", "level": 5, "formula": "450+230*SLV+STR*5", "class": "SU", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CH_TIGERFIST", "name": "伏虎拳", "level": 5, "formula": "500+150*SLV", "class": "SU", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "CH_CHAINCRUSH", "name": "氣絕崩擊", "level": 10, "formula": "200*SLV", "class": "SU", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     
     { "skill": { "id": "MO_FINGEROFFENSIVE", "name": "彈指神通", "level": 5, "formula": "900+300*SLV", "class": "SU", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 0.3, "GCD": 0.3, "Note": ""} },
-    { "skill": { "id": "MO_EXTREMITYFIST", "name": "阿修羅霸凰拳", "level": 5, "formula": "(8+DOWN(SP/10))*100", "class": "SU", "DamageTypeIdx": 0, "transWeaponDEF": true, "ignoreRES": true, "hitnumber": 1, "elemental": 0, "FCT": "0.9-SLV*0.1", "VCT": "3.6-SLV*0.4", "CD": 3, "GCD": 0, "SpecialATK7": 1000, "SpecialMATK1": 0, "Note": "額外選項的氣彈數量為0"} },
+    { "skill": { "id": "MO_EXTREMITYFIST", "name": "阿修羅霸凰拳", "level": 5, "formula": "(8+DOWN(CSP/10))*100", "class": "SU", "DamageTypeIdx": 0, "transWeaponDEF": true, "ignoreRES": true, "hitnumber": 1, "elemental": 0, "FCT": "0.9-SLV*0.1", "VCT": "3.6-SLV*0.4", "CD": 3, "GCD": 0, "SpecialATK7": 1000, "SpecialMATK1": 0, "Note": "額外選項的氣彈數量為0"} },
     
     { "skill": { "id": "PR_MAGNUS", "name": "十字驅魔攻擊", "level": 10, "formula": "100", "class": "AB", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 6, "FCT": 0.5, "VCT": 2, "CD": 3, "GCD": 0.3, "Note": "每3秒一次"} },
     { "skill": { "id": "PR_MAGNUS(ex)", "name": "十字驅魔攻擊(對暗不死惡魔)", "level": 10, "formula": "130", "class": "AB", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 6, "FCT": 0.5, "VCT": 2, "CD": 3, "GCD": 0.3, "Note": "每3秒一次"} },
