@@ -4,10 +4,10 @@
 }
 /* 裝備區塊專用，預留 title 高度 50px */
 .body2col-container-equip {
-    height: calc(100vh - (50px + 35px + 8px + 52px));
+    height: calc(100vh - (50px + 35px + 52px));
 }
 .body2col-container-panel {
-    height: calc(100vh - (50px + 35px + 8px + 62px)); /* 比原本多預留56px給按鈕列 */
+    height: calc(100vh - (50px + 35px + 62px)); /* 比原本多預留56px給按鈕列 */
 }
 
 /* 新增：第四區面板切換按鈕美化 */
@@ -52,6 +52,15 @@
 html, body {
     margin: 0;
     padding: 0;
+}
+
+body {
+    overflow-x: auto;
+}
+
+#App {
+    min-width: 1600px;
+    width: 100%;
 }
 
 [v-cloak] {
@@ -100,6 +109,25 @@ html, body {
     white-space: pre-wrap;
 }
 
+.detail-summary {
+    color: #2d6cdf;
+    cursor: pointer;
+}
+
+.detail-summary:hover {
+    text-decoration: underline;
+}
+
+.detail-breakdown {
+    margin-top: 2px;
+}
+
+.detail-breakdown-item {
+    color: #7a7a7a;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
 .ROCalTitle {
     height: 50px;
     position: relative;
@@ -116,15 +144,30 @@ html, body {
 }
 
 .bodycol-container {
-    height: calc(100vh - (50px + 35px + 8px));
+    height: calc(100vh - (50px + 35px));
 }
 
 .body2col-container {
-    height: calc(100vh - (50px + 35px + 8px + 42px));
+    height: calc(100vh - (50px + 35px + 42px));
 }
 
 .Dialogue-container {
     height: calc(100vh - (50px + 35px + 24px));
+}
+
+.Dialogue-container .el-dialog {
+    height: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Dialogue-container .el-dialog__body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
 }
 
 .EquipDBList-container {
@@ -140,13 +183,58 @@ html, body {
 }
 
 .SkillList-container {
-    height: 400px;
-    max-height: 400px;
+    height: 60vh;
+    max-height: 60vh;
     overflow-y: auto;
     overflow-x: hidden;
     border: 1px solid #e6e6e6;
     border-radius: 4px;
     background-color: #fff;
+}
+
+.Dialogue-container .support-skill-dialog-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    align-items: stretch;
+    height: 100%;
+}
+
+.Dialogue-container .support-skill-dialog-header {
+    flex: 0 0 auto;
+}
+
+
+
+.Dialogue-container .support-skill-dialog-body .SkillList-container {
+    height: 100%;
+    max-height: 100%;
+}
+
+.Dialogue-container .support-skill-dialog-body .optionbox {
+    height: 100%;
+    min-height: 0;
+}
+
+.Dialogue-container .support-skill-dialog-body .el-scrollbar {
+    height: 100%;
+}
+
+.Dialogue-container .support-skill-classlist {
+    overflow-y: auto;
+}
+
+.Dialogue-container .support-skill-classlist .el-button {
+    font-size: 16px;
+}
+
+.Dialogue-container .support-skill-list .el-scrollbar__wrap {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.Dialogue-container .support-skill-classlist .el-scrollbar__wrap {
+    height: 100%;
+    overflow-y: auto;
 }
 
 /* 確保Element UI的滾動條樣式正確 */
@@ -186,6 +274,81 @@ html, body {
     height: calc(100vh - (50px + 35px + 240px));
 }
 
+.RaceSelectDialog {
+    display: flex;
+    flex-direction: column;
+}
+
+.RaceSelectDialog .el-dialog__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 6px 0;
+    overflow: hidden;
+}
+
+.RaceSelectDialog .el-scrollbar {
+    flex: 1 1 auto;
+    height: 100%;
+}
+
+.RaceSelectList-container {
+    height: 100%;
+}
+
+.RaceSelectDialog .el-scrollbar__wrap {
+    height: 100%;
+}
+
+.RaceSelectDialog .el-scrollbar__view {
+    padding: 0;
+}
+
+.ElementSelectDialog {
+    display: flex;
+    flex-direction: column;
+}
+
+.ElementSelectDialog .el-dialog__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 6px 0;
+    overflow: hidden;
+}
+
+.ElementSelectDialog .el-scrollbar {
+    flex: 1 1 auto;
+    height: 100%;
+}
+
+.ElementSelectList-container {
+    height: 100%;
+}
+
+.SelectDialogCenter .el-table th,
+.SelectDialogCenter .el-table td,
+.SelectDialogCenter .el-table .cell {
+    text-align: center;
+}
+
+.SelectDialogCenter .statusbox {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.SelectDialogCenter .el-table {
+    margin: 0 auto;
+}
+
+.ElementSelectDialog .el-scrollbar__wrap {
+    height: 100%;
+}
+
+.ElementSelectDialog .el-scrollbar__view {
+    padding: 0;
+}
+
 .ConsumableList1-container {
     height: calc(100vh - (50px + 35px + 212px));
 }
@@ -209,6 +372,33 @@ html, body {
     border: 1px solid #d7dae2;
     border-radius: 4px;
     min-height: 100px;
+}
+
+.EffectType.effect-tag-phys,
+.EffectType.effect-tag-magic {
+    display: inline-block;
+    position: relative;
+    padding-left: 12px;
+}
+
+.EffectType.effect-tag-phys::before,
+.EffectType.effect-tag-magic::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    transform: translateY(-50%);
+}
+
+.EffectType.effect-tag-phys::before {
+    background: #f0a04b;
+}
+
+.EffectType.effect-tag-magic::before {
+    background: #4aa3ff;
 }
 
 .statusbox {
