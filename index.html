@@ -156,9 +156,13 @@
                         <el-row>
                             <div class="aboutbox" style="padding: 5px 55px; text-align:left">
                                 <el-row :gutter="4" type="flex" align="left">
+                                    ⭐大家新年快樂，計算機大改版!⭐<br>
+                                    現在裝備可以設定技能/種族/體型/屬性/階級/屬性魔法/屬性耐性<br>
+                                    並且在總和面板可以查看各分類明細還有來源!<br>
+                                    詳細請看巴哈討論串<br><br>
+
                                     四轉-4.1新增技能倍率的特殊加成等待測試(2026/2/3)<br><br>
-                                    增加了德魯伊的輔助技能跟JOB點, 感謝酒虎(杜腐)在巴哈的整理<br>
-                                    https://forum.gamer.com.tw/C.php?bsn=4212&snA=439427<br><br>
+
                                     在網址後面加上"?zero"會切換樂園版本(Zero)<br>
                                     酒虎(杜腐)製作的計算機操作教學<br>
                                     https://forum.gamer.com.tw/C.php?bsn=4212&snA=436996<br>
@@ -10035,6 +10039,30 @@
                     this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
                     this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
 
+                    //突破極限
+                    if (this.IsSupportActive('HN_BREAKINGLIMIT')){
+                        //雙重怪物互擊
+                        if (this.skill.id == 'HN_DOUBLEBOWLINGBASH'){ 
+                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, 2.2);
+                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, 2.2);
+                        }
+                        //巨型音速投擲
+                        if (this.skill.id == 'HN_MEGA_SONIC_BLOW'){ 
+                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, 2);
+                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, 2);
+                        }
+                        //連續盾擊衝撞
+                        if (this.skill.id == 'HN_SHIELD_CHAIN_RUSH'){ 
+                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, 2.2);
+                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, 2.2);
+                        }
+                        //螺旋擊刺Max
+                        if (this.skill.id == 'HN_SPIRAL_PIERCE_MAX'){ 
+                            this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, 2);
+                            this.computeattribute.atkc9_max = this.MulOper(this.computeattribute.atkc9_max, 2);
+                        }
+                    }
+
                     // 天怒
                     if (this.IsSupportActive('PR_LEXAETERNA')) {
                         this.computeattribute.atkc9_min = this.MulOper(this.computeattribute.atkc9_min, Number(1) + Number(100 / 100));
@@ -10210,6 +10238,33 @@
                     this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
                     this.computeattribute.matk4_max = this.MulOper(this.computeattribute.matk4_max, Number(1) + Number(this.computeattribute['SpecialINSIGNIAENEMYMATK'] / 100));
 
+                    //突破規矩
+                    if (this.IsSupportActive('HN_RULEBREAK')){
+                        //隕石術猛擊
+                        if (this.skill.id == 'HN_METEOR_STORM_BUSTER'){ 
+                            this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, 1.5);
+                        }
+                        //雷鳴術風暴
+                        if (this.skill.id == 'HN_JUPITEL_THUNDER_STORM'){ 
+                            this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, 1.7);
+                        }
+                        //新霜凍術
+                        if (this.skill.id == 'HN_JACK_FROST_NOVA'){ 
+                            this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, 1.7);
+                        }
+                        //地獄毀滅
+                        if (this.skill.id == 'HN_HELLS_DRIVE'){ 
+                            this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, 1.7);
+                        }
+                        //地面重力
+                        if (this.skill.id.includes('HN_GROUND_GRAVITATION')){ 
+                            this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, 1.5);
+                        }
+                        //念力連擊攻擊
+                        if (this.skill.id == 'HN_NAPALM_VULCAN_STRIKE'){ 
+                            this.computeattribute.matk4_min = this.MulOper(this.computeattribute.matk4_min, 1.4);
+                        }
+                    }
 
                     // 天怒
                     if (this.IsSupportActive('PR_LEXAETERNA')) {
@@ -12284,7 +12339,7 @@
                         }
                     }
 
-                    //突破極限
+                    //超越極限
                     if (this.IsSupportActive('NV_BREAKTHROUGH')){
                         this.attritube['ATK'] += 100;
                         this.addSupportEffectDetail('ATK', null, 100, this.getSkillName('NV_BREAKTHROUGH'));
