@@ -55,15 +55,16 @@
 - 2: 龍息
 
 ### elemental (屬性)
-- 0: 無屬性
-- 1: 火
-- 2: 水
-- 3: 風
-- 4: 地
-- 5: 毒
-- 6: 聖
-- 7: 暗
-- 8: 念
+                    { id: 0, label: '無' },
+                    { id: 1, label: '火' },
+                    { id: 2, label: '水' },
+                    { id: 3, label: '風' },
+                    { id: 4, label: '地' },
+                    { id: 5, label: '毒' },
+                    { id: 6, label: '聖' },
+                    { id: 7, label: '暗' },
+                    { id: 8, label: '念' },
+                    { id: 9, label: '不死' }
 
 ### ranged (是否遠程)
 - true: 遠程攻擊

@@ -12398,39 +12398,46 @@
                         
                         //隕石術猛擊
                         if (this.skill.id == 'HN_METEOR_STORM_BUSTER'){ 
-                            this.option.EquipSkillAddDamage += soceryLv;
-                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_METEOR_STORM_BUSTER'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                            this.computeattribute['SpecialMATK2'] += soceryLv;
+                            //this.option.EquipSkillAddDamage += soceryLv;
+                            //this.supportSkillEffects.push({ skillName: this.getSkillName('HN_METEOR_STORM_BUSTER'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
                         }
                         //雷鳴術風暴
                         if (this.skill.id == 'HN_JUPITEL_THUNDER_STORM'){ 
-                            this.option.EquipSkillAddDamage += soceryLv;
-                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_JUPITEL_THUNDER_STORM'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                            this.computeattribute['SpecialMATK2'] += soceryLv;
+                            //this.option.EquipSkillAddDamage += soceryLv;
+                            //this.supportSkillEffects.push({ skillName: this.getSkillName('HN_JUPITEL_THUNDER_STORM'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
                         }
                         //新霜凍術
                         if (this.skill.id == 'HN_JACK_FROST_NOVA'){ 
-                            this.option.EquipSkillAddDamage += soceryLv;
-                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_JACK_FROST_NOVA'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                            this.computeattribute['SpecialMATK2'] += soceryLv;
+                            //this.option.EquipSkillAddDamage += soceryLv;
+                            //this.supportSkillEffects.push({ skillName: this.getSkillName('HN_JACK_FROST_NOVA'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
                         }
                         //地獄毀滅
                         if (this.skill.id == 'HN_HELLS_DRIVE'){ 
-                            this.option.EquipSkillAddDamage += soceryLv;
-                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_HELLS_DRIVE'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                            this.computeattribute['SpecialMATK2'] += soceryLv;
+                            //this.option.EquipSkillAddDamage += soceryLv;
+                            //this.supportSkillEffects.push({ skillName: this.getSkillName('HN_HELLS_DRIVE'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
                         }
                         //念力連擊攻擊
                         if (this.skill.id == 'HN_NAPALM_VULCAN_STRIKE'){ 
                             var dmg = soceryLv * 2;
-                            this.option.EquipSkillAddDamage += dmg;
-                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_NAPALM_VULCAN_STRIKE'), type: '增傷', value: dmg, unit: '%', source: '自學魔法' });
+                            this.computeattribute['SpecialMATK2'] += dmg;
+                            //this.option.EquipSkillAddDamage += dmg;
+                           // this.supportSkillEffects.push({ skillName: this.getSkillName('HN_NAPALM_VULCAN_STRIKE'), type: '增傷', value: dmg, unit: '%', source: '自學魔法' });
                         }
                         //地面重力 衝擊
                         if (this.skill.id == 'HN_GROUND_GRAVITATION'){ 
-                            this.option.EquipSkillAddDamage += soceryLv;
-                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_GROUND_GRAVITATION'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                            this.computeattribute['SpecialMATK2'] += soceryLv;
+                            //this.option.EquipSkillAddDamage += soceryLv;
+                            //this.supportSkillEffects.push({ skillName: this.getSkillName('HN_GROUND_GRAVITATION'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
                         }
                         //地面重力 重力場
                         if (this.skill.id == 'HN_GROUND_GRAVITATION(dot)'){ 
-                            this.option.EquipSkillAddDamage += soceryLv;
-                            this.supportSkillEffects.push({ skillName: this.getSkillName('HN_GROUND_GRAVITATION(dot)'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
+                            this.computeattribute['SpecialMATK2'] += soceryLv;
+                            //this.option.EquipSkillAddDamage += soceryLv;
+                            //this.supportSkillEffects.push({ skillName: this.getSkillName('HN_GROUND_GRAVITATION(dot)'), type: '增傷', value: soceryLv, unit: '%', source: '自學魔法' });
                         }
                     }
 

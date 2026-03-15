@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Landgris/ROCalculator#readme",
   "dependencies": {
-    "element-ui": "^2.12.0"
+    "element-ui": "^2.12.0",
+    "openai": "^6.21.0"
   }
 }
