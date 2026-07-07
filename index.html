@@ -10821,9 +10821,14 @@
                         return;
                     }
                     
-                    // 自動開啟轉生：當等級>=100且為轉生職業時自動開啟轉生
+                    // 自動開啟轉生：當等級>=100且為轉生職業時自動開啟轉生（Zero模式下不強制，維持關閉）
                     if (this.status.Level >= 100 && this.ClassInfo && this.ClassInfo.TranscendentClass) {
-                        if (!this.status.Transcendent) {
+                        if (this.isZeroMode) {
+                            if (this.status.Transcendent) {
+                                this.status.Transcendent = false;
+                                console.log(`Zero模式下不強制轉生，關閉轉生`);
+                            }
+                        } else if (!this.status.Transcendent) {
                             this.status.Transcendent = true;
                             console.log(`等級${this.status.Level}已達到轉生要求，自動開啟轉生`);
                         }
