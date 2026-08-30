@@ -35,8 +35,8 @@
     { "skill": { "id": "MO_TRIPLEATTACK", "name": "六合拳", "level": 10, "formula": "100+20*SLV", "class": "SU", "DamageTypeIdx": 0, "hitnumber": -3, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "MO_CHAINCOMBO", "name": "連環全身掌", "level": 5, "formula": "(250+50*SLV)*((WPT(Knuckles))?2:1)", "class": "SU", "DamageTypeIdx": 0, "hitnumber": "(WPT(Knuckles))?-6:-4", "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "MO_COMBOFINISH", "name": "猛龍誇強", "level": 5, "formula": "450+230*SLV+STR*5", "class": "SU", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
-    { "skill": { "id": "CH_TIGERFIST", "name": "伏虎拳", "level": 5, "formula": "500+150*SLV", "class": "SU", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
-    { "skill": { "id": "CH_CHAINCRUSH", "name": "氣絕崩擊", "level": 10, "formula": "200*SLV", "class": "SU", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "CH_TIGERFIST", "name": "伏虎拳", "level": 5, "formula": "500+270*SLV", "class": "SU", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "CH_CHAINCRUSH", "name": "氣絕崩擊", "level": 10, "formula": "230*SLV+STR*5", "class": "SU", "DamageTypeIdx": 0, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
     
     { "skill": { "id": "MO_FINGEROFFENSIVE", "name": "彈指神通", "level": 5, "formula": "900+300*SLV", "class": "SU", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 0.3, "GCD": 0.3, "Note": ""} },
     { "skill": { "id": "MO_EXTREMITYFIST", "name": "阿修羅霸凰拳", "level": 5, "formula": "(8+DOWN(CSP/10))*100", "class": "SU", "DamageTypeIdx": 0, "transWeaponDEF": true, "ignoreRES": true, "hitnumber": 1, "elemental": 0, "FCT": "0.9-SLV*0.1", "VCT": "3.6-SLV*0.4", "CD": 3, "GCD": 0, "SpecialATK7": 1000, "SpecialMATK1": 0, "Note": "額外選項的氣彈數量為0"} },

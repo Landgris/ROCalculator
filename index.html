@@ -1488,6 +1488,18 @@
                                             </el-col>
                                         </el-row>
 
+                                        <el-row :class="PreviewETL[GetETLIndex('WeaponRangedDamagePercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                            <el-col class="textcenter" :span="12">
+                                                武器遠傷 %
+                                            </el-col>
+                                            <el-col class="textcenter" :span="12">
+                                                <el-input v-if="PreviewETL[0]"
+                                                    v-model="PreviewETL[GetETLIndex('WeaponRangedDamagePercent')].totalvalue"
+                                                    v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
+                                                </el-input>
+                                            </el-col>
+                                        </el-row>
+
                                         <el-row :class="PreviewETL[GetETLIndex('MonsterAtkPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                             <el-col class="textcenter" :span="12">
                                                 特定魔物 %
@@ -2795,13 +2807,13 @@
                                 <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;">
                                     <el-col class="textcenter">HP</el-col>
                                     <el-col>
-                                        <el-input v-model.number="HP_NotFix" v-on:input="onOption"
+                                        <el-input v-model.number="HP_NotFix" v-on:input="onHPNotFixInput"
                                             placeholder="HP_NotFix">
                                         </el-input>
                                     </el-col>
                                     <el-col class="textcenter">SP</el-col>
                                     <el-col>
-                                        <el-input v-model.number="SP_NotFix" v-on:input="onOption"
+                                        <el-input v-model.number="SP_NotFix" v-on:input="onSPNotFixInput"
                                             placeholder="SP_NotFix">
                                         </el-input>
                                     </el-col>
@@ -5662,6 +5674,34 @@
                                                 </el-row>
                                             </template>
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:auto;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>武器遠傷%:</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{attritube['WeaponRangedDamagePercent']}} %</span>
+                                                    <template v-for="row in getDetailRows('WeaponRangedDamagePercent','all')" :key="row.key">
+                                                        <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
+                                                            {{ getDetailSummaryText(row) }}
+                                                        </span>
+                                                        <div v-if="IsDetailBreakdownOpen(row.key)" class="detail-breakdown">
+                                                            <template v-if="row.equipItems && row.equipItems.length">
+                                                                <div v-for="equipItem in row.equipItems" :key="row.key + '-equip-' + equipItem.source" class="detail-breakdown-item">
+                                                                    {{ equipItem.source }} {{ equipItem.value }}%
+                                                                </div>
+                                                                <div v-if="getEquipRemainderValue(row)" class="detail-breakdown-item">
+                                                                    其他 {{ getEquipRemainderValue(row) }}%
+                                                                </div>
+                                                            </template>
+                                                            <div v-else-if="row.equipValue" class="detail-breakdown-item">裝備 {{ row.equipValue }}%</div>
+                                                            <div v-for="item in row.supportItems" :key="row.key + '-' + item.source" class="detail-breakdown-item">
+                                                                {{ item.source }} {{ item.value }}%
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                                 style="height:40px;">
                                                 <el-col class="bg-purple-light" :span="10" style="text-align: right;">
                                                     <span>屬性耐性減少%:</span>
@@ -6879,6 +6919,7 @@
                     { label: '體型 %', id: 'SizeAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '階級 %', id: 'LevelAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '對屬性敵人 %', id: 'ElementalAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '武器遠傷 %', id: 'WeaponRangedDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '特定魔物 %', id: 'MonsterAtkPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '命中傷 %', id: 'HitAtkDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '暴傷 %', id: 'CriDamagePercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
@@ -7051,8 +7092,12 @@
                 },
                 status_total_init: {},
                 HP_NotFix: 0,
+                HP_NotFix_VIT: 0,
+                HP_NotFix_TransMult: 1,
                 HP_Fix: 0,
                 SP_NotFix: 0,
+                SP_NotFix_INT: 0,
+                SP_NotFix_TransMult: 1,
                 SP_Fix: 0,
                 /*
                  SK1VCTP %布萊齊 犧牲祈福
@@ -7085,6 +7130,7 @@
                     SizeAtkPercent: 0,
                     RaceAtkPercent: 0,
                     RaceMatkPercent: 0,
+                    WeaponRangedDamagePercent: 0,
                 },
                 HP_JOB_A: 0, HP_JOB_B: 0,
                 attritube_init: {},
@@ -7856,6 +7902,7 @@
                         'CriDamagePercent',
                         'MeleeDamagePercent',
                         'RangedDamagePercent',
+                        'WeaponRangedDamagePercent',
                         'MeleeDamageDealtIncreasedPercent',
                         'RangedDamageDealtIncreasedPercent',
                         'BypassDEFPercent',
@@ -7953,6 +8000,7 @@
                             { effectId: 'Atk', targetKind: 'all' },
                             { effectId: 'AtkPercent', targetKind: 'all' },
                             { effectId: 'RangedDamagePercent', targetKind: 'all' },
+                            { effectId: 'WeaponRangedDamagePercent', targetKind: 'all' },
                             { effectId: 'MeleeDamagePercent', targetKind: 'all' },
                             { effectId: 'HitAtkDamagePercent', targetKind: 'all' },
                             { effectId: 'Cri', targetKind: 'all' },
@@ -9427,8 +9475,13 @@
 
                         if(Number(this.HP_NotFix) != 0)
                         {
-                            _BaseHP = Math.ceil(Number(this.HP_NotFix)/((100+this.GetPureStats(this.status.VIT))/100));
-                            _BaseSP = Math.ceil(Number(this.SP_NotFix)/((100+this.GetPureStats(this.status.INT))/100));
+                            _BaseHP = Math.ceil(Number(this.HP_NotFix)/((100+this.HP_NotFix_VIT)/100));
+                            _BaseHP = Math.ceil(_BaseHP / this.HP_NotFix_TransMult);
+                        }
+                        if(Number(this.SP_NotFix) != 0)
+                        {
+                            _BaseSP = Math.ceil(Number(this.SP_NotFix)/((100+this.SP_NotFix_INT)/100));
+                            _BaseSP = Math.ceil(_BaseSP / this.SP_NotFix_TransMult);
                         }
                         var _MaxHP = _BaseHP;
                         var HP_MOD_A = this.attritube['HP'];
@@ -9668,22 +9721,19 @@
                     this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_posion);
                     this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_posion);
 
-                    if (this.isZeroMode)
-                    {
-                        var para_ranged = Number(1) + Number(this.attritube['RNGDP']) / 100;
-                        if( isNA ){
-                            if (this.weapon.type.isRangedattack) {
-                                this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_ranged);
-                                this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_ranged);
-                            }
-                        }else{
-                            if (this.skill.ranged) {
-                                this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_ranged);
-                                this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_ranged);
-                            }
+                    var para_ranged = Number(1) + Number(this.attritube['WeaponRangedDamagePercent']) / 100;
+                    if( isNA ){
+                        if (this.weapon.type.isRangedattack) {
+                            this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_ranged);
+                            this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_ranged);
+                        }
+                    }else{
+                        if (this.skill.ranged) {
+                            this.computeattribute.atkequip_min = this.MulOper(this.computeattribute.atkequip_min, para_ranged);
+                            this.computeattribute.atkequip_max = this.MulOper(this.computeattribute.atkequip_max, para_ranged);
                         }
                     }
-                    // 霸氣 ATK% 似乎不適用小於1進位
+                    // ATK% 似乎不適用小於1進位
                     // 從MulOper改為Mathfloor 捨去
                     this.computeattribute.atkbranch_min = Math.floor(this.computeattribute.weaponatk_min * (this.attritube['ATKP']) / 100);
                     this.computeattribute.atkbranch_max = Math.floor(this.computeattribute.weaponatk_max * (this.attritube['ATKP']) / 100);
@@ -9807,36 +9857,21 @@
                     //近戰傷害
                     var para_melee = Number(1) + Number(this.attritube['MELDP']) / 100;
 
-                    if( this.isZeroMode )
-                    {
-                        if( isNA ){
-                            if (this.weapon.type.isRangedattack == false) {
-                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
-                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
-                            }
+                    if( isNA ){
+                        if (this.weapon.type.isRangedattack) {
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
                         }else{
-                            if(this.skill.ranged == false){
-                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
-                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
-                            }
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
                         }
                     }else{
-                        if( isNA ){
-                            if (this.weapon.type.isRangedattack) {
-                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
-                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
-                            }else{
-                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
-                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
-                            }
-                        }else{
-                            if (this.skill.ranged && this.skill.laterranged == false) {
-                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
-                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
-                            }else if(this.skill.ranged == false){
-                                this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
-                                this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
-                            }
+                        if (this.skill.ranged && this.skill.laterranged == false) {
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_ranged);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_ranged);
+                        }else if(this.skill.ranged == false){
+                            this.computeattribute.atkc6_min = this.MulOper(this.computeattribute.atkc6_min, para_melee);
+                            this.computeattribute.atkc6_max = this.MulOper(this.computeattribute.atkc6_max, para_melee);
                         }
                     }
 
@@ -10813,6 +10848,16 @@
                             item.skill.active = false;
                     });
                     this.ComputeSizefix(); // 包含onOption
+                    this.onOption();
+                },
+                onHPNotFixInput() {
+                    this.HP_NotFix_VIT = this.GetPureStats(this.status.VIT);
+                    this.HP_NotFix_TransMult = (this.status.Level <= 185 && this.status.Transcendent) ? 1.25 : 1;
+                    this.onOption();
+                },
+                onSPNotFixInput() {
+                    this.SP_NotFix_INT = this.GetPureStats(this.status.INT);
+                    this.SP_NotFix_TransMult = (this.status.Level <= 185 && this.status.Transcendent) ? 1.25 : 1;
                     this.onOption();
                 },
                 onOption() {
@@ -12727,6 +12772,7 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='CriDamagePercent').totalvalue);
                     this.attritube['RNGDP'] += Number(this.effecttypelist.find(x => x.id == 'RangedDamagePercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='RangedDamagePercent').totalvalue);
+                    this.attritube['WeaponRangedDamagePercent'] += Number(this.effecttypelist.find(x => x.id == 'WeaponRangedDamagePercent').totalvalue);
                     this.attritube['MELDP'] += Number(this.effecttypelist.find(x => x.id == 'MeleeDamagePercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='MeleeDamagePercent').totalvalue);
                     this.attritube['HITAtkDP'] = Number(this.effecttypelist.find(x => x.id == 'HitAtkDamagePercent').totalvalue);
