@@ -182,6 +182,31 @@ body {
     height: calc(100vh - (50px + 35px + 140px));
 }
 
+.AspdPenaltyTableControlRow {
+    flex: 0 0 auto;
+}
+
+.AspdPenaltyTable-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
+
+.AspdPenaltyTableHeaderRow {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #606266;
+    color: white;
+    width: fit-content;
+    min-width: 100%;
+}
+
+.AspdPenaltyTableNameCell {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
 .SkillList-container {
     height: 60vh;
     max-height: 60vh;

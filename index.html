@@ -2517,6 +2517,24 @@
                                 </el-row>
                             </div>
                         </el-row>
+                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                            <el-col class="textcenter" >
+                                <span class="EffectType">攻速藥水(擇一)</span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio3')" v-bind:key="item.id">
+                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                    <el-col class="textcenter">
+                                        <span class="EffectType">{{ item.name }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-row>
                     </el-scrollbar>
                 </el-col>
                 <el-col :span="5" class=" ">
@@ -2609,6 +2627,54 @@
                     </el-scrollbar>
                 </el-row>
             </el-row>
+        </el-dialog>
+
+        <el-dialog :visible.sync="UIPanel['AspdPenaltyTableDialog']" v-on:close="ClosePanel('AspdPenaltyTableDialog')"
+            custom-class="Dialogue-container" width="90%" top="50px" center>
+            <span slot="title">攻速懲罰表（{{status.AspdFormula==='paradise'?'樂園':'四轉服'}}）</span>
+            <el-row type="flex" class="statusbox textcenter AspdPenaltyTableControlRow" align="middle" justify="center" style="height:40px;">
+                <el-col class="textcenter" :span="6">
+                    <span>攻速公式</span>
+                </el-col>
+                <el-col class="textcenter" :span="6">
+                    <el-switch v-model="status.AspdFormula" v-on:change="onOption"
+                        active-value="official" inactive-value="paradise"
+                        active-text="四轉服" inactive-text="樂園"
+                        active-color="#13ce66" inactive-color="#8a9799">
+                    </el-switch>
+                </el-col>
+            </el-row>
+            <el-row type="flex" class="statusbox textcenter AspdPenaltyTableControlRow" align="middle" justify="center" style="height:40px;">
+                <el-col class="textcenter" :span="6">
+                    <span>攻速懲罰職等</span>
+                </el-col>
+                <el-col class="textcenter" :span="6">
+                    <el-switch v-model="aspdJobTierSwitch" active-text="三轉/四轉" inactive-text="二轉/進階二轉"
+                        active-color="#13ce66" inactive-color="#8a9799">
+                    </el-switch>
+                </el-col>
+            </el-row>
+            <div class="AspdPenaltyTable-container">
+                <el-row class="textcenter AspdPenaltyTableHeaderRow" type="flex" align="middle" style="height:36px;">
+                    <el-col class="ElementRowColTitle textcenter" style="width:220px; min-width:220px;">
+                        <span>職業</span>
+                    </el-col>
+                    <el-col v-for="col in aspdTableColumns" :key="col" class="ElementRowColTitle textcenter"
+                        style="width:70px; min-width:70px;">
+                        <span>{{col}}</span>
+                    </el-col>
+                </el-row>
+                <el-row v-for="item in aspdPenaltyTableRows" :key="item.name" class="textcenter" type="flex"
+                    align="middle" style="height:32px;">
+                    <el-col class="ElementRowColTitle textcenter AspdPenaltyTableNameCell" style="width:220px; min-width:220px;">
+                        <span>{{item.name}}</span>
+                    </el-col>
+                    <el-col v-for="col in aspdTableColumns" :key="col" class="textcenter"
+                        style="width:70px; min-width:70px;">
+                        <span>{{item.row[col] !== undefined ? item.row[col] : ''}}</span>
+                    </el-col>
+                </el-row>
+            </div>
         </el-dialog>
 
         <el-dialog :visible.sync="UIPanel['SupportSkillDialog']" v-on:close="ClosePanel('SupportSkillDialog')"
@@ -3036,13 +3102,6 @@
                                                     <el-col class="textcenter" :span="4">{{status_total.CRT}}</el-col>
                                                 </el-row>
                                             </div>
-                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle">
-                                                <el-col class="textcenter" :span="12">ASPD</el-col>
-                                                <el-col :span="12">
-                                                    <el-input v-model="status.ASPD" v-on:input="onOption" placeholder="攻速">
-                                                    </el-input>
-                                                </el-col>
-                                            </el-row>
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-between">
                                                 <el-col class="textcenter" :span="7">
                                                     <span>代入JOB加成</span>
@@ -3069,6 +3128,19 @@
                                                         <el-option :key="'default'" :label="'請選擇'" :value="''" disabled></el-option>
                                                         <el-option v-for="item in jobMaxPointTypeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
                                                     </el-select>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle">
+                                                <el-tooltip class="item" effect="dark" content='目前的攻速公式與懲罰職等，點按鈕開啟攻速懲罰表可以更改設定。'
+                                                    placement="top-start">
+                                                    <el-col class="textcenter" :span="6">
+                                                        <el-button v-on:click="onOpenAspdPenaltyTable" size="mini" type="success" round>
+                                                            攻速設定
+                                                        </el-button>
+                                                    </el-col>
+                                                </el-tooltip>
+                                                <el-col class="textcenter" :span="18">
+                                                    <span>{{status.AspdFormula==='paradise'?'樂園':'四轉服'}}公式 / {{aspdJobTierSwitch?'三/四轉':'二轉'}}職等</span>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="statusbox" type="flex" align="middle">
@@ -4296,6 +4368,19 @@
                                     <div v-show="subweapon.type.id==2">
                                         <el-row class="" :gutter="4" type="flex" align="middle" justify="space-around">
                                             <el-col :span="6" style="text-align: right;">
+                                                <span>副手武器類型</span>
+                                            </el-col>
+                                            <el-col :span="18">
+                                                <el-select value-key="id" v-model="subweapon.weapontype"
+                                                    v-on:change="onOption" placeholder="副手武器類型">
+                                                    <el-option v-for="item in weapontypelist" :key="item.id"
+                                                        :label="item.label" :value="item">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="" :gutter="4" type="flex" align="middle" justify="space-around">
+                                            <el-col :span="6" style="text-align: right;">
                                                 <span>武器等級</span>
                                             </el-col>
                                             <el-col :span="6">
@@ -4876,6 +4961,15 @@
                                                 <span>{{ computeattribute.atkmulti_DPS | currency }}</span>
                                             </el-col>
                                         </el-row>
+                                        <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="" :span="10" style="text-align: right;">
+                                                <span>目前ASPD</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ASPD'].toFixed(2)}}</span>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                     <div v-show="UIPanel['MATKPanel']">
                                         <el-row class="titlebox" type="flex" align="middle" justify="end"
@@ -5025,6 +5119,15 @@
                                                 <span>{{computeattribute.matkmulti_DPS | currency }}</span>
                                             </el-col>
                                         </el-row>
+                                        <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="" :span="10" style="text-align: right;">
+                                                <span>目前ASPD</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ASPD'].toFixed(2)}}</span>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                     <div v-show="UIPanel['DragonBreathPanel']">
                                         <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:40px;">
@@ -5050,6 +5153,15 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{computeattribute.DragonBreathDMG_DPS | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>目前ASPD</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ASPD'].toFixed(2)}}</span>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -5198,6 +5310,15 @@
                                             </el-col>
                                             <el-col class="textcenter" :span="10">
                                                 <span>{{computeattribute.matkmulti_DPS | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="" :span="10" style="text-align: right;">
+                                                <span>目前ASPD</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ASPD'].toFixed(2)}}</span>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -6542,6 +6663,34 @@
                                                     </template>
                                                 </el-col>
                                             </el-row>
+                                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                                style="height:auto;">
+                                                <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                    <span>ASPD固定值:</span>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="10">
+                                                    <span>{{getAllEffectValue('ASPD')}}</span>
+                                                    <template v-for="row in getDetailRows('ASPD','all')" :key="row.key">
+                                                        <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
+                                                            {{ getDetailSummaryText(row) }}
+                                                        </span>
+                                                        <div v-if="IsDetailBreakdownOpen(row.key)" class="detail-breakdown">
+                                                            <template v-if="row.equipItems && row.equipItems.length">
+                                                                <div v-for="equipItem in row.equipItems" :key="row.key + '-equip-' + equipItem.source" class="detail-breakdown-item">
+                                                                    {{ equipItem.source }} {{ equipItem.value }}
+                                                                </div>
+                                                                <div v-if="getEquipRemainderValue(row)" class="detail-breakdown-item">
+                                                                    其他 {{ getEquipRemainderValue(row) }}
+                                                                </div>
+                                                            </template>
+                                                            <div v-else-if="row.equipValue" class="detail-breakdown-item">裝備 {{ row.equipValue }}</div>
+                                                            <div v-for="item in row.supportItems" :key="row.key + '-' + item.source" class="detail-breakdown-item">
+                                                                {{ item.source }} {{ item.value }}
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </el-col>
+                                            </el-row>
                                             <el-row class="statusbox bg-purple-light" type="flex" align="middle" justify="center"
                                                 style="height:24px;">
                                                 <el-col class="textcenter" :span="20">
@@ -6690,7 +6839,7 @@
                                     <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                         style="height:40px;">
                                         <el-col class="bg-purple" style="text-align: right;">
-                                            <span>ASPD:{{attritube['ASPD']}} 攻擊間隔:</span>
+                                            <span>ASPD:{{attritube['ASPD'].toFixed(2)}} 攻擊間隔:</span>
                                         </el-col>
                                         <el-col class="textcenter">
                                             <span>{{computeattribute['AspdDelay']}} s</span>
@@ -6740,7 +6889,7 @@
     </div>
 
 
-
+    <script src="aspd_calculator.js"></script>
     <script>
         evue = new Vue({
             el: '#App',
@@ -7011,6 +7160,9 @@
                     { label: '物理階級 %', id: 'LevelAtkPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '全屬性法傷 %', id: 'ElementalMagicPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '技能後(共)延%', id: 'GCDPercent', totalvalue: 0, opersymbol: '\-', suffixsymbol: '\%' },
+                    { label: '攻速 %', id: 'AspdPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '攻速藥水 %', id: 'AspdPotionPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: '盧恩石5', id: 'AspdRuneFlat', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
                 ],
                 weapontypelist: [
                     { id: 'Empty', label: '空手', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
@@ -7018,11 +7170,14 @@
                     { id: 'OneHandedSwords', label: '單手劍', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
                     { id: 'TwoHandedSword', label: '雙手劍', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true },
                     { id: 'Katars', label: '拳刃', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: true },
-                    { id: 'Spears', label: '矛類', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
-                    { id: 'Axes', label: '斧類', sizefix: { small: 50, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Spears', label: '單手矛', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false, family: 'Spears' },
+                    { id: 'SpearsTwoHand', label: '雙手矛', sizefix: { small: 75, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true, family: 'Spears' },
+                    { id: 'Axes', label: '單手斧', sizefix: { small: 50, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false, family: 'Axes' },
+                    { id: 'AxesTwoHand', label: '雙手斧', sizefix: { small: 50, middle: 75, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true, family: 'Axes' },
                     { id: 'Maces', label: '鈍器', sizefix: { small: 75, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
                     { id: 'Knuckles', label: '拳套', sizefix: { small: 100, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
-                    { id: 'Rods', label: '杖類', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false },
+                    { id: 'Rods', label: '單手杖', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: false, family: 'Rods' },
+                    { id: 'RodsTwoHand', label: '雙手杖', sizefix: { small: 100, middle: 100, large: 100 }, baseaspd: '', isRangedattack: false, isTwohand: true, family: 'Rods' },
                     { id: 'Books', label: '書本', sizefix: { small: 100, middle: 100, large: 50 }, baseaspd: '', isRangedattack: false, isTwohand: false },
                     { id: 'Bows', label: '弓', sizefix: { small: 100, middle: 100, large: 75 }, baseaspd: '', isRangedattack: true, isTwohand: true },
                     { id: 'Instruments', label: '樂器', sizefix: { small: 75, middle: 100, large: 75 }, baseaspd: '', isRangedattack: false, isTwohand: false },
@@ -7063,7 +7218,7 @@
                 },
                 weapon_init: {},
                 subweapon: {
-                    type: '', level: '', grade: '',
+                    type: '', weapontype: '', level: '', grade: '',
                     ATK: 0, MATK: 0, refinelevel: 0,
                     refineatk: 0, refinematk: 0,
                     ShieldWeight: 0,
@@ -7071,10 +7226,10 @@
                 subweapon_init: {},
                 ClassInfo: {},
                 status: {
-                    Level: 275, JOBLevel: 60, Transcendent: false, classid: '', UseJobMaxPoint: false, JobMaxPointType: '',
+                    Level: 275, JOBLevel: 60, Transcendent: false, classid: '', UseJobMaxPoint: false, JobMaxPointType: '', AspdFormula: 'official',
                     STR: 1, AGI: 1, VIT: 1, INT: 1, DEX: 1, LUK: 1,
                     POW: 0, STA: 0, WIS: 0, SPL: 0, CON: 0, CRT: 0,
-                    ASPD: 0, HP: 0, SP: 0, MHP: 0, MSP: 0,
+                    HP: 0, SP: 0, MHP: 0, MSP: 0,
                 },
                 status_add: {
                     STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0,
@@ -7134,6 +7289,17 @@
                 },
                 HP_JOB_A: 0, HP_JOB_B: 0,
                 attritube_init: {},
+                aspdDetail: {
+                    jobRowName: '', agiTotal: 0, dexTotal: 0, baseAspd: 0,
+                    mainPenalty: 0, offHandPenalty: 0, mainBase: 0, statBonus: 0, correction: 0, R: 0,
+                    potionPercent: 0, skillPercent: 0, runeFlat: 0, equipPercent: 0, X: 0,
+                    flatAspdBonus: 0, finalAspd: 0,
+                },
+                aspdTableColumns: [
+                    '空手', '盾', '短劍', '單手劍', '雙手劍', '拳刃', '單手矛', '雙手矛', '單手斧', '雙手斧',
+                    '鈍器', '拳套', '單手杖', '雙手杖', '書', '弓', '樂器', '鞭子',
+                    '手槍', '來福', '格林', '霰彈', '榴彈', '風魔飛鏢'
+                ],
                 leveltypelist: [
                     { id: 0, label: '一般' },
                     { id: 1, label: 'BOSS' },
@@ -7530,6 +7696,7 @@
                     EquipTextDialog: false,
                     QuickCalcDialog: false,
                     ElementTableDialog: false,
+                    AspdPenaltyTableDialog: false,
                     WeaponSizeTableDialog: false,
 
                     StatusPanel: true,
@@ -9007,7 +9174,9 @@
                     ].includes(typeId);
                 },
                 isWeaponType(typeId) {
-                    return this.weapon.type.id === typeId;
+                    // 雙手矛/雙手斧/雙手杖 等分拆出來的武器類型仍屬於同一個 family（如 'Spears'），
+                    // 讓依賴 WPT(Spears) 等舊武器類型判定的技能/熟練度公式維持正確。
+                    return this.weapon.type.id === typeId || this.weapon.type.family === typeId;
                 },
                 inList(value, ...items) {
                     return items.includes(value);
@@ -9027,7 +9196,8 @@
                         }
                     }
                     if (Array.isArray(this.skill.rangedByWeaponType)) {
-                        this.skill.ranged = this.skill.rangedByWeaponType.includes(this.weapon.type.id);
+                        this.skill.ranged = this.skill.rangedByWeaponType.includes(this.weapon.type.id) ||
+                            (!!this.weapon.type.family && this.skill.rangedByWeaponType.includes(this.weapon.type.family));
                         if (this.skill.ranged !== previous) {
                             console.log('[skill.ranged]', this.skill.id, '->', this.skill.ranged, 'rangedByWeaponType:', this.skill.rangedByWeaponType, 'weapon:', this.weapon.type.id);
                         }
@@ -9135,6 +9305,11 @@
                             if(item['group'] == 'Radio2') item['active'] = false;
                         });
                     }
+                    if( this.consumablelist[_idx]['group'] == 'Radio3' ){
+                        this.consumablelist.forEach(item => {
+                            if(item['group'] == 'Radio3') item['active'] = false;
+                        });
+                    }
                     if( this.consumablelist[_idx]['group'] == 'TransScroll' ){
                         this.consumablelist.forEach(item => {
                             if(item['group'] == 'TransScroll') item['active'] = false;
@@ -9226,6 +9401,12 @@
                                 if( this.consumableeffecttypelist[_id].id == 'FixedCast' ) _FixedCast = Math.max(_FixedCast, Number(this.consumablelist[_idx]['FixedCastPercent']));
                             }
                         };
+                    }
+                    // 攻速藥水(集中/覺醒/波瑟克，擇一)
+                    _idx = this.consumablelist.findIndex(i=>i.group=='Radio3' && i.active==true);
+                    if( _idx > -1 && this.consumablelist[_idx]['AspdPotionPercent'] != null ){
+                        var _id = this.consumableeffecttypelist.findIndex( i=> i.id == 'AspdPotionPercent');
+                        this.consumableeffecttypelist[_id].totalvalue += Number(this.consumablelist[_idx]['AspdPotionPercent']);
                     }
                     // 變身卷軸
                     _tag = [ 'MATK', 'RangedDamagePercent' ];
@@ -9596,7 +9777,7 @@
                     if (this.IsSupportActive('BS_WEAPONPERFECT')) {
                         this.computeattribute.sizefix = 100;
                     }
-                    else if ((this.IsSupportActive('KN_RIDING')||this.IsSupportActive('RK_DRAGONTRAINING')) && this.weapon.type.id == 'Spears') {
+                    else if ((this.IsSupportActive('KN_RIDING')||this.IsSupportActive('RK_DRAGONTRAINING')) && this.isWeaponType('Spears')) {
                         this.computeattribute.sizefix = 100;
                     } else {
                         switch (this.enemyattribute.size) {
@@ -10959,18 +11140,18 @@
                     //修練
                     if (this.IsSupportActive('SM_SWORD')) { if(this.weapon.type.id == 'Daggers' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=40; } }
                     if (this.IsSupportActive('SM_TWOHAND')) { if(this.weapon.type.id == 'TwoHandedSword' ){ this.skilloption.WeaponMasteryATK+=40; } }
-                    if (this.IsSupportActive('KN_SPEARMASTERY')) { if(this.weapon.type.id == 'Spears' ){ this.skilloption.WeaponMasteryATK+=40; } if(this.IsSupportActive('KN_RIDING')||this.IsSupportActive('RK_DRAGONTRAINING')){this.skilloption.WeaponMasteryATK+=10;} }
+                    if (this.IsSupportActive('KN_SPEARMASTERY')) { if(this.isWeaponType('Spears')){ this.skilloption.WeaponMasteryATK+=40; } if(this.IsSupportActive('KN_RIDING')||this.IsSupportActive('RK_DRAGONTRAINING')){this.skilloption.WeaponMasteryATK+=10;} }
                     if (this.IsSupportActive('AS_KATAR')) { if(this.weapon.type.id == 'Katars' ){ this.skilloption.WeaponMasteryATK+=30; } }
                     if (this.IsSupportActive('MO_IRONHAND')) { if(this.weapon.type.id == 'Empty' || this.weapon.type.id == 'Knuckles'){ this.skilloption.WeaponMasteryATK+=30; } }
                     if (this.IsSupportActive('BS_HILTBINDING')){ this.status_add.STR += 1; this.skilloption.WeaponMasteryATK+=4; }
                     if (this.IsSupportActive('BS_WEAPONRESEARCH')){ this.skilloption.WeaponMasteryATK+=20; this.attritube['HIT'] += 20;}
-                    if (this.IsSupportActive('NC_TRAININGAXE')){ if(this.weapon.type.id == 'Axes' ){ this.skilloption.WeaponMasteryATK+=50; this.attritube['HIT'] += 30;} }
+                    if (this.IsSupportActive('NC_TRAININGAXE')){ if(this.isWeaponType('Axes')){ this.skilloption.WeaponMasteryATK+=50; this.attritube['HIT'] += 30;} }
                     if (this.IsSupportActive('NC_TRAININGAXE')){ if(this.weapon.type.id == 'Maces' ){ this.skilloption.WeaponMasteryATK+=40; this.attritube['HIT'] += 20;} }
                     if (this.IsSupportActive('PR_MACEMASTERY')){ if(this.weapon.type.id == 'Maces' ){ this.skilloption.WeaponMasteryATK+=30; this.attritube['CRI'] += 20; this.addSupportEffectDetail('Cri', null, 20, this.getSkillName('PR_MACEMASTERY'));} }
                     if (this.IsSupportActive('NC_MADOLICENCE')){ this.skilloption.WeaponMasteryATK+=75;}
-                    if (this.IsSupportActive('AM_AXEMASTERY')) { if(this.weapon.type.id == 'Axes' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=30; } }
+                    if (this.IsSupportActive('AM_AXEMASTERY')) { if(this.isWeaponType('Axes') || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=30; } }
                     if (this.IsSupportActive('GN_TRAINING_SWORD')){ if(this.weapon.type.id == 'Daggers' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=50; this.attritube['HIT'] += 15;} }
-                    if (this.IsSupportActive('SA_ADVANCEDBOOK')){ if(this.weapon.type.id == 'Books' ){ this.skilloption.WeaponMasteryATK+=30; this.attritube['ASPDP'] += 5; this.addSupportEffectDetail('AspdPercent', null, 5, this.getSkillName('SA_ADVANCEDBOOK'));} }
+                    if (this.IsSupportActive('SA_ADVANCEDBOOK')){ if(this.weapon.type.id == 'Books' ){ this.skilloption.WeaponMasteryATK+=30; var _advBookAspd = this.GetSupportSkill('SA_ADVANCEDBOOK').lv * 0.5; this.attritube['ASPDP'] += _advBookAspd; this.addSupportEffectDetail('AspdPercent', null, _advBookAspd, this.getSkillName('SA_ADVANCEDBOOK'));} }
                     if (this.IsSupportActive('TK_RUN')){ if(this.weapon.type.id == 'Empty' ){ this.skilloption.WeaponMasteryATK+=this.GetSupportSkill('TK_RUN').lv*10;} }
                     if (this.IsSupportActive('RL_RICHS_COIN')){ if(this.isGunType(this.weapon.type.id) ){ this.skilloption.WeaponMasteryATK+=30;} }
                     if (this.IsSupportActive('GN_CARTBOOST')){ this.skilloption.WeaponMasteryATK+=50; }
@@ -11050,7 +11231,7 @@
                     }
                     // 長矛加速術
                     if (this.IsSupportActive('CR_SPEARQUICKEN')) {
-                        if (this.weapon.type.id == 'Spears') {
+                        if (this.isWeaponType('Spears')) {
                             this.attritube['CRI'] += 30;
                             this.attritube['ASPDP'] += 30;
                             this.attritube['FLEE'] += 20;
@@ -11107,7 +11288,7 @@
                     }
                     //速度激發
                     if (this.IsSupportActive('BS_ADRENALINE')){
-                        if (this.weapon.type.id == 'Axes' || this.weapon.type.id == 'Maces') {
+                        if (this.isWeaponType('Axes') || this.weapon.type.id == 'Maces') {
                             this.attritube['ASPDP'] += 40;
                             this.addSupportEffectDetail('AspdPercent', null, 40, this.getSkillName('BS_ADRENALINE'));
                         }
@@ -11150,6 +11331,12 @@
                             this.attritube['CRI'] += 25;
                             this.addSupportEffectDetail('Cri', null, 25, this.getSkillName('SHC_SHADOW_SENSE'));
                         }
+                    }
+                    // 抄襲
+                    if (this.IsSupportActive('RG_PLAGIARISM')){
+                        var _plagiarismAspd = this.GetSupportSkill('RG_PLAGIARISM').lv * 1;
+                        this.attritube['ASPDP'] += _plagiarismAspd;
+                        this.addSupportEffectDetail('AspdPercent', null, _plagiarismAspd, this.getSkillName('RG_PLAGIARISM'));
                     }
                     // 潛擊
                     if (this.IsSupportActive('RG_RAID')){
@@ -11312,8 +11499,11 @@
                         this.attritube['ATK'] += 3 * 10;
                         this.attritube['SPP'] += 10;
                         this.attritube['CRI'] += 10;
+                        var _musicalLessonAspd = this.GetSupportSkill('BA_MUSICALLESSON').lv * 1;
+                        this.attritube['ASPDP'] += _musicalLessonAspd;
                         this.addSupportEffectDetail('Atk', null, 3 * 10, this.getSkillName('BA_MUSICALLESSON'));
                         this.addSupportEffectDetail('Cri', null, 10, this.getSkillName('BA_MUSICALLESSON'));
+                        this.addSupportEffectDetail('AspdPercent', null, _musicalLessonAspd, this.getSkillName('BA_MUSICALLESSON'));
                     }
                     // 課程
                     if (this.IsSupportActive('WM_LESSON')){
@@ -11323,6 +11513,11 @@
                     if (this.IsSupportActive('BA_WHISTLE')){
                         this.attritube['FLEE'] += 40;
                         this.attritube['PerfectFLEE'] += 5;
+                    }
+                    // 刺客的黃昏
+                    if (this.IsSupportActive('BA_ASSASSINCROSS')){
+                        this.attritube['ASPDP'] += 20;
+                        this.addSupportEffectDetail('AspdPercent', null, 20, this.getSkillName('BA_ASSASSINCROSS'));
                     }
                     // 布萊奇
                     if (this.IsSupportActive('BA_POEMBRAGI')){
@@ -12787,10 +12982,57 @@
                     if (this.attritube['BYPASSRES'] > 50) this.attritube['BYPASSRES'] = 50;
                     this.attritube['BYPASSMRES'] += Number(this.effecttypelist.find(x => x.id == 'BypassMRESPercent').totalvalue);
                     if (this.attritube['BYPASSMRES'] > 50) this.attritube['BYPASSMRES'] = 50;
-                    this.attritube['ASPD'] += Number(this.effecttypelist.find(x => x.id == 'ASPD').totalvalue);
-                    this.attritube['ASPD'] += Number(this.status.ASPD);
-                    this.attritube['ASPDP'] += Number(this.effecttypelist.find(x => x.id == 'AspdPercent').totalvalue);
+                    // ASPD 核心計算：可在「攻速公式」切換 四轉服(官方pre-renewal) / 樂園(Excel)，詳見 aspd_calculator.js。
+                    // this.attritube['ASPDP'] 此時只累積了技能/BUFF的攻速%（雙手劍加速、速度激發……），即官方公式的 B。
+                    // this.attritube['ASPD'] 此時已累積各技能/BUFF的固定ASPD(如 SP_SOULSHADOW +3)。
+                    // 注意：this.status_total.AGI/DEX 要到本函式最後呼叫 ComputStatus() 才會更新，
+                    // 這裡改成直接依當前輸入即時算一份，避免改素質時 ASPD 慢半拍、要等下一次觸發才更新。
+                    var _aspdAgiTotal = Number(eval(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
+                    var _aspdDexTotal = Number(eval(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
+                    var _skillAspdPercent = Number(this.attritube['ASPDP']); // B：技能%
+                    var _skillAspdFlat = Number(this.attritube['ASPD']); // 技能類固定ASPD（如 SP_SOULSHADOW +3）
+                    var _potionAspdPercent = Number(this.consumableeffecttypelist.find(x => x.id == 'AspdPotionPercent').totalvalue); // A：攻速藥水%（集中/覺醒/波瑟克）
+                    var _equipAspdPercent = Number(this.effecttypelist.find(x => x.id == 'AspdPercent').totalvalue)
+                                            + Number(this.consumableeffecttypelist.find(x => x.id == 'AspdPercent').totalvalue); // D：裝備攻速%（詞條 + 攻速濃縮汁等）
+                    var _runeAspdFlat = Number(this.consumableeffecttypelist.find(x => x.id == 'AspdRuneFlat').totalvalue); // C：盧恩石5（艾伊瓦茲盧恩石固定+4）
+                    var _equipAspdFlat = Number(this.effecttypelist.find(x => x.id == 'ASPD').totalvalue); // 裝備固定ASPD詞條
+
+                    // 面板顯示用的攻速% 總計（藥水+技能+裝備，沿用原本負百分比顯示慣例）
+                    this.attritube['ASPDP'] = _skillAspdPercent + _potionAspdPercent + _equipAspdPercent;
                     this.attritube['ASPDP'] = -Math.abs(this.attritube['ASPDP']);
+
+                    if (this.status.AspdFormula === 'paradise') {
+                        // 樂園 Excel 公式：所有 %ASPD 來源合併成一個總百分比；盧恩石固定值併入 Flat Bonus。
+                        this.aspdDetail = AspdCalculator.calcAspdParadise({
+                            classid: this.status.classid,
+                            jobMaxPointType: this.status.JobMaxPointType,
+                            mainWeaponTypeId: this.weapon.type.id,
+                            offHandKind: this.subweapon.type.id,
+                            offHandWeaponTypeId: this.subweapon.weapontype ? this.subweapon.weapontype.id : null,
+                            agiTotal: _aspdAgiTotal,
+                            dexTotal: _aspdDexTotal,
+                            statusModifierTotal: _skillAspdFlat,
+                            aspdPercentTotal: _skillAspdPercent + _potionAspdPercent + _equipAspdPercent,
+                            flatAspdBonus: _equipAspdFlat + _runeAspdFlat,
+                        });
+                    } else {
+                        // 四轉服(官方 pre-renewal)公式：ASPD = 195-(195-(200-(200-R)x(1-A-B)+C))x(1-D)+E
+                        this.aspdDetail = AspdCalculator.calcAspdOfficial({
+                            classid: this.status.classid,
+                            jobMaxPointType: this.status.JobMaxPointType,
+                            mainWeaponTypeId: this.weapon.type.id,
+                            offHandKind: this.subweapon.type.id,
+                            offHandWeaponTypeId: this.subweapon.weapontype ? this.subweapon.weapontype.id : null,
+                            agiTotal: _aspdAgiTotal,
+                            dexTotal: _aspdDexTotal,
+                            potionAspdPercent: _potionAspdPercent,
+                            skillAspdPercent: _skillAspdPercent,
+                            runeAspdFlat: _runeAspdFlat,
+                            equipAspdPercent: _equipAspdPercent,
+                            flatAspdBonus: _equipAspdFlat + _skillAspdFlat,
+                        });
+                    }
+                    this.attritube['ASPD'] = this.aspdDetail.finalAspd;
                     this.attritube['FCTP'] = Math.max(this.attritube['FCTP'],
                         Number(this.effecttypelist.find(x => x.id == 'FixedCastPercent').totalvalue),
                         Number(this.consumableeffecttypelist.find(x=>x.id=='FixedCastPercent').totalvalue));
@@ -13456,6 +13698,9 @@
                     this.ElementTableShow = [];
                    this.OpenPanel('ElementTableDialog');
                 },
+                onOpenAspdPenaltyTable(){
+                    this.OpenPanel('AspdPenaltyTableDialog');
+                },
                 CloseSkillFormulaDialogue() {
                     if (this.skill.formula == '')
                         this.skill.formula = 0;
@@ -13852,6 +14097,8 @@
                     if (this.skill.DamageTypeIdx == null) this.skill.DamageTypeIdx = 0;
                     if (this.skilloption.CarWeight == null) this.skilloption.CarWeight = 10500;
                     if (this.status.UseJobMaxPoint == null) this.status.UseJobMaxPoint = false;
+                    if (!this.status.AspdFormula) this.status.AspdFormula = 'official';
+                    if (this.subweapon && this.subweapon.weapontype == null) this.subweapon.weapontype = this.weapontypelist[0];
                     if (this.status.MHP == null) {this.status.MHP = 0; console.log("yaaaa")}
                     if (this.status.MSP == null) this.status.MSP = 0;
                     if (this.enemyattribute.RES == null) this.enemyattribute.RES = 0;
@@ -14389,12 +14636,18 @@
                         { id:14536, name:'研磨劑', active:false, group:'sp', Cri:30},
                         { id:100293, name:'齊爾-D-01卷軸', active:false, group:'sp', GCDPercent:30},
                         { id:777777, name:'秒7肯貝特', active:false, group:'sp'},
+                        { id:900001, name:'攻速濃縮汁', active:false, group:'sp', AspdPercent:10},
+                        { id:900002, name:'艾伊瓦茲盧恩石', active:false, group:'sp', AspdRuneFlat:4},
 
                         { id:12791, name:'戰鬥藥', active:false, group:'Radio1', LevelAtkPercent:5, MatkPercent:5, HPPercent:-3, SPPercent:-3},
                         { id:12792, name:'高級戰鬥藥', active:false, group:'Radio1', LevelAtkPercent:10, MatkPercent:10, HPPercent:-5, SPPercent:-5},
 
                         { id:14586, name:'跳跳糖', active:false, group:'Radio2', ATK:20},
                         { id:12596, name:'魔法糖果', active:false, group:'Radio2', MATK:30, FixedCastPercent:70},
+
+                        { id:645, name:'集中藥水', active:false, group:'Radio3', AspdPotionPercent:10},
+                        { id:656, name:'覺醒藥水', active:false, group:'Radio3', AspdPotionPercent:15},
+                        { id:657, name:'波瑟克藥水', active:false, group:'Radio3', AspdPotionPercent:20},
 
                         { id:12424, name:'HP增加藥水(大)', active:false, group:'HPSP', HP:'2500+DOWN(BLV*10/3)'},
                         { id:12427, name:'SP增加藥水(大)', active:false, group:'HPSP', SPPercent:'5+DOWN(BLV/10)'},
@@ -14857,6 +15110,48 @@
                 },
             },
             computed: {
+                // 攻速懲罰職等快速開關：關=二轉/進階二轉、開=三轉/四轉。
+                // 跟 status.JobMaxPointType 是同一份設定，只是收斂成兩態方便快速切換；
+                // 開/關切換時分別代入該組較完整的代表值（進階二轉／四轉），
+                // 若要精準選二轉、進階二轉、三轉、四轉，請用「代入JOB加成」下面的下拉選單。
+                aspdJobTierSwitch: {
+                    get() {
+                        return this.status.JobMaxPointType === '3rd' || this.status.JobMaxPointType === '4th';
+                    },
+                    set(val) {
+                        this.status.JobMaxPointType = val ? '4th' : '2nd_extend';
+                        this.onOption();
+                    }
+                },
+                // 攻速懲罰表 Dialog 用：依目前「攻速公式」+「攻速懲罰職等」顯示對應的職業x武器懲罰表。
+                // 只列出 CLASSID_TO_ROW 有對應到的職業列（服事/弓箭手/魔法師/商人/劍士/盜賊這種沒有 classid
+                // 對應的一轉列不顯示），且只顯示目前職等那一組（切到三轉/四轉就不會看到二轉/進階二轉的列）。
+                // 同一組職等內，若不同 classid 或不同層級查到同一份資料，會自動合併成一列、名稱用 "/" 串起來。
+                aspdPenaltyTableRows() {
+                    var table = this.status.AspdFormula === 'paradise'
+                        ? AspdCalculator.ASPD_PENALTY_TABLE_PARADISE
+                        : AspdCalculator.ASPD_PENALTY_TABLE_OFFICIAL;
+                    var tiers = this.aspdJobTierSwitch ? ['3rd', '4th'] : ['2nd', '2nd_extend'];
+                    var groups = [];
+                    var indexByRow = new Map();
+                    Object.keys(AspdCalculator.CLASSID_TO_ROW).forEach(function (classid) {
+                        tiers.forEach(function (tier) {
+                            var resolved = AspdCalculator.getPenaltyRow(classid, tier, table);
+                            if (!resolved.rowName) return;
+                            var rowData = resolved.row;
+                            if (indexByRow.has(rowData)) {
+                                var names = groups[indexByRow.get(rowData)].names;
+                                if (names.indexOf(resolved.rowName) === -1) names.push(resolved.rowName);
+                            } else {
+                                indexByRow.set(rowData, groups.length);
+                                groups.push({ names: [resolved.rowName], row: rowData });
+                            }
+                        });
+                    });
+                    return groups.map(function (g) {
+                        return { name: g.names.join('/'), row: g.row };
+                    });
+                },
                 cartWeightMax() {
                     // 若 GN_REMODELING_CART 支援技能啟動則上限 10500，否則 8000
                     return this.IsSupportActive && this.IsSupportActive('GN_REMODELING_CART') ? 10500 : 8000;
@@ -14968,6 +15263,13 @@
                     this.status.JobMaxPointType = '4th';
                 }
 
+                // 設定 攻速公式 預設值：Zero 模式預設樂園，否則預設四轉服
+                if (this.isZeroMode) {
+                    this.status.AspdFormula = 'paradise';
+                } else {
+                    this.status.AspdFormula = 'official';
+                }
+
                 this.onSelectEnemy(this.enemylist[0]);
                 this.effectdialogue.EffectType = this.effecttypelist[0];
                 this.buildEffectTypeMap();
@@ -14983,7 +15285,7 @@
                 };
                 this.weapon_init = _.cloneDeep(this.weapon);
                 this.subweapon = {
-                    type: this.subhandtype[0], level: this.weaponlevellist[0], grade: this.weapongradelist[0],
+                    type: this.subhandtype[0], weapontype: this.weapontypelist[0], level: this.weaponlevellist[0], grade: this.weapongradelist[0],
                     ATK: 0, MATK: 0, refinelevel: 0,
                     ShieldWeight: 0,
                 };
