@@ -1,422 +1,440 @@
-﻿key,zh-TW,en,es,de,th
-nav.allsetlist,配置清單,Saved Builds,Configuraciones guardadas,Gespeicherte Builds,บิลด์ที่บันทึกไว้
-nav.savecfg,儲存配置,Save Build,Guardar configuración,Build speichern,บันทึกบิลด์
-nav.loadcfg,讀取配置檔案,Load Build File,Cargar archivo de configuración,Build-Datei laden,โหลดไฟล์บิลด์
-nav.about,關於,About,Acerca de,Über,เกี่ยวกับ
-nav.donate,贊助,Donate,Donar,Spenden,สนับสนุน
-nav.thanks,協力,Contributors,Colaboradores,Mitwirkende,ผู้ร่วมพัฒนา
-nav.updatelog,更新紀錄,Update Log,Registro de actualizaciones,Änderungsprotokoll,บันทึกการอัปเดต
-weaponr,主手,Main Hand,Mano principal,Haupthand,มือหลัก
-weaponl,副手,Off Hand,Mano secundaria,Nebenhand,มือรอง
-helm,頭飾,Headgear,Accesorio de cabeza,Kopfausrüstung,เครื่องสวมศีรษะ
-helm1,頭中,Headgear (Mid),Accesorio de cabeza (medio),Kopfausrüstung (Mitte),เครื่องสวมศีรษะ (กลาง)
-helm2,頭下,Headgear (Lower),Accesorio de cabeza (inferior),Kopfausrüstung (Unten),เครื่องสวมศีรษะ (ล่าง)
-armor,衣服,Body Armor,Armadura,Rüstung,เกราะ
-robe,披肩,Garment,Capa,Umhang,ผ้าคลุม
-shoes,靴子,Footgear,Calzado,Schuhe,รองเท้า
-acc1,飾品,Accessory,Accesorio,Accessoire,เครื่องประดับ
-acc2,飾品,Accessory,Accesorio,Accessoire,เครื่องประดับ
-shadow,影子,Shadow Gear,Equipo sombrío,Schattenausrüstung,อุปกรณ์ชาโดว์
-costume,服飾,Costume,Traje,Kostüm,คอสตูม
-cardset,套卡,Card Set,Conjunto de cartas,Kartenset,ชุดการ์ด
-other,自訂,Custom,Personalizado,Benutzerdefiniert,กำหนดเอง
-weaponrcard,武器卡片,Weapon Card,Carta de arma,Waffenkarte,การ์ดอาวุธ
-weaponlcard,武器卡片,Weapon Card,Carta de arma,Waffenkarte,การ์ดอาวุธ
-helmcard,頭飾卡片,Headgear Card,Carta de cabeza,Kopfausrüstungskarte,การ์ดเครื่องสวมศีรษะ
-helm1card,頭飾卡片,Headgear Card,Carta de cabeza,Kopfausrüstungskarte,การ์ดเครื่องสวมศีรษะ
-helm2card,頭飾卡片,Headgear Card,Carta de cabeza,Kopfausrüstungskarte,การ์ดเครื่องสวมศีรษะ
-armorcard,衣服卡片,Armor Card,Carta de armadura,Rüstungskarte,การ์ดเกราะ
-robecard,披肩卡片,Garment Card,Carta de capa,Umhangkarte,การ์ดผ้าคลุม
-shoescard,靴子卡片,Footgear Card,Carta de calzado,Schuhkarte,การ์ดรองเท้า
-acc1card,飾品卡片,Accessory Card,Carta de accesorio,Accessoire-Karte,การ์ดเครื่องประดับ
-acc2card,飾品卡片,Accessory Card,Carta de accesorio,Accessoire-Karte,การ์ดเครื่องประดับ
-shadowenchant,影子附魔,Shadow Enchant,Encantamiento sombrío,Schattenverzauberung,เอนชานต์ชาโดว์
-costumeenchant,服飾附魔,Costume Enchant,Encantamiento de traje,Kostümverzauberung,เอนชานต์คอสตูม
-cardset2,套卡,Card Set,Conjunto de cartas,Kartenset,ชุดการ์ด
-other2,自訂,Custom,Personalizado,Benutzerdefiniert,กำหนดเอง
-pet,寵物,Pet,Mascota,Begleiter,สัตว์เลี้ยง
-runetablet,石碑,Rune Tablet,Tableta rúnica,Runentafel,แผ่นรูน
-AllStatus,全能力,All Stats,Todos los atributos,Alle Werte,ค่าสถานะทั้งหมด
-AllStatus2,所有特性屬性,All Trait Stats,Todos los atributos de rasgo,Alle Eigenschaftswerte,ค่าคุณลักษณะทั้งหมด
-RaceAtkPercent,種族 %,Race ATK %,Raza ATK %,Rasse ATK %,เผ่า ATK %
-SizeAtkPercent,體型 %,Size ATK %,Tamaño ATK %,Größe ATK %,ขนาด ATK %
-LevelAtkPercent,階級 %,Level ATK %,Nivel ATK %,Stufe ATK %,ระดับ ATK %
-ElementalAtkPercent,對屬性敵人 %,Element Target %,Objetivo elemental %,Elementziel %,เป้าหมายธาตุ %
-WeaponRangedDamagePercent,武器遠傷 %,Weapon Ranged DMG %,Weapon DMG a distancia %,Weapon Fernkampf-DMG %,Weapon DMG ระยะไกล %
-MonsterAtkPercent,特定魔物 %,Specific Monster %,Monstruo específico %,Bestimmtes Monster %,มอนสเตอร์เฉพาะ %
-HitAtkDamagePercent,命中傷 %,On-Hit DMG %,On-Hit DMG %,On-Hit DMG %,On-Hit DMG %
-CriDamagePercent,暴傷 %,Critical DMG %,DMG crítico %,Krit-DMG %,DMG คริติคอล %
-MeleeDamagePercent,近傷 %,Melee DMG %,DMG cuerpo a cuerpo %,Nahkampf-DMG %,DMG ระยะประชิด %
-RangedDamagePercent,遠傷 %,Ranged DMG %,DMG a distancia %,Fernkampf-DMG %,DMG ระยะไกล %
-MeleeDamageDealtIncreasedPercent,近傷耐性減少 %,Melee Resistance Reduction %,Melee Reducción de resistencia %,Melee Resistenzreduktion %,Melee ลดความต้านทาน %
-RangedDamageDealtIncreasedPercent,遠傷耐性減少 %,Ranged Resistance Reduction %,Ranged Reducción de resistencia %,Ranged Resistenzreduktion %,Ranged ลดความต้านทาน %
-BypassDEFPercent,無視物理防禦 %,Ignore DEF %,Ignorar DEF %,Ignoriere DEF %,มองข้าม DEF %
-BypassRESPercent,無視RES %,Ignore RES %,Ignorar RES %,Ignoriere RES %,มองข้าม RES %
-RaceMatkPercent,種族 %,Race MATK %,Raza MATK %,Rasse MATK %,เผ่า MATK %
-SizeMatkPercent,體型 %,Size MATK %,Tamaño MATK %,Größe MATK %,ขนาด MATK %
-LevelMatkPercent,階級 %,Level MATK %,Nivel MATK %,Stufe MATK %,ระดับ MATK %
-ElementalMatkPercent,對屬性敵人 %,Element Target %,Objetivo elemental %,Elementziel %,เป้าหมายธาตุ %
-ElementalMagicPercent,屬性魔法 %,Elemental Magic %,Magia elemental %,Elementmagie %,เวทธาตุ %
-MonsterMatkPercent,特定魔物 %,Specific Monster %,Monstruo específico %,Bestimmtes Monster %,มอนสเตอร์เฉพาะ %
-BypassMDEFPercent,無視魔法防禦 %,Ignore MDEF %,Ignorar MDEF %,Ignoriere MDEF %,มองข้าม MDEF %
-BypassMRESPercent,無視MRES %,Ignore MRES %,Ignorar MRES %,Ignoriere MRES %,มองข้าม MRES %
-SkillDamagePercent,技能增傷 %,Skill DMG %,DMG de habilidad %,Skill-DMG %,DMG สกิล %
-CDTime,技能獨延,Skill Cooldown,Cooldown de habilidad,Skill-Cooldown,คูลดาวน์สกิล
-GCDPercent,技能後(共)延%,Skill GCD %,GCD de habilidad %,Skill-GCD %,GCD สกิล %
-ElementDamageDealtIncreasedPercent,屬性耐性減少 %,Element Resistance Reduction %,Element Reducción de resistencia %,Element Resistenzreduktion %,Element ลดความต้านทาน %
-VariableCastPercent,變詠 %,Variable Cast %,Lanzamiento variable %,Variable Zauberzeit %,ร่ายแปรผัน %
-VariableCastSecond,變詠,Variable Cast Time,Lanzamiento variable Time,Variable Zauberzeit Time,ร่ายแปรผัน Time
-SPSkillVariableCastPercent,指定技能變詠 %,Variable Cast % (Specific Skill),Lanzamiento variable % (Specific Habilidad),Variable Zauberzeit % (Specific Skill),ร่ายแปรผัน % (Specific สกิล)
-FixedCast,固詠,Fixed Cast Time,Lanzamiento fijo Time,Feste Zauberzeit Time,ร่ายคงที่ Time
-FixedCastPercent,固詠 %,Fixed Cast %,Lanzamiento fijo %,Feste Zauberzeit %,ร่ายคงที่ %
-AspdPercent,攻擊後延%,ASPD Delay %,ASPD Delay %,ASPD Delay %,ASPD Delay %
-Cri,暴擊率 %,Critical Rate %,Probabilidad crítica %,Krit-Rate %,อัตราคริติคอล %
-PerfectFlee,完全迴避,Perfect Flee,Perfect Flee,Perfect Flee,Perfect Flee
-HPRegenPercent,HP恢復 %,HP Regen %,HP Regeneración %,HP Regeneration %,HP ฟื้นฟู %
-SPRegenPercent,SP恢復 %,SP Regen %,SP Regeneración %,SP Regeneration %,SP ฟื้นฟู %
-WeaponPerfection,無視體型攻擊,Ignore Size Penalty,Ignorar Tamaño Penalización,Ignoriere Größe Malus,มองข้าม ขนาด โทษ
-WeaponOccult,浸透勁效果,Weapon Perfection Effect,Weapon Perfection Effect,Weapon Perfection Effect,Weapon Perfection Effect
-AspdPotionPercent,攻速藥水 %,ASPD Potion %,ASPD Poción %,ASPD Trank %,ASPD ยา %
-AspdRuneFlat,盧恩石5,Rune Stone Lv.5,Rune Stone Lv.5,Rune Stone Lv.5,Rune Stone Lv.5
-Empty,空手,Bare Hands,Sin arma,Unbewaffnet,มือเปล่า
-Daggers,短劍,Daggers,Dagas,Dolche,มีดสั้น
-OneHandedSwords,單手劍,One-Handed Sword,Espada de una mano,Einhandschwert,ดาบมือเดียว
-TwoHandedSword,雙手劍,Two-Handed Sword,Espada de dos manos,Zweihandschwert,ดาบสองมือ
-Katars,拳刃,Katars,Katars,Katars,กาตาร์
-Spears,單手矛,One-Handed Spear,Lanza de una mano,Einhand-Speer,หอกมือเดียว
-SpearsTwoHand,雙手矛,Two-Handed Spear,Lanza de dos manos,Zweihand-Speer,หอกสองมือ
-Axes,單手斧,One-Handed Axe,Hacha de una mano,Einhand-Axt,ขวานมือเดียว
-AxesTwoHand,雙手斧,Two-Handed Axe,Hacha de dos manos,Zweihand-Axt,ขวานสองมือ
-Maces,鈍器,Mace,Maza,Streitkolben,กระบอง
-Knuckles,拳套,Knuckles,Puños,Fäuste,สนับมือ
-Rods,單手杖,One-Handed Staff,Bastón de una mano,Einhand-Stab,คทามือเดียว
-RodsTwoHand,雙手杖,Two-Handed Staff,Bastón de dos manos,Zweihand-Stab,คทาสองมือ
-Books,書本,Book,Libro,Buch,หนังสือ
-Bows,弓,Bow,Arco,Bogen,ธนู
-Instruments,樂器,Instrument,Instrumento,Instrument,เครื่องดนตรี
-Whips,鞭子,Whip,Látigo,Peitsche,แส้
-Pistol,手槍,Pistol,Pistola,Pistole,ปืนพก
-Rifle,來福,Rifle,Rifle,Gewehr,ไรเฟิล
-Gatling,格林,Gatling Gun,Ametralladora Gatling,Gatling,ปืนแกตลิง
-Shotgun,霰彈,Shotgun,Escopeta,Schrotflinte,ปืนลูกซอง
-Grenade,榴彈,Grenade Launcher,Lanzagranadas,Granatwerfer,เครื่องยิงลูกระเบิด
-Shuriken,風魔飛鏢,Shuriken,Shuriken,Shuriken,ชูริเคน
-ui.charstats.title,角色素質,Stats,Atributos,Werte,ค่าสถานะ
-ui.charstats.class,職業,Class,Clase,Klasse,อาชีพ
-ui.common.pleaseselect,請選擇,Please Select,Seleccionar,Bitte auswählen,กรุณาเลือก
-ui.charstats.applyjobbonus,代入JOB加成,Apply Job Bonus,Aplicar bonificación de Job,Job-Bonus anwenden,ใช้โบนัส Job
-ui.charstats.selectbonussource,選擇加成來源,Select Bonus Source,Seleccionar fuente de bonificación,Bonusquelle auswählen,เลือกแหล่งโบนัส
-jobtier_2nd,二轉50,2nd Job (Lv.50),2.º Job (Nv.50),2. Job (Lv.50),อาชีพ 2 (Lv.50)
-jobtier_2nd_extend,進階二轉70,Extended 2nd Job (Lv.70),2.º Job avanzado (Nv.70),Erweiterter 2. Job (Lv.70),อาชีพ 2 ขั้นสูง (Lv.70)
-jobtier_3rd,三轉50,3rd Job (Lv.50),3.er Job (Nv.50),3. Job (Lv.50),อาชีพ 3 (Lv.50)
-jobtier_4th,四轉60,4th Job (Lv.60),4.º Job (Nv.60),4. Job (Lv.60),อาชีพ 4 (Lv.60)
-ui.charstats.aspdtooltip,目前的攻速公式與懲罰職等，點按鈕開啟攻速懲罰表可以更改設定。,Current ASPD formula and job-tier penalty. Click the button to open the ASPD penalty table and change the settings.,Fórmula ASPD y penalización por nivel de Job actuales. Pulsa el botón para abrir la tabla de penalización de ASPD y cambiar los ajustes.,"Aktuelle ASPD-Formel und Job-Stufen-Malus. Klicke auf die Schaltfläche, um die ASPD-Malustabelle zu öffnen und die Einstellungen zu ändern.",สูตร ASPD และระดับโทษ Job ปัจจุบัน กดปุ่มเพื่อเปิดตารางโทษ ASPD และเปลี่ยนการตั้งค่า
-ui.charstats.aspdsetting,攻速設定,ASPD Settings,Ajustes de ASPD,ASPD-Einstellungen,ตั้งค่า ASPD
-ui.common.paradise,樂園,Zero,Zero,Zero,Zero
-ui.common.official,四轉服,Official,Oficial,Offiziell,Official
-ui.common.formula,公式,Formula,Fórmula,Formel,สูตร
-ui.common.jobtier,職等,Job Tier,Nivel de Job,Job-Stufe,ระดับ Job
-ui.common.tier34,三/四轉,3rd/4th,3.º/4.º,3./4.,3/4
-ui.common.tier2,二轉,2nd,2.º,2.,2
-ui.charstats.transcendent,轉生,Transcendent,Transcendente,Transzendent,จุติ
-ui.charstats.transcendenttooltip,轉生100點，非轉生52點,"100 points if Transcendent, 52 if not",100 puntos si es Transcendente; 52 si no lo es,"100 Punkte bei Transzendent, sonst 52",100 แต้มเมื่อจุติ และ 52 แต้มเมื่อไม่จุติ
-ui.charstats.availablepoints,可用素質點,Available Stat Points,Puntos de atributo disponibles,Verfügbare Statuspunkte,แต้มสถานะที่ใช้ได้
-ui.charstats.usedpointstooltip,"計算素質欄中第一個 "" + 號"" 前的數值 例:120+10+5 取120","Uses the value before the first "" + "" in the stat field, e.g. 120+10+5 counts as 120","Usa el valor anterior al primer "" + "" del campo de atributo; p. ej., 120+10+5 cuenta como 120","Verwendet den Wert vor dem ersten "" + "" im Wertefeld; z. B. zählt 120+10+5 als 120","ใช้ค่าก่อนเครื่องหมาย "" + "" ตัวแรกในช่องสถานะ เช่น 120+10+5 จะนับเป็น 120"
-ui.charstats.usedpoints,已消耗點數,Points Used,Puntos usados,Verbrauchte Punkte,แต้มที่ใช้แล้ว
-ui.common.remaining,餘,Remaining,Restante,Verbleibend,คงเหลือ
-ui.common.point,點,pts,pts,Pkt.,แต้ม
-ui.common.insufficient,不足,Insufficient,Insuficiente,Nicht ausreichend,ไม่เพียงพอ
-ui.charstats.traitpoints,特質點,Trait Points,Puntos de rasgo,Eigenschaftspunkte,แต้มคุณลักษณะ
-ui.charstats.jobbonuspoint,Job加成點,Job Bonus Points,Puntos de bonificación de Job,Job-Bonuspunkte,แต้มโบนัส Job
-ui.equip.type,類型,Type,Tipo,Typ,ประเภท
-ui.equip.weapontype,武器類型,Weapon Type,Tipo de arma,Waffentyp,ประเภทอาวุธ
-ui.equip.subweapontype,副手武器類型,off Hand Weapon,Arma secundaria,Nebenhandwaffe,อาวุธมือรอง
-ui.equip.weaponlevel,武器等級,WeaponLevel,Nivel de arma,Waffenstufe,ระดับอาวุธ
-ui.equip.grade,Grade等級,Grade,Grado,Grad,เกรด
-subhand_0,空手,Bare Hands,Sin arma,Unbewaffnet,มือเปล่า
-subhand_1,盾牌,Shield,Escudo,Schild,โล่
-subhand_2,武器,Weapon,Arma,Waffe,อาวุธ
-weaponlevel_1,一級,1,1,1,1
-weaponlevel_2,二級,2,2,2,2
-weaponlevel_3,三級,3,3,3,3
-weaponlevel_4,四級,4,4,4,4
-weaponlevel_5,五級,5,5,5,5
-weapongrade_0,無,N,N,N,N
-weapongrade_1,D,D,D,D,D
-weapongrade_2,C,C,C,C,C
-weapongrade_3,B,B,B,B,B
-weapongrade_4,A,A,A,A,A
-class_RK,騎士/盧恩騎士/盧恩龍爵,Knight,Caballero,Ritter,อัศวิน
-class_GX,刺客/十字斬首者/十字影武,Assassion,Asesino,Assassine,แอสซาซิน
-class_AB,祭司/大主教/樞機主教,Priest,Sacerdote,Priester,พรีสต์
-class_RA,獵人/遊俠/風鷹狩獵者,Hunter,Cazador,Jäger,ฮันเตอร์
-class_WL,巫師/咒術士/禁咒魔導士,Wizard,Mago,Magier,วิซาร์ด
-class_ME,鐵匠/機械工匠/機甲神匠,Blacksmith,Herrero,Schmied,แบล็คสมิธ
-class_RG,十字軍/皇家禁衛軍/帝國聖衛軍,Crusader,Cruzado,Kreuzritter,ครูเซเดอร์
-class_SC,流氓/魅影追蹤者/深淵追跡者,Rouge,Pícaro,Schurke,โร้ก
-class_SU,武僧/修羅/聖裁者,Monk,Monje,Mönch,มองค์
-class_MI,詩人/宮廷樂師/天籟頌者,Bard,Bardo,Barde,บาร์ด
-class_WA,舞孃/浪跡舞者/樂之舞靈,Dancer,Bailarina,Tänzerin,แดนเซอร์
-class_SO,賢者/妖術師/元素支配者,Sage,Sabio,Weiser,เซจ
-class_GE,煉金/基因學者/生命締造者,Alchemist,Alquimista,Alchemist,อัลเคมิสต์
-class_KO,影狼/流浪忍者,Kagerou/Shinkiro,Kagerou/Shinkiro,Kagerou/Shinkiro,Kagerou/Shinkiro
-class_OB,朧/疾風忍者,Oboro/Shiranui,Oboro/Shiranui,Oboro/Shiranui,Oboro/Shiranui
-class_RE,反叛者/夜行使,Rebellion/Night Watch,Rebellion/Night Watch,Rebellion/Night Watch,Rebellion/Night Watch
-class_SE,拳皇/天帝,Star Emperor/Sky Emperor,Star Emperor/Sky Emperor,Star Emperor/Sky Emperor,Star Emperor/Sky Emperor
-class_SL,獵靈士/契靈士,Soul Reaper/Soul Ascetic,Soul Reaper/Soul Ascetic,Soul Reaper/Soul Ascetic,Soul Reaper/Soul Ascetic
-class_SUM,喵族召喚師/魂靈師,Summoner/Spirit Handler,Summoner/Spirit Handler,Summoner/Spirit Handler,Summoner/Spirit Handler
-class_SN,超級初心者/終極初學者,Super Novice/Hyper Novice,Super Novice/Hyper Novice,Super Novice/Hyper Novice,Super Novice/Hyper Novice
-class_DR,Druid/Karnos/Alitea,Druid/Karnos/Alitea,Druid/Karnos/Alitea,Druid/Karnos/Alitea,Druid/Karnos/Alitea
-ui.equip.refinelevel,精鍊等級,Refine Level,Nivel de refinamiento,Veredelungsstufe,ระดับตีบวก
-ui.equip.weaponatk,武器ATK,Weapon ATK,ATK del arma,Waffen-ATK,ATK อาวุธ
-ui.equip.weaponmatk,武器MATK,Weapon MATK,MATK del arma,Waffen-MATK,MATK อาวุธ
-ui.equip.shellatk,砲彈ATK,Cannon ATK,ATK del cañón,Kanonen-ATK,ATK กระสุนปืนใหญ่
-ui.equip.bulletatk,子彈ATK,Bullet ATK,ATK de la bala,Kugel-ATK,ATK กระสุน
-ui.equip.arrowatk,箭矢ATK,Arrow ATK,ATK de la flecha,Pfeil-ATK,ATK ลูกธนู
-ui.equip.weaponweight,武器重量,Weapon Weight,Peso del arma,Waffengewicht,น้ำหนักอาวุธ
-ui.equip.shieldrefine,盾牌精煉,Shield Refine,Refinamiento del escudo,Schildveredelung,ตีบวกโล่
-ui.equip.shieldweight,盾牌重量,Shield Weight,Peso del escudo,Schildgewicht,น้ำหนักโล่
-ui.equip.cardenchant,卡片/附魔,Slot,Ranura,Slot,ช่อง
-ui.common.clear,清空,Clear,Limpiar,Leeren,ล้าง
-ui.common.edit,編輯,Edit,Editar,Bearbeiten,แก้ไข
-ui.common.cancel,取消,Cancel,Cancelar,Abbrechen,ยกเลิก
-ui.common.confirm,確定,Confirm,Confirmar,Bestätigen,ยืนยัน
-ui.common.save,儲存,Save,Guardar,Speichern,บันทึก
-ui.equip.setnamefirst,儲存前設定裝備名,Set Equipment Name Before Saving,Define el nombre del equipo antes de guardar,Vor dem Speichern einen Ausrüstungsnamen festlegen,ตั้งชื่ออุปกรณ์ก่อนบันทึก
-ui.equip.allskilldmg,所有技能增傷 %,All Skill DMG %,DMG de todas las habilidades %,DMG aller Skills %,DMG ทุกสกิล %
-ui.equip.allskillcd,所有技能獨延,All Skill Cooldown,Cooldown de todas las habilidades,Cooldown aller Skills,คูลดาวน์ทุกสกิล
-ui.equip.specifyskill,指定技能,Specify Skill,Especificar habilidad,Skill festlegen,ระบุสกิล
-ui.equip.specifyelement,指定屬性,Specify Element,Especificar elemento,Element festlegen,ระบุธาตุ
-ui.equip.specifyrace,指定種族,Specify Race,Especificar raza,Rasse festlegen,ระบุเผ่า
-ui.equip.specifysize,指定體型,Specify Size,Especificar tamaño,Größe festlegen,ระบุขนาด
-ui.equip.specifylevel,指定階級,Specify Level,Especificar nivel,Stufe festlegen,ระบุระดับ
-ui.equip.specifysizemultiplier,指定體型倍率,Specify Size Multiplier,Especificar multiplicador de tamaño,Größenmultiplikator festlegen,ระบุตัวคูณขนาด
-ui.equip.size,體型,Size,Tamaño,Größe,ขนาด
-ui.equip.physicalsizepercent,物理體型 %,Physical Size %,Tamaño físico %,Physische Größe %,ขนาดกายภาพ %
-ui.equip.magicsizepercent,魔法體型 %,Magic Size %,Tamaño mágico %,Magische Größe %,ขนาดเวท %
-ui.common.action,操作,Action,Acción,Aktion,การทำงาน
-ui.common.apply,套用,Apply,Aplicar,Anwenden,ใช้
-ui.equip.specifylevelmultiplier,指定階級倍率,Specify Level Multiplier,Especificar multiplicador de nivel,Stufenmultiplikator festlegen,ระบุตัวคูณระดับ
-ui.equip.level,階級,Tier,Rango,Rang,ระดับ
-ui.equip.physicallevelpercent,物理階級 %,Physical Level %,Nivel físico %,Physische Stufe %,ระดับกายภาพ %
-ui.equip.magiclevelpercent,魔法階級 %,Magic Level %,Nivel mágico %,Magische Stufe %,ระดับเวท %
-ui.equip.specifyracemultiplier,指定種族倍率,Specify Race Multiplier,Especificar multiplicador de raza,Rassenmultiplikator festlegen,ระบุตัวคูณเผ่า
-ui.equip.race,種族,Race,Raza,Rasse,เผ่า
-ui.equip.physicalracepercent,物理種族 %,Physical Race %,Raza física %,Physische Rasse %,เผ่ากายภาพ %
-ui.equip.magicracepercent,魔法種族 %,Magic Race %,Raza mágica %,Magische Rasse %,เผ่าเวท %
-ui.equip.specifyelementmultiplier,指定屬性倍率,Specify Element Multiplier,Especificar multiplicador elemental,Elementmultiplikator festlegen,ระบุตัวคูณธาตุ
-ui.equip.element,屬性,Element,Elemento,Element,ธาตุ
-ui.equip.alltarget,全,All,Todos,Alle,ทั้งหมด
-ui.equip.elementmultiplier,屬性倍率,Element Multiplier,Multiplicador elemental,Elementmultiplikator,ตัวคูณธาตุ
-leveltype_0,一般,Normal,Normal,Normal,ปกติ
-leveltype_1,BOSS,BOSS,BOSS,BOSS,BOSS
-racetype_0,無形,Formless,Sin forma,Formlos,ไร้รูปร่าง
-racetype_1,不死,Undead,No muerto,Untot,ผีดิบ
-racetype_2,動物,Brute,Bestia,Tier,สัตว์
-racetype_3,植物,Plant,Planta,Pflanze,พืช
-racetype_4,昆蟲,Insect,Insecto,Insekt,แมลง
-racetype_5,魚貝,Fish,Pez,Fisch,ปลา
-racetype_6,惡魔,Demon,Demonio,Dämon,ปีศาจ
-racetype_7,人形,Demi-Human,Semihumano,Halbmensch,กึ่งมนุษย์
-racetype_8,天使,Angel,Ángel,Engel,เทวทูต
-racetype_9,龍族,Dragon,Dragón,Drache,มังกร
-racetype_10,玩家(人類),Player (Human),Jugador (humano),Spieler (Mensch),ผู้เล่น (มนุษย์)
-racetype_11,玩家(貓族),Player (Doram),Jugador (Doram),Spieler (Doram),ผู้เล่น (Doram)
-sizetype_0,小型,Small,Pequeño,Klein,เล็ก
-sizetype_1,中型,Medium,Mediano,Mittel,กลาง
-sizetype_2,大型,Large,Grande,Groß,ใหญ่
-elementtype_0,無,Neutral,Neutral,Neutral,ไร้ธาตุ
-elementtype_1,火,Fire,Fuego,Feuer,ไฟ
-elementtype_2,水,Water,Agua,Wasser,น้ำ
-elementtype_3,風,Wind,Viento,Wind,ลม
-elementtype_4,地,Earth,Tierra,Erde,ดิน
-elementtype_5,毒,Poison,Veneno,Gift,พิษ
-elementtype_6,聖,Holy,Sagrado,Heilig,ศักดิ์สิทธิ์
-elementtype_7,暗,Dark,Oscuro,Dunkel,มืด
-elementtype_8,念,Ghost,Fantasma,Geist,วิญญาณ
-elementtype_9,不死,Undead,No muerto,Untot,ผีดิบ
-ui.equip.weaponsizetable,武器懲罰表,Weapon Penalty Table,Tabla de penalización de armas,Waffen-Malustabelle,ตารางโทษอาวุธ
-ui.equip.refineatkmatk,精鍊Atk / Matk,Refine Atk / Matk,Refinamiento Atk / Matk,Veredelung Atk / Matk,ตีบวก Atk / Matk
-ui.equip.overrefineatkmatk,過度精鍊Atk / Matk,Over Refine Atk / Matk,Sobre-refinamiento Atk / Matk,Überveredelung Atk / Matk,ตีบวกเกิน Atk / Matk
-ui.equip.jumptoslot,快速跳轉部位,Jump to Slot,Ir rápidamente a la ranura,Schnell zum Slot,ไปยังช่องอย่างรวดเร็ว
-ui.equip.title,裝備,Equipment,Equipo,Ausrüstung,อุปกรณ์
-ui.equip.dbtooltip,讀取已經儲存的裝備,Load Saved Equipment,Cargar equipo guardado,Gespeicherte Ausrüstung laden,โหลดอุปกรณ์ที่บันทึกไว้
-ui.equip.dblist,裝備清單,Equipment List,Lista de equipo,Ausrüstungsliste,รายการอุปกรณ์
-ui.equip.search,搜尋,Search,Buscar,Suchen,ค้นหา
-ui.equip.filterall,全部,All,Todos,Alle,ทั้งหมด
-ui.equip.slot,部位,Slot,Ranura,Slot,ช่อง
-ui.equip.equipnamecol,裝備名字,Equipment Name,Nombre del equipo,Ausrüstungsname,ชื่ออุปกรณ์
-ui.common.load,載入,Load,Cargar,Laden,โหลด
-ui.common.delete,刪除,Delete,Eliminar,Löschen,ลบ
-ui.enemy.title,敵方,Enemy,Enemigo,Gegner,ศัตรู
-ui.enemy.select,選擇敵方,Select Enemy,Seleccionar enemigo,Gegner auswählen,เลือกศัตรู
-ui.enemy.elementlevel,屬性等級,Element Level,Nivel elemental,Elementstufe,ระดับธาตุ
-ui.enemy.element,敵方屬性,Enemy Element,Elemento del enemigo,Gegnerelement,ธาตุศัตรู
-ui.enemy.luktooltip,影響最終暴率,Affects Final Critical Rate,Afecta a la probabilidad crítica final,Beeinflusst die finale Krit-Rate,มีผลต่ออัตราคริติคอลสุดท้าย
-ui.enemy.vittooltip,影響強酸火煙瓶,Affects Acid/Fire Bottle Damage,Afecta al daño de Acid/Fire Bottle,Beeinflusst den Schaden von Acid/Fire Bottle,มีผลต่อความเสียหาย Acid/Fire Bottle
-ui.enemy.defformula,(魔物等級+VIT)/2,(Monster Level+VIT)/2,(Nivel del monstruo+VIT)/2,(Monsterstufe+VIT)/2,(ระดับมอนสเตอร์+VIT)/2
-ui.enemy.subdef,減算DEF(前),Soft DEF,DEF blanda,Soft DEF,Soft DEF
-ui.enemy.muldef,乘算DEF,Hard DEF,DEF dura,Hard DEF,Hard DEF
-ui.enemy.mdefformula,(魔物等級+INT)/4,(Monster Level+INT)/4,(Nivel del monstruo+INT)/4,(Monsterstufe+INT)/4,(ระดับมอนสเตอร์+INT)/4
-ui.enemy.submdef,減算MDEF(前),Soft MDEF,MDEF blanda,Soft MDEF,Soft MDEF
-ui.enemy.mulmdef,乘算MDEF,Hard MDEF,MDEF dura,Hard MDEF,Hard MDEF
-ui.enemy.raceresist,種族抗性,Race Resistance,Resistencia racial,Rassenresistenz,ต้านทานเผ่า
-ui.common.subtracted,減,Sub,Resta,Sub,ลบ
-ui.common.multiplied,乘,Mul,Mult.,Mul,คูณ
-ui.skill.title,技能,Skill,Habilidad,Skill,สกิล
-ui.skill.settings,技能設定,Skill Settings,Ajustes de habilidad,Skill-Einstellungen,ตั้งค่าสกิล
-ui.skill.dbtooltip,讀取已經儲存的技能,Load Saved Skill,Cargar habilidad guardada,Gespeicherten Skill laden,โหลดสกิลที่บันทึกไว้
-ui.skill.name,技能名,Skill Name,Nombre de habilidad,Skillname,ชื่อสกิล
-ui.skill.formulakeyword,公式關鍵字,Formula Keywords,Palabras clave de fórmula,Formel-Schlüsselwörter,คีย์เวิร์ดสูตร
-ui.skill.keyword,關鍵字,Keyword,Palabra clave,Schlüsselwort,คีย์เวิร์ด
-ui.skill.function,功能,Function,Función,Funktion,ฟังก์ชัน
-ui.skill.level,技能等級,Skill Level,Nivel de habilidad,Skillstufe,ระดับสกิล
-ui.skill.hitnumber,傷害次數,Hit Count,Número de golpes,Trefferanzahl,จำนวนฮิต
-ui.skill.hitnumbertooltip,"傷害次數, 負數時為分段傷害不會增加總傷害",Hit count. Negative values are split damage and won't add to the total damage.,Número de golpes. Los valores negativos representan daño dividido y no se suman al daño total.,Trefferanzahl. Negative Werte sind aufgeteilter Schaden und werden nicht zum Gesamtschaden addiert.,จำนวนฮิต ค่าติดลบเป็นความเสียหายแบบแบ่งช่วงและจะไม่เพิ่มความเสียหายรวม
-ui.skill.fixedcast,固定詠唱,Fixed Cast,Lanzamiento fijo,Feste Zauberzeit,ร่ายคงที่
-ui.skill.variablecast,變動詠唱,Variable Cast,Lanzamiento variable,Variable Zauberzeit,ร่ายแปรผัน
-ui.skill.time,時間,Time,Tiempo,Zeit,เวลา
-ui.skill.independentdelay,獨立延遲,Cooldown,Cooldown,Cooldown,คูลดาวน์
-ui.skill.globaldelay,共通延遲,Global Delay,Retraso global,Globale Verzögerung,ดีเลย์รวม
-ui.skill.damagetype,傷害類型,Damage Type,Tipo de daño,Schadenstyp,ประเภทความเสียหาย
-ui.skill.ranged,技能遠傷,Skill Ranged Damage,Daño a distancia de habilidad,Fernkampfschaden des Skills,ความเสียหายระยะไกลของสกิล
-ui.skill.critical,技能暴擊,Skill Critical,Crítico de habilidad,Skill-Kritisch,คริติคอลสกิล
-ui.skill.halfcri,一半暴率,Half Critical Rate,Mitad de probabilidad crítica,Halbe Krit-Rate,อัตราคริติคอลครึ่งหนึ่ง
-ui.skill.cannon,使用加農砲彈,Uses Cannon Shell,Usa proyectil de cañón,Verwendet Kanonenkugel,ใช้กระสุนปืนใหญ่
-ui.skill.cart,使用手推車,Uses Pushcart,Usa carrito,Verwendet Handkarren,ใช้รถเข็น
-ui.skill.halfignoredef,半無視防禦,Half Ignore DEF,Ignora la mitad de DEF,DEF halb ignorieren,มองข้าม DEF ครึ่งหนึ่ง
-ui.skill.halfignoredeftooltip,將乘算DEF(後DEF)改為減算DEF,Converts Hard DEF into Soft DEF,Convierte Hard DEF en Soft DEF,Wandelt Hard DEF in Soft DEF um,เปลี่ยน Hard DEF เป็น Soft DEF
-ui.skill.ignoreres,無視RES,Ignore RES,Ignorar RES,RES ignorieren,มองข้าม RES
-ui.skill.ignorerestooltip,RES，最高為50%,"Ignores RES, up to a maximum of 50%",Ignora RES hasta un máximo del 50%,Ignoriert RES bis maximal 50 %,มองข้าม RES ได้สูงสุด 50%
-ui.skill.laterranged,後計算技能遠傷,Ranged Damage Calculated After,Daño a distancia calculado después,Fernkampfschaden nachträglich berechnet,คำนวณความเสียหายระยะไกลภายหลัง
-ui.skill.note,備註,Note,Nota,Hinweis,หมายเหตุ
-ui.skill.elementtable,屬性相剋表,Element Chart,Tabla elemental,Elementtabelle,ตารางธาตุ
-ui.skill.attackelement,攻擊屬性,Attack Element,Elemento de ataque,Angriffselement,ธาตุโจมตี
-ui.skill.cartweight,手推車重量,Cart Weight,Peso del carrito,Karrengewicht,น้ำหนักรถเข็น
-ui.skill.jobskills,職業技能,Job Skills,Habilidades de Job,Job-Skills,สกิลอาชีพ
-ui.skill.extraskills,額外技能,Extra Skills,Habilidades adicionales,Zusätzliche Skills,สกิลเพิ่มเติม
-ui.skill.weaponmasteryatk,武器修練ATK增加,Weapon Mastery ATK Bonus,Bonificación ATK de dominio de arma,Waffenmeisterschaft-ATK-Bonus,โบนัส ATK ความชำนาญอาวุธ
-damagetype_0,物理傷害,Physical Damage,Daño físico,Physischer Schaden,ความเสียหายกายภาพ
-damagetype_1,魔法傷害,Magic Damage,Daño mágico,Magischer Schaden,ความเสียหายเวท
-damagetype_2,龍息傷害,Dragon Breath Damage,Daño de Aliento de Dragón,Drachenatem-Schaden,ความเสียหาย Dragon Breath
-damagetype_3,陷阱傷害,Trap Damage,Daño de trampa,Fallenschaden,ความเสียหายกับดัก
-damagetype_4,混和傷害,Mixed Damage,Daño mixto,Gemischter Schaden,ความเสียหายผสม
-ui.elementtable.dialogtitle,屬性相剋倍率表,Element Multiplier Chart,Tabla de multiplicadores elementales,Elementmultiplikator-Tabelle,ตารางตัวคูณธาตุ
-ui.elementtable.uselatest,使用新版屬性表,Use Updated Element Table,Usar tabla elemental actualizada,Aktualisierte Elementtabelle verwenden,ใช้ตารางธาตุใหม่
-ui.elementtable.atkdef,攻 \ 守,Atk \ Def,Atk \ Def,Atk \ Def,Atk \ Def
-ui.common.vs,對,vs,vs,vs,ต่อ
-ui.skill.supportskills,輔助技能,Support Skills,Habilidades de apoyo,Unterstützungs-Skills,สกิลสนับสนุน
-ui.skill.resetall,全部重置,Reset All,Restablecer todo,Alles zurücksetzen,รีเซ็ตทั้งหมด
-ui.skill.fantasybook,幻想叢書,Fantasy Book,Libro de fantasía,Fantasiebuch,หนังสือแฟนตาซี
-ui.panel.atkcalc,ATK計算,ATK Calculation,ATK Cálculo,ATK Berechnung,ATK การคำนวณ
-ui.panel.matkcalc,MATK計算,MATK Calculation,MATK Cálculo,MATK Berechnung,MATK การคำนวณ
-ui.panel.dragonbreathcalc,龍之吐息計算,Dragon Breath Calculation,Dragon Breath Cálculo,Dragon Breath Berechnung,Dragon Breath การคำนวณ
-ui.panel.trapcalc,陷阱計算,Trap Calculation,Trap Cálculo,Trap Berechnung,Trap การคำนวณ
-ui.panel.mixedcalc,混傷計算,Mixed DMG Calculation,Mixed DMG Cálculo,Mixed DMG Berechnung,Mixed DMG การคำนวณ
-ui.panel.defcalc,DEF計算,DEF Calculation,DEF Cálculo,DEF Berechnung,DEF การคำนวณ
-ui.panel.mdefcalc,MDEF計算,MDEF Calculation,MDEF Cálculo,MDEF Berechnung,MDEF การคำนวณ
-ui.panel.general,一般,General,General,Allgemein,ทั่วไป
-ui.panel.survival,生存,Survival,Supervivencia,Überleben,การเอาตัวรอด
-ui.panel.castdelay,詠唱 & 延遲,Cast & Delay,Lanzamiento y retraso,Zauberzeit & Verzögerung,ร่าย & ดีเลย์
-ui.panel.tab.damage,傷害,Damage,Daño,Schaden,ความเสียหาย
-ui.panel.tab.cast,詠唱&延遲,Cast & Delay,Lanzamiento y retraso,Zauberzeit & Verzögerung,ร่าย & ดีเลย์
-ui.panel.baseatk,基礎ATK,Base ATK,ATK base,Basis-ATK,ATK พื้นฐาน
-ui.panel.refinespecialatk,精練&特殊ATK加值,Refine & Special ATK Bonus,Bonificación de ATK por refinamiento y especial,Veredelungs- & Spezial-ATK-Bonus,โบนัส ATK จากการตีบวกและแบบพิเศษ
-ui.panel.sizefixarrow,體型修正&箭矢傷害,Size Modifier & Arrow DMG,Modificador de tamaño y DMG de flecha,Größenmodifikator & Pfeil-DMG,ตัวปรับขนาด & DMG ลูกธนู
-ui.panel.totalweaponatk,總武器ATK,Total Weapon ATK,ATK total del arma,Gesamt-Waffen-ATK,ATK อาวุธรวม
-ui.panel.racelevelsizeelement,種族階級體型屬性,Race/Tier/Size/Element,Raza/Rango/Tamaño/Elemento,Rasse/Rang/Größe/Element,เผ่า/ระดับ/ขนาด/ธาตุ
-ui.panel.postatk,後ATK(上面兩個和),Post-ATK (Sum of Above),Post-ATK (suma de arriba),Post-ATK (Summe oben),Post-ATK (ผลรวมด้านบน)
-ui.panel.finalatk,最終ATK,Final ATK,ATK final,Finale ATK,ATK สุดท้าย
-ui.panel.critrangedpercent,暴傷遠傷%,Crit/Ranged DMG %,DMG crítico/a distancia %,Krit-/Fernkampf-DMG %,DMG คริติคอล/ระยะไกล %
-ui.panel.skillmultidef,技能倍率&敵方DEF,Skill Multiplier & Enemy DEF,Multiplicador de habilidad y DEF enemiga,Skill-Multiplikator & Gegner-DEF,ตัวคูณสกิล & DEF ศัตรู
-ui.panel.normalattackdmg,普攻傷害,Normal Attack DMG,DMG de ataque normal,Normalangriff-DMG,DMG โจมตีปกติ
-ui.panel.normalattackdmgcrit,普攻傷害(暴擊),Normal Attack DMG (Crit),DMG de ataque normal (crítico),Normalangriff-DMG (Krit),DMG โจมตีปกติ (คริติคอล)
-ui.panel.normalattackdps,普攻DPS,Normal Attack DPS,DPS de ataque normal,Normalangriff-DPS,DPS โจมตีปกติ
-ui.panel.skilldmg,技能傷害,Skill DMG,DMG de habilidad,Skill-DMG,DMG สกิล
-ui.panel.skilldmgavg,技能傷害(平均),Skill DMG (Avg),DMG de habilidad (prom.),Skill-DMG (Ø),DMG สกิล (เฉลี่ย)
-ui.panel.skilltotaldmg,技能總傷害,Total Skill DMG,DMG total de habilidad,Gesamt-Skill-DMG,DMG สกิลรวม
-ui.panel.skilltotaldmgavg,技能總傷害(平均),Total Skill DMG (Avg),DMG total de habilidad (prom.),Gesamt-Skill-DMG (Ø),DMG สกิลรวม (เฉลี่ย)
-ui.panel.skillcritdmg,技能暴擊傷害,Skill Crit DMG,DMG crítico de habilidad,Skill-Krit-DMG,DMG คริติคอลสกิล
-ui.panel.skillcritdmgavg,技能暴擊傷害(平均),Skill Crit DMG (Avg),DMG crítico de habilidad (prom.),Skill-Krit-DMG (Ø),DMG คริติคอลสกิล (เฉลี่ย)
-ui.panel.skilldps,技能DPS,Skill DPS,DPS de habilidad,Skill-DPS,DPS สกิล
-ui.panel.currentaspd,目前ASPD,Current ASPD,ASPD actual,Aktuelle ASPD,ASPD ปัจจุบัน
-ui.panel.equipmatkboost,裝備MATK&魔力增幅,Equip MATK & Magic Amp,MATK de equipo y amplificación mágica,Ausrüstungs-MATK & Magieverstärkung,MATK อุปกรณ์ & เพิ่มพลังเวท
-ui.panel.finalmatk,最終MATK,Final MATK,MATK final,Finale MATK,MATK สุดท้าย
-ui.panel.enemydmgreduce,敵方減傷,Enemy DMG Reduction,Reducción de DMG del enemigo,Gegnerische DMG-Reduktion,ลด DMG ของศัตรู
-ui.panel.skillmulti,技能倍率,Skill Multiplier,Multiplicador de habilidad,Skill-Multiplikator,ตัวคูณสกิล
-ui.panel.enemymdef,敵方MDEF,Enemy MDEF,MDEF del enemigo,Gegner-MDEF,MDEF ศัตรู
-ui.panel.skilldmgboost,技能增傷,Skill DMG Boost,Aumento de DMG de habilidad,Skill-DMG-Erhöhung,เพิ่ม DMG สกิล
-ui.panel.basephysicaldmg,基礎物理傷害,Base Physical DMG,DMG físico base,Physischer Basis-DMG,DMG กายภาพพื้นฐาน
-ui.panel.basemagicdmg,基礎魔法傷害,Base Magic DMG,DMG mágico base,Magischer Basis-DMG,DMG เวทพื้นฐาน
-ui.panel.basedmg,基礎傷害,Base DMG,DMG base,Basis-DMG,DMG พื้นฐาน
-ui.panel.finaldmg,最終傷害,Final DMG,DMG final,Finaler DMG,DMG สุดท้าย
-ui.panel.atkstatusbonus,Atk 素質(前)+面版後,Atk Stat (Panel),ATK de atributo (panel),ATK-Statuswert (Panel),ATK ค่าสถานะ (แผง)
-ui.panel.atkbonus,ATK加值,ATK Bonus,Bonificación de ATK,ATK-Bonus,โบนัส ATK
-ui.panel.weaponmasteryatk,修練Atk,Weapon Mastery ATK,ATK de dominio de arma,Waffenmeisterschaft-ATK,ATK ความชำนาญอาวุธ
-ui.panel.elementalmultiplier,屬性相剋倍率,Elemental Multiplier,Multiplicador elemental,Elementmultiplikator,ตัวคูณธาตุ
-ui.panel.sizefixmultiplier,體型修正倍率,Size Modifier Multiplier,Multiplicador de tamaño,Größenmodifikator,ตัวคูณขนาด
-ui.panel.matkstatusbonus,Matk 素質(前)+面版後,Matk Stat (Panel),MATK de atributo (panel),MATK-Statuswert (Panel),MATK ค่าสถานะ (แผง)
-ui.panel.matkbonus,MATK加值,MATK Bonus,Bonificación de MATK,MATK-Bonus,โบนัส MATK
-ui.panel.damagereducerate,減傷率,DMG Reduction Rate,Tasa de reducción de DMG,DMG-Reduktionsrate,อัตราลด DMG
-ui.panel.hpnaturalregen,HP自然恢復,HP Natural Regen,Regeneración natural de HP,Natürliche HP-Regeneration,ฟื้นฟู HP ตามธรรมชาติ
-ui.panel.spnaturalregen,SP自然恢復,SP Natural Regen,Regeneración natural de SP,Natürliche SP-Regeneration,ฟื้นฟู SP ตามธรรมชาติ
-ui.panel.hppotionrate,HP藥水恢復率,HP Potion Recovery Rate,Recuperación de poción de HP,HP-Trank-Heilungsrate,อัตราฟื้นฟูยา HP
-ui.panel.sppotionrate,SP藥水恢復率,SP Potion Recovery Rate,Recuperación de poción de SP,SP-Trank-Heilungsrate,อัตราฟื้นฟูยา SP
-ui.panel.every6s,每6秒回,Every 6s: ,Cada 6 s: ,Alle 6 s: ,ทุก 6 วินาที: 
-ui.panel.every60s,，每60秒回,/ Every 60s: ,/ Cada 60 s: ,/ Alle 60 s: ,/ ทุก 60 วินาที: 
-ui.panel.avgpersec,平均每秒回,Avg/sec: ,Prom./s: ,Ø/Sek.: ,เฉลี่ย/วินาที: 
-ui.panel.every8s,每8秒回,Every 8s: ,Cada 8 s: ,Alle 8 s: ,ทุก 8 วินาที: 
-ui.panel.every80s,，每80秒回,/ Every 80s: ,/ Cada 80 s: ,/ Alle 80 s: ,/ ทุก 80 วินาที: 
-ui.panel.aspdfixedvalue,ASPD固定值,ASPD Fixed Value,Valor fijo de ASPD,Fester ASPD-Wert,ค่า ASPD คงที่
-ui.panel.variablecastsec,變動詠唱(秒),Variable Cast (sec),Lanzamiento variable (s),Variable Zauberzeit (Sek.),ร่ายแปรผัน (วินาที)
-ui.panel.variablecastsupport,變動詠唱(輔助技能%),Variable Cast (Support Skill %),Lanzamiento variable (habilidad de apoyo %),Variable Zauberzeit (Unterstützungs-Skill %),ร่ายแปรผัน (สกิลสนับสนุน %)
-ui.panel.variablecastskill,變動詠唱(指定技能%),Variable Cast (Specified Skill %),Lanzamiento variable (habilidad especificada %),Variable Zauberzeit (festgelegter Skill %),ร่ายแปรผัน (สกิลที่ระบุ %)
-ui.panel.actualcasttime,實際詠唱時間,Actual Cast Time,Tiempo real de lanzamiento,Tatsächliche Zauberzeit,เวลาร่ายจริง
-ui.panel.skilldelaytime,技能延遲時間,Skill Delay Time,Tiempo de retraso de habilidad,Skill-Verzögerungszeit,เวลาดีเลย์สกิล
-ui.panel.attackinterval,攻擊間隔,Attack Interval,Intervalo de ataque,Angriffsintervall,ช่วงห่างการโจมตี
-ui.panel.castdelayexceedsinterval,詠唱+延遲 > 攻擊間隔時間,Cast + Delay > Attack Interval Time,Lanzamiento + retraso > intervalo de ataque,Zauberzeit + Verzögerung > Angriffsintervall,ร่าย + ดีเลย์ > ช่วงห่างการโจมตี
-ui.panel.perattackpersec,每秒攻擊次數,Attacks per Second,Ataques por segundo,Angriffe pro Sekunde,จำนวนโจมตีต่อวินาที
-ui.panel.notenoughgold,詠唱>1秒,Cast time exceeds 1s,El tiempo de lanzamiento supera 1 s,Zauberzeit überschreitet 1 s,เวลาร่ายเกิน 1 วินาที
-ui.panel.displaymode,顯示模式,Mode,Modo,Modus,โหมด
-ui.common.other,其他,Other,Otro,Sonstiges,อื่นๆ
-ui.common.equip,裝備,Equipment,Equipo,Ausrüstung,อุปกรณ์
-ui.panel.normalrefineatk,一般精煉ATK,Normal Refine ATK,ATK de refinamiento normal,Normale Veredelungs-ATK,ATK ตีบวกปกติ
-ui.panel.normalrefinematk,一般精煉MATK,Normal Refine MATK,MATK de refinamiento normal,Normale Veredelungs-MATK,MATK ตีบวกปกติ
-ui.panel.overrefineatk,過度精煉ATK,Over-Refine ATK,ATK de sobre-refinamiento,Überveredelungs-ATK,ATK ตีบวกเกิน
-ui.panel.overrefinematk,過度精煉MATK,Over-Refine MATK,MATK de sobre-refinamiento,Überveredelungs-MATK,MATK ตีบวกเกิน
-ui.common.supportskill,輔助技能,Support Skill,Habilidad de apoyo,Unterstützungs-Skill,สกิลสนับสนุน
-ui.equip.fortarget,對,For,Para,Gegen,ต่อ
-ui.equip.forallsize,對全體型,For All Sizes,Para todos los tamaños,Gegen alle Größen,ต่อทุกขนาด
-ui.equip.foralllevel,對全階級,For All Tiers,Para todos los rangos,Gegen alle Ränge,ต่อทุกระดับ
-ui.equip.forallrace,對全種族,For All Races,Para todas las razas,Gegen alle Rassen,ต่อทุกเผ่า
-ui.equip.elementenemysuffix,屬性敵人,Element Enemies,Enemigos de ese elemento,Gegner dieses Elements,ศัตรูธาตุนั้น
-ui.equip.enemyresistprefix,敵人對,Enemy,Enemigo,Gegner,ศัตรู
-ui.equip.enemyresistsuffix,屬性耐性減少,Resistance Reduction,Reducción de resistencia elemental,Elementresistenz-Reduktion,ลดความต้านทานธาตุ
-ui.equip.elementmagicsuffix,屬性魔法,Element Magic,Magia elemental,Elementmagie,เวทธาตุ
-ui.skill.dmgboosttype,增傷,DMG Boost,Aumento de DMG,DMG-Erhöhung,เพิ่ม DMG
-ui.skill.cdreductiontype,獨延減少,CD Reduction,Reducción de CD,CD-Reduktion,ลด CD
-ui.common.seconds,秒,s,s,s,วิ
-ui.skill.unknown,未知技能,Unknown Skill,Habilidad desconocida,Unbekannter Skill,สกิลที่ไม่รู้จัก
-ui.allset.dialogtitle,配置清單(測試),Saved Builds (Beta),Configuraciones guardadas (Beta),Gespeicherte Builds (Beta),บิลด์ที่บันทึกไว้ (Beta)
-ui.allset.savedlist,已儲存清單,Saved List,Lista guardada,Gespeicherte Liste,รายการที่บันทึก
-ui.common.download,下載,Download,Descargar,Herunterladen,ดาวน์โหลด
-ui.allset.savenotice,測試中 不會儲存額外技能選項,Beta -- extra skill options are not saved,Beta: las opciones de habilidades adicionales no se guardan,Beta – zusätzliche Skill-Optionen werden nicht gespeichert,Beta -- ตัวเลือกสกิลเพิ่มเติมจะไม่ถูกบันทึก
-ui.allset.saveconfirm,儲存配置>>>,Save Build >>>,Guardar configuración >>>,Build speichern >>>,บันทึกบิลด์ >>>
-ui.allset.setnamefirst,儲存前設定檔名,Set File Name Before Saving,Define el nombre del archivo antes de guardar,Vor dem Speichern einen Dateinamen festlegen,ตั้งชื่อไฟล์ก่อนบันทึก
-ui.allset.filename,存檔名,File Name,Nombre de archivo,Dateiname,ชื่อไฟล์
-ui.allset.filenameplaceholder,要儲存的檔名,Enter a file name,Introduce un nombre de archivo,Dateinamen eingeben,กรอกชื่อไฟล์
-ui.allset.enemyname,敵人名,Enemy Name,Nombre del enemigo,Gegnername,ชื่อศัตรู
-ui.common.deletetitle,確認刪除,Confirm Delete,Confirmar eliminación,Löschen bestätigen,ยืนยันการลบ
-ui.equip.deleteconfirm,確定要刪除這筆裝備嗎？,Delete this equipment entry?,¿Eliminar esta entrada de equipo?,Diesen Ausrüstungseintrag löschen?,ต้องการลบอุปกรณ์รายการนี้หรือไม่?
-ui.allset.deleteconfirm,確定要刪除這筆配置嗎？,Delete this saved build?,¿Eliminar esta configuración guardada?,Diesen gespeicherten Build löschen?,ต้องการลบบิลด์ที่บันทึกไว้นี้หรือไม่?
-ui.equip.cardname,卡片名稱,Card Name,Nombre de carta,Kartenname,ชื่อการ์ด
-ui.equip.itemname,名稱,Name,Nombre,Name,ชื่อ
-ui.equip.aspdpenaltytable,攻速懲罰表,ASPD Penalty Table,Tabla de penalización de ASPD,ASPD-Malustabelle,ตารางโทษ ASPD
-ui.common.aspdformula,攻速公式,ASPD Formula,Fórmula de ASPD,ASPD-Formel,สูตร ASPD
-ui.common.aspdpenaltytier,攻速懲罰職等,ASPD Penalty Tier,Nivel de penalización de ASPD,ASPD-Malusstufe,ระดับโทษ ASPD
-ui.common.tier34full,三轉/四轉,3rd/4th Job,3.º/4.º Job,3./4. Job,อาชีพ 3/4
-ui.common.tier2full,二轉/進階二轉,2nd/Extended 2nd Job,2.º/2.º avanzado,2./Erweiterter 2. Job,อาชีพ 2/อาชีพ 2 ขั้นสูง
-ui.equip.shieldcol,盾,Shield,Escudo,Schild,โล่
-nav.settings,設定,Settings,Configuración,Einstellungen,การตั้งค่า
-settings.empty,目前沒有可調整的設定。,No settings available yet.,No hay opciones disponibles por ahora.,Derzeit keine Einstellungen verfügbar.,ยังไม่มีการตั้งค่าให้ปรับในขณะนี้
-ui.panel.apierror,連線失敗，請稍後再試,Connection failed. Please try again later.,Fallo de conexión. Inténtalo de nuevo más tarde.,Verbindung fehlgeschlagen. Bitte später erneut versuchen.,การเชื่อมต่อล้มเหลว โปรดลองใหม่อีกครั้งในภายหลัง
+﻿key,zh-TW,en,es,de,th,fr
+nav.title,RO 計算機,RO Calculator,Calculadora RO,RO-Rechner,เครื่องคำนวณ RO,Calculateur RO
+nav.allsetlist,配置清單,Saved Builds,Configuraciones guardadas,Gespeicherte Builds,บิลด์ที่บันทึกไว้,Builds enregistrés
+nav.savecfg,儲存配置,Save Build,Guardar configuración,Build speichern,บันทึกบิลด์,Enregistrer le build
+nav.loadcfg,讀取配置檔案,Load Build File,Cargar archivo de configuración,Build-Datei laden,โหลดไฟล์บิลด์,Charger un fichier de build
+nav.about,關於,About,Acerca de,Über,เกี่ยวกับ,À propos
+nav.donate,贊助,Donate,Donar,Spenden,สนับสนุน,Faire un don
+nav.thanks,協力,Contributors,Colaboradores,Mitwirkende,ผู้ร่วมพัฒนา,Contributeurs
+nav.updatelog,更新紀錄,Update Log,Registro de actualizaciones,Änderungsprotokoll,บันทึกการอัปเดต,Journal des mises à jour
+weaponr,主手,Main Hand,Mano principal,Haupthand,มือหลัก,Main principale
+weaponl,副手,Off Hand,Mano secundaria,Nebenhand,มือรอง,Main secondaire
+helm,頭飾,Headgear,Accesorio de cabeza,Kopfausrüstung,เครื่องสวมศีรษะ,Coiffe
+helm1,頭中,Headgear (Mid),Accesorio de cabeza (medio),Kopfausrüstung (Mitte),เครื่องสวมศีรษะ (กลาง),Coiffe (Milieu)
+helm2,頭下,Headgear (Lower),Accesorio de cabeza (inferior),Kopfausrüstung (Unten),เครื่องสวมศีรษะ (ล่าง),Coiffe (Bas)
+armor,衣服,Body Armor,Armadura,Rüstung,เกราะ,Armure
+robe,披肩,Garment,Capa,Umhang,ผ้าคลุม,Cape
+shoes,靴子,Footgear,Calzado,Schuhe,รองเท้า,Chaussures
+acc1,飾品,Accessory,Accesorio,Accessoire,เครื่องประดับ,Accessoire
+acc2,飾品,Accessory,Accesorio,Accessoire,เครื่องประดับ,Accessoire
+shadow,影子,Shadow Gear,Equipo sombrío,Schattenausrüstung,อุปกรณ์ชาโดว์,Équipement de l'ombre
+costume,服飾,Costume,Traje,Kostüm,คอสตูม,Costume
+cardset,套卡,Card Set,Conjunto de cartas,Kartenset,ชุดการ์ด,Ensemble de cartes
+other,自訂,Custom,Personalizado,Benutzerdefiniert,กำหนดเอง,Personnalisé
+weaponrcard,武器卡片,Weapon Card,Carta de arma,Waffenkarte,การ์ดอาวุธ,Carte d'arme
+weaponlcard,武器卡片,Weapon Card,Carta de arma,Waffenkarte,การ์ดอาวุธ,Carte d'arme
+helmcard,頭飾卡片,Headgear Card,Carta de cabeza,Kopfausrüstungskarte,การ์ดเครื่องสวมศีรษะ,Carte de coiffe
+helm1card,頭飾卡片,Headgear Card,Carta de cabeza,Kopfausrüstungskarte,การ์ดเครื่องสวมศีรษะ,Carte de coiffe
+helm2card,頭飾卡片,Headgear Card,Carta de cabeza,Kopfausrüstungskarte,การ์ดเครื่องสวมศีรษะ,Carte de coiffe
+armorcard,衣服卡片,Armor Card,Carta de armadura,Rüstungskarte,การ์ดเกราะ,Carte d'armure
+robecard,披肩卡片,Garment Card,Carta de capa,Umhangkarte,การ์ดผ้าคลุม,Carte de cape
+shoescard,靴子卡片,Footgear Card,Carta de calzado,Schuhkarte,การ์ดรองเท้า,Carte de chaussures
+acc1card,飾品卡片,Accessory Card,Carta de accesorio,Accessoire-Karte,การ์ดเครื่องประดับ,Carte d'accessoire
+acc2card,飾品卡片,Accessory Card,Carta de accesorio,Accessoire-Karte,การ์ดเครื่องประดับ,Carte d'accessoire
+shadowenchant,影子附魔,Shadow Enchant,Encantamiento sombrío,Schattenverzauberung,เอนชานต์ชาโดว์,Enchantement de l'ombre
+costumeenchant,服飾附魔,Costume Enchant,Encantamiento de traje,Kostümverzauberung,เอนชานต์คอสตูม,Enchantement de costume
+cardset2,套卡,Card Set,Conjunto de cartas,Kartenset,ชุดการ์ด,Ensemble de cartes
+other2,自訂,Custom,Personalizado,Benutzerdefiniert,กำหนดเอง,Personnalisé
+pet,寵物,Pet,Mascota,Begleiter,สัตว์เลี้ยง,Familier
+runetablet,石碑,Rune Tablet,Tableta rúnica,Runentafel,แผ่นรูน,Tablette runique
+AllStatus,全能力,All Stats,Todos los atributos,Alle Werte,ค่าสถานะทั้งหมด,Toutes les statistiques
+AllStatus2,所有特性屬性,All Trait Stats,Todos los atributos de rasgo,Alle Eigenschaftswerte,ค่าคุณลักษณะทั้งหมด,Toutes les statistiques de trait
+RaceAtkPercent,種族 %,Race ATK %,Raza ATK %,Rasse ATK %,เผ่า ATK %,ATK Race %
+SizeAtkPercent,體型 %,Size ATK %,Tamaño ATK %,Größe ATK %,ขนาด ATK %,ATK Taille %
+LevelAtkPercent,階級 %,Level ATK %,Nivel ATK %,Stufe ATK %,ระดับ ATK %,ATK Niveau %
+ElementalAtkPercent,對屬性敵人 %,Element Target %,Objetivo elemental %,Elementziel %,เป้าหมายธาตุ %,Cible élémentaire %
+WeaponRangedDamagePercent,武器遠傷 %,Weapon Ranged DMG %,Weapon DMG a distancia %,Weapon Fernkampf-DMG %,Weapon DMG ระยะไกล %,Weapon DMG à distance %
+MonsterAtkPercent,特定魔物 %,Specific Monster %,Monstruo específico %,Bestimmtes Monster %,มอนสเตอร์เฉพาะ %,Monstre spécifique %
+HitAtkDamagePercent,命中傷 %,On-Hit DMG %,On-Hit DMG %,On-Hit DMG %,On-Hit DMG %,On-Hit DMG %
+CriDamagePercent,暴傷 %,Critical DMG %,DMG crítico %,Krit-DMG %,DMG คริติคอล %,DMG critique %
+MeleeDamagePercent,近傷 %,Melee DMG %,DMG cuerpo a cuerpo %,Nahkampf-DMG %,DMG ระยะประชิด %,DMG corps à corps %
+RangedDamagePercent,遠傷 %,Ranged DMG %,DMG a distancia %,Fernkampf-DMG %,DMG ระยะไกล %,DMG à distance %
+MeleeDamageDealtIncreasedPercent,近傷耐性減少 %,Melee Resistance Reduction %,Melee Reducción de resistencia %,Melee Resistenzreduktion %,Melee ลดความต้านทาน %,Melee Réduction de résistance %
+RangedDamageDealtIncreasedPercent,遠傷耐性減少 %,Ranged Resistance Reduction %,Ranged Reducción de resistencia %,Ranged Resistenzreduktion %,Ranged ลดความต้านทาน %,Ranged Réduction de résistance %
+BypassDEFPercent,無視物理防禦 %,Ignore DEF %,Ignorar DEF %,Ignoriere DEF %,มองข้าม DEF %,Ignorer DEF %
+BypassRESPercent,無視RES %,Ignore RES %,Ignorar RES %,Ignoriere RES %,มองข้าม RES %,Ignorer RES %
+RaceMatkPercent,種族 %,Race MATK %,Raza MATK %,Rasse MATK %,เผ่า MATK %,MATK Race %
+SizeMatkPercent,體型 %,Size MATK %,Tamaño MATK %,Größe MATK %,ขนาด MATK %,MATK Taille %
+LevelMatkPercent,階級 %,Level MATK %,Nivel MATK %,Stufe MATK %,ระดับ MATK %,MATK Niveau %
+ElementalMatkPercent,對屬性敵人 %,Element Target %,Objetivo elemental %,Elementziel %,เป้าหมายธาตุ %,Cible élémentaire %
+ElementalMagicPercent,屬性魔法 %,Elemental Magic %,Magia elemental %,Elementmagie %,เวทธาตุ %,Magie élémentaire %
+MonsterMatkPercent,特定魔物 %,Specific Monster %,Monstruo específico %,Bestimmtes Monster %,มอนสเตอร์เฉพาะ %,Monstre spécifique %
+BypassMDEFPercent,無視魔法防禦 %,Ignore MDEF %,Ignorar MDEF %,Ignoriere MDEF %,มองข้าม MDEF %,Ignorer MDEF %
+BypassMRESPercent,無視MRES %,Ignore MRES %,Ignorar MRES %,Ignoriere MRES %,มองข้าม MRES %,Ignorer MRES %
+SkillDamagePercent,技能增傷 %,Skill DMG %,DMG de habilidad %,Skill-DMG %,DMG สกิล %,DMG de compétence %
+CDTime,技能獨延,Skill Cooldown,Cooldown de habilidad,Skill-Cooldown,คูลดาวน์สกิล,Temps de recharge de compétence
+GCDPercent,技能後(共)延%,Skill GCD %,GCD de habilidad %,Skill-GCD %,GCD สกิล %,GCD de compétence %
+ElementDamageDealtIncreasedPercent,屬性耐性減少 %,Element Resistance Reduction %,Element Reducción de resistencia %,Element Resistenzreduktion %,Element ลดความต้านทาน %,Element Réduction de résistance %
+VariableCastPercent,變詠 %,Variable Cast %,Lanzamiento variable %,Variable Zauberzeit %,ร่ายแปรผัน %,Incantation variable %
+VariableCastSecond,變詠,Variable Cast Time,Lanzamiento variable Time,Variable Zauberzeit Time,ร่ายแปรผัน Time,Temps d'incantation variable
+SPSkillVariableCastPercent,指定技能變詠 %,Variable Cast % (Specific Skill),Lanzamiento variable % (Specific Habilidad),Variable Zauberzeit % (Specific Skill),ร่ายแปรผัน % (Specific สกิล),Incantation variable % (compétence spécifique)
+FixedCast,固詠,Fixed Cast Time,Lanzamiento fijo Time,Feste Zauberzeit Time,ร่ายคงที่ Time,Temps d'incantation fixe
+FixedCastPercent,固詠 %,Fixed Cast %,Lanzamiento fijo %,Feste Zauberzeit %,ร่ายคงที่ %,Incantation fixe %
+AspdPercent,攻擊後延%,ASPD Delay %,ASPD Delay %,ASPD Delay %,ASPD Delay %,ASPD Delay %
+Cri,暴擊率 %,Critical Rate %,Probabilidad crítica %,Krit-Rate %,อัตราคริติคอล %,Taux critique %
+PerfectFlee,完全迴避,Perfect Flee,Perfect Flee,Perfect Flee,Perfect Flee,Perfect Flee
+HPRegenPercent,HP恢復 %,HP Regen %,HP Regeneración %,HP Regeneration %,HP ฟื้นฟู %,HP Régénération %
+SPRegenPercent,SP恢復 %,SP Regen %,SP Regeneración %,SP Regeneration %,SP ฟื้นฟู %,SP Régénération %
+WeaponPerfection,無視體型攻擊,Ignore Size Penalty,Ignorar Tamaño Penalización,Ignoriere Größe Malus,มองข้าม ขนาด โทษ,Ignorer la pénalité de taille
+WeaponOccult,浸透勁效果,Weapon Perfection Effect,Weapon Perfection Effect,Weapon Perfection Effect,Weapon Perfection Effect,Weapon Perfection Effect
+AspdPotionPercent,攻速藥水 %,ASPD Potion %,ASPD Poción %,ASPD Trank %,ASPD ยา %,Potion ASPD %
+AspdRuneFlat,盧恩石5,Rune Stone Lv.5,Rune Stone Lv.5,Rune Stone Lv.5,Rune Stone Lv.5,Rune Stone Lv.5
+Empty,空手,Bare Hands,Sin arma,Unbewaffnet,มือเปล่า,Mains nues
+Daggers,短劍,Daggers,Dagas,Dolche,มีดสั้น,Dagues
+OneHandedSwords,單手劍,One-Handed Sword,Espada de una mano,Einhandschwert,ดาบมือเดียว,Épée à une main
+TwoHandedSword,雙手劍,Two-Handed Sword,Espada de dos manos,Zweihandschwert,ดาบสองมือ,Épée à deux mains
+Katars,拳刃,Katars,Katars,Katars,กาตาร์,Katars
+Spears,單手矛,One-Handed Spear,Lanza de una mano,Einhand-Speer,หอกมือเดียว,Lance à une main
+SpearsTwoHand,雙手矛,Two-Handed Spear,Lanza de dos manos,Zweihand-Speer,หอกสองมือ,Lance à deux mains
+Axes,單手斧,One-Handed Axe,Hacha de una mano,Einhand-Axt,ขวานมือเดียว,Hache à une main
+AxesTwoHand,雙手斧,Two-Handed Axe,Hacha de dos manos,Zweihand-Axt,ขวานสองมือ,Hache à deux mains
+Maces,鈍器,Mace,Maza,Streitkolben,กระบอง,Masse
+Knuckles,拳套,Knuckles,Puños,Fäuste,สนับมือ,Poings américains
+Rods,單手杖,One-Handed Staff,Bastón de una mano,Einhand-Stab,คทามือเดียว,Bâton à une main
+RodsTwoHand,雙手杖,Two-Handed Staff,Bastón de dos manos,Zweihand-Stab,คทาสองมือ,Bâton à deux mains
+Books,書本,Book,Libro,Buch,หนังสือ,Livre
+Bows,弓,Bow,Arco,Bogen,ธนู,Arc
+Instruments,樂器,Instrument,Instrumento,Instrument,เครื่องดนตรี,Instrument
+Whips,鞭子,Whip,Látigo,Peitsche,แส้,Fouet
+Pistol,手槍,Pistol,Pistola,Pistole,ปืนพก,Pistolet
+Rifle,來福,Rifle,Rifle,Gewehr,ไรเฟิล,Fusil
+Gatling,格林,Gatling Gun,Ametralladora Gatling,Gatling,ปืนแกตลิง,Mitrailleuse Gatling
+Shotgun,霰彈,Shotgun,Escopeta,Schrotflinte,ปืนลูกซอง,Fusil à pompe
+Grenade,榴彈,Grenade Launcher,Lanzagranadas,Granatwerfer,เครื่องยิงลูกระเบิด,Lance-grenades
+Shuriken,風魔飛鏢,Shuriken,Shuriken,Shuriken,ชูริเคน,Shuriken
+ui.charstats.title,角色素質,Stats,Atributos,Werte,ค่าสถานะ,Statistiques
+ui.charstats.class,職業,Class,Clase,Klasse,อาชีพ,Classe
+ui.common.pleaseselect,請選擇,Please Select,Seleccionar,Bitte auswählen,กรุณาเลือก,Veuillez sélectionner
+ui.charstats.applyjobbonus,代入JOB加成,Apply Job Bonus,Aplicar bonificación de Job,Job-Bonus anwenden,ใช้โบนัส Job,Appliquer le bonus de Job
+ui.charstats.selectbonussource,選擇加成來源,Select Bonus Source,Seleccionar fuente de bonificación,Bonusquelle auswählen,เลือกแหล่งโบนัส,Sélectionner la source du bonus
+jobtier_2nd,二轉50,2nd Job (Lv.50),2.º Job (Nv.50),2. Job (Lv.50),อาชีพ 2 (Lv.50),2e Job (Nv.50)
+jobtier_2nd_extend,進階二轉70,Extended 2nd Job (Lv.70),2.º Job avanzado (Nv.70),Erweiterter 2. Job (Lv.70),อาชีพ 2 ขั้นสูง (Lv.70),2e Job avancé (Nv.70)
+jobtier_3rd,三轉50,3rd Job (Lv.50),3.er Job (Nv.50),3. Job (Lv.50),อาชีพ 3 (Lv.50),3e Job (Nv.50)
+jobtier_4th,四轉60,4th Job (Lv.60),4.º Job (Nv.60),4. Job (Lv.60),อาชีพ 4 (Lv.60),4e Job (Nv.60)
+ui.charstats.aspdtooltip,目前的攻速公式與懲罰職等，點按鈕開啟攻速懲罰表可以更改設定。,Current ASPD formula and job-tier penalty. Click the button to open the ASPD penalty table and change the settings.,Fórmula ASPD y penalización por nivel de Job actuales. Pulsa el botón para abrir la tabla de penalización de ASPD y cambiar los ajustes.,"Aktuelle ASPD-Formel und Job-Stufen-Malus. Klicke auf die Schaltfläche, um die ASPD-Malustabelle zu öffnen und die Einstellungen zu ändern.",สูตร ASPD และระดับโทษ Job ปัจจุบัน กดปุ่มเพื่อเปิดตารางโทษ ASPD และเปลี่ยนการตั้งค่า,Formule ASPD et pénalité de niveau de Job actuelles. Cliquez sur le bouton pour ouvrir la table de pénalité ASPD et modifier les réglages.
+ui.charstats.aspdsetting,攻速設定,ASPD Settings,Ajustes de ASPD,ASPD-Einstellungen,ตั้งค่า ASPD,Réglages ASPD
+ui.common.paradise,樂園,Zero,Zero,Zero,Zero,Zero
+ui.common.official,四轉服,Official,Oficial,Offiziell,Official,Officiel
+ui.common.formula,公式,Formula,Fórmula,Formel,สูตร,Formule
+ui.common.jobtier,職等,Job Tier,Nivel de Job,Job-Stufe,ระดับ Job,Niveau de Job
+ui.common.tier34,三/四轉,3rd/4th,3.º/4.º,3./4.,3/4,3e/4e
+ui.common.tier2,二轉,2nd,2.º,2.,2,2e
+ui.charstats.transcendent,轉生,Transcendent,Transcendente,Transzendent,จุติ,Transcendant
+ui.charstats.transcendenttooltip,轉生100點，非轉生52點,"100 points if Transcendent, 52 if not",100 puntos si es Transcendente; 52 si no lo es,"100 Punkte bei Transzendent, sonst 52",100 แต้มเมื่อจุติ และ 52 แต้มเมื่อไม่จุติ,"100 points si Transcendant, 52 sinon"
+ui.charstats.availablepoints,可用素質點,Available Stat Points,Puntos de atributo disponibles,Verfügbare Statuspunkte,แต้มสถานะที่ใช้ได้,Points de statistiques disponibles
+ui.charstats.usedpointstooltip,"計算素質欄中第一個 "" + 號"" 前的數值 例:120+10+5 取120","Uses the value before the first "" + "" in the stat field, e.g. 120+10+5 counts as 120","Usa el valor anterior al primer "" + "" del campo de atributo; p. ej., 120+10+5 cuenta como 120","Verwendet den Wert vor dem ersten "" + "" im Wertefeld; z. B. zählt 120+10+5 als 120","ใช้ค่าก่อนเครื่องหมาย "" + "" ตัวแรกในช่องสถานะ เช่น 120+10+5 จะนับเป็น 120","Utilise la valeur avant le premier « + » dans le champ de statistique, par ex. 120+10+5 compte comme 120"
+ui.charstats.usedpoints,已消耗點數,Points Used,Puntos usados,Verbrauchte Punkte,แต้มที่ใช้แล้ว,Points utilisés
+ui.common.remaining,餘,Remaining,Restante,Verbleibend,คงเหลือ,Restant
+ui.common.point,點,pts,pts,Pkt.,แต้ม,pts
+ui.common.insufficient,不足,Insufficient,Insuficiente,Nicht ausreichend,ไม่เพียงพอ,Insuffisant
+ui.charstats.traitpoints,特質點,Trait Points,Puntos de rasgo,Eigenschaftspunkte,แต้มคุณลักษณะ,Points de trait
+ui.charstats.jobbonuspoint,Job加成點,Job Bonus Points,Puntos de bonificación de Job,Job-Bonuspunkte,แต้มโบนัส Job,Points de bonus de Job
+ui.equip.type,類型,Type,Tipo,Typ,ประเภท,Type
+ui.equip.weapontype,武器類型,Weapon Type,Tipo de arma,Waffentyp,ประเภทอาวุธ,Type d'arme
+ui.equip.subweapontype,副手武器類型,off Hand Weapon,Arma secundaria,Nebenhandwaffe,อาวุธมือรอง,Arme en main secondaire
+ui.equip.weaponlevel,武器等級,WeaponLevel,Nivel de arma,Waffenstufe,ระดับอาวุธ,Niveau d'arme
+ui.equip.grade,Grade等級,Grade,Grado,Grad,เกรด,Grade
+subhand_0,空手,Bare Hands,Sin arma,Unbewaffnet,มือเปล่า,Mains nues
+subhand_1,盾牌,Shield,Escudo,Schild,โล่,Bouclier
+subhand_2,武器,Weapon,Arma,Waffe,อาวุธ,Arme
+weaponlevel_1,一級,1,1,1,1,1
+weaponlevel_2,二級,2,2,2,2,2
+weaponlevel_3,三級,3,3,3,3,3
+weaponlevel_4,四級,4,4,4,4,4
+weaponlevel_5,五級,5,5,5,5,5
+weapongrade_0,無,N,N,N,N,N
+weapongrade_1,D,D,D,D,D,D
+weapongrade_2,C,C,C,C,C,C
+weapongrade_3,B,B,B,B,B,B
+weapongrade_4,A,A,A,A,A,A
+class_RK,騎士/盧恩騎士/盧恩龍爵,Knight,Caballero,Ritter,อัศวิน,Chevalier
+class_GX,刺客/十字斬首者/十字影武,Assassion,Asesino,Assassine,แอสซาซิน,Assassin
+class_AB,祭司/大主教/樞機主教,Priest,Sacerdote,Priester,พรีสต์,Prêtre
+class_RA,獵人/遊俠/風鷹狩獵者,Hunter,Cazador,Jäger,ฮันเตอร์,Chasseur
+class_WL,巫師/咒術士/禁咒魔導士,Wizard,Mago,Magier,วิซาร์ด,Mage
+class_ME,鐵匠/機械工匠/機甲神匠,Blacksmith,Herrero,Schmied,แบล็คสมิธ,Forgeron
+class_RG,十字軍/皇家禁衛軍/帝國聖衛軍,Crusader,Cruzado,Kreuzritter,ครูเซเดอร์,Croisé
+class_SC,流氓/魅影追蹤者/深淵追跡者,Rouge,Pícaro,Schurke,โร้ก,Voleur
+class_SU,武僧/修羅/聖裁者,Monk,Monje,Mönch,มองค์,Moine
+class_MI,詩人/宮廷樂師/天籟頌者,Bard,Bardo,Barde,บาร์ด,Barde
+class_WA,舞孃/浪跡舞者/樂之舞靈,Dancer,Bailarina,Tänzerin,แดนเซอร์,Danseuse
+class_SO,賢者/妖術師/元素支配者,Sage,Sabio,Weiser,เซจ,Sage
+class_GE,煉金/基因學者/生命締造者,Alchemist,Alquimista,Alchemist,อัลเคมิสต์,Alchimiste
+class_KO,影狼/流浪忍者,Kagerou/Shinkiro,Kagerou/Shinkiro,Kagerou/Shinkiro,Kagerou/Shinkiro,Kagerou/Shinkiro
+class_OB,朧/疾風忍者,Oboro/Shiranui,Oboro/Shiranui,Oboro/Shiranui,Oboro/Shiranui,Oboro/Shiranui
+class_RE,反叛者/夜行使,Rebellion/Night Watch,Rebellion/Night Watch,Rebellion/Night Watch,Rebellion/Night Watch,Rebellion/Night Watch
+class_SE,拳皇/天帝,Star Emperor/Sky Emperor,Star Emperor/Sky Emperor,Star Emperor/Sky Emperor,Star Emperor/Sky Emperor,Star Emperor/Sky Emperor
+class_SL,獵靈士/契靈士,Soul Reaper/Soul Ascetic,Soul Reaper/Soul Ascetic,Soul Reaper/Soul Ascetic,Soul Reaper/Soul Ascetic,Soul Reaper/Soul Ascetic
+class_SUM,喵族召喚師/魂靈師,Summoner/Spirit Handler,Summoner/Spirit Handler,Summoner/Spirit Handler,Summoner/Spirit Handler,Summoner/Spirit Handler
+class_SN,超級初心者/終極初學者,Super Novice/Hyper Novice,Super Novice/Hyper Novice,Super Novice/Hyper Novice,Super Novice/Hyper Novice,Super Novice/Hyper Novice
+class_DR,Druid/Karnos/Alitea,Druid/Karnos/Alitea,Druid/Karnos/Alitea,Druid/Karnos/Alitea,Druid/Karnos/Alitea,Druid/Karnos/Alitea
+ui.equip.refinelevel,精鍊等級,Refine Level,Nivel de refinamiento,Veredelungsstufe,ระดับตีบวก,Niveau de raffinement
+ui.equip.weaponatk,武器ATK,Weapon ATK,ATK del arma,Waffen-ATK,ATK อาวุธ,ATK de l'arme
+ui.equip.weaponmatk,武器MATK,Weapon MATK,MATK del arma,Waffen-MATK,MATK อาวุธ,MATK de l'arme
+ui.equip.shellatk,砲彈ATK,Cannon ATK,ATK del cañón,Kanonen-ATK,ATK กระสุนปืนใหญ่,ATK du canon
+ui.equip.bulletatk,子彈ATK,Bullet ATK,ATK de la bala,Kugel-ATK,ATK กระสุน,ATK de la balle
+ui.equip.arrowatk,箭矢ATK,Arrow ATK,ATK de la flecha,Pfeil-ATK,ATK ลูกธนู,ATK de la flèche
+ui.equip.weaponweight,武器重量,Weapon Weight,Peso del arma,Waffengewicht,น้ำหนักอาวุธ,Poids de l'arme
+ui.equip.shieldrefine,盾牌精煉,Shield Refine,Refinamiento del escudo,Schildveredelung,ตีบวกโล่,Raffinement du bouclier
+ui.equip.shieldweight,盾牌重量,Shield Weight,Peso del escudo,Schildgewicht,น้ำหนักโล่,Poids du bouclier
+ui.equip.cardenchant,卡片/附魔,Slot,Ranura,Slot,ช่อง,Emplacement
+ui.common.clear,清空,Clear,Limpiar,Leeren,ล้าง,Effacer
+ui.common.edit,編輯,Edit,Editar,Bearbeiten,แก้ไข,Modifier
+ui.common.cancel,取消,Cancel,Cancelar,Abbrechen,ยกเลิก,Annuler
+ui.common.confirm,確定,Confirm,Confirmar,Bestätigen,ยืนยัน,Confirmer
+ui.common.save,儲存,Save,Guardar,Speichern,บันทึก,Enregistrer
+ui.equip.setnamefirst,儲存前設定裝備名,Set Equipment Name Before Saving,Define el nombre del equipo antes de guardar,Vor dem Speichern einen Ausrüstungsnamen festlegen,ตั้งชื่ออุปกรณ์ก่อนบันทึก,Définissez le nom de l'équipement avant d'enregistrer
+ui.equip.allskilldmg,所有技能增傷 %,All Skill DMG %,DMG de todas las habilidades %,DMG aller Skills %,DMG ทุกสกิล %,DMG de toutes les compétences %
+ui.equip.allskillcd,所有技能獨延,All Skill Cooldown,Cooldown de todas las habilidades,Cooldown aller Skills,คูลดาวน์ทุกสกิล,Temps de recharge de toutes les compétences
+ui.equip.specifyskill,指定技能,Specify Skill,Especificar habilidad,Skill festlegen,ระบุสกิล,Spécifier une compétence
+ui.equip.specifyelement,指定屬性,Specify Element,Especificar elemento,Element festlegen,ระบุธาตุ,Spécifier un élément
+ui.equip.specifyrace,指定種族,Specify Race,Especificar raza,Rasse festlegen,ระบุเผ่า,Spécifier une race
+ui.equip.specifysize,指定體型,Specify Size,Especificar tamaño,Größe festlegen,ระบุขนาด,Spécifier une taille
+ui.equip.specifylevel,指定階級,Specify Level,Especificar nivel,Stufe festlegen,ระบุระดับ,Spécifier un niveau
+ui.equip.specifysizemultiplier,指定體型倍率,Specify Size Multiplier,Especificar multiplicador de tamaño,Größenmultiplikator festlegen,ระบุตัวคูณขนาด,Spécifier le multiplicateur de taille
+ui.equip.size,體型,Size,Tamaño,Größe,ขนาด,Taille
+ui.equip.physicalsizepercent,物理體型 %,Physical Size %,Tamaño físico %,Physische Größe %,ขนาดกายภาพ %,Taille physique %
+ui.equip.magicsizepercent,魔法體型 %,Magic Size %,Tamaño mágico %,Magische Größe %,ขนาดเวท %,Taille magique %
+ui.common.action,操作,Action,Acción,Aktion,การทำงาน,Action
+ui.common.apply,套用,Apply,Aplicar,Anwenden,ใช้,Appliquer
+ui.equip.specifylevelmultiplier,指定階級倍率,Specify Level Multiplier,Especificar multiplicador de nivel,Stufenmultiplikator festlegen,ระบุตัวคูณระดับ,Spécifier le multiplicateur de niveau
+ui.equip.level,階級,Tier,Rango,Rang,ระดับ,Rang
+ui.equip.physicallevelpercent,物理階級 %,Physical Level %,Nivel físico %,Physische Stufe %,ระดับกายภาพ %,Niveau physique %
+ui.equip.magiclevelpercent,魔法階級 %,Magic Level %,Nivel mágico %,Magische Stufe %,ระดับเวท %,Niveau magique %
+ui.equip.specifyracemultiplier,指定種族倍率,Specify Race Multiplier,Especificar multiplicador de raza,Rassenmultiplikator festlegen,ระบุตัวคูณเผ่า,Spécifier le multiplicateur de race
+ui.equip.race,種族,Race,Raza,Rasse,เผ่า,Race
+ui.equip.physicalracepercent,物理種族 %,Physical Race %,Raza física %,Physische Rasse %,เผ่ากายภาพ %,Race physique %
+ui.equip.magicracepercent,魔法種族 %,Magic Race %,Raza mágica %,Magische Rasse %,เผ่าเวท %,Race magique %
+ui.equip.specifyelementmultiplier,指定屬性倍率,Specify Element Multiplier,Especificar multiplicador elemental,Elementmultiplikator festlegen,ระบุตัวคูณธาตุ,Spécifier le multiplicateur élémentaire
+ui.equip.element,屬性,Element,Elemento,Element,ธาตุ,Élément
+ui.equip.alltarget,全,All,Todos,Alle,ทั้งหมด,Tous
+ui.equip.elementmultiplier,屬性倍率,Element Multiplier,Multiplicador elemental,Elementmultiplikator,ตัวคูณธาตุ,Multiplicateur élémentaire
+leveltype_0,一般,Normal,Normal,Normal,ปกติ,Normal
+leveltype_1,BOSS,BOSS,BOSS,BOSS,BOSS,BOSS
+racetype_0,無形,Formless,Sin forma,Formlos,ไร้รูปร่าง,Informe
+racetype_1,不死,Undead,No muerto,Untot,ผีดิบ,Mort-vivant
+racetype_2,動物,Brute,Bestia,Tier,สัตว์,Brute
+racetype_3,植物,Plant,Planta,Pflanze,พืช,Plante
+racetype_4,昆蟲,Insect,Insecto,Insekt,แมลง,Insecte
+racetype_5,魚貝,Fish,Pez,Fisch,ปลา,Poisson
+racetype_6,惡魔,Demon,Demonio,Dämon,ปีศาจ,Démon
+racetype_7,人形,Demi-Human,Semihumano,Halbmensch,กึ่งมนุษย์,Semi-humain
+racetype_8,天使,Angel,Ángel,Engel,เทวทูต,Ange
+racetype_9,龍族,Dragon,Dragón,Drache,มังกร,Dragon
+racetype_10,玩家(人類),Player (Human),Jugador (humano),Spieler (Mensch),ผู้เล่น (มนุษย์),Joueur (Humain)
+racetype_11,玩家(貓族),Player (Doram),Jugador (Doram),Spieler (Doram),ผู้เล่น (Doram),Joueur (Doram)
+sizetype_0,小型,Small,Pequeño,Klein,เล็ก,Petit
+sizetype_1,中型,Medium,Mediano,Mittel,กลาง,Moyen
+sizetype_2,大型,Large,Grande,Groß,ใหญ่,Grand
+elementtype_0,無,Neutral,Neutral,Neutral,ไร้ธาตุ,Neutre
+elementtype_1,火,Fire,Fuego,Feuer,ไฟ,Feu
+elementtype_2,水,Water,Agua,Wasser,น้ำ,Eau
+elementtype_3,風,Wind,Viento,Wind,ลม,Vent
+elementtype_4,地,Earth,Tierra,Erde,ดิน,Terre
+elementtype_5,毒,Poison,Veneno,Gift,พิษ,Poison
+elementtype_6,聖,Holy,Sagrado,Heilig,ศักดิ์สิทธิ์,Sacré
+elementtype_7,暗,Dark,Oscuro,Dunkel,มืด,Ténèbres
+elementtype_8,念,Ghost,Fantasma,Geist,วิญญาณ,Spectre
+elementtype_9,不死,Undead,No muerto,Untot,ผีดิบ,Mort-vivant
+ui.equip.weaponsizetable,武器懲罰表,Weapon Penalty Table,Tabla de penalización de armas,Waffen-Malustabelle,ตารางโทษอาวุธ,Table de pénalité d'arme
+ui.equip.refineatkmatk,精鍊Atk / Matk,Refine Atk / Matk,Refinamiento Atk / Matk,Veredelung Atk / Matk,ตีบวก Atk / Matk,Raffinement Atk / Matk
+ui.equip.overrefineatkmatk,過度精鍊Atk / Matk,Over Refine Atk / Matk,Sobre-refinamiento Atk / Matk,Überveredelung Atk / Matk,ตีบวกเกิน Atk / Matk,Sur-raffinement Atk / Matk
+ui.equip.jumptoslot,快速跳轉部位,Jump to Slot,Ir rápidamente a la ranura,Schnell zum Slot,ไปยังช่องอย่างรวดเร็ว,Aller à l'emplacement
+ui.equip.title,裝備,Equipment,Equipo,Ausrüstung,อุปกรณ์,Équipement
+ui.equip.dbtooltip,讀取已經儲存的裝備,Load Saved Equipment,Cargar equipo guardado,Gespeicherte Ausrüstung laden,โหลดอุปกรณ์ที่บันทึกไว้,Charger un équipement enregistré
+ui.equip.dblist,裝備清單,Equipment List,Lista de equipo,Ausrüstungsliste,รายการอุปกรณ์,Liste d'équipement
+ui.equip.search,搜尋,Search,Buscar,Suchen,ค้นหา,Rechercher
+ui.equip.filterall,全部,All,Todos,Alle,ทั้งหมด,Tous
+ui.equip.slot,部位,Slot,Ranura,Slot,ช่อง,Emplacement
+ui.equip.equipnamecol,裝備名字,Equipment Name,Nombre del equipo,Ausrüstungsname,ชื่ออุปกรณ์,Nom de l'équipement
+ui.common.load,載入,Load,Cargar,Laden,โหลด,Charger
+ui.common.delete,刪除,Delete,Eliminar,Löschen,ลบ,Supprimer
+ui.enemy.title,敵方,Enemy,Enemigo,Gegner,ศัตรู,Ennemi
+ui.enemy.select,選擇敵方,Select Enemy,Seleccionar enemigo,Gegner auswählen,เลือกศัตรู,Sélectionner un ennemi
+ui.enemy.elementlevel,屬性等級,Element Level,Nivel elemental,Elementstufe,ระดับธาตุ,Niveau élémentaire
+ui.enemy.element,敵方屬性,Enemy Element,Elemento del enemigo,Gegnerelement,ธาตุศัตรู,Élément de l'ennemi
+ui.enemy.luktooltip,影響最終暴率,Affects Final Critical Rate,Afecta a la probabilidad crítica final,Beeinflusst die finale Krit-Rate,มีผลต่ออัตราคริติคอลสุดท้าย,Affecte le taux critique final
+ui.enemy.vittooltip,影響強酸火煙瓶,Affects Acid/Fire Bottle Damage,Afecta al daño de Acid/Fire Bottle,Beeinflusst den Schaden von Acid/Fire Bottle,มีผลต่อความเสียหาย Acid/Fire Bottle,Affecte les dégâts d'Acid/Fire Bottle
+ui.enemy.defformula,(魔物等級+VIT)/2,(Monster Level+VIT)/2,(Nivel del monstruo+VIT)/2,(Monsterstufe+VIT)/2,(ระดับมอนสเตอร์+VIT)/2,(Niveau du monstre+VIT)/2
+ui.enemy.subdef,減算DEF(前),Soft DEF,DEF blanda,Soft DEF,Soft DEF,Soft DEF
+ui.enemy.muldef,乘算DEF,Hard DEF,DEF dura,Hard DEF,Hard DEF,Hard DEF
+ui.enemy.mdefformula,(魔物等級+INT)/4,(Monster Level+INT)/4,(Nivel del monstruo+INT)/4,(Monsterstufe+INT)/4,(ระดับมอนสเตอร์+INT)/4,(Niveau du monstre+INT)/4
+ui.enemy.submdef,減算MDEF(前),Soft MDEF,MDEF blanda,Soft MDEF,Soft MDEF,Soft MDEF
+ui.enemy.mulmdef,乘算MDEF,Hard MDEF,MDEF dura,Hard MDEF,Hard MDEF,Hard MDEF
+ui.enemy.raceresist,種族抗性,Race Resistance,Resistencia racial,Rassenresistenz,ต้านทานเผ่า,Résistance de race
+ui.common.subtracted,減,Sub,Resta,Sub,ลบ,Sous.
+ui.common.multiplied,乘,Mul,Mult.,Mul,คูณ,Mult.
+ui.skill.title,技能,Skill,Habilidad,Skill,สกิล,Compétence
+ui.skill.settings,技能設定,Skill Settings,Ajustes de habilidad,Skill-Einstellungen,ตั้งค่าสกิล,Réglages de compétence
+ui.skill.dbtooltip,讀取已經儲存的技能,Load Saved Skill,Cargar habilidad guardada,Gespeicherten Skill laden,โหลดสกิลที่บันทึกไว้,Charger une compétence enregistrée
+ui.skill.name,技能名,Skill Name,Nombre de habilidad,Skillname,ชื่อสกิล,Nom de la compétence
+ui.skill.formulakeyword,公式關鍵字,Formula Keywords,Palabras clave de fórmula,Formel-Schlüsselwörter,คีย์เวิร์ดสูตร,Mots-clés de formule
+ui.skill.keyword,關鍵字,Keyword,Palabra clave,Schlüsselwort,คีย์เวิร์ด,Mot-clé
+ui.skill.function,功能,Function,Función,Funktion,ฟังก์ชัน,Fonction
+ui.skill.level,技能等級,Skill Level,Nivel de habilidad,Skillstufe,ระดับสกิล,Niveau de compétence
+ui.skill.hitnumber,傷害次數,Hit Count,Número de golpes,Trefferanzahl,จำนวนฮิต,Nombre de coups
+ui.skill.hitnumbertooltip,"傷害次數, 負數時為分段傷害不會增加總傷害",Hit count. Negative values are split damage and won't add to the total damage.,Número de golpes. Los valores negativos representan daño dividido y no se suman al daño total.,Trefferanzahl. Negative Werte sind aufgeteilter Schaden und werden nicht zum Gesamtschaden addiert.,จำนวนฮิต ค่าติดลบเป็นความเสียหายแบบแบ่งช่วงและจะไม่เพิ่มความเสียหายรวม,Nombre de coups. Les valeurs négatives correspondent à des dégâts fractionnés qui ne s'ajoutent pas aux dégâts totaux.
+ui.skill.fixedcast,固定詠唱,Fixed Cast,Lanzamiento fijo,Feste Zauberzeit,ร่ายคงที่,Incantation fixe
+ui.skill.variablecast,變動詠唱,Variable Cast,Lanzamiento variable,Variable Zauberzeit,ร่ายแปรผัน,Incantation variable
+ui.skill.time,時間,Time,Tiempo,Zeit,เวลา,Temps
+ui.skill.independentdelay,獨立延遲,Cooldown,Cooldown,Cooldown,คูลดาวน์,Temps de recharge
+ui.skill.globaldelay,共通延遲,Global Delay,Retraso global,Globale Verzögerung,ดีเลย์รวม,Délai global
+ui.skill.damagetype,傷害類型,Damage Type,Tipo de daño,Schadenstyp,ประเภทความเสียหาย,Type de dégâts
+ui.skill.ranged,技能遠傷,Skill Ranged Damage,Daño a distancia de habilidad,Fernkampfschaden des Skills,ความเสียหายระยะไกลของสกิล,Dégâts à distance de la compétence
+ui.skill.critical,技能暴擊,Skill Critical,Crítico de habilidad,Skill-Kritisch,คริติคอลสกิล,Critique de compétence
+ui.skill.halfcri,一半暴率,Half Critical Rate,Mitad de probabilidad crítica,Halbe Krit-Rate,อัตราคริติคอลครึ่งหนึ่ง,Moitié du taux critique
+ui.skill.cannon,使用加農砲彈,Uses Cannon Shell,Usa proyectil de cañón,Verwendet Kanonenkugel,ใช้กระสุนปืนใหญ่,Utilise un obus de canon
+ui.skill.cart,使用手推車,Uses Pushcart,Usa carrito,Verwendet Handkarren,ใช้รถเข็น,Utilise le chariot
+ui.skill.halfignoredef,半無視防禦,Half Ignore DEF,Ignora la mitad de DEF,DEF halb ignorieren,มองข้าม DEF ครึ่งหนึ่ง,Ignore la moitié de la DEF
+ui.skill.halfignoredeftooltip,將乘算DEF(後DEF)改為減算DEF,Converts Hard DEF into Soft DEF,Convierte Hard DEF en Soft DEF,Wandelt Hard DEF in Soft DEF um,เปลี่ยน Hard DEF เป็น Soft DEF,Convertit la Hard DEF en Soft DEF
+ui.skill.ignoreres,無視RES,Ignore RES,Ignorar RES,RES ignorieren,มองข้าม RES,Ignorer RES
+ui.skill.ignorerestooltip,RES，最高為50%,"Ignores RES, up to a maximum of 50%",Ignora RES hasta un máximo del 50%,Ignoriert RES bis maximal 50 %,มองข้าม RES ได้สูงสุด 50%,"Ignore la RES, jusqu'à un maximum de 50 %"
+ui.skill.laterranged,後計算技能遠傷,Ranged Damage Calculated After,Daño a distancia calculado después,Fernkampfschaden nachträglich berechnet,คำนวณความเสียหายระยะไกลภายหลัง,Dégâts à distance calculés après
+ui.skill.note,備註,Note,Nota,Hinweis,หมายเหตุ,Remarque
+ui.skill.elementtable,屬性相剋表,Element Chart,Tabla elemental,Elementtabelle,ตารางธาตุ,Table des éléments
+ui.skill.attackelement,攻擊屬性,Attack Element,Elemento de ataque,Angriffselement,ธาตุโจมตี,Élément d'attaque
+ui.skill.cartweight,手推車重量,Cart Weight,Peso del carrito,Karrengewicht,น้ำหนักรถเข็น,Poids du chariot
+ui.skill.jobskills,職業技能,Job Skills,Habilidades de Job,Job-Skills,สกิลอาชีพ,Compétences de Job
+ui.skill.extraskills,額外技能,Extra Skills,Habilidades adicionales,Zusätzliche Skills,สกิลเพิ่มเติม,Compétences supplémentaires
+ui.skill.weaponmasteryatk,武器修練ATK增加,Weapon Mastery ATK Bonus,Bonificación ATK de dominio de arma,Waffenmeisterschaft-ATK-Bonus,โบนัส ATK ความชำนาญอาวุธ,Bonus d'ATK de maîtrise d'arme
+damagetype_0,物理傷害,Physical Damage,Daño físico,Physischer Schaden,ความเสียหายกายภาพ,Dégâts physiques
+damagetype_1,魔法傷害,Magic Damage,Daño mágico,Magischer Schaden,ความเสียหายเวท,Dégâts magiques
+damagetype_2,龍息傷害,Dragon Breath Damage,Daño de Aliento de Dragón,Drachenatem-Schaden,ความเสียหาย Dragon Breath,Dégâts de Souffle de Dragon
+damagetype_3,陷阱傷害,Trap Damage,Daño de trampa,Fallenschaden,ความเสียหายกับดัก,Dégâts de piège
+damagetype_4,混和傷害,Mixed Damage,Daño mixto,Gemischter Schaden,ความเสียหายผสม,Dégâts mixtes
+ui.elementtable.dialogtitle,屬性相剋倍率表,Element Multiplier Chart,Tabla de multiplicadores elementales,Elementmultiplikator-Tabelle,ตารางตัวคูณธาตุ,Table des multiplicateurs élémentaires
+ui.elementtable.uselatest,使用新版屬性表,Use Updated Element Table,Usar tabla elemental actualizada,Aktualisierte Elementtabelle verwenden,ใช้ตารางธาตุใหม่,Utiliser la table des éléments mise à jour
+ui.elementtable.atkdef,攻 \ 守,Atk \ Def,Atk \ Def,Atk \ Def,Atk \ Def,Atk \ Def
+ui.common.vs,對,vs,vs,vs,ต่อ,vs
+ui.skill.supportskills,輔助技能,Support Skills,Habilidades de apoyo,Unterstützungs-Skills,สกิลสนับสนุน,Compétences de soutien
+ui.skill.resetall,全部重置,Reset All,Restablecer todo,Alles zurücksetzen,รีเซ็ตทั้งหมด,Tout réinitialiser
+ui.skill.fantasybook,幻想叢書,Fantasy Book,Libro de fantasía,Fantasiebuch,หนังสือแฟนตาซี,Livre de fantaisie
+ui.panel.atkcalc,ATK計算,ATK Calculation,ATK Cálculo,ATK Berechnung,ATK การคำนวณ,Calcul de l'ATK
+ui.panel.matkcalc,MATK計算,MATK Calculation,MATK Cálculo,MATK Berechnung,MATK การคำนวณ,Calcul du MATK
+ui.panel.dragonbreathcalc,龍之吐息計算,Dragon Breath Calculation,Dragon Breath Cálculo,Dragon Breath Berechnung,Dragon Breath การคำนวณ,Calcul du Souffle de Dragon
+ui.panel.trapcalc,陷阱計算,Trap Calculation,Trap Cálculo,Trap Berechnung,Trap การคำนวณ,Calcul du piège
+ui.panel.mixedcalc,混傷計算,Mixed DMG Calculation,Mixed DMG Cálculo,Mixed DMG Berechnung,Mixed DMG การคำนวณ,Calcul des dégâts mixtes
+ui.panel.defcalc,DEF計算,DEF Calculation,DEF Cálculo,DEF Berechnung,DEF การคำนวณ,Calcul de la DEF
+ui.panel.mdefcalc,MDEF計算,MDEF Calculation,MDEF Cálculo,MDEF Berechnung,MDEF การคำนวณ,Calcul du MDEF
+ui.panel.general,一般,General,General,Allgemein,ทั่วไป,Général
+ui.panel.survival,生存,Survival,Supervivencia,Überleben,การเอาตัวรอด,Survie
+ui.panel.castdelay,詠唱 & 延遲,Cast & Delay,Lanzamiento y retraso,Zauberzeit & Verzögerung,ร่าย & ดีเลย์,Incantation et délai
+ui.panel.tab.damage,傷害,Damage,Daño,Schaden,ความเสียหาย,Dégâts
+ui.panel.tab.cast,詠唱&延遲,Cast & Delay,Lanzamiento y retraso,Zauberzeit & Verzögerung,ร่าย & ดีเลย์,Incantation et délai
+ui.panel.baseatk,基礎ATK,Base ATK,ATK base,Basis-ATK,ATK พื้นฐาน,ATK de base
+ui.panel.refinespecialatk,精練&特殊ATK加值,Refine & Special ATK Bonus,Bonificación de ATK por refinamiento y especial,Veredelungs- & Spezial-ATK-Bonus,โบนัส ATK จากการตีบวกและแบบพิเศษ,Bonus d'ATK de raffinement et spécial
+ui.panel.sizefixarrow,體型修正&箭矢傷害,Size Modifier & Arrow DMG,Modificador de tamaño y DMG de flecha,Größenmodifikator & Pfeil-DMG,ตัวปรับขนาด & DMG ลูกธนู,Modificateur de taille et dégâts de flèche
+ui.panel.totalweaponatk,總武器ATK,Total Weapon ATK,ATK total del arma,Gesamt-Waffen-ATK,ATK อาวุธรวม,ATK total de l'arme
+ui.panel.racelevelsizeelement,種族階級體型屬性,Race/Tier/Size/Element,Raza/Rango/Tamaño/Elemento,Rasse/Rang/Größe/Element,เผ่า/ระดับ/ขนาด/ธาตุ,Race/Rang/Taille/Élément
+ui.panel.postatk,後ATK(上面兩個和),Post-ATK (Sum of Above),Post-ATK (suma de arriba),Post-ATK (Summe oben),Post-ATK (ผลรวมด้านบน),Post-ATK (somme ci-dessus)
+ui.panel.finalatk,最終ATK,Final ATK,ATK final,Finale ATK,ATK สุดท้าย,ATK final
+ui.panel.critrangedpercent,暴傷遠傷%,Crit/Ranged DMG %,DMG crítico/a distancia %,Krit-/Fernkampf-DMG %,DMG คริติคอล/ระยะไกล %,DMG critique/à distance %
+ui.panel.skillmultidef,技能倍率&敵方DEF,Skill Multiplier & Enemy DEF,Multiplicador de habilidad y DEF enemiga,Skill-Multiplikator & Gegner-DEF,ตัวคูณสกิล & DEF ศัตรู,Multiplicateur de compétence et DEF ennemie
+ui.panel.normalattackdmg,普攻傷害,Normal Attack DMG,DMG de ataque normal,Normalangriff-DMG,DMG โจมตีปกติ,DMG d'attaque normale
+ui.panel.normalattackdmgcrit,普攻傷害(暴擊),Normal Attack DMG (Crit),DMG de ataque normal (crítico),Normalangriff-DMG (Krit),DMG โจมตีปกติ (คริติคอล),DMG d'attaque normale (critique)
+ui.panel.normalattackdps,普攻DPS,Normal Attack DPS,DPS de ataque normal,Normalangriff-DPS,DPS โจมตีปกติ,DPS d'attaque normale
+ui.panel.skilldmg,技能傷害,Skill DMG,DMG de habilidad,Skill-DMG,DMG สกิล,DMG de compétence
+ui.panel.skilldmgavg,技能傷害(平均),Skill DMG (Avg),DMG de habilidad (prom.),Skill-DMG (Ø),DMG สกิล (เฉลี่ย),DMG de compétence (moy.)
+ui.panel.skilltotaldmg,技能總傷害,Total Skill DMG,DMG total de habilidad,Gesamt-Skill-DMG,DMG สกิลรวม,DMG total de compétence
+ui.panel.skilltotaldmgavg,技能總傷害(平均),Total Skill DMG (Avg),DMG total de habilidad (prom.),Gesamt-Skill-DMG (Ø),DMG สกิลรวม (เฉลี่ย),DMG total de compétence (moy.)
+ui.panel.skillcritdmg,技能暴擊傷害,Skill Crit DMG,DMG crítico de habilidad,Skill-Krit-DMG,DMG คริติคอลสกิล,DMG critique de compétence
+ui.panel.skillcritdmgavg,技能暴擊傷害(平均),Skill Crit DMG (Avg),DMG crítico de habilidad (prom.),Skill-Krit-DMG (Ø),DMG คริติคอลสกิล (เฉลี่ย),DMG critique de compétence (moy.)
+ui.panel.skilldps,技能DPS,Skill DPS,DPS de habilidad,Skill-DPS,DPS สกิล,DPS de compétence
+ui.panel.currentaspd,目前ASPD,Current ASPD,ASPD actual,Aktuelle ASPD,ASPD ปัจจุบัน,ASPD actuel
+ui.panel.equipmatkboost,裝備MATK&魔力增幅,Equip MATK & Magic Amp,MATK de equipo y amplificación mágica,Ausrüstungs-MATK & Magieverstärkung,MATK อุปกรณ์ & เพิ่มพลังเวท,MATK d'équipement et amplification magique
+ui.panel.finalmatk,最終MATK,Final MATK,MATK final,Finale MATK,MATK สุดท้าย,MATK final
+ui.panel.enemydmgreduce,敵方減傷,Enemy DMG Reduction,Reducción de DMG del enemigo,Gegnerische DMG-Reduktion,ลด DMG ของศัตรู,Réduction des dégâts ennemis
+ui.panel.skillmulti,技能倍率,Skill Multiplier,Multiplicador de habilidad,Skill-Multiplikator,ตัวคูณสกิล,Multiplicateur de compétence
+ui.panel.enemymdef,敵方MDEF,Enemy MDEF,MDEF del enemigo,Gegner-MDEF,MDEF ศัตรู,MDEF ennemi
+ui.panel.skilldmgboost,技能增傷,Skill DMG Boost,Aumento de DMG de habilidad,Skill-DMG-Erhöhung,เพิ่ม DMG สกิล,Augmentation des DMG de compétence
+ui.panel.basephysicaldmg,基礎物理傷害,Base Physical DMG,DMG físico base,Physischer Basis-DMG,DMG กายภาพพื้นฐาน,DMG physiques de base
+ui.panel.basemagicdmg,基礎魔法傷害,Base Magic DMG,DMG mágico base,Magischer Basis-DMG,DMG เวทพื้นฐาน,DMG magiques de base
+ui.panel.basedmg,基礎傷害,Base DMG,DMG base,Basis-DMG,DMG พื้นฐาน,DMG de base
+ui.panel.finaldmg,最終傷害,Final DMG,DMG final,Finaler DMG,DMG สุดท้าย,DMG final
+ui.panel.atkstatusbonus,Atk 素質(前)+面版後,Atk Stat (Panel),ATK de atributo (panel),ATK-Statuswert (Panel),ATK ค่าสถานะ (แผง),Atk Statistique (Panneau)
+ui.panel.atkbonus,ATK加值,ATK Bonus,Bonificación de ATK,ATK-Bonus,โบนัส ATK,Bonus d'ATK
+ui.panel.weaponmasteryatk,修練Atk,Weapon Mastery ATK,ATK de dominio de arma,Waffenmeisterschaft-ATK,ATK ความชำนาญอาวุธ,ATK de maîtrise d'arme
+ui.panel.elementalmultiplier,屬性相剋倍率,Elemental Multiplier,Multiplicador elemental,Elementmultiplikator,ตัวคูณธาตุ,Multiplicateur élémentaire
+ui.panel.sizefixmultiplier,體型修正倍率,Size Modifier Multiplier,Multiplicador de tamaño,Größenmodifikator,ตัวคูณขนาด,Multiplicateur du modificateur de taille
+ui.panel.matkstatusbonus,Matk 素質(前)+面版後,Matk Stat (Panel),MATK de atributo (panel),MATK-Statuswert (Panel),MATK ค่าสถานะ (แผง),Matk Statistique (Panneau)
+ui.panel.matkbonus,MATK加值,MATK Bonus,Bonificación de MATK,MATK-Bonus,โบนัส MATK,Bonus de MATK
+ui.panel.damagereducerate,減傷率,DMG Reduction Rate,Tasa de reducción de DMG,DMG-Reduktionsrate,อัตราลด DMG,Taux de réduction des DMG
+ui.panel.hpnaturalregen,HP自然恢復,HP Natural Regen,Regeneración natural de HP,Natürliche HP-Regeneration,ฟื้นฟู HP ตามธรรมชาติ,Régénération naturelle de HP
+ui.panel.spnaturalregen,SP自然恢復,SP Natural Regen,Regeneración natural de SP,Natürliche SP-Regeneration,ฟื้นฟู SP ตามธรรมชาติ,Régénération naturelle de SP
+ui.panel.hppotionrate,HP藥水恢復率,HP Potion Recovery Rate,Recuperación de poción de HP,HP-Trank-Heilungsrate,อัตราฟื้นฟูยา HP,Taux de récupération des potions de HP
+ui.panel.sppotionrate,SP藥水恢復率,SP Potion Recovery Rate,Recuperación de poción de SP,SP-Trank-Heilungsrate,อัตราฟื้นฟูยา SP,Taux de récupération des potions de SP
+ui.panel.every6s,每6秒回,Every 6s: ,Cada 6 s: ,Alle 6 s: ,ทุก 6 วินาที: ,Toutes les 6 s : 
+ui.panel.every60s,，每60秒回,/ Every 60s: ,/ Cada 60 s: ,/ Alle 60 s: ,/ ทุก 60 วินาที: ,/ Toutes les 60 s : 
+ui.panel.avgpersec,平均每秒回,Avg/sec: ,Prom./s: ,Ø/Sek.: ,เฉลี่ย/วินาที: ,Moy./s : 
+ui.panel.every8s,每8秒回,Every 8s: ,Cada 8 s: ,Alle 8 s: ,ทุก 8 วินาที: ,Toutes les 8 s : 
+ui.panel.every80s,，每80秒回,/ Every 80s: ,/ Cada 80 s: ,/ Alle 80 s: ,/ ทุก 80 วินาที: ,/ Toutes les 80 s : 
+ui.panel.aspdfixedvalue,ASPD固定值,ASPD Fixed Value,Valor fijo de ASPD,Fester ASPD-Wert,ค่า ASPD คงที่,Valeur fixe d'ASPD
+ui.panel.variablecastsec,變動詠唱(秒),Variable Cast (sec),Lanzamiento variable (s),Variable Zauberzeit (Sek.),ร่ายแปรผัน (วินาที),Incantation variable (s)
+ui.panel.variablecastsupport,變動詠唱(輔助技能%),Variable Cast (Support Skill %),Lanzamiento variable (habilidad de apoyo %),Variable Zauberzeit (Unterstützungs-Skill %),ร่ายแปรผัน (สกิลสนับสนุน %),Incantation variable (% compétence de soutien)
+ui.panel.variablecastskill,變動詠唱(指定技能%),Variable Cast (Specified Skill %),Lanzamiento variable (habilidad especificada %),Variable Zauberzeit (festgelegter Skill %),ร่ายแปรผัน (สกิลที่ระบุ %),Incantation variable (% compétence spécifiée)
+ui.panel.actualcasttime,實際詠唱時間,Actual Cast Time,Tiempo real de lanzamiento,Tatsächliche Zauberzeit,เวลาร่ายจริง,Temps d'incantation réel
+ui.panel.skilldelaytime,技能延遲時間,Skill Delay Time,Tiempo de retraso de habilidad,Skill-Verzögerungszeit,เวลาดีเลย์สกิล,Temps de délai de compétence
+ui.panel.attackinterval,攻擊間隔,Attack Interval,Intervalo de ataque,Angriffsintervall,ช่วงห่างการโจมตี,Intervalle d'attaque
+ui.panel.castdelayexceedsinterval,詠唱+延遲 > 攻擊間隔時間,Cast + Delay > Attack Interval Time,Lanzamiento + retraso > intervalo de ataque,Zauberzeit + Verzögerung > Angriffsintervall,ร่าย + ดีเลย์ > ช่วงห่างการโจมตี,Incantation + délai > intervalle d'attaque
+ui.panel.perattackpersec,每秒攻擊次數,Attacks per Second,Ataques por segundo,Angriffe pro Sekunde,จำนวนโจมตีต่อวินาที,Attaques par seconde
+ui.panel.notenoughgold,詠唱>1秒,Cast time exceeds 1s,El tiempo de lanzamiento supera 1 s,Zauberzeit überschreitet 1 s,เวลาร่ายเกิน 1 วินาที,Le temps d'incantation dépasse 1 s
+ui.panel.displaymode,顯示模式,Mode,Modo,Modus,โหมด,Mode
+ui.common.other,其他,Other,Otro,Sonstiges,อื่นๆ,Autre
+ui.common.equip,裝備,Equipment,Equipo,Ausrüstung,อุปกรณ์,Équipement
+ui.panel.normalrefineatk,一般精煉ATK,Normal Refine ATK,ATK de refinamiento normal,Normale Veredelungs-ATK,ATK ตีบวกปกติ,ATK de raffinement normal
+ui.panel.normalrefinematk,一般精煉MATK,Normal Refine MATK,MATK de refinamiento normal,Normale Veredelungs-MATK,MATK ตีบวกปกติ,MATK de raffinement normal
+ui.panel.overrefineatk,過度精煉ATK,Over-Refine ATK,ATK de sobre-refinamiento,Überveredelungs-ATK,ATK ตีบวกเกิน,ATK de sur-raffinement
+ui.panel.overrefinematk,過度精煉MATK,Over-Refine MATK,MATK de sobre-refinamiento,Überveredelungs-MATK,MATK ตีบวกเกิน,MATK de sur-raffinement
+ui.common.supportskill,輔助技能,Support Skill,Habilidad de apoyo,Unterstützungs-Skill,สกิลสนับสนุน,Compétence de soutien
+ui.equip.fortarget,對,For,Para,Gegen,ต่อ,Pour
+ui.equip.forallsize,對全體型,For All Sizes,Para todos los tamaños,Gegen alle Größen,ต่อทุกขนาด,Pour toutes les tailles
+ui.equip.foralllevel,對全階級,For All Tiers,Para todos los rangos,Gegen alle Ränge,ต่อทุกระดับ,Pour tous les rangs
+ui.equip.forallrace,對全種族,For All Races,Para todas las razas,Gegen alle Rassen,ต่อทุกเผ่า,Pour toutes les races
+ui.equip.elementenemysuffix,屬性敵人,Element Enemies,Enemigos de ese elemento,Gegner dieses Elements,ศัตรูธาตุนั้น,Ennemis de cet élément
+ui.equip.enemyresistprefix,敵人對,Enemy,Enemigo,Gegner,ศัตรู,Ennemi
+ui.equip.enemyresistsuffix,屬性耐性減少,Resistance Reduction,Reducción de resistencia elemental,Elementresistenz-Reduktion,ลดความต้านทานธาตุ,Réduction de résistance
+ui.equip.elementmagicsuffix,屬性魔法,Element Magic,Magia elemental,Elementmagie,เวทธาตุ,Magie élémentaire
+ui.skill.dmgboosttype,增傷,DMG Boost,Aumento de DMG,DMG-Erhöhung,เพิ่ม DMG,Augmentation des DMG
+ui.skill.cdreductiontype,獨延減少,CD Reduction,Reducción de CD,CD-Reduktion,ลด CD,Réduction du CD
+ui.common.seconds,秒,s,s,s,วิ,s
+ui.skill.unknown,未知技能,Unknown Skill,Habilidad desconocida,Unbekannter Skill,สกิลที่ไม่รู้จัก,Compétence inconnue
+ui.allset.dialogtitle,配置清單(測試),Saved Builds (Beta),Configuraciones guardadas (Beta),Gespeicherte Builds (Beta),บิลด์ที่บันทึกไว้ (Beta),Builds enregistrés (Bêta)
+ui.allset.savedlist,已儲存清單,Saved List,Lista guardada,Gespeicherte Liste,รายการที่บันทึก,Liste enregistrée
+ui.common.download,下載,Download,Descargar,Herunterladen,ดาวน์โหลด,Télécharger
+ui.allset.savenotice,測試中 不會儲存額外技能選項,Beta -- extra skill options are not saved,Beta: las opciones de habilidades adicionales no se guardan,Beta – zusätzliche Skill-Optionen werden nicht gespeichert,Beta -- ตัวเลือกสกิลเพิ่มเติมจะไม่ถูกบันทึก,Bêta – les options de compétences supplémentaires ne sont pas enregistrées
+ui.allset.saveconfirm,儲存配置>>>,Save Build >>>,Guardar configuración >>>,Build speichern >>>,บันทึกบิลด์ >>>,Enregistrer le build >>>
+ui.allset.setnamefirst,儲存前設定檔名,Set File Name Before Saving,Define el nombre del archivo antes de guardar,Vor dem Speichern einen Dateinamen festlegen,ตั้งชื่อไฟล์ก่อนบันทึก,Définissez le nom du fichier avant d'enregistrer
+ui.allset.filename,存檔名,File Name,Nombre de archivo,Dateiname,ชื่อไฟล์,Nom du fichier
+ui.allset.filenameplaceholder,要儲存的檔名,Enter a file name,Introduce un nombre de archivo,Dateinamen eingeben,กรอกชื่อไฟล์,Saisissez un nom de fichier
+ui.allset.enemyname,敵人名,Enemy Name,Nombre del enemigo,Gegnername,ชื่อศัตรู,Nom de l'ennemi
+ui.common.deletetitle,確認刪除,Confirm Delete,Confirmar eliminación,Löschen bestätigen,ยืนยันการลบ,Confirmer la suppression
+ui.equip.deleteconfirm,確定要刪除這筆裝備嗎？,Delete this equipment entry?,¿Eliminar esta entrada de equipo?,Diesen Ausrüstungseintrag löschen?,ต้องการลบอุปกรณ์รายการนี้หรือไม่?,Supprimer cette entrée d'équipement ?
+ui.allset.deleteconfirm,確定要刪除這筆配置嗎？,Delete this saved build?,¿Eliminar esta configuración guardada?,Diesen gespeicherten Build löschen?,ต้องการลบบิลด์ที่บันทึกไว้นี้หรือไม่?,Supprimer ce build enregistré ?
+ui.equip.cardname,卡片名稱,Card Name,Nombre de carta,Kartenname,ชื่อการ์ด,Nom de la carte
+ui.equip.itemname,名稱,Name,Nombre,Name,ชื่อ,Nom
+ui.equip.aspdpenaltytable,攻速懲罰表,ASPD Penalty Table,Tabla de penalización de ASPD,ASPD-Malustabelle,ตารางโทษ ASPD,Table de pénalité d'ASPD
+ui.common.aspdformula,攻速公式,ASPD Formula,Fórmula de ASPD,ASPD-Formel,สูตร ASPD,Formule d'ASPD
+ui.common.aspdpenaltytier,攻速懲罰職等,ASPD Penalty Tier,Nivel de penalización de ASPD,ASPD-Malusstufe,ระดับโทษ ASPD,Niveau de pénalité d'ASPD
+ui.common.tier34full,三轉/四轉,3rd/4th Job,3.º/4.º Job,3./4. Job,อาชีพ 3/4,Job 3e/4e
+ui.common.tier2full,二轉/進階二轉,2nd/Extended 2nd Job,2.º/2.º avanzado,2./Erweiterter 2. Job,อาชีพ 2/อาชีพ 2 ขั้นสูง,Job 2e/2e avancé
+ui.equip.shieldcol,盾,Shield,Escudo,Schild,โล่,Bouclier
+nav.settings,設定,Settings,Configuración,Einstellungen,การตั้งค่า,Paramètres
+settings.empty,目前沒有可調整的設定。,No settings available yet.,No hay opciones disponibles por ahora.,Derzeit keine Einstellungen verfügbar.,ยังไม่มีการตั้งค่าให้ปรับในขณะนี้,Aucun paramètre disponible pour le moment.
+ui.panel.apierror,連線失敗，請稍後再試,Connection failed. Please try again later.,Fallo de conexión. Inténtalo de nuevo más tarde.,Verbindung fehlgeschlagen. Bitte später erneut versuchen.,การเชื่อมต่อล้มเหลว โปรดลองใหม่อีกครั้งในภายหลัง,Échec de la connexion. Veuillez réessayer plus tard.
+welcome.title,歡迎使用計算機,Welcome to the Calculator,Bienvenido a la calculadora,Willkommen beim Rechner,ยินดีต้อนรับสู่เครื่องคำนวณ,Bienvenue dans le calculateur
+welcome.usageguide,使用說明,Usage Guide,Guía de uso,Bedienungsanleitung,คู่มือการใช้งาน,Guide d'utilisation
+welcome.agree,同意使用說明,Agree to the Usage Guide,Aceptar la guía de uso,Nutzungshinweise akzeptieren,ยอมรับคู่มือการใช้งาน,Accepter le guide d'utilisation
+welcome.disagree,不同意,Disagree,No aceptar,Nicht akzeptieren,ไม่ยอมรับ,Refuser
+welcome.tossacoin,Toss A Coin To Your Witcher,Toss A Coin To Your Witcher,Toss A Coin To Your Witcher,Toss A Coin To Your Witcher,Toss A Coin To Your Witcher,Toss A Coin To Your Witcher
+welcome.featuredvideos,精選影片,Featured Videos,Videos destacados,Ausgewählte Videos,วิดีโอแนะนำ,Vidéos à la une
+welcome.viewupdatelog,查看更新紀錄,View Update Log,Ver registro de actualizaciones,Update-Verlauf anzeigen,ดูบันทึกการอัปเดต,Voir le journal des mises à jour
+welcome.clickherecoffee,點這裡→buy me a coffee,Click here → buy me a coffee,Haz clic aquí → buy me a coffee,Hier klicken → buy me a coffee,คลิกที่นี่ → buy me a coffee,Cliquez ici → buy me a coffee
+welcome.clickhereopay,點這裡→歐付寶(需帳號),Click here → O'Pay (account required),Haz clic aquí → O'Pay (requiere cuenta),Hier klicken → O'Pay (Konto erforderlich),คลิกที่นี่ → O'Pay (ต้องมีบัญชี),Cliquez ici → O'Pay (compte requis)
+nav.welcomepage,歡迎頁面,Welcome Page,Página de bienvenida,Willkommensseite,หน้าต้อนรับ,Page d'accueil
+settings.darktheme,夜間模式,Dark Mode,Modo oscuro,Dunkler Modus,โหมดกลางคืน,Mode sombre
+settings.zeroregion,Zero 服務器,Zero Server,Servidor Zero,Zero-Server,เซิร์ฟเวอร์ Zero,Serveur Zero
+settings.zeroregion.tw,台版 樂園,Zero (Taiwan),Zero (Taiwán),Zero (Taiwan),Zero (ไต้หวัน),Zero (Taïwan)
+settings.zeroregion.global,國際版 Zero (Global),Zero (Global),Zero (Global),Zero (Global),Zero (Global),Zero (Global)
+settings.skillversion,技能版本,Skill Version,Versión de habilidades,Skill-Version,เวอร์ชันสกิล,Version des compétences
+settings.supportskillversion,支援技能版本,Support Skill Version,Versión de habilidades de apoyo,Support-Skill-Version,เวอร์ชันสกิลสนับสนุน,Version des compétences de soutien
+ui.common.reload,重新載入,Reload,Recargar,Neu laden,โหลดใหม่,Recharger
