@@ -32,7 +32,7 @@
         gtag('js', new Date());
         gtag('config', 'UA-63581889-2');
     </script>
-    <link rel='stylesheet' href='./styles.css' />
+    <link rel='stylesheet' href='./css/styles.css' />
 </head>
 
 <body>
@@ -98,8 +98,113 @@
             custom-class="Dialogue-container" width="45%" top="50px" center>
             <span slot="title">{{ t('nav.settings', '設定') }}</span>
             <el-row :gutter="6">
-                <div style="padding: 5px 20px; text-align:left; color:#909399;">
-                    {{ t('settings.empty', '目前沒有可調整的設定。') }}
+                <div style="padding: 5px 20px; text-align:left;">
+                    <el-row :gutter="4" type="flex" align="middle">
+                        <el-col :span="18">
+                            {{ t('settings.darktheme', '夜間模式') }}
+                        </el-col>
+                        <el-col :span="6" class="textcenter">
+                            <el-switch v-model="settings.theme" active-value="dark" inactive-value="light"></el-switch>
+                        </el-col>
+                    </el-row>
+
+                    <!-- Zero 服務器選擇器（台版/國際版），只有 Zero 模式（網址帶 ?zero）才有意義 -->
+                    <el-row v-if="isZeroMode" class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px; margin-top:12px;">
+                        <el-col class="textcenter">{{ t('settings.zeroregion', 'Zero 服務器') }}</el-col>
+                    </el-row>
+                    <div v-if="isZeroMode" style="padding: 10px 0;">
+                        <el-select v-model="settings.zeroRegion" @change="reloadSkills" style="width: 100%;"
+                            popper-append-to-body
+                            :popper-options="{
+                                placement: 'auto',
+                                modifiers: {
+                                    preventOverflow: { enabled: true, padding: 10 },
+                                    flip: { enabled: true }
+                                }
+                            }"
+                            popper-class="custom-select-dropdown">
+                            <el-option value="tw" :label="t('settings.zeroregion.tw', '台版 Zero')"></el-option>
+                            <el-option value="global" :label="t('settings.zeroregion.global', '國際版 Zero (Global)')"></el-option>
+                        </el-select>
+                    </div>
+
+                    <!-- 技能版本選擇器 -->
+                    <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px; margin-top:12px;">
+                        <el-col class="textcenter">{{ t('settings.skillversion', '技能版本') }}</el-col>
+                    </el-row>
+                    <div style="padding: 10px 0;">
+                        <el-row :gutter="10" type="flex" align="middle">
+                            <el-col :span="14">
+                                <el-select v-model="currentSkillFile" @change="switchSkillFile" placeholder="請選擇技能版本"
+                                    style="width: 100%;"
+                                    popper-append-to-body
+                                    :popper-options="{
+                                        placement: 'auto',
+                                        modifiers: {
+                                            preventOverflow: { enabled: true, padding: 10 },
+                                            flip: { enabled: true }
+                                        }
+                                    }"
+                                    popper-class="custom-select-dropdown">
+                                    <el-option
+                                        v-for="file in availableSkillFiles"
+                                        :key="file"
+                                        :label="getSkillFileDisplayName(file)"
+                                        :value="file">
+                                    </el-option>
+                                </el-select>
+                            </el-col>
+                            <el-col :span="5">
+                                <el-button @click="reloadSkills" size="small" type="primary">
+                                    <i class="el-icon-refresh"></i> {{ t('ui.common.reload', '重新載入') }}
+                                </el-button>
+                            </el-col>
+                            <el-col :span="5">
+                                <el-tag :type="DefaultDB_Skill.length > 0 ? 'success' : 'danger'" size="small">
+                                    {{ DefaultDB_Skill.length }}
+                                </el-tag>
+                            </el-col>
+                        </el-row>
+                    </div>
+
+                    <!-- 支援技能版本選擇器 -->
+                    <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
+                        <el-col class="textcenter">{{ t('settings.supportskillversion', '支援技能版本') }}</el-col>
+                    </el-row>
+                    <div style="padding: 10px 0;">
+                        <el-row :gutter="10" type="flex" align="middle">
+                            <el-col :span="14">
+                                <el-select v-model="currentSupportSkillFile" @change="switchSupportSkillFile" placeholder="請選擇支援技能版本"
+                                    style="width: 100%;"
+                                    popper-append-to-body
+                                    :popper-options="{
+                                        placement: 'auto',
+                                        modifiers: {
+                                            preventOverflow: { enabled: true, padding: 10 },
+                                            flip: { enabled: true }
+                                        }
+                                    }"
+                                    popper-class="custom-select-dropdown">
+                                    <el-option
+                                        v-for="file in availableSupportSkillFiles"
+                                        :key="file"
+                                        :label="getSupportSkillFileDisplayName(file)"
+                                        :value="file">
+                                    </el-option>
+                                </el-select>
+                            </el-col>
+                            <el-col :span="5">
+                                <el-button @click="reloadSupportSkills" size="small" type="success">
+                                    <i class="el-icon-refresh"></i> {{ t('ui.common.reload', '重新載入') }}
+                                </el-button>
+                            </el-col>
+                            <el-col :span="5">
+                                <el-tag :type="DefaultDB_SupportSkill.length > 0 ? 'success' : 'danger'" size="small">
+                                    {{ DefaultDB_SupportSkill.length }}
+                                </el-tag>
+                            </el-col>
+                        </el-row>
+                    </div>
                 </div>
             </el-row>
         </el-dialog>
@@ -131,10 +236,10 @@
                         </el-row>
                         <el-row :gutter="12" type="flex" align="left" justify="center">
                             <el-button v-on:click="OpenUrl('https://www.buymeacoffee.com/landgris')" size="big" type="warning">
-                                點這裡→buy me a coffee
+                                {{ t('welcome.clickherecoffee', '點這裡→buy me a coffee') }}
                             </el-button>
-                            <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="big" type="warning">
-                                點這裡→歐付寶(需帳號)
+                            <el-button v-if="uiLocale === 'zh-TW'" v-on:click="OpenUrl('https://pse.is/T52DP')" size="big" type="warning">
+                                {{ t('welcome.clickhereopay', '點這裡→歐付寶(需帳號)') }}
                             </el-button>
                         </el-row>
                     </div>
@@ -144,118 +249,105 @@
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['UpdateLogDialog']" v-on:close="ClosePanel('UpdateLogDialog')"
             custom-class="Dialogue-container" :show-close=false :close-on-click-modal=false width="80%" top="50px" center>
-            <span slot="title">歡迎使用計算機</span>
+            <div slot="title" style="display:flex; align-items:center; justify-content:center; position:relative;">
+                <span>{{ t('welcome.title', '歡迎使用計算機') }}</span>
+                <el-select v-model="uiLocale" v-on:change="onChangeUILocale" size="small"
+                    style="position:absolute; right:40px; width:140px;">
+                    <el-option v-for="loc in availableUILocales" :key="loc.code" :label="loc.name" :value="loc.code"></el-option>
+                </el-select>
+            </div>
             <el-row :gutter="6">
                 <el-col span="12">
                     <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
-                        <el-col class="textcenter">使用說明</el-col>
+                        <el-col class="textcenter">{{ t('welcome.usageguide', '使用說明') }}</el-col>
                     </el-row>
                     <el-scrollbar wrap-class="Announce-container" :native="false" :noresize="false">
                         <el-row>
-                            <div class="aboutbox" style="padding: 5px 55px; text-align:left">
-                                <el-row :gutter="4" type="flex" align="left">
-                                    注意事項:<br>
-                                    ⭐請不要在巴哈單純回覆按計算機，配裝思路跟比較優劣也是很好討論的點<br>
-                                    ⭐M/RES計算已經加入，技能設定無視RES，如果有錯誤麻煩告知<br>
-                                    ⭐屬性相剋為當前遊戲版本(同KRO) 可切換為舊版本<br>
-                                    ⭐建議先計算好當前配裝並且傷害正確後才開始配裝<br>
-                                    ⭐紋章(敵方)現在所有技能都會增傷，使用時須注意<br>
-                                    ⭐計算拿兩把武器的技能傷害時，物理不會計算副手ATK及精練、魔法則會<br>
-                                      不會計算雙持狀況下的普攻傷害<br>
-                                    ⭐普攻暴擊:爆傷100%, 技能暴擊:暴傷50%<br>
-                                    ⭐HPSP只支援240/250/260等的龍爵/皇家/聖裁<br>
-                                    ⭐四轉-特質點新增至275等, 職業加成為60等<br>
-                                    <br>
-                                </el-row>
-                            </div>
-                        </el-row>
-                        <el-row>
-                            <div class="aboutbox" style="padding: 5px 55px; text-align:left">
-                                <el-row :gutter="4" type="flex" align="left">
-                                    ⭐大家新年快樂，計算機大改版!⭐<br>
-                                    現在裝備可以設定技能/種族/體型/屬性/階級/屬性魔法/屬性耐性<br>
-                                    並且在總和面板可以查看各分類明細還有來源!<br>
-                                    詳細請看巴哈討論串<br><br>
-
-                                    四轉-4.1新增技能倍率的特殊加成等待測試(2026/2/3)<br><br>
-
-                                    在網址後面加上"?zero"會切換樂園版本(Zero)<br>
-                                    酒虎(杜腐)製作的計算機操作教學<br>
-                                    https://forum.gamer.com.tw/C.php?bsn=4212&snA=436996<br>
-                                    <br>公式感謝小月鈴所測試的
-                                    <br>【討論】四轉職暨二次上位擴充職全技能實測<br>
-                                    https://forum.gamer.com.tw/C.php?bsn=4212&snA=435523
-                                    <br>麻煩有錯誤或是沒有固詠變詠延遲等資料的話可以在小月鈴這篇回應<br>
-                                    <br>遊戲版本參考杜腐整理的
-                                    <br>【討論】kRO 迄今技能調整／優化整理<br>
-                                    https://forum.gamer.com.tw/C.php?bsn=4212&snA=436731<br>
-                                    <br>💖【廣告】朋友兼職販售的貓貓食物/玩具 懇請支持<br>
-                                    https://mall.iopenmall.tw/008035<br>
-                                    https://tw.shp.ee/P7hfSJn<br>
-                                </el-row>
-                            </div>
+                            <div class="aboutbox" style="padding: 5px 55px; text-align:left; white-space:pre-line;" v-html="welcomeUsageHtml"></div>
                         </el-row>
                     </el-scrollbar>
                     <el-row class="" type="flex" align="middle" justify="space-around"
                         style="height:40px;">
                         <el-button v-on:click="CloseAnnounceDialogue(true)" type="success" size="medium" round>
-                            同意使用說明
+                            {{ t('welcome.agree', '同意使用說明') }}
                         </el-button>
                     </el-row>
                     <el-row class="" type="flex" align="middle" justify="space-around"
                         style="height:40px;">
                         <el-button v-on:click="CloseAnnounceDialogue(false)" type="success" size="medium" round>
-                            不同意
+                            {{ t('welcome.disagree', '不同意') }}
                         </el-button>
                     </el-row>
                 </el-col>
                 <el-col span="12">
                     <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
-                        <el-col class="textcenter">Toss A Coin To Your Witcher</el-col>
+                        <el-col class="textcenter">{{ t('welcome.tossacoin', 'Toss A Coin To Your Witcher') }}</el-col>
                     </el-row>
                         <el-row :gutter="4" type="flex" align="left" justify="center">
-                            這個計算機是希望大家在換裝備的時候可以不用借裝或是買到才發現傷害怎麼沒變？！<br>
-                            就可以先用算的少走一些冤枉路<br><br>
-                            從2019年12月完成後一直更新到現在<br>
-                            沒想到時間過這麼快! 好險有在寫更新紀錄，沒事就可以看看到底加了多少東西<br>
-                            除了修正BUG、增加新功能、填各職業技能坑、各種測試公式、還要隨版本更新跑<br>
-                            如果覺得這個計算機有幫助你選擇到適合的裝備、或是計算是否打的贏某隻怪物<br>
-                            想要斗內的話可以按下方按鈕，我會非常感謝<br><br>
-                            寄信告訴我訂單編號跟伺服器ID或想要的名字，我會把你加入感謝名單！<br><br>
+                            <div style="white-space:pre-line;" v-html="welcomeDonateHtml"></div>
                         </el-row>
                         <el-row :gutter="12" type="flex" align="left" justify="center">
                             <el-button v-on:click="OpenUrl('https://www.buymeacoffee.com/landgris')" size="big" type="warning">
-                                點這裡→buy me a coffee
+                                {{ t('welcome.clickherecoffee', '點這裡→buy me a coffee') }}
                             </el-button>
-                            <el-button v-on:click="OpenUrl('https://pse.is/T52DP')" size="big" type="warning">
-                                點這裡→歐付寶(需帳號)
+                            <el-button v-if="uiLocale === 'zh-TW'" v-on:click="OpenUrl('https://pse.is/T52DP')" size="big" type="warning">
+                                {{ t('welcome.clickhereopay', '點這裡→歐付寶(需帳號)') }}
                             </el-button>
                         </el-row>
                     <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
-                        <el-col class="textcenter">更新紀錄</el-col>
+                        <el-col class="textcenter">{{ t('welcome.featuredvideos', '精選影片') }}</el-col>
                     </el-row>
-                    <el-scrollbar wrap-class="UpdateList-container" :native="false" :noresize="false">
-                    <!--<el-scrollbar wrap-class="ThanksList-container" :native="false" :noresize="false">-->
-                        <div v-for="(item, index) in UpdateLogList" v-bind:key="item.id">
-                            <div style="padding: 2px 5px;">
-                                <el-row class="statusbox" type="flex" align="middle" justify="space-around"
-                                    style="height:30px;">
-                                    <el-col class="textcenter">
-                                        <div v-html="item.id"></div>
-                                    </el-col>
-                                </el-row>
-                                <el-row type="flex" align="middle">
-
-                                    <div style="padding: 0px 0px 20px 50px;">
-                                        <el-col class="textcenter" style="text-align: left;">
-                                            <div v-html="item.content"></div>
-                                        </el-col>
-                                    </div>
-                                </el-row>
+                    <el-row type="flex" align="middle" justify="center" style="padding: 10px 0;">
+                        <el-col :span="2" class="textcenter">
+                            <el-button icon="el-icon-arrow-left" circle size="mini" v-on:click="prevYoutubeVideo"></el-button>
+                        </el-col>
+                        <el-col :span="20">
+                            <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                                <iframe :src="currentYoutubeEmbedUrl"
+                                    style="position:absolute; top:0; left:0; width:100%; height:100%;"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                             </div>
-                        </div>
-                    </el-scrollbar>
+                        </el-col>
+                        <el-col :span="2" class="textcenter">
+                            <el-button icon="el-icon-arrow-right" circle size="mini" v-on:click="nextYoutubeVideo"></el-button>
+                        </el-col>
+                    </el-row>
+                    <el-row type="flex" align="middle" justify="center" style="padding: 10px 0;">
+                        <el-button v-on:click="TogglePanel('UpdateLogListDialog')" type="info" size="small">
+                            {{ t('welcome.viewupdatelog', '查看更新紀錄') }}
+                        </el-button>
+                        <el-button v-on:click="TogglePanel('SpecialthanksDialog')" type="success" size="small">
+                            {{ t('nav.thanks', '協力') }}
+                        </el-button>
+                    </el-row>
                 </el-col>
+            </el-row>
+        </el-dialog>
+        <el-dialog :visible.sync="UIPanel['UpdateLogListDialog']" v-on:close="ClosePanel('UpdateLogListDialog')"
+            custom-class="Dialogue-container" width="60%" top="50px" center>
+            <span slot="title">更新紀錄</span>
+            <el-row :gutter="6">
+                <el-scrollbar wrap-class="UpdateList-container" :native="false" :noresize="false">
+                    <div v-for="(item, index) in UpdateLogList" v-bind:key="item.id">
+                        <div style="padding: 2px 5px;">
+                            <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                style="height:30px;">
+                                <el-col class="textcenter">
+                                    <div v-html="item.id"></div>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" align="middle">
+                                <div style="padding: 0px 0px 20px 50px;">
+                                    <el-col class="textcenter" style="text-align: left;">
+                                        <div v-html="item.content"></div>
+                                    </el-col>
+                                </div>
+                            </el-row>
+                        </div>
+                    </div>
+                </el-scrollbar>
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['SpecialthanksDialog']" v-on:close="ClosePanel('SpecialthanksDialog')"
@@ -565,84 +657,6 @@
                     <div style="padding: 0px 5px;">
                         <el-tabs v-model="SkillListTabPage" type="border-card" stretch="true">
                             <el-tab-pane label="技能清單" name="Default">
-                                <!-- 技能版本選擇器 -->
-                                <div style="padding: 10px; border-bottom: 1px solid #e6e6e6; background-color: #f5f5f5;">
-                                    <el-row :gutter="10" type="flex" align="middle">
-                                        <el-col :span="5">
-                                            <span style="font-weight: bold;">技能版本：</span>
-                                        </el-col>
-                                        <el-col :span="10">
-                                            <el-select v-model="currentSkillFile" @change="switchSkillFile" placeholder="請選擇技能版本" 
-                                                style="width: 100%;" 
-                                                popper-append-to-body
-                                                :popper-options="{ 
-                                                    placement: 'auto',
-                                                    modifiers: {
-                                                        preventOverflow: { enabled: true, padding: 10 },
-                                                        flip: { enabled: true }
-                                                    }
-                                                }"
-                                                popper-class="custom-select-dropdown">
-                                                <el-option 
-                                                    v-for="file in availableSkillFiles" 
-                                                    :key="file" 
-                                                    :label="getSkillFileDisplayName(file)" 
-                                                    :value="file">
-                                                </el-option>
-                                            </el-select>
-                                        </el-col>
-                                        <el-col :span="4">
-                                            <el-button @click="reloadSkills" size="small" type="primary">
-                                                <i class="el-icon-refresh"></i> 重新載入
-                                            </el-button>
-                                        </el-col>
-                                        <el-col :span="5">
-                                            <el-tag :type="DefaultDB_Skill.length > 0 ? 'success' : 'danger'" size="small">
-                                                已載入 {{ DefaultDB_Skill.length }} 個技能
-                                            </el-tag>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                                
-                                <!-- 支援技能版本選擇器 -->
-                                <div style="padding: 10px; border-bottom: 1px solid #e6e6e6; background-color: #f0f9ff;">
-                                    <el-row :gutter="10" type="flex" align="middle">
-                                        <el-col :span="5">
-                                            <span style="font-weight: bold;">支援技能版本：</span>
-                                        </el-col>
-                                        <el-col :span="10">
-                                            <el-select v-model="currentSupportSkillFile" @change="switchSupportSkillFile" placeholder="請選擇支援技能版本" 
-                                                style="width: 100%;" 
-                                                popper-append-to-body
-                                                :popper-options="{ 
-                                                    placement: 'auto',
-                                                    modifiers: {
-                                                        preventOverflow: { enabled: true, padding: 10 },
-                                                        flip: { enabled: true }
-                                                    }
-                                                }"
-                                                popper-class="custom-select-dropdown">
-                                                <el-option 
-                                                    v-for="file in availableSupportSkillFiles" 
-                                                    :key="file" 
-                                                    :label="getSupportSkillFileDisplayName(file)" 
-                                                    :value="file">
-                                                </el-option>
-                                            </el-select>
-                                        </el-col>
-                                        <el-col :span="4">
-                                            <el-button @click="reloadSupportSkills" size="small" type="success">
-                                                <i class="el-icon-refresh"></i> 重新載入
-                                            </el-button>
-                                        </el-col>
-                                        <el-col :span="5">
-                                            <el-tag :type="DefaultDB_SupportSkill.length > 0 ? 'success' : 'danger'" size="small">
-                                                已載入 {{ DefaultDB_SupportSkill.length }} 個支援技能
-                                            </el-tag>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                                
                                 <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
                                     <div v-for="(item, index) in DefaultDB_Skill" v-bind:key="item.id">
                                         <div style="padding: 2px 5px;">
@@ -2780,7 +2794,7 @@
         <!-- header -->
         <div class="ROCalTitle">
             <el-row type="flex" align="middle" justify="end" :gutter="1">
-                <el-col :span="0">
+                <el-col :span="1">
                 </el-col>
                 <el-col :span="2">
                     <el-button v-on:click="onOpenAllSet" size="mini">
@@ -2802,7 +2816,7 @@
                 </el-col>
                 <el-col :span="6">
                     <div class="effectline grid-content" type="flex" align="middle" justify="space-around">
-                        <span>RO 計算機</span>
+                        <span>{{ t('nav.title', 'RO 計算機') }}</span>
                     </div>
                 </el-col>
                 <el-col :span="1">
@@ -2816,18 +2830,13 @@
                     </el-button>
                 </el-col>
                 <el-col :span="1">
-                    <el-button v-on:click="TogglePanel('DonateDialog')" size="small" type="warning">
+                    <el-button v-on:click="OpenUrl('https://www.buymeacoffee.com/landgris')" size="small" type="warning">
                         {{ t('nav.donate', '贊助') }}
-                    </el-button>
-                </el-col>
-                <el-col :span="1">
-                    <el-button v-on:click="TogglePanel('SpecialthanksDialog')" size="small" type="success">
-                        {{ t('nav.thanks', '協力') }}
                     </el-button>
                 </el-col>
                 <el-col :span="2">
                     <el-button v-on:click="TogglePanel('UpdateLogDialog')" size="small" type="danger">
-                        {{ t('nav.updatelog', '更新紀錄') }}
+                        {{ t('nav.welcomepage', '歡迎頁面') }}
                     </el-button>
                 </el-col>
                 <el-col :span="1">
@@ -3614,7 +3623,7 @@
                                         {{getSkillName(skill.id)}}
                                     </el-col>
                                 </el-row>
-                                <el-row class="statusbox" :gutter="4" type="flex" align="middle" justify="space-around" style="color:darkolivegreen; height: 60px; font-size: 30;">
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle" justify="space-around" style="color:limegreen; height: 60px; font-size: 30;">
                                     <el-col class="textcenter" :span="12">
                                            <span> Lv  {{skill.level}}</span>
                                     </el-col>
@@ -3789,21 +3798,21 @@
                                                 placement="bottom-start">
                                                 <el-col class="textcenter" :span="6">{{ t('ui.skill.hitnumber', '傷害次數') }}</el-col>
                                             </el-tooltip>
-                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.hitnumber)) }}</el-col>
+                                            <el-col class="textcenter" :span="6">{{ EvalFormula(skill.hitnumber) }}</el-col>
                                         </el-row>
                                         <el-row class="statusbox" :gutter="4" type="flex"
                                             align="middle">
                                             <el-col class="textcenter" :span="6">{{ t('ui.skill.fixedcast', '固定詠唱') }}</el-col>
-                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.FCT)) }} s</el-col>
+                                            <el-col class="textcenter" :span="6">{{ EvalFormula(skill.FCT) }} s</el-col>
                                             <el-col class="textcenter" :span="6">{{ t('ui.skill.variablecast', '變動詠唱') }}</el-col>
-                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.VCT)) }} s</el-col>
+                                            <el-col class="textcenter" :span="6">{{ EvalFormula(skill.VCT) }} s</el-col>
                                         </el-row>
                                         <el-row class="statusbox" :gutter="4" type="flex"
                                             align="middle">
                                             <el-col class="textcenter" :span="6">{{ t('ui.skill.independentdelay', '獨立延遲') }}</el-col>
-                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.CD)) }} s</el-col>
+                                            <el-col class="textcenter" :span="6">{{ EvalFormula(skill.CD) }} s</el-col>
                                             <el-col class="textcenter" :span="6">{{ t('ui.skill.globaldelay', '共通延遲') }}</el-col>
-                                            <el-col class="textcenter" :span="6">{{ eval(this.SkillFormulaReplace(skill.GCD)) }} s</el-col>
+                                            <el-col class="textcenter" :span="6">{{ EvalFormula(skill.GCD) }} s</el-col>
                                         </el-row>
                                     </div>
                                 </el-collapse-transition>
@@ -4900,7 +4909,7 @@
                                                 <span>{{computeattribute.atkc9_avg | currency }}</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
+                                        <el-row v-if="EvalFormula(skill.hitnumber)>1||EvalFormula(skill.hitnumber)<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
                                             align="middle" justify="space-around" style="height:40px;">
                                             <el-col class="bg-purple" :span="10" style="text-align: right;">
                                                 <span>{{ t('ui.panel.skilltotaldmg','技能總傷害') }}</span>
@@ -4910,7 +4919,7 @@
                                                     {{computeattribute.SkillDamage_max | currency }}</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
+                                        <el-row v-if="EvalFormula(skill.hitnumber)>1||EvalFormula(skill.hitnumber)<0||skill.id=='WL_CHAINLIGHTNING'" class="statusbox" type="flex"
                                             align="middle" justify="space-around" style="height:40px;">
                                             <el-col class="bg-purple" :span="10" style="text-align: right;">
                                                 <span>{{ t('ui.panel.skilltotaldmgavg','技能總傷害(平均)') }}</span>
@@ -5086,7 +5095,7 @@
                                                 <span>{{computeattribute.matk4_avg | currency }}</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0" class="statusbox" type="flex"
+                                        <el-row v-if="EvalFormula(skill.hitnumber)>1||EvalFormula(skill.hitnumber)<0" class="statusbox" type="flex"
                                             align="middle" justify="space-around" style="height:40px;">
                                             <el-col class="bg-purple" :span="10" style="text-align: right;">
                                                 <span>{{ t('ui.panel.skilltotaldmg','技能總傷害') }}</span>
@@ -5096,7 +5105,7 @@
                                                     {{computeattribute.matkmulti_max | currency }}</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0" class="statusbox" type="flex"
+                                        <el-row v-if="EvalFormula(skill.hitnumber)>1||EvalFormula(skill.hitnumber)<0" class="statusbox" type="flex"
                                             align="middle" justify="space-around" style="height:40px;">
                                             <el-col class="bg-purple" :span="10" style="text-align: right;">
                                                 <span>{{ t('ui.panel.skilltotaldmgavg','技能總傷害(平均)') }}</span>
@@ -5282,7 +5291,7 @@
                                                 <span>{{computeattribute.matk4_avg | currency }}</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0" class="statusbox" type="flex"
+                                        <el-row v-if="EvalFormula(skill.hitnumber)>1||EvalFormula(skill.hitnumber)<0" class="statusbox" type="flex"
                                             align="middle" justify="space-around" style="height:40px;">
                                             <el-col class="bg-purple" :span="10" style="text-align: right;">
                                                 <span>{{ t('ui.panel.skilltotaldmg','技能總傷害') }}</span>
@@ -5292,7 +5301,7 @@
                                                     {{computeattribute.matkmulti_max | currency }}</span>
                                             </el-col>
                                         </el-row>
-                                        <el-row v-if="eval(SkillFormulaReplace(skill.hitnumber))>1||eval(SkillFormulaReplace(skill.hitnumber))<0" class="statusbox" type="flex"
+                                        <el-row v-if="EvalFormula(skill.hitnumber)>1||EvalFormula(skill.hitnumber)<0" class="statusbox" type="flex"
                                             align="middle" justify="space-around" style="height:40px;">
                                             <el-col class="bg-purple" :span="10" style="text-align: right;">
                                                 <span>{{ t('ui.panel.skilltotaldmgavg','技能總傷害(平均)') }}</span>
@@ -6626,10 +6635,16 @@
                                     </div>
                                 </template>
                                 <template v-if="activePanel==='cast'">
-                                    <el-row class="titlebox" type="flex" align="middle" justify="center"
+                                    <el-row class="titlebox" type="flex" align="middle" justify="end"
                                         style="height:40px; padding: 0px 5px;">
-                                        <el-col class="textcenter" :span="24">
+                                        <el-col class="textcenter" :span="2"></el-col>
+                                        <el-col class="textcenter" :span="12">
                                             <span class="textcenter">{{ t('ui.panel.castdelay','詠唱 & 延遲') }}</span>
+                                        </el-col>
+                                        <el-col class="textcenter panel-mode-btns" :span="10" style="text-align: right;">
+                                            <el-button type="info" size="mini" v-on:click="ToggleCastDetail">
+                                                {{ t('ui.panel.displaymode','顯示模式') }}:{{ getDetailModeValue('cast') + 1 }}
+                                            </el-button>
                                         </el-col>
                                     </el-row>
                                     <div>
@@ -6687,14 +6702,6 @@
                                                             </div>
                                                         </div>
                                                     </template>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="statusbox bg-purple-light" type="flex" align="middle" justify="center"
-                                                style="height:24px;">
-                                                <el-col class="textcenter" :span="20">
-                                                    <el-button type="text" size="mini" v-on:click="ToggleCastDetail">
-                                                        {{ t('ui.panel.displaymode','顯示模式') }}:{{ getDetailModeValue('cast') + 1 }}
-                                                    </el-button>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -6887,7 +6894,8 @@
     </div>
 
 
-    <script src="aspd_calculator.js"></script>
+    <script src="js/aspd_calculator.js"></script>
+    <script src="js/formula_interpreter.js"></script>
     <script>
         // lodash 的 _.debounce 包 async function 時，呼叫方 await 拿到的是「debounce wrapper 立刻回傳的 undefined」，
         // 不會等到真正執行、也拿不到內部 async function 的結果——這對「一直打字時不要每個字都打 API」還是需要，
@@ -6954,8 +6962,12 @@
                 // Zero模式標記
                 isZeroMode: false, // 是否處於Zero模式
 
-                // 核心傷害/攻速算式已搬到 Cloudflare Worker，這裡是唯一的呼叫網址
-                apiBaseUrl: 'https://ro-calculator-formula-pilot.valkyrie7744533.workers.dev',
+                // 核心傷害/攻速算式已搬到 Cloudflare Worker，這裡是唯一的呼叫網址。
+                // 本機開發（127.0.0.1/localhost，例如 Live Server）自動改打本機的 `wrangler dev`
+                // （worker/README.md 有開法），不會打到正式站的 Worker。
+                apiBaseUrl: (['localhost', '127.0.0.1'].includes(window.location.hostname))
+                    ? 'http://localhost:8787'
+                    : 'https://ro-calculator-formula-pilot.valkyrie7744533.workers.dev',
                 // 每個公式各自的「正在計算中」/「上次呼叫失敗」狀態，純顯示用（控制 loading 動畫跟錯誤訊息 alert）
                 apiLoading: {
                     atk: false, aspd: false, matk: false, dragonbreath: false, trap: false, mixed: false,
@@ -6967,6 +6979,8 @@
                 // 使用者設定（localStorage 持久化，見 loadSettings()/saveSettings()）。
                 // 之後新增設定只要加進這個物件即可，watch(deep) 會自動存檔，mounted() 會自動讀檔還原。
                 settings: {
+                    theme: 'light', // 'light' | 'dark'，見 SettingsDialog 的夜間模式開關
+                    zeroRegion: 'tw', // 'tw' | 'global'，只有 isZeroMode 時有意義，見 loadSkillsFromJSON() 的覆蓋套用邏輯
                 },
 
                 //save
@@ -7014,6 +7028,12 @@
                 DonatethanksList: [],
                 UpdateLogList: [],
                 CurrentUpdateVersion: '',
+                // 歡迎視窗右下角的精選影片輪播（YouTube 影片 ID）
+                youtubeVideoIds: ['liMLr11gU-4', '1tTScsADj98'],
+                youtubeVideoIndex: 0,
+                // 歡迎視窗的「使用說明」「贊助說明」內文，從 txt 檔案載入（見 loadWelcomeContent()），只有中/英兩種版本
+                welcomeUsageText: '',
+                welcomeDonateText: '',
                 TStatusPoint: [7,10,13,16,19,26,29,32,35,38,45,48,51,54,57,64,67,70,73,76,83,86,89,92,95,102,105,108,111,114,121,124,127,130,133,140,143,146,149,152,159,162,165,168,171,178,181,184,187,190,197,200,203,206,209,216,219,221,224,227,235,238,241,244,247,254,257,260,263,266,273,276,279,282,285,292],
                 
                 // 職業數據會從 JSON 檔案載入
@@ -7034,6 +7054,7 @@
                     { code: 'th', name: 'ไทย' },
                     { code: 'de', name: 'Deutsch' },
                     { code: 'es', name: 'Español' },
+                    { code: 'fr', name: 'Français' },
                 ],
                 skillSearchText: '',
                 filterCurrentClassOnly: true, // 僅顯示目前職業
@@ -7739,6 +7760,7 @@
                     AboutDialog: false,
                     SettingsDialog: false,
                     UpdateLogDialog: false,
+                    UpdateLogListDialog: false,
                     DonateDialog: false,
                     SpecialthanksDialog: false,
                     StatusDBDialog: false,
@@ -7781,6 +7803,15 @@
                 Consent:true,
             },
             methods: {
+                // 專案整理後，執行時載入的 json/csv 資料檔都搬到 data/ 資料夾，txt 內容檔搬到 content/；
+                // 這裡統一組路徑，這樣 currentSkillFile 等只存檔名的邏輯（localStorage 比對、
+                // getSkillFileDisplayName 對照表）都不用跟著改。
+                dataPath(filename) {
+                    return 'data/' + filename;
+                },
+                contentPath(filename) {
+                    return 'content/' + filename;
+                },
                 TogglePanel(id) {
                     this.UIPanel[id] = !this.UIPanel[id];
                 },
@@ -9275,7 +9306,7 @@
                     const previous = this.skill.ranged;
                     if (typeof this.skill.rangedFormula === 'string') {
                         try {
-                            this.skill.ranged = !!eval(this.SkillFormulaReplace(this.skill.rangedFormula));
+                            this.skill.ranged = !!this.EvalFormula(this.skill.rangedFormula);
                             if (this.skill.ranged !== previous) {
                                 console.log('[skill.ranged]', this.skill.id, '->', this.skill.ranged, 'formula:', this.skill.rangedFormula, 'weapon:', this.weapon.type.id);
                             }
@@ -9297,7 +9328,7 @@
                     const previous = this.skill.critical;
                     if (typeof this.skill.criticalFormula === 'string') {
                         try {
-                            this.skill.critical = !!eval(this.SkillFormulaReplace(this.skill.criticalFormula));
+                            this.skill.critical = !!this.EvalFormula(this.skill.criticalFormula);
                             if (this.skill.critical !== previous) {
                                 console.log('[skill.critical]', this.skill.id, '->', this.skill.critical, 'formula:', this.skill.criticalFormula, 'weapon:', this.weapon.type.id);
                             }
@@ -9312,7 +9343,7 @@
                     const previous = this.skill.transWeaponDEF;
                     if (typeof this.skill.transWeaponDEFFormula === 'string') {
                         try {
-                            this.skill.transWeaponDEF = !!eval(this.SkillFormulaReplace(this.skill.transWeaponDEFFormula));
+                            this.skill.transWeaponDEF = !!this.EvalFormula(this.skill.transWeaponDEFFormula);
                             if (this.skill.transWeaponDEF !== previous) {
                                 console.log('[skill.transWeaponDEF]', this.skill.id, '->', this.skill.transWeaponDEF, 'formula:', this.skill.transWeaponDEFFormula, 'weapon:', this.weapon.type.id);
                             }
@@ -9455,7 +9486,7 @@
                                             _FixedCast = Math.max(_FixedCast, Number(this.consumablelist[i]['FixedCastPercent']));
                                         }
                                         if( this.consumablelist[i].group=='HPSP' ){
-                                            this.consumableeffecttypelist[_idx].totalvalue += Number(eval(this.SkillFormulaReplace(this.consumablelist[i][this.consumableeffecttypelist[t].id])));
+                                            this.consumableeffecttypelist[_idx].totalvalue += Number(this.EvalFormula(this.consumablelist[i][this.consumableeffecttypelist[t].id]));
                                         }else{
                                             this.consumableeffecttypelist[_idx].totalvalue += Number(this.consumablelist[i][this.consumableeffecttypelist[t].id]);
                                         }
@@ -9618,18 +9649,18 @@
                         }
 
 
-                        this.status_total.STR = Number(eval(this.status.STR)) + Number(this.status_add.STR) + Number(this.status_job.STR);
-                        this.status_total.AGI = Number(eval(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
-                        this.status_total.VIT = Number(eval(this.status.VIT)) + Number(this.status_add.VIT) + Number(this.status_job.VIT);
-                        this.status_total.INT = Number(eval(this.status.INT)) + Number(this.status_add.INT) + Number(this.status_job.INT);
-                        this.status_total.DEX = Number(eval(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
-                        this.status_total.LUK = Number(eval(this.status.LUK)) + Number(this.status_add.LUK) + Number(this.status_job.LUK);
-                        this.status_total.POW = Number(eval(this.status.POW)) + Number(this.status_add.POW) + Number(this.status_job.POW);
-                        this.status_total.STA = Number(eval(this.status.STA)) + Number(this.status_add.STA) + Number(this.status_job.STA);
-                        this.status_total.WIS = Number(eval(this.status.WIS)) + Number(this.status_add.WIS) + Number(this.status_job.WIS);
-                        this.status_total.S_P_L = Number(eval(this.status.SPL)) + Number(this.status_add.SPL) + Number(this.status_job.SPL);
-                        this.status_total.CON = Number(eval(this.status.CON)) + Number(this.status_add.CON) + Number(this.status_job.CON);
-                        this.status_total.CRT = Number(eval(this.status.CRT)) + Number(this.status_add.CRT) + Number(this.status_job.CRT);
+                        this.status_total.STR = Number(this.EvalFormula(this.status.STR)) + Number(this.status_add.STR) + Number(this.status_job.STR);
+                        this.status_total.AGI = Number(this.EvalFormula(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
+                        this.status_total.VIT = Number(this.EvalFormula(this.status.VIT)) + Number(this.status_add.VIT) + Number(this.status_job.VIT);
+                        this.status_total.INT = Number(this.EvalFormula(this.status.INT)) + Number(this.status_add.INT) + Number(this.status_job.INT);
+                        this.status_total.DEX = Number(this.EvalFormula(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
+                        this.status_total.LUK = Number(this.EvalFormula(this.status.LUK)) + Number(this.status_add.LUK) + Number(this.status_job.LUK);
+                        this.status_total.POW = Number(this.EvalFormula(this.status.POW)) + Number(this.status_add.POW) + Number(this.status_job.POW);
+                        this.status_total.STA = Number(this.EvalFormula(this.status.STA)) + Number(this.status_add.STA) + Number(this.status_job.STA);
+                        this.status_total.WIS = Number(this.EvalFormula(this.status.WIS)) + Number(this.status_add.WIS) + Number(this.status_job.WIS);
+                        this.status_total.S_P_L = Number(this.EvalFormula(this.status.SPL)) + Number(this.status_add.SPL) + Number(this.status_job.SPL);
+                        this.status_total.CON = Number(this.EvalFormula(this.status.CON)) + Number(this.status_add.CON) + Number(this.status_job.CON);
+                        this.status_total.CRT = Number(this.EvalFormula(this.status.CRT)) + Number(this.status_add.CRT) + Number(this.status_job.CRT);
 
                         this.computeattribute['TransSTR'] = this.status_total.STR;
                         var TempDEX = this.status_total.DEX;
@@ -9842,7 +9873,7 @@
                         
                         // HardDEF 和 HardMDEF 由裝備效果系統提供，在 onOption() 中計算
                         
-                        this.computeattribute['SpecialATK7'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK7));
+                        this.computeattribute['SpecialATK7'] += this.EvalFormula(this.skill.SpecialATK7);
                         this.onSkillPercentChange();
                     } catch (e) {
                         console.log("ComputStatus error " + e);
@@ -9890,33 +9921,33 @@
                     this.computeattribute.CastDEXINT = this.status_total.INT + this.status_total.DEX * 2;
                     if (_StatusDI > 530) _StatusDI = 530;
                     this.computeattribute.CastTime =
-                        (eval(this.SkillFormulaReplace(this.skill.VCT)) + this.attritube['VCTS']) * (1 - Math.sqrt(_StatusDI / 530)) * (1 + this.attritube['EQVCTP'] / 100) * (1 + this.attritube['SK1VCTP'] / 100) * (1 + this.attritube['SK2VCTP'] / 100) +
-                        this.clamp((eval(this.SkillFormulaReplace(this.skill.FCT)) - (-this.attritube['FCT'])), 0, 999) * (1 - (-this.attritube['FCTP']) / 100);
+                        (this.EvalFormula(this.skill.VCT) + this.attritube['VCTS']) * (1 - Math.sqrt(_StatusDI / 530)) * (1 + this.attritube['EQVCTP'] / 100) * (1 + this.attritube['SK1VCTP'] / 100) * (1 + this.attritube['SK2VCTP'] / 100) +
+                        this.clamp((this.EvalFormula(this.skill.FCT) - (-this.attritube['FCT'])), 0, 999) * (1 - (-this.attritube['FCTP']) / 100);
                     this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 10000) / 10000, 0, _MaxCastTime);
                     this.computeattribute.DelayTime = Math.max(
-                        Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * _GCDRate) / 100,
-                        eval(this.SkillFormulaReplace(this.skill.CD)) - (-this.attritube['CD']));
+                        Math.floor(this.EvalFormula(this.skill.GCD) * _GCDRate) / 100,
+                        this.EvalFormula(this.skill.CD) - (-this.attritube['CD']));
 
-                    if(this.IsSupportActive('WL_RELEASE'))   
+                    if(this.IsSupportActive('WL_RELEASE'))
                     {   //詠唱0 GCD維持
                         this.computeattribute.CastTime = 0;
-                        this.computeattribute.DelayTime = Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * _GCDRate) / 100;
-                    } 
-                    if(this.IsSupportActive('WL_READING_SB'))   
+                        this.computeattribute.DelayTime = Math.floor(this.EvalFormula(this.skill.GCD) * _GCDRate) / 100;
+                    }
+                    if(this.IsSupportActive('WL_READING_SB'))
                     {   //固詠1 變詠5 GCD0.5
                         this.computeattribute.CastTime =
                             (5 + this.attritube['VCTS']) * (1 - Math.sqrt(_StatusDI / 530)) * (1 + this.attritube['EQVCTP'] / 100) * (1 + this.attritube['SK1VCTP'] / 100) * (1 + this.attritube['SK2VCTP'] / 100) +
                             this.clamp((1 - (-this.attritube['FCT'])), 0, 999) * (1 - (-this.attritube['FCTP']) / 100);
                         this.computeattribute.CastTime = this.clamp(Math.floor(this.computeattribute.CastTime * 10000) / 10000, 0, _MaxCastTime);
                         this.computeattribute.DelayTime = Math.floor(0.5 * _GCDRate) / 100 +
-                            Math.floor(eval(this.SkillFormulaReplace(this.skill.GCD)) * _GCDRate) / 100;
+                            Math.floor(this.EvalFormula(this.skill.GCD) * _GCDRate) / 100;
                     }
-                    
+
                     if( this.IsConsumableActive(777777) )
                     {
                         //秒7肯貝特
                         this.computeattribute.CastTime = 0;
-                        this.computeattribute.DelayTime = eval(this.SkillFormulaReplace(this.skill.CD)) - (-this.attritube['CD']);
+                        this.computeattribute.DelayTime = this.EvalFormula(this.skill.CD) - (-this.attritube['CD']);
                         this.attritube.ASPD = 193;
                     }
                     
@@ -10309,89 +10340,85 @@
                     if (this.skill.hitnumber == '') this.skill.hitnumber = 1;
                     if (this.skill.level == '') this.skill.level = 1;
                     var _formula = this.skill.formula;
-                    if (this.status.Level < 100) _formula = _formula.replace(new RegExp("BLV", "g"), "100");
                     try{
-                        var f = this.SkillFormulaReplace(_formula);
-                        this.option.SkillPercent = eval(f);
+                        this.option.SkillPercent = this.EvalFormula(_formula, this.status.Level < 100 ? { BLV: 100 } : null);
                         if(!this.Consent) this.option.SkillPercent = 0;
                     } catch (e) {
                         console.log( "SkillPercent error:" + e);
-                        console.log( "_formula:" + _formula + " try declare to " + f);
+                        console.log( "_formula:" + _formula);
                     }
                     this.ComputeCastDelay();
-                    this.ClosePanel('ATKPanel');
-                    this.ClosePanel('MATKPanel');
-                    this.ClosePanel('DragonBreathPanel');
-                    this.ClosePanel('TrapPanel');
-                    this.ClosePanel('MixedPanel');
+                    // 只關閉「不是目前傷害類型」的面板，目標面板直接打開並維持打開（不要先關再開），
+                    // 這樣切換素質/裝備/技能時畫面會停留在舊資料上（蓋著 loading 遮罩），等新資料
+                    // 回來直接換新值，不會讓整個區塊閃一下。
+                    const damageTypePanels = {
+                        0: 'ATKPanel',
+                        1: 'MATKPanel',
+                        2: 'DragonBreathPanel',
+                        3: 'TrapPanel',
+                        4: 'MixedPanel',
+                    };
+                    const targetPanel = damageTypePanels[this.skill.DamageTypeIdx];
+                    for (const panelName of Object.values(damageTypePanels)) {
+                        if (panelName !== targetPanel) this.ClosePanel(panelName);
+                    }
+                    this.OpenPanel(targetPanel);
                     switch (this.skill.DamageTypeIdx) {
                         case 0:
                             await this.FetchAndApplyATK();
-                            this.OpenPanel('ATKPanel');
                             break;
                         case 1:
                             await this.FetchAndApplyMATK();
-                            this.OpenPanel('MATKPanel');
                             break;
                         case 2:
                             await this.FetchAndApplyDragonBreath();
-                            this.OpenPanel('DragonBreathPanel');
                             break;
                         case 3:
                             await this.FetchAndApplyTrap();
-                            this.OpenPanel('TrapPanel');
                             break;
                         case 4:
                             await this.FetchAndApplyMixed();
-                            this.OpenPanel('MixedPanel');
                             break;
                     }
                 },
-                SkillFormulaReplace(f) {
-                    try{
-                    for (x of this.KeywordReplaceList) {
-                        f = f.toString().replace(new RegExp(x.str1, "g"), x.str2);
-                    }
-                    return f;
+                // 組出 FormulaInterpreter.evaluateFormula() 需要的 context：每個 KeywordReplaceList
+                // 關鍵字對應的目前數值，加上 WPT() 要用的 weaponTypeId。取代原本「字串取代成
+                // this.xxx 再 eval()」的做法，這樣公式字串本身不會被當成 JS 執行。
+                getFormulaContext() {
+                    return {
+                        STR: this.status_total.STR, AGI: this.status_total.AGI, VIT: this.status_total.VIT,
+                        INT: this.status_total.INT, DEX: this.status_total.DEX, LUK: this.status_total.LUK,
+                        POW: this.status_total.POW, STA: this.status_total.STA, WIS: this.status_total.WIS,
+                        SPL: this.status_total.S_P_L, CON: this.status_total.CON, CRT: this.status_total.CRT,
+                        PATK: this.attritube.PATK,
+                        BLV: this.status.Level, JLV: this.status.JOBLevel,
+                        CHP: this.status.HP, CSP: this.status.SP,
+                        Mhp: this.status.MHP, Msp: this.status.MSP,
+                        SLV: this.skill.level,
+                        AEI: this.skilloption.AttackElementalIdx,
+                        WLV: this.weapon.level.id,
+                        WGT: this.weapon.Weight,
+                        SRL: this.subweapon.refinelevel,
+                        SHW: this.subweapon.ShieldWeight,
+                        CRW: this.skilloption.CarWeight,
+                        ELV: this.enemyattribute.level,
+                        ESIZE: this.enemyattribute.size,
+                        EVit: this.enemyattribute.VIT,
+                        weaponTypeId: this.weapon.type.id,
+                    };
+                },
+                // 安全版的公式求值，取代 eval(this.SkillFormulaReplace(f))。contextOverride 用來處理
+                // 少數需要暫時覆寫某個關鍵字數值的情境（例如 BLV<100 時的特殊規則）。
+                // 出錯時回傳 0（原本 eval 出錯時外層多半也是 catch 後當作沒算出來，行為一致）。
+                EvalFormula(formula, contextOverride) {
+                    try {
+                        var ctx = this.getFormulaContext();
+                        if (contextOverride) ctx = Object.assign({}, ctx, contextOverride);
+                        return FormulaInterpreter.evaluateFormula(formula, ctx);
                     } catch (e) {
-                    console.log( "錯誤:" + e);
+                        console.warn('EvalFormula 錯誤: ' + formula, e);
+                        return 0;
                     }
-                   /*
-                    var originstring = f;
-                    var currentindex = 0;
-                    var newstring = "";
-                    var tempstring = "";
-                    var findindex = -1;
-                    console.log("originstring: "+originstring);
-                    try{
-                    while (currentindex < originstring.length)
-                    {
-                        originstring = originstring.slice(currentindex,200);
-                        for (x of this.KeywordReplaceList) {
-                            findindex = originstring.indexOf(x.str1, currentindex);
-                            if (findindex > -1)
-                            {
-                                var slicestring = originstring.slice(currentindex, findindex);
-                                currentindex += x.str1.length;
-                                newstring.concat(slicestring);
-                                newstring.concat(x.str2);
-                            }
-                        }
-                        if( findindex == -1)
-                        {
-                            var slicestring = originstring.slice(currentindex);
-                            newstring.concat(slicestring);
-                            console.log("notfind: "+originstring + "," + newstring);
-                            break;
-                        }
-                    }
-                    console.log("new: "+newstring);
-
-                    } catch (e) {
-                    console.log( "錯誤:" + e);
-                    }
-                    return newstring;
-                    */
                 },
                 onSpecialATKChange() {
                     this.onSkillPercentChange();
@@ -10618,7 +10645,13 @@
                     }
                     
                     this.status_add = Object.assign({}, this.status_add_init);
+                    // ASPD 是透過 FetchAndApplyASPD() 非同步從 API 拿回來的（有網路延遲），這裡重置
+                    // attritube 時保留舊的 ASPD 值，不要讓它瞬間變 0，不然畫面上用
+                    // v-if="attritube['ASPD']!=0" 顯示的區塊（普攻DPS等）會在 API 回來前整個消失又出現，
+                    // 造成閃一下、區塊大小跳動；等新的 ASPD 算完會直接覆蓋掉這裡保留的舊值。
+                    const _prevASPD = this.attritube.ASPD;
                     this.attritube = Object.assign({}, this.attritube_init);
+                    this.attritube.ASPD = _prevASPD;
                     this.status_job = _.cloneDeep(this.status_job_init);
                     if (this.status.UseJobMaxPoint){
                         if (this.status.JobMaxPointType === '4th' && this.status.Level >= 200 && this.ClassInfo.fourthJobMaxPT != null) {
@@ -11327,7 +11360,7 @@
                         }
                         if (this.skill.id == 'AG_CRIMSON_ARROW(all)'||
                             this.skill.id == 'AG_CRIMSON_ARROW(ex)'){
-                            this.computeattribute['SpecialMATK1'] += eval(this.SkillFormulaReplace('(SLV*700+SPL*5)*BLV/100'));
+                            this.computeattribute['SpecialMATK1'] += this.EvalFormula('(SLV*700+SPL*5)*BLV/100');
                         }
                     }
 
@@ -12544,8 +12577,8 @@
                     // this.attritube['ASPD'] 此時已累積各技能/BUFF的固定ASPD(如 SP_SOULSHADOW +3)。
                     // 注意：this.status_total.AGI/DEX 要到本函式最後呼叫 ComputStatus() 才會更新，
                     // 這裡改成直接依當前輸入即時算一份，避免改素質時 ASPD 慢半拍、要等下一次觸發才更新。
-                    var _aspdAgiTotal = Number(eval(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
-                    var _aspdDexTotal = Number(eval(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
+                    var _aspdAgiTotal = Number(this.EvalFormula(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
+                    var _aspdDexTotal = Number(this.EvalFormula(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
                     var _skillAspdPercent = Number(this.attritube['ASPDP']); // B：技能%
                     var _skillAspdFlat = Number(this.attritube['ASPD']); // 技能類固定ASPD（如 SP_SOULSHADOW +3）
                     var _potionAspdPercent = Number(this.consumableeffecttypelist.find(x => x.id == 'AspdPotionPercent').totalvalue); // A：攻速藥水%（集中/覺醒/波瑟克）
@@ -12812,18 +12845,18 @@
                         this.option.IgnoreDEF = false;
                     }
 
-                    this.computeattribute['SpecialATK1'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK1));
-                    this.computeattribute['SpecialATK2'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK2));
-                    this.computeattribute['SpecialATK3'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK3));
-                    this.computeattribute['SpecialATK4'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK4));
-                    this.computeattribute['SpecialATK5'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK5));
-                    this.computeattribute['SpecialATK6'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK6));
+                    this.computeattribute['SpecialATK1'] += this.EvalFormula(this.skill.SpecialATK1);
+                    this.computeattribute['SpecialATK2'] += this.EvalFormula(this.skill.SpecialATK2);
+                    this.computeattribute['SpecialATK3'] += this.EvalFormula(this.skill.SpecialATK3);
+                    this.computeattribute['SpecialATK4'] += this.EvalFormula(this.skill.SpecialATK4);
+                    this.computeattribute['SpecialATK5'] += this.EvalFormula(this.skill.SpecialATK5);
+                    this.computeattribute['SpecialATK6'] += this.EvalFormula(this.skill.SpecialATK6);
                     //改到HP技算後 因 羅剎
-                    //this.computeattribute['SpecialATK7'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK7));
-                    this.computeattribute['SpecialATK8'] += eval(this.SkillFormulaReplace(this.skill.SpecialATK8));
-                    this.computeattribute['SpecialMATK1'] += eval(this.SkillFormulaReplace(this.skill.SpecialMATK1));
-                    this.computeattribute['SpecialMATK2'] += eval(this.SkillFormulaReplace(this.skill.SpecialMATK2));
-                    this.computeattribute['SpecialMATK3'] += eval(this.SkillFormulaReplace(this.skill.SpecialMATK3));
+                    //this.computeattribute['SpecialATK7'] += this.EvalFormula(this.skill.SpecialATK7);
+                    this.computeattribute['SpecialATK8'] += this.EvalFormula(this.skill.SpecialATK8);
+                    this.computeattribute['SpecialMATK1'] += this.EvalFormula(this.skill.SpecialMATK1);
+                    this.computeattribute['SpecialMATK2'] += this.EvalFormula(this.skill.SpecialMATK2);
+                    this.computeattribute['SpecialMATK3'] += this.EvalFormula(this.skill.SpecialMATK3);
 
                     this.ComputStatus();
                 },
@@ -13232,7 +13265,7 @@
                 },
                 onQuickCalcInput() {
                     try {
-                        this.QuickCalc.solution = eval(this.QuickCalc.formula);
+                        this.QuickCalc.solution = this.EvalFormula(this.QuickCalc.formula);
                         this.StoreDB_QuickCalc.unshift({
                             uuid: this._uuid(),
                             formula: this.QuickCalc.formula,
@@ -13296,6 +13329,12 @@
                     this.Consent = con;
                     this.ClosePanel('UpdateLogDialog');
                 },
+                prevYoutubeVideo() {
+                    this.youtubeVideoIndex = (this.youtubeVideoIndex - 1 + this.youtubeVideoIds.length) % this.youtubeVideoIds.length;
+                },
+                nextYoutubeVideo() {
+                    this.youtubeVideoIndex = (this.youtubeVideoIndex + 1) % this.youtubeVideoIds.length;
+                },
                 onSaveSkill() {
                     // https://kanboo.github.io/2018/01/27/JS-ShallowCopy-DeepCopy/
                     // let copy = $.extend(true, {}, obj); //使用 jquery.extend
@@ -13307,7 +13346,7 @@
                     this.skill.elemental = this.skilloption.AttackElementalIdx;
                     this.option.SkillFormulaError = '';
                     try {
-                        var _valid = eval(this.SkillFormulaReplace(this.skill.formula));
+                        var _valid = this.EvalFormula(this.skill.formula);
                         this.StoreDB_Skill.unshift({
                             uuid: this._uuid(),
                             skill: _.cloneDeep(this.skill)
@@ -13444,7 +13483,7 @@
                     this.$set(this.TempAllSet, 'DamageDPS', 0);
                     this.$set(this.TempAllSet, 'NormalAttackDPS', 0);
 
-                    var _hitnumbervalue = eval(this.SkillFormulaReplace(this.skill.hitnumber));
+                    var _hitnumbervalue = this.EvalFormula(this.skill.hitnumber);
                     switch (this.skill.DamageTypeIdx) {
                         case 0:
                             if(this.attritube['ASPD']!=0){
@@ -13916,7 +13955,7 @@
                     const skillFile = filename || this.currentSkillFile;
                     // 加上時間戳記來避免快取問題
                     const timestamp = new Date().getTime();
-                    const skillFileWithCache = `${skillFile}?v=${timestamp}`;
+                    const skillFileWithCache = `${this.dataPath(skillFile)}?v=${timestamp}`;
                     console.log(`Attempting to load skills from: ${skillFileWithCache}`);
                     
                     try {
@@ -13945,7 +13984,13 @@
                         if (skillsData.length === 0) {
                             throw new Error('技能檔案為空');
                         }
-                        
+
+                        // Zero 國際版跟台版技能倍率有少數幾招不同，不整包複製一份技能檔，
+                        // 而是載入台版 skills_zero.json 後，再用一個只放差異欄位的小檔案蓋過去
+                        if (this.isZeroMode && skillFile === 'skills_zero.json' && this.settings.zeroRegion === 'global') {
+                            await this.applyZeroGlobalSkillOverrides(skillsData);
+                        }
+
                         // 清空現有的技能資料
                         this.DefaultDB_Skill = [];
                         
@@ -13990,12 +14035,38 @@
                     }
                 },
 
+                // Zero 國際版跟台版差異只有少數幾招的倍率，維護一份完整的技能檔重複度太高，
+                // 所以用這個小覆蓋檔（只放差異欄位）直接改寫剛從 skills_zero.json 解析出來的 skillsData。
+                // 找不到覆蓋檔或格式錯誤時，靜默跳過（維持台版數值），不影響其餘技能正常載入。
+                async applyZeroGlobalSkillOverrides(skillsData) {
+                    try {
+                        const response = await fetch(this.dataPath('skills_zero_overrides_global.json') + '?v=' + new Date().getTime());
+                        if (!response.ok) {
+                            console.warn('Zero 國際版覆蓋檔載入失敗，維持台版技能倍率');
+                            return;
+                        }
+                        const overrides = await response.json();
+                        if (!Array.isArray(overrides)) return;
+
+                        const overrideMap = new Map(overrides.map(o => [o.id, o]));
+                        skillsData.forEach(item => {
+                            const override = overrideMap.get(item.skill.id);
+                            if (override) {
+                                Object.assign(item.skill, override);
+                            }
+                        });
+                        console.log(`已套用 ${overrideMap.size} 招 Zero 國際版技能倍率覆蓋`);
+                    } catch (error) {
+                        console.warn('套用 Zero 國際版技能覆蓋時發生錯誤，維持台版技能倍率:', error);
+                    }
+                },
+
                 // 載入敵方頭目資料（依 isZeroMode 選擇 enemylist.json / enemylist_zero.json），附加到 enemylist 中通用測試資料後面
                 async loadEnemyListFromJSON() {
                     const enemyFile = this.isZeroMode ? 'enemylist_zero.json' : 'enemylist.json';
                     const timestamp = new Date().getTime();
                     try {
-                        const response = await fetch(`${enemyFile}?v=${timestamp}`);
+                        const response = await fetch(`${this.dataPath(enemyFile)}?v=${timestamp}`);
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
@@ -14015,7 +14086,7 @@
                 // 載入技能名稱映射（從skillnamemap.csv）
                 async loadSkillNameMap() {
                     try {
-                        const response = await fetch('skillnamemap.csv?v=' + new Date().getTime());
+                        const response = await fetch(this.dataPath('skillnamemap.csv') + '?v=' + new Date().getTime());
                         if (!response.ok) {
                             console.warn('skillnamemap.csv not found, skill names will fallback to skills.json');
                             return;
@@ -14071,7 +14142,7 @@
                 // 載入 UI 多語言對照表（從 ui_i18n.csv）
                 async loadUITranslations() {
                     try {
-                        const response = await fetch('ui_i18n.csv?v=' + new Date().getTime());
+                        const response = await fetch(this.dataPath('ui_i18n.csv') + '?v=' + new Date().getTime());
                         if (!response.ok) {
                             console.warn('ui_i18n.csv not found, UI 多語言將 fallback 為繁體中文');
                             return;
@@ -14103,7 +14174,7 @@
                 // 載入技能名稱多語言對照表（從 skill_i18n.csv），格式與 ui_i18n.csv 相同
                 async loadSkillTranslations() {
                     try {
-                        const response = await fetch('skill_i18n.csv?v=' + new Date().getTime());
+                        const response = await fetch(this.dataPath('skill_i18n.csv') + '?v=' + new Date().getTime());
                         if (!response.ok) {
                             console.warn('skill_i18n.csv not found, 技能名稱多語言將 fallback 為繁體中文');
                             return;
@@ -14143,6 +14214,28 @@
                 // 切換 UI 語言時記住選擇
                 onChangeUILocale(locale) {
                     localStorage.setItem('uiLocale', locale);
+                    this.loadWelcomeContent();
+                },
+                // 歡迎視窗「使用說明」「贊助說明」內文只有中/英兩個版本；zh-TW 用中文檔，其餘語系都用英文檔
+                async loadWelcomeContent() {
+                    const suffix = this.uiLocale === 'zh-TW' ? 'zh' : 'en';
+                    try {
+                        const [usageRes, donateRes] = await Promise.all([
+                            fetch(this.contentPath(`welcome_usage_${suffix}.txt`)),
+                            fetch(this.contentPath(`welcome_donate_${suffix}.txt`)),
+                        ]);
+                        this.welcomeUsageText = await usageRes.text();
+                        this.welcomeDonateText = await donateRes.text();
+                    } catch (e) {
+                        console.log('loadWelcomeContent error:', e);
+                    }
+                },
+                // 把純文字裡的網址自動轉成可點擊連結。先跳脫 HTML 特殊字元避免 txt 檔案內容被當成標籤解析，
+                // 再把網址替換成 <a> 標籤，這樣 welcome_usage_*.txt / welcome_donate_*.txt 只要照現在的方式貼純網址就好，不用寫 HTML。
+                linkify(text) {
+                    if (!text) return '';
+                    const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                    return escaped.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
                 },
 
                 // 使用者設定讀寫（見 data() 的 settings 物件跟 watch(settings, deep)）
@@ -14158,6 +14251,10 @@
                 },
                 saveSettings() {
                     localStorage.setItem('roCalcSettings', JSON.stringify(this.settings));
+                },
+                // 把 settings.theme 套到 <html data-theme="..."> 上，styles.css 的 :root[data-theme="dark"] 會跟著變色
+                applyTheme() {
+                    document.documentElement.setAttribute('data-theme', this.settings.theme === 'dark' ? 'dark' : 'light');
                 },
 
                 // 切換技能檔案
@@ -14245,7 +14342,7 @@
                     console.log(`Attempting to load consumables from: ${consumableFile}`);
                     
                     try {
-                        const response = await fetch(consumableFile);
+                        const response = await fetch(this.dataPath(consumableFile));
                         console.log(`Fetch response status: ${response.status}`);
                         
                         if (!response.ok) {
@@ -14382,7 +14479,7 @@
                     console.log(`Attempting to load classes from: ${classFile}`);
                     
                     try {
-                        const response = await fetch(classFile);
+                        const response = await fetch(this.dataPath(classFile));
                         console.log(`Fetch response status: ${response.status}`);
                         
                         if (!response.ok) {
@@ -14444,7 +14541,7 @@
                     console.log(`Attempting to load class HP/SP data from: ${hpspFile}`);
                     
                     try {
-                        const response = await fetch(hpspFile);
+                        const response = await fetch(this.dataPath(hpspFile));
                         console.log(`Fetch response status: ${response.status}`);
                         
                         if (!response.ok) {
@@ -14515,7 +14612,7 @@
                     console.log(`Attempting to load update logs from: ${updateLogFile}`);
                     
                     try {
-                        const response = await fetch(updateLogFile);
+                        const response = await fetch(this.dataPath(updateLogFile));
                         console.log(`Fetch response status: ${response.status}`);
                         
                         if (!response.ok) {
@@ -14616,7 +14713,7 @@
                         const file = filename || this.currentSupportSkillFile;
                         // 加上時間戳記來避免快取問題
                         const timestamp = new Date().getTime();
-                        const fileWithCache = `${file}?v=${timestamp}`;
+                        const fileWithCache = `${this.dataPath(file)}?v=${timestamp}`;
                         
                         console.log(`Loading support skills from: ${fileWithCache}`);
                         
@@ -14823,6 +14920,17 @@
                 anyApiError() {
                     return Object.values(this.apiError).some(v => v);
                 },
+                // 歡迎視窗的精選影片輪播目前顯示的 YouTube 內嵌網址
+                currentYoutubeEmbedUrl() {
+                    return 'https://www.youtube.com/embed/' + this.youtubeVideoIds[this.youtubeVideoIndex];
+                },
+                // 歡迎視窗「使用說明」「贊助說明」的內文自動把純文字網址轉成可點擊連結，見 linkify()
+                welcomeUsageHtml() {
+                    return this.linkify(this.welcomeUsageText);
+                },
+                welcomeDonateHtml() {
+                    return this.linkify(this.welcomeDonateText);
+                },
                 // 攻速懲罰職等快速開關：關=二轉/進階二轉、開=三轉/四轉。
                 // 跟 status.JobMaxPointType 是同一份設定，只是收斂成兩態方便快速切換；
                 // 開/關切換時分別代入該組較完整的代表值（進階二轉／四轉），
@@ -15002,11 +15110,16 @@
                 // 設定值有任何變動都自動存檔，之後新增設定只要加進 settings 物件即可，不用額外接存檔邏輯
                 settings: {
                     deep: true,
-                    handler() { this.saveSettings(); }
+                    handler() {
+                        this.saveSettings();
+                        this.applyTheme();
+                    }
                 }
             },
             mounted() {
                 this.loadSettings();
+                this.applyTheme();
+                this.loadWelcomeContent();
                 this.LoadDB();
                 this.attritube_init = Object.assign({}, this.attritube);
                 this.status_add_init = Object.assign({}, this.status_add);
