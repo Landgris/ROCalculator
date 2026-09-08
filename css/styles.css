@@ -1,3 +1,202 @@
+/* ==================== 夜間模式：核心色彩變數 ====================
+   淺色（預設）在 :root，深色在 :root[data-theme="dark"]。
+   目前先覆蓋佔面積最大的：頁面底色/文字、對話框、面板/狀態框、輸入框、下拉選單、表格。
+   還有零星角落顏色沒轉（例如各種強調色 goldbox/obsidianbox），之後發現刺眼的地方再逐步補。
+   由 settings.theme（見 index.html Vue methods）切換，存在 localStorage 裡跟著其他設定一起記住。 */
+:root {
+    --page-bg: #ffffff;
+    --text-color: #303133;
+    --dialog-bg: #ffffff;
+    --dialog-header-bg: #82868d;
+    --dialog-header-text: #ffffff;
+    --panel-bg: #e5e9f2;
+    --panel-bg2: #e2f4ff;
+    --panel-accent: #d3dce6;
+    --panel-accent-dark: #305079;
+    --border-color: #d7dae2;
+    --subtitle-bg: #dcdfe6;
+    --input-bg: #ffffff;
+    --input-text: #606266;
+    --skilllist-bg: #ffffff;
+    --row-bg: #f9fafc;
+}
+:root[data-theme="dark"] {
+    --page-bg: #1e1f22;
+    --text-color: #e4e6eb;
+    --dialog-bg: #2b2d31;
+    --dialog-header-bg: #4c525b;
+    --dialog-header-text: #e4e6eb;
+    --panel-bg: #33363c;
+    --panel-bg2: #2c3b45;
+    --panel-accent: #3a3f47;
+    --panel-accent-dark: #4a6fa5;
+    --border-color: #454952;
+    --subtitle-bg: #3a3f47;
+    --input-bg: #26282c;
+    --input-text: #e4e6eb;
+    --skilllist-bg: #26282c;
+    --row-bg: #26282c;
+}
+
+body {
+    background: var(--page-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.el-dialog {
+    background: var(--dialog-bg) !important;
+    color: var(--text-color) !important;
+}
+.el-dialog__title,
+.el-dialog__body {
+    color: var(--text-color) !important;
+}
+
+.bg-purple-dark {
+    background: var(--panel-accent-dark) !important;
+}
+.bg-purple {
+    background: var(--panel-accent) !important;
+}
+.bg-purple-light {
+    background: var(--panel-bg) !important;
+}
+.bg-purple-light2 {
+    background: var(--panel-bg2) !important;
+}
+.row-bg {
+    background-color: var(--row-bg) !important;
+}
+.statusbox {
+    border-color: var(--border-color) !important;
+}
+.statussavebox {
+    border-color: var(--border-color) !important;
+    background: var(--row-bg) !important;
+}
+.optionbox {
+    border-color: var(--border-color) !important;
+}
+.titlebox {
+    border-color: var(--border-color) !important;
+    background: var(--dialog-header-bg) !important;
+    color: var(--dialog-header-text) !important;
+}
+.aboutbox {
+    background: var(--dialog-bg) !important;
+    color: var(--text-color) !important;
+}
+.subtitlebox {
+    border-color: var(--border-color) !important;
+    background: var(--subtitle-bg) !important;
+}
+.previeweffectbox3 {
+    background: var(--dialog-bg) !important;
+    color: var(--input-text) !important;
+    border-color: var(--border-color) !important;
+}
+.SkillList-container {
+    background-color: var(--skilllist-bg) !important;
+    border-color: var(--border-color) !important;
+}
+.boxborder {
+    border-color: var(--border-color) !important;
+}
+
+/* Element UI 表單元件深色模式（CDN 內建樣式預設是白底黑字，優先權比自訂 class 高，需要 !important） */
+.el-input__inner,
+.el-textarea__inner {
+    background-color: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+.el-select-dropdown,
+.el-popper {
+    background-color: var(--dialog-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+.el-select-dropdown__item {
+    color: var(--text-color) !important;
+}
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+    background-color: var(--panel-bg) !important;
+}
+.el-table,
+.el-table th,
+.el-table tr,
+.el-table td {
+    background-color: var(--dialog-bg) !important;
+    color: var(--text-color) !important;
+}
+.el-scrollbar,
+.el-card {
+    background: transparent;
+    color: var(--text-color);
+}
+.el-tabs__header,
+.el-tabs--border-card {
+    background: var(--dialog-bg) !important;
+    border-color: var(--border-color) !important;
+}
+.el-tabs--border-card > .el-tabs__header .el-tabs__item {
+    background: var(--panel-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+.el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+    background: var(--dialog-bg) !important;
+}
+.el-tabs__content {
+    background: transparent;
+    color: var(--text-color);
+}
+.el-collapse,
+.el-collapse-item__wrap,
+.el-collapse-item__header {
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* "plain" 按鈕（例如裝備欄位的「編輯」）在淺色模式下是白底+淡色邊框，很正常；
+   但深色模式下 Element UI 預設的淡色底（例如淡綠色）會變成一塊刺眼的亮色方塊、對比也很差，
+   所以深色模式下改成「深色半透明底 + 亮色文字/邊框」的outline風格，其餘（非plain）按鈕維持原本樣式不變 */
+:root[data-theme="dark"] .el-button.is-plain {
+    background: transparent;
+}
+:root[data-theme="dark"] .el-button--success.is-plain {
+    color: #67c23a !important;
+    border-color: #4d8a2a !important;
+    background-color: rgba(103, 194, 58, 0.12) !important;
+}
+:root[data-theme="dark"] .el-button--primary.is-plain {
+    color: #66b1ff !important;
+    border-color: #3a7bc8 !important;
+    background-color: rgba(64, 158, 255, 0.12) !important;
+}
+:root[data-theme="dark"] .el-button--warning.is-plain {
+    color: #ebb563 !important;
+    border-color: #c78a3d !important;
+    background-color: rgba(230, 162, 60, 0.12) !important;
+}
+:root[data-theme="dark"] .el-button--danger.is-plain {
+    color: #f78989 !important;
+    border-color: #c85555 !important;
+    background-color: rgba(245, 108, 108, 0.12) !important;
+}
+:root[data-theme="dark"] .el-button--info.is-plain {
+    color: #b1b3b8 !important;
+    border-color: #6b6d70 !important;
+    background-color: rgba(144, 147, 153, 0.12) !important;
+}
+
+/* el-switch 的圓形把手在 Element UI 預設是白色，深色模式下改成黑色 */
+:root[data-theme="dark"] .el-switch__core:after {
+    background-color: #1e1f22 !important;
+}
+
 /* 裝備 titlebox 上方預留空間 */
 .equip-titlebox-fix {
     margin: 5px 0px 0px 0px;
@@ -359,7 +558,7 @@ body.el-popup-parent--hidden {
 }
 
 .UpdateList-container {
-    height: calc(60vh - 250px);
+    height: calc(100vh - 220px);
 }
 
 .AboutList-container {
