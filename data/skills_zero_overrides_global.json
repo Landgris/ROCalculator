@@ -1,0 +1,5 @@
+[
+    { "id": "AS_SONICBLOW", "formula": "100+100*SLV" },
+    { "id": "NC_AXETORNADO", "formula": "(800+700*SLV+VIT*10)*BLV/100" },
+    { "id": "MS_BOWLINGBASH", "FCT": 0.4, "VCT": 1.6, "CD": 4 }
+]
