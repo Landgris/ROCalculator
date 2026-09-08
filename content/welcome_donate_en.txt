@@ -1,0 +1,10 @@
+This calculator exists so you don't have to borrow gear or buy an item just to find out the damage didn't actually change!
+You can calculate it first and skip some of the wasted detours.
+
+It's been continuously updated since it was first finished in December 2019.
+Time flies! Thankfully there's an update log, so you can always check how much has been added.
+Besides fixing bugs and adding new features, there's also filling in skill data for every class, testing formulas, and keeping up with each game update.
+If this calculator has helped you pick the right gear, or figure out whether you can beat a certain monster,
+feel free to support it with the button below — I'd really appreciate it!
+
+Email me your order number and server ID (or the name you'd like used), and I'll add you to the thanks list!

@@ -1,0 +1,22 @@
+Notes:
+* M.DEF/M.RES calculation is included; skills can be set to ignore RES — please report any errors
+* Elemental affinity currently matches the live game version (same as KRO); you can switch to the older table
+* It's recommended to first calculate your current gear and confirm the damage is correct before starting to plan new gear
+* Emblems (enemy side) now boost damage on all skills — please be careful when using them
+* When calculating skill damage while dual-wielding, physical damage does NOT include the off-hand weapon's ATK/refine, but magic damage does
+  Normal attack damage while dual-wielding is not calculated
+* Normal attack crit: +100% damage, Skill crit: +50% damage
+* HP/SP recovery formulas only support level 240/250/260 Dragon Peer/Royal/Sacred Judge
+* 4th job: stat points extended to level 275, job bonus applies at level 60
+
+
+4th job 4.1: special bonus for skill multipliers added, pending testing (2026/2/3)
+
+Add "?zero" to the URL to switch to the Zero version
+
+Video guide on using the calculator, made by GameBoy玩想完的
+https://www.youtube.com/watch?v=MT265HzUyB8 (with English subtitles)
+
+Text-and-image guide on using the calculator, made by 酒虎(杜腐)
+https://forum.gamer.com.tw/C.php?bsn=4212&snA=436996 (Use a web translator)
+
