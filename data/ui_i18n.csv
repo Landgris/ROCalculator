@@ -438,3 +438,53 @@ settings.zeroregion.global,國際版 Zero (Global),Zero (Global),Zero (Global),Z
 settings.skillversion,技能版本,Skill Version,Versión de habilidades,Skill-Version,เวอร์ชันสกิล,Version des compétences
 settings.supportskillversion,支援技能版本,Support Skill Version,Versión de habilidades de apoyo,Support-Skill-Version,เวอร์ชันสกิลสนับสนุน,Version des compétences de soutien
 ui.common.reload,重新載入,Reload,Recargar,Neu laden,โหลดใหม่,Recharger
+ui.skillkeyword.STR,代入總STR,Uses total STR,Usa el STR total,Verwendet gesamten STR,ใช้ค่า STR รวม,Utilise le STR total
+ui.skillkeyword.AGI,代入總AGI,Uses total AGI,Usa el AGI total,Verwendet gesamten AGI,ใช้ค่า AGI รวม,Utilise l'AGI total
+ui.skillkeyword.VIT,代入總VIT,Uses total VIT,Usa el VIT total,Verwendet gesamten VIT,ใช้ค่า VIT รวม,Utilise le VIT total
+ui.skillkeyword.INT,代入總INT,Uses total INT,Usa el INT total,Verwendet gesamten INT,ใช้ค่า INT รวม,Utilise l'INT total
+ui.skillkeyword.DEX,代入總DEX,Uses total DEX,Usa el DEX total,Verwendet gesamten DEX,ใช้ค่า DEX รวม,Utilise le DEX total
+ui.skillkeyword.LUK,代入總LUK,Uses total LUK,Usa el LUK total,Verwendet gesamten LUK,ใช้ค่า LUK รวม,Utilise le LUK total
+ui.skillkeyword.POW,代入總POW,Uses total POW,Usa el POW total,Verwendet gesamten POW,ใช้ค่า POW รวม,Utilise le POW total
+ui.skillkeyword.STA,代入總STA,Uses total STA,Usa el STA total,Verwendet gesamten STA,ใช้ค่า STA รวม,Utilise le STA total
+ui.skillkeyword.WIS,代入總WIS,Uses total WIS,Usa el WIS total,Verwendet gesamten WIS,ใช้ค่า WIS รวม,Utilise le WIS total
+ui.skillkeyword.SPL,代入總SPL,Uses total SPL,Usa el SPL total,Verwendet gesamten SPL,ใช้ค่า SPL รวม,Utilise le SPL total
+ui.skillkeyword.CON,代入總CON,Uses total CON,Usa el CON total,Verwendet gesamten CON,ใช้ค่า CON รวม,Utilise le CON total
+ui.skillkeyword.CRT,代入總CRT,Uses total CRT,Usa el CRT total,Verwendet gesamten CRT,ใช้ค่า CRT รวม,Utilise le CRT total
+ui.skillkeyword.PATK,代入總PATK,Uses total PATK,Usa el PATK total,Verwendet gesamten PATK,ใช้ค่า PATK รวม,Utilise le PATK total
+ui.skillkeyword.BLV,代入角色基本等級,Uses character's base level,Usa el nivel base del personaje,Verwendet die Basis-Stufe des Charakters,ใช้เลเวลพื้นฐานของตัวละคร,Utilise le niveau de base du personnage
+ui.skillkeyword.JLV,代入角色職業等級,Uses character's job level,Usa el nivel de trabajo del personaje,Verwendet die Job-Stufe des Charakters,ใช้เลเวลอาชีพของตัวละคร,Utilise le niveau de job du personnage
+ui.skillkeyword.CHP,代入HP,Uses current HP,Usa la HP actual,Verwendet aktuelle HP,ใช้ HP ปัจจุบัน,Utilise les PV actuels
+ui.skillkeyword.CSP,代入SP,Uses current SP,Usa la SP actual,Verwendet aktuelle SP,ใช้ SP ปัจจุบัน,Utilise les PM actuels
+ui.skillkeyword.Mhp,代入MaxHP,Uses Max HP,Usa la HP máxima,Verwendet maximale HP,ใช้ HP สูงสุด,Utilise les PV maximum
+ui.skillkeyword.Msp,代入MaxSP,Uses Max SP,Usa la SP máxima,Verwendet maximale SP,ใช้ SP สูงสุด,Utilise les PM maximum
+ui.skillkeyword.SLV,代入技能等級,Uses skill level,Usa el nivel de la habilidad,Verwendet die Skill-Stufe,ใช้เลเวลสกิล,Utilise le niveau de la compétence
+ui.skillkeyword.AEI,代入攻擊屬性,Uses attack element,Usa el elemento de ataque,Verwendet das Angriffselement,ใช้ธาตุโจมตี,Utilise l'élément d'attaque
+ui.skillkeyword.WLV,代入武器等級,Uses weapon level,Usa el nivel del arma,Verwendet die Waffenstufe,ใช้เลเวลอาวุธ,Utilise le niveau de l'arme
+ui.skillkeyword.WGT,代入武器重量,Uses weapon weight,Usa el peso del arma,Verwendet das Waffengewicht,ใช้น้ำหนักอาวุธ,Utilise le poids de l'arme
+ui.skillkeyword.WTI,代入武器類型,Uses weapon type ID,Usa el ID de tipo de arma,Verwendet die Waffentyp-ID,ใช้ ID ประเภทอาวุธ,Utilise l'ID du type d'arme
+ui.skillkeyword.IS_GUN,IS_GUN(X) 判定是否為槍系武器,IS_GUN(X): checks if the weapon is a gun-type weapon,IS_GUN(X): comprueba si el arma es de tipo pistola,IS_GUN(X): prüft ob die Waffe eine Schusswaffe ist,IS_GUN(X): ตรวจสอบว่าอาวุธเป็นประเภทปืนหรือไม่,IS_GUN(X) : vérifie si l'arme est une arme à feu
+ui.skillkeyword.WPT,WPT(Books) 判定武器類型,WPT(Books): checks the weapon type,WPT(Books): comprueba el tipo de arma,WPT(Books): prüft den Waffentyp,WPT(Books): ตรวจสอบประเภทอาวุธ,WPT(Books) : vérifie le type d'arme
+ui.skillkeyword.SRL,代入盾牌精煉,Uses shield refine level,Usa el nivel de refinado del escudo,Verwendet die Schild-Verfeinerungsstufe,ใช้ระดับตีเสริมโล่,Utilise le niveau de raffinage du bouclier
+ui.skillkeyword.SHW,代入盾牌重量,Uses shield weight,Usa el peso del escudo,Verwendet das Schildgewicht,ใช้น้ำหนักโล่,Utilise le poids du bouclier
+ui.skillkeyword.CRW,代入手推車重量,Uses cart weight,Usa el peso del carro,Verwendet das Wagengewicht,ใช้น้ำหนักเกวียน,Utilise le poids du chariot
+ui.skillkeyword.ELV,代入敵方等級,Uses enemy level,Usa el nivel del enemigo,Verwendet die Gegnerstufe,ใช้เลเวลศัตรู,Utilise le niveau de l'ennemi
+ui.skillkeyword.ESIZE,代入敵方體型,Uses enemy size,Usa el tamaño del enemigo,Verwendet die Gegnergröße,ใช้ขนาดตัวศัตรู,Utilise la taille de l'ennemi
+ui.skillkeyword.EVit,代入敵方VIT,Uses enemy VIT,Usa el VIT del enemigo,Verwendet das VIT des Gegners,ใช้ VIT ของศัตรู,Utilise le VIT de l'ennemi
+ui.skillkeyword.MUL,"MUL(A,B)為A*B, B若>1則無條件捨去, B若<1則無條件進位","MUL(A,B) = A x B; rounds down if B>=1, rounds up if B<1","MUL(A,B) = A x B; redondea hacia abajo si B>=1, hacia arriba si B<1","MUL(A,B) = A x B; rundet ab wenn B>=1, rundet auf wenn B<1","MUL(A,B) = A x B ปัดลงถ้า B>=1 ปัดขึ้นถ้า B<1","MUL(A,B) = A x B ; arrondi à l'inférieur si B>=1, à l'supérieur si B<1"
+ui.skillkeyword.DOWN,DOWN(A) 小數點無條件捨去,DOWN(A): rounds down (floor),DOWN(A): redondea hacia abajo,DOWN(A): rundet ab,DOWN(A): ปัดเศษลง,DOWN(A) : arrondi à l'inférieur
+ui.skillkeyword.UP,UP(A) 小數點無條件進位,UP(A): rounds up (ceiling),UP(A): redondea hacia arriba,UP(A): rundet auf,UP(A): ปัดเศษขึ้น,UP(A) : arrondi à l'supérieur
+ui.consumable.title,消耗品,Consumables,Consumibles,Verbrauchsgegenstände,ไอเทมสิ้นเปลือง,Consommables
+ui.consumable.dialogtitle,使用消耗品,Use Consumables,Usar consumibles,Verbrauchsgegenstände verwenden,ใช้ไอเทมสิ้นเปลือง,Utiliser des consommables
+ui.consumable.statseffect,統計效果,Stat Summary,Resumen de estadísticas,Statistik-Übersicht,สรุปค่าสถานะ,Résumé des statistiques
+ui.consumable.stattypemax,素質類(取最大),Stat Type (Highest),Tipo de atributo (máximo),Attributtyp (Höchstwert),ประเภทค่าสถานะ (สูงสุด),Type de statistique (maximum)
+ui.consumable.atkup,ATK提升,ATK Boost,Aumento de ATK,ATK-Erhöhung,เพิ่ม ATK,Bonus ATK
+ui.consumable.matkup,MATK提升,MATK Boost,Aumento de MATK,MATK-Erhöhung,เพิ่ม MATK,Bonus MATK
+ui.consumable.criup,爆擊率%提升,Critical Rate % Boost,Aumento de Tasa Crítica %,Krit-Rate-%-Erhöhung,เพิ่ม % อัตราคริ,Bonus % de taux critique
+ui.consumable.stattypestack,素質類(可疊加),Stat Type (Stackable),Tipo de atributo (acumulable),Attributtyp (stapelbar),ประเภทค่าสถานะ (ซ้อนได้),Type de statistique (cumulable)
+ui.consumable.hpsp,HP SP(可疊加),HP SP (Stackable),HP SP (acumulable),HP SP (stapelbar),HP SP (ซ้อนได้),HP SP (cumulable)
+ui.consumable.atkmatkup,"ATK MATK提升(取最大, 面板不顯示)","ATK MATK Boost (Highest, not shown on panel)","Aumento de ATK MATK (máximo, no se muestra en el panel)","ATK MATK-Erhöhung (Höchstwert, nicht im Panel angezeigt)","เพิ่ม ATK MATK (สูงสุด, ไม่แสดงในพาเนล)","Bonus ATK MATK (maximum, non affiché sur le panneau)"
+ui.consumable.independent,獨立系統(可疊加),Independent System (Stackable),Sistema independiente (acumulable),Unabhängiges System (stapelbar),ระบบอิสระ (ซ้อนได้),Système indépendant (cumulable)
+ui.consumable.battlepotion,戰鬥藥(擇一),Battle Potion (Choose One),Poción de batalla (elige una),Kampftrank (eine Wahl),ยาต่อสู้ (เลือกหนึ่ง),Potion de combat (choisir une)
+ui.consumable.magiccandy,魔法糖(擇一),Magic Candy (Choose One),Caramelo mágico (elige uno),Magisches Bonbon (eine Wahl),ลูกอมเวทมนตร์ (เลือกหนึ่ง),Bonbon magique (choisir un)
+ui.consumable.aspdpotion,攻速藥水(擇一),ASPD Potion (Choose One),Poción de ASPD (elige una),ASPD-Trank (eine Wahl),ยา ASPD (เลือกหนึ่ง),Potion d'ASPD (choisir une)
+ui.consumable.transscroll,變身卷軸,Transformation Scroll,Pergamino de transformación,Verwandlungsrolle,ม้วนคาถาแปลงร่าง,Parchemin de transformation
