@@ -1,9 +1,9 @@
 /*
- * RO 攻速計算機 - ASPD 核心計算引擎
-
- * index.html 內的 Vue 方法應只負責把既有欄位（職業、武器、AGI/DEX 總計、
- * BUFF Modifier、ASPD%、固定素質 ASPD…）組成 input 物件，呼叫
- * window.AspdCalculator.calcAspd(input) 取得計算結果。
+ * RO 攻速計算機 - ASPD 懲罰表資料
+ *
+ * 實際的 ASPD 計算公式已搬到 Cloudflare Worker（見 index.html 的 FetchAndApplyASPD()，
+ * 呼叫 /compute-aspd）。這個檔案現在只保留公開的懲罰表資料 + 查表輔助函式，
+ * 給「攻速懲罰表」參考顯示 dialog 用。
  */
 (function (global) {
     'use strict';
@@ -314,171 +314,9 @@
         return { mainPenalty: mainPenalty, offHandPenalty: offHandPenalty };
     }
 
-    // ====================================================================
-    // 官方（pre-renewal）公式 —— 目前使用中的公式
-    //
-    // R = 右手(BaseASPD+主手懲罰) + sqrt(AGI*1120/111 + DEX*11/60) * (1-(右手-144)/50) - 左手懲罰
-    // X = 200 - (200-R) * (1-A-B) + C
-    // ASPD = 195 - (195-X) * (1-D) + E
-    //   A = 攻速藥水%（集中/覺醒/波瑟克，擇一）
-    //   B = 技能%（雙手劍加速、速度激發、狂怒之槍……）
-    //   C = 盧恩石5（艾伊瓦茲盧恩石固定+4；未來若接盧恩精熟技能可再疊加）
-    //   D = 攻速%（攻速濃縮汁等裝備類 ASPD%）
-    //   E = 攻速（貓熊氣球、ASPD+1+2 附魔……固定值，最後才加）
-    // ====================================================================
-
-    /**
-     * Stat Bonus（官方公式版）：sqrt(AGI*1120/111 + DEX*11/60)，不分武器種類。
-     */
-    function calcStatBonusOfficial(agiTotal, dexTotal) {
-        var agi = Number(agiTotal) || 0;
-        var dex = Number(dexTotal) || 0;
-        return Math.sqrt(agi * (1120 / 111) + dex * (11 / 60));
-    }
-
-    /**
-     * ASPD 核心計算（官方 pre-renewal 公式，目前使用中）。
-     *
-     * @param {Object} input
-     * @param {string} input.classid              status.classid（classes.json 的 id）
-     * @param {string} input.jobMaxPointType       status.JobMaxPointType（'2nd' | '2nd_extend' | '3rd' | '4th'）
-     * @param {string} input.mainWeaponTypeId      weapon.type.id
-     * @param {number} input.offHandKind           subweapon.type.id（0=空手 1=盾牌 2=武器）
-     * @param {string} [input.offHandWeaponTypeId] 副手雙持武器的實際武器類型；未提供時退回與主手相同類型。
-     * @param {number} input.agiTotal              status_total.AGI
-     * @param {number} input.dexTotal              status_total.DEX
-     * @param {number} input.potionAspdPercent     A：攻速藥水%（如集中10、覺醒15、波瑟克20）
-     * @param {number} input.skillAspdPercent      B：技能%（雙手劍加速、速度激發……的%加總）
-     * @param {number} input.runeAspdFlat          C：盧恩石5（艾伊瓦茲盧恩石等固定值加總）
-     * @param {number} input.equipAspdPercent      D：裝備攻速%（攻速濃縮汁等）
-     * @param {number} input.flatAspdBonus         E：固定攻速（貓熊氣球、附魔ASPD等，最後才加）
-     * @returns {Object} 計算輸出（含中間值，供除錯/顯示使用）
-     */
-    function calcAspdOfficial(input) {
-        var classid = input.classid;
-        var jobMaxPointType = input.jobMaxPointType;
-        var mainWeaponTypeId = input.mainWeaponTypeId;
-        var offHandKind = Number(input.offHandKind) || 0;
-        var offHandWeaponTypeId = input.offHandWeaponTypeId || null;
-        var agiTotal = Number(input.agiTotal) || 0;
-        var dexTotal = Number(input.dexTotal) || 0;
-        var potionAspdPercent = Number(input.potionAspdPercent) || 0;
-        var skillAspdPercent = Number(input.skillAspdPercent) || 0;
-        var runeAspdFlat = Number(input.runeAspdFlat) || 0;
-        var equipAspdPercent = Number(input.equipAspdPercent) || 0;
-        var flatAspdBonus = Number(input.flatAspdBonus) || 0;
-
-        var jobRow = getPenaltyRow(classid, jobMaxPointType, ASPD_PENALTY_TABLE_OFFICIAL);
-        var baseAspd = getPenaltyValue(jobRow.row, "空手");
-        var penalties = resolveWeaponPenalties(jobRow, mainWeaponTypeId, offHandKind, offHandWeaponTypeId, ASPD_PENALTY_TABLE_OFFICIAL);
-        var mainPenalty = penalties.mainPenalty;
-        var offHandPenalty = penalties.offHandPenalty;
-
-        var mainBase = baseAspd + mainPenalty; // "右手"
-        var statBonus = calcStatBonusOfficial(agiTotal, dexTotal);
-        var correction = 1 - (mainBase - 144) / 50;
-
-        // R：右手 + Stat Bonus（依右手高低修正）- 左手（offHandPenalty 已是負值，直接相加）
-        var R = mainBase + statBonus * correction + offHandPenalty;
-
-        var A = potionAspdPercent / 100;
-        var B = skillAspdPercent / 100;
-        var D = equipAspdPercent / 100;
-
-        // X = 200 - (200-R)*(1-A-B) + C，等價於 R + (200-R)*(A+B) + C
-        var X = R + (200 - R) * (A + B) + runeAspdFlat;
-
-        // ASPD = 195 - (195-X)*(1-D) + E，等價於 X + (195-X)*D + E
-        var finalAspd = X + (195 - X) * D + flatAspdBonus;
-        finalAspd = Math.round(finalAspd * 100) / 100;
-
-        return {
-            jobRowName: jobRow.rowName,
-            agiTotal: agiTotal,
-            dexTotal: dexTotal,
-            baseAspd: baseAspd,
-            mainPenalty: mainPenalty,
-            offHandPenalty: offHandPenalty,
-            mainBase: mainBase,
-            statBonus: statBonus,
-            correction: correction,
-            R: R,
-            potionPercent: potionAspdPercent,
-            skillPercent: skillAspdPercent,
-            runeFlat: runeAspdFlat,
-            equipPercent: equipAspdPercent,
-            X: X,
-            flatAspdBonus: flatAspdBonus,
-            finalAspd: finalAspd
-        };
-    }
-
-    // ====================================================================
-    // 樂園 Excel 公式（index.html「攻速公式」切換選「樂園」時使用）
-    //
-    // ASPD1 = floor(BaseASPD + WeaponPenalty + ShieldPenalty + StatBonus + StatusBonus)
-    // ASPD2 = ASPD1 + (195-ASPD1) * %ASPD  ← 不取floor，保留小數點方便比較細微差異
-    // Final ASPD = ASPD2 + Flat Bonus
-    // 詳見 RO樂園攻速計算機_網頁重製規格.md。
-    // ====================================================================
-
-    /**
-     * Stat Bonus（樂園 Excel 公式版）：弓/樂器/鞭子使用 DEX²/7，其他武器使用 DEX²/5。
-     */
-    function calcStatBonusParadise(agiTotal, dexTotal, mainWeaponTypeId) {
-        var ranged = (mainWeaponTypeId === 'Bows' || mainWeaponTypeId === 'Instruments' || mainWeaponTypeId === 'Whips');
-        var dex = Number(dexTotal) || 0;
-        var agi = Number(agiTotal) || 0;
-        return ranged
-            ? Math.sqrt((dex * dex) / 7 + (agi * agi) / 2) / 4
-            : Math.sqrt((dex * dex) / 5 + (agi * agi) / 2) / 4;
-    }
-
-    /**
-     * ASPD 核心計算（樂園 Excel 公式）。
-     * @param {Object} input 詳見 calcAspdOfficial 的 mainWeaponTypeId/offHandKind/offHandWeaponTypeId/agiTotal/dexTotal，
-     *                       另外還需要 statusModifierTotal（Modifier合計）、aspdPercentTotal（%ASPD合計）、flatAspdBonus（Flat Bonus）。
-     */
-    function calcAspdParadise(input) {
-        var classid = input.classid;
-        var jobMaxPointType = input.jobMaxPointType;
-        var mainWeaponTypeId = input.mainWeaponTypeId;
-        var offHandKind = Number(input.offHandKind) || 0;
-        var offHandWeaponTypeId = input.offHandWeaponTypeId || null;
-        var agiTotal = Number(input.agiTotal) || 0;
-        var dexTotal = Number(input.dexTotal) || 0;
-        var statusModifierTotal = Number(input.statusModifierTotal) || 0;
-        var aspdPercentTotal = Number(input.aspdPercentTotal) || 0;
-        var flatAspdBonus = Number(input.flatAspdBonus) || 0;
-
-        var jobRow = getPenaltyRow(classid, jobMaxPointType, ASPD_PENALTY_TABLE_PARADISE);
-        var baseAspd = getPenaltyValue(jobRow.row, "空手");
-        var penalties = resolveWeaponPenalties(jobRow, mainWeaponTypeId, offHandKind, offHandWeaponTypeId, ASPD_PENALTY_TABLE_PARADISE);
-        var mainPenalty = penalties.mainPenalty;
-        var offHandPenalty = penalties.offHandPenalty;
-
-        var statBonus = calcStatBonusParadise(agiTotal, dexTotal, mainWeaponTypeId);
-        var statusBonus = statusModifierTotal * agiTotal / 200;
-
-        var aspd1 = Math.floor(baseAspd + mainPenalty + offHandPenalty + statBonus + statusBonus);
-        // 最後一段不取floor，保留小數點，方便看出細微的+1差異；aspd1的floor維持不變（拿掉會連動改變後面的乘算結果）。
-        var aspd2 = aspd1 + (195 - aspd1) * (aspdPercentTotal / 100);
-        var finalAspd = aspd2 + flatAspdBonus;
-
-        return {
-            jobRowName: jobRow.rowName,
-            agiTotal: agiTotal,
-            dexTotal: dexTotal,
-            baseAspd: baseAspd,
-            mainPenalty: mainPenalty,
-            offHandPenalty: offHandPenalty,
-            statBonus: statBonus,
-            statusBonus: statusBonus,
-            aspd1: aspd1,
-            aspd2: aspd2,
-            finalAspd: finalAspd
-        };
-    }
+    // 實際的 ASPD 計算公式（官方 pre-renewal / 樂園 Excel）已搬到 Cloudflare Worker
+    // （worker/src/aspd-formula.js），這裡只保留上面的懲罰表資料 + 查表用的輔助函式，
+    // 供「攻速懲罰表」參考顯示 dialog 使用（純資料查詢，不含算式本身）。
 
     global.AspdCalculator = {
         ASPD_PENALTY_TABLE_PARADISE: ASPD_PENALTY_TABLE_PARADISE,
@@ -487,13 +325,5 @@
         FALLBACK_ROW: FALLBACK_ROW,
         getWeaponPenaltyKey: getWeaponPenaltyKey,
         getPenaltyRow: getPenaltyRow,
-        // 目前使用中：官方 pre-renewal 公式
-        calcStatBonus: calcStatBonusOfficial,
-        calcAspd: calcAspdOfficial,
-        calcStatBonusOfficial: calcStatBonusOfficial,
-        calcAspdOfficial: calcAspdOfficial,
-        // 樂園 Excel 公式（index.html「攻速公式」切換選「樂園」時使用）
-        calcStatBonusParadise: calcStatBonusParadise,
-        calcAspdParadise: calcAspdParadise
     };
 })(typeof window !== 'undefined' ? window : this);

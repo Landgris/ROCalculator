@@ -12,3 +12,6 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+# Worker 原始碼含真實算式邏輯，絕對不能上傳到這個公開 repo
+/worker/

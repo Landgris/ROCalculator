@@ -1,0 +1,813 @@
+i18n UI 文字清單 (自動掃描 index.html 產生)
+來源: index.html (共 15337 行；1-6891 為 Vue template，6893-15335 為 Vue instance script)
+排除: 技能/消耗品資料 (skills*.json, supportskills*.json, consumables.json — 未內嵌於 index.html，且目前不用翻譯)
+排除: 程式碼註解 (// ...、<!-- ... -->)
+行號僅供對照原始碼位置，若之後有編輯 index.html 行號可能會偏移，請以文字內容比對為主。
+
+如何使用:
+  SECTION 1 可直接把第一欄的 id 當作翻譯 CSV 的 key (與你提出的 RangeDamage 範例格式一致)。
+  SECTION 2 / 3 目前程式碼裡沒有現成的英文 id，需要先幫每一行決定一個 key 名稱，
+    才能寫進翻譯 CSV，同時把 index.html 對應位置改成透過 key 查表顯示。
+  notes 欄位:
+    mixed-binding         - 文字裡混了 Vue {{ }} 動態內容，翻譯時只能翻靜態部分，動態部分需保留插值
+    template-literal-var   - 文字混了 JS `${}` 樣板字串變數，同上，需改成翻譯字串+插值
+    html-linebreak         - 文字含 <br> 換行標籤
+    long-text-review-priority - 超過60字的長文本（多半是版本更新說明/公告/教學文字），可以先跳過，優先度較低
+
+已知目前尚未特別處理的部分（可能需要另外決定是否翻譯）:
+  - SECTION 3 尾端 L14793-14799 一批職業名稱 (初心者/劍士/法師...) 使用數字 id (非字串)，故未被歸進 SECTION 1，
+    建議另外給一組英文 slug (Novice/Swordsman/Mage...) 才好當 CSV key。
+  - SECTION 3 內有多筆版本更新紀錄/公告內容 (L14875 附近)，屬於長文字且更新頻繁，建議先不列入翻譯範圍。
+
+==========================================================================================
+SECTION 1: data label/id pairs -- existing English id in code, use directly as CSV key
+format: id <TAB> zh-TW <TAB> first-line <TAB> occurrences
+==========================================================================================
+weaponr	主手	L7010	x1
+weaponl	副手	L7011	x1
+helm	頭飾	L7012	x1
+helm1	頭中	L7013	x1
+helm2	頭下	L7014	x1
+armor	衣服	L7015	x1
+robe	披肩	L7016	x1
+shoes	靴子	L7017	x1
+acc1	飾品	L7018	x1
+acc2	飾品	L7019	x1
+shadow	影子	L7020	x1
+costume	服飾	L7021	x1
+cardset	套卡	L7022	x1
+other	自訂	L7023	x1
+weaponrcard	武器卡片	L7024	x4
+weaponlcard	武器卡片	L7025	x1
+helmcard	頭飾卡片	L7026	x1
+helm1card	頭飾卡片	L7027	x1
+helm2card	頭飾卡片	L7028	x1
+armorcard	衣服卡片	L7029	x1
+robecard	披肩卡片	L7030	x1
+shoescard	靴子卡片	L7031	x1
+acc1card	飾品卡片	L7032	x1
+acc2card	飾品卡片	L7033	x1
+shadowenchant	影子附魔	L7034	x1
+costumeenchant	服飾附魔	L7035	x1
+cardset2	套卡	L7036	x1
+other2	自訂	L7037	x1
+pet	寵物	L7039	x1
+runetablet	石碑	L7040	x1
+AllStatus	全能力	L7053	x1
+AllStatus2	所有特性屬性	L7060	x1
+RaceAtkPercent	種族 %	L7067	x1
+SizeAtkPercent	體型 %	L7068	x1
+LevelAtkPercent	階級 %	L7069	x2
+ElementalAtkPercent	對屬性敵人 %	L7070	x1
+WeaponRangedDamagePercent	武器遠傷 %	L7071	x1
+MonsterAtkPercent	特定魔物 %	L7072	x1
+HitAtkDamagePercent	命中傷 %	L7073	x1
+CriDamagePercent	暴傷 %	L7074	x2
+MeleeDamagePercent	近傷 %	L7075	x2
+RangedDamagePercent	遠傷 %	L7076	x2
+MeleeDamageDealtIncreasedPercent	近傷耐性減少 %	L7077	x1
+RangedDamageDealtIncreasedPercent	遠傷耐性減少 %	L7078	x1
+BypassDEFPercent	無視物理防禦 %	L7079	x1
+BypassRESPercent	無視RES %	L7080	x1
+RaceMatkPercent	種族 %	L7084	x1
+SizeMatkPercent	體型 %	L7085	x1
+LevelMatkPercent	階級 %	L7086	x1
+ElementalMatkPercent	對屬性敵人 %	L7087	x1
+ElementalMagicPercent	屬性魔法 %	L7088	x2
+MonsterMatkPercent	特定魔物 %	L7089	x1
+BypassMDEFPercent	無視魔法防禦 %	L7090	x1
+BypassMRESPercent	無視MRES %	L7091	x1
+SkillDamagePercent	技能增傷 %	L7093	x1
+CDTime	技能獨延	L7094	x1
+GCDPercent	技能後(共)延%	L7095	x2
+ElementDamageDealtIncreasedPercent	屬性耐性減少 %	L7096	x1
+VariableCastPercent	變詠 %	L7097	x2
+VariableCastSecond	變詠	L7098	x1
+SPSkillVariableCastPercent	指定技能變詠 %	L7099	x1
+FixedCast	固詠	L7100	x1
+FixedCastPercent	固詠 %	L7101	x2
+AspdPercent	攻擊後延%	L7103	x2
+Cri	暴擊率 %	L7104	x2
+PerfectFlee	完全迴避	L7114	x2
+HPRegenPercent	HP恢復 %	L7115	x2
+SPRegenPercent	SP恢復 %	L7116	x2
+WeaponPerfection	無視體型攻擊	L7118	x1
+WeaponOccult	浸透勁效果	L7119	x1
+AspdPotionPercent	攻速藥水 %	L7164	x1
+AspdRuneFlat	盧恩石5	L7165	x1
+Empty	空手	L7168	x1
+Daggers	短劍	L7169	x1
+OneHandedSwords	單手劍	L7170	x1
+TwoHandedSword	雙手劍	L7171	x1
+Katars	拳刃	L7172	x1
+Spears	單手矛	L7173	x1
+SpearsTwoHand	雙手矛	L7174	x1
+Axes	單手斧	L7175	x1
+AxesTwoHand	雙手斧	L7176	x1
+Maces	鈍器	L7177	x1
+Knuckles	拳套	L7178	x1
+Rods	單手杖	L7179	x1
+RodsTwoHand	雙手杖	L7180	x1
+Books	書本	L7181	x1
+Bows	弓	L7182	x1
+Instruments	樂器	L7183	x1
+Whips	鞭子	L7184	x1
+Pistol	手槍	L7185	x1
+Rifle	來福	L7186	x1
+Gatling	格林	L7187	x1
+Shotgun	霰彈	L7188	x1
+Grenade	榴彈	L7189	x1
+Shuriken	風魔飛鏢	L7190	x1
+
+==========================================================================================
+SECTION 2: template UI text -- buttons/labels/titles/tooltips, no existing id, needs new key
+format: zh-TW <TAB> first-line <TAB> occurrences <TAB> notes
+==========================================================================================
+關於	L43	x2	
+前言	L47	x1	
+這個計算機在使用上需要對裝備有一定的了解	L52	x1	
+巴哈討論串連結	L76	x1	
+操作說明	L78	x1	
+寄信告訴我訂單編號跟伺服器ID或想要的名字，我會把你加入感謝名單！	L121	x1	
+歡迎使用計算機	L138	x1	
+使用說明	L142	x1	
+【討論】四轉職暨二次上位擴充職全技能實測	L177	x1	
+麻煩有錯誤或是沒有固詠變詠延遲等資料的話可以在小月鈴這篇回應	L179	x1	
+【討論】kRO 迄今技能調整／優化整理	L181	x1	
+💖【廣告】朋友兼職販售的貓貓食物/玩具 懇請支持	L183	x1	
+更新紀錄	L226	x1	
+特別感謝	L254	x1	
+技能清單	L294	x2	
+技能	L299	x2	
+技能名	L329	x4	
+技能倍率	L335	x2	
+公式關鍵字	L349	x2	
+關鍵字	L354	x2	
+功能	L356	x2	
+技能等級	L366	x4	
+傷害次數, 負數時為分段傷害不會增加總傷害	L375	x3	
+傷害次數	L377	x5	
+固定詠唱	L387	x3	
+時間	L389	x8	
+變動詠唱	L395	x3	
+獨立延遲	L403	x3	
+共通延遲	L411	x3	
+技能遠傷	L419	x2	
+技能暴擊	L429	x2	
+一半暴率	L439	x3	
+使用加農砲彈	L449	x2	
+使用手推車	L459	x2	
+將乘算DEF(後DEF)改為減算DEF	L467	x2	
+半無視DEF	L471	x2	
+RES，最高為50%	L480	x2	
+無視RES	L484	x4	
+後計算技能遠傷	L495	x4	
+傷害類型	L505	x4	
+攻擊屬性	L522	x4	
+備註	L543	x3	
+已儲存清單	L554	x2	
+技能版本：	L563	x1	
+請選擇技能版本	L566	x1	
+支援技能版本：	L602	x1	
+請選擇支援技能版本	L605	x1	
+備註: {{ item.skill.Note }}	L688	x2	mixed-binding
+自訂	L703	x1	
+遠傷	L726	x1	
+暴擊	L728	x1	
+砲彈	L732	x1	
+手推車	L734	x1	
+半無視防禦	L736	x2	
+固詠 {{ item.skill.FCT }}s	L743	x1	mixed-binding
+變詠 {{ item.skill.VCT }}s	L744	x1	mixed-binding
+獨延 {{ item.skill.CD }}s	L745	x1	mixed-binding
+共延 {{ item.skill.GCD }}s	L746	x1	mixed-binding
+簡易計算機	L778	x1	
+算式	L785	x2	
+計算結果	L819	x1	
+編輯裝備	L844	x1	
+裝備名字	L890	x2	
+效果參數	L931	x66	
+物理	L1384	x1	
+魔法	L1650	x1	
+選擇技能	L1819	x1	
+搜尋技能名稱或ID	L1826	x1	
+技能名稱	L1832	x1	
+技能ID	L1837	x1	
+職業	L1839	x3	
+技能增傷 %	L1841	x1	
+獨延減少(秒)	L1850	x1	
+操作	L1859	x5	
+指定體型倍率	L1885	x1	
+體型	L1891	x3	
+物理體型 %	L1893	x1	
+魔法體型 %	L1900	x1	
+指定階級倍率	L1924	x1	
+階級	L1930	x3	
+物理階級 %	L1932	x1	
+魔法階級 %	L1939	x1	
+指定種族倍率	L1963	x1	
+種族	L1969	x3	
+物理種族 %	L1971	x1	
+魔法種族 %	L1978	x1	
+指定屬性倍率	L2002	x1	
+屬性	L2008	x1	
+裝備清單	L2033	x1	
+搜尋	L2039	x1	
+部位	L2064	x1	
+複製裝備文字	L2137	x1	
+複製整合效果	L2140	x1	
+配置清單(測試)	L2151	x1	
+儲存配置	L2215	x1	
+測試中 不會儲存額外技能選項	L2219	x1	
+存檔名	L2236	x1	
+要儲存的檔名	L2239	x1	
+敵人名	L2252	x1	
+傷害	L2259	x2	
+使用消耗品	L2270	x1	
+統計效果	L2307	x1	
+素質類(取最大)	L2339	x1	
+ATK提升	L2360	x1	
+MATK提升	L2376	x1	
+爆擊率%提升	L2392	x1	
+素質類(可疊加)	L2410	x1	
+HP SP(可疊加)	L2428	x1	
+ATK MATK提升(取最大, 面板不顯示)	L2450	x1	
+獨立系統(可疊加)	L2468	x1	
+戰鬥藥(擇一)	L2486	x1	
+魔法糖(擇一)	L2504	x1	
+攻速藥水(擇一)	L2522	x1	
+變身卷軸	L2543	x1	
+屬性相剋倍率表	L2566	x1	
+使用新版屬性表	L2572	x1	
+攻 \ 守	L2603	x1	
+{{elementtypelist[rowindex-1].label}} 對 {{elementtypelist[colindex-1].label}} {{ElementTableIndex}}	L2619	x1	mixed-binding;long-text-review-priority
+攻速懲罰表（{{status.AspdFormula==='paradise'?'樂園':'四轉服'}}）	L2634	x1	mixed-binding
+樂園	L2634	x3	
+四轉服	L2634	x3	
+攻速公式	L2637	x1	
+攻速懲罰職等	L2649	x1	
+三轉/四轉	L2652	x1	
+二轉/進階二轉	L2652	x1	
+輔助技能	L2682	x1	
+RO 計算機	L2784	x1	
+角色素質	L2825	x1	
+'請選擇'	L2854	x2	
+代入JOB加成	L3107	x1	
+選擇加成來源	L3117	x1	
+目前的攻速公式與懲罰職等，點按鈕開啟攻速懲罰表可以更改設定。	L3134	x1	
+{{status.AspdFormula==='paradise'?'樂園':'四轉服'}}公式 / {{aspdJobTierSwitch?'三/四轉':'二轉'}}職等	L3143	x1	mixed-binding;long-text-review-priority
+三/四轉	L3143	x1	
+二轉	L3143	x1	
+轉生	L3148	x1	
+轉生100點，非轉生52點	L3155	x1	
+可用素質點	L3157	x1	
+計算素質欄中第一個 " + 號" 前的數值 例:120+10+5 取120	L3166	x2	
+已消耗點數	L3167	x2	
+敵方	L3249	x1	
+選擇敵方	L3266	x1	
+屬性等級	L3287	x2	
+敵方屬性	L3292	x1	
+影響最終暴率	L3361	x2	
+影響強酸火煙瓶	L3370	x2	
+(魔物等級+VIT)/2	L3383	x1	
+減算DEF(前)	L3385	x1	
+前 DEF	L3389	x1	
+乘算DEF	L3392	x1	
+後 DEF	L3395	x1	
+(魔物等級+INT)/4	L3401	x1	
+減算MDEF(前)	L3403	x1	
+前 MDEF	L3407	x1	
+乘算MDEF	L3410	x1	
+後 MDEF	L3413	x1	
+種族抗性	L3434	x1	
+消耗品	L3489	x1	
+讀取已經儲存的技能	L3548	x1	
+備註: {{ skill.Note }}	L3783	x1	mixed-binding
+手推車重量	L3819	x2	
+職業技能	L3833	x1	
+武器修練ATK增加	L3852	x1	
+裝備	L4021	x1	
+讀取已經儲存的裝備	L4024	x1	
+裝備名稱	L4052	x3	
+類型	L4071	x3	
+武器類型	L4075	x1	
+武器等級	L4086	x4	
+精鍊等級	L4097	x4	
+Grade等級	L4111	x4	
+武器ATK:	L4126	x2	
+武器ATK	L4129	x2	
+武器MATK:	L4133	x2	
+武器MATK	L4136	x3	
+砲彈ATK:	L4143	x2	
+箭矢ATK:	L4144	x2	
+子彈ATK:	L4145	x1	
+砲彈ATK	L4148	x2	
+箭矢ATK	L4150	x2	
+子彈ATK	L4152	x1	
+武器重量:	L4156	x1	
+卡片	L4188	x2	
+名稱	L4194	x3	
+盾牌精煉:	L4350	x1	
+盾牌重量:	L4359	x1	
+副手武器類型	L4371	x2	
+卡片名稱	L4454	x2	
+武器&裝備效果整合	L4673	x1	
+精鍊Atk / Matk:	L4679	x1	
+過度精鍊Atk / Matk:	L4685	x1	
+小:	L4693	x1	
+中:	L4699	x1	
+大:	L4705	x1	
+普攻遠傷	L4714	x1	
+生存	L4723	x2	
+詠唱&延遲	L4724	x1	
+ATK計算	L4736	x1	
+基礎ATK:	L4752	x1	
+精練&特殊ATK加值	L4762	x1	
+體型修正&箭矢傷害	L4772	x1	
+總武器ATK	L4782	x1	
+種族階級體型屬性	L4792	x1	
+後ATK(上面兩個和)	L4812	x1	
+最終ATK	L4822	x1	
+暴傷遠傷%	L4832	x1	
+技能倍率&敵方DEF	L4842	x1	
+普攻傷害	L4855	x1	
+普攻傷害(暴擊)	L4865	x1	
+普攻DPS	L4883	x1	
+技能傷害	L4893	x4	
+技能傷害(平均)	L4903	x3	
+技能總傷害	L4912	x3	
+技能總傷害(平均)	L4922	x3	
+技能暴擊傷害({{attritube['CRI']}} %)	L4931	x1	mixed-binding
+技能暴擊傷害(平均)	L4945	x1	
+技能DPS	L4958	x4	
+目前ASPD	L4967	x4	
+MATK計算	L4980	x1	
+裝備MATK&魔力增幅	L5006	x1	
+最終MATK	L5026	x1	
+敵方減傷	L5036	x1	
+敵方MDEF	L5056	x1	
+技能增傷	L5066	x1	
+龍之吐息計算	L5137	x1	
+陷阱計算	L5173	x1	
+基礎傷害	L5179	x2	
+最終傷害	L5189	x1	
+混傷計算	L5203	x1	
+基礎物理傷害	L5219	x1	
+基礎魔法傷害	L5229	x1	
+DEF計算	L5249	x1	
+MDEF計算	L5259	x1	
+一般	L5331	x1	
+Atk 素質(前)+面版後:	L5348	x1	
+ATK加值:	L5357	x1	
+裝備 {{ row.equipValue }}	L5374	x5	mixed-binding
+修練Atk:	L5422	x1	
+屬性相剋倍率:	L5431	x2	
+體型修正倍率:	L5440	x1	
+遠傷%:	L5449	x2	
+裝備 {{ row.equipValue }}%	L5466	x29	mixed-binding
+遠傷耐性減少%:	L5477	x2	
+近傷%:	L5486	x1	
+近傷耐性減少%:	L5514	x1	
+命中傷%:	L5523	x1	
+暴擊率:	L5551	x1	
+暴擊增傷:	L5579	x1	
+對屬性敵人%:	L5644	x2	
+階級%:	L5683	x2	
+種族%:	L5722	x2	
+體型%:	L5761	x2	
+武器遠傷%:	L5800	x1	
+屬性耐性減少%:	L5828	x3	
+忽略物防(乘算) %:	L5867	x1	
+忽略RES %:	L5895	x1	
+技能增傷%:	L5923	x3	
+技能獨延:	L5932	x4	
+技能共延%:	L5941	x3	
+Matk 素質(前)+面版後:	L5971	x1	
+MATK加值:	L5980	x1	
+屬性魔法%:	L6073	x1	
+忽略魔防(乘算) %:	L6307	x1	
+忽略MRES %:	L6335	x1	
+減傷率:	L6534	x2	
+完全迴避:	L6564	x1	
+HP恢復%:	L6573	x1	
+SP恢復%:	L6579	x1	
+HP自然恢復	L6588	x1	
+每6秒回{{attritube['HPRegen']}}，每60秒回{{attritube['HPRegen60s']}}	L6592	x1	mixed-binding;long-text-review-priority
+平均每秒回{{attritube['HPRegenPerSec']}}	L6592	x2	mixed-binding
+每6秒回{{attritube['HPRegen']}}	L6595	x1	mixed-binding
+SP自然恢復	L6602	x1	
+每8秒回{{attritube['SPRegen']}}，每80秒回{{attritube['SPRegen80s']}}	L6606	x1	mixed-binding;long-text-review-priority
+平均每秒回{{attritube['SPRegenPerSec']}}	L6606	x2	mixed-binding
+每8秒回{{attritube['SPRegen']}}	L6609	x1	mixed-binding
+HP藥水恢復率:	L6616	x1	
+SP藥水恢復率:	L6622	x1	
+詠唱 & 延遲	L6634	x1	
+攻擊後延遲%:	L6641	x1	
+ASPD固定值:	L6669	x1	
+技能後(共)延遲%:	L6714	x1	
+固定詠唱:	L6742	x1	
+固定詠唱%:	L6751	x1	
+變動詠唱(秒):	L6760	x1	
+變動詠唱(裝備%):	L6769	x1	
+變動詠唱(輔助技能%):	L6797	x1	
+變動詠唱(指定技能%):	L6806	x1	
+實際詠唱時間:	L6827	x1	
+技能延遲時間:	L6833	x1	
+ASPD:{{attritube['ASPD'].toFixed(2)}} 攻擊間隔:	L6842	x1	mixed-binding
+1秒，荷包不足請儲值	L6852	x1	
+攻擊間隔時間	L6861	x1	
+每秒攻擊次數:	L6868	x1	
+
+==========================================================================================
+SECTION 3: script message strings -- alerts/errors/dropdown options/dynamic labels, no existing id
+format: zh-TW <TAB> first-line <TAB> occurrences <TAB> notes
+==========================================================================================
+二轉50	L6907	x1	
+進階二轉70	L6908	x1	
+三轉50	L6909	x1	
+四轉60	L6910	x1	
+空手	L7194	x2	
+盾牌	L7195	x1	
+武器	L7196	x1	
+一級武器	L7199	x1	
+二級武器	L7200	x1	
+三級武器	L7201	x1	
+四級武器	L7202	x1	
+五級武器	L7203	x1	
+無	L7206	x3	
+盾	L7299	x1	
+短劍	L7299	x1	
+單手劍	L7299	x1	
+雙手劍	L7299	x1	
+拳刃	L7299	x1	
+單手矛	L7299	x1	
+雙手矛	L7299	x1	
+單手斧	L7299	x1	
+雙手斧	L7299	x1	
+鈍器	L7300	x1	
+拳套	L7300	x1	
+單手杖	L7300	x1	
+雙手杖	L7300	x1	
+書	L7300	x1	
+弓	L7300	x1	
+樂器	L7300	x1	
+鞭子	L7300	x1	
+手槍	L7301	x1	
+來福	L7301	x1	
+格林	L7301	x1	
+霰彈	L7301	x1	
+榴彈	L7301	x1	
+風魔飛鏢	L7301	x1	
+一般	L7304	x1	
+無形	L7308	x1	
+不死	L7309	x2	
+動物	L7310	x1	
+植物	L7311	x1	
+昆蟲	L7312	x1	
+魚貝	L7313	x1	
+惡魔	L7314	x1	
+人形	L7315	x1	
+天使	L7316	x1	
+龍族	L7317	x1	
+玩家(人類)	L7318	x1	
+玩家(貓族)	L7319	x1	
+小型	L7322	x1	
+中型	L7323	x1	
+大型	L7324	x1	
+火	L7328	x1	
+水	L7329	x1	
+風	L7330	x1	
+地	L7331	x1	
+毒	L7332	x1	
+聖	L7333	x1	
+暗	L7334	x1	
+念	L7335	x1	
+物理傷害	L7470	x1	
+魔法傷害	L7471	x1	
+龍息傷害	L7472	x1	
+陷阱傷害	L7473	x1	
+混和傷害	L7474	x1	
+未知技能	L7776	x3	
+請至少輸入一個數值（技能增傷% 或 獨延減少）	L7833	x1	
+已套用技能效果：	L7905	x1	
+全	L7933	x12	
+未知體型	L7935	x1	
+未知階級	L7955	x1	
+未知種族	L7967	x1	
+未知屬性	L7986	x1	
+對全體型	L7995	x1	
+對 ${sizeLabel}	L7995	x1	template-literal-var
+對全階級	L7999	x1	
+對 ${levelLabel}	L7999	x1	template-literal-var
+對全種族	L8003	x1	
+對 ${raceLabel}	L8003	x1	template-literal-var
+對 ${elementLabel} 屬性敵人	L8007	x1	template-literal-var
+敵人對 ${elementLabel} 屬性耐性減少	L8011	x1	template-literal-var
+${elementLabel} 屬性魔法	L8015	x1	template-literal-var
+所有技能	L8107	x1	
+輔助技能	L8264	x1	
+裝備	L8302	x1	
+屬性倍率	L8562	x1	
+請輸入物理體型 %	L8705	x1	
+請輸入魔法體型 %	L8711	x1	
+已套用體型倍率：	L8716	x1	
+請輸入物理階級 %	L8722	x1	
+請輸入魔法階級 %	L8728	x1	
+已套用階級倍率：	L8733	x1	
+請輸入物理種族 %	L8739	x1	
+請輸入魔法種族 %	L8745	x1	
+已套用種族倍率：	L8750	x1	
+未設定屬性倍率類型	L8754	x1	
+請輸入屬性倍率 %	L8758	x1	
+已套用屬性倍率：	L8762	x1	
+複製成功	L9049	x1	
+複製失敗	L9052	x1	
+卡片:	L9061	x1	
+精煉ATK:	L9067	x1	
+精煉MATK:	L9071	x1	
+過渡精煉:	L9073	x1	
+\t箭矢ATK:	L9075	x1	
+\t子彈ATK:	L9076	x1	
+\t重量:	L9077	x1	
+\t精煉ATK:	L9082	x1	
+\t精煉MATK:	L9087	x1	
+\t盾牌重量:	L9090	x1	
+錯誤:	L10800	x3	
+未選擇職業，跳過處理	L10845	x1	
+職業選擇已觸發:	L10851	x1	
+職業選擇	L10853	x2	
+未知職業	L10854	x2	
+手動選擇	L10855	x1	
+無技能資料	L10893	x1	
+未選擇職業，跳過計算	L11046	x1	
+Zero模式下不強制轉生，關閉轉生	L11055	x1	
+等級${this.status.Level}已達到轉生要求，自動開啟轉生	L11059	x1	template-literal-var
+武器ATK	L11116	x1	
+武器MATK	L11117	x1	
+一般精煉ATK	L11118	x1	
+一般精煉MATK	L11119	x1	
+過度精煉ATK(不顯示)	L11120	x1	
+過度精煉MATK(不顯示)	L11121	x1	
+增傷	L11220	x23	
+天龍光環	L11223	x1	
+憤怒暴風	L11485	x1	
+神秘交響曲(人形/魚貝)	L11613	x1	
+神秘交響曲	L11630	x1	
+魔力巔峰1	L11671	x1	
+魔力巔峰3	L11687	x4	
+魔力巔峰4	L11750	x1	
+魔力巔峰5	L11789	x1	
+點穴-反	L12067	x1	
+點穴-活	L12083	x1	
+影子武士	L12381	x1	
+日光輝	L12466	x1	
+月光輝	L12480	x1	
+星光輝	L12494	x1	
+玄鹿五色角	L12604	x1	
+自學策略	L12633	x4	
+⚙️ 檢測到舊版本數據 (v	L13445	x1	
+)，正在遷移到 v	L13445	x1	
+✅ 數據遷移完成	L13454	x1	
+📦 檢測到舊格式數據，正在轉換...	L13547	x1	
+✅ 裝備數據已加載 (	L13559	x1	
+件裝備)	L13559	x1	
+❌ 加載裝備數據失敗:	L13561	x1	
+💾 已備份損壞數據到:	L13565	x1	
+✅ 數據已導出為備份文件	L13611	x1	
+數據備份成功！	L13612	x1	
+❌ 導出失敗:	L13614	x1	
+導出失敗:	L13615	x1	
+無效的備份文件格式	L13625	x1	
+✅ 數據導入成功！	L13642	x1	
+數據導入成功！	L13643	x1	
+❌ 導入失敗:	L13645	x1	
+導入失敗:	L13646	x1	
+💾 裝備數據已保存 (版本	L13659	x1	
+公式為空	L13716	x1	
+技能名為空	L13717	x1	
+公式錯誤	L13730	x1	
+未選擇職業，無法載入技能	L13738	x1	
+未找到對應的技能	L13744	x1	
+技能統計	L13912	x2	
+存檔	L13914	x1	
+載入存檔	L14020	x2	
+Zero模式已啟用 - 預設等級設定為 BaseLevel: 80, JobLevel: 70	L14126	x1	
+⚔️ 一般模式 - 等級設定為 BaseLevel:	L14135	x1	
+🎯 Zero模式已啟用 - 自動載入Zero版本技能檔案	L14185	x1	
+🎯 Zero模式已啟用 - 自動載入Zero版本支援技能檔案	L14195	x1	
+自訂	L14211	x1	
+蛋(10)	L14212	x1	
+測試用魔物(小)	L14213	x1	
+測試用魔物(中)	L14214	x1	
+測試用魔物(大)	L14215	x1	
+提亞拉公主	L14216	x1	
+魔劍士薩克萊	L14217	x1	
+深層黑暗捕蟲堇妖	L14218	x1	
+深層熔岩蟾蜍	L14219	x1	
+死亡土狼	L14220	x1	
+迪斯波	L14221	x1	
+紫樹精	L14222	x1	
+代入總STR	L14262	x1	
+代入總AGI	L14263	x1	
+代入總VIT	L14264	x1	
+代入總INT	L14265	x1	
+代入總DEX	L14266	x1	
+代入總LUK	L14267	x1	
+代入總POW	L14268	x1	
+代入總STA	L14269	x1	
+代入總WIS	L14270	x1	
+代入總SPL	L14271	x1	
+代入總CON	L14272	x1	
+代入總CRT	L14273	x1	
+代入總PATK	L14274	x1	
+代入角色基本等級	L14275	x1	
+代入角色職業等級	L14276	x1	
+代入HP	L14277	x1	
+代入SP	L14278	x1	
+代入MaxHP	L14279	x1	
+代入MaxSP	L14280	x1	
+代入技能等級	L14281	x1	
+代入攻擊屬性	L14282	x1	
+代入武器等級	L14283	x1	
+代入武器重量	L14284	x1	
+代入武器類型	L14285	x1	
+IS_GUN(X) 判定是否為槍系武器	L14286	x1	
+WPT(Books) 判定武器類型	L14287	x1	
+代入盾牌精煉	L14288	x1	
+代入盾牌重量	L14289	x1	
+代入手推車重量	L14290	x1	
+代入敵方等級	L14291	x1	
+代入敵方體型	L14292	x1	
+代入敵方VIT	L14293	x1	
+MUL(A,B)為A*B, B若>1則無條件捨去, B若<1則無條件進位	L14294	x1	
+DOWN(A) 小數點無條件捨去	L14295	x1	
+UP(A) 小數點無條件進位	L14296	x1	
+感謝贊助	L14300	x25	
+波利 凌玆	L14300	x1	
+波利 蹦x	L14301	x1	
+波利 SayuriYuka	L14302	x1	
+悠哉	L14304	x1	
+波利 蒼藍鴿	L14305	x1	
+愛麗絲 波尼喵	L14306	x1	
+水水寶武防代衝	L14307	x1	
+巴基力 沐沐	L14308	x1	
+路過的貓	L14309	x1	
+波利 風扇卡到頭	L14310	x1	
+鄰居漂亮大姐姐 春	L14312	x1	
+波利 神奇海豹	L14313	x1	
+【唯璇】☆波利↙代練★坐吸最狂◇	L14314	x1	
+查爾斯 愛睏老貓	L14315	x1	
+波利 亞嵐	L14316	x1	
+查爾斯 錫瓦的巴耶克	L14317	x1	
+波利 Rein	L14318	x1	
+白飯給六碗	L14319	x1	
+翱銳龍獸	L14320	x1	
+快樂去打咖	L14322	x1	
+波利 Lawrel★	L14323	x1	
+巴基力 YU0520	L14324	x1	
+公式協力	L14327	x4	
+賴喵	L14327	x1	
+公式測試協力	L14328	x1	
+查爾斯 鶴之翼	L14328	x1	
+KRO測試協力	L14329	x2	
+PTT sqky990 霧雨さとり	L14329	x1	
+PTT 梡	L14330	x1	
+測試協力	L14331	x7	
+少爺 & 太太	L14331	x1	
+夕華。	L14332	x1	
+水絳	L14333	x1	
+蒼之聖典	L14334	x1	
+查爾斯 ︴★﹑莓〃琥珀°	L14335	x1	
+波利 懶惰牛	L14336	x1	
+巴基力 咱們來shopping吧	L14337	x1	
+查爾斯 烈焰	L14338	x1	
+阿松	L14339	x1	
+琉璃廣	L14340	x1	
+技能資料必須是陣列格式	L14374	x1	
+技能檔案為空	L14378	x1	
+載入 ${skillFile} 失敗：	L14406	x1	template-literal-var
+檔案不存在或無法存取	L14408	x2	
+JSON 格式錯誤	L14410	x2	
+網路連線錯誤 - 請使用HTTP伺服器（如Live Server）開啟此頁面，而不是直接開啟HTML檔案	L14412	x2	
+載入技能資料中...	L14459	x1	
+已切換到：${this.getSkillFileDisplayName(filename)}	L14475	x1	template-literal-var
+切換技能檔案時發生錯誤	L14479	x1	
+風壓飛刃	L14492	x1	
+雙手劍/矛/其他武器時倍率會不同	L14492	x1	
+致命爆裂	L14493	x1	
+百矛穿刺	L14494	x1	
+5*50的5為螺旋擊刺等級	L14494	x1	
+Zero版本	L14513	x1	
+四轉服版本	L14514	x1	
+已重新載入技能檔案：${this.getSkillFileDisplayName(this.currentSkillFile)}	L14523	x1	template-literal-var;long-text-review-priority
+技能檔案載入失敗，已使用預設技能資料	L14529	x1	
+消耗品資料必須是陣列格式	L14558	x1	
+消耗品檔案為空	L14562	x1	
+載入 ${consumableFile} 失敗：	L14579	x1	template-literal-var
+檔案不存在或無法存取，已使用預設消耗品資料	L14581	x1	
+JSON 格式錯誤，已使用預設消耗品資料	L14583	x1	
+網路連線錯誤，已使用預設消耗品資料	L14585	x1	
+${error.message}，已使用預設消耗品資料	L14587	x1	template-literal-var
+特性增強藥劑	L14599	x1	
+力量料理	L14600	x1	
+敏捷料理	L14601	x1	
+體力料理	L14602	x1	
+智力料理	L14603	x1	
+靈巧料理	L14604	x1	
+幸運料理	L14605	x1	
+力量棒棒條	L14606	x1	
+敏捷棒棒條	L14607	x1	
+體力棒棒條	L14608	x1	
+智力棒棒條	L14609	x1	
+靈巧棒棒條	L14610	x1	
+幸運棒棒條	L14611	x1	
+終極料理	L14612	x1	
+萬能年糕	L14613	x1	
+活力激發劑	L14614	x1	
+烤野豬	L14616	x1	
+捕蟲藥草煎	L14617	x1	
+米洛斯燒肉	L14618	x1	
+狼血雞尾酒	L14619	x1	
+小雪獸冰茶	L14620	x1	
+畢帝特龍尾麵	L14621	x1	
+艾草	L14623	x1	
+雄黃酒	L14624	x1	
+戰神蒂爾之祝福	L14625	x1	
+紅色藥草活化液	L14627	x1	
+藍色藥草活化液	L14628	x1	
+活性化藥水	L14629	x1	
+揮擊藥水	L14630	x1	
+魔力藥水	L14631	x1	
+紅色狂暴藥水	L14632	x1	
+魔幻香水	L14633	x1	
+潘利爾符咒	L14634	x1	
+極限藥水	L14635	x1	
+研磨劑	L14636	x1	
+齊爾-D-01卷軸	L14637	x1	
+秒7肯貝特	L14638	x1	
+攻速濃縮汁	L14639	x1	
+艾伊瓦茲盧恩石	L14640	x1	
+戰鬥藥	L14642	x1	
+高級戰鬥藥	L14643	x1	
+跳跳糖	L14645	x1	
+魔法糖果	L14646	x1	
+集中藥水	L14648	x1	
+覺醒藥水	L14649	x1	
+波瑟克藥水	L14650	x1	
+HP增加藥水(大)	L14652	x1	
+SP增加藥水(大)	L14653	x1	
+仙丹	L14654	x1	
+維他丸500	L14655	x1	
+智囊藥水	L14656	x1	
+塔奧群卡卷軸	L14657	x1	
+變身卷軸(幽靈弓箭手)	L14659	x1	
+變身卷軸(森林妖精)	L14660	x1	
+變身卷軸(蓋俄斯提)	L14661	x1	
+變身卷軸(犬妖弓箭手)	L14662	x1	
+變身卷軸(馬爾杜克)	L14663	x1	
+變身卷軸(惡耗女妖)	L14664	x1	
+變身卷軸(行妖術者)	L14665	x1	
+變身卷軸(風魔巫師)	L14666	x1	
+職業資料必須是陣列格式	L14695	x1	
+職業檔案為空	L14699	x1	
+載入 ${classFile} 失敗：	L14716	x1	template-literal-var
+檔案不存在或無法存取，已使用預設職業資料	L14718	x1	
+JSON 格式錯誤，已使用預設職業資料	L14720	x1	
+網路連線錯誤，已使用預設職業資料	L14722	x1	
+${error.message}，已使用預設職業資料	L14724	x1	template-literal-var
+HP/SP 資料必須是物件格式	L14757	x1	
+載入 ${hpspFile} 失敗：	L14771	x1	template-literal-var
+檔案不存在或無法存取，HP/SP 計算可能不準確	L14773	x1	
+JSON 格式錯誤，HP/SP 計算可能不準確	L14775	x1	
+網路連線錯誤，HP/SP 計算可能不準確	L14777	x1	
+${error.message}，HP/SP 計算可能不準確	L14779	x1	template-literal-var
+初心者	L14793	x1	
+劍士	L14794	x1	
+法師	L14795	x1	
+弓箭手	L14796	x1	
+服事	L14797	x1	
+商人	L14798	x1	
+盜賊	L14799	x1	
+載入 ${updateLogFile} 失敗：	L14854	x1	template-literal-var
+檔案不存在或無法存取，已使用預設更新日誌	L14856	x1	
+JSON 格式錯誤，已使用預設更新日誌	L14858	x1	
+網路連線錯誤，已使用預設更新日誌	L14860	x1	
+${error.message}，已使用預設更新日誌	L14862	x1	template-literal-var
+調整預設技能 橫揮斬不能選擇的問題	L14875	x1	
+調整預設技能的詠唱延遲 飛刀-扭曲/飛刀-旋轉/飛刀-曲折/飛刀-噩夢<br>調整裝備DB篩選選項,同類型將整合成一個按鈕<br>開啟計算機時預設職業為空<br>調整預設技能公式 天龍氣息<br>調整物理無視防禦計算: 現在無視100%時將一起無視減算DEF	L14876	x1	html-linebreak;long-text-review-priority
+裝備欄位增加主手卡片234/寵物/符文石碑<br>主手卡片載入時會優先空白欄位<br>	L14877	x1	html-linebreak
+裝備欄位刪除寵物/符文石碑<br>預設輔助技能 日月星的憎惡(怪物)增傷上限為75%	L14878	x1	html-linebreak
+修正裝備欄位儲存格錯誤<br>修正風鷹JOB滿時的CON加乘<br>秒7肯貝特功能調整:獨延不會被修改成0	L14879	x1	html-linebreak
+支援技能資料格式錯誤：應為陣列格式	L14923	x1	
+載入支援技能檔案時發生錯誤：	L14945	x1	
+載入支援技能資料中...	L14988	x1	
+已切換到：${this.getSupportSkillFileDisplayName(filename)}	L15005	x1	template-literal-var
+切換支援技能檔案時發生錯誤	L15009	x1	
+單手劍使用熟練度	L15022	x1	
+雙手劍使用熟練度	L15023	x1	
+四轉服版本支援技能	L15031	x1	
+Zero版本支援技能	L15032	x1	
+已重新載入支援技能檔案：${this.getSupportSkillFileDisplayName(this.currentSupportSkillFile)}	L15041	x1	template-literal-var;long-text-review-priority
+支援技能檔案載入失敗，已使用預設支援技能資料	L15047	x1	
+獨延減少	L15232	x1	
+秒	L15234	x1	

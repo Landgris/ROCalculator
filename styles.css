@@ -2,9 +2,14 @@
 .equip-titlebox-fix {
     margin: 5px 0px 0px 0px;
 }
-/* 裝備區塊專用，預留 title 高度 50px */
+/* 裝備部位清空按鈕（X 圖示），縮小到跟輸入框高度接近 */
+.equip-clear-icon-btn.el-button.is-circle {
+    padding: 4px;
+    font-size: 12px;
+}
+/* 裝備區塊專用，預留 title 高度 50px，另外多預留 42px 給快速跳轉下拉列 */
 .body2col-container-equip {
-    height: calc(100vh - (50px + 35px + 52px));
+    height: calc(100vh - (50px + 35px + 52px + 42px));
 }
 .body2col-container-panel {
     height: calc(100vh - (50px + 35px + 62px)); /* 比原本多預留56px給按鈕列 */
@@ -25,19 +30,44 @@
 /* 讓按鈕內容垂直水平置中，主色與 .bg-purple 一致 */
 .panel-switch-btns .el-button {
     flex: 1 1 0;
-    margin: 0 8px;
-    font-size: 20px;
+    min-width: 0;
+    margin: 0 4px;
+    padding: 0 4px;
+    font-size: 15px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 20px;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 0.5px;
     transition: background 0.2s, color 0.2s;
     background: #d3dce6;
     color: #305079;
     border: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.panel-switch-btns .el-button > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.panel-mode-btns {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 0;
+}
+.panel-mode-btns .el-button {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.panel-mode-btns .el-button + .el-button {
+    margin-left: 4px;
 }
 .panel-switch-btns .el-button.primary, .panel-switch-btns .el-button--primary {
     background: #305079;
@@ -56,11 +86,25 @@ html, body {
 
 body {
     overflow-x: auto;
+    /* 版面設計是靠 calc(100vh - Npx) 精算出 4 欄各自的高度，整頁本身不應該捲動，
+       只讓欄位內部自己捲。underflow 誤差沒差不了幾 px，但保險起見還是鎖死 Y 軸，
+       避免以後內容一多又冒出外層捲軸。 */
+    overflow-y: hidden;
 }
 
 #App {
     min-width: 1600px;
     width: 100%;
+}
+
+/* Element UI 開對話框時會幫 body 加這個 class，開對話框時同時會把 body 鎖成
+   overflow:hidden（水平+垂直都鎖），並且常常會順手加 padding-right/padding-bottom
+   去補償捲軸消失的寬度／高度（避免版面跳動）。但這樣補出來的空白在我們的版面
+   （捲軸本來就很細或被我們自己鎖住）反而只會留下一塊沒用的空白，所以兩個方向
+   都直接強制歸零。 */
+body.el-popup-parent--hidden {
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 [v-cloak] {
@@ -69,6 +113,29 @@ body {
 
 .el-row {
     margin-bottom: 2px;
+}
+
+/* 主要 4 欄版面的最外層 row：各欄高度是用 calc(100vh - Npx) 精算過的，
+   不能再吃到 .el-row 預設的 margin-bottom，不然整頁會多出幾 px 導致出現外層捲軸 */
+.main-content-row {
+    margin-bottom: 0;
+}
+
+/* 裝備清單彈窗：操作欄三個按鈕（刪除/預覽/載入）緊靠在一起 */
+.equipdb-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.equipdb-delete-link {
+    color: #F56C6C;
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.equipdb-delete-link:hover {
+    color: #f78989;
 }
 
 .el-col {
@@ -205,6 +272,14 @@ body {
 .AspdPenaltyTableNameCell {
     font-size: 14px;
     white-space: nowrap;
+}
+
+/* 非中文語系時武器欄標題文字較長，縮小字體、允許換兩行 */
+.AspdPenaltyTableColHeaderNarrow {
+    font-size: 11px !important;
+    line-height: 1.2;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .SkillList-container {
@@ -508,6 +583,12 @@ body {
 .textcenter {
     text-align: center;
     vertical-align: middle;
+}
+
+.equip-slot-label {
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 1.8;
 }
 
 .titlebox {
