@@ -192,6 +192,15 @@ body {
     background-color: rgba(144, 147, 153, 0.12) !important;
 }
 
+/* 沒有指定 type（或 type="default"）的按鈕，例如輔助技能 dialog 左側的職業篩選鈕，
+   Element UI 預設是白底深字，深色模式下沒套用過會刺眼；有顏色的 type
+   （primary/success/warning/danger/info/text）維持原本樣式，這裡排除掉不動它們。 */
+:root[data-theme="dark"] .el-button:not(.el-button--primary):not(.el-button--success):not(.el-button--warning):not(.el-button--danger):not(.el-button--info):not(.el-button--text) {
+    background-color: var(--input-bg) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
 /* el-switch 的圓形把手在 Element UI 預設是白色，深色模式下改成黑色 */
 :root[data-theme="dark"] .el-switch__core:after {
     background-color: #1e1f22 !important;
