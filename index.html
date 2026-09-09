@@ -7365,7 +7365,7 @@
                     HIT: 0, FLEE: 0, PerfectFlee: 0, SPRegen: 0, HPRegen: 0, SPRegenPercent: 0, HPRegenPercent: 0,
                     HPPotionRate: 0, SPPotionRate: 0,
                     PATK: 0, SMATK: 0, CRIDR: 0, RES: 0, MRES: 0,
-                    ASPD: 0, ASPDP: 0, CRI: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, HITAtkDP: 0, // HITAtkDP 命中物理傷害增加%
+                    ASPD: 0, SkillASPDFlat: 0, ASPDP: 0, CRI: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, HITAtkDP: 0, // HITAtkDP 命中物理傷害增加%
                     ELEDDI: 0, RNGDDI: 0, MELDDI: 0,  //damage dealt increased    ELEDDI = Element RNGDDI = Range MELDDI=melee
                     SK1VCTP: 0, SK2VCTP: 0, EQVCTP: 0, VCTS:0, FCT: 0, FCTP: 0, CD: 0, GCD: 0,
                     BYPASSDEF: 0, BYPASSMDEF: 0,
@@ -11840,7 +11840,7 @@
                     }
                     if (this.IsSupportActive('SP_SOULSHADOW')){
                         this.attritube['CRI'] += 10 + 2 * 5;
-                        this.attritube['ASPD'] += 3;
+                        this.attritube['SkillASPDFlat'] += 3;
                         this.addSupportEffectDetail('Cri', null, 10 + 2 * 5, this.getSkillName('SP_SOULSHADOW'));
                     }
                     if (this.IsSupportActive('SP_SOULFAIRY')){
@@ -12462,7 +12462,7 @@
                     }
                     //幻想叢書 005
                     if (this.IsSupportActive('F_VR_Book005')){
-                        this.attritube['ASPD'] += 3;
+                        this.attritube['SkillASPDFlat'] += 3;
                     }
                     //幻想叢書 006
                     if (this.IsSupportActive('F_VR_Book006')){
@@ -12595,13 +12595,16 @@
                     if (this.attritube['BYPASSMRES'] > 50) this.attritube['BYPASSMRES'] = 50;
                     // ASPD 核心計算：可在「攻速公式」切換 四轉服(官方pre-renewal) / 樂園(Excel)，詳見 aspd_calculator.js。
                     // this.attritube['ASPDP'] 此時只累積了技能/BUFF的攻速%（雙手劍加速、速度激發……），即官方公式的 B。
-                    // this.attritube['ASPD'] 此時已累積各技能/BUFF的固定ASPD(如 SP_SOULSHADOW +3)。
+                    // this.attritube['SkillASPDFlat'] 此時已累積各技能/BUFF的固定ASPD(如 SP_SOULSHADOW +3)。
+                    // 注意：this.attritube['ASPD'] 不能拿來當這個累加器用——onOption() 開頭為了避免 API
+                    // 回應前畫面閃爍，會把上一次算出來的完整 ASPD 值暫存回 this.attritube.ASPD，如果這裡
+                    // 拿它當固定加成的起始值，會把「上次的完整攻速」疊加進這次的計算，导致攻速越算越高。
                     // 注意：this.status_total.AGI/DEX 要到本函式最後呼叫 ComputStatus() 才會更新，
                     // 這裡改成直接依當前輸入即時算一份，避免改素質時 ASPD 慢半拍、要等下一次觸發才更新。
                     var _aspdAgiTotal = Number(this.EvalFormula(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
                     var _aspdDexTotal = Number(this.EvalFormula(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
                     var _skillAspdPercent = Number(this.attritube['ASPDP']); // B：技能%
-                    var _skillAspdFlat = Number(this.attritube['ASPD']); // 技能類固定ASPD（如 SP_SOULSHADOW +3）
+                    var _skillAspdFlat = Number(this.attritube['SkillASPDFlat']); // 技能類固定ASPD（如 SP_SOULSHADOW +3）
                     var _potionAspdPercent = Number(this.consumableeffecttypelist.find(x => x.id == 'AspdPotionPercent').totalvalue); // A：攻速藥水%（集中/覺醒/波瑟克）
                     var _equipAspdPercent = Number(this.effecttypelist.find(x => x.id == 'AspdPercent').totalvalue)
                                             + Number(this.consumableeffecttypelist.find(x => x.id == 'AspdPercent').totalvalue); // D：裝備攻速%（詞條 + 攻速濃縮汁等）
