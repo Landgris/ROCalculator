@@ -49,6 +49,9 @@
     
     { "skill": { "id": "AC_OWL", "name": "鶚梟之眼", "maxlv": 10, "lv": 0, "class": "RA,MI,WA,SN", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "AC_CONCENTRATION", "name": "心神凝聚", "maxlv": 10, "lv": 10, "class": "RA,MI,WA,SN", "changelv": false, "argnum": 2, "arg1": 0, "arg1desc": "裝備AGI", "arg2": 0, "arg2desc": "裝備DEX", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "RA_RESEARCHTRAP", "name": "陷阱研究", "maxlv": 10, "lv": 10, "class": "RA", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": true, "select": false, "active": false, "conflict": "", "Note": "" } },
+    { "skill": { "id": "SN_SIGHT", "name": "狙殺瞄準", "maxlv": 10, "lv": 10, "class": "RA", "changelv": false, "argnum": 0, "arg1": 20, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },                        
+    
     { "skill": { "id": "MC_LOUD", "name": "大聲吶喊", "maxlv": 1, "lv": 1, "class": "ME,GE", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "BS_MAXIMIZE", "name": "武器值最大化", "maxlv": 5, "lv": 5, "class": "ME", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
     { "skill": { "id": "BS_WEAPONPERFECT", "name": "無視體型攻擊", "maxlv": 5, "lv": 5, "class": "ME", "changelv": false, "argnum": 0, "arg1": 0, "arg1desc": "", "arg2": 0, "arg2desc": "", "passive": false, "select": false, "active": false, "conflict": "", "Note": "" } },
