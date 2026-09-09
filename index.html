@@ -12901,8 +12901,12 @@
                     this.SaveEquipDB();
                 },
                 onClearEquipPart(idx) {
-                    var _id = this.equipspartlist[idx].id;
-                    var _label = this.equipspartlist[idx].label;
+                    var _part = this.equipspartlist[idx];
+                    // 部位本來就是空的（沒裝備名稱也沒任何詞條/卡片效果）就不用重置跟重新計算，
+                    // 不然清空鍵按在空格子上也會白白觸發一次全套 API 重算
+                    if (_part.equipname === '' && _part.effectlist.length === 0) return;
+                    var _id = _part.id;
+                    var _label = _part.label;
                     if (idx == 0) {
                         this.weapon = _.cloneDeep(this.weapon_init);
                         this.ChangeWeapon();
