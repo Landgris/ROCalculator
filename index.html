@@ -4217,12 +4217,12 @@
                                             </el-row>
                                             <el-row class="" :gutter="4" type="flex" align="middle" justify="start"
                                                 v-show="(status.classid=='ME'|status.classid=='GE')|(weapon.type.id=='Bows'|weapon.type.id=='Instruments'|weapon.type.id=='Whips')|isGunType(weapon.type.id)">
-                                                <el-col :span="6" style="text-align: right;" v-show="(status.classid=='ME'|status.classid=='GE')|(weapon.type.id=='Bows'|weapon.type.id=='Instruments'|weapon.type.id=='Whips')|isGunType(weapon.type.id)">
+                                                <el-col :span="6" style="text-align: right;">
                                                     <span v-if="status.classid=='ME'|status.classid=='GE'">{{ t('ui.equip.shellatk', '砲彈ATK') }}:</span>
                                                     <span v-else-if="weapon.type.id=='Bows'|weapon.type.id=='Instruments'|weapon.type.id=='Whips'">{{ t('ui.equip.arrowatk', '箭矢ATK') }}:</span>
                                                     <span v-else-if="isGunType(weapon.type.id)">{{ t('ui.equip.bulletatk', '子彈ATK') }}:</span>
                                                 </el-col>
-                                                <el-col :span="6" v-show="(status.classid=='ME'|status.classid=='GE')|(weapon.type.id=='Bows'|weapon.type.id=='Instruments'|weapon.type.id=='Whips')|isGunType(weapon.type.id)">
+                                                <el-col :span="6">
                                                     <el-input v-if="status.classid=='ME'|status.classid=='GE'" v-model.number="weapon.BulletATK" :placeholder="t('ui.equip.shellatk', '砲彈ATK')">
                                                     </el-input>
                                                     <el-input v-else-if="weapon.type.id=='Bows'|weapon.type.id=='Instruments'|weapon.type.id=='Whips'" v-model.number="weapon.ArrowATK" :placeholder="t('ui.equip.arrowatk', '箭矢ATK')">
@@ -4230,6 +4230,11 @@
                                                     <el-input v-else-if="isGunType(weapon.type.id)" v-model.number="weapon.ArrowATK" :placeholder="t('ui.equip.bulletatk', '子彈ATK')">
                                                     </el-input>
                                                 </el-col>
+                                            </el-row>
+                                            <!-- 武器重量跟砲彈/箭矢/子彈ATK是不同機制，不該共用同一個顯示條件——
+                                                 WGT 是不少一般武器技能公式(例如 WLV*WGT)都會用到的通用欄位，武器類型/職業
+                                                 不符合上面條件時也要看得到，不然那些技能公式根本沒地方輸入武器重量 -->
+                                            <el-row class="" :gutter="4" type="flex" align="middle" justify="start">
                                                 <el-col :span="6" style="text-align: right;">
                                                     <span>{{ t('ui.equip.weaponweight', '武器重量') }}: </span>
                                                 </el-col>
@@ -11008,6 +11013,7 @@
                     if (this.IsSupportActive('BS_OVERTHRUST100')){
                         if (this.isZeroMode)
                         {
+                            this.computeattribute['SpecialATK5'] += 200;
                             this.computeattribute['SpecialATK6'] += 200;
                         }else{
                             this.computeattribute['SpecialATK5'] += 5 * 20;
