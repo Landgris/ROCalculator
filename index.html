@@ -14341,6 +14341,39 @@
                     } catch (e) {
                         console.log('loadWelcomeContent error:', e);
                     }
+                    // 精選影片清單只有一份，跟語系無關，不用照 suffix 分開載入
+                    await this.loadWelcomeVideos();
+                },
+                // 從 content/welcome_videos.txt 讀取精選影片清單，一行一個 YouTube 網址（或純 id），
+                // 第一行就是預設先顯示的那支。這樣之後要換影片只要改 txt，不用碰程式碼。
+                // 抓不到檔案或整份都解析不出有效 id 時，維持 data() 裡預設的影片清單，不會讓畫面空白。
+                async loadWelcomeVideos() {
+                    try {
+                        const response = await fetch(this.contentPath('welcome_videos.txt') + '?v=' + new Date().getTime());
+                        if (!response.ok) return;
+                        const text = await response.text();
+                        const ids = text.split(/\r?\n/)
+                            .map(line => this.parseYoutubeId(line.trim()))
+                            .filter(id => id);
+                        if (ids.length > 0) {
+                            this.youtubeVideoIds = ids;
+                            this.youtubeVideoIndex = 0;
+                        }
+                    } catch (e) {
+                        console.log('loadWelcomeVideos error:', e);
+                    }
+                },
+                // 接受完整 YouTube 網址（watch?v=、youtu.be/、embed/）或直接就是 11 碼的影片 id
+                parseYoutubeId(line) {
+                    if (!line) return null;
+                    const watchMatch = line.match(/[?&]v=([A-Za-z0-9_-]{11})/);
+                    if (watchMatch) return watchMatch[1];
+                    const shortMatch = line.match(/youtu\.be\/([A-Za-z0-9_-]{11})/);
+                    if (shortMatch) return shortMatch[1];
+                    const embedMatch = line.match(/youtube\.com\/embed\/([A-Za-z0-9_-]{11})/);
+                    if (embedMatch) return embedMatch[1];
+                    if (/^[A-Za-z0-9_-]{11}$/.test(line)) return line;
+                    return null;
                 },
                 // 把純文字裡的網址自動轉成可點擊連結。先跳脫 HTML 特殊字元避免 txt 檔案內容被當成標籤解析，
                 // 再把網址替換成 <a> 標籤，這樣 welcome_usage_*.txt / welcome_donate_*.txt 只要照現在的方式貼純網址就好，不用寫 HTML。
