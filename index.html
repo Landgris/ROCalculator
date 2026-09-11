@@ -24,13 +24,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63581889-2"></script>
+    <!-- Google Analytics (GA4) -->
     <script>
+        // 正式站網域白名單：避免別人 fork/clone 這份公開原始碼後，在自己的網域
+        // 或本機測試時，把流量灌進正式站的 GA4 資源，統計失真。
+        // (跟 worker/src/index.js 的 ALLOWED_ORIGINS 白名單是同一個防護精神)
+        var GA_PRODUCTION_HOSTNAMES = ['landgris.github.io'];
+        var GA_MEASUREMENT_ID = 'G-2JF9N5XP2E';
+        var GA_ENABLED = GA_PRODUCTION_HOSTNAMES.indexOf(location.hostname) > -1;
+
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-63581889-2');
+
+        if (GA_ENABLED) {
+            var gaLoader = document.createElement('script');
+            gaLoader.async = true;
+            gaLoader.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+            document.head.appendChild(gaLoader);
+
+            gtag('js', new Date());
+            gtag('config', GA_MEASUREMENT_ID);
+        } else {
+            console.log('[GA] 非正式站網域 (' + location.hostname + ')，停用流量追蹤');
+        }
+
+        // 統一的事件追蹤入口：呼叫端不用各自判斷 GA_ENABLED，非正式站時直接略過
+        function trackEvent(eventName, category, label, action) {
+            if (!GA_ENABLED) return;
+            gtag('event', eventName, {
+                event_category: category,
+                event_label: label,
+                event_action: action,
+            });
+        }
     </script>
     <link rel='stylesheet' href='./css/styles.css' />
 </head>
@@ -10457,13 +10483,11 @@
                     }
 
                     //追蹤
-                    let selectedJobId = this.status.classid; 
+                    let selectedJobId = this.status.classid;
                     console.log("職業選擇已觸發: ", this.status.classid);
-                    gtag("event", "job_selected", {
-                        "event_category": "職業選擇",
-                        "event_label": this.classlist.find(job => job.id === this.status.classid)?.label || "未知職業",
-                        "event_action": "手動選擇"
-                    });
+                    trackEvent("job_selected", "職業選擇",
+                        this.classlist.find(job => job.id === this.status.classid)?.label || "未知職業",
+                        "手動選擇");
 
 
                     this.StoreDB_JobMapedSkill = this.DefaultDB_Skill.filter(post => {
@@ -13568,11 +13592,7 @@
                     // 確保技能名稱正確讀取
                     let savedSkillName = this.skill?.name || "未知技能";
                     // 發送事件到 GA - 技能名稱統計
-                    gtag("event", "skill_used", {
-                        "event_category": "技能統計",
-                        "event_label": savedSkillName,
-                        "event_action": "存檔"
-                    });
+                    trackEvent("skill_used", "技能統計", savedSkillName, "存檔");
                     this.ClosePanel('AllSetDBSaveDialog');
                 },
                 onSortupAllSet(dbidx){
@@ -13684,20 +13704,12 @@
                     let savedJobId = AllsetObject.Status.classid;
                     let savedJobLabel = this.classlist.find(job => job.id === savedJobId)?.label || "未知職業";
                     // 發送事件到 GA
-                    gtag("event", "job_selected", {
-                        "event_category": "職業選擇",
-                        "event_label": savedJobLabel,
-                        "event_action": "載入存檔"
-                    });
+                    trackEvent("job_selected", "職業選擇", savedJobLabel, "載入存檔");
 
                     // 確保技能名稱正確讀取
                     let savedSkillName = this.skill?.name || "未知技能";
                     // 發送事件到 GA - 技能名稱統計
-                    gtag("event", "skill_used", {
-                        "event_category": "技能統計",
-                        "event_label": savedSkillName,
-                        "event_action": "載入存檔"
-                    });
+                    trackEvent("skill_used", "技能統計", savedSkillName, "載入存檔");
 
                     this.CheckParam();
                     this.CombineEquipsAttribute();
