@@ -2861,7 +2861,7 @@
                 <el-col :span="1">
                 </el-col>
                 <el-col :span="2" class="textcenter">
-                    {{ isZeroMode ? 'TwROZero' : 'TwRO' }}
+                    {{ isZeroMode ? (settings.zeroRegion === 'global' ? 'GlobalROZero' : 'TwROZero') : 'TwRO' }}
                 </el-col>
                 <el-col :span="1">
                     <el-button v-on:click="TogglePanel('AboutDialog')" size="small">
