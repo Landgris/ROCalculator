@@ -154,7 +154,7 @@ class_RA,獵人/遊俠/風鷹狩獵者,Hunter,Cazador,Jäger,ฮันเตอ�
 class_WL,巫師/咒術士/禁咒魔導士,Wizard,Mago,Magier,วิซาร์ด,Mage
 class_ME,鐵匠/機械工匠/機甲神匠,Blacksmith,Herrero,Schmied,แบล็คสมิธ,Forgeron
 class_RG,十字軍/皇家禁衛軍/帝國聖衛軍,Crusader,Cruzado,Kreuzritter,ครูเซเดอร์,Croisé
-class_SC,流氓/魅影追蹤者/深淵追跡者,Rouge,Pícaro,Schurke,โร้ก,Voleur
+class_SC,流氓/魅影追蹤者/深淵追跡者,Rogue,Pícaro,Schurke,โร้ก,Voleur
 class_SU,武僧/修羅/聖裁者,Monk,Monje,Mönch,มองค์,Moine
 class_MI,詩人/宮廷樂師/天籟頌者,Bard,Bardo,Barde,บาร์ด,Barde
 class_WA,舞孃/浪跡舞者/樂之舞靈,Dancer,Bailarina,Tänzerin,แดนเซอร์,Danseuse
