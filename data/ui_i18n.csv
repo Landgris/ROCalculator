@@ -71,10 +71,11 @@ SPSkillVariableCastPercent,指定技能變詠 %,Variable Cast % (Specific Skill)
 FixedCast,固詠,Fixed Cast Time,Lanzamiento fijo Time,Feste Zauberzeit Time,ร่ายคงที่ Time,Temps d'incantation fixe
 FixedCastPercent,固詠 %,Fixed Cast %,Lanzamiento fijo %,Feste Zauberzeit %,ร่ายคงที่ %,Incantation fixe %
 AspdPercent,攻擊後延%,ASPD Delay %,ASPD Delay %,ASPD Delay %,ASPD Delay %,ASPD Delay %
-Cri,暴擊率 %,Critical Rate %,Probabilidad crítica %,Krit-Rate %,อัตราคริติคอล %,Taux critique %
+Cri,暴擊率(CRI) %,Critical Rate(CRI) %,Probabilidad crítica(CRI) %,Krit-Rate(CRI) %,อัตราคริติคอล(CRI) %,Taux critique(CRI) %
 PerfectFlee,完全迴避,Perfect Flee,Perfect Flee,Perfect Flee,Perfect Flee,Perfect Flee
 HPRegenPercent,HP恢復 %,HP Regen %,HP Regeneración %,HP Regeneration %,HP ฟื้นฟู %,HP Régénération %
 SPRegenPercent,SP恢復 %,SP Regen %,SP Regeneración %,SP Regeneration %,SP ฟื้นฟู %,SP Régénération %
+SPConsume,SP消耗量 %,SP Consumption %,Consumo de SP %,SP-Verbrauch %,การใช้ SP %,Consommation de SP %
 WeaponPerfection,無視體型攻擊,Ignore Size Penalty,Ignorar Tamaño Penalización,Ignoriere Größe Malus,มองข้าม ขนาด โทษ,Ignorer la pénalité de taille
 WeaponOccult,浸透勁效果,Weapon Perfection Effect,Weapon Perfection Effect,Weapon Perfection Effect,Weapon Perfection Effect,Weapon Perfection Effect
 AspdPotionPercent,攻速藥水 %,ASPD Potion %,ASPD Poción %,ASPD Trank %,ASPD ยา %,Potion ASPD %
@@ -476,6 +477,9 @@ ui.skillkeyword.UP,UP(A) 小數點無條件進位,UP(A): rounds up (ceiling),UP(
 ui.consumable.title,消耗品,Consumables,Consumibles,Verbrauchsgegenstände,ไอเทมสิ้นเปลือง,Consommables
 ui.consumable.dialogtitle,使用消耗品,Use Consumables,Usar consumibles,Verbrauchsgegenstände verwenden,ใช้ไอเทมสิ้นเปลือง,Utiliser des consommables
 ui.consumable.statseffect,統計效果,Stat Summary,Resumen de estadísticas,Statistik-Übersicht,สรุปค่าสถานะ,Résumé des statistiques
+ui.consumable.tab.stat,素質,Stats,Atributos,Attribute,ค่าสถานะ,Statistiques
+ui.consumable.tab.battle,戰鬥藥劑,Battle Items,Objetos de batalla,Kampfgegenstände,ไอเทมต่อสู้,Objets de combat
+ui.consumable.zerostattypemax,Zero套餐(取最大),Zero Set Meal (Highest),Comida Zero (máximo),Zero-Menü (Höchstwert),ชุดอาหาร Zero (สูงสุด),Repas Zero (maximum)
 ui.consumable.stattypemax,素質類(取最大),Stat Type (Highest),Tipo de atributo (máximo),Attributtyp (Höchstwert),ประเภทค่าสถานะ (สูงสุด),Type de statistique (maximum)
 ui.consumable.atkup,ATK提升,ATK Boost,Aumento de ATK,ATK-Erhöhung,เพิ่ม ATK,Bonus ATK
 ui.consumable.matkup,MATK提升,MATK Boost,Aumento de MATK,MATK-Erhöhung,เพิ่ม MATK,Bonus MATK

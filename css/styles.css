@@ -206,6 +206,18 @@ body {
     background-color: #1e1f22 !important;
 }
 
+/* 消耗品 Dialog 分頁：跟左邊留一點距離，不要貼齊面板邊緣 */
+.consumable-tabs > .el-tabs__header {
+    padding-left: 12px;
+}
+/* 分頁文字預設是 Element UI 寫死的深灰色，深色模式下幾乎看不到，改用文字色/綠色(啟用中) */
+:root[data-theme="dark"] .consumable-tabs .el-tabs__item {
+    color: var(--text-color) !important;
+}
+:root[data-theme="dark"] .consumable-tabs .el-tabs__item.is-active {
+    color: #67c23a !important;
+}
+
 /* 裝備 titlebox 上方預留空間 */
 .equip-titlebox-fix {
     margin: 5px 0px 0px 0px;

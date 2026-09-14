@@ -1247,6 +1247,18 @@
                                     </el-col>
                                 </el-row>
 
+                                <el-row :class="PreviewETL[GetETLIndex('SPConsume')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="12">
+                                        {{ t('SPConsume', 'SP消耗量 %') }}
+                                    </el-col>
+                                    <el-col class="textcenter" :span="12">
+                                        <el-input v-if="PreviewETL[0]"
+                                            v-model="PreviewETL[GetETLIndex('SPConsume')].totalvalue"
+                                            v-on:keyup.enter.native="OnEditEquipEffect('SPConsume')" placeholder="效果參數">
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+
                                 <el-row :class="PreviewETL[GetETLIndex('DEF')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
                                     <el-col class="textcenter" :span="12">
                                         DEF
@@ -2306,40 +2318,20 @@
         <el-dialog :visible.sync="UIPanel['ConsumableDBDialog']" custom-class="Dialogue-container" width="80%"
             top="50px" v-on:close="ClosePanel('ConsumableDBDialog')" center>
             <span slot="title">{{ t('ui.consumable.dialogtitle', '使用消耗品') }}</span>
-            <el-row class="statusbox titlebox" style="padding: 5px 5px; height: 60px;":gutter="4" type="flex" align="middle" justify="end" >
-                <el-col :span="2">
-                </el-col>
-                <el-col :span="2">
-                </el-col>
-                <el-col :span="2">
-                </el-col>
-                <el-col :span="2">
-                </el-col>
-                <el-col :span="2">
-                </el-col>
-                <el-col :span="8">
-                </el-col>
-                <el-col :span="2" class="textcenter">
+            <el-row class="statusbox titlebox" style="padding: 10px;" :gutter="8" type="flex" align="middle" justify="end">
+                <el-col :span="3" class="textcenter">
                     <el-button v-on:click="OnClearConsumable" size="small">
                         {{ t('ui.common.clear', '清空') }}
                     </el-button>
                 </el-col>
-                <el-col :span="2">
-                </el-col>
-                <el-col :span="2">
-                </el-col>
-                <el-col :span="2" class="textcenter">
+                <el-col :span="3" class="textcenter">
                     <el-button v-on:click="ClosePanel('ConsumableDBDialog')" type="success" plain size="small">
                         {{ t('ui.common.confirm', '確定') }}
                     </el-button>
                 </el-col>
-                <el-col :span="4">
-                </el-col>
-                <el-col :span="4">
-                </el-col>
             </el-row>
             <el-row :gutter="2">
-                <el-col :span="4" class="statusbox ">
+                <el-col :span="6" class="statusbox ">
                     <el-row class="optionbox" style="height:40px;" :gutter="4" type="flex" align="middle" justify="middle">
                         <el-col class="textcenter" >
                             <span class="EffectType">{{ t('ui.consumable.statseffect', '統計效果') }}</span>
@@ -2353,7 +2345,7 @@
                                     <el-col class="textcenter" :span="2">
                                     </el-col>
                                     <el-col class="textcenter" style="text-align: right;">
-                                        <span class="EffectType">{{ item.label }}</span>
+                                        <span class="EffectType">{{ t(item.id, item.label) }}</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="2">
                                         <span class="">{{ item.opersymbol }}</span>
@@ -2371,231 +2363,288 @@
                         </el-row>
                     </el-scrollbar>
                 </el-col>
-                <el-col :span="5" class=" ">
-                    <el-row class="effectline previeweffectbox" style="height:40px;" :gutter="4" type="flex" align="middle" justify="middle">
-                        <el-col class="textcenter" >
-                            <span class="EffectType">{{ t('ui.consumable.stattypemax', '素質類(取最大)') }}</span>
-                        </el-col>
-                    </el-row>
-                    <el-scrollbar wrap-class="ConsumableList1-container" :native="false" :noresize="false">
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('StatusG')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
-                                    </el-col>
-                                </el-row>
-                                <el-collapse-transition>
-                                    <div v-if="item.ATKUP!=null && item.editable && item.active" >
-                                        <el-row
-                                            class="optionbox textcenter" style="padding: 0px 10px;"
-                                            type="flex" align="middle" justify="middle">
-                                            <el-col class="textcenter" :span="8">
-                                                <span>{{ t('ui.consumable.atkup', 'ATK提升') }}</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="2">
-                                            </el-col>
-                                            <el-col class="textcenter" :span="14">
-                                                <el-slider v-model="item.ATKUP" :min="11" :max="111" @change="ComputConsumAndOption()"></el-slider>
-                                            </el-col>
+                <el-col :span="18">
+                    <el-tabs v-model="consumableActiveTab" class="consumable-tabs">
+                        <el-tab-pane :label="t('ui.consumable.tab.stat', '素質')" name="stat" lazy>
+                            <el-row :gutter="4">
+                                <el-col :span="8">
+                                    <el-row class="effectline previeweffectbox" style="height:40px;">
+                                        <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.zerostattypemax', 'Zero套餐(取最大)') }}</span></el-col>
+                                    </el-row>
+                                    <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
+                                        <el-row>
+                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('ZeroStatusG')" v-bind:key="item.id">
+                                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                                    <el-col class="textcenter">
+                                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                            style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="4">
+                                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
                                         </el-row>
                                     </div>
-                                </el-collapse-transition>
-                                <el-collapse-transition>
-                                    <div v-if="item.MATKUP!=null && item.editable && item.active" >
-                                        <el-row
-                                            class="optionbox textcenter" style="padding: 0px 10px;"
-                                            type="flex" align="middle" justify="middle">
-                                            <el-col class="textcenter" :span="8">
-                                                <span>{{ t('ui.consumable.matkup', 'MATK提升') }}</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="2">
-                                            </el-col>
-                                            <el-col class="textcenter" :span="14">
-                                                <el-slider v-model="item.MATKUP" :min="11" :max="111" @change="ComputConsumAndOption()"></el-slider>
-                                            </el-col>
+                                </el-col>
+                                <el-col :span="8">
+                                    <el-row class="effectline previeweffectbox" style="height:40px;">
+                                        <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.stattypemax', '素質類(取最大)') }}</span></el-col>
+                                    </el-row>
+                                    <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
+                                        <el-row>
+                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('StatusG')" v-bind:key="item.id">
+                                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                                    <el-col class="textcenter">
+                                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                            style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="4">
+                                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-collapse-transition>
+                                                    <div v-if="item.ATKUP!=null && item.editable && item.active" >
+                                                        <el-row
+                                                            class="optionbox textcenter" style="padding: 0px 10px;"
+                                                            type="flex" align="middle" justify="middle">
+                                                            <el-col class="textcenter" :span="8">
+                                                                <span>{{ t('ui.consumable.atkup', 'ATK提升') }}</span>
+                                                            </el-col>
+                                                            <el-col class="textcenter" :span="2">
+                                                            </el-col>
+                                                            <el-col class="textcenter" :span="14">
+                                                                <el-slider v-model="item.ATKUP" :min="11" :max="111" @change="ComputConsumAndOption()"></el-slider>
+                                                            </el-col>
+                                                        </el-row>
+                                                    </div>
+                                                </el-collapse-transition>
+                                                <el-collapse-transition>
+                                                    <div v-if="item.MATKUP!=null && item.editable && item.active" >
+                                                        <el-row
+                                                            class="optionbox textcenter" style="padding: 0px 10px;"
+                                                            type="flex" align="middle" justify="middle">
+                                                            <el-col class="textcenter" :span="8">
+                                                                <span>{{ t('ui.consumable.matkup', 'MATK提升') }}</span>
+                                                            </el-col>
+                                                            <el-col class="textcenter" :span="2">
+                                                            </el-col>
+                                                            <el-col class="textcenter" :span="14">
+                                                                <el-slider v-model="item.MATKUP" :min="11" :max="111" @change="ComputConsumAndOption()"></el-slider>
+                                                            </el-col>
+                                                        </el-row>
+                                                    </div>
+                                                </el-collapse-transition>
+                                                <el-collapse-transition>
+                                                    <div v-if="item.Cri!=null && item.editable && item.active" >
+                                                        <el-row
+                                                            class="optionbox textcenter" style="padding: 0px 10px;"
+                                                            type="flex" align="middle" justify="middle">
+                                                            <el-col class="textcenter" :span="8">
+                                                                <span>{{ t('ui.consumable.criup', '爆擊率%提升') }}</span>
+                                                            </el-col>
+                                                            <el-col class="textcenter" :span="2">
+                                                            </el-col>
+                                                            <el-col class="textcenter" :span="14">
+                                                                <el-slider v-model="item.Cri" :min="11" :max="33" @change="ComputConsumAndOption()"></el-slider>
+                                                            </el-col>
+                                                        </el-row>
+                                                    </div>
+                                                </el-collapse-transition>
+                                            </div>
                                         </el-row>
                                     </div>
-                                </el-collapse-transition>
-                                <el-collapse-transition>
-                                    <div v-if="item.Cri!=null && item.editable && item.active" >
-                                        <el-row
-                                            class="optionbox textcenter" style="padding: 0px 10px;"
-                                            type="flex" align="middle" justify="middle">
-                                            <el-col class="textcenter" :span="8">
-                                                <span>{{ t('ui.consumable.criup', '爆擊率%提升') }}</span>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="2">
-                                            </el-col>
-                                            <el-col class="textcenter" :span="14">
-                                                <el-slider v-model="item.Cri" :min="11" :max="33" @change="ComputConsumAndOption()"></el-slider>
-                                            </el-col>
+                                </el-col>
+                                <el-col :span="8">
+                                    <el-row class="effectline previeweffectbox" style="height:40px;">
+                                        <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.stattypestack', '素質類(可疊加)') }}</span></el-col>
+                                    </el-row>
+                                    <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
+                                        <el-row>
+                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Status20G')" v-bind:key="item.id">
+                                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                                    <el-col class="textcenter">
+                                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                            style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="4">
+                                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
                                         </el-row>
                                     </div>
-                                </el-collapse-transition>
-                            </div>
-                        </el-row>
-                    </el-scrollbar>
-                </el-col>
-                <el-col :span="5" class=" ">
-                    <el-scrollbar wrap-class="ConsumableList2-container" :native="false" :noresize="false">
-                        <el-row class="effectline previeweffectbox" style="height:40px;">
-                            <el-col class="textcenter" >
-                                <span class="EffectType">{{ t('ui.consumable.stattypestack', '素質類(可疊加)') }}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Status20G')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                        </el-row>
-                        <el-row class="effectline previeweffectbox" style="height:40px;">
-                            <el-col class="textcenter" >
-                                <span class="EffectType">{{ t('ui.consumable.hpsp', 'HP SP(可疊加)') }}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('HPSP')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                        </el-row>
-                    </el-scrollbar>
-                </el-col>
-                <el-col :span="5" class=" ">
-                    <el-scrollbar wrap-class="ConsumableList2-container" :native="false" :noresize="false">
-                        <el-row class="effectline previeweffectbox" style="height:40px;">
-                            <el-col class="textcenter" >
-                                <span class="EffectType">{{ t('ui.consumable.atkmatkup', 'ATK MATK提升(取最大, 面板不顯示)') }}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('ATKMATKUP')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                        </el-row>
-                        <el-row class="effectline previeweffectbox" style="height:40px;">
-                            <el-col class="textcenter" >
-                                <span class="EffectType">{{ t('ui.consumable.independent', '獨立系統(可疊加)') }}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('sp')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                        </el-row>
-                        <el-row class="effectline previeweffectbox" style="height:40px;">
-                            <el-col class="textcenter" >
-                                <span class="EffectType">{{ t('ui.consumable.battlepotion', '戰鬥藥(擇一)') }}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio1')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                        </el-row>
-                        <el-row class="effectline previeweffectbox" style="height:40px;">
-                            <el-col class="textcenter" >
-                                <span class="EffectType">{{ t('ui.consumable.magiccandy', '魔法糖(擇一)') }}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio2')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                </el-col>
+                            </el-row>
+                        </el-tab-pane>
+                        <el-tab-pane :label="t('ui.consumable.tab.battle', '戰鬥藥劑')" name="battle" lazy>
+                            <el-row :gutter="4">
+                                <el-col :span="12">
+                                    <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
+                                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                                            <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.atkmatkup', 'ATK MATK提升(取最大, 面板不顯示)') }}</span></el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('ATKMATKUP')" v-bind:key="item.id">
+                                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                                    <el-col class="textcenter">
+                                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                            style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="4">
+                                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                                            <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.battlepotion', '戰鬥藥(擇一)') }}</span></el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio1')" v-bind:key="item.id">
+                                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                                    <el-col class="textcenter">
+                                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                            style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="4">
+                                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                        <el-row class="effectline previeweffectbox" style="height:40px;">
+                                            <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.magiccandy', '魔法糖(擇一)') }}</span></el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio2')" v-bind:key="item.id">
+                                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                                    <el-col class="textcenter">
+                                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                            style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="4">
+                                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                    </div>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-row class="effectline previeweffectbox" style="height:40px;">
+                                        <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.independent', '獨立系統(可疊加)') }}</span></el-col>
+                                    </el-row>
+                                    <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
+                                        <el-row>
+                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('sp')" v-bind:key="item.id">
+                                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                                    <el-col class="textcenter">
+                                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="3">
+                                                        <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                            style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="4">
+                                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-row>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </el-tab-pane>
+                        <el-tab-pane :label="t('ui.consumable.aspdpotion', '攻速藥水(擇一)')" name="aspdpotion" lazy>
+                            <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
+                                <el-row :gutter="4">
+                                    <el-col :span="24" v-for="(item, index) in ConsumGroupFiltered('Radio3')" v-bind:key="item.id">
+                                        <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                            <el-col class="textcenter">
+                                                <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="3">
+                                                <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                    style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                    active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                            </el-col>
+                                        </el-row>
                                     </el-col>
                                 </el-row>
                             </div>
-                        </el-row>
-                        <el-row class="effectline previeweffectbox" style="height:40px;">
-                            <el-col class="textcenter" >
-                                <span class="EffectType">{{ t('ui.consumable.aspdpotion', '攻速藥水(擇一)') }}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('Radio3')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                        </el-row>
-                    </el-scrollbar>
-                </el-col>
-                <el-col :span="5" class=" ">
-                    <el-row class="effectline previeweffectbox" style="height:40px;" :gutter="4" type="flex" align="middle" justify="middle">
-                        <el-col class="textcenter" >
-                            <span class="EffectType">{{ t('ui.consumable.transscroll', '變身卷軸') }}</span>
-                        </el-col>
-                    </el-row>
-                    <el-scrollbar wrap-class="ConsumableList1-container" :native="false" :noresize="false">
-                        <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('TransScroll')" v-bind:key="item.id">
-                                <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
-                                    <el-col class="textcenter">
-                                        <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
-                                    </el-col>
-                                    <el-col class="textcenter" :span="4">
-                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
-                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                        </el-tab-pane>
+                        <el-tab-pane :label="t('ui.consumable.hpsp', 'HP SP(可疊加)')" name="hpsp" lazy>
+                            <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
+                                <el-row :gutter="4">
+                                    <el-col :span="24" v-for="(item, index) in ConsumGroupFiltered('HPSP')" v-bind:key="item.id">
+                                        <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                            <el-col class="textcenter">
+                                                <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="3">
+                                                <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                    style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                    active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                            </el-col>
+                                        </el-row>
                                     </el-col>
                                 </el-row>
                             </div>
-                        </el-row>
-                    </el-scrollbar>
+                        </el-tab-pane>
+                        <el-tab-pane :label="t('ui.consumable.transscroll', '變身卷軸')" name="transscroll" lazy>
+                            <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
+                                <el-row :gutter="4">
+                                    <el-col :span="24" v-for="(item, index) in ConsumGroupFiltered('TransScroll')" v-bind:key="item.id">
+                                        <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
+                                            <el-col class="textcenter">
+                                                <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="3">
+                                                <i :class="IsConsumableBookmarked(item.id) ? 'el-icon-star-on' : 'el-icon-star-off'"
+                                                    style="cursor:pointer;" v-on:click="ToggleConsumableBookmark(item.id)"></i>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="4">
+                                                <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                                    active-color="#13ce66" inactive-color="#8a9799"></el-switch>
+                                            </el-col>
+                                        </el-row>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-tab-pane>
+                    </el-tabs>
                 </el-col>
             </el-row>
         </el-dialog>
@@ -3574,11 +3623,15 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <div class="Item" v-for="(item, index) in ConsumActiveFiltered()" v-bind:key="item.id"
-                                style="height:40px; padding: 3px 10px;">
-                                <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="middle">
-                                    <el-col class="textcenter" :span="24">
+                            <div class="Item" v-for="(item, index) in ConsumMainScreenFiltered()" v-bind:key="item.id">
+                                <el-row class="optionbox bg-purple-light" :gutter="1" type="flex" align="middle"
+                                    justify="end" style="height:40px;">
+                                    <el-col class="textcenter" style="text-align: right;">
                                         <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="4">
+                                        <el-switch :value="item.active" v-on:change="OnEditConsumable(item.id)"
+                                            active-color="#13ce66" inactive-color="#8a9799"></el-switch>
                                     </el-col>
                                 </el-row>
                             </div>
@@ -3593,7 +3646,7 @@
                                                 <el-col class="textcenter" :span="2">
                                                 </el-col>
                                                 <el-col class="textcenter" style="text-align: right;">
-                                                    <span class="EffectType">{{ item.label }}</span>
+                                                    <span class="EffectType">{{ t(item.id, item.label) }}</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="2">
                                                     <span class="">{{ item.opersymbol }}</span>
@@ -6636,6 +6689,15 @@
                                                 <span>{{attritube['SPRegenPercent']}} %</span>
                                             </el-col>
                                         </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple-light" :span="10" style="text-align: right;">
+                                                <span>{{ t('SPConsume','SP消耗量') }}:</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['SPConsume']}} %</span>
+                                            </el-col>
+                                        </el-row>
                                         <!-- HP自然恢復合併顯示 -->
                                         <el-row class="statusbox" type="flex" align="middle" justify="space-around" style="height:48px;">
                                             <el-col class="bg-purple-light" :span="8" style="text-align: right; padding-right: 16px;">
@@ -7099,6 +7161,8 @@
                 uiTranslations: {}, // 從 ui_i18n.csv 載入的多語言對照表 { key: { 'zh-TW': ..., en: ..., th: ..., de: ..., es: ... } }
                 skillTranslations: {}, // 從 skill_i18n.csv 載入的技能名稱多語言對照表，格式同 uiTranslations
                 consumableTranslations: {}, // 從 consumable_i18n.csv 載入的消耗品名稱多語言對照表，格式同 uiTranslations
+                consumableBookmarks: JSON.parse(localStorage.getItem('consumableBookmarks') || '[]'), // 釘選在主畫面消耗品區塊的消耗品 id 清單
+                consumableActiveTab: 'stat', // 消耗品Dialog目前開啟的分頁
                 enemyTranslations: {}, // 從 enemy_i18n.csv 載入的怪物名稱多語言對照表，格式同 uiTranslations
                 availableUILocales: [
                     { code: 'zh-TW', name: '繁體中文' },
@@ -7240,6 +7304,7 @@
                     { label: '完全迴避', id: 'PerfectFlee', totalvalue: '0', opersymbol: '\+', suffixsymbol: '' },
                     { label: 'HP恢復 %', id: 'HPRegenPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
                     { label: 'SP恢復 %', id: 'SPRegenPercent', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: 'SP消耗量 %', id: 'SPConsume', totalvalue: '0', opersymbol: '\+', suffixsymbol: '\%' },
 
                     { label: '無視體型攻擊', id: 'WeaponPerfection', totalvalue: '0', opersymbol: '', suffixsymbol: '' },
                     { label: '浸透勁效果', id: 'WeaponOccult', totalvalue: '0', opersymbol: '', suffixsymbol: '' },
@@ -7277,6 +7342,7 @@
                     { label: '完全迴避', id: 'PerfectFlee', totalvalue: 0, opersymbol: '\+', suffixsymbol: '' },
                     { label: 'HP恢復 %', id: 'HPRegenPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: 'SP恢復 %', id: 'SPRegenPercent', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
+                    { label: 'SP消耗量 %', id: 'SPConsume', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
                     { label: '固詠 %', id: 'FixedCastPercent', totalvalue: 0, opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '變詠 %', id: 'VariableCastPercent', totalvalue: 0, opersymbol: '\-', suffixsymbol: '\%' },
                     { label: '暴擊率 %', id: 'Cri', totalvalue: 0, opersymbol: '\+', suffixsymbol: '\%' },
@@ -7393,7 +7459,7 @@
                     StatusATK: 0, WeaponATK: 0, StatusMATK: 0, WeaponMATK: 0,
                     ATK: 0, MATK: 0, ATKP: 0, MATKP: 0,
                     SoftDEF: 0, HardDEF: 0, SoftMDEF:0, HardMDEF: 0, HP: 0, HPP: 0, SP: 0, SPP: 0,
-                    HIT: 0, FLEE: 0, PerfectFlee: 0, SPRegen: 0, HPRegen: 0, SPRegenPercent: 0, HPRegenPercent: 0,
+                    HIT: 0, FLEE: 0, PerfectFlee: 0, SPRegen: 0, HPRegen: 0, SPRegenPercent: 0, HPRegenPercent: 0, SPConsume: 0,
                     HPPotionRate: 0, SPPotionRate: 0,
                     PATK: 0, SMATK: 0, CRIDR: 0, RES: 0, MRES: 0,
                     ASPD: 0, SkillASPDFlat: 0, ZeroSkillASPDFlat: 0, ASPDP: 0, CRI: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, HITAtkDP: 0, // HITAtkDP 命中物理傷害增加%　ZeroSkillASPDFlat：Zero模式限定的Potion/Skill Modifier固定值
@@ -9510,6 +9576,7 @@
                         if(this.consumablelist[i].active==false) continue;
                         // 素質系統 取最大
                         if(this.consumablelist[i].group=='StatusG' ||
+                            this.consumablelist[i].group=='ZeroStatusG' ||
                             this.consumablelist[i].group=='ATKMATKUP'){
                             for( var t=0; t<_statusgtag.length; ++t ){
                                 if( this.consumablelist[i][_statusgtag[t]] != null ){
@@ -12630,6 +12697,8 @@
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='SPRegenPercent').totalvalue);
                     this.attritube['HPRegenPercent'] += Number(this.effecttypelist.find(x => x.id == 'HPRegenPercent').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='HPRegenPercent').totalvalue);
+                    this.attritube['SPConsume'] += Number(this.effecttypelist.find(x => x.id == 'SPConsume').totalvalue)
+                                            +Number(this.consumableeffecttypelist.find(x=>x.id=='SPConsume').totalvalue);
 
                     this.attritube['ATK'] += Number(this.effecttypelist.find(x => x.id == 'Atk').totalvalue)
                                             +Number(this.consumableeffecttypelist.find(x=>x.id=='ATK').totalvalue);
@@ -15045,12 +15114,17 @@
                         }
                     )
                 },
-                ConsumActiveFiltered() {
-                    return this.consumablelist.filter(
-                        function(row){
-                            return row.active==true;
-                        }
-                    )
+                IsConsumableBookmarked(id) {
+                    return this.consumableBookmarks.includes(id);
+                },
+                ToggleConsumableBookmark(id) {
+                    var _idx = this.consumableBookmarks.indexOf(id);
+                    if (_idx > -1) this.consumableBookmarks.splice(_idx, 1);
+                    else this.consumableBookmarks.push(id);
+                    localStorage.setItem('consumableBookmarks', JSON.stringify(this.consumableBookmarks));
+                },
+                ConsumMainScreenFiltered() {
+                    return this.consumablelist.filter(row => row.active || this.consumableBookmarks.includes(row.id));
                 },
                 currencystring(val)
                 {
