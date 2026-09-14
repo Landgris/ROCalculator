@@ -7396,7 +7396,7 @@
                     HIT: 0, FLEE: 0, PerfectFlee: 0, SPRegen: 0, HPRegen: 0, SPRegenPercent: 0, HPRegenPercent: 0,
                     HPPotionRate: 0, SPPotionRate: 0,
                     PATK: 0, SMATK: 0, CRIDR: 0, RES: 0, MRES: 0,
-                    ASPD: 0, SkillASPDFlat: 0, ASPDP: 0, CRI: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, HITAtkDP: 0, // HITAtkDP 命中物理傷害增加%
+                    ASPD: 0, SkillASPDFlat: 0, ZeroSkillASPDFlat: 0, ASPDP: 0, CRI: 0, CRIDP: 0, RNGDP: 0, MELDP: 0, HITAtkDP: 0, // HITAtkDP 命中物理傷害增加%　ZeroSkillASPDFlat：Zero模式限定的Potion/Skill Modifier固定值
                     ELEDDI: 0, RNGDDI: 0, MELDDI: 0,  //damage dealt increased    ELEDDI = Element RNGDDI = Range MELDDI=melee
                     SK1VCTP: 0, SK2VCTP: 0, EQVCTP: 0, VCTS:0, FCT: 0, FCTP: 0, CD: 0, GCD: 0,
                     BYPASSDEF: 0, BYPASSMDEF: 0,
@@ -10791,7 +10791,19 @@
                     if (this.IsSupportActive('NC_MADOLICENCE')){ this.skilloption.WeaponMasteryATK+=75;}
                     if (this.IsSupportActive('AM_AXEMASTERY')) { if(this.isWeaponType('Axes') || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=30; } }
                     if (this.IsSupportActive('GN_TRAINING_SWORD')){ if(this.weapon.type.id == 'Daggers' || this.weapon.type.id == 'OneHandedSwords'){ this.skilloption.WeaponMasteryATK+=50; this.attritube['HIT'] += 15;} }
-                    if (this.IsSupportActive('SA_ADVANCEDBOOK')){ if(this.weapon.type.id == 'Books' ){ this.skilloption.WeaponMasteryATK+=30; var _advBookAspd = this.GetSupportSkill('SA_ADVANCEDBOOK').lv * 0.5; this.attritube['ASPDP'] += _advBookAspd; this.addSupportEffectDetail('AspdPercent', null, _advBookAspd, this.getSkillName('SA_ADVANCEDBOOK'));} }
+                    if (this.IsSupportActive('SA_ADVANCEDBOOK')){
+                        if(this.weapon.type.id == 'Books' ){
+                            this.skilloption.WeaponMasteryATK+=30;
+                            if (this.isZeroMode) {
+                                // Zero模式：進化之書只給 Potion/Skill Modifier 固定值+4，不再給 %ASPD
+                                this.attritube['ZeroSkillASPDFlat'] += 4;
+                            } else {
+                                var _advBookAspd = this.GetSupportSkill('SA_ADVANCEDBOOK').lv * 0.5;
+                                this.attritube['ASPDP'] += _advBookAspd;
+                                this.addSupportEffectDetail('AspdPercent', null, _advBookAspd, this.getSkillName('SA_ADVANCEDBOOK'));
+                            }
+                        }
+                    }
                     if (this.IsSupportActive('TK_RUN')){ if(this.weapon.type.id == 'Empty' ){ this.skilloption.WeaponMasteryATK+=this.GetSupportSkill('TK_RUN').lv*10;} }
                     if (this.IsSupportActive('RL_RICHS_COIN')){ if(this.isGunType(this.weapon.type.id) ){ this.skilloption.WeaponMasteryATK+=30;} }
                     if (this.IsSupportActive('GN_CARTBOOST')){ this.skilloption.WeaponMasteryATK+=50; }
@@ -10802,9 +10814,16 @@
                         if (this.weapon.type.id == 'TwoHandedSword') {
                             this.attritube['CRI'] += 12;
                             this.attritube['HIT'] += 20;
-                            this.attritube['ASPDP'] += 40;
                             this.addSupportEffectDetail('Cri', null, 12, this.getSkillName('KN_TWOHANDQUICKEN'));
-                            this.addSupportEffectDetail('AspdPercent', null, 40, this.getSkillName('KN_TWOHANDQUICKEN'));
+                            if (this.isZeroMode) {
+                                // Zero模式：ASPD%10 + Potion/Skill Modifier固定值+7
+                                this.attritube['ASPDP'] += 10;
+                                this.attritube['ZeroSkillASPDFlat'] += 7;
+                                this.addSupportEffectDetail('AspdPercent', null, 10, this.getSkillName('KN_TWOHANDQUICKEN'));
+                            } else {
+                                this.attritube['ASPDP'] += 40;
+                                this.addSupportEffectDetail('AspdPercent', null, 40, this.getSkillName('KN_TWOHANDQUICKEN'));
+                            }
                         }
                     }
                     // 集中
@@ -10873,10 +10892,17 @@
                     if (this.IsSupportActive('CR_SPEARQUICKEN')) {
                         if (this.isWeaponType('Spears')) {
                             this.attritube['CRI'] += 30;
-                            this.attritube['ASPDP'] += 30;
                             this.attritube['FLEE'] += 20;
                             this.addSupportEffectDetail('Cri', null, 30, this.getSkillName('CR_SPEARQUICKEN'));
-                            this.addSupportEffectDetail('AspdPercent', null, 30, this.getSkillName('CR_SPEARQUICKEN'));
+                            if (this.isZeroMode) {
+                                // Zero模式：ASPD%10 + Potion/Skill Modifier固定值+7
+                                this.attritube['ASPDP'] += 10;
+                                this.attritube['ZeroSkillASPDFlat'] += 7;
+                                this.addSupportEffectDetail('AspdPercent', null, 10, this.getSkillName('CR_SPEARQUICKEN'));
+                            } else {
+                                this.attritube['ASPDP'] += 30;
+                                this.addSupportEffectDetail('AspdPercent', null, 30, this.getSkillName('CR_SPEARQUICKEN'));
+                            }
                         }
                     }
                     // 盾咒
@@ -10926,13 +10952,28 @@
                     else {
                         this.option.MagnumPoison2Value = 0;
                     }
-                    //速度激發
+                    //速度激發(自身)
                     if (this.IsSupportActive('BS_ADRENALINE')){
                         if (this.isWeaponType('Axes') || this.weapon.type.id == 'Maces') {
-                            this.attritube['ASPDP'] += 40;
-                            this.addSupportEffectDetail('AspdPercent', null, 40, this.getSkillName('BS_ADRENALINE'));
+                            if (this.isZeroMode) {
+                                // Zero模式：ASPD%10 + Potion/Skill Modifier固定值+7
+                                this.attritube['ASPDP'] += 10;
+                                this.attritube['ZeroSkillASPDFlat'] += 7;
+                                this.addSupportEffectDetail('AspdPercent', null, 10, this.getSkillName('BS_ADRENALINE'));
+                            } else {
+                                this.attritube['ASPDP'] += 40;
+                                this.addSupportEffectDetail('AspdPercent', null, 40, this.getSkillName('BS_ADRENALINE'));
+                            }
                         }
                         this.attritube['HIT'] += 20;
+                    }
+                    //速度激發(隊友，Zero模式限定)
+                    if (this.IsSupportActive('BS_ADRENALINE2')){
+                        if (this.isWeaponType('Axes') || this.weapon.type.id == 'Maces') {
+                            this.attritube['ASPDP'] += 10;
+                            this.attritube['ZeroSkillASPDFlat'] += 6;
+                            this.addSupportEffectDetail('AspdPercent', null, 10, this.getSkillName('BS_ADRENALINE2'));
+                        }
                     }
                     //毒耐性弱化
                     if (this.IsSupportActive('GC_VENOMIMPRESS')){
@@ -11157,8 +11198,10 @@
                     }
                     // 刺客的黃昏
                     if (this.IsSupportActive('BA_ASSASSINCROSS')){
-                        this.attritube['ASPDP'] += 20;
-                        this.addSupportEffectDetail('AspdPercent', null, 20, this.getSkillName('BA_ASSASSINCROSS'));
+                        // Zero模式ASPD%17，四轉服維持20%不變
+                        var _assassinCrossAspd = this.isZeroMode ? 17 : 20;
+                        this.attritube['ASPDP'] += _assassinCrossAspd;
+                        this.addSupportEffectDetail('AspdPercent', null, _assassinCrossAspd, this.getSkillName('BA_ASSASSINCROSS'));
                     }
                     // 布萊奇
                     if (this.IsSupportActive('BA_POEMBRAGI')){
@@ -12634,19 +12677,28 @@
                     var _aspdAgiTotal = Number(this.EvalFormula(this.status.AGI)) + Number(this.status_add.AGI) + Number(this.status_job.AGI);
                     var _aspdDexTotal = Number(this.EvalFormula(this.status.DEX)) + Number(this.status_add.DEX) + Number(this.status_job.DEX);
                     var _skillAspdPercent = Number(this.attritube['ASPDP']); // B：技能%
-                    var _skillAspdFlat = Number(this.attritube['SkillASPDFlat']); // 技能類固定ASPD（如 SP_SOULSHADOW +3）
-                    var _potionAspdPercent = Number(this.consumableeffecttypelist.find(x => x.id == 'AspdPotionPercent').totalvalue); // A：攻速藥水%（集中/覺醒/波瑟克）
+                    var _skillAspdFlat = Number(this.attritube['SkillASPDFlat']); // 技能類固定ASPD（如 SP_SOULSHADOW +3，兩種公式共用）
+                    var _potionAspdPercent = Number(this.consumableeffecttypelist.find(x => x.id == 'AspdPotionPercent').totalvalue); // A：攻速藥水%（四轉服公式用，集中/覺醒/波瑟克）
                     var _equipAspdPercent = Number(this.effecttypelist.find(x => x.id == 'AspdPercent').totalvalue)
                                             + Number(this.consumableeffecttypelist.find(x => x.id == 'AspdPercent').totalvalue); // D：裝備攻速%（詞條 + 攻速濃縮汁等）
                     var _runeAspdFlat = Number(this.consumableeffecttypelist.find(x => x.id == 'AspdRuneFlat').totalvalue); // C：盧恩石5（艾伊瓦茲盧恩石固定+4）
                     var _equipAspdFlat = Number(this.effecttypelist.find(x => x.id == 'ASPD').totalvalue); // 裝備固定ASPD詞條
 
+                    // Zero模式限定：集中/覺醒/波瑟克藥水改算「Potion Modifier」固定值（不再是%），併入 Status Bonus。
+                    var ZERO_POTION_ASPD_FLAT_MAP = { 10: 4, 15: 6, 20: 9 };
+                    var _potionAspdFlatZero = this.isZeroMode ? (ZERO_POTION_ASPD_FLAT_MAP[_potionAspdPercent] || 0) : 0;
+                    // Zero模式限定：部分支援技能(進化之書/速度激發/雙手劍加速/長矛加速)的「Skill Modifier」固定值。
+                    var _zeroSkillAspdFlat = this.isZeroMode ? Number(this.attritube['ZeroSkillASPDFlat']) : 0;
+                    // Zero模式下藥水不再貢獻%ASPD（已改記在上面的flat），面板%顯示與公式輸入都要排除它。
+                    var _potionAspdPercentForTotal = this.isZeroMode ? 0 : _potionAspdPercent;
+
                     // 面板顯示用的攻速% 總計（藥水+技能+裝備，沿用原本負百分比顯示慣例）
-                    this.attritube['ASPDP'] = _skillAspdPercent + _potionAspdPercent + _equipAspdPercent;
+                    this.attritube['ASPDP'] = _skillAspdPercent + _potionAspdPercentForTotal + _equipAspdPercent;
                     this.attritube['ASPDP'] = -Math.abs(this.attritube['ASPDP']);
 
                     if (this.status.AspdFormula === 'paradise') {
-                        // 樂園 Excel 公式：所有 %ASPD 來源合併成一個總百分比；盧恩石固定值併入 Flat Bonus。
+                        // 樂園/Zero Excel 公式：所有 %ASPD 來源合併成一個總百分比；盧恩石固定值併入 Flat Bonus；
+                        // Potion/Skill Modifier(藥水+進化之書+速度激發+雙手劍加速+長矛加速…)併入 Status Bonus。
                         var _aspdInput = {
                             classid: this.status.classid,
                             jobMaxPointType: this.status.JobMaxPointType,
@@ -12655,13 +12707,14 @@
                             offHandWeaponTypeId: this.subweapon.weapontype ? this.subweapon.weapontype.id : null,
                             agiTotal: _aspdAgiTotal,
                             dexTotal: _aspdDexTotal,
-                            statusModifierTotal: _skillAspdFlat,
-                            aspdPercentTotal: _skillAspdPercent + _potionAspdPercent + _equipAspdPercent,
+                            statusModifierTotal: _skillAspdFlat + _zeroSkillAspdFlat + _potionAspdFlatZero,
+                            aspdPercentTotal: _skillAspdPercent + _potionAspdPercentForTotal + _equipAspdPercent,
                             flatAspdBonus: _equipAspdFlat + _runeAspdFlat,
                         };
                         this.FetchAndApplyASPD('paradise', _aspdInput);
                     } else {
                         // 四轉服(官方 pre-renewal)公式：ASPD = 195-(195-(200-(200-R)x(1-A-B)+C))x(1-D)+E
+                        // 四轉算式本身不變；若在Zero模式下手動切成這個公式，Potion/Skill Modifier固定值仍併入 E，避免直接消失。
                         var _aspdInput = {
                             classid: this.status.classid,
                             jobMaxPointType: this.status.JobMaxPointType,
@@ -12670,11 +12723,11 @@
                             offHandWeaponTypeId: this.subweapon.weapontype ? this.subweapon.weapontype.id : null,
                             agiTotal: _aspdAgiTotal,
                             dexTotal: _aspdDexTotal,
-                            potionAspdPercent: _potionAspdPercent,
+                            potionAspdPercent: _potionAspdPercentForTotal,
                             skillAspdPercent: _skillAspdPercent,
                             runeAspdFlat: _runeAspdFlat,
                             equipAspdPercent: _equipAspdPercent,
-                            flatAspdBonus: _equipAspdFlat + _skillAspdFlat,
+                            flatAspdBonus: _equipAspdFlat + _skillAspdFlat + _zeroSkillAspdFlat + _potionAspdFlatZero,
                         };
                         this.FetchAndApplyASPD('official', _aspdInput);
                     }
