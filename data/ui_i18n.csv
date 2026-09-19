@@ -207,6 +207,7 @@ ui.equip.race,種族,Race,Raza,Rasse,เผ่า,Race
 ui.equip.physicalracepercent,物理種族 %,Physical Race %,Raza física %,Physische Rasse %,เผ่ากายภาพ %,Race physique %
 ui.equip.magicracepercent,魔法種族 %,Magic Race %,Raza mágica %,Magische Rasse %,เผ่าเวท %,Race magique %
 ui.equip.specifyelementmultiplier,指定屬性倍率,Specify Element Multiplier,Especificar multiplicador elemental,Elementmultiplikator festlegen,ระบุตัวคูณธาตุ,Spécifier le multiplicateur élémentaire
+ui.equip.specifybypassdetail,細部設定,Detail Settings,Configuración detallada,Detaileinstellungen,ตั้งค่าโดยละเอียด,Paramètres détaillés
 ui.equip.element,屬性,Element,Elemento,Element,ธาตุ,Élément
 ui.equip.alltarget,全,All,Todos,Alle,ทั้งหมด,Tous
 ui.equip.elementmultiplier,屬性倍率,Element Multiplier,Multiplicador elemental,Elementmultiplikator,ตัวคูณธาตุ,Multiplicateur élémentaire

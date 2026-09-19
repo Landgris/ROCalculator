@@ -1591,14 +1591,19 @@
                                         </el-row>
 
                                         <el-row :class="PreviewETL[GetETLIndex('BypassDEFPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="12">
+                                            <el-col class="textcenter" :span="8">
                                                 {{ t('BypassDEFPercent', '無視物理防禦 %') }}
                                             </el-col>
-                                            <el-col class="textcenter" :span="12">
+                                            <el-col class="textcenter" :span="8">
                                                 <el-input v-if="PreviewETL[0]"
                                                     v-model="PreviewETL[GetETLIndex('BypassDEFPercent')].totalvalue"
                                                     v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
                                                 </el-input>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="8">
+                                                <el-button v-on:click="OpenBypassDetailDialog('BypassDEFPercent')" size="mini" type="primary">
+                                                    {{ t('ui.equip.specifybypassdetail', '細部設定') }}
+                                                </el-button>
                                             </el-col>
                                         </el-row>
                                         <el-row :class="PreviewETL[GetETLIndex('BypassRESPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
@@ -1862,14 +1867,19 @@
                                         </el-row>
 
                                         <el-row :class="PreviewETL[GetETLIndex('BypassMDEFPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
-                                            <el-col class="textcenter" :span="12">
+                                            <el-col class="textcenter" :span="8">
                                                 {{ t('BypassMDEFPercent', '無視魔法防禦 %') }}
                                             </el-col>
-                                            <el-col class="textcenter" :span="12">
+                                            <el-col class="textcenter" :span="8">
                                                 <el-input v-if="PreviewETL[0]"
                                                     v-model="PreviewETL[GetETLIndex('BypassMDEFPercent')].totalvalue"
                                                     v-on:keyup.enter.native="OnEditEquipEffect()" placeholder="效果參數">
                                                 </el-input>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="8">
+                                                <el-button v-on:click="OpenBypassDetailDialog('BypassMDEFPercent')" size="mini" type="primary">
+                                                    {{ t('ui.equip.specifybypassdetail', '細部設定') }}
+                                                </el-button>
                                             </el-col>
                                         </el-row>
                                         <el-row :class="PreviewETL[GetETLIndex('BypassMRESPercent')].totalvalue!=0?'previeweffectbox2':''" :gutter="6" type="flex" align="middle">
@@ -1907,7 +1917,7 @@
             :element-options="aiParserElementOptions"
             v-on:apply="onAiParserApply"
             v-on:apply-skill="onAiParserApplySkill"
-            v-on:change-part="OpenEditEquipDialogue"
+            v-on:change-part="onAiParserChangePart"
             v-on:apply-weapon-base="onAiParserApplyWeaponBase">
         </ai-equip-parser-dialog>
 
@@ -2115,6 +2125,62 @@
                                 <el-table-column :label="t('ui.common.action', '操作')" width="80">
                                     <template slot-scope="scope">
                                         <el-button size="mini" type="primary" @click="applyElementEffect(scope.row)">
+                                            {{ t('ui.common.apply', '套用') }}
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-scrollbar>
+        </el-dialog>
+
+        <!-- 無視防禦細部設定對話框（種族＋階級） -->
+        <el-dialog :visible.sync="UIPanel['BypassDetailDialog']" custom-class="EffectList-container BypassDetailDialog SelectDialogCenter" width="60%" top="50px"
+            v-on:close="ClosePanel('BypassDetailDialog')" :append-to-body="true" center>
+            <span slot="title">{{ t('ui.equip.specifybypassdetail', '細部設定') }} - {{ selectBypassEffectLabel }}</span>
+            <el-scrollbar wrap-class="BypassDetailList-container" :native="false" :noresize="false">
+                <el-row :gutter="6">
+                    <el-col :span="24">
+                        <div class="statusbox" style="padding: 10px;">
+                            <div style="font-weight:bold;margin-bottom:6px;">{{ t('ui.equip.level', '階級') }}</div>
+                            <el-table :data="bypassLevelSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="240">
+                                <el-table-column prop="levelLabel" :label="t('ui.equip.level', '階級')" width="150">
+                                </el-table-column>
+                                <el-table-column :label="selectBypassEffectLabel" width="180">
+                                    <template slot-scope="scope">
+                                        <el-input-number v-model="scope.row.value" size="small" :min="0" :max="100" :precision="0"
+                                            controls-position="right" style="width: 100%;">
+                                        </el-input-number>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column :label="t('ui.common.action', '操作')" width="80">
+                                    <template slot-scope="scope">
+                                        <el-button size="mini" type="primary" @click="applyBypassLevelEffect(scope.row)">
+                                            {{ t('ui.common.apply', '套用') }}
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                    </el-col>
+                    <el-col :span="24">
+                        <div class="statusbox" style="padding: 10px;margin-top:10px;">
+                            <div style="font-weight:bold;margin-bottom:6px;">{{ t('ui.equip.race', '種族') }}</div>
+                            <el-table :data="bypassRaceSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="240">
+                                <el-table-column prop="raceLabel" :label="t('ui.equip.race', '種族')" width="150">
+                                </el-table-column>
+                                <el-table-column :label="selectBypassEffectLabel" width="180">
+                                    <template slot-scope="scope">
+                                        <el-input-number v-model="scope.row.value" size="small" :min="0" :max="100" :precision="0"
+                                            controls-position="right" style="width: 100%;">
+                                        </el-input-number>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column :label="t('ui.common.action', '操作')" width="80">
+                                    <template slot-scope="scope">
+                                        <el-button size="mini" type="primary" @click="applyBypassRaceEffect(scope.row)">
                                             {{ t('ui.common.apply', '套用') }}
                                         </el-button>
                                     </template>
@@ -6023,6 +6089,64 @@
                                                     </template>
                                                 </el-col>
                                             </el-row>
+                                            <template v-if="showAtkDetail">
+                                                <el-row v-if="getTargetedEffectRows('BypassDEFPercent','level').length" class="statusbox" type="flex"
+                                                    align="middle" justify="space-around" style="height:auto;">
+                                                    <el-col class="textcenter" :span="10" style="text-align: right;">
+                                                        <span></span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <div v-for="row in getTargetedEffectRows('BypassDEFPercent','level')" :key="row.key">
+                                                            <span>{{ t('leveltype_' + row.id, row.label) }} {{ row.value }}%</span>
+                                                            <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
+                                                                {{ getDetailSummaryText(row) }}
+                                                            </span>
+                                                            <div v-if="IsDetailBreakdownOpen(row.key)" class="detail-breakdown">
+                                                                <div v-if="row.equipItems && row.equipItems.length">
+                                                                    <div v-for="equipItem in row.equipItems" :key="row.key + '-equip-' + equipItem.source" class="detail-breakdown-item">
+                                                                        {{ equipItem.source }} {{ equipItem.value }}%
+                                                                    </div>
+                                                                    <div v-if="getEquipRemainderValue(row)" class="detail-breakdown-item">
+                                                                        {{ t('ui.common.other','其他') }} {{ getEquipRemainderValue(row) }}%
+                                                                    </div>
+                                                                </div>
+                                                                <div v-else-if="row.equipValue" class="detail-breakdown-item">{{ t('ui.common.equip','裝備') }} {{ row.equipValue }}%</div>
+                                                                <div v-for="item in row.supportItems" :key="row.key + '-' + item.source" class="detail-breakdown-item">
+                                                                    {{ item.source }} {{ item.value }}%
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row v-if="getTargetedEffectRows('BypassDEFPercent','race').length" class="statusbox" type="flex"
+                                                    align="middle" justify="space-around" style="height:auto;">
+                                                    <el-col class="textcenter" :span="10" style="text-align: right;">
+                                                        <span></span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <div v-for="row in getTargetedEffectRows('BypassDEFPercent','race')" :key="row.key">
+                                                            <span>{{ t('racetype_' + row.id, row.label) }} {{ row.value }}%</span>
+                                                            <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
+                                                                {{ getDetailSummaryText(row) }}
+                                                            </span>
+                                                            <div v-if="IsDetailBreakdownOpen(row.key)" class="detail-breakdown">
+                                                                <div v-if="row.equipItems && row.equipItems.length">
+                                                                    <div v-for="equipItem in row.equipItems" :key="row.key + '-equip-' + equipItem.source" class="detail-breakdown-item">
+                                                                        {{ equipItem.source }} {{ equipItem.value }}%
+                                                                    </div>
+                                                                    <div v-if="getEquipRemainderValue(row)" class="detail-breakdown-item">
+                                                                        {{ t('ui.common.other','其他') }} {{ getEquipRemainderValue(row) }}%
+                                                                    </div>
+                                                                </div>
+                                                                <div v-else-if="row.equipValue" class="detail-breakdown-item">{{ t('ui.common.equip','裝備') }} {{ row.equipValue }}%</div>
+                                                                <div v-for="item in row.supportItems" :key="row.key + '-' + item.source" class="detail-breakdown-item">
+                                                                    {{ item.source }} {{ item.value }}%
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </template>
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                                 style="height:auto;">
                                                 <el-col class="bg-purple-light" :span="10" style="text-align: right;">
@@ -6463,6 +6587,64 @@
                                                     </template>
                                                 </el-col>
                                             </el-row>
+                                            <template v-if="showMatkDetail">
+                                                <el-row v-if="getTargetedEffectRows('BypassMDEFPercent','level').length" class="statusbox" type="flex"
+                                                    align="middle" justify="space-around" style="height:auto;">
+                                                    <el-col class="textcenter" :span="10" style="text-align: right;">
+                                                        <span></span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <div v-for="row in getTargetedEffectRows('BypassMDEFPercent','level')" :key="row.key">
+                                                            <span>{{ t('leveltype_' + row.id, row.label) }} {{ row.value }}%</span>
+                                                            <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
+                                                                {{ getDetailSummaryText(row) }}
+                                                            </span>
+                                                            <div v-if="IsDetailBreakdownOpen(row.key)" class="detail-breakdown">
+                                                                <div v-if="row.equipItems && row.equipItems.length">
+                                                                    <div v-for="equipItem in row.equipItems" :key="row.key + '-equip-' + equipItem.source" class="detail-breakdown-item">
+                                                                        {{ equipItem.source }} {{ equipItem.value }}%
+                                                                    </div>
+                                                                    <div v-if="getEquipRemainderValue(row)" class="detail-breakdown-item">
+                                                                        {{ t('ui.common.other','其他') }} {{ getEquipRemainderValue(row) }}%
+                                                                    </div>
+                                                                </div>
+                                                                <div v-else-if="row.equipValue" class="detail-breakdown-item">{{ t('ui.common.equip','裝備') }} {{ row.equipValue }}%</div>
+                                                                <div v-for="item in row.supportItems" :key="row.key + '-' + item.source" class="detail-breakdown-item">
+                                                                    {{ item.source }} {{ item.value }}%
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row v-if="getTargetedEffectRows('BypassMDEFPercent','race').length" class="statusbox" type="flex"
+                                                    align="middle" justify="space-around" style="height:auto;">
+                                                    <el-col class="textcenter" :span="10" style="text-align: right;">
+                                                        <span></span>
+                                                    </el-col>
+                                                    <el-col class="textcenter" :span="10">
+                                                        <div v-for="row in getTargetedEffectRows('BypassMDEFPercent','race')" :key="row.key">
+                                                            <span>{{ t('racetype_' + row.id, row.label) }} {{ row.value }}%</span>
+                                                            <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
+                                                                {{ getDetailSummaryText(row) }}
+                                                            </span>
+                                                            <div v-if="IsDetailBreakdownOpen(row.key)" class="detail-breakdown">
+                                                                <div v-if="row.equipItems && row.equipItems.length">
+                                                                    <div v-for="equipItem in row.equipItems" :key="row.key + '-equip-' + equipItem.source" class="detail-breakdown-item">
+                                                                        {{ equipItem.source }} {{ equipItem.value }}%
+                                                                    </div>
+                                                                    <div v-if="getEquipRemainderValue(row)" class="detail-breakdown-item">
+                                                                        {{ t('ui.common.other','其他') }} {{ getEquipRemainderValue(row) }}%
+                                                                    </div>
+                                                                </div>
+                                                                <div v-else-if="row.equipValue" class="detail-breakdown-item">{{ t('ui.common.equip','裝備') }} {{ row.equipValue }}%</div>
+                                                                <div v-for="item in row.supportItems" :key="row.key + '-' + item.source" class="detail-breakdown-item">
+                                                                    {{ item.source }} {{ item.value }}%
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </template>
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                                 style="height:auto;">
                                                 <el-col class="bg-purple-light" :span="10" style="text-align: right;">
@@ -7218,6 +7400,10 @@
                 elementSelectRows: [],
                 selectElementEffectId: '',
                 selectElementEffectLabel: '',
+                bypassLevelSelectRows: [],
+                bypassRaceSelectRows: [],
+                selectBypassEffectId: '',
+                selectBypassEffectLabel: '',
 
                 // 裝備數據版本控制
                 equipDataVersion: 2,  // 當前版本號
@@ -7916,6 +8102,7 @@
                     LevelSelectDialog: false,
                     RaceSelectDialog: false,
                     ElementSelectDialog: false,
+                    BypassDetailDialog: false,
                     EquipDBDialog: false,
                     EditEquipDialog: false,
                     AiEquipParserDialog: false,
@@ -8274,6 +8461,19 @@
                         const elementLabel = elementId === null ? this.t('ui.equip.alltarget', '全') : this.t('elementtype_' + elementId, this.getElementLabelFromTargetId(item.targetId));
                         return `${elementLabel} ${this.t('ui.equip.elementmagicsuffix', '屬性魔法')}`;
                     }
+                    if (item.id === 'BypassDEFPercent' || item.id === 'BypassMDEFPercent') {
+                        const levelId = this.getLevelIdFromTargetId(item.targetId);
+                        if (levelId !== null) {
+                            const levelLabel = this.t('leveltype_' + levelId, this.getLevelLabelFromTargetId(item.targetId));
+                            return `${this.t(item.id, item.label)}(${this.t('ui.equip.fortarget', '對')}${levelLabel})`;
+                        }
+                        const raceId = this.getRaceIdFromTargetId(item.targetId);
+                        if (raceId !== null) {
+                            const raceLabel = this.t('racetype_' + raceId, this.getRaceLabelFromTargetId(item.targetId));
+                            return `${this.t(item.id, item.label)}(${this.t('ui.equip.fortarget', '對')}${raceLabel})`;
+                        }
+                        return this.t(item.id, item.label);
+                    }
                     return this.t(item.id, item.label);
                 },
                 formatEffectLabelForEffect(effect) {
@@ -8438,6 +8638,8 @@
                             { effectId: 'SizeAtkPercent', targetKind: 'size' },
                             { effectId: 'ElementDamageDealtIncreasedPercent', targetKind: 'element' },
                             { effectId: 'BypassDEFPercent', targetKind: 'all' },
+                            { effectId: 'BypassDEFPercent', targetKind: 'level' },
+                            { effectId: 'BypassDEFPercent', targetKind: 'race' },
                             { effectId: 'BypassRESPercent', targetKind: 'all' },
                             { effectId: 'GCDPercent', targetKind: 'all' },
                             { effectId: 'PATK', targetKind: 'all' }
@@ -8454,6 +8656,8 @@
                             { effectId: 'SizeMatkPercent', targetKind: 'size' },
                             { effectId: 'ElementDamageDealtIncreasedPercent', targetKind: 'element' },
                             { effectId: 'BypassMDEFPercent', targetKind: 'all' },
+                            { effectId: 'BypassMDEFPercent', targetKind: 'level' },
+                            { effectId: 'BypassMDEFPercent', targetKind: 'race' },
                             { effectId: 'BypassMRESPercent', targetKind: 'all' },
                             { effectId: 'GCDPercent', targetKind: 'all' },
                             { effectId: 'SMATK', targetKind: 'all' }
@@ -9029,6 +9233,50 @@
                     this.upsertElementEffect(this.selectElementEffectId, row.value, row.elementId);
                     this.$message.success('已套用屬性倍率：' + this.getElementLabelFromTargetId(this.makeElementTargetId(row.elementId)));
                 },
+                OpenBypassDetailDialog(effectId) {
+                    const effectType = this.effecttypelist.find(x => x.id === effectId);
+                    this.selectBypassEffectId = effectId;
+                    this.selectBypassEffectLabel = effectType ? this.t(effectType.id, effectType.label) : '';
+                    this.bypassLevelSelectRows = this.leveltypelist.map(option => {
+                        return {
+                            levelId: option.id,
+                            levelLabel: this.t('leveltype_' + option.id, option.label),
+                            value: this.getLevelEffectValue(effectId, option.id)
+                        };
+                    });
+                    this.bypassRaceSelectRows = this.racetypelist.map(option => {
+                        return {
+                            raceId: option.id,
+                            raceLabel: this.t('racetype_' + option.id, option.label),
+                            value: this.getRaceEffectValue(effectId, option.id)
+                        };
+                    });
+                    this.OpenPanel('BypassDetailDialog');
+                },
+                applyBypassLevelEffect(row) {
+                    if (!this.selectBypassEffectId) {
+                        this.$message.warning('未設定無視防禦類型');
+                        return;
+                    }
+                    if (row.value === null || row.value === undefined) {
+                        this.$message.warning('請輸入無視防禦 %');
+                        return;
+                    }
+                    this.upsertLevelEffect(this.selectBypassEffectId, row.value, row.levelId);
+                    this.$message.success('已套用階級無視防禦：' + this.getLevelLabelFromTargetId(this.makeLevelTargetId(row.levelId)));
+                },
+                applyBypassRaceEffect(row) {
+                    if (!this.selectBypassEffectId) {
+                        this.$message.warning('未設定無視防禦類型');
+                        return;
+                    }
+                    if (row.value === null || row.value === undefined) {
+                        this.$message.warning('請輸入無視防禦 %');
+                        return;
+                    }
+                    this.upsertRaceEffect(this.selectBypassEffectId, row.value, row.raceId);
+                    this.$message.success('已套用種族無視防禦：' + this.getRaceLabelFromTargetId(this.makeRaceTargetId(row.raceId)));
+                },
                 SwitchElementalVersion(){
                     this.ElementTableLastest = !this.ElementTableLastest;
                     this.elementalmap = this.ElementTableLastest? this.elementalmap_fix : this.elementalmap_old;
@@ -9061,6 +9309,13 @@
                             if (eff.EffectType.id === 'ElementalAtkPercent' || eff.EffectType.id === 'ElementalMatkPercent' || eff.EffectType.id === 'ElementalMagicPercent' || eff.EffectType.id === 'ElementDamageDealtIncreasedPercent') {
                                 const elementId = this.getElementIdFromTargetId(eff.targetId);
                                 if (elementId !== null) {
+                                    continue;
+                                }
+                            }
+                            if (eff.EffectType.id === 'BypassDEFPercent' || eff.EffectType.id === 'BypassMDEFPercent') {
+                                const levelId = this.getLevelIdFromTargetId(eff.targetId);
+                                const raceId = this.getRaceIdFromTargetId(eff.targetId);
+                                if (levelId !== null || raceId !== null) {
                                     continue;
                                 }
                             }
@@ -9172,7 +9427,9 @@
                 EnableEffect(eqindex, index){
                     this.CombineEquipsAttribute();
                 },
-                OpenEditEquipDialogue(eqindex) {
+                // 把「目前正在編輯哪個部位」的底層資料（EquipSelectId/EquipSelectLabel/PreviewETL...）
+                // 同步成指定部位——不負責顯示裝備編輯 dialog，單純資料同步，讓套用效果時寫進正確的部位。
+                syncEditEquipData(eqindex) {
                     this.EquipSelectId = eqindex;
                     this.EquipSelectLabel = this.t(this.equipspartlist[eqindex].id, this.equipspartlist[eqindex].label);
                     this.resetPreviewETL();
@@ -9189,7 +9446,7 @@
                                 x.id === element.EffectType.id &&
                                 this.normalizeTargetId(x.targetId) === targetId
                             );
-                            
+
                             if (existingIdx > -1) {
                                 // 已存在，更新數值
                                 this.PreviewETL[existingIdx].totalvalue = element.EffectNumber;
@@ -9218,9 +9475,17 @@
                             }
                         }
                     });
-
+                },
+                OpenEditEquipDialogue(eqindex) {
+                    this.syncEditEquipData(eqindex);
                     this.UIPanel['EditEquipDialog'] = true;
-
+                },
+                // AI裝備解析dialog切換部位時呼叫：只同步底層資料，不能像OpenEditEquipDialogue一樣順便
+                // 打開裝備編輯dialog——兩個都是全螢幕el-dialog，若從主畫面裝備標題直接開AI解析（這時
+                // 裝備編輯dialog還沒開），切部位時才把裝備編輯dialog疊出來，會蓋住原本開著的AI解析
+                // dialog（後開的疊在上面），使用者會以為AI解析視窗自動被關掉了。
+                onAiParserChangePart(eqindex) {
+                    this.syncEditEquipData(eqindex);
                 },
                 CloseEditEquipDialogue() {
                     this.EquipSelectId = '';
@@ -13010,6 +13275,47 @@
                             }
                         });
                     });
+
+                    // 裝備無視防禦倍率（指定階級／種族）：BypassDEFPercent/BypassMDEFPercent 的"全"部分已在前面
+                    // 併入 attritube['BYPASSDEF']/['BYPASSMDEF']，這裡只再疊加符合當前敵人階級/種族的指定條目，
+                    // 加總後要重新套用100%上限（避免全域值先前已clamp過100，疊加後又超過）。
+                    this.equipspartlist.forEach(equip => {
+                        if (!equip.effectlist) return;
+                        equip.effectlist.forEach(effect => {
+                            if (!effect.Enable) return;
+                            if (!effect.EffectNumber || effect.EffectNumber === 0) return;
+
+                            const targetId = this.normalizeTargetId(effect.targetId);
+                            if (effect.EffectType.id === 'BypassDEFPercent') {
+                                if (this.isLevelTargetId(targetId)) {
+                                    const targetLevel = this.getLevelIdFromTargetId(targetId);
+                                    if (targetLevel !== null && Number(targetLevel) === Number(enemyLevelType)) {
+                                        this.attritube['BYPASSDEF'] += Number(effect.EffectNumber);
+                                    }
+                                } else if (this.isRaceTargetId(targetId)) {
+                                    const targetRace = this.getRaceIdFromTargetId(targetId);
+                                    if (targetRace !== null && Number(targetRace) === Number(enemyRace)) {
+                                        this.attritube['BYPASSDEF'] += Number(effect.EffectNumber);
+                                    }
+                                }
+                            }
+                            if (effect.EffectType.id === 'BypassMDEFPercent') {
+                                if (this.isLevelTargetId(targetId)) {
+                                    const targetLevel = this.getLevelIdFromTargetId(targetId);
+                                    if (targetLevel !== null && Number(targetLevel) === Number(enemyLevelType)) {
+                                        this.attritube['BYPASSMDEF'] += Number(effect.EffectNumber);
+                                    }
+                                } else if (this.isRaceTargetId(targetId)) {
+                                    const targetRace = this.getRaceIdFromTargetId(targetId);
+                                    if (targetRace !== null && Number(targetRace) === Number(enemyRace)) {
+                                        this.attritube['BYPASSMDEF'] += Number(effect.EffectNumber);
+                                    }
+                                }
+                            }
+                        });
+                    });
+                    if (this.attritube['BYPASSDEF'] > 100) this.attritube['BYPASSDEF'] = 100;
+                    if (this.attritube['BYPASSMDEF'] > 100) this.attritube['BYPASSMDEF'] = 100;
 
                     // 裝備屬性倍率（指定屬性）
                     const enemyElement = this.enemyattribute.elemental;

@@ -23,6 +23,11 @@
  * LevelAtkPercent/ElementalAtkPercent（及其魔法版本）這幾個id，計算機裡是用targetId區分「全部」
  * 跟「指定某一個」——但同一個id本身可能有些筆是「全部」（例如全種族+5%）、有些筆是「指定」
  * （例如對惡魔+10%），不能只看id判斷，要看AI這一筆有沒有實際給 "skillName"/"targetName"：
+ * 另外 BypassDEFPercent（無視物理防禦%）/BypassMDEFPercent（無視魔法防禦%）比較特殊——這兩個id
+ * 不像上面那組「一個id固定對應一種分類（種族or階級or體型or屬性）」，而是同一個id可能被「種族」
+ * 或「階級」其中一種targetId指定（例如「對惡魔無視防禦+20%」是種族、「對首領無視防禦+15%」是
+ * 階級），所以猜測/顯示時要靠targetId本身的前綴（race:/level:）判斷屬於哪個分類，不能像其他
+ * id一樣直接從id反查出唯一分類（見 MULTI_TARGET_CATEGORIES / getCategoryFromTargetId）。
  * 有給才是 item.targeted=true 的「指定對象」效果，沒給就是普通扁平效果（跟STR、Atk%這種一樣
  * 直接可編輯數字），千萬不要把id本身當成「這一定是指定對象」的判斷依據。
  * 「指定對象」效果（item.targeted=true）不能直接用扁平{id,value}加總套用，走另一條 apply-skill
@@ -65,6 +70,15 @@
         size: { atk: 'SizeAtkPercent', matk: 'SizeMatkPercent', prefix: 'size:' },
         level: { atk: 'LevelAtkPercent', matk: 'LevelMatkPercent', prefix: 'level:' },
         element: { atk: 'ElementalAtkPercent', matk: 'ElementalMatkPercent', prefix: 'element:' },
+    };
+
+    // BypassDEFPercent/BypassMDEFPercent 比較特殊：不是「一個id固定對應一種分類」，而是同一個id
+    // 可能被「種族」或「階級」其中一種targetId指定（兩種分類共用同一個id），所以用id查不出唯一
+    // 分類，只能列出「這個id可能屬於哪些分類」，實際是哪一種要等targetId猜出來後才知道
+    // （見 getCategoryFromTargetId：直接看targetId本身的前綴，不是看id）。
+    var MULTI_TARGET_CATEGORIES = {
+        BypassDEFPercent: ['race', 'level'],
+        BypassMDEFPercent: ['race', 'level'],
     };
 
     // 依部位暫存的「步驟1裝備說明」跟「步驟3 AI回覆」文字：{ [partIndex]: { description, replyText } }。
@@ -287,6 +301,13 @@
                     '這幾組 id 計算機這邊也沒有把完整的種族/體型/階級/屬性清單給你：如果說明文字指定的是「特定」種族/體型/階級/屬性才生效（例如「對惡魔種族傷害+10%」「對中型怪物傷害+15%」「對BOSS級怪物傷害+20%」「對火屬性怪物傷害+8%」），除了照常填 id 和 value，另外加一個 "targetName" 欄位，內容是說明文字裡寫的種族/體型/階級/屬性原始名稱（保留原文，例如「惡魔」「中型」「BOSS」「火」），不要猜測或編造內部代碼。如果文字寫的是「全部」種族/體型/階級/屬性都適用（沒有指定特定的），則不要加 targetName 欄位。',
                     '如果同一條效果同時指定好幾個特定目標（例如「對中、大型對象的魔法傷害+30%」同時指定中型跟大型；「對惡魔、不死種族傷害+X%」同時指定兩種種族），請把每個目標各自拆成一筆獨立的效果（id 和 value 都一樣，targetName 各自填一個目標名稱），不要把好幾個名稱塞在同一個 targetName 裡——計算機這裡一筆效果只能對應一個目標，你負責拆開，不要留給使用者自己拆。',
                     '',
+                    '特別規則：「BypassDEFPercent」（無視物理防禦%）和「BypassMDEFPercent」（無視魔法防禦%）這兩個 id，效果通常是對「全部」目標都適用，但也可能只對「特定種族」或「特定階級（例如BOSS/首領級、一般怪）」才無視防禦（例如「對惡魔無視防禦+20%」「對首領級怪物無視防禦+15%」）。如果文字明確指定是對某個特定種族或特定階級才生效，除了照常填 id 和 value，一樣加一個 "targetName" 欄位，內容填該種族或該階級的原始名稱（例如「惡魔」「首領」）；如果是對所有目標都適用（沒有指定特定種族或階級），則不要加 targetName 欄位。這兩個id每一筆只會是「種族」或「階級」其中一種，不會同時是兩種。',
+                    '',
+                    '特別規則（容易混淆，務必分清楚）：「BypassDEFPercent/BypassMDEFPercent」（無視物理/魔法「防禦」，也就是傳統的DEF/MDEF）跟「BypassRESPercent/BypassMRESPercent」（無視「RES/MRES」）是完全不同的兩組數值，不是同義詞：',
+                    '- 說明文字裡只要出現「防禦」「DEF」「MDEF」字樣（例如「無視防禦」「無視魔法防禦」「無視全階級的魔法防禦」），一律對應 BypassDEFPercent（物理）或 BypassMDEFPercent（魔法），不可以對應成 BypassRESPercent/BypassMRESPercent。',
+                    '- 只有說明文字明確寫出「RES」或「MRES」這個縮寫字樣本身時，才對應 BypassRESPercent/BypassMRESPercent。',
+                    '- 「全階級」「所有階級」「不分階級」這種寫法代表「一般怪+首領/BOSS怪都適用」，屬於「對全部階級都適用」，不要加 targetName、也不要因為提到「階級」兩個字就誤以為一定要指定特定階級。',
+                    '',
                     '找不到對應 id 的效果（例如攻擊距離、位移、機率觸發技能、冷卻時間秒數這種清單沒有的東西）請直接忽略，不要放進結果，也不用解釋。',
                     '數值為0或該區塊沒提到的效果不要放進該區塊。百分比欄位請填數字本身（例如7%要填7，不要填0.07）。',
                     '',
@@ -301,9 +322,25 @@
                 return id === 'SkillDamagePercent' || id === 'CDTime';
             },
             // 回傳這個id屬於哪個「指定對象」分類（'race'/'size'/'level'/'element'），不是就回傳null。
+            // 注意：BypassDEFPercent/BypassMDEFPercent不會從這裡查到分類（它們可能是race也可能是
+            // level，一個id查不出唯一分類），要用 getMultiCategoriesForId / getCategoryFromTargetId。
             getCategoryForId: function (id) {
                 for (var key in TARGET_CATEGORIES) {
                     if (TARGET_CATEGORIES[key].atk === id || TARGET_CATEGORIES[key].matk === id) return key;
+                }
+                return null;
+            },
+            // BypassDEFPercent/BypassMDEFPercent這種「一個id可能屬於好幾種分類」的清單，不是就回傳null。
+            getMultiCategoriesForId: function (id) {
+                return MULTI_TARGET_CATEGORIES[id] || null;
+            },
+            // 直接看targetId本身的前綴（race:/level:/...）判斷屬於哪個分類——跟getCategoryForId
+            // （從id反查）互補：id唯一對應分類的效果兩種查法結果一樣，但BypassDEFPercent這種
+            // 「一個id可能是好幾種分類」的效果，只有這個方法查得出「這一筆實際」是哪一種。
+            getCategoryFromTargetId: function (targetId) {
+                if (!targetId) return null;
+                for (var key in TARGET_CATEGORIES) {
+                    if (targetId.indexOf(TARGET_CATEGORIES[key].prefix) === 0) return key;
                 }
                 return null;
             },
@@ -333,8 +370,20 @@
             },
             // 下拉選單要用哪份清單：技能用skillOptions（原始id無前綴）；種族/體型/階級/屬性則把
             // 各自清單的數字id加上分類前綴，統一成跟skillOptions一樣的{id,name}格式方便共用模板。
+            // BypassDEFPercent/BypassMDEFPercent這種「一個id可能是好幾種分類」的效果，選單要把
+            // 每個可能分類的清單都串在一起（例如種族+階級兩份都列出來），讓使用者自己選是哪一種。
             targetOptionsFor: function (item) {
                 if (this.isSkillTargetId(item.id)) return this.skillOptions;
+                var self = this;
+                var multiCategories = this.getMultiCategoriesForId(item.id);
+                if (multiCategories) {
+                    var opts = [];
+                    multiCategories.forEach(function (cat) {
+                        var prefix = TARGET_CATEGORIES[cat].prefix;
+                        opts = opts.concat(self.getCategoryOptions(cat).map(function (o) { return { id: prefix + o.id, name: o.name }; }));
+                    });
+                    return opts;
+                }
                 var category = this.getCategoryForId(item.id);
                 if (category) {
                     var prefix = TARGET_CATEGORIES[category].prefix;
@@ -342,12 +391,15 @@
                 }
                 return [];
             },
-            // 已確認效果只存了targetId，這裡查回可讀名稱顯示在畫面上——技能查skillOptions，
-            // 種族/體型/階級/屬性則去掉targetId的前綴後查對應清單。
+            // 已確認效果只存了targetId，這裡查回可讀名稱顯示在畫面上——技能查skillOptions；
+            // 種族/體型/階級/屬性則靠targetId本身的前綴（而不是item.id）判斷屬於哪個分類再查對應
+            // 清單，這樣同時涵蓋「id唯一對應分類」跟「一個id可能是好幾種分類」（BypassDEFPercent
+            // 之類）兩種情形，不用另外分支處理。
             resolvedTargetName: function (item) {
                 if (this.isSkillTargetId(item.id)) return this.skillTargetName(item);
-                var category = this.getCategoryForId(item.id);
-                if (category && item.targetId) {
+                if (!item.targetId) return item.targetId;
+                var category = this.getCategoryFromTargetId(item.targetId);
+                if (category) {
                     var prefix = TARGET_CATEGORIES[category].prefix;
                     var rawId = item.targetId.indexOf(prefix) === 0 ? item.targetId.slice(prefix.length) : item.targetId;
                     var opt = this.getCategoryOptions(category).find(function (o) { return String(o.id) === rawId; });
@@ -498,12 +550,20 @@
                             // skillName/targetName。沒給（例如「全種族」「所有技能」）就是一般扁平效果，
                             // 完全不要走目標確認/下拉選單那條路，直接跟普通效果一樣可編輯數字。
                             var category = self.isSkillTargetId(row.id) ? null : self.getCategoryForId(row.id);
+                            // BypassDEFPercent/BypassMDEFPercent：一個id可能是「種族」或「階級」其中
+                            // 一種，getCategoryForId(單一分類)查不出來，要另外查multiCategories清單。
+                            var multiCategories = self.isSkillTargetId(row.id) ? null : self.getMultiCategoriesForId(row.id);
                             var isSkillKind = self.isSkillTargetId(row.id) && !!skillName;
-                            var isCategoryKind = !!category && !!targetName;
+                            var isCategoryKind = (!!category || !!multiCategories) && !!targetName;
                             var targeted = isSkillKind || isCategoryKind;
                             var guessedTargetId = '';
                             if (isSkillKind) {
                                 guessedTargetId = self.guessSkillId(skillName);
+                            } else if (multiCategories) {
+                                // 依序試每個可能分類，猜到哪個算哪個（種族/階級名稱不會重疊，正常不會兩個都猜到）。
+                                for (var mi = 0; mi < multiCategories.length && !guessedTargetId; mi++) {
+                                    guessedTargetId = self.guessCategoryTargetId(multiCategories[mi], targetName);
+                                }
                             } else if (isCategoryKind) {
                                 guessedTargetId = self.guessCategoryTargetId(category, targetName);
                             }
@@ -594,7 +654,7 @@
             },
         },
         template: [
-            '<el-dialog :visible.sync="dialogVisible" custom-class="Dialogue-container" width="80%" top="50px" center v-on:close="onClose">',
+            '<el-dialog :visible.sync="dialogVisible" custom-class="Dialogue-container" width="80%" top="50px" center :close-on-click-modal="false" v-on:close="onClose">',
             '  <span slot="title">{{ t(\'ui.aiparser.title\', \'AI 裝備效果解析\') }} <b v-if="equipLabel">{{ equipLabel }}</b></span>',
             '  <el-row type="flex" justify="end" :gutter="10" class="ai-parser-actions-row">',
             '    <el-col :span="4"><el-button size="small" v-on:click="dialogVisible = false">{{ t(\'ui.common.cancel\', \'取消\') }}</el-button></el-col>',
