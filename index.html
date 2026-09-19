@@ -142,7 +142,7 @@
                     <div v-if="isZeroMode" style="padding: 10px 0;">
                         <el-row :gutter="10" type="flex" align="middle">
                             <el-col :span="14">
-                                <el-select v-model="pendingZeroRegion" style="width: 100%;"
+                                <el-select v-model="pendingZeroRegion" :placeholder="t('ui.common.pleaseselect', '請選擇')" style="width: 100%;"
                                     popper-append-to-body
                                     :popper-options="{
                                         placement: 'auto',
@@ -241,6 +241,7 @@
                             </el-col>
                         </el-row>
                     </div>
+
                 </div>
             </el-row>
         </el-dialog>
@@ -287,7 +288,7 @@
             custom-class="Dialogue-container" :show-close=false :close-on-click-modal=false width="80%" top="50px" center>
             <div slot="title" style="display:flex; align-items:center; justify-content:center; position:relative;">
                 <span>{{ t('welcome.title', '歡迎使用計算機') }}</span>
-                <el-select v-model="uiLocale" v-on:change="onChangeUILocale" size="small"
+                <el-select v-model="uiLocale" v-on:change="onChangeUILocale" size="small" :placeholder="t('ui.common.pleaseselect', '請選擇')"
                     style="position:absolute; right:40px; width:140px;">
                     <el-option v-for="loc in availableUILocales" :key="loc.code" :label="loc.name" :value="loc.code"></el-option>
                 </el-select>
@@ -487,7 +488,7 @@
                                         trigger="click">
                                         <el-scrollbar wrap-class="DBlist-container" :native="false"
                                             :noresize="false">
-                                            <el-table :data="KeywordReplaceList" stripe style="width: 100%">
+                                            <el-table :data="KeywordReplaceList" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
                                                 <el-table-column prop="str1" :label="t('ui.skill.keyword', '關鍵字')" width="100">
                                                 </el-table-column>
                                                 <el-table-column :label="t('ui.skill.function', '功能')" width="220">
@@ -905,7 +906,10 @@
             v-on:close="ClosePanel('EditEquipDialog')" center>
             <span slot="title">編輯裝備 <b>{{EquipSelectLabel}}</b></span>
             <el-row class="statusbox titlebox" style="padding: 5px 5px; height: 60px;":gutter="4" type="flex" align="middle" justify="end" >
-                <el-col :span="2">
+                <el-col :span="2" class="textcenter">
+                    <el-button v-on:click="UIPanel['AiEquipParserDialog'] = true" size="small" type="primary" plain>
+                        {{ t('ui.equip.aiparse', 'AI解析') }}
+                    </el-button>
                 </el-col>
                 <el-col :span="2">
                 </el-col>
@@ -1887,6 +1891,26 @@
             </el-row>
         </el-dialog>
 
+        <ai-equip-parser-dialog
+            :visible.sync="UIPanel['AiEquipParserDialog']"
+            :effect-type-list="effecttypelist"
+            :equip-label="EquipSelectLabel"
+            :t="t"
+            :skill-options="aiParserSkillOptions"
+            :effect-tag-class="getEffectTagClass"
+            :equip-parts="aiParserEquipParts"
+            :current-part-index="EquipSelectId"
+            :weapon-type-list="weapontypelist"
+            :race-options="aiParserRaceOptions"
+            :size-options="aiParserSizeOptions"
+            :level-options="aiParserLevelOptions"
+            :element-options="aiParserElementOptions"
+            v-on:apply="onAiParserApply"
+            v-on:apply-skill="onAiParserApplySkill"
+            v-on:change-part="OpenEditEquipDialogue"
+            v-on:apply-weapon-base="onAiParserApplyWeaponBase">
+        </ai-equip-parser-dialog>
+
         <!-- 技能選擇對話框 -->
         <el-dialog :visible.sync="UIPanel['SkillSelectDialog']" custom-class="EffectList-container" width="60%" top="50px"
             v-on:close="ClosePanel('SkillSelectDialog')" center>
@@ -1902,7 +1926,7 @@
                                 </el-col>
                                 <el-col :span="8"></el-col>
                             </el-row>
-                            <el-table :data="pagedSkillsList" stripe style="width: 100%" max-height="500">
+                            <el-table :data="pagedSkillsList" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="500">
                                 <el-table-column label="技能名稱" width="200">
                                     <template slot-scope="scope">
                                         {{ getSkillName(scope.row.skill.id) }}
@@ -1961,7 +1985,7 @@
                 <el-row :gutter="6">
                     <el-col :span="24">
                         <div class="statusbox" style="padding: 10px;">
-                            <el-table :data="sizeSelectRows" stripe style="width: 100%" max-height="360">
+                            <el-table :data="sizeSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="360">
                                 <el-table-column prop="sizeLabel" :label="t('ui.equip.size', '體型')" width="120">
                                 </el-table-column>
                                 <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicalsizepercent', '物理體型 %')" width="150">
@@ -2000,7 +2024,7 @@
                 <el-row :gutter="6">
                     <el-col :span="24">
                         <div class="statusbox" style="padding: 10px;">
-                            <el-table :data="levelSelectRows" stripe style="width: 100%" max-height="360">
+                            <el-table :data="levelSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="360">
                                 <el-table-column prop="levelLabel" :label="t('ui.equip.level', '階級')" width="120">
                                 </el-table-column>
                                 <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicallevelpercent', '物理階級 %')" width="150">
@@ -2039,7 +2063,7 @@
                 <el-row :gutter="6">
                     <el-col :span="24">
                         <div class="statusbox" style="padding: 10px;">
-                            <el-table :data="raceSelectRows" stripe style="width: 100%">
+                            <el-table :data="raceSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
                                 <el-table-column prop="raceLabel" :label="t('ui.equip.race', '種族')" width="120">
                                 </el-table-column>
                                 <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicalracepercent', '物理種族 %')" width="150">
@@ -2078,7 +2102,7 @@
                 <el-row :gutter="6">
                     <el-col :span="24">
                         <div class="statusbox" style="padding: 10px;">
-                            <el-table :data="elementSelectRows" stripe style="width: 100%">
+                            <el-table :data="elementSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
                                 <el-table-column prop="elementLabel" :label="t('ui.equip.element', '屬性')" width="120">
                                 </el-table-column>
                                 <el-table-column :label="selectElementEffectLabel" width="180">
@@ -2933,7 +2957,7 @@
                     </el-badge>
                 </el-col>
                 <el-col :span="2">
-                    <el-select v-model="uiLocale" v-on:change="onChangeUILocale" size="small" style="width:100%">
+                    <el-select v-model="uiLocale" v-on:change="onChangeUILocale" size="small" :placeholder="t('ui.common.pleaseselect', '請選擇')" style="width:100%">
                         <el-option v-for="loc in availableUILocales" :key="loc.code" :label="loc.name" :value="loc.code"></el-option>
                     </el-select>
                 </el-col>
@@ -3737,7 +3761,7 @@
                                                     trigger="click">
                                                     <el-scrollbar wrap-class="DBlist-container" :native="false"
                                                         :noresize="false">
-                                                        <el-table :data="KeywordReplaceList" stripe style="width: 100%">
+                                                        <el-table :data="KeywordReplaceList" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
                                                             <el-table-column prop="str1" :label="t('ui.skill.keyword', '關鍵字')" width="100">
                                                             </el-table-column>
                                                             <el-table-column :label="t('ui.skill.function', '功能')" width="220">
@@ -4156,6 +4180,9 @@
                             <span class="textcenter">{{ t('ui.equip.title', '裝備') }}</span>
                         </el-col>
                         <el-col class="textcenter" :span="16" style="text-align: right;">
+                            <el-button v-on:click="UIPanel['AiEquipParserDialog'] = true" size="mini" type="primary" plain>
+                                {{ t('ui.equip.aiparse', 'AI解析') }}
+                            </el-button>
                             <el-tooltip class="item" effect="dark" :content="t('ui.equip.dbtooltip', '讀取已經儲存的裝備')" placement="left">
                                 <el-button v-on:click="onOpenEquipDB" size="mini">
                                     {{ t('ui.equip.dblist', '裝備清單') }}
@@ -7005,6 +7032,7 @@
 
     <script src="js/aspd_calculator.js"></script>
     <script src="js/formula_interpreter.js"></script>
+    <script src="js/ai_equip_parser.js?v=27"></script>
     <script>
         // lodash 的 _.debounce 包 async function 時，呼叫方 await 拿到的是「debounce wrapper 立刻回傳的 undefined」，
         // 不會等到真正執行、也拿不到內部 async function 的結果——這對「一直打字時不要每個字都打 API」還是需要，
@@ -7494,7 +7522,7 @@
                 ],
                 leveltypelist: [
                     { id: 0, label: '一般' },
-                    { id: 1, label: 'BOSS' },
+                    { id: 1, label: '首領' },
                 ],
                 racetypelist: [
                     { id: 0, label: '無形' },
@@ -7890,6 +7918,7 @@
                     ElementSelectDialog: false,
                     EquipDBDialog: false,
                     EditEquipDialog: false,
+                    AiEquipParserDialog: false,
                     AllSetDBDialog: false,
                     AllSetDBSaveDialog: false,
                     ConsumableDBDialog: false,
@@ -7939,8 +7968,8 @@
                 OpenPanel(id) {
                     this.UIPanel[id] = true;
                 },
-                OpenSkillSelectDialog() {
-                    this.skillSearchText = '';
+                OpenSkillSelectDialog(presetSearchText) {
+                    this.skillSearchText = presetSearchText || '';
                     this.skillPage = 1;
                     const damage = {};
                     const cd = {};
@@ -9072,6 +9101,65 @@
                     }
                     this.effectdialogue.EffectNumber = '';
                     this.CombineEquipsAttribute();
+                },
+                // AI 裝備解析 dialog 套用結果：results 是 [{id, value}]，直接寫回目前正在編輯的 PreviewETL，
+                // 使用者按「確定/儲存」（onEditEquipConfirm）前都還能在編輯器裡再修正。
+                onAiParserApply(results) {
+                    results.forEach(r => {
+                        const idx = this.GetETLIndex(r.id);
+                        if (idx > -1) {
+                            this.PreviewETL[idx].totalvalue = r.value;
+                        }
+                    });
+                },
+                // AI 裝備解析 dialog 遇到「指定技能」效果（SkillDamagePercent/CDTime）時：
+                // AI 沒有完整技能清單無法可靠猜出技能內部代碼，所以只負責給數值，技能本身讓使用者自己從
+                // 完整技能清單（aiParserSkillOptions，不限職業）挑選；選好按「套用」直接寫入 PreviewETL，
+                // 不用像手動編輯那樣還要另外開視窗、重新輸入一次倍率/秒數。
+                onAiParserApplySkill(item) {
+                    const idx = this.PreviewETL.findIndex(x => x.id === item.id && x.targetId === item.targetId);
+                    if (idx > -1) {
+                        this.PreviewETL[idx].totalvalue = item.value;
+                    } else {
+                        const effectType = this.effecttypelist.find(x => x.id === item.id);
+                        this.PreviewETL.push({
+                            id: effectType.id,
+                            label: effectType.label,
+                            opersymbol: effectType.opersymbol,
+                            suffixsymbol: effectType.suffixsymbol,
+                            EffectType: effectType,
+                            totalvalue: item.value,
+                            targetId: item.targetId,
+                            targetName: item.targetName,
+                        });
+                    }
+                    this.$message.success('已套用技能效果：' + item.targetName);
+                },
+                // AI 裝備解析 dialog 偵測到「系列/攻擊/重量/武器等級」這種原始武器資料時套用——
+                // 這是本機正則解析出來的，不是AI回覆的一部分。只有主手(0)/副手(1)才會觸發。
+                onAiParserApplyWeaponBase(info) {
+                    if (info.partIndex === 0) {
+                        if (info.type) this.weapon.type = info.type;
+                        if (info.level !== undefined) {
+                            const lv = this.weaponlevellist.find(w => w.id === info.level);
+                            if (lv) this.weapon.level = lv;
+                        }
+                        if (info.atk !== undefined) this.weapon.ATK = info.atk;
+                        if (info.weight !== undefined) this.weapon.Weight = info.weight;
+                        this.ChangeWeapon();
+                        this.$message.success('已套用主手武器基本資料');
+                    } else if (info.partIndex === 1) {
+                        this.subweapon.type = this.subhandtype[2]; // 副手切到「武器」模式
+                        if (info.type) this.subweapon.weapontype = info.type;
+                        if (info.level !== undefined) {
+                            const lv = this.weaponlevellist.find(w => w.id === info.level);
+                            if (lv) this.subweapon.level = lv;
+                        }
+                        if (info.atk !== undefined) this.subweapon.ATK = info.atk;
+                        this.ComputRefineATK();
+                        this.onOption();
+                        this.$message.success('已套用副手武器基本資料');
+                    }
                 },
                 RemoveEffect(eqindex, index) {
                     console.log("RemoveEffect: [" + eqindex + "] " + index);
@@ -15251,6 +15339,45 @@
                 pagedSkillsList() {
                     const start = (this.skillPage - 1) * this.skillPageSize;
                     return this.filteredSkillsList.slice(start, start + this.skillPageSize);
+                },
+                // AI 裝備解析 dialog 的技能選單用：完整技能清單，不管目前選的職業是誰都列出來
+                // （裝備寫的技能效果常常是別的職業的技能，不能只給目前職業能學的技能）。
+                aiParserSkillOptions() {
+                    const base = this.baseSkillsCache.length ? this.baseSkillsCache : this.skillsList;
+                    return base.map(item => ({
+                        id: item.baseSkillId || item.skill.id,
+                        name: this.getSkillName(item.skill.id),
+                    })).sort((a, b) => a.name.localeCompare(b.name));
+                },
+                // AI 裝備解析 dialog 的裝備部位下拉選單用：完整部位清單（含卡片欄等），
+                // 讓使用者可以直接在對話框裡切換要套用到哪個部位，不用關掉重開。
+                // 同樣的中文名字（例如好幾個「武器卡片」）加上索引編號區分，避免選錯。
+                aiParserEquipParts() {
+                    const counts = {};
+                    this.equipspartlist.forEach(p => {
+                        const raw = this.t(p.id, p.label);
+                        counts[raw] = (counts[raw] || 0) + 1;
+                    });
+                    return this.equipspartlist.map((p, idx) => {
+                        const raw = this.t(p.id, p.label);
+                        const label = counts[raw] > 1 ? (raw + '（#' + idx + '）') : raw;
+                        return { index: idx, label: label };
+                    });
+                },
+                // AI 裝備解析 dialog 的種族/體型/階級/屬性下拉選單用——RaceAtkPercent/SizeAtkPercent/
+                // LevelAtkPercent/ElementalAtkPercent（及其魔法版本）指定「特定」對象時挑選用，
+                // 跟這幾個清單原本就沒有多語系翻譯一樣，直接用原始中文label，不用t()。
+                aiParserRaceOptions() {
+                    return this.racetypelist.map(r => ({ id: r.id, name: r.label }));
+                },
+                aiParserSizeOptions() {
+                    return this.sizetypelist.map(r => ({ id: r.id, name: r.label }));
+                },
+                aiParserLevelOptions() {
+                    return this.leveltypelist.map(r => ({ id: r.id, name: r.label }));
+                },
+                aiParserElementOptions() {
+                    return this.elementtypelist.map(r => ({ id: r.id, name: r.label }));
                 },
                 // 获取所有装备中的技能效果（增伤和独延）- 合并相同技能的效果
                 equipmentSkillEffects() {

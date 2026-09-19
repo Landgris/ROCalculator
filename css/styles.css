@@ -19,6 +19,9 @@
     --input-text: #606266;
     --skilllist-bg: #ffffff;
     --row-bg: #f9fafc;
+    --skill-4th-bg: #fffea7;
+    --preview-stat-bg: #b3dcec;
+    --skill-arg-bg: #c9e9d7;
 }
 :root[data-theme="dark"] {
     --page-bg: #1e1f22;
@@ -27,7 +30,7 @@
     --dialog-header-bg: #4c525b;
     --dialog-header-text: #e4e6eb;
     --panel-bg: #33363c;
-    --panel-bg2: #2c3b45;
+    --panel-bg2: #223038;
     --panel-accent: #3a3f47;
     --panel-accent-dark: #4a6fa5;
     --border-color: #454952;
@@ -36,6 +39,9 @@
     --input-text: #e4e6eb;
     --skilllist-bg: #26282c;
     --row-bg: #26282c;
+    --skill-4th-bg: #4d4326;
+    --preview-stat-bg: #22333e;
+    --skill-arg-bg: #263a2f;
 }
 
 body {
@@ -63,6 +69,9 @@ body {
 }
 .bg-purple-light2 {
     background: var(--panel-bg2) !important;
+}
+.bg-4thskill-light {
+    background: var(--skill-4th-bg) !important;
 }
 .row-bg {
     background-color: var(--row-bg) !important;
@@ -206,6 +215,14 @@ body {
     background-color: #1e1f22 !important;
 }
 
+/* 超連結在深色模式下：瀏覽器預設沒點過/點過都是深藍/深紫，在深色背景幾乎看不出來是可以點的，
+   改成統一的綠色（跟按鈕的success綠一致），不分點過沒點過。只影響沒有自己指定顏色的連結
+   （例如巴哈連結用inline style寫死steelblue的還是維持原樣，這裡沒加!important不會蓋過它）。 */
+:root[data-theme="dark"] a,
+:root[data-theme="dark"] a:visited {
+    color: #67c23a;
+}
+
 /* 消耗品 Dialog 分頁：跟左邊留一點距離，不要貼齊面板邊緣 */
 .consumable-tabs > .el-tabs__header {
     padding-left: 12px;
@@ -215,6 +232,14 @@ body {
     color: var(--text-color) !important;
 }
 :root[data-theme="dark"] .consumable-tabs .el-tabs__item.is-active {
+    color: #67c23a !important;
+}
+
+/* AI裝備解析對話框的左側分頁，同樣的深色模式文字看不到問題 */
+:root[data-theme="dark"] .ai-parser-tabs .el-tabs__item {
+    color: var(--text-color) !important;
+}
+:root[data-theme="dark"] .ai-parser-tabs .el-tabs__item.is-active {
     color: #67c23a !important;
 }
 
@@ -594,6 +619,47 @@ body.el-popup-parent--hidden {
     height: calc(100vh - (50px + 35px + 240px));
 }
 
+/* AI裝備解析對話框：左右兩欄各自跟著對話框的實際高度撐滿、內部各自捲動。
+   注意：.Dialogue-container .el-dialog { display:flex } 這條規則其實從未生效過
+  （custom-class 是直接加在 .el-dialog 本身，Dialogue-container 跟 el-dialog 是同一個元素，
+   descendant selector 永遠配對不到），所以 .el-dialog__body 的 flex:1 1 auto 也跟著失效、
+   body 只會撐到內容的自然高度——不能指望從 el-dialog 往下继承 flex 高度，要在這裡直接用
+   跟 .Dialogue-container 同一種 viewport 算法給高度，才會真的跟著對話框可視高度縮放。 */
+.ai-parser-actions-row {
+    margin-bottom: 10px;
+}
+
+.ai-parser-columns-row {
+    height: calc(100vh - 274px);
+    max-height: calc(100vh - 274px);
+    min-height: 0;
+}
+
+.ai-parser-column {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ai-parser-column-header {
+    flex: 0 0 auto;
+    margin-bottom: 8px;
+}
+
+.ai-parser-column-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ai-parser-step-label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: var(--text-color);
+}
+
 .RaceSelectDialog {
     display: flex;
     flex-direction: column;
@@ -744,7 +810,7 @@ body.el-popup-parent--hidden {
 .previeweffectbox2 {
     border-radius: 2px;
     text-align: center;
-    background: #b3dcec;
+    background: var(--preview-stat-bg);
 }
 
 .previeweffectbox3 {
@@ -766,7 +832,7 @@ body.el-popup-parent--hidden {
     border-radius: 2px;
     min-height: 40px;
     text-align: center;
-    background: #c9e9d7;
+    background: var(--skill-arg-bg);
 }
 
 .skillnametext {
