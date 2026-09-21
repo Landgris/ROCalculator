@@ -1049,4 +1049,325 @@ body.el-popup-parent--hidden {
     padding-bottom: 12px !important;
 }
 
+/* 統一的細滾動軸樣式（跟裝備清單的 el-scrollbar 外觀一致），套用在需要自己捲動的
+   plain div 上（不是所有地方都用 el-scrollbar 元件，例如 AI解析/技能樹左右欄）。
+   Firefox 用 scrollbar-width/-color，Chromium 系用 ::-webkit-scrollbar 系列。 */
+.themed-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+}
+.themed-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.themed-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.themed-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+.themed-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--panel-accent-dark);
+}
+
+/* ==================== 技能樹配點 dialog ====================
+   .SkillTreeDialog 跟 .el-dialog / .Dialogue-container 是同一個元素（custom-class
+   直接加在 el-dialog 本身），所以 `.Dialogue-container .el-dialog {...}` 這種
+   descendant selector 永遠配對不到自己，等於沒套用（見上面 ai-parser 那段的說明）。
+   這裡改用直接選 .SkillTreeDialog 本身補上 display:flex + overflow:hidden，讓
+   el-dialog header/body 之間、body 內部一路都是連續的 flex column，
+   高度會自動貼齊對話框實際可視高度，不用再猜 viewport 減幾 px。 */
+.SkillTreeDialog {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.skill-tree-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.skill-tree-columns-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.skill-tree-pages-col {
+    /* 明確給固定寬度（7欄*68px + 欄間距 + 捲動軸緩衝），不要用 flex:0 0 auto 的
+       shrink-to-fit 自動量——欄位裡的「選擇職業」那個 el-row 寬度計算方式跟
+       .skill-tree-grid 不一樣，混在一起讓瀏覽器自動量寬度時，量出來的結果比
+       技能格子網格實際需要的寬很多，會把右側詳細資料欄一路往右擠到 dialog 外面。
+       改成固定寬度後，裡面的 el-row（select/按鈕）就只會乖乖縮進這個寬度內。
+       這個欄位本身不再捲動——上面「選擇職業／操作說明／職業跳轉按鈕」固定不動，
+       只有下面 .skill-tree-pages-scroll 那塊捲動，用 flex column 疊起來。 */
+    box-sizing: border-box;
+    flex: 0 0 552px;
+    width: 552px;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-tree-pages-header {
+    flex: 0 0 auto;
+}
+
+.skill-tree-jump-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.skill-tree-pages-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* 技能格子右邊多留一點空間再放捲動軸，滑鼠去抓捲動軸時才不會不小心滑到
+       最右邊那排技能方塊上（wheel/click 都會觸發配點）。 */
+    padding-right: 40px;
+}
+
+.skill-tree-info-banner {
+    border: 1px solid var(--panel-accent-dark);
+    border-radius: 12px;
+    background: var(--panel-bg);
+    color: var(--text-color);
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+}
+
+.skill-tree-detail-col {
+    /* 用 flex-grow 撐滿剩下的寬度，讓捲動軸貼齊 dialog 右邊，但用 max-width 蓋住
+       不會無限被撐寬；min-width 保底避免內容太窄看不清楚 */
+    flex: 1 1 320px;
+    min-width: 300px;
+    max-width: 420px;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-left: 1px solid var(--border-color);
+    padding-left: 12px;
+    padding-right: 8px;
+}
+
+.skill-tree-page {
+    margin-bottom: 18px;
+}
+
+.skill-tree-page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.skill-tree-points {
+    font-size: 13px;
+    color: var(--text-color);
+}
+
+.skill-tree-points.over {
+    color: #f56c6c;
+    font-weight: bold;
+}
+
+.skill-tree-points-note {
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.skill-tree-global-warn {
+    color: #f56c6c;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.skill-tree-global-warn.invisible {
+    /* 保留這行的高度，不管有沒有警示文字都佔位，避免出現/消失時下面排版跳動 */
+    visibility: hidden;
+}
+
+.skill-tree-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 68px);
+    gap: 6px;
+}
+
+.skill-square {
+    width: 68px;
+    height: 68px;
+    box-sizing: border-box;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--panel-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    padding: 4px 2px;
+    position: relative;
+}
+
+.skill-square:hover {
+    border-color: var(--panel-accent-dark);
+}
+
+.skill-square.zero {
+    opacity: 0.55;
+}
+
+.skill-square.maxed {
+    border-color: #e6a23c;
+}
+
+.skill-square.highlight {
+    border-color: #67c23a;
+    box-shadow: 0 0 6px 1px #67c23a;
+}
+
+.skill-square.prereq-hover {
+    background: var(--preview-stat-bg);
+    border-color: var(--panel-accent-dark);
+}
+
+.skill-square.selected {
+    border-color: #409eff;
+    box-shadow: 0 0 0 1px #409eff;
+}
+
+.skill-square.quest {
+    border-style: dashed;
+}
+
+.skill-square-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.skill-square-name {
+    font-size: 11px;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--text-color);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.skill-square-level {
+    font-size: 11px;
+    color: var(--text-color);
+    margin-top: 2px;
+}
+
+.skill-square.quest .skill-square-level {
+    font-style: italic;
+    opacity: 0.75;
+}
+
+.skill-tree-detail-empty {
+    color: var(--text-color);
+    opacity: 0.6;
+    font-size: 13px;
+    padding: 12px 4px;
+}
+
+.skill-tree-detail-apply-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.skill-tree-detail-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.skill-tree-detail-nameen {
+    font-weight: normal;
+    font-size: 13px;
+    opacity: 0.75;
+}
+
+.skill-tree-detail-id {
+    font-size: 10px;
+    color: var(--text-color);
+    opacity: 0.55;
+    margin-bottom: 2px;
+}
+
+.skill-tree-detail-sub {
+    font-size: 13px;
+    color: var(--text-color);
+    margin-bottom: 6px;
+}
+
+.skill-tree-detail-desc {
+    font-size: 13px;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.skill-tree-detail-label {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 4px;
+}
+
+.skill-tree-need-item {
+    font-size: 13px;
+    color: #f56c6c;
+    cursor: pointer;
+    margin-bottom: 2px;
+}
+
+.skill-tree-need-item.ok {
+    color: #67c23a;
+}
+
+.skill-tree-need-item:hover {
+    text-decoration: underline;
+}
+
+.skill-tree-lv-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.skill-tree-lv-table th,
+.skill-tree-lv-table td {
+    border: 1px solid var(--border-color);
+    padding: 3px 6px;
+    text-align: center;
+}
+
+.skill-tree-lv-table tr.active {
+    background: var(--preview-stat-bg);
+}
+
 

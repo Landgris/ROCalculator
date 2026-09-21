@@ -242,6 +242,21 @@
                         </el-row>
                     </div>
 
+                    <!-- 技能樹資料來源：唯讀顯示，跟技能版本一樣是跟著網址(?zero)自動決定 -->
+                    <el-row class="titlebox" type="flex" align="middle" style="height:20px; padding: 0px 5px;">
+                        <el-col class="textcenter">{{ t('settings.skilltreesource', '技能樹資料來源') }}</el-col>
+                    </el-row>
+                    <div style="padding: 10px 0;">
+                        <el-row :gutter="10" type="flex" align="middle">
+                            <el-col :span="24">
+                                <el-select :value="isZeroMode ? 'zero' : 'standard'" disabled style="width: 100%;">
+                                    <el-option value="zero" :label="t('settings.skilltreesource.zero', 'Zero')"></el-option>
+                                    <el-option value="standard" :label="t('settings.skilltreesource.standard', '標準版(含三轉四轉)')"></el-option>
+                                </el-select>
+                            </el-col>
+                        </el-row>
+                    </div>
+
                 </div>
             </el-row>
         </el-dialog>
@@ -1921,6 +1936,18 @@
             v-on:apply-weapon-base="onAiParserApplyWeaponBase">
         </ai-equip-parser-dialog>
 
+        <!-- 技能樹配點（純規劃工具，v-if 讓每次打開都是全新實體，關閉即重置配點） -->
+        <skill-tree-dialog v-if="UIPanel['SkillTreeDialog']"
+            :visible.sync="UIPanel['SkillTreeDialog']"
+            :t="t"
+            :data-path="dataPath"
+            :is-zero-mode="isZeroMode"
+            :ui-locale="uiLocale"
+            :skill-list="DefaultDB_Skill"
+            :current-class-id="status.classid"
+            v-on:select-main-skill="onSkillTreeSelectMainSkill">
+        </skill-tree-dialog>
+
         <!-- 技能選擇對話框 -->
         <el-dialog :visible.sync="UIPanel['SkillSelectDialog']" custom-class="EffectList-container" width="60%" top="50px"
             v-on:close="ClosePanel('SkillSelectDialog')" center>
@@ -3071,7 +3098,7 @@
                                                 popper-class="custom-select-dropdown">
                                                 <el-option :key="'default'" :label="t('ui.common.pleaseselect', '請選擇')" :value="''" disabled></el-option>
                                                 <el-option v-for="item in classlist" :key="item.id"
-                                                    :label="t('class_' + item.id, item.label)" :value="item.id">
+                                                    :label="classLabel(item)" :value="item.id">
                                                 </el-option>
                                             </el-select>
                                         </div>
@@ -3761,17 +3788,18 @@
                     <el-scrollbar wrap-class="bodycol-container" :native="true" :noresize="false">
                         <el-row class="titlebox" :gutter="4" type="flex" align="middle" justify="end"
                             style="height:40px; padding: 0px 5px;">
-                            <el-col class="textcenter" :span="9">
+                            <el-col class="textcenter" :span="7">
                             </el-col>
-                            <el-col class="textcenter" :span="6">
+                            <el-col class="textcenter" :span="5">
                                 <span class="textcenter">{{ t('ui.skill.title', '技能') }}</span>
                             </el-col>
-                            <el-col class="textcenter" :span="6" style="text-align: right;">
-                                <el-tooltip class="item" effect="dark" :content="t('ui.skill.dbtooltip', '讀取已經儲存的技能')" placement="left">
-                                    <el-button v-on:click="TogglePanel('SkillDBDialog')" size="mini">
-                                        {{ t('ui.skill.settings', '技能設定') }}
-                                    </el-button>
-                                </el-tooltip>
+                            <el-col class="textcenter" :span="9" style="text-align: right; white-space: nowrap;">
+                                <el-button v-on:click="UIPanel['SkillTreeDialog'] = true" size="mini" type="primary" plain>
+                                    {{ t('ui.skilltree.open', '技能樹') }}
+                                </el-button>
+                                <el-button v-on:click="TogglePanel('SkillDBDialog')" size="mini">
+                                    {{ t('ui.skill.settings', '技能設定') }}
+                                </el-button>
                             </el-col>
                             <el-col v-if="UIPanel['SkillPanel']" class="textcenter" :span="3">
                                 <el-button type="info" v-on:click="TogglePanel('SkillPanel')" size="mini"><i
@@ -4249,11 +4277,9 @@
                             <el-button v-on:click="UIPanel['AiEquipParserDialog'] = true" size="mini" type="primary" plain>
                                 {{ t('ui.equip.aiparse', 'AI解析') }}
                             </el-button>
-                            <el-tooltip class="item" effect="dark" :content="t('ui.equip.dbtooltip', '讀取已經儲存的裝備')" placement="left">
-                                <el-button v-on:click="onOpenEquipDB" size="mini">
-                                    {{ t('ui.equip.dblist', '裝備清單') }}
-                                </el-button>
-                            </el-tooltip>
+                            <el-button v-on:click="onOpenEquipDB" size="mini">
+                                {{ t('ui.equip.dblist', '裝備清單') }}
+                            </el-button>
                         </el-col>
                     </el-row>
                     <el-row type="flex" align="middle" class="equip-jump-row" style="padding: 4px 5px;">
@@ -7215,6 +7241,9 @@
     <script src="js/aspd_calculator.js"></script>
     <script src="js/formula_interpreter.js"></script>
     <script src="js/ai_equip_parser.js?v=27"></script>
+    <script src="js/lua_table_parser.js?v=2"></script>
+    <script src="js/skill_tree_data.js?v=3"></script>
+    <script src="js/skill_tree_view.js?v=6"></script>
     <script>
         // lodash 的 _.debounce 包 async function 時，呼叫方 await 拿到的是「debounce wrapper 立刻回傳的 undefined」，
         // 不會等到真正執行、也拿不到內部 async function 的結果——這對「一直打字時不要每個字都打 API」還是需要，
@@ -7374,6 +7403,7 @@
                 consumableBookmarks: JSON.parse(localStorage.getItem('consumableBookmarks') || '[]'), // 釘選在主畫面消耗品區塊的消耗品 id 清單
                 consumableActiveTab: 'stat', // 消耗品Dialog目前開啟的分頁
                 enemyTranslations: {}, // 從 enemy_i18n.csv 載入的怪物名稱多語言對照表，格式同 uiTranslations
+                jobTranslations: {}, // 從 skilltree_job_i18n.csv 載入的職業階段名稱多語言對照表（JOBID -> {zh-TW, en}），格式同 uiTranslations
                 availableUILocales: [
                     { code: 'zh-TW', name: '繁體中文' },
                     { code: 'en', name: 'English' },
@@ -8106,6 +8136,7 @@
                     EquipDBDialog: false,
                     EditEquipDialog: false,
                     AiEquipParserDialog: false,
+                    SkillTreeDialog: false,
                     AllSetDBDialog: false,
                     AllSetDBSaveDialog: false,
                     ConsumableDBDialog: false,
@@ -13957,6 +13988,27 @@
                     this.LoadSkill();
                     this.ClosePanel('SkillDBDialog');
                 },
+                // 技能樹右側詳細資料的「套用」按鈕觸發：依 skill.id 在 DefaultDB_Skill 找到
+                // 對應的傷害計算分支，走跟「技能設定」清單點選同一套流程（onLoadSkillDefault）。
+                // 使用者有可能還沒在主畫面選職業就直接開技能樹操作，或是選的職業跟技能樹目前這頁
+                // 不一樣，所以套用技能前先確保職業（status.classid）跟技能樹頁面一致，職業要先套用。
+                onSkillTreeSelectMainSkill(payload) {
+                    var skillId = payload && payload.skillId;
+                    var finalClass = payload && payload.finalClass;
+                    if (!skillId) return;
+                    if (finalClass && this.status.classid !== finalClass) {
+                        this.status.classid = finalClass;
+                        this.onChangeClass();
+                    }
+                    var saveid = this.DefaultDB_Skill.findIndex(function (item) {
+                        return item && item.skill && item.skill.id === skillId;
+                    });
+                    if (saveid === -1) {
+                        console.warn('[SkillTree] 找不到對應的傷害計算技能：', skillId);
+                        return;
+                    }
+                    this.onLoadSkillDefault(saveid);
+                },
                 onLoadSkillSave(saveid) {
                     this.skill = _.cloneDeep(this.StoreDB_Skill[saveid].skill);
                     if( this.StoreDB_JobMapedSkill.findIndex(x=>x.skill.id==this.skill.id) == -1 )
@@ -14418,6 +14470,9 @@
                     // 載入技能名稱多語言對照表
                     this.loadSkillTranslations();
 
+                    // 載入職業階段名稱多語言對照表（主選單職業下拉、技能樹左欄共用）
+                    this.loadJobTranslations();
+
                     // 載入消耗品/怪物名稱多語言對照表
                     this.loadConsumableTranslations();
                     this.loadEnemyTranslations();
@@ -14761,6 +14816,59 @@
                     } catch (error) {
                         console.error('Failed to load skill translations:', error);
                     }
+                },
+
+                // 載入職業階段名稱多語言對照表（從 skilltree_job_i18n.csv，技能樹跟主選單職業下拉
+                // 共用同一份），格式與 skill_i18n.csv 相同
+                async loadJobTranslations() {
+                    try {
+                        const response = await fetch(this.dataPath('skilltree_job_i18n.csv') + '?v=' + new Date().getTime());
+                        if (!response.ok) {
+                            console.warn('skilltree_job_i18n.csv not found, 職業選單將 fallback 為 classes.json 內建名稱');
+                            return;
+                        }
+
+                        const csvText = await response.text();
+                        const rows = this.parseCSV(csvText);
+                        if (rows.length === 0) return;
+
+                        const header = rows[0].map(h => h.trim());
+                        for (let i = 1; i < rows.length; i++) {
+                            const row = rows[i];
+                            const key = (row[0] || '').trim();
+                            if (!key) continue;
+
+                            const entry = {};
+                            for (let c = 1; c < header.length; c++) {
+                                entry[header[c]] = (row[c] || '').trim();
+                            }
+                            this.$set(this.jobTranslations, key, entry);
+                        }
+
+                        console.log(`Loaded ${Object.keys(this.jobTranslations).length} job translation keys from CSV`);
+                    } catch (error) {
+                        console.error('Failed to load job translations:', error);
+                    }
+                },
+
+                // 職業下拉選單的顯示文字：優先用 skilltree_job_i18n.csv + SkillTreeData 的轉職線
+                // （跟技能樹左欄「選擇職業」同一份資料來源）把每個階段的名稱串起來，這樣兩邊
+                // 改資料只要改一個地方；目前資料來源沒有這個職業的轉職線時（例如太極/召喚師系
+                // 在 Zero 沒有資料、或 DR 兩邊都沒有），退回 classes.json 內建的 label。
+                classLabel(item) {
+                    const dataset = this.isZeroMode ? 'zero' : 'standard';
+                    const lineage = (typeof SkillTreeData !== 'undefined' && SkillTreeData.DATASETS[dataset])
+                        ? SkillTreeData.DATASETS[dataset].lineage
+                        : null;
+                    const entry = lineage && lineage.find(e => e.finalClass === item.id);
+                    if (!entry) return this.t('class_' + item.id, item.label);
+
+                    const label = entry.stages.map(stage => {
+                        const tr = this.jobTranslations[stage];
+                        if (tr) return tr[this.uiLocale] || tr['en'] || tr['zh-TW'] || stage;
+                        return stage;
+                    }).join('/');
+                    return label || this.t('class_' + item.id, item.label);
                 },
 
                 // 載入消耗品名稱多語言對照表（從 consumable_i18n.csv），格式與 skill_i18n.csv 相同
