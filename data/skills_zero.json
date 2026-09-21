@@ -67,6 +67,13 @@
     { "skill": { "id": "HW_NAPALMVULCAN", "name": "念力連擊", "level": 5, "formula": "70*SLV*BLV/100", "class": "WL", "DamageTypeIdx": 1, "hitnumber": "SLV", "elemental": 8, "FCT": 0.1, "VCT": 0.4, "CD": 0.3, "GCD": 0.5, "Note": ""} },
     { "skill": { "id": "HW_GRAVITATION", "name": "重力原野", "level": 5, "formula": "SLV*100*BLV/100", "class": "WL", "DamageTypeIdx": 1, "hitnumber": "SLV*2", "elemental": 0, "FCT": 1, "VCT": 4, "CD": "2+SLV*0.5", "GCD": 0.3, "Note": ""} },
     
-    { "skill": { "id": "SO_SPELLFIST", "name": "魔力拳", "level": 10, "formula": "1000+SLV*100", "class": "SO", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 1, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": "10為施放的火箭/冰箭/雷擊技能等級"} }
+    { "skill": { "id": "SO_SPELLFIST", "name": "魔力拳", "level": 10, "formula": "1000+SLV*100", "class": "SO", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 1, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": "10為施放的火箭/冰箭/雷擊技能等級"} },
     
+    { "skill": { "id": "NJ_KOUENKA", "name": "火炎花", "level": 10, "formula": "90", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": 10, "elemental": 1, "FCT": 1.4, "VCT": 5.6, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "NJ_BAKUENRYU", "name": "爆炎龍", "level": 5, "formula": "150+SLV*150", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": -3, "elemental": 1, "FCT": 0.6, "VCT": 2.4, "CD": 0, "GCD": 2, "Note": ""} },
+    { "skill": { "id": "NJ_HYOUSENSOU", "name": "冰閃槍", "level": 10, "formula": "70", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": 12, "elemental": 2, "FCT": 1.4, "VCT": 5.6, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "NJ_HYOUSYOURAKU", "name": "冰晶落", "level": 5, "formula": "150+SLV*150", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 2, "FCT": 0.8, "VCT": 3.2, "CD": 0, "GCD": 2, "Note": ""} },
+    { "skill": { "id": "NJ_HUUJIN", "name": "風刃", "level": 10, "formula": "150", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": "DOWN(SLV/2)+1", "elemental": 3, "FCT": 1.1, "VCT": "0.4+SLV*0.4", "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "NJ_KAMAITACHI", "name": "朔風", "level": 5, "formula": "100+SLV*100", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 3, "FCT": 0.8, "VCT": 3.2, "CD": 0, "GCD": 0, "Note": ""} }
+ 
 ]
