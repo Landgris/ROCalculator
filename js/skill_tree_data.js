@@ -52,10 +52,10 @@
         { finalClass: 'GE', stages: ['JT_MERCHANT', 'JT_ALCHEMIST'] },
         { finalClass: 'GX', stages: ['JT_THIEF', 'JT_ASSASSIN'] },
         { finalClass: 'SC', stages: ['JT_THIEF', 'JT_ROGUE'] },
-        { finalClass: 'RE', stages: ['JT_GUNSLINGER', 'JT_REBELLION'] },
-        { finalClass: 'KO', stages: ['JT_NINJA', 'JT_KAGEROU'] },
-        { finalClass: 'OB', stages: ['JT_NINJA', 'JT_OBORO'] },
-        { finalClass: 'SN', stages: ['JT_SUPERNOVICE', 'JT_SUPERNOVICE2'] }
+        { finalClass: 'RE', stages: ['JT_GUNSLINGER'/*, 'JT_REBELLION'*/] },
+        { finalClass: 'KO', stages: ['JT_NINJA'/*, 'JT_KAGEROU'*/] },
+        { finalClass: 'OB', stages: ['JT_NINJA'/*, 'JT_OBORO'*/] },
+        { finalClass: 'SN', stages: ['JT_SUPERNOVICE'/*, 'JT_SUPERNOVICE2'*/] }
     ];
 
     // ==================== 標準版（轉職制/含三轉四轉）資料來源 ====================
