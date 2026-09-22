@@ -1352,6 +1352,10 @@ body.el-popup-parent--hidden {
     text-decoration: underline;
 }
 
+.skill-tree-lv-table-wrap {
+    overflow-x: auto;
+}
+
 .skill-tree-lv-table {
     width: 100%;
     border-collapse: collapse;
@@ -1362,8 +1366,9 @@ body.el-popup-parent--hidden {
 .skill-tree-lv-table th,
 .skill-tree-lv-table td {
     border: 1px solid var(--border-color);
-    padding: 3px 6px;
+    padding: 3px 4px;
     text-align: center;
+    white-space: nowrap;
 }
 
 .skill-tree-lv-table tr.active {
