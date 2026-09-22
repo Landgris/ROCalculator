@@ -7346,6 +7346,9 @@
 
                 // Zero模式標記
                 isZeroMode: false, // 是否處於Zero模式
+                // Zero模式官方詠唱延遲資料：{skid: {fixedDelay[], statDelay[], singlePostDelay[], globalPostDelay[]}}，
+                // 單位ms，index 0對應Lv1。從 data/grf/zero/skilldelaylist.lua 即時解析，見 LoadDB()/ApplyOfficialSkillDelay()。
+                skillDelayData: {},
 
                 // 核心傷害/攻速算式已搬到 Cloudflare Worker，這裡是唯一的呼叫網址。
                 // 本機開發（127.0.0.1/localhost，例如 Live Server）自動改打本機的 `wrangler dev`
@@ -10916,6 +10919,7 @@
                         console.log( "SkillPercent error:" + e);
                         console.log( "_formula:" + _formula);
                     }
+                    this.ApplyOfficialSkillDelay(); // 技能等級可能變了，延遲陣列要重新對應等級
                     this.ComputeCastDelay();
                     // 只關閉「不是目前傷害類型」的面板，目標面板直接打開並維持打開（不要先關再開），
                     // 這樣切換素質/裝備/技能時畫面會停留在舊資料上（蓋著 loading 遮罩），等新資料
@@ -14164,12 +14168,30 @@
                     if (this.skill.SpecialMATK2 == null) this.skill.SpecialMATK2 = 0;
                     if (this.skill.SpecialMATK3 == null) this.skill.SpecialMATK3 = 0;
                     if (this.skill.DamageTypeIdx == null) this.skill.DamageTypeIdx = 0;
+                    this.ApplyOfficialSkillDelay();
                     this.skilloption.AttackElementalIdx = this.skill.elemental;
                     this.skilloption.CarWeight = 10500;
                     this.updateSkillRanged();
                     this.updateSkillCritical();
                     this.updateSkillTransWeaponDEF();
                     this.ComputElementalPercent();  // -> onOption
+                },
+                // Zero模式：載入/快取 data/grf/zero/skilldelaylist.lua 解析出的官方詠唱延遲資料。
+                // 只在進 Zero 模式時載入一次；標準版沒有這份資料，skillDelayData 維持空物件即可。
+                async LoadSkillDelayData() {
+                    this.skillDelayData = await SkillTreeData.loadSkillDelayList(this.dataPath('grf/zero/'));
+                },
+                // 目前技能若在官方延遲資料裡找得到（依 skill.id + skill.level 對應），
+                // 用官方數值覆蓋 skill.FCT/VCT/CD/GCD，取代 skills_zero.json 手填的值（避免手填漏抓/抓錯）。
+                // 找不到對應資料（標準版、或這個技能沒有延遲紀錄）就維持原本手填的值，不動它。
+                ApplyOfficialSkillDelay() {
+                    const delay = this.skillDelayData[this.skill.id];
+                    if (!delay) return;
+                    const idx = Number(this.skill.level) - 1;
+                    if (delay.fixedDelay[idx] !== undefined) this.skill.FCT = delay.fixedDelay[idx] / 1000;
+                    if (delay.statDelay[idx] !== undefined) this.skill.VCT = delay.statDelay[idx] / 1000;
+                    if (delay.singlePostDelay[idx] !== undefined) this.skill.CD = delay.singlePostDelay[idx] / 1000;
+                    if (delay.globalPostDelay[idx] !== undefined) this.skill.GCD = delay.globalPostDelay[idx] / 1000;
                 },
                 onRemoveSkillSave(saveid) {
                     if (saveid > -1) {
@@ -14451,6 +14473,7 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const isZeroMode = urlParams.has('zero') || window.location.href.toLowerCase().includes('zero');
                     this.isZeroMode = isZeroMode; // 設定標記
+                    if (isZeroMode) this.LoadSkillDelayData();
 
                     if (localStorage.getItem('StoreDB_Status')) {
                         try {

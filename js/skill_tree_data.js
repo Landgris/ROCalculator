@@ -149,6 +149,35 @@
         return new TextDecoder('big5').decode(buf);
     }
 
+    // delayRaw：LuaTableParser.parse() 出來的 SKILL_DELAY_LIST，{skid: {SkillCastFixedDelay, ...}}
+    // -> {skid: {fixedDelay[], statDelay[], singlePostDelay[], globalPostDelay[]}}（單位 ms，陣列 index 0 對應 Lv1）
+    function parseSkillDelay(delayRaw) {
+        var skillDelay = {};
+        Object.keys(delayRaw).forEach(function (skid) {
+            var raw = delayRaw[skid];
+            skillDelay[skid] = {
+                fixedDelay: toCleanArray(raw.SkillCastFixedDelay),
+                statDelay: toCleanArray(raw.SkillCastStatDelay),
+                singlePostDelay: toCleanArray(raw.SkillSinglePostDelay),
+                globalPostDelay: toCleanArray(raw.SkillGlobalPostDelay)
+            };
+        });
+        return skillDelay;
+    }
+
+    // 只載入/解析 skilldelaylist.lua（給主畫面拿官方詠唱延遲用，不需要技能樹的其他三個檔案）。
+    // 缺檔案（例如標準版/四轉沒有提供）回傳空物件，呼叫端退回手填的 FCT/VCT/CD/GCD 即可。
+    async function loadSkillDelayList(basePath) {
+        try {
+            var text = await fetchBig5Text(basePath + 'skilldelaylist.lua');
+            var delayRaw = LuaTableParser.parse(text, {}).SKILL_DELAY_LIST || [];
+            return parseSkillDelay(delayRaw);
+        } catch (e) {
+            console.warn('[SkillTreeData] skilldelaylist.lua 無法載入（' + e.message + '）', e);
+            return {};
+        }
+    }
+
     async function loadSkillTreeData(basePath) {
         var warnings = [];
         var onWarning = function (msg) { warnings.push(msg); console.warn('[SkillTreeData]', msg); };
@@ -217,16 +246,7 @@
         });
 
         // ---- skillDelay: {skid: {fixedDelay[], statDelay[], singlePostDelay[], globalPostDelay[]}} ----
-        var skillDelay = {};
-        Object.keys(delayRaw).forEach(function (skid) {
-            var raw = delayRaw[skid];
-            skillDelay[skid] = {
-                fixedDelay: toCleanArray(raw.SkillCastFixedDelay),
-                statDelay: toCleanArray(raw.SkillCastStatDelay),
-                singlePostDelay: toCleanArray(raw.SkillSinglePostDelay),
-                globalPostDelay: toCleanArray(raw.SkillGlobalPostDelay)
-            };
-        });
+        var skillDelay = parseSkillDelay(delayRaw);
 
         return {
             skillTreeByJob: skillTreeByJob,
@@ -329,6 +349,7 @@
         DATASETS: DATASETS,
         COLS_PER_ROW: COLS_PER_ROW,
         loadSkillTreeData: loadSkillTreeData,
+        loadSkillDelayList: loadSkillDelayList,
         getEffectiveNeedList: getEffectiveNeedList,
         loadSkillI18n: loadSkillI18n,
         loadSkillIconMap: loadSkillIconMap,
