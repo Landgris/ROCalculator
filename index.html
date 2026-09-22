@@ -5389,6 +5389,43 @@
                                             </el-col>
                                         </el-row>
                                     </div>
+                                    <div v-show="UIPanel['FalconPanel']" v-loading="apiLoading.falcon">
+                                        <el-alert v-if="apiError.falcon" :title="t('ui.panel.apierror','連線失敗，請稍後再試')" type="error" show-icon :closable="false" style="margin-bottom:8px;"></el-alert>
+                                        <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:40px;">
+                                            <el-col class="textcenter" :span="2">
+                                            </el-col>
+                                            <el-col class="textcenter" :span="20">
+                                                <span class="textcenter">{{ t('ui.panel.falconcalc','獵鷹傷害計算') }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>{{ t('ui.panel.skilldmg','技能傷害') }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.FalconDMG | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>{{ t('ui.panel.skilldps','技能DPS') }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{computeattribute.FalconDMG_DPS | currency }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row v-if="attritube['ASPD']!=0" class="statusbox" type="flex" align="middle" justify="space-around"
+                                            style="height:40px;">
+                                            <el-col class="bg-purple" :span="10" style="text-align: right;">
+                                                <span>{{ t('ui.panel.currentaspd','目前ASPD') }}</span>
+                                            </el-col>
+                                            <el-col class="textcenter" :span="10">
+                                                <span>{{attritube['ASPD'].toFixed(2)}}</span>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
                                     <div v-show="UIPanel['TrapPanel']" v-loading="apiLoading.trap">
                                         <el-alert v-if="apiError.trap" :title="t('ui.panel.apierror','連線失敗，請稍後再試')" type="error" show-icon :closable="false" style="margin-bottom:8px;"></el-alert>
                                         <el-row class="titlebox" type="flex" align="middle" justify="end" style="height:40px;">
@@ -7318,10 +7355,10 @@
                     : 'https://ro-calculator-formula-pilot.valkyrie7744533.workers.dev',
                 // 每個公式各自的「正在計算中」/「上次呼叫失敗」狀態，純顯示用（控制 loading 動畫跟錯誤訊息 alert）
                 apiLoading: {
-                    atk: false, aspd: false, matk: false, dragonbreath: false, trap: false, mixed: false,
+                    atk: false, aspd: false, matk: false, dragonbreath: false, trap: false, mixed: false, falcon: false,
                 },
                 apiError: {
-                    atk: false, aspd: false, matk: false, dragonbreath: false, trap: false, mixed: false,
+                    atk: false, aspd: false, matk: false, dragonbreath: false, trap: false, mixed: false, falcon: false,
                 },
 
                 // 使用者設定（localStorage 持久化，見 loadSettings()/saveSettings()）。
@@ -7914,7 +7951,8 @@
                     { id: 1, label: '魔法傷害' },
                     { id: 2, label: '龍息傷害' },
                     { id: 3, label: '陷阱傷害' },
-                    { id: 4, label: '混和傷害' }
+                    { id: 4, label: '混和傷害' },
+                    { id: 5, label: '獵鷹傷害' }
                 ],
                 skilloption: {
                     AttackElementalIdx: 0,      //玩家攻擊屬性
@@ -8088,6 +8126,9 @@
                     DragonBreathDMG: 0,
                     DragonBreathDMG_DPS: 0,
 
+                    FalconDMG: 0,
+                    FalconDMG_DPS: 0,
+
                     TrapDMG_min: 0,
                     TrapDMG_max: 0,
                     TrapBaseDMG: 0,
@@ -8156,6 +8197,7 @@
                     DragonBreathPanel: false,
                     TrapPanel: false,
                     MixedPanel: false,
+                    FalconPanel: false,
                 },
                 atkDetailMode: 0,
                 matkDetailMode: 0,
@@ -10751,6 +10793,30 @@
                         this.apiLoading.dragonbreath = false;
                     }
                 }, 300),
+                // 呼叫 /compute-falcon 並把結果套用到畫面上
+                FetchAndApplyFalcon: debouncePromise(async function() {
+                    const originalSkillPercent = this.option.SkillPercent;
+                    this.apiLoading.falcon = true;
+                    try {
+                        const input = this.BuildComputeATKInput(); // 攻擊次數(hitnumber)計算跟 ATK/MATK 共用同一份 formulaContext，所以要完整形狀
+                        const res = await fetch(this.apiBaseUrl + '/compute-falcon', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(input),
+                        });
+                        const apiResult = await res.json();
+                        if (!res.ok || apiResult.error) throw new Error(apiResult.error || ('HTTP ' + res.status));
+                        this.option.SkillPercent = Math.floor(originalSkillPercent) * 100; // 沿用既有的畫面顯示轉換
+                        this.computeattribute.FalconDMG = apiResult.FalconDMG;
+                        this.computeattribute.FalconDMG_DPS = Math.floor(apiResult.FalconDMG * this.computeattribute.HitperSec * 100) / 100;
+                        this.apiError.falcon = false;
+                    } catch (e) {
+                        console.warn('[compute-falcon] 呼叫失敗:', e);
+                        this.apiError.falcon = true;
+                    } finally {
+                        this.apiLoading.falcon = false;
+                    }
+                }, 300),
                 // 呼叫 /compute-trap 並把結果套用到畫面上
                 FetchAndApplyTrap: debouncePromise(async function() {
                     this.apiLoading.trap = true;
@@ -10860,6 +10926,7 @@
                         2: 'DragonBreathPanel',
                         3: 'TrapPanel',
                         4: 'MixedPanel',
+                        5: 'FalconPanel',
                     };
                     const targetPanel = damageTypePanels[this.skill.DamageTypeIdx];
                     for (const panelName of Object.values(damageTypePanels)) {
@@ -10881,6 +10948,9 @@
                             break;
                         case 4:
                             await this.FetchAndApplyMixed();
+                            break;
+                        case 5:
+                            await this.FetchAndApplyFalcon();
                             break;
                     }
                 },

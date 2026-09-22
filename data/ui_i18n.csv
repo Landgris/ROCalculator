@@ -304,6 +304,7 @@ damagetype_1,魔法傷害,Magic Damage,Daño mágico,Magischer Schaden,ควา
 damagetype_2,龍息傷害,Dragon Breath Damage,Daño de Aliento de Dragón,Drachenatem-Schaden,ความเสียหาย Dragon Breath,Dégâts de Souffle de Dragon
 damagetype_3,陷阱傷害,Trap Damage,Daño de trampa,Fallenschaden,ความเสียหายกับดัก,Dégâts de piège
 damagetype_4,混和傷害,Mixed Damage,Daño mixto,Gemischter Schaden,ความเสียหายผสม,Dégâts mixtes
+damagetype_5,獵鷹傷害,Falcon Damage,Daño de Halcón,Falkenschaden,ความเสียหายเหยี่ยว,Dégâts de Faucon
 ui.elementtable.dialogtitle,屬性相剋倍率表,Element Multiplier Chart,Tabla de multiplicadores elementales,Elementmultiplikator-Tabelle,ตารางตัวคูณธาตุ,Table des multiplicateurs élémentaires
 ui.elementtable.uselatest,使用新版屬性表,Use Updated Element Table,Usar tabla elemental actualizada,Aktualisierte Elementtabelle verwenden,ใช้ตารางธาตุใหม่,Utiliser la table des éléments mise à jour
 ui.elementtable.atkdef,攻 \ 守,Atk \ Def,Atk \ Def,Atk \ Def,Atk \ Def,Atk \ Def
@@ -315,6 +316,7 @@ ui.panel.atkcalc,ATK計算,ATK Calculation,ATK Cálculo,ATK Berechnung,ATK ก�
 ui.panel.matkcalc,MATK計算,MATK Calculation,MATK Cálculo,MATK Berechnung,MATK การคำนวณ,Calcul du MATK
 ui.panel.dragonbreathcalc,龍之吐息計算,Dragon Breath Calculation,Dragon Breath Cálculo,Dragon Breath Berechnung,Dragon Breath การคำนวณ,Calcul du Souffle de Dragon
 ui.panel.trapcalc,陷阱計算,Trap Calculation,Trap Cálculo,Trap Berechnung,Trap การคำนวณ,Calcul du piège
+ui.panel.falconcalc,獵鷹傷害計算,Falcon Damage Calculation,Cálculo de Daño de Halcón,Falkenschaden-Berechnung,การคำนวณความเสียหายเหยี่ยว,Calcul des Dégâts de Faucon
 ui.panel.mixedcalc,混傷計算,Mixed DMG Calculation,Mixed DMG Cálculo,Mixed DMG Berechnung,Mixed DMG การคำนวณ,Calcul des dégâts mixtes
 ui.panel.defcalc,DEF計算,DEF Calculation,DEF Cálculo,DEF Berechnung,DEF การคำนวณ,Calcul de la DEF
 ui.panel.mdefcalc,MDEF計算,MDEF Calculation,MDEF Cálculo,MDEF Berechnung,MDEF การคำนวณ,Calcul du MDEF
