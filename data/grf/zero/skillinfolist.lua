@@ -10630,9 +10630,9 @@ SKILL_INFO_LIST = {
 		"GS_TRACKING",
 		SkillName = "百步穿楊 ",
 		MaxLv = 10,
-		SpAmount = { 13, 16, 19, 22, 25, 28, 31, 34, 37, 40 },
+		SpAmount = { 15, 20, 25, 30, 33, 38, 42, 44, 49, 50 },
 		bSeperateLv = true,
-		AttackRange = { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
+		AttackRange = { 9, 9, 9, 9, 10, 10, 10, 11, 11, 12 },
 		_NeedSkillList = {
 			{ SKID.GS_SINGLEACTION, 5 }
 		}
@@ -10654,7 +10654,7 @@ SKILL_INFO_LIST = {
 		MaxLv = 5,
 		SpAmount = { 11, 12, 13, 14, 15 },
 		bSeperateLv = true,
-		AttackRange = { 9, 9, 9, 9, 9 },
+		AttackRange = { 9, 9, 10, 10, 11 },
 		_NeedSkillList = {
 			{ SKID.GS_TRACKING, 5 }
 		}
@@ -10663,7 +10663,7 @@ SKILL_INFO_LIST = {
 		"GS_RAPIDSHOWER",
 		SkillName = "五連擊 ",
 		MaxLv = 10,
-		SpAmount = { 22, 24, 26, 28, 30, 32, 34, 36, 38, 40 },
+		SpAmount = { 10, 10, 12, 12, 14, 14, 16, 16, 18, 20 },
 		bSeperateLv = true,
 		AttackRange = { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
 		_NeedSkillList = {
@@ -10697,9 +10697,9 @@ SKILL_INFO_LIST = {
 		"GS_DUST",
 		SkillName = "彈片四射 ",
 		MaxLv = 10,
-		SpAmount = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 },
+		SpAmount = { 3, 6, 9, 9, 12, 12, 15, 15, 18, 18 },
 		bSeperateLv = true,
-		AttackRange = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
+		AttackRange = { 2, 2, 2, 2, 3, 3, 3, 3, 4, 4 },
 		_NeedSkillList = {
 			{ SKID.GS_SINGLEACTION, 5 }
 		}
@@ -10708,9 +10708,9 @@ SKILL_INFO_LIST = {
 		"GS_FULLBUSTER",
 		SkillName = "全面破壞 ",
 		MaxLv = 10,
-		SpAmount = { 20, 22, 24, 26, 28, 30, 32, 34, 36, 38 },
+		SpAmount = { 20, 21, 22, 23, 28, 29, 30, 31, 36, 40 },
 		bSeperateLv = true,
-		AttackRange = { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
+		AttackRange = { 7, 7, 7, 7, 7, 7, 7, 7, 7, 7 },
 		_NeedSkillList = {
 			{ SKID.GS_DUST, 3 }
 		}
@@ -10719,9 +10719,9 @@ SKILL_INFO_LIST = {
 		"GS_SPREADATTACK",
 		SkillName = "火力全開 ",
 		MaxLv = 10,
-		SpAmount = { 12, 14, 16, 18, 20, 22, 24, 26, 28, 30 },
+		SpAmount = { 10, 11, 12, 13, 15, 17, 19, 22, 25, 30 },
 		bSeperateLv = true,
-		AttackRange = { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
+		AttackRange = { 9, 9, 9, 8, 8, 8, 7, 7, 7, 7 },
 		_NeedSkillList = {
 			{ SKID.GS_SINGLEACTION, 5 }
 		}
@@ -10730,9 +10730,9 @@ SKILL_INFO_LIST = {
 		"GS_GROUNDDRIFT",
 		SkillName = "四面埋伏 ",
 		MaxLv = 10,
-		SpAmount = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 },
+		SpAmount = { 3, 6, 6, 9, 9, 12, 12, 15, 15, 15 },
 		bSeperateLv = true,
-		AttackRange = { 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 },
+		AttackRange = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 },
 		_NeedSkillList = {
 			{ SKID.GS_SPREADATTACK, 7 }
 		}

@@ -74,6 +74,15 @@
     { "skill": { "id": "NJ_HYOUSENSOU", "name": "冰閃槍", "level": 10, "formula": "70", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": 12, "elemental": 2, "FCT": 1.4, "VCT": 5.6, "CD": 0, "GCD": 0, "Note": ""} },
     { "skill": { "id": "NJ_HYOUSYOURAKU", "name": "冰晶落", "level": 5, "formula": "150+SLV*150", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 2, "FCT": 0.8, "VCT": 3.2, "CD": 0, "GCD": 2, "Note": ""} },
     { "skill": { "id": "NJ_HUUJIN", "name": "風刃", "level": 10, "formula": "150", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": "DOWN(SLV/2)+1", "elemental": 3, "FCT": 1.1, "VCT": "0.4+SLV*0.4", "CD": 0, "GCD": 0, "Note": ""} },
-    { "skill": { "id": "NJ_KAMAITACHI", "name": "朔風", "level": 5, "formula": "100+SLV*100", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 3, "FCT": 0.8, "VCT": 3.2, "CD": 0, "GCD": 0, "Note": ""} }
+    { "skill": { "id": "NJ_KAMAITACHI", "name": "朔風", "level": 5, "formula": "100+SLV*100", "class": "KO,OB", "DamageTypeIdx": 1, "hitnumber": 1, "elemental": 3, "FCT": 0.8, "VCT": 3.2, "CD": 0, "GCD": 0, "Note": ""} },
  
+    { "skill": { "id": "GS_RAPIDSHOWER", "name": "五連擊", "level": 10, "formula": "(500+SLV*50)*BLV/100", "class": "RE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "GS_DESPERADO", "name": "亡命之徒", "level": 10, "formula": "(50+SLV*50)*BLV/100", "class": "RE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 10, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "GS_TRACKING", "name": "百步穿楊", "level": 10, "formula": "(2400)*BLV/100", "class": "RE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "GS_PIERCINGSHOT", "name": "霹靂彈", "level": 5, "formula": "(WPT(Pistol)?(200+SLV*20):WPT(Rifle)?(400+SLV*60):0)*BLV/100", "class": "RE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0.3, "VCT": 1.2, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "GS_DUST", "name": "彈片四射", "level": 10, "formula": "(900)*BLV/100", "class": "RE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 0, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "GS_FULLBUSTER", "name": "全面破壞", "level": 10, "formula": "(2600)*BLV/100", "class": "RE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "GS_SPREADATTACK", "name": "火力全開", "level": 10, "formula": "(1200)*BLV/100", "class": "RE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": -5, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 0, "GCD": 0, "Note": ""} },
+    { "skill": { "id": "GS_GROUNDDRIFT", "name": "四面埋伏", "level": 10, "formula": "(1200)*BLV/100", "class": "RE", "DamageTypeIdx": 0, "ranged": true, "hitnumber": 1, "elemental": 0, "FCT": 0, "VCT": 1, "CD": 0, "GCD": 0, "Note": ""} }
+    
 ]

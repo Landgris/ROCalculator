@@ -7243,7 +7243,7 @@
     <script src="js/ai_equip_parser.js?v=27"></script>
     <script src="js/lua_table_parser.js?v=2"></script>
     <script src="js/skill_tree_data.js?v=3"></script>
-    <script src="js/skill_tree_view.js?v=6"></script>
+    <script src="js/skill_tree_view.js?v=7"></script>
     <script>
         // lodash 的 _.debounce 包 async function 時，呼叫方 await 拿到的是「debounce wrapper 立刻回傳的 undefined」，
         // 不會等到真正執行、也拿不到內部 async function 的結果——這對「一直打字時不要每個字都打 API」還是需要，
@@ -9766,7 +9766,7 @@
                         //過度精煉ATK(>安定值)
                         this.weapon.refineatk2 = this.weaponlevellist[this.weapon.level.id - 1].overrefineatk[this.weapon.refinelevel];
                         //弓沒有過度，沒有一般精煉魔攻
-                        if (this.weapon.type.id === 'Bows') {
+                        if (this.weapon.type.id === 'Bows' || this.weapon.type.id === 'Pistol' || this.weapon.type.id === 'Shotgun' || this.weapon.type.id === 'Gatling' || this.weapon.type.id === 'Rifle') {
                             this.weapon.refinematk = 0;
                             this.weapon.refineatk2 = 0;
                         }
@@ -12525,16 +12525,38 @@
                         if (this.skill.id == 'SS_RAIDENPOU') this.computeattribute['SpecialMATK1'] += 8500 * this.status.Level / 100;
                         if (this.skill.id == 'SS_KINRYUUHOU') this.computeattribute['SpecialMATK1'] += 5500 * this.status.Level / 100;
                     }
-
+                    //裝滿硬幣
+                    if (this.IsSupportActive('GS_GLITTERING')){
+                        this.skilloption.WeaponMasteryATK += this.GetSupportSkill('GS_GLITTERING').lv * 3;
+                    }
+                    //命中率遞增
+                    if (this.IsSupportActive('GS_INCREASING')){
+                        this.attritube['HIT'] += 20;
+                        this.status_add.AGI += 4;
+                        this.status_add.DEX += 4;
+                        this.addSupportEffectDetail('HIT', null, 20, this.getSkillName('GS_INCREASING'));
+                    }
+                    //終極閃躲
+                    if (this.IsSupportActive('GS_ADJUSTMENT')){
+                        this.attritube['HIT'] -= 20;
+                        this.attritube['FLEE'] += 30;
+                        this.addSupportEffectDetail('HIT', null, -30, this.getSkillName('GS_ADJUSTMENT'));
+                        this.addSupportEffectDetail('FLEE', null, 30, this.getSkillName('GS_ADJUSTMENT'));
+                    }
                     //瘋狂凱斯樂
                     if (this.IsSupportActive('GS_MADNESSCANCEL')){
-                        this.attritube['ATK'] += 100;
-                        this.addSupportEffectDetail('Atk', null, 100, this.getSkillName('GS_MADNESSCANCEL'));
+                        this.skilloption.WeaponMasteryATK += 100;
+                        this.attritube['ASPDP'] += 20;
+                        this.addSupportEffectDetail('AspdPercent', null, 20, this.getSkillName('GS_MADNESSCANCEL'));
                     }
                     //格林狂熱
                     if (this.IsSupportActive('GS_GATLINGFEVER')){
-                        this.attritube['ATK'] += 120;
-                        this.addSupportEffectDetail('Atk', null, 120, this.getSkillName('GS_GATLINGFEVER'));
+                        this.skilloption.WeaponMasteryATK += this.GetSupportSkill('GS_GATLINGFEVER').lv * 10 + 20;
+                        var _v = this.GetSupportSkill('GS_GATLINGFEVER').lv;
+                        this.attritube['ASPDP'] += _v;
+                        this.attritube['FLEE'] -= 5*_v;
+                        this.addSupportEffectDetail('AspdPercent', null, _v, this.getSkillName('GS_MADNESSCANCEL'));
+                        this.addSupportEffectDetail('AspdPercent', null, -5*_v, this.getSkillName('GS_MADNESSCANCEL'));
                     }
                     //白金祭壇
                     if (this.IsSupportActive('RL_P_ALTER')){

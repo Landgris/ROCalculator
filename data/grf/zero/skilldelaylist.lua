@@ -223,67 +223,67 @@ SKILL_DELAY_LIST = {
 	[SKID.GS_ADJUSTMENT] = {
 		SkillCastFixedDelay = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 },
 		SkillCastStatDelay = { 800, 800, 800, 800, 800, 800, 800, 800, 800, 800 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillGlobalPostDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
 	},
 	[SKID.GS_BULLSEYE] = {
 		SkillCastFixedDelay = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 },
 		SkillCastStatDelay = { 800, 800, 800, 800, 800, 800, 800, 800, 800, 800 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.GS_DISARM] = {
 		SkillCastFixedDelay = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 },
 		SkillCastStatDelay = { 1600, 1600, 1600, 1600, 1600, 1600, 1600, 1600, 1600, 1600 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.GS_DUST] = {
-		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 }
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 300, 300, 500, 500, 700, 700, 900, 900, 1000, 1000 },
+		SkillGlobalPostDelay = { 1000, 1000, 900, 900, 700, 700, 500, 500, 300, 300 }
 	},
 	[SKID.GS_FULLBUSTER] = {
-		SkillCastFixedDelay = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 },
-		SkillCastStatDelay = { 800, 800, 800, 800, 800, 800, 800, 800, 800, 800 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillSinglePostDelay = { 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500 }
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 400, 400, 400, 500 },
+		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
 	},
 	[SKID.GS_GATLINGFEVER] = {
 		SkillCastFixedDelay = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 },
 		SkillCastStatDelay = { 800, 800, 800, 800, 800, 800, 800, 800, 800, 800 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.GS_GROUNDDRIFT] = {
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
 		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
 	},
-	[SKID.GS_GROUNDDRIFT] = {
+	[SKID.GS_MADNESSCANCEL] = {
 		SkillCastFixedDelay = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 },
 		SkillCastStatDelay = { 800, 800, 800, 800, 800, 800, 800, 800, 800, 800 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 }
-	},
-	[SKID.GS_MADNESSCANCEL] = {
-		SkillCastFixedDelay = { 400 },
-		SkillCastStatDelay = { 1600 },
-		SkillGlobalPostDelay = { 300 },
-		SkillSinglePostDelay = { 1500 }
+		SkillGlobalPostDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 0 }
 	},
 	[SKID.GS_PIERCINGSHOT] = {
 		SkillCastFixedDelay = { 300, 300, 300, 300, 300 },
 		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300 },
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.GS_SPREADATTACK] = {
-		SkillCastFixedDelay = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 },
-		SkillCastStatDelay = { 800, 800, 800, 800, 800, 800, 800, 800, 800, 800 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 }
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
 	},
 	[SKID.GS_TRACKING] = {
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 700, 700, 700, 700, 800, 800, 800, 900, 900, 1000 },
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
 		SkillFlag = { SKFLAG_NOREDUCT },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
@@ -991,16 +991,22 @@ SKILL_DELAY_LIST = {
 		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
 	},
 	[SKID.GS_CRACKER] = {
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.GS_DESPERADO] = {
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.GS_INCREASING] = {
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 }
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.GS_RAPIDSHOWER] = {
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillGlobalPostDelay = { 1500, 1300, 1100, 900, 700, 500, 500, 500, 300, 300 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
 	[SKID.GS_TRIPLEACTION] = {
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
@@ -1112,16 +1118,10 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 }
 	},
 	[SKID.GS_MAGICALBULLET] = {
-		SkillGlobalPostDelay = { 300 },
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0 },
 		SkillCastStatDelay = { 0 },
 		SkillSinglePostDelay = { 0 }
-	},
-	[SKID.GS_RAPIDSHOWER] = {
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 750, 750, 750, 750, 750, 750, 750, 750, 750, 750 }
 	},
 	[SKID.HT_POWER] = { SkillGlobalPostDelay = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 } },
 	[SKID.LK_HEADCRUSH] = { SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 } },
@@ -3476,48 +3476,27 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.IQ_FIRST_FAITH_POWER] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillSinglePostDelay = { 180000, 150000, 120000, 90000, 60000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.AM_REST] = { SkillSinglePostDelay = { 20000 } },
 	[SKID.IQ_EXPOSION_BLASTER] = {
 		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.SH_HYUN_ROKS_BREEZE] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 4500, 4500, 4500, 4500, 4500, 4500, 4500 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.TR_AIN_RHAPSODY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.NPC_BLOCK_EXPLOSION] = {
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_SHIMIRU] = {
+	[SKID.TR_RHYTHMSHOOTING] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 1500, 1250, 1000, 750, 500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
-	[SKID.BO_THE_WHOLE_PROTECTION] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+	[SKID.IG_HOLY_SHIELD] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+		SkillSinglePostDelay = { 40000, 60000, 80000, 100000, 120000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.WL_READING_SB_READING] = {
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.IG_SHIELD_SHOOTING] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
@@ -3531,24 +3510,17 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.NPC_DEADLYCURSE2] = {},
+	[SKID.TR_ROSEBLOSSOM] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
 	[SKID.BO_WOODEN_FAIRY] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.NW_AUTO_FIRING_LAUNCHER] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000 },
-		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.MH_BLAST_FORGE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
 	[SKID.ABC_DEFT_STAB] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
@@ -3556,58 +3528,22 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.AG_ASTRAL_STRIKE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
+	[SKID.IG_ULTIMATE_SACRIFICE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillSinglePostDelay = { 20000, 40000, 60000, 80000, 100000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
-	[SKID.AG_RAIN_OF_CRYSTAL] = {
-		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.IQ_POWERFUL_FAITH] = {
+	[SKID.MT_SUMMON_ABR_INFINITY] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
 	},
-	[SKID.HN_RULEBREAK] = {
-		SkillGlobalPostDelay = { 0 },
-		SkillCastFixedDelay = { 1000 },
-		SkillSinglePostDelay = { 60000 },
-		SkillCastStatDelay = { 0 }
-	},
-	[SKID.AG_ROCK_DOWN] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
-	},
-	[SKID.DK_DRAGONIC_AURA] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
 	[SKID.IQ_FIRST_BRAND] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.WH_HAWKBOOMERANG] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 150, 150, 150, 150, 150 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.MT_AXE_STOMP] = {
-		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.TR_PRON_MARCH] = {
@@ -3616,108 +3552,23 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
 	},
-	[SKID.MT_A_MACHINE] = {
+	[SKID.NW_HASTY_FIRE_IN_THE_HOLE] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.DK_SERVANTWEAPON] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.SOA_EXORCISM_OF_MALICIOUS_SOUL] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.SOA_TALISMAN_OF_SOUL_STEALING] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.SS_KAGENOMAI] = {
-		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
+	[SKID.SKE_SKY_MASTERY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.CD_PNEUMATICUS_PROCELLA] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
-	},
-	[SKID.SS_FUUMAKOUCHIKU] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200 }
-	},
-	[SKID.ABC_UNLUCKY_RUSH] = {
+	[SKID.SOA_TALISMAN_OF_FIVE_ELEMENTS] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 1250, 1000, 750, 500, 250 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.TR_METALIC_FURY] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 400, 400, 400, 400, 400 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.NW_GRENADE_FRAGMENT] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.IQ_SINCERE_FAITH] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.TR_NIPELHEIM_REQUIEM] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.EM_TERRA_DRIVE] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
-	},
-	[SKID.NW_BASIC_GRENADE] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.EM_SUMMON_ELEMENTAL_TERREMOTUS] = {
-		SkillGlobalPostDelay = { 1000 },
-		SkillCastFixedDelay = { 3000 },
-		SkillSinglePostDelay = { 60000 },
-		SkillCastStatDelay = { 5000 }
-	},
-	[SKID.SH_COMMUNE_WITH_HYUN_ROK] = {
-		SkillGlobalPostDelay = { 0 },
-		SkillCastFixedDelay = { 0 },
-		SkillSinglePostDelay = { 0 },
-		SkillCastStatDelay = { 0 }
-	},
-	[SKID.HW_MAGICPOWER] = { SkillCastStatDelay = { 700, 600, 500, 400, 300, 200, 100, 0, 0, 0 }, SkillFlag = { SKFLAG_NOREDUCT } },
-	[SKID.WH_GALESTORM] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
 	[SKID.DK_SERVANT_W_DEMOL] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
@@ -3725,29 +3576,30 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
+	[SKID.HW_MAGICPOWER] = { SkillCastStatDelay = { 700, 600, 500, 400, 300, 200, 100, 0, 0, 0 }, SkillFlag = { SKFLAG_NOREDUCT } },
+	[SKID.MT_SUMMON_ABR_MOTHER_NET] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 30000, 30000, 30000, 30000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000 }
+	},
+	[SKID.WH_GALESTORM] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
 	[SKID.NW_SPIRAL_SHOOTING] = {
 		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.NW_HASTY_FIRE_IN_THE_HOLE] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.WH_HAWK_M] = {
-		SkillGlobalPostDelay = { 500 },
-		SkillCastFixedDelay = { 0 },
-		SkillSinglePostDelay = { 0 },
-		SkillCastStatDelay = { 0 }
-	},
-	[SKID.SKE_TWINKLING_GALAXY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	[SKID.AG_DEADLY_PROJECTION] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
 	},
 	[SKID.HN_GROUND_GRAVITATION] = {
 		SkillGlobalPostDelay = { 2000, 2000, 2000, 1800, 1800, 1800, 1600, 1400, 1200, 1000 },
@@ -3755,82 +3607,13 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000 },
 		SkillCastStatDelay = { 3000, 3000, 3000, 3200, 3500, 3800, 4100, 4400, 4700, 5000 }
 	},
-	[SKID.HN_HELLS_DRIVE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 2500, 2300, 2100, 1900, 1700, 1500, 1300, 1100, 900, 700 },
-		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200 }
+	[SKID.IG_CROSS_RAIN] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 2400, 2400, 2400, 2400, 2400, 2400, 2400, 2400, 2400, 2400 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
 	},
-	[SKID.WH_CRESCIVE_BOLT] = {
-		SkillGlobalPostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.SOA_SOUL_MASTERY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.EM_ACTIVITY_BURN] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillSinglePostDelay = { 8000, 8000, 8000, 8000, 8000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.SOA_TALISMAN_OF_BLACK_TORTOISE] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.MT_TRIPLE_LASER] = {
-		SkillGlobalPostDelay = { 250, 250, 250, 250, 250 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.WL_READING_SB_READING] = {
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.NPC_LIGHTNING_JUDGEMENT] = {
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.ABC_STRIP_SHADOW] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.TR_MYSTIC_SYMPHONY] = {
-		SkillGlobalPostDelay = { 0 },
-		SkillCastFixedDelay = { 1000 },
-		SkillSinglePostDelay = { 60000 },
-		SkillCastStatDelay = { 1000 }
-	},
-	[SKID.SOA_TALISMAN_OF_FOUR_BEARING_GOD] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.SHC_ENCHANTING_SHADOW] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 30000, 60000, 90000, 120000, 150000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.AG_SOUL_VC_STRIKE] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
-	},
+	[SKID.GD_REGENERATION] = { SkillSinglePostDelay = { 180000, 180000, 180000 } },
 	[SKID.TR_ROKI_CAPRICCIO] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
@@ -3843,71 +3626,17 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
 	},
-	[SKID.WM_REVERBERATION] = {
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300 },
-		SkillCastFixedDelay = { 200, 200, 200, 200, 200 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 800, 800, 800, 800, 800 }
-	},
-	[SKID.CD_MEDIALE_VOTUM] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.CD_ARGUTUS_VITA] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.SH_HOWLING_OF_CHUL_HO] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0 }
-	},
 	[SKID.CD_RELIGIO] = {
 		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillSinglePostDelay = { 250, 250, 250, 250, 250 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.SH_SANDY_FESTIVAL_OF_KI_SUL] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
 	[SKID.BO_CREEPER] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillSinglePostDelay = { 15000, 15000, 15000, 15000, 15000 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.SKE_MIDNIGHT_KICK] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.CD_ARGUTUS_TELUM] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.SOA_TALISMAN_OF_WHITE_TIGER] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 400, 400, 400, 400, 400 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.MH_HEILIGE_PFERD] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.NJ_SYURIKEN] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -3921,28 +3650,10 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.AG_ALL_BLOOM] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 6000, 6000, 6000, 6000, 6000 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
-	},
-	[SKID.SHC_IMPACT_CRATER] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 5000, 4125, 3250, 2375, 1500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
 	[SKID.IQ_THIRD_PUNISH] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.CD_REPARATIO] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillSinglePostDelay = { 150000, 100000, 60000, 30000, 10000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.NPC_TARGET_MARKER] = {
@@ -3951,41 +3662,11 @@ SKILL_DELAY_LIST = {
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0 },
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.EM_CONFLAGRATION] = {
-		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
-	},
 	[SKID.SS_ANTENPOU] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
 		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.SOA_TALISMAN_OF_PROTECTION] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.HN_SELFSTUDY_TATICS] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.HN_SELFSTUDY_SOCERY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
 	[SKID.HN_DOUBLEBOWLINGBASH] = {
 		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
@@ -4005,24 +3686,6 @@ SKILL_DELAY_LIST = {
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 }
 	},
-	[SKID.SOA_SOUL_GATHERING] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 5000, 4000, 3000, 2000, 1000 },
-		SkillCastStatDelay = { 1500, 1500, 1500, 1500, 1500 }
-	},
-	[SKID.IQ_SECOND_FAITH] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.ABC_ABYSS_STRIKE] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
-	},
 	[SKID.MT_M_MACHINE] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
@@ -4035,41 +3698,17 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
 		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
 	},
-	[SKID.SOA_TALISMAN_MASTERY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	[SKID.NPC_BLOCK_SEAL] = {
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
 	[SKID.SH_HYUN_ROK_CANNON] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300 },
 		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.ABC_ABYSS_SQUARE] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 3000, 3000, 3000, 3000, 3000 },
-		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
-	},
-	[SKID.HN_JUPITEL_THUNDER_STORM] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800 },
-		SkillCastStatDelay = { 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000 }
-	},
-	[SKID.BO_HELLTREE] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.SKE_STAR_BURST] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.BO_ADVANCE_PROTECTION] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0 },
@@ -4083,53 +3722,11 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.ABC_FROM_THE_ABYSS] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.WH_DEEPBLINDTRAP] = {
-		SkillSinglePostDelay = { 2500, 2500, 2500, 2500, 2500 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 }
-	},
-	[SKID.SH_HOGOGONG_STRIKE] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SH_COMMUNE_WITH_KI_SUL] = {
-		SkillGlobalPostDelay = { 0 },
-		SkillCastFixedDelay = { 0 },
-		SkillSinglePostDelay = { 0 },
-		SkillCastStatDelay = { 0 }
-	},
 	[SKID.TR_KVASIR_SONATA] = {
 		SkillGlobalPostDelay = { 150 },
 		SkillCastFixedDelay = { 1000 },
 		SkillSinglePostDelay = { 120000 },
 		SkillCastStatDelay = { 2000 }
-	},
-	[SKID.WH_SWIFTTRAP] = {
-		SkillSinglePostDelay = { 2500, 2500, 2500, 2500, 2500 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 }
-	},
-	[SKID.SKE_ENCHANTING_SKY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.SKE_RISING_SUN] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.DK_MADNESS_CRUSHER] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
@@ -4137,23 +3734,11 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.IG_REBOUND_SHIELD] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 15000, 15000, 15000, 15000, 15000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
 	[SKID.TR_GEF_NOCTURN] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.AG_FLORAL_FLARE_ROAD] = {
-		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
 	},
 	[SKID.CD_EFFLIGO] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -4161,34 +3746,10 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.TR_JAWAII_SERENADE] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.CD_PRESENS_ACIES] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
 	[SKID.DK_SERVANT_W_SIGN] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.MH_GLANZEN_SPIES] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillSinglePostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.NW_WILD_FIRE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.MC_LOUD] = {
@@ -4203,22 +3764,10 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.HN_SHIELD_CHAIN_RUSH] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200 }
-	},
 	[SKID.MH_BRUSHUP_CLAW] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.ABC_ABYSS_SLAYER] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
 	[SKID.MT_D_MACHINE] = {
@@ -4227,53 +3776,23 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.EM_SUMMON_ELEMENTAL_DILUVIO] = {
-		SkillGlobalPostDelay = { 1000 },
-		SkillCastFixedDelay = { 3000 },
-		SkillSinglePostDelay = { 60000 },
-		SkillCastStatDelay = { 5000 }
-	},
 	[SKID.BO_RESEARCHREPORT] = {
 		SkillGlobalPostDelay = { 500 },
 		SkillCastFixedDelay = { 500 },
 		SkillSinglePostDelay = { 60000 },
 		SkillCastStatDelay = { 2000 }
 	},
-	[SKID.SH_KI_SUL_RAMPAGE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.MH_TWISTER_CUTTER] = {
+	[SKID.NW_MISSION_BOMBARD] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 },
-		SkillCastStatDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 }
-	},
-	[SKID.AG_VIOLENT_QUAKE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 6000, 6000, 6000, 6000, 6000 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
 	[SKID.MH_TOXIN_OF_MANDARA] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
 		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.AG_MYSTERY_ILLUSION] = {
-		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 4000, 4000, 4000, 4000, 4000 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
-	},
-	[SKID.SH_TEMPORARY_COMMUNION] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
 	[SKID.BO_ACIDIFIED_ZONE_WATER] = {
 		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
@@ -4293,71 +3812,11 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 1000 },
 		SkillCastStatDelay = { 2000 }
 	},
-	[SKID.SHC_FATAL_SHADOW_CROW] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 }
-	},
-	[SKID.SH_BLESSING_OF_MYSTICAL_CREATURES] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.MH_TEMPERING] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
-		SkillSinglePostDelay = { 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.NW_GRENADE_MASTERY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_KUNAIKAITEN] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.IG_OVERSLASH] = {
+	[SKID.ABC_FRENZY_SHOT] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_KAGEAKUMU] = {
-		SkillGlobalPostDelay = { 500 },
-		SkillCastFixedDelay = { 500 },
-		SkillSinglePostDelay = { 1000 },
-		SkillCastStatDelay = { 2000 }
-	},
-	[SKID.CD_BENEDICTUM] = {
-		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 250, 250, 250, 250, 250 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.NW_ONLY_ONE_BULLET] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.DK_HACKANDSLASHER] = {
-		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.NW_GRENADES_DROPPING] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 4500, 4500, 4500, 4500, 4500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.WH_WIND_SIGN] = {
 		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
@@ -4365,35 +3824,17 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.SHC_SAVAGE_IMPACT] = {
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
 	[SKID.MH_CLASSY_FLUTTER] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.NW_MISSION_BOMBARD] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_TOKEDASU] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 6000, 5000, 4000, 3000, 2000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.DK_VIGOR] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	[SKID.NPC_FROST_FIELD] = {
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
 	[SKID.MH_POLISHING_NEEDLE] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -4406,24 +3847,6 @@ SKILL_DELAY_LIST = {
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_SHINKIROU] = {
-		SkillGlobalPostDelay = { 0 },
-		SkillCastFixedDelay = { 1000 },
-		SkillSinglePostDelay = { 3000 },
-		SkillCastStatDelay = { 2000 }
-	},
-	[SKID.HN_SPIRAL_PIERCE_MAX] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.BO_WOODENWARRIOR] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.SOA_TALISMAN_OF_MAGICIAN] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
@@ -4438,12 +3861,6 @@ SKILL_DELAY_LIST = {
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.GD_BATTLEORDER] = { SkillSinglePostDelay = { 180000 } },
-	[SKID.CD_ARBITRIUM] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
-	},
 	[SKID.ABC_CHAIN_REACTION_SHOT] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
@@ -4468,119 +3885,17 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
 	},
-	[SKID.MT_SUMMON_ABR_BATTLE_WARIOR] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 30000, 30000, 30000, 30000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000 }
-	},
-	[SKID.AG_CRIMSON_ARROW] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
-	},
-	[SKID.SS_SEKIENHOU] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.SS_REIKETSUHOU] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.NPC_BLAZING_ERUPTION] = {
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SOA_TALISMAN_OF_RED_PHOENIX] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 450, 450, 450, 450, 450 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.EM_LIGHTNING_LAND] = {
-		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
-	},
 	[SKID.SH_MARINE_FESTIVAL_OF_KI_SUL] = {
 		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
 	},
-	[SKID.NPC_GROGGY_ON] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.EM_SUMMON_ELEMENTAL_ARDOR] = {
-		SkillGlobalPostDelay = { 1000 },
-		SkillCastFixedDelay = { 3000 },
-		SkillSinglePostDelay = { 60000 },
-		SkillCastStatDelay = { 5000 }
-	},
 	[SKID.SH_COLORS_OF_HYUN_ROK] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.IG_CROSS_RAIN] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 2400, 2400, 2400, 2400, 2400, 2400, 2400, 2400, 2400, 2400 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
-	},
-	[SKID.IQ_THIRD_FLAME_BOMB] = {
-		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_RAIDENPOU] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.SS_KINRYUUHOU] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.CD_COMPETENTIA] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 4000, 4000, 4000, 4000, 4000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.SHC_SHADOW_STAB] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.AG_TORNADO_STORM] = {
-		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.SOA_TALISMAN_OF_FIVE_ELEMENTS] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
 	[SKID.EM_SUMMON_ELEMENTAL_SERPENS] = {
 		SkillGlobalPostDelay = { 1000 },
@@ -4600,18 +3915,6 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
 		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
 	},
-	[SKID.SS_ANKOKURYUUAKUMU] = {
-		SkillGlobalPostDelay = { 500 },
-		SkillCastFixedDelay = { 1000 },
-		SkillSinglePostDelay = { 1000 },
-		SkillCastStatDelay = { 2000 }
-	},
-	[SKID.AG_DEADLY_PROJECTION] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
-	},
 	[SKID.EM_VENOM_SWAMP] = {
 		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
@@ -4624,47 +3927,11 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 0 },
 		SkillCastStatDelay = { 0 }
 	},
-	[SKID.MT_SUMMON_ABR_DUAL_CANNON] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 30000, 30000, 30000, 30000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000 }
-	},
-	[SKID.MT_SPARK_BLASTER] = {
-		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 }
-	},
-	[SKID.ABC_ABYSS_DAGGER] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 1600, 1300, 1000, 700, 400 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
 	[SKID.SKE_RISING_MOON] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.AG_CLIMAX] = {
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300 },
-		SkillCastFixedDelay = { 4000, 4000, 4000, 4000, 4000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.EM_INCREASING_ACTIVITY] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000 },
-		SkillSinglePostDelay = { 2500, 2500, 2500, 2500, 2500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.NPC_RESET_EFST] = {
-		SkillGlobalPostDelay = { 0 },
-		SkillCastFixedDelay = { 0 },
-		SkillSinglePostDelay = { 0 },
-		SkillCastStatDelay = { 0 }
 	},
 	[SKID.SHC_ETERNAL_SLASH] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
@@ -4678,65 +3945,17 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
 		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
 	},
-	[SKID.ABC_FRENZY_SHOT] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.NPC_BLOCK_SEAL] = {
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_AKUMUKESU] = {
-		SkillGlobalPostDelay = { 250 },
-		SkillCastFixedDelay = { 200 },
-		SkillSinglePostDelay = { 15000 },
-		SkillCastStatDelay = { 1000 }
-	},
 	[SKID.HN_JACK_FROST_NOVA] = {
 		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
 		SkillCastStatDelay = { 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500 }
 	},
-	[SKID.NW_THE_VIGILANTE_AT_NIGHT] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.NPC_FROST_FIELD] = {
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.WH_HAWKRUSH] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 150, 150, 150, 150, 150 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.BO_MAYHEMIC_THORNS] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
-	},
 	[SKID.AG_STRANTUM_TREMOR] = {
 		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 4000, 4000, 4000, 4000, 4000 },
 		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
-	},
-	[SKID.IG_HOLY_SHIELD] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 40000, 60000, 80000, 100000, 120000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
 	[SKID.EM_DIAMOND_STORM] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
@@ -4750,30 +3969,17 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.TR_RHYTHMSHOOTING] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
 	[SKID.IG_GUARD_STANCE] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.GD_REGENERATION] = { SkillSinglePostDelay = { 180000, 180000, 180000 } },
 	[SKID.SH_MYSTICAL_CREATURE_MASTERY] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.BO_EXPLOSIVE_POWDER] = {
-		SkillGlobalPostDelay = { 250, 250, 250, 250, 250 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.EM_SUMMON_ELEMENTAL_PROCELLA] = {
 		SkillGlobalPostDelay = { 1000 },
@@ -4781,29 +3987,11 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 60000 },
 		SkillCastStatDelay = { 5000 }
 	},
-	[SKID.SOA_TOTEM_OF_TUTELARY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillSinglePostDelay = { 15000, 15000, 15000, 15000, 15000 },
-		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
-	},
 	[SKID.DK_CHARGINGPIERCE] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
 		SkillCastFixedDelay = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 },
 		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
 		SkillCastStatDelay = { 800, 800, 800, 800, 800, 800, 800, 800, 800, 800 }
-	},
-	[SKID.BO_ACIDIFIED_ZONE_GROUND] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 2000, 2000, 1000, 1000, 1000 }
-	},
-	[SKID.SKE_NOON_BLAST] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
 	[SKID.HN_MEGA_SONIC_BLOW] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
@@ -4811,29 +3999,11 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.AG_CRYSTAL_IMPACT] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
-	},
 	[SKID.TR_SOUNDBLEND] = {
 		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.IG_GRAND_JUDGEMENT] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.BO_ACIDIFIED_ZONE_FIRE] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 2000, 2000, 1000, 1000, 1000 }
 	},
 	[SKID.SKE_DAWN_BREAK] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
@@ -4846,61 +4016,6 @@ SKILL_DELAY_LIST = {
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.MT_MIGHTY_SMASH] = {
-		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.NW_INTENSIVE_AIM] = {
-		SkillGlobalPostDelay = { 0 },
-		SkillCastFixedDelay = { 0 },
-		SkillSinglePostDelay = { 500 },
-		SkillCastStatDelay = { 0 }
-	},
-	[SKID.IQ_FIRM_FAITH] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.HN_METEOR_STORM_BUSTER] = {
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
-	},
-	[SKID.AS_SONICBLOW] = { SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 } },
-	[SKID.IG_ATTACK_STANCE] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.NW_HIDDEN_CARD] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.BO_ACIDIFIED_ZONE_WIND] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 2000, 2000, 1000, 1000, 1000 }
-	},
-	[SKID.NW_MAGAZINE_FOR_ONE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.SOA_TALISMAN_OF_WARRIOR] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
 	[SKID.BO_BIONIC_PHARMACY] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
@@ -4920,65 +4035,17 @@ SKILL_DELAY_LIST = {
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 }
 	},
-	[SKID.SHC_DANCING_KNIFE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.MH_NEEDLE_STINGER] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillSinglePostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_KUNAIKUSSETSU] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
-		SkillCastStatDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 }
-	},
-	[SKID.TR_RETROSPECTION] = {
-		SkillGlobalPostDelay = { 300 },
-		SkillCastFixedDelay = { 0 },
-		SkillSinglePostDelay = { 5000 },
-		SkillCastStatDelay = { 0 }
-	},
-	[SKID.SH_KI_SUL_WATER_SPRAYING] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
-	},
 	[SKID.AG_DESTRUCTIVE_HURRICANE] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 2500, 2500, 2500, 2500, 2500 },
 		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
 	},
-	[SKID.DK_DRAGONIC_BREATH] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.HN_NAPALM_VULCAN_STRIKE] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 }
-	},
 	[SKID.CD_FRAMEN] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
 		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
 		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
 		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
-	},
-	[SKID.SH_CHUL_HO_SONIC_CLAW] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 1150, 1000, 850, 700, 550, 400, 250 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0 }
 	},
 	[SKID.SKE_ALL_IN_THE_SKY] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -4992,71 +4059,11 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 3800, 3600, 3400, 3200, 3000, 2800, 2600, 2400, 2200, 2000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	},
-	[SKID.IG_GUARDIAN_SHIELD] = {
-		SkillGlobalPostDelay = { 300, 300, 300, 300, 300 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 25000, 25000, 25000, 25000, 25000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
-	},
-	[SKID.SKE_STAR_CANNON] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 3500, 3500, 3500, 3500, 3500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.MT_RUSH_QUAKE] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.MH_BLAZING_LAVA] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.NW_P_F_I] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.SS_KAGEGARI] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
 	[SKID.SS_KAGEGISSEN] = {
 		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.TR_ROSEBLOSSOM] = {
-		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.DK_SERVANT_W_PHANTOM] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.IQ_THIRD_CONSECRATION] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
-	[SKID.IG_ULTIMATE_SACRIFICE] = {
-		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
-		SkillSinglePostDelay = { 20000, 40000, 60000, 80000, 100000 },
-		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
 	},
 	[SKID.AG_FROZEN_SLASH] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
@@ -5064,41 +4071,11 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 450, 450, 450, 450, 450 },
 		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
 	},
-	[SKID.MT_SUMMON_ABR_INFINITY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
-	},
-	[SKID.SKE_SKY_MASTERY] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-	},
-	[SKID.NV_HELPANGEL] = {
-		SkillGlobalPostDelay = { 0 },
-		SkillCastFixedDelay = { 0 },
-		SkillSinglePostDelay = { 300000 },
-		SkillCastStatDelay = { 0 }
-	},
-	[SKID.IG_JUDGEMENT_CROSS] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
-		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
-		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
-	},
 	[SKID.SS_FUUMASHOUAKU] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
 		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
 		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200 }
-	},
-	[SKID.WH_CALAMITYGALE] = {
-		SkillGlobalPostDelay = { 150 },
-		SkillCastFixedDelay = { 1000 },
-		SkillSinglePostDelay = { 60000 },
-		SkillCastStatDelay = { 2000 }
 	},
 	[SKID.SS_KUNAIWAIKYOKU] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
@@ -5112,23 +4089,169 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000 },
 		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
 	},
-	[SKID.MT_SUMMON_ABR_MOTHER_NET] = {
-		SkillGlobalPostDelay = { 0, 0, 0, 0 },
-		SkillCastFixedDelay = { 1000, 1000, 1000, 1000 },
-		SkillSinglePostDelay = { 30000, 30000, 30000, 30000 },
-		SkillCastStatDelay = { 1000, 1000, 1000, 1000 }
-	},
-	[SKID.SKE_SUNSET_BLAST] = {
-		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
-		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
-		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
-		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
-	},
 	[SKID.MH_BLAZING_AND_FURIOUS] = {
 		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.IQ_FIRST_FAITH_POWER] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillSinglePostDelay = { 180000, 150000, 120000, 90000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.AM_REST] = { SkillSinglePostDelay = { 20000 } },
+	[SKID.SH_HYUN_ROKS_BREEZE] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 4500, 4500, 4500, 4500, 4500, 4500, 4500 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.TR_AIN_RHAPSODY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.NPC_BLOCK_EXPLOSION] = {
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.BO_THE_WHOLE_PROTECTION] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.HN_BREAKINGLIMIT] = {
+		SkillGlobalPostDelay = { 0 },
+		SkillCastFixedDelay = { 1000 },
+		SkillSinglePostDelay = { 60000 },
+		SkillCastStatDelay = { 0 }
+	},
+	[SKID.NPC_DEADLYCURSE2] = {},
+	[SKID.IQ_SECOND_JUDGEMENT] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.NW_AUTO_FIRING_LAUNCHER] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000 },
+		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.MH_BLAST_FORGE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.NW_BASIC_GRENADE] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.AG_ROCK_DOWN] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.WH_HAWKBOOMERANG] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 150, 150, 150, 150, 150 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.SOA_EXORCISM_OF_MALICIOUS_SOUL] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.SOA_TALISMAN_OF_SOUL_STEALING] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.CD_PNEUMATICUS_PROCELLA] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.EM_INCREASING_ACTIVITY] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000 },
+		SkillSinglePostDelay = { 2500, 2500, 2500, 2500, 2500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.ABC_UNLUCKY_RUSH] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 1250, 1000, 750, 500, 250 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.IQ_SINCERE_FAITH] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.HN_HELLS_DRIVE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 2500, 2300, 2100, 1900, 1700, 1500, 1300, 1100, 900, 700 },
+		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200 }
+	},
+	[SKID.SOA_SOUL_MASTERY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.MT_TRIPLE_LASER] = {
+		SkillGlobalPostDelay = { 250, 250, 250, 250, 250 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.ABC_STRIP_SHADOW] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.BO_MAYHEMIC_THORNS] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.SHC_ENCHANTING_SHADOW] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 30000, 60000, 90000, 120000, 150000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.CD_ARGUTUS_VITA] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.SH_SANDY_FESTIVAL_OF_KI_SUL] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
 	},
 	[SKID.IQ_SECOND_FLAME] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
@@ -5136,16 +4259,893 @@ SKILL_DELAY_LIST = {
 		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.IQ_SECOND_JUDGEMENT] = {
+	[SKID.DK_VIGOR] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SKE_SUNSET_BLAST] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.SHC_IMPACT_CRATER] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 5000, 4125, 3250, 2375, 1500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.CD_REPARATIO] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillSinglePostDelay = { 150000, 100000, 60000, 30000, 10000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.SOA_SOUL_GATHERING] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 5000, 4000, 3000, 2000, 1000 },
+		SkillCastStatDelay = { 1500, 1500, 1500, 1500, 1500 }
+	},
+	[SKID.SKE_TWINKLING_GALAXY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.IQ_THIRD_CONSECRATION] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.IQ_SECOND_FAITH] = {
 		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
 		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
 		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
 		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
 	},
-	[SKID.HN_BREAKINGLIMIT] = {
+	[SKID.DK_SERVANT_W_PHANTOM] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.NPC_LIGHTNING_JUDGEMENT] = {
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SKE_STAR_BURST] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.NW_P_F_I] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.IG_REBOUND_SHIELD] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 15000, 15000, 15000, 15000, 15000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.SKE_ENCHANTING_SKY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.SKE_RISING_SUN] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.AG_FLORAL_FLARE_ROAD] = {
+		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.SOA_TALISMAN_OF_RED_PHOENIX] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 450, 450, 450, 450, 450 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.SH_HOWLING_OF_CHUL_HO] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.MT_RUSH_QUAKE] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SKE_STAR_CANNON] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 3500, 3500, 3500, 3500, 3500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.MH_HEILIGE_PFERD] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.SS_ANKOKURYUUAKUMU] = {
+		SkillGlobalPostDelay = { 500 },
+		SkillCastFixedDelay = { 1000 },
+		SkillSinglePostDelay = { 1000 },
+		SkillCastStatDelay = { 2000 }
+	},
+	[SKID.AG_RAIN_OF_CRYSTAL] = {
+		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.SS_KUNAIKAITEN] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.IG_OVERSLASH] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SS_KAGEAKUMU] = {
+		SkillGlobalPostDelay = { 500 },
+		SkillCastFixedDelay = { 500 },
+		SkillSinglePostDelay = { 1000 },
+		SkillCastStatDelay = { 2000 }
+	},
+	[SKID.HN_NAPALM_VULCAN_STRIKE] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 }
+	},
+	[SKID.SS_SHINKIROU] = {
+		SkillGlobalPostDelay = { 0 },
+		SkillCastFixedDelay = { 1000 },
+		SkillSinglePostDelay = { 3000 },
+		SkillCastStatDelay = { 2000 }
+	},
+	[SKID.ABC_ABYSS_SQUARE] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 3000, 3000, 3000, 3000, 3000 },
+		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
+	},
+	[SKID.EM_SUMMON_ELEMENTAL_ARDOR] = {
+		SkillGlobalPostDelay = { 1000 },
+		SkillCastFixedDelay = { 3000 },
+		SkillSinglePostDelay = { 60000 },
+		SkillCastStatDelay = { 5000 }
+	},
+	[SKID.WH_DEEPBLINDTRAP] = {
+		SkillSinglePostDelay = { 2500, 2500, 2500, 2500, 2500 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 }
+	},
+	[SKID.HN_SPIRAL_PIERCE_MAX] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.CD_BENEDICTUM] = {
+		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 250, 250, 250, 250, 250 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.BO_ACIDIFIED_ZONE_WIND] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 2000, 2000, 1000, 1000, 1000 }
+	},
+	[SKID.IG_ATTACK_STANCE] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.CD_ARBITRIUM] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.HN_SHIELD_CHAIN_RUSH] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
+		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200 }
+	},
+	[SKID.BO_ACIDIFIED_ZONE_FIRE] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 2000, 2000, 1000, 1000, 1000 }
+	},
+	[SKID.EM_LIGHTNING_LAND] = {
+		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
+	},
+	[SKID.IQ_THIRD_FLAME_BOMB] = {
+		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.CD_COMPETENTIA] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 4000, 4000, 4000, 4000, 4000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.AG_CRIMSON_ARROW] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.AG_TORNADO_STORM] = {
+		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.IQ_POWERFUL_FAITH] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.MT_A_MACHINE] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.DK_SERVANTWEAPON] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.NW_THE_VIGILANTE_AT_NIGHT] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.HN_SELFSTUDY_SOCERY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SS_SHIMIRU] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 1500, 1250, 1000, 750, 500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.TR_METALIC_FURY] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 400, 400, 400, 400, 400 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.SS_AKUMUKESU] = {
+		SkillGlobalPostDelay = { 250 },
+		SkillCastFixedDelay = { 200 },
+		SkillSinglePostDelay = { 15000 },
+		SkillCastStatDelay = { 1000 }
+	},
+	[SKID.SOA_TALISMAN_OF_WHITE_TIGER] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 400, 400, 400, 400, 400 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.TR_NIPELHEIM_REQUIEM] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.EM_TERRA_DRIVE] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
+	},
+	[SKID.SS_KINRYUUHOU] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.WH_HAWK_M] = {
+		SkillGlobalPostDelay = { 500 },
+		SkillCastFixedDelay = { 0 },
+		SkillSinglePostDelay = { 0 },
+		SkillCastStatDelay = { 0 }
+	},
+	[SKID.WH_CRESCIVE_BOLT] = {
+		SkillGlobalPostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350, 350, 350, 350 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.WH_HAWKRUSH] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 150, 150, 150, 150, 150 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.HN_RULEBREAK] = {
 		SkillGlobalPostDelay = { 0 },
 		SkillCastFixedDelay = { 1000 },
 		SkillSinglePostDelay = { 60000 },
 		SkillCastStatDelay = { 0 }
+	},
+	[SKID.AG_CLIMAX] = {
+		SkillGlobalPostDelay = { 300, 300, 300, 300, 300 },
+		SkillCastFixedDelay = { 4000, 4000, 4000, 4000, 4000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.DK_DRAGONIC_AURA] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.ABC_ABYSS_DAGGER] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 1600, 1300, 1000, 700, 400 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.TR_MYSTIC_SYMPHONY] = {
+		SkillGlobalPostDelay = { 0 },
+		SkillCastFixedDelay = { 1000 },
+		SkillSinglePostDelay = { 60000 },
+		SkillCastStatDelay = { 1000 }
+	},
+	[SKID.SS_KAGENOMAI] = {
+		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SS_FUUMAKOUCHIKU] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200 }
+	},
+	[SKID.AG_SOUL_VC_STRIKE] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.NW_GRENADE_FRAGMENT] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SH_COMMUNE_WITH_KI_SUL] = {
+		SkillGlobalPostDelay = { 0 },
+		SkillCastFixedDelay = { 0 },
+		SkillSinglePostDelay = { 0 },
+		SkillCastStatDelay = { 0 }
+	},
+	[SKID.MH_BLAZING_LAVA] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.CD_MEDIALE_VOTUM] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.CD_ARGUTUS_TELUM] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.SH_COMMUNE_WITH_HYUN_ROK] = {
+		SkillGlobalPostDelay = { 0 },
+		SkillCastFixedDelay = { 0 },
+		SkillSinglePostDelay = { 0 },
+		SkillCastStatDelay = { 0 }
+	},
+	[SKID.AG_ALL_BLOOM] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 6000, 6000, 6000, 6000, 6000 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.BO_EXPLOSIVE_POWDER] = {
+		SkillGlobalPostDelay = { 250, 250, 250, 250, 250 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.MT_SPARK_BLASTER] = {
+		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 }
+	},
+	[SKID.EM_ACTIVITY_BURN] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillSinglePostDelay = { 8000, 8000, 8000, 8000, 8000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.EM_CONFLAGRATION] = {
+		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
+	},
+	[SKID.SOA_TOTEM_OF_TUTELARY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillSinglePostDelay = { 15000, 15000, 15000, 15000, 15000 },
+		SkillCastStatDelay = { 5000, 5000, 5000, 5000, 5000 }
+	},
+	[SKID.SOA_TALISMAN_OF_PROTECTION] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.HN_SELFSTUDY_TATICS] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SOA_TALISMAN_OF_FOUR_BEARING_GOD] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.BO_ACIDIFIED_ZONE_GROUND] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 2000, 2000, 1000, 1000, 1000 }
+	},
+	[SKID.NW_GRENADE_MASTERY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SH_BLESSING_OF_MYSTICAL_CREATURES] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.WM_REVERBERATION] = {
+		SkillGlobalPostDelay = { 300, 300, 300, 300, 300 },
+		SkillCastFixedDelay = { 200, 200, 200, 200, 200 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 800, 800, 800, 800, 800 }
+	},
+	[SKID.SKE_MIDNIGHT_KICK] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.NW_ONLY_ONE_BULLET] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.WH_SWIFTTRAP] = {
+		SkillSinglePostDelay = { 2500, 2500, 2500, 2500, 2500 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 }
+	},
+	[SKID.ABC_ABYSS_STRIKE] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.SH_TEMPORARY_COMMUNION] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.SHC_FATAL_SHADOW_CROW] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 }
+	},
+	[SKID.AG_CRYSTAL_IMPACT] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.IG_GRAND_JUDGEMENT] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.ABC_FROM_THE_ABYSS] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.MT_MIGHTY_SMASH] = {
+		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.NW_INTENSIVE_AIM] = {
+		SkillGlobalPostDelay = { 0 },
+		SkillCastFixedDelay = { 0 },
+		SkillSinglePostDelay = { 500 },
+		SkillCastStatDelay = { 0 }
+	},
+	[SKID.HN_METEOR_STORM_BUSTER] = {
+		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.MH_GLANZEN_SPIES] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillSinglePostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.NW_HIDDEN_CARD] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.TR_JAWAII_SERENADE] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 10000, 10000, 10000, 10000, 10000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.NW_MAGAZINE_FOR_ONE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.CD_PRESENS_ACIES] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.SOA_TALISMAN_MASTERY] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SOA_TALISMAN_OF_WARRIOR] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.NW_WILD_FIRE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.HN_JUPITEL_THUNDER_STORM] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800 },
+		SkillCastStatDelay = { 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000 }
+	},
+	[SKID.SHC_DANCING_KNIFE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.AS_SONICBLOW] = { SkillSinglePostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 } },
+	[SKID.MH_NEEDLE_STINGER] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillSinglePostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.EM_SUMMON_ELEMENTAL_DILUVIO] = {
+		SkillGlobalPostDelay = { 1000 },
+		SkillCastFixedDelay = { 3000 },
+		SkillSinglePostDelay = { 60000 },
+		SkillCastStatDelay = { 5000 }
+	},
+	[SKID.TR_RETROSPECTION] = {
+		SkillGlobalPostDelay = { 300 },
+		SkillCastFixedDelay = { 0 },
+		SkillSinglePostDelay = { 5000 },
+		SkillCastStatDelay = { 0 }
+	},
+	[SKID.SH_KI_SUL_WATER_SPRAYING] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.DK_DRAGONIC_BREATH] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.SH_KI_SUL_RAMPAGE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.SH_CHUL_HO_SONIC_CLAW] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 1150, 1000, 850, 700, 550, 400, 250 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 5000, 5000, 5000, 5000, 5000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.ABC_ABYSS_SLAYER] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.BO_HELLTREE] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.NW_GRENADES_DROPPING] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 4500, 4500, 4500, 4500, 4500 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.IG_GUARDIAN_SHIELD] = {
+		SkillGlobalPostDelay = { 300, 300, 300, 300, 300 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 25000, 25000, 25000, 25000, 25000 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.MH_TWISTER_CUTTER] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 },
+		SkillCastStatDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 }
+	},
+	[SKID.AG_VIOLENT_QUAKE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 6000, 6000, 6000, 6000, 6000 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.AG_MYSTERY_ILLUSION] = {
+		SkillGlobalPostDelay = { 750, 750, 750, 750, 750 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 4000, 4000, 4000, 4000, 4000 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.SS_TOKEDASU] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 6000, 5000, 4000, 3000, 2000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.MH_TEMPERING] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
+		SkillSinglePostDelay = { 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SS_KAGEGARI] = {
+		SkillGlobalPostDelay = { 150, 150, 150, 150, 150, 150, 150, 150, 150, 150 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.DK_HACKANDSLASHER] = {
+		SkillGlobalPostDelay = { 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SKE_NOON_BLAST] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.SS_SEKIENHOU] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.SHC_SAVAGE_IMPACT] = {
+		SkillGlobalPostDelay = { 300, 300, 300, 300, 300, 300, 300, 300, 300, 300 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SS_REIKETSUHOU] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 }
+	},
+	[SKID.NPC_BLAZING_ERUPTION] = {
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000 },
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.SS_RAIDENPOU] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700, 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 }
+	},
+	[SKID.MT_AXE_STOMP] = {
+		SkillGlobalPostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.BO_WOODENWARRIOR] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 30000, 30000, 30000, 30000, 30000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.MT_SUMMON_ABR_BATTLE_WARIOR] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 30000, 30000, 30000, 30000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000 }
+	},
+	[SKID.NV_HELPANGEL] = {
+		SkillGlobalPostDelay = { 0 },
+		SkillCastFixedDelay = { 0 },
+		SkillSinglePostDelay = { 300000 },
+		SkillCastStatDelay = { 0 }
+	},
+	[SKID.IG_JUDGEMENT_CROSS] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.EM_SUMMON_ELEMENTAL_TERREMOTUS] = {
+		SkillGlobalPostDelay = { 1000 },
+		SkillCastFixedDelay = { 3000 },
+		SkillSinglePostDelay = { 60000 },
+		SkillCastStatDelay = { 5000 }
+	},
+	[SKID.SHC_SHADOW_STAB] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0 }
+	},
+	[SKID.WH_CALAMITYGALE] = {
+		SkillGlobalPostDelay = { 150 },
+		SkillCastFixedDelay = { 1000 },
+		SkillSinglePostDelay = { 60000 },
+		SkillCastStatDelay = { 2000 }
+	},
+	[SKID.NPC_GROGGY_ON] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillSinglePostDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.MT_SUMMON_ABR_DUAL_CANNON] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 30000, 30000, 30000, 30000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000 }
+	},
+	[SKID.SOA_TALISMAN_OF_BLACK_TORTOISE] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 700, 700, 700, 700, 700 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.NPC_RESET_EFST] = {
+		SkillGlobalPostDelay = { 0 },
+		SkillCastFixedDelay = { 0 },
+		SkillSinglePostDelay = { 0 },
+		SkillCastStatDelay = { 0 }
+	},
+	[SKID.AG_ASTRAL_STRIKE] = {
+		SkillGlobalPostDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillCastFixedDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 },
+		SkillSinglePostDelay = { 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000 },
+		SkillCastStatDelay = { 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000 }
+	},
+	[SKID.SH_HOGOGONG_STRIKE] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 350, 350, 350, 350, 350, 350, 350 },
+		SkillCastStatDelay = { 0, 0, 0, 0, 0, 0, 0 }
+	},
+	[SKID.IQ_FIRM_FAITH] = {
+		SkillGlobalPostDelay = { 0, 0, 0, 0, 0 },
+		SkillCastFixedDelay = { 1000, 1000, 1000, 1000, 1000 },
+		SkillSinglePostDelay = { 60000, 60000, 60000, 60000, 60000 },
+		SkillCastStatDelay = { 1000, 1000, 1000, 1000, 1000 }
+	},
+	[SKID.SS_KUNAIKUSSETSU] = {
+		SkillGlobalPostDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillCastFixedDelay = { 500, 500, 500, 500, 500, 500, 500, 500, 500, 500 },
+		SkillSinglePostDelay = { 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000 },
+		SkillCastStatDelay = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 }
 	}
 }

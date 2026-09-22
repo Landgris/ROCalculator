@@ -236,7 +236,17 @@
                     var name = entry[this.uiLocale] || entry['en'] || entry['zh-TW'];
                     if (name) return name;
                 }
-                var d = this.skillDescript[skid];
+                // 括號變體（例如傷害計算清單裡的 RK_HUNDREDSPEAR(ex)）若沒有專屬翻譯，
+                // 退回不含括號的基礎 id 找翻譯，規則跟主程式 getSkillName() 一致。
+                var baseSkid = skid.split('(')[0];
+                if (baseSkid !== skid) {
+                    var baseEntry = this.skillNameMap[baseSkid];
+                    if (baseEntry) {
+                        var baseName = baseEntry[this.uiLocale] || baseEntry['en'] || baseEntry['zh-TW'];
+                        if (baseName) return baseName;
+                    }
+                }
+                var d = this.skillDescript[baseSkid];
                 if (d) {
                     var descFallback = { 'zh-TW': d.nameZh, en: d.nameEn };
                     var descName = descFallback[this.uiLocale] || descFallback.en || descFallback['zh-TW'];
@@ -594,7 +604,7 @@
             '          <div v-if="matchedSkillEntries.length" class="skill-tree-detail-apply-row">',
             '            <el-button v-for="entry in matchedSkillEntries" :key="entry.skill.id" size="mini" type="success" plain',
             '                 v-on:click="applyToMainSkill(entry.skill.id)">',
-            '              {{ t(\'ui.skilltree.applyskill\', \'套用\') }}：{{ entry.skill.name || entry.skill.id }}',
+            '              {{ t(\'ui.skilltree.applyskill\', \'套用\') }}：{{ skillName(entry.skill.id) }}',
             '            </el-button>',
             '          </div>',
             '          <div class="skill-tree-detail-title">{{ selectedDetail.nameZh }} <span v-if="selectedDetail.nameEn" class="skill-tree-detail-nameen">({{ selectedDetail.nameEn }})</span></div>',
