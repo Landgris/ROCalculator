@@ -10611,7 +10611,7 @@
                         elementTableLastest: this.ElementTableLastest,
                         activeSupportSkills: this.DefaultDB_SupportSkill
                             .filter(x => x.skill.active)
-                            .slice(0, 20)
+                            .slice(0, 50)
                             .map(x => ({ id: x.skill.id, lv: x.skill.lv, arg1: x.skill.arg1, arg2: x.skill.arg2 })),
                     };
                 },
@@ -10775,7 +10775,7 @@
                             skill: { transWeaponDEF: this.skill.transWeaponDEF, ranged: this.skill.ranged },
                             enemyattribute: { WeaponDEF: this.enemyattribute.WeaponDEF, StatusDEF: this.enemyattribute.StatusDEF },
                             skilloption: { ElementalPercent: this.skilloption.ElementalPercent },
-                            activeSupportSkills: this.DefaultDB_SupportSkill.filter(x => x.skill.active).slice(0, 20)
+                            activeSupportSkills: this.DefaultDB_SupportSkill.filter(x => x.skill.active).slice(0, 50)
                                 .map(x => ({ id: x.skill.id, lv: x.skill.lv, arg1: x.skill.arg1, arg2: x.skill.arg2 })),
                         };
                         const res = await fetch(this.apiBaseUrl + '/compute-dragonbreath', {
@@ -10831,7 +10831,7 @@
                             attritube: { ELEDDI: this.attritube['ELEDDI'] },
                             option: { EquipSkillAddDamage: this.option.EquipSkillAddDamage },
                             skilloption: { ElementalPercent: this.skilloption.ElementalPercent },
-                            activeSupportSkills: this.DefaultDB_SupportSkill.filter(x => x.skill.active).slice(0, 20)
+                            activeSupportSkills: this.DefaultDB_SupportSkill.filter(x => x.skill.active).slice(0, 50)
                                 .map(x => ({ id: x.skill.id, lv: x.skill.lv, arg1: x.skill.arg1, arg2: x.skill.arg2 })),
                         };
                         const res = await fetch(this.apiBaseUrl + '/compute-trap', {
