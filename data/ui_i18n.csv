@@ -130,6 +130,8 @@ ui.common.point,點,pts,pts,Pkt.,แต้ม,pts
 ui.common.insufficient,不足,Insufficient,Insuficiente,Nicht ausreichend,ไม่เพียงพอ,Insuffisant
 ui.charstats.traitpoints,特質點,Trait Points,Puntos de rasgo,Eigenschaftspunkte,แต้มคุณลักษณะ,Points de trait
 ui.charstats.jobbonuspoint,Job加成點,Job Bonus Points,Puntos de bonificación de Job,Job-Bonuspunkte,แต้มโบนัส Job,Points de bonus de Job
+ui.equip.tab.physical,物理,Physical,Físico,Physisch,กายภาพ,Physique
+ui.equip.tab.magic,魔法,Magic,Mágico,Magisch,เวทมนตร์,Magique
 ui.equip.type,類型,Type,Tipo,Typ,ประเภท,Type
 ui.equip.weapontype,武器類型,Weapon Type,Tipo de arma,Waffentyp,ประเภทอาวุธ,Type d'arme
 ui.equip.subweapontype,副手武器類型,off Hand Weapon,Arma secundaria,Nebenhandwaffe,อาวุธมือรอง,Arme en main secondaire
@@ -264,11 +266,50 @@ ui.enemy.mdefformula,(魔物等級+INT)/4,(Monster Level+INT)/4,(Nivel del monst
 ui.enemy.submdef,減算MDEF(前),Soft MDEF,MDEF blanda,Soft MDEF,Soft MDEF,Soft MDEF
 ui.enemy.mulmdef,乘算MDEF,Hard MDEF,MDEF dura,Hard MDEF,Hard MDEF,Hard MDEF
 ui.enemy.raceresist,種族抗性,Race Resistance,Resistencia racial,Rassenresistenz,ต้านทานเผ่า,Résistance de race
+ui.enemy.edit,編輯敵方,Edit Enemy,Editar enemigo,Gegner bearbeiten,แก้ไขศัตรู,Modifier l'ennemi
+ui.enemy.name,敵方名稱,Enemy Name,Nombre del enemigo,Gegnername,ชื่อศัตรู,Nom de l'ennemi
+ui.enemy.new,新增,New,Nuevo,Neu,สร้างใหม่,Nouveau
+ui.enemy.customlist,已儲存的自訂敵方,Saved Custom Enemies,Enemigos personalizados guardados,Gespeicherte eigene Gegner,ศัตรูที่กำหนดเองที่บันทึกไว้,Ennemis personnalisés enregistrés
+ui.enemy.nocustom,尚無自訂敵方,No custom enemies yet,Aún no hay enemigos personalizados,Noch keine eigenen Gegner,ยังไม่มีศัตรูที่กำหนดเอง,Aucun ennemi personnalisé
+ui.enemy.overwrite,覆蓋儲存,Overwrite,Sobrescribir,Überschreiben,บันทึกทับ,Écraser
+ui.enemy.saveas,另存新敵方,Save as New,Guardar como nuevo,Als neu speichern,บันทึกเป็นรายการใหม่,Enregistrer comme nouveau
+ui.enemy.setnamefirst,儲存前設定名稱,Set a name before saving,Pon un nombre antes de guardar,Vor dem Speichern Namen festlegen,ตั้งชื่อก่อนบันทึก,Définissez un nom avant d'enregistrer
+ui.enemy.saved,已儲存自訂敵方,Custom enemy saved,Enemigo personalizado guardado,Eigener Gegner gespeichert,บันทึกศัตรูที่กำหนดเองแล้ว,Ennemi personnalisé enregistré
+ui.enemy.deleteconfirm,確定要刪除這筆自訂敵方嗎？,Delete this custom enemy?,¿Eliminar este enemigo personalizado?,Diesen eigenen Gegner löschen?,ลบศัตรูที่กำหนดเองนี้หรือไม่?,Supprimer cet ennemi personnalisé ?
+ui.enemy.normalatkreduce,普攻減傷,Normal Attack Reduction,Reducción de ataque normal,Normalangriff-Reduktion,ลดความเสียหายโจมตีปกติ,Réduction attaque normale
+ui.enemy.rangednormalatkreduce,遠距離普攻減傷,Ranged Normal Attack Reduction,Reducción de ataque normal a distancia,Fernkampf-Normalangriff-Reduktion,ลดความเสียหายโจมตีปกติระยะไกล,Réduction attaque normale à distance
+ui.enemy.skillreduce,技能減傷,Skill Damage Reduction,Reducción de daño de habilidad,Skillschaden-Reduktion,ลดความเสียหายสกิล,Réduction dégâts de compétence
+ui.enemy.stardefense,★防禦,★ Defense,★ Defensa,★ Verteidigung,★ ป้องกัน,★ Défense
+ui.enemy.reduce90,90%減傷,90% Damage Reduction,Reducción de daño 90%,90% Schadensreduktion,ลดความเสียหาย 90%,Réduction de dégâts 90%
+ui.enemy.reduce99,99%減傷,99% Damage Reduction,Reducción de daño 99%,99% Schadensreduktion,ลดความเสียหาย 99%,Réduction de dégâts 99%
+ui.enemy.resist,抗性,Resistance,Resistencia,Resistenz,ต้านทาน,Résistance
+ui.enemy.resisttarget,目標,Target,Objetivo,Ziel,เป้าหมาย,Cible
+ui.enemy.resistcommon,共用抗性,Shared Resist,Resist. compartida,Gemeinsame Resistenz,ต้านทานร่วม,Résist. commune
+ui.enemy.resistphysical,物理抗性,Physical Resist,Resist. física,Physische Resistenz,ต้านทานกายภาพ,Résist. physique
+ui.enemy.resistmagic,魔法抗性,Magic Resist,Resist. mágica,Magische Resistenz,ต้านทานเวท,Résist. magique
+ui.enemy.specify,指定,Specify,Especificar,Festlegen,กำหนด,Spécifier
+ui.enemy.expanddetail,展開減傷 / 抗性,Show Reduction / Resist,Mostrar reducción / resistencia,Reduktion / Resistenz anzeigen,แสดงการลดความเสียหาย / ต้านทาน,Afficher réduction / résistance
+ui.enemy.collapsedetail,收起減傷 / 抗性,Hide Reduction / Resist,Ocultar reducción / resistencia,Reduktion / Resistenz ausblenden,ซ่อนการลดความเสียหาย / ต้านทาน,Masquer réduction / résistance
+ui.enemy.physicalsizeresist,物理體型抗性,Physical Size Resist,Resist. física de tamaño,Physische Größenresistenz,ต้านทานกายภาพขนาด,Résist. physique de taille
+ui.enemy.physicallevelresist,物理階級抗性,Physical Class Resist,Resist. física de clase,Physische Klassenresistenz,ต้านทานกายภาพระดับ,Résist. physique de classe
+ui.enemy.magicsizeresist,魔法體型抗性,Magic Size Resist,Resist. mágica de tamaño,Magische Größenresistenz,ต้านทานเวทขนาด,Résist. magique de taille
+ui.enemy.magiclevelresist,魔法階級抗性,Magic Class Resist,Resist. mágica de clase,Magische Klassenresistenz,ต้านทานเวทระดับ,Résist. magique de classe
+ui.enemy.elementresist,屬性抗性,Element Resist,Resist. elemental,Elementresistenz,ต้านทานธาตุ,Résist. élémentaire
+ui.enemy.physicalmonsterelementresist,物理怪物屬性抗性,Physical Monster Element Resist,Resist. física por elemento del monstruo,Physische Monsterelement-Resistenz,ต้านทานกายภาพตามธาตุมอนสเตอร์,Résist. physique selon élément du monstre
+ui.enemy.rangedresist,遠距抗性,Ranged Resist,Resist. a distancia,Fernkampfresistenz,ต้านทานระยะไกล,Résist. à distance
+ui.enemy.criresist,暴擊抗性,Critical Resist,Resist. crítica,Krit-Resistenz,ต้านทานคริติคอล,Résist. critique
+ui.enemy.sizeresist,體型抗性,Size Resist,Resist. de tamaño,Größenresistenz,ต้านทานขนาด,Résist. de taille
+ui.enemy.levelresist,階級抗性,Class Resist,Resist. de clase,Klassenresistenz,ต้านทานระดับ,Résist. de classe
+ui.enemy.monsterelementresist,怪物屬性抗性,Monster Element Resist,Resist. por elemento del monstruo,Monsterelement-Resistenz,ต้านทานธาตุมอนสเตอร์,Résist. selon élément du monstre
+ui.enemy.magicmonsterelementresist,魔法怪物屬性抗性,Magic Monster Element Resist,Resist. mágica por elemento del monstruo,Magische Monsterelement-Resistenz,ต้านทานเวทตามธาตุมอนสเตอร์,Résist. magique selon élément du monstre
 ui.common.subtracted,減,Sub,Resta,Sub,ลบ,Sous.
 ui.common.multiplied,乘,Mul,Mult.,Mul,คูณ,Mult.
 ui.skill.title,技能,Skill,Habilidad,Skill,สกิล,Compétence
 ui.skill.settings,技能設定,Skill Settings,Ajustes de habilidad,Skill-Einstellungen,ตั้งค่าสกิล,Réglages de compétence
 ui.skill.dbtooltip,讀取已經儲存的技能,Load Saved Skill,Cargar habilidad guardada,Gespeicherten Skill laden,โหลดสกิลที่บันทึกไว้,Charger une compétence enregistrée
+ui.skill.savedlist,已儲存清單,Saved List,Lista guardada,Gespeicherte Liste,รายการที่บันทึกไว้,Liste enregistrée
+ui.skill.tab.default,技能清單,Skill List,Lista de habilidades,Skill-Liste,รายการสกิล,Liste des compétences
+ui.skill.tab.custom,自訂,Custom,Personalizado,Benutzerdefiniert,กำหนดเอง,Personnalisé
 ui.skill.name,技能名,Skill Name,Nombre de habilidad,Skillname,ชื่อสกิล,Nom de la compétence
 ui.skill.formulakeyword,公式關鍵字,Formula Keywords,Palabras clave de fórmula,Formel-Schlüsselwörter,คีย์เวิร์ดสูตร,Mots-clés de formule
 ui.skill.keyword,關鍵字,Keyword,Palabra clave,Schlüsselwort,คีย์เวิร์ด,Mot-clé
@@ -293,6 +334,16 @@ ui.skill.ignoreres,無視RES,Ignore RES,Ignorar RES,RES ignorieren,มองข�
 ui.skill.ignorerestooltip,RES，最高為50%,"Ignores RES, up to a maximum of 50%",Ignora RES hasta un máximo del 50%,Ignoriert RES bis maximal 50 %,มองข้าม RES ได้สูงสุด 50%,"Ignore la RES, jusqu'à un maximum de 50 %"
 ui.skill.laterranged,後計算技能遠傷,Ranged Damage Calculated After,Daño a distancia calculado después,Fernkampfschaden nachträglich berechnet,คำนวณความเสียหายระยะไกลภายหลัง,Dégâts à distance calculés après
 ui.skill.note,備註,Note,Nota,Hinweis,หมายเหตุ,Remarque
+ui.skill.savecustom,儲存自訂技能,Save Custom Skill,Guardar habilidad personalizada,Eigenen Skill speichern,บันทึกสกิลที่กำหนดเอง,Enregistrer la compétence personnalisée
+ui.skill.setnamefirst,儲存前設定技能名,Set a skill name before saving,Pon un nombre a la habilidad antes de guardar,Vor dem Speichern Skillnamen festlegen,ตั้งชื่อสกิลก่อนบันทึก,Nommez la compétence avant d'enregistrer
+ui.skill.tag.ranged,遠傷,Ranged,Distancia,Fernkampf,ระยะไกล,Distance
+ui.skill.tag.critical,暴擊,Crit,Crítico,Krit,คริ,Critique
+ui.skill.tag.cannon,砲彈,Cannonball,Bala de cañón,Kanonenkugel,กระสุนปืนใหญ่,Boulet
+ui.skill.tag.cart,手推車,Cart,Carro,Karren,รถเข็น,Chariot
+ui.skill.tag.fct,固詠,FCT,LF,FCT,FCT,TIF
+ui.skill.tag.vct,變詠,VCT,LV,VCT,VCT,TIV
+ui.skill.tag.cd,獨延,CD,TE,CD,CD,CD
+ui.skill.tag.gcd,共延,GCD,TEG,GCD,GCD,GCD
 ui.skill.elementtable,屬性相剋表,Element Chart,Tabla elemental,Elementtabelle,ตารางธาตุ,Table des éléments
 ui.skill.attackelement,攻擊屬性,Attack Element,Elemento de ataque,Angriffselement,ธาตุโจมตี,Élément d'attaque
 ui.skill.cartweight,手推車重量,Cart Weight,Peso del carrito,Karrengewicht,น้ำหนักรถเข็น,Poids du chariot
@@ -482,7 +533,7 @@ ui.consumable.dialogtitle,使用消耗品,Use Consumables,Usar consumibles,Verbr
 ui.consumable.statseffect,統計效果,Stat Summary,Resumen de estadísticas,Statistik-Übersicht,สรุปค่าสถานะ,Résumé des statistiques
 ui.consumable.tab.stat,素質,Stats,Atributos,Attribute,ค่าสถานะ,Statistiques
 ui.consumable.tab.battle,戰鬥藥劑,Battle Items,Objetos de batalla,Kampfgegenstände,ไอเทมต่อสู้,Objets de combat
-ui.consumable.zerostattypemax,Zero套餐(取最大),Zero Set Meal (Highest),Comida Zero (máximo),Zero-Menü (Höchstwert),ชุดอาหาร Zero (สูงสุด),Repas Zero (maximum)
+ui.consumable.zerostattypemax,Zero套餐,Zero Set Meal,Comida Zero,Zero-Menü,ชุดอาหาร Zero,Repas Zero
 ui.consumable.stattypemax,素質類(取最大),Stat Type (Highest),Tipo de atributo (máximo),Attributtyp (Höchstwert),ประเภทค่าสถานะ (สูงสุด),Type de statistique (maximum)
 ui.consumable.atkup,ATK提升,ATK Boost,Aumento de ATK,ATK-Erhöhung,เพิ่ม ATK,Bonus ATK
 ui.consumable.matkup,MATK提升,MATK Boost,Aumento de MATK,MATK-Erhöhung,เพิ่ม MATK,Bonus MATK

@@ -22,6 +22,7 @@
     --skill-4th-bg: #fffea7;
     --preview-stat-bg: #b3dcec;
     --skill-arg-bg: #c9e9d7;
+    --enemy-group-color: #305079;
 }
 :root[data-theme="dark"] {
     --page-bg: #1e1f22;
@@ -42,6 +43,7 @@
     --skill-4th-bg: #4d4326;
     --preview-stat-bg: #22333e;
     --skill-arg-bg: #263a2f;
+    --enemy-group-color: #6b717b;
 }
 
 body {
@@ -486,6 +488,11 @@ body.el-popup-parent--hidden {
     height: calc(100vh - (50px + 35px + 24px + 260px));
 }
 
+/* 編輯敵方 dialog 右半邊：el-scrollbar 的 wrap，內容超過 dialog 高度時獨立捲動 */
+.EnemyEditForm-container {
+    height: calc(100vh - (50px + 35px + 24px + 220px));
+}
+
 .EquipList-container {
     height: calc(100vh - (50px + 35px + 240px));
 }
@@ -706,6 +713,11 @@ body.el-popup-parent--hidden {
 .ElementSelectDialog .el-scrollbar {
     flex: 1 1 auto;
     height: 100%;
+}
+
+/* 無視防禦細部設定：階級/種族併排，超過 dialog 高度時區塊內捲動 */
+.BypassDetailList-container {
+    max-height: calc(100vh - 280px);
 }
 
 .ElementSelectList-container {
@@ -1052,9 +1064,13 @@ body.el-popup-parent--hidden {
 /* 統一的細滾動軸樣式（跟裝備清單的 el-scrollbar 外觀一致），套用在需要自己捲動的
    plain div 上（不是所有地方都用 el-scrollbar 元件，例如 AI解析/技能樹左右欄）。
    Firefox 用 scrollbar-width/-color，Chromium 系用 ::-webkit-scrollbar 系列。 */
-.themed-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-color) transparent;
+/* Chromium 121+ 只要元素有設 scrollbar-width / scrollbar-color，就會忽略下面的 ::-webkit-scrollbar 樣式，
+   改畫原生（Windows 上帶上下箭頭的粗捲軸），所以標準屬性只給不支援 ::-webkit-scrollbar 的瀏覽器（Firefox）。 */
+@supports not selector(::-webkit-scrollbar) {
+    .themed-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-color) transparent;
+    }
 }
 .themed-scrollbar::-webkit-scrollbar {
     width: 6px;
@@ -1375,4 +1391,45 @@ body.el-popup-parent--hidden {
     background: var(--preview-stat-bg);
 }
 
-
+/* 敵方減傷 PVE / GVG 分組圓角框（敵方面板與編輯敵方 dialog 共用） */
+.enemy-reduce-group {
+    position: relative;
+    border: 1px solid var(--enemy-group-color);
+    background: var(--page-bg);
+    border-radius: 8px;
+    margin: 14px 2px 6px;
+    padding: 12px 4px 4px;
+}
+.enemy-reduce-group-title {
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    padding: 0 10px;
+    border-radius: 10px;
+    background: var(--enemy-group-color);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 20px;
+}
+/* 敵方面板 Stat 底下展開/收起 PVE、GVG、抗性 的細按鈕 */
+.enemy-detail-toggle {
+    margin: 2px 2px 4px;
+    border: 1px dashed var(--enemy-group-color);
+    border-radius: 8px;
+    color: var(--enemy-group-color);
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+.enemy-detail-toggle:hover {
+    background: var(--preview-stat-bg);
+}
+/* 敵方抗性摘要（例：全 5% / 人形 10%），項目多時換行 */
+.enemy-resist-summary {
+    font-size: 12px;
+    line-height: 1.4;
+    word-break: break-all;
+}

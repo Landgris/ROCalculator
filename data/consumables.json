@@ -1,7 +1,7 @@
 [
     { "id": 23481, "name": "天地樹祝福", "active": false, "group": "ZeroStatusG", "STR": 7, "AGI": 7, "VIT": 7, "INT": 7, "DEX": 7, "LUK": 7, "ATK": 30, "MATK": 30, "HIT":30, "FLEE":30 },
-    { "id": 23604, "name": "頂級料理套餐", "active": false, "group": "ZeroStatusG", "STR": 10, "AGI": 10, "VIT": 10, "INT": 10, "DEX": 10, "LUK": 10, "ATK": 30, "MATK": 30 },
-    { "id": 23725, "name": "高級料理套餐", "active": false, "group": "ZeroStatusG", "STR": 5, "AGI": 5, "VIT": 5, "INT": 5, "DEX": 5, "LUK": 5, "ATK": 30, "MATK": 30 },
+    { "id": 23604, "name": "頂級料理套餐", "active": false, "group": "ZeroStatusG1", "STR": 10, "AGI": 10, "VIT": 10, "INT": 10, "DEX": 10, "LUK": 10, "ATK": 30, "MATK": 30 },
+    { "id": 23725, "name": "高級料理套餐", "active": false, "group": "ZeroStatusG1", "STR": 5, "AGI": 5, "VIT": 5, "INT": 5, "DEX": 5, "LUK": 5, "ATK": 30, "MATK": 30 },
     
 
     { "id": 102803, "name": "特性增強藥劑", "active": false, "group": "StatusG", "POW": 5, "STA": 5, "WIS": 5, "SPL": 5, "CON": 5, "CRT": 5, "PATK": 10, "SMATK": 10 },

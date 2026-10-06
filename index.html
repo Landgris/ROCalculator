@@ -444,12 +444,12 @@
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['SkillDBDialog']" custom-class="Dialogue-container" width="85%" top="50px"
             v-on:close="ClosePanel('SkillDBDialog')" center>
-            <span slot="title">技能清單</span>
+            <span slot="title">{{ t('ui.skill.tab.default', '技能清單') }}</span>
             <el-row :gutter="2">
                 <el-col :span="8">
                     <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
                         style="height:40px;" :span="8">
-                        <span class="textcenter">技能</span>
+                        <span class="textcenter">{{ t('ui.skill.title', '技能') }}</span>
                     </el-row>
                     <div style="padding: 0px 5px;">
                         <div v-show="option.SkillFormulaError">
@@ -463,29 +463,29 @@
                         <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle" justify="end">
                             <el-col v-if="skill.name!=''" class="textcenter">
                                 <el-button v-on:click="onSaveSkill" type="success" size="small">
-                                    儲存自訂技能>>>
+                                    {{ t('ui.skill.savecustom', '儲存自訂技能') }} &gt;&gt;&gt;
                                 </el-button>
                             </el-col>
                             <el-col v-if="skill.name==''" class="textcenter">
                                 <el-button v-on:click="onSaveSkill" type="danger" disabled size="small">
-                                    儲存前設定技能名
+                                    {{ t('ui.skill.setnamefirst', '儲存前設定技能名') }}
                                 </el-button>
                             </el-col>
                         </el-row>
                         <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                 <el-col class="textcenter" :span="4">
-                                    技能名
+                                    {{ t('ui.skill.name', '技能名') }}
                                 </el-col>
                                 <el-col class="textcenter" :span="20">
                                     <div>
-                                        <el-input v-model="skill.name" placeholder="技能名">
+                                        <el-input v-model="skill.name" :placeholder="t('ui.skill.name', '技能名')">
                                         </el-input>
                                     </div>
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
-                                <el-col class="textcenter" :span="12">技能倍率</el-col>
+                                <el-col class="textcenter" :span="12">{{ t('ui.panel.skillmulti', '技能倍率') }}</el-col>
                                 <el-col class="textcenter" :span="8">
                                     {{option.SkillPercent}}
                                 </el-col>
@@ -519,60 +519,60 @@
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                 align="middle">
-                                <el-col class="textcenter" :span="12">技能等級</el-col>
+                                <el-col class="textcenter" :span="12">{{ t('ui.skill.level', '技能等級') }}</el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-input v-model.number="skill.level"
-                                        v-on:change="onSkillPercentChange" placeholder="技能等級">
+                                        v-on:change="onSkillPercentChange" :placeholder="t('ui.skill.level', '技能等級')">
                                     </el-input>
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                 align="middle">
-                                <el-tooltip class="item" effect="dark" content="傷害次數, 負數時為分段傷害不會增加總傷害"
+                                <el-tooltip class="item" effect="dark" :content="t('ui.skill.hitnumbertooltip', '傷害次數, 負數時為分段傷害不會增加總傷害')"
                                     placement="bottom-start">
-                                    <el-col class="textcenter" :span="12">傷害次數</el-col>
+                                    <el-col class="textcenter" :span="12">{{ t('ui.skill.hitnumber', '傷害次數') }}</el-col>
                                 </el-tooltip>
                                 <el-col class="textcenter" :span="12">
                                     <el-input v-model.number="skill.hitnumber"
-                                        v-on:change="onSkillPercentChange" placeholder="傷害次數">
+                                        v-on:change="onSkillPercentChange" :placeholder="t('ui.skill.hitnumber', '傷害次數')">
                                     </el-input>
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                 align="middle">
-                                <el-col class="textcenter" :span="12">固定詠唱</el-col>
+                                <el-col class="textcenter" :span="12">{{ t('ui.skill.fixedcast', '固定詠唱') }}</el-col>
                                 <el-col :span="12">
-                                    <el-input v-model="skill.FCT" v-on:input="onOption" placeholder="時間">
+                                    <el-input v-model="skill.FCT" v-on:input="onOption" :placeholder="t('ui.skill.time', '時間')">
                                     </el-input>
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                 align="middle">
-                                <el-col class="textcenter" :span="12">變動詠唱</el-col>
+                                <el-col class="textcenter" :span="12">{{ t('ui.skill.variablecast', '變動詠唱') }}</el-col>
                                 <el-col :span="12">
-                                    <el-input v-model="skill.VCT" v-on:input="onOption" placeholder="時間">
+                                    <el-input v-model="skill.VCT" v-on:input="onOption" :placeholder="t('ui.skill.time', '時間')">
                                     </el-input>
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                 align="middle">
-                                <el-col class="textcenter" :span="12">獨立延遲</el-col>
+                                <el-col class="textcenter" :span="12">{{ t('ui.skill.independentdelay', '獨立延遲') }}</el-col>
                                 <el-col :span="12">
-                                    <el-input v-model="skill.CD" v-on:input="onOption" placeholder="時間">
+                                    <el-input v-model="skill.CD" v-on:input="onOption" :placeholder="t('ui.skill.time', '時間')">
                                     </el-input>
                                 </el-col>
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
                                 align="middle">
-                                <el-col class="textcenter" :span="12">共通延遲</el-col>
+                                <el-col class="textcenter" :span="12">{{ t('ui.skill.globaldelay', '共通延遲') }}</el-col>
                                 <el-col :span="12">
-                                    <el-input v-model="skill.GCD" v-on:input="onOption" placeholder="時間">
+                                    <el-input v-model="skill.GCD" v-on:input="onOption" :placeholder="t('ui.skill.time', '時間')">
                                     </el-input>
                                 </el-col>
                             </el-row>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
-                                    <span>技能遠傷</span>
+                                    <span>{{ t('ui.skill.ranged', '技能遠傷') }}</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.ranged" active-color="#13ce66"
@@ -582,7 +582,7 @@
                             </el-row>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
-                                    <span>技能暴擊</span>
+                                    <span>{{ t('ui.skill.critical', '技能暴擊') }}</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.critical" active-color="#13ce66"
@@ -592,7 +592,7 @@
                             </el-row>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
-                                    <span>一半暴率</span>
+                                    <span>{{ t('ui.skill.halfcri', '一半暴率') }}</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.halfcri" active-color="#13ce66"
@@ -602,7 +602,7 @@
                             </el-row>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
-                                    <span>使用加農砲彈</span>
+                                    <span>{{ t('ui.skill.cannon', '使用加農砲彈') }}</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.cannon" active-color="#13ce66" v-on:change="onOption"
@@ -612,7 +612,7 @@
                             </el-row>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
-                                    <span>使用手推車</span>
+                                    <span>{{ t('ui.skill.cart', '使用手推車') }}</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.cart" active-color="#13ce66" v-on:change="onOption"
@@ -620,11 +620,11 @@
                                     </el-switch>
                                 </el-col>
                             </el-row>
-                            <el-tooltip class="item" effect="dark" content="將乘算DEF(後DEF)改為減算DEF"
+                            <el-tooltip class="item" effect="dark" :content="t('ui.skill.halfignoredeftooltip', '將乘算DEF(後DEF)改為減算DEF')"
                                 placement="bottom-start">
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                     <el-col class="textcenter" :span="12">
-                                        <span>半無視DEF</span>
+                                        <span>{{ t('ui.skill.halfignoredef', '半無視DEF') }}</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="12">
                                         <el-switch v-model="skill.transWeaponDEF" active-color="#13ce66"
@@ -633,11 +633,11 @@
                                     </el-col>
                                 </el-row>
                             </el-tooltip>
-                            <el-tooltip class="item" effect="dark" content="RES，最高為50%"
+                            <el-tooltip class="item" effect="dark" :content="t('ui.skill.ignorerestooltip', 'RES，最高為50%')"
                                 placement="bottom-start">
                                 <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                     <el-col class="textcenter" :span="12">
-                                        <span>無視RES</span>
+                                        <span>{{ t('ui.skill.ignoreres', '無視RES') }}</span>
                                     </el-col>
                                     <el-col class="textcenter" :span="12">
                                         <el-switch v-model="skill.ignoreRES" active-color="#13ce66"
@@ -648,7 +648,7 @@
                             </el-tooltip>
                             <el-row class="optionbox" :gutter="4" type="flex" align="middle" justify="end">
                                 <el-col class="textcenter" :span="12">
-                                    <span>後計算技能遠傷</span>
+                                    <span>{{ t('ui.skill.laterranged', '後計算技能遠傷') }}</span>
                                 </el-col>
                                 <el-col class="textcenter" :span="12">
                                     <el-switch v-model="skill.laterranged" active-color="#13ce66" v-on:change="onOption"
@@ -675,16 +675,16 @@
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                 <el-col class="textcenter" :span="12">
-                                    <span>攻擊屬性</span>
+                                    <span>{{ t('ui.skill.attackelement', '攻擊屬性') }}</span>
                                 </el-col>
                                 <el-col :span="12">
                                     <div class="textcenter">
                                         <el-select value-key="id" v-model="skilloption.AttackElementalIdx"
-                                            v-on:change="ComputElementalPercent" placeholder="攻擊屬性"
+                                            v-on:change="ComputElementalPercent" :placeholder="t('ui.skill.attackelement', '攻擊屬性')"
                                             popper-append-to-body
                                             :popper-options="{ placement: 'auto' }">
                                             <el-option v-for="item in elementtypelist" :key="item.id"
-                                                :label="item.label" :value="item.id">
+                                                :label="t('elementtype_' + item.id, item.label)" :value="item.id">
                                             </el-option>
                                         </el-select>
                                     </div>
@@ -692,11 +692,11 @@
                             </el-row>
                             <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
                                 <el-col class="textcenter" :span="4">
-                                    備註
+                                    {{ t('ui.skill.note', '備註') }}
                                 </el-col>
                                 <el-col class="textcenter" :span="20">
                                     <div>
-                                        <el-input v-model="skill.Note" placeholder="備註">
+                                        <el-input v-model="skill.Note" :placeholder="t('ui.skill.note', '備註')">
                                         </el-input>
                                     </div>
                                 </el-col>
@@ -707,11 +707,11 @@
                 <el-col :span="16">
                     <el-row type="flex" class="titlebox textcenter" align="middle" justify="space-around"
                         style="height:40px;" :span="16">
-                        <span class="textcenter">已儲存清單</span>
+                        <span class="textcenter">{{ t('ui.skill.savedlist', '已儲存清單') }}</span>
                     </el-row>
                     <div style="padding: 0px 5px;">
                         <el-tabs v-model="SkillListTabPage" type="border-card" stretch="true">
-                            <el-tab-pane label="技能清單" name="Default">
+                            <el-tab-pane :label="t('ui.skill.tab.default', '技能清單')" name="Default">
                                 <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
                                     <div v-for="(item, index) in DefaultDB_Skill" v-bind:key="item.id">
                                         <div style="padding: 2px 5px;">
@@ -733,44 +733,44 @@
                                                     </el-row>
                                                     <el-row class="skillline" align="middle">
                                                         <el-col :span="4">{{ item.skill.hitnumber }} HIT</el-col>
-                                                        <el-col v-if="item.skill.ranged" class="skilltag" :span="3">遠傷
+                                                        <el-col v-if="item.skill.ranged" class="skilltag" :span="3">{{ t('ui.skill.tag.ranged', '遠傷') }}
                                                         </el-col>
-                                                        <el-col v-if="item.skill.critical" class="skilltag" :span="3">暴擊
+                                                        <el-col v-if="item.skill.critical" class="skilltag" :span="3">{{ t('ui.skill.tag.critical', '暴擊') }}
                                                         </el-col>
-                                                        <el-col v-if="item.skill.halfcri" class="skilltag" :span="3">一半暴率
+                                                        <el-col v-if="item.skill.halfcri" class="skilltag" :span="3">{{ t('ui.skill.halfcri', '一半暴率') }}
                                                         </el-col>
-                                                        <el-col v-if="item.skill.cannon" class="skilltag" :span="3">砲彈
+                                                        <el-col v-if="item.skill.cannon" class="skilltag" :span="3">{{ t('ui.skill.tag.cannon', '砲彈') }}
                                                         </el-col>
-                                                        <el-col v-if="item.skill.cart" class="skilltag" :span="3">手推車
+                                                        <el-col v-if="item.skill.cart" class="skilltag" :span="3">{{ t('ui.skill.tag.cart', '手推車') }}
                                                         </el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF" class="skilltag"
-                                                            :span="5">半無視DEF</el-col>
+                                                            :span="5">{{ t('ui.skill.halfignoredef', '半無視DEF') }}</el-col>
                                                         <el-col v-if="item.skill.ignoreRES" class="skilltag"
-                                                            :span="5">無視RES</el-col>
+                                                            :span="5">{{ t('ui.skill.ignoreres', '無視RES') }}</el-col>
                                                         <el-col v-if="item.skill.laterranged" class="skilltag"
-                                                            :span="5">後計算技能遠傷</el-col>
+                                                            :span="5">{{ t('ui.skill.laterranged', '後計算技能遠傷') }}</el-col>
                                                     </el-row>
                                                     <el-row class="skillline" align="middle">
-                                                        <el-col class="statussavebox" :span="4">固詠 {{ item.skill.FCT }}s
+                                                        <el-col class="statussavebox" :span="4">{{ t('ui.skill.tag.fct', '固詠') }} {{ item.skill.FCT }}s
                                                         </el-col>
-                                                        <el-col class="statussavebox" :span="4">變詠 {{ item.skill.VCT }}s
+                                                        <el-col class="statussavebox" :span="4">{{ t('ui.skill.tag.vct', '變詠') }} {{ item.skill.VCT }}s
                                                         </el-col>
-                                                        <el-col class="statussavebox" :span="4">獨延 {{ item.skill.CD }}s
+                                                        <el-col class="statussavebox" :span="4">{{ t('ui.skill.tag.cd', '獨延') }} {{ item.skill.CD }}s
                                                         </el-col>
-                                                        <el-col class="statussavebox" :span="4">共延 {{ item.skill.GCD }}s
+                                                        <el-col class="statussavebox" :span="4">{{ t('ui.skill.tag.gcd', '共延') }} {{ item.skill.GCD }}s
                                                         </el-col>
                                                     </el-row>
                                                     <el-row v-if="item.skill.Note!=''" class="skillline" align="middle">
                                                         <el-col
                                                             style="text-align: left; padding-left: 10px; color:crimson;">
-                                                            <span>備註: {{ item.skill.Note }}</span>
+                                                            <span>{{ t('ui.skill.note', '備註') }}: {{ item.skill.Note }}</span>
                                                         </el-col>
                                                     </el-row>
                                                 </el-col>
                                                 <el-col :span="3">
                                                     <el-button v-on:click="onLoadSkillDefault(index)"
                                                         icon="el-icon-check" type="success" type="primary" size="small">
-                                                        載入
+                                                        {{ t('ui.common.load', '載入') }}
                                                     </el-button>
                                                 </el-col>
                                             </el-row>
@@ -778,7 +778,7 @@
                                     </div>
                                 </el-scrollbar>
                             </el-tab-pane>
-                            <el-tab-pane label="自訂" name="Custom">
+                            <el-tab-pane :label="t('ui.skill.tab.custom', '自訂')" name="Custom">
                                 <el-scrollbar wrap-class="SkillList-container" :native="false" :noresize="false">
                                     <div v-for="(item, index) in StoreDB_Skill" v-bind:key="item.uuid">
                                         <div style="padding: 2px 5px;">
@@ -801,32 +801,32 @@
                                                     <el-row class="skillline" align="middle">
                                                         <el-col :span="4">{{ item.skill.hitnumber }} HIT</el-col>
                                                         <el-col v-if="item.skill.ranged" class="skilltag skillline"
-                                                            :span="3">遠傷</el-col>
+                                                            :span="3">{{ t('ui.skill.tag.ranged', '遠傷') }}</el-col>
                                                         <el-col v-if="item.skill.critical" class="skilltag skillline"
-                                                            :span="3">暴擊</el-col>
+                                                            :span="3">{{ t('ui.skill.tag.critical', '暴擊') }}</el-col>
                                                         <el-col v-if="item.skill.halfcri" class="skilltag skillline"
-                                                            :span="3">一半暴率</el-col>
+                                                            :span="3">{{ t('ui.skill.halfcri', '一半暴率') }}</el-col>
                                                         <el-col v-if="item.skill.cannon" class="skilltag skillline"
-                                                            :span="3">砲彈</el-col>
+                                                            :span="3">{{ t('ui.skill.tag.cannon', '砲彈') }}</el-col>
                                                         <el-col v-if="item.skill.cart" class="skilltag skillline"
-                                                            :span="3">手推車</el-col>
+                                                            :span="3">{{ t('ui.skill.tag.cart', '手推車') }}</el-col>
                                                         <el-col v-if="item.skill.transWeaponDEF"
-                                                            class="skilltag skillline" :span="5">半無視防禦</el-col>
+                                                            class="skilltag skillline" :span="5">{{ t('ui.skill.halfignoredef', '半無視DEF') }}</el-col>
                                                         <el-col v-if="item.skill.ignoreRES"
-                                                            class="skilltag skillline" :span="5">無視RES</el-col>
+                                                            class="skilltag skillline" :span="5">{{ t('ui.skill.ignoreres', '無視RES') }}</el-col>
                                                         <el-col v-if="item.skill.laterranged" class="skilltag skillline"
-                                                            :span="5">後計算技能遠傷</el-col>
+                                                            :span="5">{{ t('ui.skill.laterranged', '後計算技能遠傷') }}</el-col>
                                                     </el-row>
                                                     <el-row class="skillline" align="middle">
-                                                        <el-col :span="4">固詠 {{ item.skill.FCT }}s</el-col>
-                                                        <el-col :span="4">變詠 {{ item.skill.VCT }}s</el-col>
-                                                        <el-col :span="4">獨延 {{ item.skill.CD }}s</el-col>
-                                                        <el-col :span="4">共延 {{ item.skill.GCD }}s</el-col>
+                                                        <el-col :span="4">{{ t('ui.skill.tag.fct', '固詠') }} {{ item.skill.FCT }}s</el-col>
+                                                        <el-col :span="4">{{ t('ui.skill.tag.vct', '變詠') }} {{ item.skill.VCT }}s</el-col>
+                                                        <el-col :span="4">{{ t('ui.skill.tag.cd', '獨延') }} {{ item.skill.CD }}s</el-col>
+                                                        <el-col :span="4">{{ t('ui.skill.tag.gcd', '共延') }} {{ item.skill.GCD }}s</el-col>
                                                     </el-row>
                                                     <el-row v-if="item.skill.Note!=''" class="skillline" align="middle">
                                                         <el-col
                                                             style="text-align: left; padding-left: 10px; color:crimson;">
-                                                            <span>備註: {{ item.skill.Note }}</span>
+                                                            <span>{{ t('ui.skill.note', '備註') }}: {{ item.skill.Note }}</span>
                                                         </el-col>
                                                     </el-row>
                                                 </el-col>
@@ -838,7 +838,7 @@
                                                 <el-col :span="3">
                                                     <el-button v-on:click="onLoadSkillSave(index)" icon="el-icon-check"
                                                         type="success" type="primary" size="small">
-                                                        載入
+                                                        {{ t('ui.common.load', '載入') }}
                                                     </el-button>
                                                 </el-col>
                                             </el-row>
@@ -1474,7 +1474,7 @@
                 </el-col>
                 <el-col :span="6" class=" ">
                     <el-tabs v-model="EquipEffectTabPage" type="border-card" stretch="true">
-                        <el-tab-pane label="物理" name="ATK">
+                        <el-tab-pane :label="t('ui.equip.tab.physical', '物理')" name="ATK">
                             <el-scrollbar wrap-class="EquipEffectList-container" :native="false" :noresize="false">
                                 <el-row>
                                     <div class="aboutbox" style="padding: 5px 5px; text-align:left">
@@ -1745,7 +1745,7 @@
                                 </el-row>
                             </el-scrollbar>
                         </el-tab-pane>
-                        <el-tab-pane label="魔法" name="MATK">
+                        <el-tab-pane :label="t('ui.equip.tab.magic', '魔法')" name="MATK">
                             <el-scrollbar wrap-class="EquipEffectList-container" :native="false" :noresize="false">
                                 <el-row>
                                     <div class="aboutbox" style="padding: 5px 5px; text-align:left">
@@ -2025,28 +2025,25 @@
                             <el-table :data="sizeSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="360">
                                 <el-table-column prop="sizeLabel" :label="t('ui.equip.size', '體型')" width="120">
                                 </el-table-column>
-                                <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicalsizepercent', '物理體型 %')" width="150">
+                                <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicalsizepercent', '物理體型 %')">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.atkPercent" size="small" :min="0" :max="999" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
                                     </template>
                                 </el-table-column>
-                                <el-table-column v-if="selectDialogMode==='matk'" :label="t('ui.equip.magicsizepercent', '魔法體型 %')" width="150">
+                                <el-table-column v-if="selectDialogMode==='matk'" :label="t('ui.equip.magicsizepercent', '魔法體型 %')">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.matkPercent" size="small" :min="0" :max="999" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label="t('ui.common.action', '操作')" width="80">
-                                    <template slot-scope="scope">
-                                        <el-button size="mini" type="primary" @click="applySizeEffect(scope.row)">
-                                            {{ t('ui.common.apply', '套用') }}
-                                        </el-button>
-                                    </template>
-                                </el-table-column>
                             </el-table>
+                            <div class="textcenter" style="margin-top: 10px;">
+                                <el-button v-on:click="ClosePanel('SizeSelectDialog')" size="small">{{ t('ui.common.cancel', '取消') }}</el-button>
+                                <el-button v-on:click="confirmSizeSelectDialog" type="primary" size="small">{{ t('ui.common.confirm', '確定') }}</el-button>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
@@ -2064,28 +2061,25 @@
                             <el-table :data="levelSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="360">
                                 <el-table-column prop="levelLabel" :label="t('ui.equip.level', '階級')" width="120">
                                 </el-table-column>
-                                <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicallevelpercent', '物理階級 %')" width="150">
+                                <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicallevelpercent', '物理階級 %')">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.atkPercent" size="small" :min="0" :max="999" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
                                     </template>
                                 </el-table-column>
-                                <el-table-column v-if="selectDialogMode==='matk'" :label="t('ui.equip.magiclevelpercent', '魔法階級 %')" width="150">
+                                <el-table-column v-if="selectDialogMode==='matk'" :label="t('ui.equip.magiclevelpercent', '魔法階級 %')">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.matkPercent" size="small" :min="0" :max="999" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label="t('ui.common.action', '操作')" width="80">
-                                    <template slot-scope="scope">
-                                        <el-button size="mini" type="primary" @click="applyLevelEffect(scope.row)">
-                                            {{ t('ui.common.apply', '套用') }}
-                                        </el-button>
-                                    </template>
-                                </el-table-column>
                             </el-table>
+                            <div class="textcenter" style="margin-top: 10px;">
+                                <el-button v-on:click="ClosePanel('LevelSelectDialog')" size="small">{{ t('ui.common.cancel', '取消') }}</el-button>
+                                <el-button v-on:click="confirmLevelSelectDialog" type="primary" size="small">{{ t('ui.common.confirm', '確定') }}</el-button>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
@@ -2103,28 +2097,25 @@
                             <el-table :data="raceSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
                                 <el-table-column prop="raceLabel" :label="t('ui.equip.race', '種族')" width="120">
                                 </el-table-column>
-                                <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicalracepercent', '物理種族 %')" width="150">
+                                <el-table-column v-if="selectDialogMode==='atk'" :label="t('ui.equip.physicalracepercent', '物理種族 %')">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.atkPercent" size="small" :min="0" :max="999" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
                                     </template>
                                 </el-table-column>
-                                <el-table-column v-if="selectDialogMode==='matk'" :label="t('ui.equip.magicracepercent', '魔法種族 %')" width="150">
+                                <el-table-column v-if="selectDialogMode==='matk'" :label="t('ui.equip.magicracepercent', '魔法種族 %')">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.matkPercent" size="small" :min="0" :max="999" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label="t('ui.common.action', '操作')" width="80">
-                                    <template slot-scope="scope">
-                                        <el-button size="mini" type="primary" @click="applyRaceEffect(scope.row)">
-                                            {{ t('ui.common.apply', '套用') }}
-                                        </el-button>
-                                    </template>
-                                </el-table-column>
                             </el-table>
+                            <div class="textcenter" style="margin-top: 10px;">
+                                <el-button v-on:click="ClosePanel('RaceSelectDialog')" size="small">{{ t('ui.common.cancel', '取消') }}</el-button>
+                                <el-button v-on:click="confirmRaceSelectDialog" type="primary" size="small">{{ t('ui.common.confirm', '確定') }}</el-button>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
@@ -2142,24 +2133,46 @@
                             <el-table :data="elementSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
                                 <el-table-column prop="elementLabel" :label="t('ui.equip.element', '屬性')" width="120">
                                 </el-table-column>
-                                <el-table-column :label="selectElementEffectLabel" width="180">
+                                <el-table-column :label="selectElementEffectLabel">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.value" size="small" :min="0" :max="999" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label="t('ui.common.action', '操作')" width="80">
-                                    <template slot-scope="scope">
-                                        <el-button size="mini" type="primary" @click="applyElementEffect(scope.row)">
-                                            {{ t('ui.common.apply', '套用') }}
-                                        </el-button>
-                                    </template>
-                                </el-table-column>
                             </el-table>
+                            <div class="textcenter" style="margin-top: 10px;">
+                                <el-button v-on:click="ClosePanel('ElementSelectDialog')" size="small">{{ t('ui.common.cancel', '取消') }}</el-button>
+                                <el-button v-on:click="confirmElementSelectDialog" type="primary" size="small">{{ t('ui.common.confirm', '確定') }}</el-button>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
+            </el-scrollbar>
+        </el-dialog>
+
+        <!-- 敵方抗性指定對話框（種族/體型/階級/屬性共用，敵方面板與編輯敵方 dialog 共用） -->
+        <el-dialog :visible.sync="UIPanel['EnemyResistDialog']" custom-class="EffectList-container RaceSelectDialog SelectDialogCenter" width="50%" top="50px"
+            v-on:close="ClosePanel('EnemyResistDialog')" :append-to-body="true" center>
+            <span slot="title">{{ enemyResistFieldLabel(enemyResistDialog.field) }}</span>
+            <el-scrollbar wrap-class="RaceSelectList-container" :native="false" :noresize="false">
+                <div class="statusbox" style="padding: 10px;">
+                    <el-table :data="enemyResistDialog.rows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
+                        <el-table-column prop="label" :label="t('ui.enemy.resisttarget', '目標')" width="140">
+                        </el-table-column>
+                        <el-table-column :label="t('ui.enemy.resist', '抗性') + ' %'">
+                            <template slot-scope="scope">
+                                <el-input-number v-model="scope.row.value" size="small" :min="-999" :max="100" :precision="0"
+                                    controls-position="right" style="width: 100%;">
+                                </el-input-number>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <div class="textcenter" style="margin-top: 10px;">
+                        <el-button v-on:click="ClosePanel('EnemyResistDialog')" size="small">{{ t('ui.common.cancel', '取消') }}</el-button>
+                        <el-button v-on:click="applyEnemyResistDialog" type="primary" size="small">{{ t('ui.common.confirm', '確定') }}</el-button>
+                    </div>
+                </div>
             </el-scrollbar>
         </el-dialog>
 
@@ -2167,56 +2180,47 @@
         <el-dialog :visible.sync="UIPanel['BypassDetailDialog']" custom-class="EffectList-container BypassDetailDialog SelectDialogCenter" width="60%" top="50px"
             v-on:close="ClosePanel('BypassDetailDialog')" :append-to-body="true" center>
             <span slot="title">{{ t('ui.equip.specifybypassdetail', '細部設定') }} - {{ selectBypassEffectLabel }}</span>
+            <!-- 階級 / 種族 併排，內容超過 dialog 高度時在這個區塊內捲動；確定/取消固定在下方 -->
             <el-scrollbar wrap-class="BypassDetailList-container" :native="false" :noresize="false">
-                <el-row :gutter="6">
-                    <el-col :span="24">
+                <el-row :gutter="10">
+                    <el-col :span="12">
                         <div class="statusbox" style="padding: 10px;">
                             <div style="font-weight:bold;margin-bottom:6px;">{{ t('ui.equip.level', '階級') }}</div>
-                            <el-table :data="bypassLevelSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="240">
-                                <el-table-column prop="levelLabel" :label="t('ui.equip.level', '階級')" width="150">
+                            <el-table :data="bypassLevelSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
+                                <el-table-column prop="levelLabel" :label="t('ui.equip.level', '階級')" width="100">
                                 </el-table-column>
-                                <el-table-column :label="selectBypassEffectLabel" width="180">
+                                <el-table-column :label="selectBypassEffectLabel">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.value" size="small" :min="0" :max="100" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column :label="t('ui.common.action', '操作')" width="80">
-                                    <template slot-scope="scope">
-                                        <el-button size="mini" type="primary" @click="applyBypassLevelEffect(scope.row)">
-                                            {{ t('ui.common.apply', '套用') }}
-                                        </el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
                         </div>
                     </el-col>
-                    <el-col :span="24">
-                        <div class="statusbox" style="padding: 10px;margin-top:10px;">
+                    <el-col :span="12">
+                        <div class="statusbox" style="padding: 10px;">
                             <div style="font-weight:bold;margin-bottom:6px;">{{ t('ui.equip.race', '種族') }}</div>
-                            <el-table :data="bypassRaceSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%" max-height="240">
-                                <el-table-column prop="raceLabel" :label="t('ui.equip.race', '種族')" width="150">
+                            <el-table :data="bypassRaceSelectRows" stripe :empty-text="t('ui.common.nodata', '暫無資料')" style="width: 100%">
+                                <el-table-column prop="raceLabel" :label="t('ui.equip.race', '種族')" width="100">
                                 </el-table-column>
-                                <el-table-column :label="selectBypassEffectLabel" width="180">
+                                <el-table-column :label="selectBypassEffectLabel">
                                     <template slot-scope="scope">
                                         <el-input-number v-model="scope.row.value" size="small" :min="0" :max="100" :precision="0"
                                             controls-position="right" style="width: 100%;">
                                         </el-input-number>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column :label="t('ui.common.action', '操作')" width="80">
-                                    <template slot-scope="scope">
-                                        <el-button size="mini" type="primary" @click="applyBypassRaceEffect(scope.row)">
-                                            {{ t('ui.common.apply', '套用') }}
-                                        </el-button>
                                     </template>
                                 </el-table-column>
                             </el-table>
                         </div>
                     </el-col>
                 </el-row>
-            </el-scrollbar>
+                        </el-scrollbar>
+            <div class="textcenter" style="margin-top: 10px;">
+                <el-button v-on:click="ClosePanel('BypassDetailDialog')" size="small">{{ t('ui.common.cancel', '取消') }}</el-button>
+                <el-button v-on:click="confirmBypassDetailDialog" type="primary" size="small">{{ t('ui.common.confirm', '確定') }}</el-button>
+            </div>
         </el-dialog>
 
         <el-dialog :visible.sync="UIPanel['EquipDBDialog']" v-on:close="ClosePanel('EquipDBDialog')"
@@ -2297,6 +2301,232 @@
                         </div>
                     </div>
                 </el-scrollbar>
+            </el-row>
+        </el-dialog>
+        <el-dialog v-if="UIPanel['EditEnemyDialog']" :visible.sync="UIPanel['EditEnemyDialog']" v-on:close="ClosePanel('EditEnemyDialog')"
+            custom-class="Dialogue-container" width="65%" top="50px" center>
+            <span slot="title">{{ t('ui.enemy.edit', '編輯敵方') }}</span>
+            <el-row class="statusbox titlebox" style="padding: 5px 5px;" :gutter="4" type="flex" align="middle" justify="end">
+                <el-col :span="3" class="textcenter">
+                    <el-button v-on:click="onEditEnemyNew" size="small">
+                        {{ t('ui.enemy.new', '新增') }}
+                    </el-button>
+                </el-col>
+                <el-col :span="5">
+                </el-col>
+                <el-col :span="3" class="textcenter">
+                    <el-button v-on:click="ClosePanel('EditEnemyDialog')" size="small">
+                        {{ t('ui.common.cancel', '取消') }}
+                    </el-button>
+                </el-col>
+                <el-col :span="3" class="textcenter">
+                    <el-button v-on:click="onEditEnemyConfirm(false)" type="success" plain size="small">
+                        {{ t('ui.common.confirm', '確定') }}
+                    </el-button>
+                </el-col>
+                <el-col :span="5" class="textcenter">
+                    <el-button v-if="EnemyEditForm.name.trim()!=''" v-on:click="onEditEnemyConfirm(true)" type="success" size="small">
+                        {{ EnemyEditUuid ? t('ui.enemy.overwrite', '覆蓋儲存') : t('ui.common.save', '儲存') }}
+                    </el-button>
+                    <el-button v-else type="danger" disabled size="small">
+                        {{ t('ui.enemy.setnamefirst', '儲存前設定名稱') }}
+                    </el-button>
+                </el-col>
+                <el-col :span="5" class="textcenter">
+                    <el-button v-if="EnemyEditUuid && EnemyEditForm.name.trim()!=''" v-on:click="onEditEnemySaveAsNew" type="primary" plain size="small">
+                        {{ t('ui.enemy.saveas', '另存新敵方') }}
+                    </el-button>
+                </el-col>
+            </el-row>
+            <el-row :gutter="6">
+                <el-col :span="8">
+                    <div class="statusbox titlebox textcenter" style="padding: 5px;">
+                        <b>{{ t('ui.enemy.customlist', '已儲存的自訂敵方') }}</b>
+                    </div>
+                    <el-scrollbar wrap-class="EquipDBList-container" :native="false" :noresize="false">
+                        <div v-if="StoreDB_Enemy.length==0" class="textcenter" style="padding: 10px;">
+                            {{ t('ui.enemy.nocustom', '尚無自訂敵方') }}
+                        </div>
+                        <div v-for="(item, index) in StoreDB_Enemy" v-bind:key="item.uuid" style="padding: 2px 4px;">
+                            <el-row class="effectline" :class="item.uuid==EnemyEditUuid?'previeweffectbox2':(index%2==0?'bg-purple-light':'bg-purple')"
+                                :gutter="4" type="flex" align="middle" style="min-height:36px;">
+                                <el-col :span="14" style="cursor:pointer; padding-left:8px;" v-on:click.native="onEditEnemyPick(item.uuid)">
+                                    <span>{{ item.enemy.name }}</span>
+                                </el-col>
+                                <el-col :span="10" class="textcenter equipdb-actions">
+                                    <span class="equipdb-delete-link" v-on:click="onRemoveEnemySave(item.uuid)">{{ t('ui.common.delete', '刪除') }}</span>
+                                    <el-button v-on:click="onEditEnemyPick(item.uuid)" icon="el-icon-edit" size="mini" circle></el-button>
+                                </el-col>
+                            </el-row>
+                        </div>
+                    </el-scrollbar>
+                </el-col>
+                <el-col :span="16">
+                    <!-- 右半邊內容比 dialog 高，用 el-scrollbar 給一個獨立的捲動區（跟裝備清單同款捲軸） -->
+                    <el-scrollbar wrap-class="EnemyEditForm-container" :native="false" :noresize="false">
+                        <div class="boxborder EnemyBlock">
+                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                <el-col class="textcenter" :span="6">{{ t('ui.enemy.name', '敵方名稱') }}</el-col>
+                                <el-col :span="18">
+                                    <el-input v-model="EnemyEditForm.name" :placeholder="t('ui.enemy.name', '敵方名稱')"></el-input>
+                                </el-col>
+                            </el-row>
+                            <div class="enemy-reduce-group">
+                                <span class="enemy-reduce-group-title">Stat</span>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6">Level</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.level" placeholder="Lv"></el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">HP</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.hp" placeholder="HP"></el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col :span="6" class="textcenter">{{ t('ui.enemy.element', '敵方屬性') }}</el-col>
+                                    <el-col :span="6">
+                                        <el-select v-model="EnemyEditForm.elemental" :placeholder="t('ui.enemy.element', '敵方屬性')">
+                                            <el-option v-for="item in elementtypelist" :key="item.id"
+                                                :label="t('elementtype_' + item.id, item.label)" :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col :span="6" class="textcenter">{{ t('ui.enemy.elementlevel', '屬性等級') }}</el-col>
+                                    <el-col :span="6">
+                                        <el-select v-model="EnemyEditForm.elementallevel" :placeholder="t('ui.enemy.elementlevel', '屬性等級')">
+                                            <el-option v-for="item in elementlevel" :key="item.id"
+                                                :label="item.id" :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col :span="4" class="textcenter">{{ t('ui.equip.size', '體型') }}</el-col>
+                                    <el-col :span="4">
+                                        <el-select v-model="EnemyEditForm.size" :placeholder="t('ui.equip.size', '體型')">
+                                            <el-option v-for="item in sizetypelist" :key="item.id"
+                                                :label="t('sizetype_' + item.id, item.label)" :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col :span="4" class="textcenter">{{ t('ui.equip.level', '階級') }}</el-col>
+                                    <el-col :span="4">
+                                        <el-select v-model="EnemyEditForm.leveltype" :placeholder="t('ui.equip.level', '階級')">
+                                            <el-option v-for="item in leveltypelist" :key="item.id"
+                                                :label="t('leveltype_' + item.id, item.label)" :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col :span="4" class="textcenter">{{ t('ui.equip.race', '種族') }}</el-col>
+                                    <el-col :span="4">
+                                        <el-select v-model="EnemyEditForm.race" :placeholder="t('ui.equip.race', '種族')">
+                                            <el-option v-for="item in racetypelist" :key="item.id"
+                                                :label="t('racetype_' + item.id, item.label)" :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6">LUK</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.LUK" placeholder="LUK"></el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">VIT</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.VIT" placeholder="VIT"></el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-tooltip class="item" effect="dark" :content="t('ui.enemy.defformula', '(魔物等級+VIT)/2')" placement="bottom-start">
+                                        <el-col class="textcenter" :span="6">{{ t('ui.enemy.subdef', '減算DEF(前)') }}</el-col>
+                                    </el-tooltip>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.StatusDEF" placeholder="前 DEF"></el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">{{ t('ui.enemy.muldef', '乘算DEF') }}</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.WeaponDEF" placeholder="後 DEF"></el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle">
+                                    <el-tooltip class="item" effect="dark" :content="t('ui.enemy.mdefformula', '(魔物等級+INT)/4')" placement="bottom-start">
+                                        <el-col class="textcenter" :span="6">{{ t('ui.enemy.submdef', '減算MDEF(前)') }}</el-col>
+                                    </el-tooltip>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.StatusMDEF" placeholder="前 MDEF"></el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">{{ t('ui.enemy.mulmdef', '乘算MDEF') }}</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.WeaponMDEF" placeholder="後 MDEF"></el-input>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                            <!-- 敵方減傷：PVE（★防禦 / 90%、99%減傷）與 GVG（普攻 / 遠距離普攻 / 技能減傷）分兩個圓角框 -->
+                            <div class="enemy-reduce-group">
+                                <span class="enemy-reduce-group-title">PVE</span>
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6">{{ t('ui.enemy.stardefense', '★防禦') }}</el-col>
+                                    <el-col :span="6">
+                                        <el-select v-model="EnemyEditForm.StarDefense" :placeholder="t('ui.enemy.stardefense', '★防禦')">
+                                            <el-option v-for="n in 11" :key="n-1" :label="'★' + (n-1)" :value="n-1">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">
+                                        <el-checkbox v-model="EnemyEditForm.Reduce90" v-on:change="onToggleEnemyReduce(EnemyEditForm, 'Reduce90')">{{ t('ui.enemy.reduce90', '90%減傷') }}</el-checkbox>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">
+                                        <el-checkbox v-model="EnemyEditForm.Reduce99" v-on:change="onToggleEnemyReduce(EnemyEditForm, 'Reduce99')">{{ t('ui.enemy.reduce99', '99%減傷') }}</el-checkbox>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                            <div class="enemy-reduce-group">
+                                <span class="enemy-reduce-group-title">GVG</span>
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6">{{ t('ui.enemy.normalatkreduce', '普攻減傷') }}%</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.NormalAtkReduce" placeholder="0"></el-input>
+                                    </el-col>
+                                    <el-col class="textcenter" :span="6">{{ t('ui.enemy.rangednormalatkreduce', '遠距離普攻減傷') }}%</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.RangedNormalAtkReduce" placeholder="0"></el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6">{{ t('ui.enemy.skillreduce', '技能減傷') }}%</el-col>
+                                    <el-col :span="6">
+                                        <el-input v-model="EnemyEditForm.SkillReduce" placeholder="0"></el-input>
+                                    </el-col>
+                                    <el-col :span="12"></el-col>
+                                </el-row>
+                            </div>
+                            <div v-for="group in enemyResistGroups" :key="group.id" class="enemy-reduce-group">
+                                <span class="enemy-reduce-group-title">{{ t(group.key, group.label) }}</span>
+                                <el-row v-for="field in group.fields" :key="field"
+                                    class="statusbox" :gutter="4" type="flex" align="middle">
+                                    <el-col class="textcenter" :span="6"><span class="EffectType" :class="enemyResistTagClass(field)">{{ enemyResistRowLabel(field) }}</span></el-col>
+                                    <!-- 單一數值的抗性（遠距/暴擊）直接輸入，不用指定目標 -->
+                                    <template v-if="isEnemyResistScalar(field)">
+                                        <el-col :span="12">
+                                            <el-input v-model="EnemyEditForm[field]" placeholder="0"></el-input>
+                                        </el-col>
+                                        <el-col class="textcenter" :span="6">{{ enemyResistUnit(field) }}</el-col>
+                                    </template>
+                                    <template v-else>
+                                        <el-col :span="12" class="enemy-resist-summary">{{ enemyResistSummary(EnemyEditForm, field) }}</el-col>
+                                        <el-col class="textcenter" :span="6">
+                                            <el-button v-on:click="OpenEnemyResistDialog(EnemyEditForm, field)" size="mini" type="primary">
+                                                {{ t('ui.enemy.specify', '指定') }}
+                                            </el-button>
+                                        </el-col>
+                                    </template>
+                                </el-row>
+                            </div>
+                    
+                        </div>
+                    </el-scrollbar>
+                </el-col>
             </el-row>
         </el-dialog>
         <el-dialog :visible.sync="UIPanel['EquipTextDialog']" v-on:close="ClosePanel('EquipTextDialog')"
@@ -2486,11 +2716,11 @@
                             <el-row :gutter="4">
                                 <el-col :span="8">
                                     <el-row class="effectline previeweffectbox" style="height:40px;">
-                                        <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.zerostattypemax', 'Zero套餐(取最大)') }}</span></el-col>
+                                        <el-col class="textcenter"><span class="EffectType">{{ t('ui.consumable.zerostattypemax', 'Zero套餐') }}</span></el-col>
                                     </el-row>
                                     <div style="max-height:calc(100vh - 300px); overflow-y:auto; overflow-x:hidden; width:100%;">
                                         <el-row>
-                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered('ZeroStatusG')" v-bind:key="item.id">
+                                            <div class="Item" v-for="(item, index) in ConsumGroupFiltered(['ZeroStatusG', 'ZeroStatusG1'])" v-bind:key="item.id">
                                                 <el-row class="optionbox" type="flex" align="middle" justify="end" style="padding: 0px 10px;">
                                                     <el-col class="textcenter">
                                                         <span class="EffectType">{{ getConsumableName(item.id, item.name) }}</span>
@@ -3505,9 +3735,9 @@
                         <el-row>
                             <div class="boxborder EnemyBlock">
                                 <el-row class="statusbox bg-purple-light" :gutter="4" type="flex" align="middle" justify="center">
-                                    <el-col :span="12" offset="12">
+                                    <el-col :span="18">
                                         <div class="textcenter grid-content">
-                                            <el-select value-key="id" v-model="enemyattribute"
+                                            <el-select value-key="id" v-model="enemyattribute" filterable
                                                 v-on:change="onSelectEnemy" :placeholder="t('ui.enemy.select', '選擇敵方')"
                                                 popper-append-to-body
                                                 :popper-options="{ 
@@ -3519,170 +3749,225 @@
                                                 }"
                                                 popper-class="custom-select-dropdown">
                                                 <el-option v-for="item in enemylist" :key="item.id"
-                                                    :label="getEnemyName(item.id, item.name)" :value="item">
+                                                    :label="(item.isCustom ? '★ ' : '') + getEnemyName(item.id, item.name)" :value="item">
                                                 </el-option>
                                             </el-select>
                                         </div>
                                     </el-col>
+                                    <el-col :span="6" class="textcenter">
+                                        <el-button v-on:click="OpenEditEnemyDialog" type="success" plain size="small">
+                                            {{ t('ui.common.edit', '編輯') }}
+                                        </el-button>
+                                    </el-col>
                                 </el-row>
                                 <el-collapse-transition>
                                     <div v-show="UIPanel['EnemyPanel']">
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
-                                            align="middle">
-                                            <el-col :span="6" class="textcenter"><span>{{ t('ui.enemy.elementlevel', '屬性等級') }}</span>
-                                            </el-col>
-                                            <el-col :span="6">
-                                                <div class="grid-content bg-purple">
-                                                    <el-select v-model="enemyattribute.elemental"
-                                                        v-on:change="ComputElementalPercent" :placeholder="t('ui.enemy.element', '敵方屬性')"
-                                                        popper-append-to-body
-                                                        :popper-options="{ placement: 'auto' }">
-                                                        <el-option v-for="item in elementtypelist" :key="item.id"
-                                                            :label="t('elementtype_' + item.id, item.label)" :value="item.id">
-                                                        </el-option>
-                                                    </el-select>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="4">
-                                                <div class="grid-content bg-purple">
-                                                    <el-select value-key="id" v-model="enemyattribute.elementallevel"
-                                                        v-on:change="ComputElementalPercent" :placeholder="t('ui.enemy.elementlevel', '屬性等級')"
-                                                        popper-append-to-body
-                                                        :popper-options="{ placement: 'auto' }">
-                                                        <el-option v-for="item in elementlevel" :key="item.id"
-                                                            :label="item.id" :value="item.id">
-                                                        </el-option>
-                                                    </el-select>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
-                                            align="middle">
-                                            <el-col class="textcenter" :span="6">Level</el-col>
-                                            <el-col :span="6">
-                                                <el-input v-model="enemyattribute.level"
-                                                    v-on:input="onChangeEnemyStatus" placeholder="Lv">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col :span="6" class="textcenter">{{ t('ui.equip.size', '體型') }}</el-col>
-                                            <el-col :span="6">
-                                                <div class="grid-content bg-purple">
-                                                    <el-select value-key="id" v-model="enemyattribute.size"
-                                                        :placeholder="t('ui.equip.size', '體型')">
-                                                        <el-option v-for="item in sizetypelist" :key="item.id"
-                                                            :label="t('sizetype_' + item.id, item.label)" :value="item.id">
-                                                        </el-option>
-                                                    </el-select>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
-                                            align="middle">
-                                            <el-col class="textcenter" :span="6">{{ t('ui.equip.level', '階級') }}</el-col>
-                                            <el-col :span="6">
-                                                <div class="grid-content bg-purple">
-                                                    <el-select value-key="id" v-model="enemyattribute.leveltype"
-                                                        v-on:change="onOption" :placeholder="t('ui.equip.level', '階級')">
-                                                        <el-option v-for="item in leveltypelist" :key="item.id"
-                                                            :label="t('leveltype_' + item.id, item.label)" :value="item.id">
-                                                        </el-option>
-                                                    </el-select>
-                                                </div>
-                                            </el-col>
-                                            <el-col class="textcenter" :span="6">{{ t('ui.equip.race', '種族') }}</el-col>
-                                            <el-col :span="6">
-                                                <div class="grid-content bg-purple">
-                                                    <el-select value-key="id" v-model="enemyattribute.race"
-                                                        v-on:change="onOption" :placeholder="t('ui.equip.race', '種族')">
-                                                        <el-option v-for="item in racetypelist" :key="item.id"
-                                                            :label="t('racetype_' + item.id, item.label)" :value="item.id">
-                                                        </el-option>
-                                                    </el-select>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
-                                            align="middle">
-                                            <el-tooltip class="item" effect="dark" :content="t('ui.enemy.luktooltip', '影響最終暴率')"
-                                                placement="bottom-start">
-                                                <el-col class="textcenter" :span="6">LUK</el-col>
-                                            </el-tooltip>
-                                            <el-col :span="6">
-                                                <el-input v-model="enemyattribute.LUK" v-on:input="onChangeEnemyStatus"
-                                                    placeholder="LUK">
-                                                </el-input>
-                                            </el-col>
-                                            <el-tooltip class="item" effect="dark" :content="t('ui.enemy.vittooltip', '影響強酸火煙瓶')"
-                                                placement="bottom-start">
-                                                <el-col class="textcenter" :span="6">VIT</el-col>
-                                            </el-tooltip>
-                                            <el-col :span="6">
-                                                <el-input v-model="enemyattribute.VIT" v-on:input="onChangeEnemyStatus"
-                                                    placeholder="VIT">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>
+                                        <div class="enemy-reduce-group">
+                                            <span class="enemy-reduce-group-title">Stat</span>
+                                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                                align="middle">
+                                                <el-col :span="6" class="textcenter"><span>{{ t('ui.enemy.elementlevel', '屬性等級') }}</span>
+                                                </el-col>
+                                                <el-col :span="6">
+                                                    <div class="grid-content bg-purple">
+                                                        <el-select v-model="enemyattribute.elemental"
+                                                            v-on:change="ComputElementalPercent" :placeholder="t('ui.enemy.element', '敵方屬性')"
+                                                            popper-append-to-body
+                                                            :popper-options="{ placement: 'auto' }">
+                                                            <el-option v-for="item in elementtypelist" :key="item.id"
+                                                                :label="t('elementtype_' + item.id, item.label)" :value="item.id">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="4">
+                                                    <div class="grid-content bg-purple">
+                                                        <el-select value-key="id" v-model="enemyattribute.elementallevel"
+                                                            v-on:change="ComputElementalPercent" :placeholder="t('ui.enemy.elementlevel', '屬性等級')"
+                                                            popper-append-to-body
+                                                            :popper-options="{ placement: 'auto' }">
+                                                            <el-option v-for="item in elementlevel" :key="item.id"
+                                                                :label="item.id" :value="item.id">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                                align="middle">
+                                                <el-col class="textcenter" :span="6">Level</el-col>
+                                                <el-col :span="6">
+                                                    <el-input v-model="enemyattribute.level"
+                                                        v-on:input="onChangeEnemyStatus" placeholder="Lv">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col :span="6" class="textcenter">{{ t('ui.equip.size', '體型') }}</el-col>
+                                                <el-col :span="6">
+                                                    <div class="grid-content bg-purple">
+                                                        <el-select value-key="id" v-model="enemyattribute.size"
+                                                            :placeholder="t('ui.equip.size', '體型')">
+                                                            <el-option v-for="item in sizetypelist" :key="item.id"
+                                                                :label="t('sizetype_' + item.id, item.label)" :value="item.id">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                                align="middle">
+                                                <el-col class="textcenter" :span="6">{{ t('ui.equip.level', '階級') }}</el-col>
+                                                <el-col :span="6">
+                                                    <div class="grid-content bg-purple">
+                                                        <el-select value-key="id" v-model="enemyattribute.leveltype"
+                                                            v-on:change="onOption" :placeholder="t('ui.equip.level', '階級')">
+                                                            <el-option v-for="item in leveltypelist" :key="item.id"
+                                                                :label="t('leveltype_' + item.id, item.label)" :value="item.id">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </el-col>
+                                                <el-col class="textcenter" :span="6">{{ t('ui.equip.race', '種族') }}</el-col>
+                                                <el-col :span="6">
+                                                    <div class="grid-content bg-purple">
+                                                        <el-select value-key="id" v-model="enemyattribute.race"
+                                                            v-on:change="onOption" :placeholder="t('ui.equip.race', '種族')">
+                                                            <el-option v-for="item in racetypelist" :key="item.id"
+                                                                :label="t('racetype_' + item.id, item.label)" :value="item.id">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                                align="middle">
+                                                <el-tooltip class="item" effect="dark" :content="t('ui.enemy.luktooltip', '影響最終暴率')"
+                                                    placement="bottom-start">
+                                                    <el-col class="textcenter" :span="6">LUK</el-col>
+                                                </el-tooltip>
+                                                <el-col :span="6">
+                                                    <el-input v-model="enemyattribute.LUK" v-on:input="onChangeEnemyStatus"
+                                                        placeholder="LUK">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-tooltip class="item" effect="dark" :content="t('ui.enemy.vittooltip', '影響強酸火煙瓶')"
+                                                    placement="bottom-start">
+                                                    <el-col class="textcenter" :span="6">VIT</el-col>
+                                                </el-tooltip>
+                                                <el-col :span="6">
+                                                    <el-input v-model="enemyattribute.VIT" v-on:input="onChangeEnemyStatus"
+                                                        placeholder="VIT">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
 
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
-                                            align="middle">
-                                            <el-tooltip class="item" effect="dark" :content="t('ui.enemy.defformula', '(魔物等級+VIT)/2')"
-                                                placement="bottom-start">
-                                                <el-col class="textcenter">{{ t('ui.enemy.subdef', '減算DEF(前)') }}</el-col>
-                                            </el-tooltip>
-                                            <el-col>
-                                                <el-input v-model="enemyattribute.StatusDEF"
-                                                    v-on:input="onChangeEnemyStatus" placeholder="前 DEF">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter">{{ t('ui.enemy.muldef', '乘算DEF') }}</el-col>
-                                            <el-col>
-                                                <el-input v-model="enemyattribute.WeaponDEF"
-                                                    v-on:input="onChangeEnemyStatus" placeholder="後 DEF">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
-                                            align="middle">
-                                            <el-tooltip class="item" effect="dark" :content="t('ui.enemy.mdefformula', '(魔物等級+INT)/4')"
-                                                placement="bottom-start">
-                                                <el-col class="textcenter">{{ t('ui.enemy.submdef', '減算MDEF(前)') }}</el-col>
-                                            </el-tooltip>
-                                            <el-col>
-                                                <el-input v-model="enemyattribute.StatusMDEF"
-                                                    v-on:input="onChangeEnemyStatus" placeholder="前 MDEF">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter">{{ t('ui.enemy.mulmdef', '乘算MDEF') }}</el-col>
-                                            <el-col>
-                                                <el-input v-model="enemyattribute.WeaponMDEF"
-                                                    v-on:input="onChangeEnemyStatus" placeholder="後 MDEF">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
-                                            align="middle">
-                                            <el-col class="textcenter">RES</el-col>
-                                            <el-col>
-                                                <el-input v-model="enemyattribute.RES"
-                                                    v-on:input="onChangeEnemyStatus" placeholder="RES">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col class="textcenter">MRES</el-col>
-                                            <el-col>
-                                                <el-input v-model="enemyattribute.MRES"
-                                                    v-on:input="onChangeEnemyStatus" placeholder="MRES">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row v-if="TestMode" class="statusbox bg-purple-light" :gutter="4"
-                                            type="flex" align="middle">
-                                            <el-col class="textcenter" :span="6">{{ t('ui.enemy.raceresist', '種族抗性') }}</el-col>
-                                            <el-col :span="6">
-                                                <el-input v-model="enemyattribute.raceResist" v-on:input="onOption"
-                                                    placeholder="SP">
-                                                </el-input>
-                                            </el-col>
-                                        </el-row>
+                                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                                align="middle">
+                                                <el-tooltip class="item" effect="dark" :content="t('ui.enemy.defformula', '(魔物等級+VIT)/2')"
+                                                    placement="bottom-start">
+                                                    <el-col class="textcenter">{{ t('ui.enemy.subdef', '減算DEF(前)') }}</el-col>
+                                                </el-tooltip>
+                                                <el-col>
+                                                    <el-input v-model="enemyattribute.StatusDEF"
+                                                        v-on:input="onChangeEnemyStatus" placeholder="前 DEF">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter">{{ t('ui.enemy.muldef', '乘算DEF') }}</el-col>
+                                                <el-col>
+                                                    <el-input v-model="enemyattribute.WeaponDEF"
+                                                        v-on:input="onChangeEnemyStatus" placeholder="後 DEF">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row class="statusbox bg-purple-light" :gutter="4" type="flex"
+                                                align="middle">
+                                                <el-tooltip class="item" effect="dark" :content="t('ui.enemy.mdefformula', '(魔物等級+INT)/4')"
+                                                    placement="bottom-start">
+                                                    <el-col class="textcenter">{{ t('ui.enemy.submdef', '減算MDEF(前)') }}</el-col>
+                                                </el-tooltip>
+                                                <el-col>
+                                                    <el-input v-model="enemyattribute.StatusMDEF"
+                                                        v-on:input="onChangeEnemyStatus" placeholder="前 MDEF">
+                                                    </el-input>
+                                                </el-col>
+                                                <el-col class="textcenter">{{ t('ui.enemy.mulmdef', '乘算MDEF') }}</el-col>
+                                                <el-col>
+                                                    <el-input v-model="enemyattribute.WeaponMDEF"
+                                                        v-on:input="onChangeEnemyStatus" placeholder="後 MDEF">
+                                                    </el-input>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        <!-- PVE / GVG / 抗性 預設收起，用 Stat 底下的細按鈕展開 -->
+                                        <div class="enemy-detail-toggle" v-on:click="TogglePanel('EnemyDetailPanel')">
+                                            <i :class="UIPanel['EnemyDetailPanel'] ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"></i>
+                                            <span>{{ UIPanel['EnemyDetailPanel'] ? t('ui.enemy.collapsedetail', '收起減傷 / 抗性') : t('ui.enemy.expanddetail', '展開減傷 / 抗性') }}</span>
+                                        </div>
+                                        <el-collapse-transition>
+                                            <div v-show="UIPanel['EnemyDetailPanel']">
+                                                <!-- 敵方減傷：PVE（★防禦 / 90%、99%減傷）與 GVG（普攻 / 遠距離普攻 / 技能減傷）分兩個圓角框 -->
+                                                <div class="enemy-reduce-group">
+                                                    <span class="enemy-reduce-group-title">PVE</span>
+                                                    <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                                        <el-col class="textcenter" :span="6">{{ t('ui.enemy.stardefense', '★防禦') }}</el-col>
+                                                        <el-col :span="6">
+                                                            <el-select v-model="enemyattribute.StarDefense" :placeholder="t('ui.enemy.stardefense', '★防禦')">
+                                                                <el-option v-for="n in 11" :key="n-1" :label="'★' + (n-1)" :value="n-1">
+                                                                </el-option>
+                                                            </el-select>
+                                                        </el-col>
+                                                        <el-col class="textcenter" :span="6">
+                                                            <el-checkbox v-model="enemyattribute.Reduce90" v-on:change="onToggleEnemyReduce(enemyattribute, 'Reduce90')">{{ t('ui.enemy.reduce90', '90%減傷') }}</el-checkbox>
+                                                        </el-col>
+                                                        <el-col class="textcenter" :span="6">
+                                                            <el-checkbox v-model="enemyattribute.Reduce99" v-on:change="onToggleEnemyReduce(enemyattribute, 'Reduce99')">{{ t('ui.enemy.reduce99', '99%減傷') }}</el-checkbox>
+                                                        </el-col>
+                                                    </el-row>
+                                                </div>
+                                                <div class="enemy-reduce-group">
+                                                    <span class="enemy-reduce-group-title">GVG</span>
+                                                    <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                                        <el-col class="textcenter" :span="6">{{ t('ui.enemy.normalatkreduce', '普攻減傷') }}%</el-col>
+                                                        <el-col :span="6">
+                                                            <el-input v-model="enemyattribute.NormalAtkReduce" placeholder="0"></el-input>
+                                                        </el-col>
+                                                        <el-col class="textcenter" :span="6">{{ t('ui.enemy.rangednormalatkreduce', '遠距離普攻減傷') }}%</el-col>
+                                                        <el-col :span="6">
+                                                            <el-input v-model="enemyattribute.RangedNormalAtkReduce" placeholder="0"></el-input>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row class="statusbox" :gutter="4" type="flex" align="middle">
+                                                        <el-col class="textcenter" :span="6">{{ t('ui.enemy.skillreduce', '技能減傷') }}%</el-col>
+                                                        <el-col :span="6">
+                                                            <el-input v-model="enemyattribute.SkillReduce" placeholder="0"></el-input>
+                                                        </el-col>
+                                                        <el-col :span="12"></el-col>
+                                                    </el-row>
+                                                </div>
+                                                <!-- 敵方抗性：共用(種族/屬性) 在上，下面分物理 / 魔法 -->
+                                                <div v-for="group in enemyResistGroups" :key="group.id" class="enemy-reduce-group">
+                                                    <span class="enemy-reduce-group-title">{{ t(group.key, group.label) }}</span>
+                                                    <el-row v-for="field in group.fields" :key="field"
+                                                        class="statusbox" :gutter="4" type="flex" align="middle">
+                                                        <el-col class="textcenter" :span="7"><span class="EffectType" :class="enemyResistTagClass(field)">{{ enemyResistRowLabel(field) }}</span></el-col>
+                                                        <!-- 單一數值的抗性（遠距/暴擊）直接輸入，不用指定目標 -->
+                                                        <template v-if="isEnemyResistScalar(field)">
+                                                            <el-col :span="11">
+                                                                <el-input v-model="enemyattribute[field]" placeholder="0"></el-input>
+                                                            </el-col>
+                                                            <el-col class="textcenter" :span="6">{{ enemyResistUnit(field) }}</el-col>
+                                                        </template>
+                                                        <template v-else>
+                                                            <el-col :span="11" class="enemy-resist-summary">{{ enemyResistSummary(enemyattribute, field) }}</el-col>
+                                                            <el-col class="textcenter" :span="6">
+                                                                <el-button v-on:click="OpenEnemyResistDialog(enemyattribute, field)" size="mini" type="primary">
+                                                                    {{ t('ui.enemy.specify', '指定') }}
+                                                                </el-button>
+                                                            </el-col>
+                                                        </template>
+                                                    </el-row>
+                                                </div>
+                                            </div>
+                                        </el-collapse-transition>
                                     </div>
                                 </el-collapse-transition>
                                 <el-collapse-transition>
@@ -3720,6 +4005,16 @@
                                             </el-col>
                                             <el-col style="text-align: left;">
                                                 MRES {{enemyattribute.MRES}}
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="4">
+                                            <el-col style="text-align: left;">
+                                                <b>PVE</b> {{ t('ui.enemy.stardefense', '★防禦') }} ★{{enemyattribute.StarDefense}}<span v-if="enemyattribute.Reduce90"> / {{ t('ui.enemy.reduce90', '90%減傷') }}</span><span v-if="enemyattribute.Reduce99"> / {{ t('ui.enemy.reduce99', '99%減傷') }}</span>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="statusbox" type="flex" align="middle" style="padding: 0% 5%;" :gutter="4">
+                                            <el-col style="text-align: left;">
+                                                <b>GVG</b> {{ t('ui.enemy.normalatkreduce', '普攻減傷') }} {{enemyattribute.NormalAtkReduce}}% / {{ t('ui.enemy.rangednormalatkreduce', '遠距離普攻減傷') }} {{enemyattribute.RangedNormalAtkReduce}}% / {{ t('ui.enemy.skillreduce', '技能減傷') }} {{enemyattribute.SkillReduce}}%
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -7386,6 +7681,9 @@
                 StoreDB_EquipFilterList: [],
                 StoreDB_SearchString: '',
                 StoreDB_Equip: [],
+                StoreDB_Enemy: [], // 使用者自訂敵方（localStorage 'StoreDB_Enemy'），每筆 { uuid, enemy, date }，載入後以 isCustom 標記插在 enemylist「自訂」後面
+                EnemyEditForm: { name: '' }, // 敵方編輯dialog的暫存表單，確定/儲存時才寫回 enemyattribute
+                EnemyEditUuid: '', // 目前編輯中的自訂敵方 uuid；空字串代表新的一筆
                 EquipSelectId: '',
                 EquipSelectLabel: '',
                 EquipSelectEffect: [],
@@ -7907,6 +8205,12 @@
                     sizeResist: 0, levelResist: 0, elementalResist: 0, moneletResist: 0,
                     rangedResist: 0, raceResist: 0, criResist: 0,
                     doram: false,
+                    // 減傷類（公式待補）：百分比數值 / ★防禦 0~10 / 90%、99%減傷擇一
+                    NormalAtkReduce: 0, RangedNormalAtkReduce: 0, SkillReduce: 0,
+                    StarDefense: 0, Reduce90: false, Reduce99: false,
+                    // 抗性類：{ all: 全目標%, <目標id>: 指定目標% }，只存非 0 的項目；種族/屬性物理魔法共用，體型/階級分 Physical*/Magic*
+                    RaceResist: {}, PhysicalSizeResist: {}, MagicSizeResist: {}, PhysicalLevelResist: {}, MagicLevelResist: {}, ElementResist: {},
+                    PhysicalMonsterElementResist: {}, MagicMonsterElementResist: {}, // 怪物屬性減傷：依敵方本身屬性查表
                 },
                 // 通用測試/預設資料，兩種模式共用；各版本專屬頭目資料另由 loadEnemyListFromJSON() 從 enemylist.json / enemylist_zero.json 非同步載入後附加進來。
                 enemylist: [
@@ -8179,6 +8483,8 @@
                     BypassDetailDialog: false,
                     EquipDBDialog: false,
                     EditEquipDialog: false,
+                    EditEnemyDialog: false,
+                    EnemyResistDialog: false,
                     AiEquipParserDialog: false,
                     SkillTreeDialog: false,
                     AllSetDBDialog: false,
@@ -8193,6 +8499,7 @@
 
                     StatusPanel: true,
                     EnemyPanel: true,
+                    EnemyDetailPanel: false,
                     SkillPanel: false,
                     SupportSkillPanel: false,
                     ATKPanel: false,
@@ -8210,6 +8517,8 @@
                 showCastDetail: false,
                 detailBreakdownExpanded: {},
                 selectDialogMode: 'atk',
+                // 敵方抗性指定對話框的暫存：target 為 enemyattribute 或 EnemyEditForm，確定時才寫回
+                enemyResistDialog: { target: null, field: '', rows: [] },
                 Consent:true,
             },
             methods: {
@@ -9246,68 +9555,34 @@
                         }
                     }
                 },
-                applySizeEffect(row) {
-                    const mode = this.selectDialogMode || 'atk';
-                    if (mode === 'atk') {
-                        if (row.atkPercent === null || row.atkPercent === undefined) {
-                            this.$message.warning('請輸入物理體型 %');
-                            return;
-                        }
-                        this.upsertSizeEffect('SizeAtkPercent', row.atkPercent, row.sizeId);
-                    } else {
-                        if (row.matkPercent === null || row.matkPercent === undefined) {
-                            this.$message.warning('請輸入魔法體型 %');
-                            return;
-                        }
-                        this.upsertSizeEffect('SizeMatkPercent', row.matkPercent, row.sizeId);
-                    }
-                    this.$message.success('已套用體型倍率：' + this.getSizeLabelFromTargetId(this.makeSizeTargetId(row.sizeId)));
+                // 體型/階級/種族/屬性 倍率對話框：表格內直接改數值，按「確定」一次寫回全部列（值為 0 的指定目標會被移除，「全」歸 0）
+                confirmSizeSelectDialog() {
+                    const isAtk = (this.selectDialogMode || 'atk') === 'atk';
+                    this.sizeSelectRows.forEach(row => {
+                        this.upsertSizeEffect(isAtk ? 'SizeAtkPercent' : 'SizeMatkPercent', Number(isAtk ? row.atkPercent : row.matkPercent) || 0, row.sizeId);
+                    });
+                    this.ClosePanel('SizeSelectDialog');
                 },
-                applyLevelEffect(row) {
-                    const mode = this.selectDialogMode || 'atk';
-                    if (mode === 'atk') {
-                        if (row.atkPercent === null || row.atkPercent === undefined) {
-                            this.$message.warning('請輸入物理階級 %');
-                            return;
-                        }
-                        this.upsertLevelEffect('LevelAtkPercent', row.atkPercent, row.levelId);
-                    } else {
-                        if (row.matkPercent === null || row.matkPercent === undefined) {
-                            this.$message.warning('請輸入魔法階級 %');
-                            return;
-                        }
-                        this.upsertLevelEffect('LevelMatkPercent', row.matkPercent, row.levelId);
-                    }
-                    this.$message.success('已套用階級倍率：' + this.getLevelLabelFromTargetId(this.makeLevelTargetId(row.levelId)));
+                confirmLevelSelectDialog() {
+                    const isAtk = (this.selectDialogMode || 'atk') === 'atk';
+                    this.levelSelectRows.forEach(row => {
+                        this.upsertLevelEffect(isAtk ? 'LevelAtkPercent' : 'LevelMatkPercent', Number(isAtk ? row.atkPercent : row.matkPercent) || 0, row.levelId);
+                    });
+                    this.ClosePanel('LevelSelectDialog');
                 },
-                applyRaceEffect(row) {
-                    const mode = this.selectDialogMode || 'atk';
-                    if (mode === 'atk') {
-                        if (row.atkPercent === null || row.atkPercent === undefined) {
-                            this.$message.warning('請輸入物理種族 %');
-                            return;
-                        }
-                        this.upsertRaceEffect('RaceAtkPercent', row.atkPercent, row.raceId);
-                    } else {
-                        if (row.matkPercent === null || row.matkPercent === undefined) {
-                            this.$message.warning('請輸入魔法種族 %');
-                            return;
-                        }
-                        this.upsertRaceEffect('RaceMatkPercent', row.matkPercent, row.raceId);
-                    }
-                    this.$message.success('已套用種族倍率：' + this.getRaceLabelFromTargetId(this.makeRaceTargetId(row.raceId)));
+                confirmRaceSelectDialog() {
+                    const isAtk = (this.selectDialogMode || 'atk') === 'atk';
+                    this.raceSelectRows.forEach(row => {
+                        this.upsertRaceEffect(isAtk ? 'RaceAtkPercent' : 'RaceMatkPercent', Number(isAtk ? row.atkPercent : row.matkPercent) || 0, row.raceId);
+                    });
+                    this.ClosePanel('RaceSelectDialog');
                 },
-                applyElementEffect(row) {
-                    if (!this.selectElementEffectId) {
-                        this.$message.warning('未設定屬性倍率類型');
-                        return;
-                    }
-                    if (row.value === null || row.value === undefined) {
-                        this.$message.warning('請輸入屬性倍率 %');
-                        return;
-                    }
-                    this.upsertElementEffect(this.selectElementEffectId, row.value, row.elementId);
-                    this.$message.success('已套用屬性倍率：' + this.getElementLabelFromTargetId(this.makeElementTargetId(row.elementId)));
+                confirmElementSelectDialog() {
+                    if (!this.selectElementEffectId) return;
+                    this.elementSelectRows.forEach(row => {
+                        this.upsertElementEffect(this.selectElementEffectId, Number(row.value) || 0, row.elementId);
+                    });
+                    this.ClosePanel('ElementSelectDialog');
                 },
                 OpenBypassDetailDialog(effectId) {
                     const effectType = this.effecttypelist.find(x => x.id === effectId);
@@ -9329,29 +9604,15 @@
                     });
                     this.OpenPanel('BypassDetailDialog');
                 },
-                applyBypassLevelEffect(row) {
-                    if (!this.selectBypassEffectId) {
-                        this.$message.warning('未設定無視防禦類型');
-                        return;
-                    }
-                    if (row.value === null || row.value === undefined) {
-                        this.$message.warning('請輸入無視防禦 %');
-                        return;
-                    }
-                    this.upsertLevelEffect(this.selectBypassEffectId, row.value, row.levelId);
-                    this.$message.success('已套用階級無視防禦：' + this.getLevelLabelFromTargetId(this.makeLevelTargetId(row.levelId)));
-                },
-                applyBypassRaceEffect(row) {
-                    if (!this.selectBypassEffectId) {
-                        this.$message.warning('未設定無視防禦類型');
-                        return;
-                    }
-                    if (row.value === null || row.value === undefined) {
-                        this.$message.warning('請輸入無視防禦 %');
-                        return;
-                    }
-                    this.upsertRaceEffect(this.selectBypassEffectId, row.value, row.raceId);
-                    this.$message.success('已套用種族無視防禦：' + this.getRaceLabelFromTargetId(this.makeRaceTargetId(row.raceId)));
+                confirmBypassDetailDialog() {
+                    if (!this.selectBypassEffectId) return;
+                    this.bypassLevelSelectRows.forEach(row => {
+                        this.upsertLevelEffect(this.selectBypassEffectId, Number(row.value) || 0, row.levelId);
+                    });
+                    this.bypassRaceSelectRows.forEach(row => {
+                        this.upsertRaceEffect(this.selectBypassEffectId, Number(row.value) || 0, row.raceId);
+                    });
+                    this.ClosePanel('BypassDetailDialog');
                 },
                 SwitchElementalVersion(){
                     this.ElementTableLastest = !this.ElementTableLastest;
@@ -9996,13 +10257,22 @@
                 OnComputeConsumable(){
                     this.consumableeffecttypelist = _.cloneDeep(this.consumableeffecttypelist_init);
 
-                    var _statusgtag = [ 'STR', 'AGI', 'VIT', 'INT', 'DEX', 'LUK', 'ATK', 'MATK', 'Cri','POW','STA','WIS','SPL','CON','CRT','PATK','SMATK'];
+                    var _statusgtag = [ 'STR', 'AGI', 'VIT', 'INT', 'DEX', 'LUK', 'ATK', 'MATK', 'HIT', 'FLEE', 'Cri','POW','STA','WIS','SPL','CON','CRT','PATK','SMATK'];
                     var _ATKMATKUP = { ATKUP:0, MATKUP:0 };
                     var _atkmatkuptag = [ 'ATKUP', 'MATKUP'];
                     var _FixedCast = 0;
+                    var _zeroG1 = {}; // Zero料理套餐(ZeroStatusG1)：組內取最大，再整組疊加到上面「取最大」的結果（可跟天地樹祝福相加）
 
                     for( var i=0; i<this.consumablelist.length; ++i ){
                         if(this.consumablelist[i].active==false) continue;
+                        if(this.consumablelist[i].group=='ZeroStatusG1'){
+                            for( var t=0; t<_statusgtag.length; ++t ){
+                                if( this.consumablelist[i][_statusgtag[t]] != null ){
+                                    _zeroG1[_statusgtag[t]] = Math.max(_zeroG1[_statusgtag[t]] || 0, Number(this.consumablelist[i][_statusgtag[t]]));
+                                }
+                            }
+                            continue;
+                        }
                         // 素質系統 取最大
                         if(this.consumablelist[i].group=='StatusG' ||
                             this.consumablelist[i].group=='ZeroStatusG' ||
@@ -10042,6 +10312,12 @@
                                 }
                             };
                         }
+                    }
+
+                    // Zero料理套餐 疊加
+                    for( var _tagG1 in _zeroG1 ){
+                        var _idx = this.consumableeffecttypelist.findIndex( i=> i.id == _tagG1);
+                        if( _idx > -1 ) this.consumableeffecttypelist[_idx].totalvalue += _zeroG1[_tagG1];
                     }
 
                     // ATKMATKUP系統 取最大
@@ -10558,7 +10834,14 @@
                             ShieldWeight: this.subweapon.ShieldWeight,
                         },
                         enemyattribute: {
-                            raceResist: this.enemyattribute.raceResist,
+                            // 物理抗性：依我方(攻擊方)的體型/階級/攻擊屬性/種族查表，送「全」+「指定目標」加總後的數字
+                            PhysicalSizeResist: this.getEnemyResist('PhysicalSizeResist', this.attackerSizeId()),
+                            PhysicalLevelResist: this.getEnemyResist('PhysicalLevelResist', 0),
+                            ElementResist: this.getEnemyResist('ElementResist', this.skilloption.AttackElementalIdx),
+                            RaceResist: this.getEnemyResist('RaceResist', this.attackerRaceId()),
+                            PhysicalMonsterElementResist: this.getEnemyResist('PhysicalMonsterElementResist', this.enemyattribute.elemental),
+                            rangedResist: Number(this.enemyattribute.rangedResist) || 0,
+                            criResist: Number(this.enemyattribute.criResist) || 0,
                             RES: this.enemyattribute.RES,
                             StatusDEF: this.enemyattribute.StatusDEF,
                             WeaponDEF: this.enemyattribute.WeaponDEF,
@@ -10567,6 +10850,7 @@
                             size: this.enemyattribute.size,
                             level: this.enemyattribute.level,
                             VIT: this.enemyattribute.VIT,
+                            ...this.enemyReducePayload(),
                         },
                         skill: {
                             id: this.skill.id,
@@ -10697,16 +10981,25 @@
                             SpecialINSIGNIAENEMYMATK: this.computeattribute['SpecialINSIGNIAENEMYMATK'],
                         },
                         enemyattribute: {
-                            sizeResist: this.enemyattribute.sizeResist,
-                            elementalResist: this.enemyattribute.elementalResist,
-                            raceResist: this.enemyattribute.raceResist,
-                            levelResist: this.enemyattribute.levelResist,
+                            // 抗性：依我方(攻擊方)的體型/攻擊屬性/種族/階級查表，送「全」+「指定目標」加總後的數字
+                            MagicSizeResist: this.getEnemyResist('MagicSizeResist', this.attackerSizeId()),
+                            ElementResist: this.getEnemyResist('ElementResist', this.skilloption.AttackElementalIdx),
+                            RaceResist: this.getEnemyResist('RaceResist', this.attackerRaceId()),
+                            MagicLevelResist: this.getEnemyResist('MagicLevelResist', 0),
+                            // Mixed 的物理鏈（computeATK）也吃這份 enemyattribute
+                            PhysicalSizeResist: this.getEnemyResist('PhysicalSizeResist', this.attackerSizeId()),
+                            PhysicalLevelResist: this.getEnemyResist('PhysicalLevelResist', 0),
+                            PhysicalMonsterElementResist: this.getEnemyResist('PhysicalMonsterElementResist', this.enemyattribute.elemental),
+                            rangedResist: Number(this.enemyattribute.rangedResist) || 0,
+                            criResist: Number(this.enemyattribute.criResist) || 0,
+                            MagicMonsterElementResist: this.getEnemyResist('MagicMonsterElementResist', this.enemyattribute.elemental),
                             WeaponMDEF: this.enemyattribute.WeaponMDEF,
                             StatusMDEF: this.enemyattribute.StatusMDEF,
                             MRES: this.enemyattribute.MRES,
                             level: this.enemyattribute.level,
                             size: this.enemyattribute.size,
                             VIT: this.enemyattribute.VIT,
+                            ...this.enemyReducePayload(),
                         },
                         weapon: Object.assign({}, atkInput.weapon, { MATK: this.weapon.MATK, refinematk: this.weapon.refinematk }),
                         subweapon: Object.assign({}, atkInput.subweapon, { MATK: this.subweapon.MATK }),
@@ -10773,7 +11066,7 @@
                             attritube: { ELEDDI: this.attritube['ELEDDI'], RNGDP: this.attritube['RNGDP'] },
                             option: { SkillPercent: originalSkillPercent, IgnoreDEF: this.option.IgnoreDEF, EquipSkillAddDamage: this.option.EquipSkillAddDamage },
                             skill: { transWeaponDEF: this.skill.transWeaponDEF, ranged: this.skill.ranged },
-                            enemyattribute: { WeaponDEF: this.enemyattribute.WeaponDEF, StatusDEF: this.enemyattribute.StatusDEF },
+                            enemyattribute: { WeaponDEF: this.enemyattribute.WeaponDEF, StatusDEF: this.enemyattribute.StatusDEF, ...this.enemyReducePayload() },
                             skilloption: { ElementalPercent: this.skilloption.ElementalPercent },
                             activeSupportSkills: this.DefaultDB_SupportSkill.filter(x => x.skill.active).slice(0, 50)
                                 .map(x => ({ id: x.skill.id, lv: x.skill.lv, arg1: x.skill.arg1, arg2: x.skill.arg2 })),
@@ -10831,6 +11124,7 @@
                             attritube: { ELEDDI: this.attritube['ELEDDI'] },
                             option: { EquipSkillAddDamage: this.option.EquipSkillAddDamage },
                             skilloption: { ElementalPercent: this.skilloption.ElementalPercent },
+                            enemyattribute: this.enemyReducePayload(),
                             activeSupportSkills: this.DefaultDB_SupportSkill.filter(x => x.skill.active).slice(0, 50)
                                 .map(x => ({ id: x.skill.id, lv: x.skill.lv, arg1: x.skill.arg1, arg2: x.skill.arg2 })),
                         };
@@ -10901,12 +11195,252 @@
                 onSelectEnemy(item) {
                     // 拿資料 傳值就好
                     //https://wcc723.github.io/javascript/2017/12/10/javascript-reference/
-                    this.enemyattribute = Object.assign({}, item);
+                    // 抗性欄位是巢狀物件，要深拷貝，否則在面板上改抗性會連帶改到 enemylist 裡的原始資料
+                    this.enemyattribute = _.cloneDeep(item);
                     if( this.enemyattribute.LUK == null ) this.enemyattribute.LUK = 0;
                     if( this.enemyattribute.VIT == null ) this.enemyattribute.VIT = 0;
                     if( this.enemyattribute.leveltype == null ) this.enemyattribute.leveltype = 0;
                     if( this.enemyattribute.race == null ) this.enemyattribute.race = 0;
+                    this.fillEnemyReduceDefaults(this.enemyattribute);
                     console.log("onSelectEnemy: " + this.enemyattribute.elemental);
+                },
+                // ===== 自訂敵方：儲存/編輯（參考裝備的 StoreDB_Equip 流程） =====
+                // 數值欄位：el-input 拿到的是字串，存檔/套用時統一轉成數字
+                enemyNumericFields() {
+                    return ['level', 'hp', 'LUK', 'VIT', 'elemental', 'elementallevel', 'size', 'leveltype', 'race',
+                        'StatusDEF', 'WeaponDEF', 'StatusMDEF', 'WeaponMDEF', 'RES', 'MRES',
+                        'sizeResist', 'levelResist', 'elementalResist', 'moneletResist', 'rangedResist', 'raceResist', 'criResist',
+                        'NormalAtkReduce', 'RangedNormalAtkReduce', 'SkillReduce', 'StarDefense'];
+                },
+                // 減傷類欄位：舊資料（內建頭目 JSON / 舊配置 / 舊自訂敵方）沒有這些欄位時補預設值
+                fillEnemyReduceDefaults(enemy) {
+                    if (enemy.NormalAtkReduce == null) this.$set(enemy, 'NormalAtkReduce', 0);
+                    if (enemy.RangedNormalAtkReduce == null) this.$set(enemy, 'RangedNormalAtkReduce', 0);
+                    if (enemy.SkillReduce == null) this.$set(enemy, 'SkillReduce', 0);
+                    if (enemy.StarDefense == null) this.$set(enemy, 'StarDefense', 0);
+                    if (enemy.Reduce90 == null) this.$set(enemy, 'Reduce90', false);
+                    if (enemy.Reduce99 == null) this.$set(enemy, 'Reduce99', false);
+                    for (const field of Object.keys(this.enemyResistFieldMeta())) {
+                        if (this.isEnemyResistScalar(field)) {
+                            if (enemy[field] == null) this.$set(enemy, field, 0);
+                        } else if (!enemy[field] || typeof enemy[field] !== 'object') {
+                            this.$set(enemy, field, {});
+                        }
+                    }
+                    return enemy;
+                },
+                // ===== 敵方抗性（種族/體型/階級/屬性）：跟裝備增傷一樣分「全」+「指定目標」，種族/屬性抗性不分物理/魔法 =====
+                enemyResistFieldMeta() {
+                    return {
+                        RaceResist: { group: 'common', kind: 'race', key: 'ui.enemy.raceresist', label: '種族抗性' },
+                        ElementResist: { group: 'common', kind: 'element', key: 'ui.enemy.elementresist', label: '屬性抗性' },
+                        // RES / MRES 是點數不是 %（unit: ''），一樣放在對應分組的第一個
+                        RES: { group: 'physical', kind: null, unit: '', key: 'ui.enemy.res', label: 'RES' },
+                        PhysicalSizeResist: { group: 'physical', kind: 'size', key: 'ui.enemy.physicalsizeresist', label: '物理體型抗性', shortKey: 'ui.enemy.sizeresist', shortLabel: '體型抗性' },
+                        PhysicalLevelResist: { group: 'physical', kind: 'level', key: 'ui.enemy.physicallevelresist', label: '物理階級抗性', shortKey: 'ui.enemy.levelresist', shortLabel: '階級抗性' },
+                        PhysicalMonsterElementResist: { group: 'physical', kind: 'element', key: 'ui.enemy.physicalmonsterelementresist', label: '物理怪物屬性抗性', shortKey: 'ui.enemy.monsterelementresist', shortLabel: '怪物屬性抗性' },
+                        // kind: null 為單一數值（沿用舊有的 rangedResist / criResist 欄位）
+                        rangedResist: { group: 'physical', kind: null, key: 'ui.enemy.rangedresist', label: '遠距抗性' },
+                        criResist: { group: 'physical', kind: null, key: 'ui.enemy.criresist', label: '暴擊抗性' },
+                        MRES: { group: 'magic', kind: null, unit: '', key: 'ui.enemy.mres', label: 'MRES' },
+                        MagicSizeResist: { group: 'magic', kind: 'size', key: 'ui.enemy.magicsizeresist', label: '魔法體型抗性', shortKey: 'ui.enemy.sizeresist', shortLabel: '體型抗性' },
+                        MagicLevelResist: { group: 'magic', kind: 'level', key: 'ui.enemy.magiclevelresist', label: '魔法階級抗性', shortKey: 'ui.enemy.levelresist', shortLabel: '階級抗性' },
+                        MagicMonsterElementResist: { group: 'magic', kind: 'element', key: 'ui.enemy.magicmonsterelementresist', label: '魔法怪物屬性抗性', shortKey: 'ui.enemy.monsterelementresist', shortLabel: '怪物屬性抗性' },
+                    };
+                },
+                enemyResistUnit(field) {
+                    const meta = this.enemyResistFieldMeta()[field];
+                    return meta && meta.unit != null ? meta.unit : '%';
+                },
+                isEnemyResistScalar(field) {
+                    const meta = this.enemyResistFieldMeta()[field];
+                    return !!meta && meta.kind === null;
+                },
+                // 抗性列的標籤：物理/魔法分組內用短標籤 + 顏色方塊（同裝備詞條欄的 effect-tag-phys / effect-tag-magic）
+                enemyResistRowLabel(field) {
+                    const meta = this.enemyResistFieldMeta()[field];
+                    if (meta && meta.shortKey) return this.t(meta.shortKey, meta.shortLabel);
+                    return this.enemyResistFieldLabel(field);
+                },
+                enemyResistTagClass(field) {
+                    const meta = this.enemyResistFieldMeta()[field];
+                    if (!meta) return '';
+                    return { physical: 'effect-tag-phys', magic: 'effect-tag-magic' }[meta.group] || '';
+                },
+                enemyResistFieldLabel(field) {
+                    const meta = this.enemyResistFieldMeta()[field];
+                    return meta ? this.t(meta.key, meta.label) : field;
+                },
+                // 回傳 [{ id, label }]，第一筆固定是「全」(id: 'all')
+                enemyResistTargetOptions(kind) {
+                    const lists = {
+                        race: [this.racetypelist, 'racetype_'],
+                        size: [this.sizetypelist, 'sizetype_'],
+                        level: [this.leveltypelist, 'leveltype_'],
+                        element: [this.elementtypelist, 'elementtype_'],
+                    };
+                    const [list, prefix] = lists[kind];
+                    return [{ id: 'all', label: this.t('ui.equip.alltarget', '全') },
+                        ...list.map(x => ({ id: String(x.id), label: this.t(prefix + x.id, x.label) }))];
+                },
+                // 摘要文字，例：全 5% / 人形 10%；沒設定顯示 0%
+                enemyResistSummary(enemy, field) {
+                    const map = (enemy && enemy[field]) || {};
+                    const parts = this.enemyResistTargetOptions(this.enemyResistFieldMeta()[field].kind)
+                        .filter(o => Number(map[o.id]))
+                        .map(o => o.label + ' ' + Number(map[o.id]) + '%');
+                    return parts.length ? parts.join(' / ') : '0%';
+                },
+                OpenEnemyResistDialog(target, field) {
+                    const map = target[field] || {};
+                    this.enemyResistDialog = {
+                        target: target,
+                        field: field,
+                        rows: this.enemyResistTargetOptions(this.enemyResistFieldMeta()[field].kind)
+                            .map(o => ({ id: o.id, label: o.label, value: Number(map[o.id]) || 0 })),
+                    };
+                    this.OpenPanel('EnemyResistDialog');
+                },
+                applyEnemyResistDialog() {
+                    const { target, field, rows } = this.enemyResistDialog;
+                    const map = {};
+                    rows.forEach(r => { if (Number(r.value)) map[r.id] = Number(r.value); });
+                    if (target) this.$set(target, field, map);
+                    this.ClosePanel('EnemyResistDialog');
+                },
+                // 取目前敵方對某個攻擊方目標的抗性：「全」+「指定目標」
+                getEnemyResist(field, targetId) {
+                    const map = this.enemyattribute[field] || {};
+                    return (Number(map.all) || 0) + (Number(map[targetId]) || 0);
+                },
+                // 攻擊方(我方玩家)的種族/體型：貓族(SUM) 為 玩家(貓族)/小型，其餘為 玩家(人類)/中型；階級固定為一般(0)
+                attackerRaceId() {
+                    return this.status.classid == 'SUM' ? 11 : 10;
+                },
+                attackerSizeId() {
+                    return this.status.classid == 'SUM' ? 0 : 1;
+                },
+                // 90%減傷 / 99%減傷 只能擇一：勾了其中一個就把另一個取消
+                onToggleEnemyReduce(enemy, key) {
+                    if (!enemy[key]) return;
+                    enemy[key === 'Reduce90' ? 'Reduce99' : 'Reduce90'] = false;
+                },
+                // 送給 worker 的減傷欄位（ATK / MATK / 龍息共用）
+                enemyReducePayload() {
+                    return {
+                        NormalAtkReduce: Number(this.enemyattribute.NormalAtkReduce) || 0,
+                        RangedNormalAtkReduce: Number(this.enemyattribute.RangedNormalAtkReduce) || 0,
+                        SkillReduce: Number(this.enemyattribute.SkillReduce) || 0,
+                        StarDefense: Number(this.enemyattribute.StarDefense) || 0,
+                        Reduce90: !!this.enemyattribute.Reduce90,
+                        Reduce99: !!this.enemyattribute.Reduce99,
+                    };
+                },
+                normalizeEnemyForm(form) {
+                    const result = _.cloneDeep(form);
+                    for (const key of this.enemyNumericFields()) {
+                        const n = Number(result[key]);
+                        result[key] = isNaN(n) ? 0 : n;
+                    }
+                    result.name = (result.name || '').trim();
+                    if (result.elementallevel < 1) result.elementallevel = 1;
+                    result.Reduce90 = !!result.Reduce90;
+                    result.Reduce99 = !!result.Reduce99 && !result.Reduce90;
+                    return result;
+                },
+                LoadEnemyDB() {
+                    if (!localStorage.getItem('StoreDB_Enemy')) return;
+                    try {
+                        const loaded = JSON.parse(localStorage.getItem('StoreDB_Enemy'));
+                        this.StoreDB_Enemy = Array.isArray(loaded) ? loaded : [];
+                    } catch (e) {
+                        console.error('❌ 加載自訂敵方失敗:', e);
+                        this.StoreDB_Enemy = [];
+                    }
+                    this.syncCustomEnemiesToList();
+                },
+                SaveEnemyDB() {
+                    localStorage.setItem('StoreDB_Enemy', JSON.stringify(this.StoreDB_Enemy));
+                    this.syncCustomEnemiesToList();
+                },
+                // 把 StoreDB_Enemy 重新插到 enemylist 中「自訂」(index 0) 後面；頭目 JSON 是非同步 push 到尾端，不受影響
+                syncCustomEnemiesToList() {
+                    const rest = this.enemylist.filter(x => !x.isCustom);
+                    const customs = this.StoreDB_Enemy.map(x => Object.assign({}, x.enemy, { id: 'custom_' + x.uuid, isCustom: true }));
+                    rest.splice(1, 0, ...customs);
+                    this.enemylist = rest;
+                },
+                OpenEditEnemyDialog() {
+                    const current = this.enemyattribute || {};
+                    const uuid = (typeof current.id === 'string' && current.id.startsWith('custom_')) ? current.id.slice(7) : '';
+                    this.EnemyEditUuid = this.StoreDB_Enemy.some(x => x.uuid === uuid) ? uuid : '';
+                    this.EnemyEditForm = _.cloneDeep(current);
+                    delete this.EnemyEditForm.id;
+                    delete this.EnemyEditForm.isCustom;
+                    // 從內建頭目開編輯時帶入目前語系的名字，方便直接改成自訂版本
+                    if (!this.EnemyEditUuid) {
+                        this.EnemyEditForm.name = (current.id === 0 || current.id == null) ? '' : this.getEnemyName(current.id, current.name);
+                    }
+                    if (this.EnemyEditForm.name == null) this.EnemyEditForm.name = '';
+                    this.fillEnemyReduceDefaults(this.EnemyEditForm);
+                    this.OpenPanel('EditEnemyDialog');
+                },
+                onEditEnemyNew() {
+                    this.EnemyEditUuid = '';
+                    this.EnemyEditForm = this.fillEnemyReduceDefaults(Object.assign(_.cloneDeep(this.enemylist[0]), { name: '' }));
+                    delete this.EnemyEditForm.id;
+                },
+                onEditEnemyPick(uuid) {
+                    const item = this.StoreDB_Enemy.find(x => x.uuid === uuid);
+                    if (!item) return;
+                    this.EnemyEditUuid = uuid;
+                    this.EnemyEditForm = this.fillEnemyReduceDefaults(_.cloneDeep(item.enemy));
+                },
+                // save=false：只套用到目前敵方；save=true：有 EnemyEditUuid 就覆蓋那筆，否則新增一筆
+                onEditEnemyConfirm(save) {
+                    const enemy = this.normalizeEnemyForm(this.EnemyEditForm);
+                    let id = 0;
+                    if (save) {
+                        if (enemy.name === '') return;
+                        const idx = this.StoreDB_Enemy.findIndex(x => x.uuid === this.EnemyEditUuid);
+                        if (idx > -1) {
+                            this.$set(this.StoreDB_Enemy, idx, Object.assign({}, this.StoreDB_Enemy[idx], { enemy: enemy, date: Date.now() }));
+                        } else {
+                            this.EnemyEditUuid = this._uuid();
+                            this.StoreDB_Enemy.unshift({ uuid: this.EnemyEditUuid, enemy: enemy, date: Date.now() });
+                        }
+                        this.SaveEnemyDB();
+                        id = 'custom_' + this.EnemyEditUuid;
+                        this.$message.success(this.t('ui.enemy.saved', '已儲存自訂敵方'));
+                    }
+                    this.onSelectEnemy(Object.assign({}, enemy, { id: id, isCustom: !!save }));
+                    this.ClosePanel('EditEnemyDialog');
+                },
+                onEditEnemySaveAsNew() {
+                    this.EnemyEditUuid = '';
+                    this.onEditEnemyConfirm(true);
+                },
+                onRemoveEnemySave(uuid) {
+                    this.$confirm(
+                        this.t('ui.enemy.deleteconfirm', '確定要刪除這筆自訂敵方嗎？'),
+                        this.t('ui.common.deletetitle', '確認刪除'),
+                        {
+                            confirmButtonText: this.t('ui.common.confirm', '確定'),
+                            cancelButtonText: this.t('ui.common.cancel', '取消'),
+                            type: 'warning'
+                        }
+                    ).then(() => {
+                        const idx = this.StoreDB_Enemy.findIndex(x => x.uuid === uuid);
+                        if (idx > -1) {
+                            this.StoreDB_Enemy.splice(idx, 1);
+                            this.SaveEnemyDB();
+                        }
+                        if (this.EnemyEditUuid === uuid) this.EnemyEditUuid = '';
+                        // 目前選中的就是被刪的那筆：數值保留，下拉改回「自訂」
+                        if (this.enemyattribute.id === 'custom_' + uuid) {
+                            this.enemyattribute = Object.assign({}, this.enemyattribute, { id: 0, isCustom: false });
+                        }
+                    }).catch(() => {});
                 },
                 async onSkillPercentChange() {
                     if (this.skill.hitnumber == '') this.skill.hitnumber = 1;
@@ -13901,7 +14435,8 @@
                             equipments: this.StoreDB_Equip,
                             skills: this.StoreDB_Skill,
                             allSets: this.StoreDB_AllSet,
-                            status: this.StoreDB_Status
+                            status: this.StoreDB_Status,
+                            enemies: this.StoreDB_Enemy
                         };
                         
                         const dataStr = JSON.stringify(allData, null, 2);
@@ -13941,6 +14476,10 @@
                         this.StoreDB_Equip = migratedData.Equip;
                         if (data.skills) this.StoreDB_Skill = data.skills;
                         if (data.allSets) this.StoreDB_AllSet = data.allSets;
+                        if (Array.isArray(data.enemies)) {
+                            this.StoreDB_Enemy = data.enemies;
+                            this.SaveEnemyDB();
+                        }
                         
                         // 保存到 localStorage
                         this.SaveEquipDB();
@@ -14362,16 +14901,19 @@
                         this.onLoadJobMapSkill();
                     }else{
                         this.JobMapedSkillId = this.skill.id;
-                        this.StoreDB_JobMapedSkill.unshift({skill:this.skill});
+                        // 複製一份，避免下拉清單那筆跟著目前技能的修改一起變
+                        this.StoreDB_JobMapedSkill.unshift({skill:_.cloneDeep(this.skill)});
                     }
                     this.skilloption = _.cloneDeep(AllsetObject.SkillOption);
                     //this.option = _.cloneDeep(AllsetObject.Option);
                     //this.CombineEquipsAttribute();
                     //this.ChangeWeapon();
                     this.enemyattribute.name = AllsetObject.EnemyName;
-                    this.enemyattribute = AllsetObject.Enemy;
+                    // 要深拷貝：直接引用的話，讀檔後在面板上改敵方會連帶改到 StoreDB_AllSet 裡那筆存檔，下次寫回 localStorage 就被覆蓋
+                    this.enemyattribute = _.cloneDeep(AllsetObject.Enemy);
                     if (this.enemyattribute.leveltype == null) this.enemyattribute.leveltype = 0;
                     if (this.enemyattribute.race == null) this.enemyattribute.race = 0;
+                    this.fillEnemyReduceDefaults(this.enemyattribute);
 
                     if(AllsetObject.Consumable != null){
                         this.StoreDB_Consumable = _.cloneDeep(AllsetObject.Consumable);
@@ -14565,6 +15107,9 @@
                     this.DefaultDB_SupportSkill.push(
                     
                     );
+
+                    // 使用者自訂敵方（插在「自訂」後面）
+                    this.LoadEnemyDB();
 
                     // 各版本專屬頭目資料（四轉服/樂園）非同步載入，載入完成後附加到 enemylist 後面
                     this.loadEnemyListFromJSON();
@@ -15724,12 +16269,10 @@
                     console.log(item);
                 },
 
+                // group 可傳單一字串或陣列（多個 group 顯示在同一欄，依陣列順序排列）
                 ConsumGroupFiltered(group) {
-                    return this.consumablelist.filter(
-                        function(row){
-                            return row.group==group;
-                        }
-                    )
+                    const groups = Array.isArray(group) ? group : [group];
+                    return groups.flatMap(g => this.consumablelist.filter(row => row.group == g));
                 },
                 IsConsumableBookmarked(id) {
                     return this.consumableBookmarks.includes(id);
@@ -15764,6 +16307,16 @@
                 },
             },
             computed: {
+                // 敵方抗性欄位的顯示順序（敵方面板與編輯敵方 dialog 共用）
+                // 敵方抗性分組（敵方面板與編輯敵方 dialog 共用）：共用在上，下面分物理 / 魔法
+                enemyResistGroups() {
+                    const meta = this.enemyResistFieldMeta();
+                    return [
+                        { id: 'common', key: 'ui.enemy.resistcommon', label: '共用抗性' },
+                        { id: 'physical', key: 'ui.enemy.resistphysical', label: '物理抗性' },
+                        { id: 'magic', key: 'ui.enemy.resistmagic', label: '魔法抗性' },
+                    ].map(g => Object.assign(g, { fields: Object.keys(meta).filter(f => meta[f].group === g.id) }));
+                },
                 // 目前是否有任一公式的 Worker API 呼叫失敗中（顯示在齒輪按鈕的紅點提示）
                 anyApiError() {
                     return Object.values(this.apiError).some(v => v);
