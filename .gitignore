@@ -15,3 +15,6 @@ yarn-error.log*
 
 # Worker 原始碼含真實算式邏輯，絕對不能上傳到這個公開 repo
 /worker/
+
+# 影片稿（只留在本機，不上傳到公開的 gh-pages）
+/docs/video/
