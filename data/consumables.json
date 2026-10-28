@@ -30,7 +30,7 @@
 
     { "id": 683, "name": "艾草", "active": false, "group": "ATKMATKUP", "MATKUP": 30 },
     { "id": 682, "name": "雄黃酒", "active": false, "group": "ATKMATKUP", "ATKUP": 30 },
-    { "id": 14601, "name": "戰神蒂爾之祝福", "active": false, "group": "ATKMATKUP", "ATKUP": 20, "MATKUP": 20 },
+    { "id": 14601, "name": "戰神蒂爾之祝福", "active": false, "group": "ATKMATKUP", "ATKUP": 20, "MATKUP": 20, "HIT":30, "FLEE":30 },
 
     { "id": 100232, "name": "紅色藥草活化液", "active": false, "group": "sp", "RangedDamagePercent": 15, "MeleeDamagePercent": 15 },
     { "id": 100233, "name": "藍色藥草活化液", "active": false, "group": "sp", "ElementalMagicPercent": 15 },
