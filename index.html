@@ -5899,7 +5899,7 @@
                                         </el-col>
                                     </el-row>
                                     <el-collapse-transition>
-                                    <div v-show="UIPanel['General']">
+                                    <div v-show="UIPanel['General']" id="general-panel">
                                         <div v-if="skill.DamageTypeIdx==0 || skill.DamageTypeIdx==3 || skill.DamageTypeIdx==4">
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
                                                 style="height:40px;">
@@ -6549,7 +6549,7 @@
                                                     <span>{{ t('CDTime','技能獨延') }}:</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="10">
-                                                    <span>{{attritube['CD']}} s</span>
+                                                    <span data-better="lower">{{attritube['CD']}} s</span>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -6558,7 +6558,7 @@
                                                     <span>{{ t('GCDPercent','技能共延') }}:</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="10">
-                                                    <span>{{attritube['GCD']}} %</span>
+                                                    <span data-better="lower">{{attritube['GCD']}} %</span>
                                                     <template v-for="row in getDetailRows('GCDPercent','all')" :key="row.key">
                                                         <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
                                                             {{ getDetailSummaryText(row) }}
@@ -7047,7 +7047,7 @@
                                                     <span>{{ t('CDTime','技能獨延') }}:</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="10">
-                                                    <span>{{attritube['CD']}} s</span>
+                                                    <span data-better="lower">{{attritube['CD']}} s</span>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -7056,7 +7056,7 @@
                                                     <span>{{ t('GCDPercent','技能共延') }}:</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="10">
-                                                    <span>{{attritube['GCD']}} %</span>
+                                                    <span data-better="lower">{{attritube['GCD']}} %</span>
                                                     <template v-for="row in getDetailRows('GCDPercent','all')" :key="row.key">
                                                         <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
                                                             {{ getDetailSummaryText(row) }}
@@ -7122,7 +7122,7 @@
                                                     <span>{{ t('CDTime','技能獨延') }}:</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="10">
-                                                    <span>{{attritube['CD']}} s</span>
+                                                    <span data-better="lower">{{attritube['CD']}} s</span>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="statusbox" type="flex" align="middle" justify="space-around"
@@ -7131,7 +7131,7 @@
                                                     <span>{{ t('GCDPercent','技能共延') }}:</span>
                                                 </el-col>
                                                 <el-col class="textcenter" :span="10">
-                                                    <span>{{attritube['GCD']}} %</span>
+                                                    <span data-better="lower">{{attritube['GCD']}} %</span>
                                                     <template v-for="row in getDetailRows('GCDPercent','all')" :key="row.key">
                                                         <span v-if="hasDetailSources(row)" class="detail-summary" v-on:click="ToggleDetailBreakdown(row.key)">
                                                             {{ getDetailSummaryText(row) }}
@@ -7574,6 +7574,8 @@
     <script src="js/aspd_calculator.js"></script>
     <script src="js/formula_interpreter.js"></script>
     <script src="js/ai_equip_parser.js?v=32"></script>
+    <script src="js/stat_change_flash.js?v=4"></script>
+    <script src="js/quick_compare.js?v=1"></script>
     <script src="js/lua_table_parser.js?v=2"></script>
     <script src="js/skill_tree_data.js?v=3"></script>
     <script src="js/skill_tree_view.js?v=7"></script>
@@ -9763,6 +9765,8 @@
                     }
                 },
                 EnableEffect(eqindex, index){
+                    // 裝備效果勾選框開關後，「一般」面板受影響的數值閃綠（變好）／閃紅（變差）
+                    if (window.StatChangeFlash) window.StatChangeFlash.begin();
                     this.CombineEquipsAttribute();
                 },
                 // 把「目前正在編輯哪個部位」的底層資料（EquipSelectId/EquipSelectLabel/PreviewETL...）
@@ -9933,6 +9937,8 @@
                     this.ClosePanel('EditEquipDialog');
                 },
                 onEditEquipConfirm( save ){
+                    // 資料還沒改之前先拍數值快照，算完後有變動的數字增加閃綠、降低閃紅
+                    if (window.StatChangeFlash) window.StatChangeFlash.begin();
                     this.equipspartlist[this.EquipSelectId].equipname = this.PreviewEN;
 
                     var _oldenablemap=[];
@@ -14157,9 +14163,14 @@
                     this.$nextTick(() => {
                         const el = document.getElementById('equip-anchor-' + partId);
                         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        el.classList.remove('equip-jump-flash');
+                        el.classList.add('equip-jump-flash');
+                        clearTimeout(el._equipFlashTimer);
+                        el._equipFlashTimer = setTimeout(() => el.classList.remove('equip-jump-flash'), 1700);
                     });
                 },
                 onLoadEquipSave(uuid) {
+                    if (window.StatChangeFlash) window.StatChangeFlash.begin();
                     var _dbidx = this.StoreDB_Equip.findIndex(x => x.uuid == uuid);
                     var idx = this.equipspartlist.findIndex(x => x.id == this.StoreDB_Equip[_dbidx].equip.id);
                     if (idx > -1) {

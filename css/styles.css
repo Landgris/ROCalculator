@@ -1475,3 +1475,59 @@ body.el-popup-parent--hidden {
     line-height: 1.4;
     word-break: break-all;
 }
+
+/* 快速跳轉裝備格後，整個方塊背景閃爍提示。
+   用 ::after 疊一層半透明色塊閃 opacity，而不是直接動 background-color：
+   裝備格本身有 bg-purple / bg-purple-light 背景（亮暗模式各不同），疊色層才能在閃完後
+   完整回到原本的背景，也不用知道原本是什麼顏色。pointer-events:none 不擋點擊。 */
+@keyframes equip-jump-flash {
+    0%, 50%, 100% { opacity: 0; }
+    15%, 65%      { opacity: 1; }
+}
+.equip-jump-flash {
+    position: relative;
+}
+/* 裝備編輯確認／載入裝備／效果開關後，「一般」面板數值變好閃綠、變差閃紅（js/stat_change_flash.js）。
+   閃的是數值所在的整列（.statusbox）。列裡的標籤欄有自己的 bg-purple-light 背景，
+   所以跟 equip-jump-flash 一樣用 ::after 疊一層色塊調 opacity，結束後完整回到原本背景。
+   不閃爍：一開始就亮、持續亮 4s，最後快速淡出。 */
+@keyframes stat-flash-blink {
+    0%       { opacity: 1; }
+    92%      { opacity: 1; }
+    100%     { opacity: 0; }
+}
+.stat-flash-up,
+.stat-flash-down {
+    position: relative;
+}
+.stat-flash-up::after,
+.stat-flash-down::after {
+    content: '';
+    /* 面板的列是 el-row type="flex"，Element UI 用 .el-row--flex::after { display:none } 關掉它的
+       clearfix 偽元素——不強制 display 的話這層色塊根本不會出現（動畫也不會跑） */
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    animation: stat-flash-blink 4s ease-in-out;
+}
+.stat-flash-up::after {
+    background: rgba(103, 194, 58, 0.45);
+}
+.stat-flash-down::after {
+    background: rgba(245, 108, 108, 0.45);
+}
+
+.equip-jump-flash::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: rgba(64, 158, 255, 0.35);
+    pointer-events: none;
+    opacity: 0;
+    animation: equip-jump-flash 1.6s ease-in-out;
+}
+
