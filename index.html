@@ -1933,6 +1933,7 @@
             v-on:apply="onAiParserApply"
             v-on:apply-skill="onAiParserApplySkill"
             v-on:change-part="onAiParserChangePart"
+            v-on:apply-done="onAiParserApplyDone"
             v-on:apply-weapon-base="onAiParserApplyWeaponBase">
         </ai-equip-parser-dialog>
 
@@ -4569,7 +4570,7 @@
                             <span class="textcenter">{{ t('ui.equip.title', '裝備') }}</span>
                         </el-col>
                         <el-col class="textcenter" :span="16" style="text-align: right;">
-                            <el-button v-on:click="UIPanel['AiEquipParserDialog'] = true" size="mini" type="primary" plain>
+                            <el-button v-on:click="OpenAiParserFromMain" size="mini" type="primary" plain>
                                 {{ t('ui.equip.aiparse', 'AI解析') }}
                             </el-button>
                             <el-button v-on:click="onOpenEquipDB" size="mini">
@@ -7572,7 +7573,7 @@
 
     <script src="js/aspd_calculator.js"></script>
     <script src="js/formula_interpreter.js"></script>
-    <script src="js/ai_equip_parser.js?v=27"></script>
+    <script src="js/ai_equip_parser.js?v=32"></script>
     <script src="js/lua_table_parser.js?v=2"></script>
     <script src="js/skill_tree_data.js?v=3"></script>
     <script src="js/skill_tree_view.js?v=7"></script>
@@ -9823,6 +9824,23 @@
                 // dialog（後開的疊在上面），使用者會以為AI解析視窗自動被關掉了。
                 onAiParserChangePart(eqindex) {
                     this.syncEditEquipData(eqindex);
+                },
+                // 從主畫面裝備標題的「AI解析」按鈕開啟：這時沒有開著的裝備編輯dialog，PreviewETL 可能是
+                // 上次編輯殘留的舊資料，若已有選定部位就先依該部位目前的實際效果重新同步一次。
+                OpenAiParserFromMain() {
+                    if (this.EquipSelectId !== '' && this.equipspartlist[this.EquipSelectId]) {
+                        this.syncEditEquipData(this.EquipSelectId);
+                    }
+                    this.UIPanel['AiEquipParserDialog'] = true;
+                },
+                // AI解析的 apply/apply-skill 只會寫進 PreviewETL（裝備編輯器的暫存），平常要靠裝備編輯dialog
+                // 的「確定」才會寫回部位。從主畫面直接開AI解析時編輯dialog根本沒開，所以這裡直接代為確定，
+                // 把結果寫進目前選定的部位；編輯dialog有開著的話維持原樣，讓使用者在編輯器裡再確認。
+                onAiParserApplyDone(eqindex) {
+                    if (this.UIPanel['EditEquipDialog']) return;
+                    if (eqindex === '' || eqindex === null || eqindex === undefined || !this.equipspartlist[eqindex]) return;
+                    this.onEditEquipConfirm(false);
+                    this.$message.success('已套用到 ' + this.EquipSelectLabel);
                 },
                 CloseEditEquipDialogue() {
                     this.EquipSelectId = '';

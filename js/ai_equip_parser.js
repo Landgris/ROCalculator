@@ -11,7 +11,13 @@
  * 完全不呼叫任何 API、不存任何金鑰——純粹是「產生提詞」+「解析使用者貼回來的
  * JSON」兩段本機邏輯。
  *
- * 每個「條件區塊」可以整塊勾選/取消（而不是每條效果分開勾），也能個別修正數值，
+ * 解析方向是「效果優先」：AI先把說明文字裡每一條效果都找出來，條件相同的效果放成一個區塊，
+ * 再把該區塊成立需要的所有條件列成標籤（conditions:[{type,text,min}]）——條件只是給使用者看的
+ * 標籤，不管多複雜、AI分不出類型（type:'other'）都不會讓效果消失；計算機沒有對應詞條的效果
+ * 也會以 {id:null,text} 保留成唯讀的「無對應詞條」項目。只有「這件裝備自己的精鍊門檻」
+ * （type:'refine' 帶 min）程式會自動判斷勾選，其餘條件一律預設不勾、由使用者自己勾。
+ *
+ * 每個區塊可以整塊勾選/取消（而不是每條效果分開勾），也能個別修正數值，
  * 按套用後只會把「有勾選的區塊」加總寫回裝備編輯器。
  *
  * 不改動 equipspartlist/effectlist 的資料結構：最終套用出去的還是跟手動新增效果
@@ -76,6 +82,24 @@
     // 可能被「種族」或「階級」其中一種targetId指定（兩種分類共用同一個id），所以用id查不出唯一
     // 分類，只能列出「這個id可能屬於哪些分類」，實際是哪一種要等targetId猜出來後才知道
     // （見 getCategoryFromTargetId：直接看targetId本身的前綴，不是看id）。
+    // 不屬於上面 atk/matk 成對結構、但一樣用 'element:' targetId 指定單一屬性的 id：
+    // ElementalMagicPercent（屬性魔法%：「風屬性魔法傷害+X%」＝自己施放的該屬性魔法增傷，看的是
+    // 技能屬性，不是怪物屬性）、ElementDamageDealtIncreasedPercent（屬性耐性減少%）。
+    // 計算機主程式本來就支援它們帶 element targetId（見 index.html getDetailRows 的 targetKind:'element'）。
+    var EXTRA_CATEGORY_IDS = {
+        ElementalMagicPercent: 'element',
+        ElementDamageDealtIncreasedPercent: 'element',
+    };
+
+    // AI給的種族/體型/階級/屬性名稱常常跟計算機選單的寫法不同（BOSS vs 首領、闇 vs 暗、英文說明…），
+    // 比對前先把這些別名換成選單上的正式名稱（不分大小寫、長的別名優先替換，避免 human 先吃掉 demi-human）。
+    var CATEGORY_ALIASES = {
+        level: { 'boss': '首領', 'mvp': '首領', '頭目': '首領', '王': '首領', '普通': '一般', 'normal': '一般' },
+        element: { '闇': '暗', 'neutral': '無', 'fire': '火', 'water': '水', 'wind': '風', 'earth': '地', 'poison': '毒', 'holy': '聖', 'shadow': '暗', 'dark': '暗', 'ghost': '念', 'undead': '不死' },
+        race: { '魚類': '魚貝', 'fish': '魚貝', 'formless': '無形', 'undead': '不死', 'brute': '動物', 'animal': '動物', 'plant': '植物', 'insect': '昆蟲', 'demon': '惡魔', 'demi-human': '人形', 'demihuman': '人形', 'demi human': '人形', 'angel': '天使', 'dragon': '龍族' },
+        size: { 'small': '小型', 'medium': '中型', 'large': '大型' },
+    };
+
     var MULTI_TARGET_CATEGORIES = {
         BypassDEFPercent: ['race', 'level'],
         BypassMDEFPercent: ['race', 'level'],
@@ -87,6 +111,10 @@
     // 不管對話框開了幾次、從裝備編輯頁的按鈕開還是從主畫面裝備區塊的按鈕開，同一個部位之前存過的內容
     // 都還在。只存這兩段文字（不存解析出來的groups）；重新整理頁面就會消失，只是「暫時」不是永久保存。
     var partDraftStore = {};
+
+    // AI回覆裡每個區塊 conditions[].type 的合法值（見 buildPrompt）。只有 'refine'（這件裝備自己的
+    // 精鍊門檻，帶 min）會被程式自動判斷勾選，其餘全部只是顯示用的標籤，由使用者自己勾。
+    var CONDITION_TYPES = ['refine', 'set', 'grade', 'job', 'stat', 'refineOther', 'other'];
 
     Vue.component('ai-equip-parser-dialog', {
         props: {
@@ -188,7 +216,7 @@
                 var order = [];
                 this.groups.filter(function (g) { return g.checked; }).forEach(function (g) {
                     g.effects.forEach(function (e) {
-                        if (e.targeted) return;
+                        if (e.targeted || e.unmapped) return;
                         if (sums[e.id] === undefined) { sums[e.id] = 0; order.push(e); }
                         sums[e.id] += self.effectiveValue(e, g);
                     });
@@ -232,6 +260,13 @@
             },
         },
         watch: {
+            // 精鍊一改，只有條件全是「自身精鍊門檻」、而且使用者沒手動點過的區塊會自動重新判斷勾選。
+            refineLevel: function () {
+                var self = this;
+                this.groups.forEach(function (g) {
+                    if (g.autoCheck && !g.manual) g.checked = self.conditionsMet(g);
+                });
+            },
             // 部位切換（下拉選單改選，或直接在主畫面點別的部位「編輯」）：把新部位之前「按過解析回覆」
             // 時存過的內容（沒解析過就是空字串）帶回輸入框。存的時機是 parseReply()（步驟3按下「解析回覆」
             // 那一刻），不是切部位當下——這裡只負責讀，不負責存，避免把還沒按解析、可能打到一半的文字
@@ -266,53 +301,66 @@
                 });
                 return [
                     '你是仙境傳說(Ragnarok Online)裝備數值解析助手。',
-                    '以下是一件裝備的英文或中文說明文字，裡面常常混雜好幾種不同條件的效果，例如：',
-                    '(a) 一直都生效的基礎效果',
-                    '(b) 精鍊等級相關效果（可能是「每+N就多一次」的重複規則，也可能是「精鍊到第N階」的固定門檻，這些會跟更低門檻的效果累加）',
-                    '(c) 角色自身數值門檻條件（例如「特性素質A、B總和達到多少以上」）',
-                    '(d) 搭配某個「指定裝備名稱」時才生效的套裝效果',
-                    '(e) 依裝備自身「階級/等級」（例如常見的 [D階級][C階級][B階級][A階級] 分類）追加的效果，通常這種下面每個階級各自列一段',
-                    '(f) 依裝備者角色本身的「職業/職業系列」條件（例如「裝備者為妖術師系列時」「裝備者為咒術士系列時」）追加的效果——注意這是角色的職業，跟 (e) 裝備自身的階級是不同的東西，不要混在一起',
-                    '(g) 依照「其他部位」（不是這件裝備本身）的精鍊等級計算的效果——可能是單一其他部位（例如編輯的是衣服，但效果寫「披肩精鍊每+2...」），也可能是好幾個部位精鍊合計（例如「披肩、鎧甲精鍊合計每+6...」）。這種精鍊指的不是這件裝備自己的精鍊，是玩家身上「別的」裝備的精鍊，跟 (b) 不一樣，不要混在一起。',
+                    '以下是一件裝備的英文或中文說明文字。請用「效果優先」的方式解析：先把說明文字裡「每一條效果」都找出來，再替每條效果標記它成立需要的條件。',
+                    '重點：條件只是「標籤」，不管條件多複雜、多少層、你看不看得懂，效果都一定要列出來，絕對不可以因為條件判斷不了就把效果丟掉，也不要把條件不同的效果合併在一起。使用者會自己看條件決定要不要勾選。',
                     '',
-                    '請把說明文字拆成多個「條件區塊」，規則如下：',
-                    '- (a) 跟 (b)（這件裝備自己的精鍊）一定要合併成同一個區塊，名稱固定叫「固定效果」（不要在名稱裡寫精鍊數字，因為使用者之後可能會調整精鍊）。這個區塊永遠只會有一個。',
-                    '- 這個區塊裡每一條效果，依精鍊相關的規則型態分兩種處理方式（同一區塊內不同效果可以各自用不同方式）：',
-                    '  1) 如果是「每 +N 精鍊，效果 +M」這種規律遞增（例如「每+3精鍊，OO傷害+4%」代表精鍊值除以N取整數的商數再乘以M），不要自己先算好最終數字，而是輸出 {"id":..., "value": 這條效果跟精鍊規律無關的固定部分（沒有就填0）, "refineInterval": N, "refineStep": M}，讓使用者之後可以自己調整精鍊重新計算，不用重新問一次。',
-                    '  2) 如果精鍊條件是不規則的門檻表（例如精鍊7才+3%、精鍊9才+5%，級距或增量不固定），才需要你依照目前指定的「精鍊 +' + this.refineLevel + '」計算出這條效果累加後的最終數字，正常輸出 {"id":..., "value": 最終數字}（不要加 refineInterval/refineStep 欄位）。',
-                    '- (c)(d)(e)(f)(g) 每一種不同的條件各自獨立成一個區塊（例如每個不同的「搭配XX裝備」是一個區塊、每個不同的階級是一個區塊、每個不同的數值門檻條件是一個區塊、每個不同的職業條件也是一個區塊、每種不同的「其他部位精鍊依據」也是一個區塊），區塊名稱請直接沿用說明文字裡的條件描述（例如「搭配「守護精靈神盾」」「[D階級]」「特性素質SPL、WIS總和150以上」「裝備者為妖術師系列」「披肩精鍊」「披肩、鎧甲精鍊合計」）。同一件裝備裡如果同時出現好幾種不同類型的條件，彼此獨立、互不合併，各自維持自己的區塊。',
-                    '- (g) 區塊內如果是「每+N精鍊，效果+M」規律，一樣要輸出 refineInterval/refineStep（不要自己先猜一個精鍊值算好），因為這個精鍊是「其他部位」的精鍊，使用者會自己在這個區塊輸入他實際的數字，跟最上面「固定效果」用的精鍊是分開的兩個數字。',
-                    '- (g) 區塊還要在區塊物件裡額外加一個 "refineParts" 欄位：一個字串陣列，列出這個效果依據哪個/哪些部位的精鍊（用說明文字裡的部位名稱，例如裝備部位常見的「頭飾」「衣服」「披肩」「鞋子」「飾品」等）。只依賴單一部位就填一個元素，例如 ["披肩"]；好幾個部位精鍊合計（例如「披肩、鎧甲精鍊合計」）就把每個部位都列出來，例如 ["披肩","鎧甲"]——使用者會看到你列的每個部位各自出現一個輸入框，自己填各部位實際的精鍊，程式會自動加總後才代入公式，你不用自己猜算合計。',
-                    '- 如果某個區塊內部也有精鍊相關的敘述（例如「[D階級] 鞋子精鍊每+2...」，且明確是這件裝備自己的精鍊），一樣用「精鍊 +' + this.refineLevel + '」去計算該區塊內的累加結果。',
-                    '- 特別注意：如果 (c)(d)(e)(f) 的某個條件本身還「額外」依賴精鍊門檻才會生效（例如「搭配「A」」一直有基礎效果，但另外寫「搭配「A」時，若精鍊+10以上，再額外增加XX」；門檻可能是該裝備自身精鍊，也可能是搭配套裝的合計精鍊），這個「條件+精鍊門檻」的額外效果要獨立成第三個區塊，不能合併進單純的「搭配A」區塊，也不能合併進最上面的「固定效果」區塊——因為使用者要同時滿足「有搭配A」跟「精鍊真的達到那個門檻」兩件事才成立。這種區塊名稱請包含門檻資訊，例如「搭配「A」+精鍊10以上」。',
+                    '輸出規則：',
+                    '- 依照說明文字由上到下的順序，輸出一個個「效果區塊」。一個區塊 = 一組「條件完全相同」的效果。同一句話裡多個效果條件相同就放同一區塊；條件只要有一點不同（門檻數字不同、搭配的裝備不同、階級不同…）就要拆成不同區塊。',
+                    '- 每個區塊的 "source" 填這個區塊對應的說明文字原文（照抄原句、保留原文語言），讓使用者對照。',
+                    '- 每個區塊的 "conditions" 是陣列，列出這個區塊成立需要「同時」滿足的所有條件。沒有任何條件（裝備上就一直生效）就給空陣列 []。',
+                    '- 條件是巢狀的也要全部展開列出：例如在「[D階級]」標題底下的「精鍊+9以上時…」，conditions 要同時列出 [D階級] 跟 精鍊9以上 兩個條件；例如「搭配「A」時，若精鍊+10以上，再增加…」要同時列出「搭配A」跟「精鍊10以上」。',
+                    '- 每個條件是物件 {"type": 類型, "text": "給使用者看的簡短條件描述（沿用原文用語）"}，type 只能是下面其中一個：',
+                    '  "refine"：這件裝備「自己」的精鍊達到某個門檻（例如「精鍊+7以上」「精鍊達到+9時」）。這種必須額外加 "min": 門檻數字（整數）。',
+                    '  "set"：搭配某件指定裝備/卡片才生效（套裝效果）。',
+                    '  "grade"：依「裝備自身」的階級，例如 [D階級][C階級][B階級][A階級]。',
+                    '  "job"：依「裝備者角色」的職業/職業系列，例如「裝備者為妖術師系列時」。（注意跟 grade 不同：grade 是裝備的階級，job 是角色的職業）',
+                    '  "stat"：角色自身數值門檻，例如「基本STR 120以上」「特性素質SPL、WIS總和150以上」「Base Lv 達到…」。',
+                    '  "refineOther"：「其他部位」（不是這件裝備本身）的精鍊門檻，例如「披肩精鍊+9以上」「披肩、鎧甲精鍊合計+18以上」。',
+                    '  "other"：任何不屬於上面類型、或你不確定是哪一類的條件（例如學會某技能時、使用某技能後一段時間內、特定地圖…）。不確定就用 other，text 寫清楚原文條件即可。',
                     '',
-                    '只能使用下面清單裡的 id，不能自己發明新的 id；清單裡每個項目的 opersymbol 是這個欄位在畫面上顯示的正負號慣例：',
+                    '效果數值規則：',
+                    '- 「每 +N 精鍊，效果 +M」這種規律遞增（例如「每精鍊+3，OO傷害+4%」），不要自己代入精鍊算好最終數字，而是輸出 {"id":..., "value": 跟精鍊規律無關的固定部分（沒有就填0）, "refineInterval": N, "refineStep": M}，程式會依使用者輸入的精鍊即時計算。這種「每+N」本身不算條件，不要因此另外加 refine 條件。',
+                    '- 如果「每 +N 精鍊」指的是「其他部位」的精鍊（例如編輯的是衣服，但寫「披肩精鍊每+2…」或「披肩、鎧甲精鍊合計每+6…」），一樣輸出 refineInterval/refineStep，並在「區塊」物件上額外加 "refineParts": 部位名稱字串陣列（例如 ["披肩"] 或 ["披肩","鎧甲"]）。依據這件裝備自己精鍊的就不要加 refineParts。',
+                    '- 「精鍊+7時+3%、精鍊+9時再+2%」這種門檻：每個門檻各自是一個區塊，各自帶 {"type":"refine","min":門檻} 條件，value 只填該門檻那一句「自己寫的數字」，不要幫忙跟其他門檻累加（程式會把所有達到門檻的區塊自動加總）。',
+                    '- 百分比欄位請填數字本身（例如7%要填7，不要填0.07）。',
+                    '',
+                    '詞條 id：每條效果盡量對應到下面清單裡的 id，不能自己發明新的 id。清單裡每個項目的 opersymbol 是這個欄位在畫面上顯示的正負號慣例：',
                     'opersymbol 為 "-" 代表這個欄位平常語意是「減少/縮短」某個量（例如可變詠唱時間、攻擊後硬直%、CD、固定詠唱時間都是這種）。',
                     '如果裝備效果是「縮短/減少」該數值，請填正數；如果裝備效果反而是「拉長/增加」該數值（等於是懲罰、負面效果），請填負數。',
                     'opersymbol 為 "+" 的欄位則相反：正常增益填正數，若是懲罰、負面效果則填負數。',
                     '',
                     JSON.stringify(typeList),
                     '',
+                    '清單裡找不到對應 id 的效果（例如攻擊距離、機率自動施放技能、移動速度…）仍然要列出來，不要忽略：輸出 {"id": null, "text": "該效果的原文"}，放在它所屬的區塊裡（條件照樣標記），使用者會看到這條效果，但知道它無法自動套用。',
+                    '',
                     '特別規則：「SkillDamagePercent」（技能增傷 %）和「CDTime」（技能獨延）這兩個 id，計算機這邊沒有把完整的技能清單給你，所以你不需要、也不應該猜測或編造技能的內部代碼。',
-                    '如果說明文字裡這兩種效果是指定「某一個特定技能」才生效（例如「毀滅彗星的傷害+7%」「××技能冷卻時間-20秒」），除了照常填 id 和 value，另外加一個 "skillName" 欄位，內容是說明文字裡寫的技能原始名稱（保留原文語言、不要翻譯，例如「毀滅彗星」）；如果是「所有技能」都適用、沒有指定特定技能，則不要加 skillName 欄位。',
+                    '如果說明文字裡這兩種效果是指定「某一個特定技能」才生效（例如「毀滅彗星的傷害+7%」「××技能冷卻時間-20秒」），除了照常填 id 和 value，另外加一個 "skillName" 欄位，內容是說明文字裡寫的技能原始名稱（保留原文語言、不要翻譯）；如果是「所有技能」都適用，則不要加 skillName 欄位。同一條效果同時指定好幾個技能時，每個技能各自拆成一筆效果（id、value 相同，skillName 各填一個）。',
                     '',
-                    '特別規則：「對全種族/全體型/全屬性/全階級（或特定怪物）對象的傷害」這種依對象分類的加成，清單裡「物理」跟「魔法」是兩個完全獨立的 id，不是同一個東西：種族用 RaceAtkPercent（物理）/RaceMatkPercent（魔法），體型用 SizeAtkPercent（物理）/SizeMatkPercent（魔法），屬性用 ElementalAtkPercent（物理）/ElementalMatkPercent（魔法），階級用 LevelAtkPercent（物理）/LevelMatkPercent（魔法），特定怪物用 MonsterAtkPercent（物理）/MonsterMatkPercent（魔法）。',
-                    '如果說明文字寫的是「物理和魔法傷害都+X%」（兩種傷害同時都有），請把物理跟魔法兩個 id 都輸出，各自一筆；如果兩者數值不同，各自填各自寫的數字；如果文字只提到其中一種（只講物理或只講魔法），就只輸出對應的那一個 id，不要自己多加另一個。',
-                    '這幾組 id 計算機這邊也沒有把完整的種族/體型/階級/屬性清單給你：如果說明文字指定的是「特定」種族/體型/階級/屬性才生效（例如「對惡魔種族傷害+10%」「對中型怪物傷害+15%」「對BOSS級怪物傷害+20%」「對火屬性怪物傷害+8%」），除了照常填 id 和 value，另外加一個 "targetName" 欄位，內容是說明文字裡寫的種族/體型/階級/屬性原始名稱（保留原文，例如「惡魔」「中型」「BOSS」「火」），不要猜測或編造內部代碼。如果文字寫的是「全部」種族/體型/階級/屬性都適用（沒有指定特定的），則不要加 targetName 欄位。',
-                    '如果同一條效果同時指定好幾個特定目標（例如「對中、大型對象的魔法傷害+30%」同時指定中型跟大型；「對惡魔、不死種族傷害+X%」同時指定兩種種族），請把每個目標各自拆成一筆獨立的效果（id 和 value 都一樣，targetName 各自填一個目標名稱），不要把好幾個名稱塞在同一個 targetName 裡——計算機這裡一筆效果只能對應一個目標，你負責拆開，不要留給使用者自己拆。',
+                    '特別規則：「對全種族/全體型/全屬性/全階級（或特定怪物）對象的傷害」這種依對象分類的加成，清單裡「物理」跟「魔法」是兩個完全獨立的 id：種族用 RaceAtkPercent（物理）/RaceMatkPercent（魔法），體型用 SizeAtkPercent（物理）/SizeMatkPercent（魔法），屬性用 ElementalAtkPercent（物理）/ElementalMatkPercent（魔法），階級用 LevelAtkPercent（物理）/LevelMatkPercent（魔法），特定怪物用 MonsterAtkPercent（物理）/MonsterMatkPercent（魔法）。',
+                    '如果說明文字寫的是「物理和魔法傷害都+X%」，請把物理跟魔法兩個 id 都輸出，各自一筆；如果文字只提到其中一種，就只輸出對應的那一個 id。',
+                    '如果說明文字指定的是「特定」種族/體型/階級/屬性才生效（例如「對惡魔種族傷害+10%」「對中型怪物傷害+15%」「對BOSS級怪物傷害+20%」「對火屬性怪物傷害+8%」），除了照常填 id 和 value，另外加一個 "targetName" 欄位，內容是原文寫的種族/體型/階級/屬性名稱（例如「惡魔」「中型」「BOSS」「火」），不要猜測或編造內部代碼。如果是「全部」種族/體型/階級/屬性都適用，則不要加 targetName。',
+                    '同一條效果同時指定好幾個特定目標（例如「對中、大型對象的魔法傷害+30%」），請把每個目標各自拆成一筆效果（id、value 相同，targetName 各填一個）。',
+                    '注意：「對某種族/體型/屬性/階級的怪物」是效果的「對象」，用 targetName 表示，不是條件，不要放進 conditions。',
                     '',
-                    '特別規則：「BypassDEFPercent」（無視物理防禦%）和「BypassMDEFPercent」（無視魔法防禦%）這兩個 id，效果通常是對「全部」目標都適用，但也可能只對「特定種族」或「特定階級（例如BOSS/首領級、一般怪）」才無視防禦（例如「對惡魔無視防禦+20%」「對首領級怪物無視防禦+15%」）。如果文字明確指定是對某個特定種族或特定階級才生效，除了照常填 id 和 value，一樣加一個 "targetName" 欄位，內容填該種族或該階級的原始名稱（例如「惡魔」「首領」）；如果是對所有目標都適用（沒有指定特定種族或階級），則不要加 targetName 欄位。這兩個id每一筆只會是「種族」或「階級」其中一種，不會同時是兩種。',
+                    '特別規則（屬性相關，務必分清楚）：「XX屬性魔法傷害+N%」（例如「風屬性魔法傷害+10%」「風/念屬性魔法傷害+8%」）指的是「自己施放的該屬性魔法」增傷，看的是技能本身的屬性，請用 ElementalMagicPercent；「對XX屬性對象的魔法傷害+N%」（有「對…對象/敵人/怪物」字樣）指的是打「該屬性的怪物」，才用 ElementalMatkPercent（物理版是 ElementalAtkPercent）。',
+                    'ElementalMagicPercent 也要依屬性加 targetName：指定特定屬性時 targetName 填屬性名稱（例如「風」「念」）；寫好幾個屬性（例如「風/念屬性魔法傷害+8%」）就每個屬性各拆一筆（id、value 相同，targetName 各填一個）；只有寫「全屬性魔法傷害」這種所有屬性都適用時才不加 targetName。',
+                    '「屬性耐性減少」(ElementDamageDealtIncreasedPercent) 若指定特定屬性，同樣加 targetName 填屬性名稱。',
                     '',
-                    '特別規則（容易混淆，務必分清楚）：「BypassDEFPercent/BypassMDEFPercent」（無視物理/魔法「防禦」，也就是傳統的DEF/MDEF）跟「BypassRESPercent/BypassMRESPercent」（無視「RES/MRES」）是完全不同的兩組數值，不是同義詞：',
-                    '- 說明文字裡只要出現「防禦」「DEF」「MDEF」字樣（例如「無視防禦」「無視魔法防禦」「無視全階級的魔法防禦」），一律對應 BypassDEFPercent（物理）或 BypassMDEFPercent（魔法），不可以對應成 BypassRESPercent/BypassMRESPercent。',
+                    '特別規則：「BypassDEFPercent」（無視物理防禦%）和「BypassMDEFPercent」（無視魔法防禦%）通常對「全部」目標都適用，但也可能只對「特定種族」或「特定階級（例如BOSS/首領級、一般怪）」才無視防禦。如果明確指定特定種族或特定階級，加 "targetName" 填該種族或階級的原始名稱（例如「惡魔」「首領」）；對所有目標都適用就不要加 targetName。',
+                    '',
+                    '特別規則（容易混淆，務必分清楚）：「BypassDEFPercent/BypassMDEFPercent」（無視物理/魔法「防禦」，也就是傳統的DEF/MDEF）跟「BypassRESPercent/BypassMRESPercent」（無視「RES/MRES」）是完全不同的兩組數值：',
+                    '- 說明文字裡只要出現「防禦」「DEF」「MDEF」字樣（例如「無視防禦」「無視魔法防禦」），一律對應 BypassDEFPercent（物理）或 BypassMDEFPercent（魔法）。',
                     '- 只有說明文字明確寫出「RES」或「MRES」這個縮寫字樣本身時，才對應 BypassRESPercent/BypassMRESPercent。',
-                    '- 「全階級」「所有階級」「不分階級」這種寫法代表「一般怪+首領/BOSS怪都適用」，屬於「對全部階級都適用」，不要加 targetName、也不要因為提到「階級」兩個字就誤以為一定要指定特定階級。',
+                    '- 「全階級」「所有階級」「不分階級」代表一般怪+首領/BOSS怪都適用，不要加 targetName。',
                     '',
-                    '找不到對應 id 的效果（例如攻擊距離、位移、機率觸發技能、冷卻時間秒數這種清單沒有的東西）請直接忽略，不要放進結果，也不用解釋。',
-                    '數值為0或該區塊沒提到的效果不要放進該區塊。百分比欄位請填數字本身（例如7%要填7，不要填0.07）。',
-                    '',
-                    '只回傳一個 JSON 物件，不要有任何說明文字、不要用 ```json 這種標記包起來，格式如下：',
-                    '{"groups": [{"name": "區塊名稱", "refineParts": "只有(g)類型（依據其他部位精鍊）才需要，內容是部位名稱字串陣列，其餘不要加", "effects": [{"id": "清單裡的id", "value": 數字, "refineInterval": "只有規律遞增的精鍊效果才需要，其餘不要加", "refineStep": "只有規律遞增的精鍊效果才需要，其餘不要加", "skillName": "只有 SkillDamagePercent/CDTime 且指定特定技能時才需要，其餘不要加這個欄位", "targetName": "只有指定特定種族/體型/階級/屬性時才需要，其餘不要加這個欄位"}]}]}',
+                    '只回傳一個 JSON 物件，不要有任何說明文字、不要用 ```json 這種標記包起來。格式範例（用不到的選填欄位不要輸出；範例中的 "..." 要換成清單裡正確的 id）：',
+                    '{"blocks": [',
+                    '  {"source": "ATK+10%。", "conditions": [], "effects": [{"id": "AtkPercent", "value": 10}]},',
+                    '  {"source": "每精鍊+2，ATK+5。", "conditions": [], "effects": [{"id": "Atk", "value": 0, "refineInterval": 2, "refineStep": 5}]},',
+                    '  {"source": "精鍊+9以上時，遠距離物理傷害+5%。", "conditions": [{"type": "refine", "min": 9, "text": "精鍊+9以上"}], "effects": [{"id": "...", "value": 5}]},',
+                    '  {"source": "[C階級] 搭配「某某披肩」時，物理攻擊時有機率發動XX，對惡魔種族的物理傷害+10%。", "conditions": [{"type": "grade", "text": "[C階級]"}, {"type": "set", "text": "搭配「某某披肩」"}], "effects": [{"id": null, "text": "物理攻擊時有機率發動XX"}, {"id": "RaceAtkPercent", "value": 10, "targetName": "惡魔"}]},',
+                    '  {"source": "披肩精鍊每+2，ASPD+1%。", "refineParts": ["披肩"], "conditions": [], "effects": [{"id": "...", "value": 0, "refineInterval": 2, "refineStep": 1}]}',
+                    ']}',
                 ].join('\n');
             },
             // SkillDamagePercent（技能增傷%）/CDTime（技能獨延）這兩個id在計算機裡是「所有技能」跟
@@ -328,7 +376,7 @@
                 for (var key in TARGET_CATEGORIES) {
                     if (TARGET_CATEGORIES[key].atk === id || TARGET_CATEGORIES[key].matk === id) return key;
                 }
-                return null;
+                return EXTRA_CATEGORY_IDS[id] || null;
             },
             // BypassDEFPercent/BypassMDEFPercent這種「一個id可能屬於好幾種分類」的清單，不是就回傳null。
             getMultiCategoriesForId: function (id) {
@@ -358,6 +406,10 @@
                 if (!text || !options || !options.length) return '';
                 var name = text.trim().toLowerCase();
                 if (!name) return '';
+                var aliases = CATEGORY_ALIASES[category] || {};
+                Object.keys(aliases).sort(function (a, b) { return b.length - a.length; }).forEach(function (k) {
+                    if (name.indexOf(k) > -1) name = name.split(k).join(aliases[k]);
+                });
                 var prefix = TARGET_CATEGORIES[category].prefix;
                 var exact = options.filter(function (o) { return o.name.toLowerCase() === name; });
                 if (exact.length === 1) return prefix + exact[0].id;
@@ -412,6 +464,49 @@
             groupHasFormula: function (group) {
                 return group.effects.some(function (e) { return !!e.refineInterval; });
             },
+            // 把AI給的條件陣列整理成固定格式 [{type, text, min}]；type不認得的一律當 other，
+            // 純字串的條件也接受（當成 other），不會因為格式小差異就整個區塊壞掉。
+            normalizeConditions: function (raw) {
+                if (!Array.isArray(raw)) return [];
+                return raw.map(function (c) {
+                    if (typeof c === 'string') return { type: 'other', text: c, min: null };
+                    if (!c || typeof c !== 'object') return null;
+                    var type = CONDITION_TYPES.indexOf(c.type) > -1 ? c.type : 'other';
+                    var min = (c.min !== undefined && c.min !== null && !isNaN(Number(c.min))) ? Number(c.min) : null;
+                    var text = (typeof c.text === 'string' && c.text.trim()) ? c.text.trim()
+                        : (type === 'refine' && min !== null ? ('+' + min) : '');
+                    if (!text && min === null) return null;
+                    return { type: type, text: text, min: min };
+                }).filter(function (c) { return !!c; });
+            },
+            // 只判斷程式能判斷的條件（這件裝備自己的精鍊門檻）；給 autoCheck 區塊用。
+            conditionsMet: function (group) {
+                var refine = this.refineLevel;
+                return group.conditions.every(function (c) {
+                    return c.type === 'refine' && c.min !== null ? refine >= c.min : false;
+                });
+            },
+            onGroupToggle: function (group) {
+                group.manual = true;
+            },
+            conditionTypeLabel: function (type) {
+                var map = {
+                    refine: this.t('ui.aiparser.cond.refine', '精鍊'),
+                    set: this.t('ui.aiparser.cond.set', '套裝'),
+                    grade: this.t('ui.aiparser.cond.grade', '階級'),
+                    job: this.t('ui.aiparser.cond.job', '職業'),
+                    stat: this.t('ui.aiparser.cond.stat', '素質'),
+                    refineOther: this.t('ui.aiparser.cond.refineother', '其他部位精鍊'),
+                    other: this.t('ui.aiparser.cond.other', '其他'),
+                };
+                return map[type] || map.other;
+            },
+            conditionTagType: function (cond) {
+                if (cond.type === 'refine') return this.refineLevel >= cond.min ? 'success' : 'info';
+                if (cond.type === 'set') return 'warning';
+                if (cond.type === 'grade' || cond.type === 'job') return '';
+                return 'danger';
+            },
             // 「每+N精鍊，效果+M」規律效果的即時數值：固定部分 + floor(精鍊/N)*M，隨精鍊輸入即時重算，
             // 不需要重新問AI。非規律效果就直接用value本身。
             //
@@ -427,8 +522,8 @@
                     var step = Number(item.refineStep) || 0;
                     var base = Number(item.value) || 0;
                     var refine = this.refineLevel;
-                    if (group && !group.isPrimary) {
-                        refine = (group.refineParts || []).reduce(function (sum, p) { return sum + (Number(p.value) || 0); }, 0);
+                    if (group && group.refineParts && group.refineParts.length > 0) {
+                        refine = group.refineParts.reduce(function (sum, p) { return sum + (Number(p.value) || 0); }, 0);
                     }
                     var total = base + Math.floor(refine / interval) * step;
                     return Math.round(total * 100) / 100;
@@ -518,9 +613,12 @@
                     return;
                 }
 
-                var rawGroups = parsed && Array.isArray(parsed.groups) ? parsed.groups : null;
+                // 新格式是 {blocks:[...]}（效果優先：每個區塊=一組條件相同的效果，條件只是標籤）；
+                // 舊格式 {groups:[...]}（以條件分類為主）也照樣吃，舊的回覆貼回來不會壞。
+                var rawGroups = parsed && Array.isArray(parsed.blocks) ? parsed.blocks
+                    : (parsed && Array.isArray(parsed.groups) ? parsed.groups : null);
                 if (!rawGroups) {
-                    this.errorMsg = this.t('ui.aiparser.error.badformat', '貼上的 JSON 格式不是預期的 {groups:[...]}');
+                    this.errorMsg = this.t('ui.aiparser.error.badformat', '貼上的 JSON 格式不是預期的 {blocks:[...]}');
                     return;
                 }
 
@@ -529,14 +627,23 @@
 
                 var unknownIds = []; // 記錄回覆裡有但我們清單裡沒有的id，方便診斷
                 this.groups = rawGroups.map(function (g, idx) {
+                    g = g || {};
                     var effects = (Array.isArray(g.effects) ? g.effects : [])
                         .filter(function (row) {
                             if (!row) return false;
-                            if (!typeMap[row.id]) { unknownIds.push(row.id); return false; }
+                            // 計算機沒有對應詞條的效果（AI給 id:null + text，或給了我們不認得的id）不丟掉，
+                            // 保留成「無法自動套用」的唯讀項目顯示出來，讓使用者知道這條效果存在。
+                            if (!typeMap[row.id]) {
+                                if (row.id) unknownIds.push(row.id);
+                                return !!(row.text || row.id);
+                            }
                             var hasFormula = Number(row.refineInterval) > 0 && !isNaN(Number(row.refineStep)) && Number(row.refineStep) !== 0;
                             return hasFormula || (Number(row.value) !== 0 && !isNaN(Number(row.value)));
                         })
                         .map(function (row) {
+                            if (!typeMap[row.id]) {
+                                return { unmapped: true, id: row.id || '', text: String(row.text || row.id) };
+                            }
                             var t = typeMap[row.id];
                             var skillName = (typeof row.skillName === 'string') ? row.skillName : '';
                             var targetName = (typeof row.targetName === 'string') ? row.targetName : '';
@@ -587,35 +694,36 @@
                             };
                         });
                     var hasFormulaEffect = effects.some(function (e) { return !!e.refineInterval; });
-                    // refineParts：非固定效果區塊裡「每+N精鍊」規律要依據哪個/哪些部位的精鍊——
-                    // AI有給就用AI列的部位名稱（例如["披肩","鎧甲"]，好幾個部位精鍊合計時使用者
-                    // 會看到好幾個輸入框，各自填實際精鍊，程式自動加總，不用自己心算）；AI沒給
-                    // （通常是combo+精鍊門檻那種本來就沒有明確部位名稱的區塊）就退回單一個「此區塊」
-                    // 輸入框，維持舊行為，不會沒地方輸入。固定效果區塊(idx 0)不需要，永遠是空陣列。
+                    // refineParts：「每+N精鍊」規律依據的是「其他部位」的精鍊時，AI會在區塊上列出部位名稱
+                    // （例如["披肩","鎧甲"]），每個部位各一個輸入框，程式自動加總。沒列就代表依據這件
+                    // 裝備自己的精鍊，直接用最上面的 refineLevel（見 effectiveValue）。
                     var refineParts = [];
-                    if (idx > 0 && hasFormulaEffect) {
-                        var rawParts = Array.isArray(g.refineParts)
-                            ? g.refineParts.filter(function (s) { return typeof s === 'string' && s.trim(); })
-                            : [];
-                        var labels = rawParts.length > 0 ? rawParts : [self.t('ui.aiparser.group.thisblock', '此區塊')];
-                        refineParts = labels.map(function (label) {
-                            return { label: label, value: self.refineLevel };
-                        });
+                    if (hasFormulaEffect && Array.isArray(g.refineParts)) {
+                        refineParts = g.refineParts
+                            .filter(function (s) { return typeof s === 'string' && s.trim(); })
+                            .map(function (label) { return { label: label, value: self.refineLevel }; });
                     }
-                    return {
+                    var conditions = self.normalizeConditions(g.conditions);
+                    // 條件全部都是「這件裝備自己的精鍊門檻」（或根本沒條件）→ 程式可以自己判斷要不要勾，
+                    // 之後調整精鍊會自動重新勾選/取消；只要有任何一個程式判斷不了的條件（套裝/階級/職業/
+                    // 素質/其他…）就預設不勾，交給使用者自己決定。
+                    var autoCheck = conditions.every(function (c) { return c.type === 'refine' && c.min !== null; });
+                    var group = {
+                        source: (typeof g.source === 'string' && g.source.trim()) ? g.source.trim() : '',
                         name: g.name || self.tf('ui.aiparser.group.fallbackname', '區塊 {n}', { n: idx + 1 }),
-                        // 第一個區塊固定是「固定效果」，預設勾選；其餘（搭配裝備/階級/數值門檻）預設不勾，
-                        // 因為那些是「使用者自己是否真的有搭配/達到門檻」才成立，不該預設套用。
-                        checked: idx === 0,
-                        // isPrimary：只有第一個「固定效果」區塊的精鍊規律效果，用最上面的 this.refineLevel
-                        // （這件裝備自己的精鍊）；其他區塊各自用自己的 refineParts 加總（見 effectiveValue 說明）。
-                        isPrimary: idx === 0,
+                        conditions: conditions,
+                        autoCheck: autoCheck,
+                        // 使用者手動點過勾選框之後，調整精鍊就不再自動改它的勾選狀態
+                        manual: false,
+                        checked: false,
                         refineParts: refineParts,
                         effects: effects,
                     };
+                    group.checked = autoCheck ? self.conditionsMet(group) : false;
+                    return group;
                 }).filter(function (g) { return g.effects.length > 0; });
 
-                if (this.groups.length === 0) {
+                if (!this.groups.some(function (g) { return g.effects.some(function (e) { return !e.unmapped; }); })) {
                     console.log('[ai_equip_parser] unmatched ids from reply:', unknownIds);
                     this.errorMsg = unknownIds.length > 0
                         ? this.tf('ui.aiparser.error.unknownids', '沒有解析出任何已知效果。回覆裡有計算機不認得的id：{ids}（按F12打開主控台可看到完整清單）', { ids: unknownIds.slice(0, 10).join(', ') })
@@ -624,10 +732,15 @@
             },
             applyResults: function () {
                 var self = this;
+                // 從主畫面按鈕開啟、還沒選部位時，沒有地方可以寫入，先請使用者選部位。
+                if (this.currentPartIndex === '' || this.currentPartIndex === null || this.currentPartIndex === undefined) {
+                    this.errorMsg = this.t('ui.aiparser.error.nopart', '請先在步驟1選擇要套用到哪個部位');
+                    return;
+                }
                 var sums = {};
                 this.groups.filter(function (g) { return g.checked; }).forEach(function (g) {
                     g.effects.forEach(function (e) {
-                        if (e.targeted) return;
+                        if (e.targeted || e.unmapped) return;
                         sums[e.id] = (sums[e.id] || 0) + self.effectiveValue(e, g);
                     });
                 });
@@ -638,6 +751,8 @@
                 targetedChosen.forEach(function (s) {
                     self.$emit('apply-skill', { id: s.id, value: s.value, targetId: s.targetId, targetName: s.targetName });
                 });
+                // 全部效果都送出後通知父層：若裝備編輯視窗沒開（從主畫面開的），父層要自己把暫存寫回部位。
+                this.$emit('apply-done', this.currentPartIndex);
                 this.dialogVisible = false;
                 this.reset();
             },
@@ -661,12 +776,25 @@
             '    <el-col :span="4"><el-button type="success" size="small" :disabled="checkedGroupCount === 0" v-on:click="applyResults">{{ tf(\'ui.aiparser.applyblocks\', \'套用（{n} 區塊）\', { n: checkedGroupCount }) }}</el-button></el-col>',
             '  </el-row>',
             '  <el-row :gutter="14" type="flex" class="ai-parser-columns-row">',
-            '    <el-col :span="10" class="ai-parser-column">',
+            '    <el-col :span="8" class="ai-parser-column">',
             '      <div class="ai-parser-column-scroll themed-scrollbar">',
             '        <el-tabs v-model="activeLeftTab" class="ai-parser-tabs">',
             '          <el-tab-pane :label="t(\'ui.aiparser.tab.main\', \'裝備說明與解析\')" name="main">',
             '            <div style="color:#909399; font-size:12px; margin-bottom:6px;">{{ t(\'ui.aiparser.recommendedsites\', \'推薦資料站\') }}：<a href="https://rd.fharr.com/" target="_blank" rel="noopener noreferrer">fharr</a>、<a href="https://www.divine-pride.net/database/item" target="_blank" rel="noopener noreferrer">divine-pride</a></div>',
-            '            <div class="ai-parser-step-label">{{ t(\'ui.aiparser.step1\', \'步驟1：貼上裝備說明\') }}</div>',
+            '            <div class="ai-parser-step-label">{{ t(\'ui.aiparser.step1\', \'步驟1：選擇部位／精鍊\') }}</div>',
+            '            <el-row :gutter="10" type="flex" align="middle">',
+            '              <el-col :span="9">',
+            '                <span>{{ t(\'ui.aiparser.refine\', \'精鍊\') }}：</span>',
+            '                <el-input-number v-model="refineLevel" :min="0" :max="20" :controls="false" size="small" style="width:80px;" v-on:keyup.enter.native="$event.target.blur()"></el-input-number>',
+            '              </el-col>',
+            '              <el-col :span="15">',
+            '                <span>{{ t(\'ui.aiparser.weaponbase.applyto\', \'套用到\') }}：</span>',
+            '                <el-select v-model="selectedPartIndex" filterable size="small" :placeholder="t(\'ui.common.pleaseselect\', \'請選擇\')" style="width:150px;">',
+            '                  <el-option v-for="p in equipParts" :key="p.index" :label="p.label" :value="p.index"></el-option>',
+            '                </el-select>',
+            '              </el-col>',
+            '            </el-row>',
+            '            <div class="ai-parser-step-label" style="margin-top:10px;">{{ t(\'ui.aiparser.step2\', \'步驟2：貼上裝備說明，並複製到任何 AI Chat\') }}<span style="font-weight:normal; color:#909399; font-size:12px; margin-left:4px;">（{{ t(\'ui.aiparser.step2.hint.prefix\', \'例如\') }} <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a>、<a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">Gemini</a>、<a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a> {{ t(\'ui.aiparser.step2.hint.suffix\', \'等皆可\') }}）</span></div>',
             '            <el-row :gutter="10">',
             '              <el-col :span="24">',
             '                <el-input type="textarea" :rows="6" v-model="description" :placeholder="t(\'ui.aiparser.step1.placeholder\', \'貼上裝備的完整說明文字（英文/中文皆可，可包含精鍊效果、搭配套裝、階級追加效果）\')"></el-input>',
@@ -682,19 +810,6 @@
             '                  <span v-if="weaponBaseInfo.level !== undefined">{{ t(\'ui.equip.weaponlevel\', \'武器等級\') }}：{{ weaponBaseInfo.level }}</span>',
             '                </div>',
             '                <el-button type="primary" size="mini" style="margin-top:6px;" v-on:click="onApplyWeaponBase">{{ t(\'ui.aiparser.weaponbase.applyto\', \'套用到\') }}{{ equipParts[currentPartIndex] ? equipParts[currentPartIndex].label : \'\' }}</el-button>',
-            '              </el-col>',
-            '            </el-row>',
-            '            <div class="ai-parser-step-label" style="margin-top:10px;">{{ t(\'ui.aiparser.step2\', \'步驟2：選擇部位／精鍊，並複製到任何 AI Chat\') }}<span style="font-weight:normal; color:#909399; font-size:12px; margin-left:4px;">（{{ t(\'ui.aiparser.step2.hint.prefix\', \'例如\') }} <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">ChatGPT</a>、<a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">Gemini</a>、<a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a> {{ t(\'ui.aiparser.step2.hint.suffix\', \'等皆可\') }}）</span></div>',
-            '            <el-row :gutter="10" type="flex" align="middle">',
-            '              <el-col :span="9">',
-            '                <span>{{ t(\'ui.aiparser.refine\', \'精鍊\') }}：</span>',
-            '                <el-input-number v-model="refineLevel" :min="0" :max="20" :controls="false" size="small" style="width:80px;" v-on:keyup.enter.native="$event.target.blur()"></el-input-number>',
-            '              </el-col>',
-            '              <el-col :span="15">',
-            '                <span>{{ t(\'ui.aiparser.weaponbase.applyto\', \'套用到\') }}：</span>',
-            '                <el-select v-model="selectedPartIndex" filterable size="small" :placeholder="t(\'ui.common.pleaseselect\', \'請選擇\')" style="width:150px;">',
-            '                  <el-option v-for="p in equipParts" :key="p.index" :label="p.label" :value="p.index"></el-option>',
-            '                </el-select>',
             '              </el-col>',
             '            </el-row>',
             '            <el-row style="margin-top:10px;">',
@@ -726,7 +841,7 @@
             '        </el-tabs>',
             '      </div>',
             '    </el-col>',
-            '    <el-col :span="14" class="ai-parser-column">',
+            '    <el-col :span="9" class="ai-parser-column">',
             '      <div class="ai-parser-column-header">',
             '        <div v-if="groups.length > 0" style="margin-bottom:6px;">',
             '          <span>{{ t(\'ui.aiparser.refinelevel.label\', \'要換算到第幾精鍊：\') }}</span>',
@@ -737,21 +852,28 @@
             '        <span v-else style="color:#909399;">{{ t(\'ui.aiparser.groups.empty\', \'尚未解析出任何區塊，請先在左側貼上說明、複製提詞、把 AI 回覆貼回來後按「解析回覆」。\') }}</span>',
             '      </div>',
             '      <div class="ai-parser-column-scroll themed-scrollbar">',
-            '        <div v-for="(group, gidx) in groups" :key="gidx" style="border:1px solid var(--border-color); border-radius:4px; padding:8px 10px; margin-bottom:8px;">',
-            '          <el-row type="flex" align="middle">',
-            '            <el-col :span="24">',
-            '              <el-checkbox v-model="group.checked"><b>{{ group.name }}</b></el-checkbox>',
-            '            </el-col>',
-            '          </el-row>',
-            '          <el-row v-if="!group.isPrimary && groupHasFormula(group)" style="font-size:12px; color:#909399; margin-top:2px;">',
+            '        <div v-for="(group, gidx) in groups" :key="gidx" class="ai-parser-block" :class="{ \'is-unchecked\': !group.checked }">',
+            '          <div class="ai-parser-block-head">',
+            '            <el-checkbox v-model="group.checked" v-on:change="onGroupToggle(group)"></el-checkbox>',
+            '            <div class="ai-parser-block-conds">',
+            '              <el-tag v-if="group.conditions.length === 0" size="mini" type="success">{{ t(\'ui.aiparser.cond.none\', \'無條件\') }}</el-tag>',
+            '              <el-tag v-for="(c, cidx) in group.conditions" :key="cidx" size="mini" :type="conditionTagType(c)">{{ conditionTypeLabel(c.type) }}｜{{ c.text }}</el-tag>',
+            '            </div>',
+            '          </div>',
+            '          <div class="ai-parser-block-source">{{ group.source || group.name }}</div>',
+            '          <el-row v-if="group.refineParts.length > 0" style="font-size:12px; color:#909399; margin-top:2px;">',
             '            <el-col :span="24">',
             '              <span v-for="(p, pidx) in group.refineParts" :key="pidx" style="margin-right:10px; white-space:nowrap;">',
             '                {{ p.label }}{{ t(\'ui.aiparser.refinesuffix\', \'精鍊：\') }}<el-input-number v-model="p.value" size="mini" :min="0" :max="20" :controls="false" style="width:55px;" v-on:keyup.enter.native="$event.target.blur()"></el-input-number>',
             '              </span>',
             '            </el-col>',
             '          </el-row>',
-            '          <template v-for="item in group.effects">',
-            '          <el-row v-if="!item.refineInterval || effectiveValue(item, group) !== 0" :key="item.id + (item.skillName || item.targetName || \'\') + \'_main\'" :gutter="6" type="flex" align="middle" style="min-height:34px;">',
+            '          <template v-for="(item, eidx) in group.effects">',
+            '          <el-row v-if="item.unmapped" :key="\'u\' + eidx" :gutter="6" type="flex" align="middle" class="ai-parser-unmapped" style="min-height:30px;">',
+            '            <el-col :span="1"></el-col>',
+            '            <el-col :span="23"><el-tag size="mini" type="info">{{ t(\'ui.aiparser.unmapped\', \'無對應詞條\') }}</el-tag> {{ item.text }}</el-col>',
+            '          </el-row>',
+            '          <el-row v-else-if="!item.refineInterval || effectiveValue(item, group) !== 0" :key="item.id + (item.skillName || item.targetName || \'\') + \'_\' + eidx" :gutter="6" type="flex" align="middle" style="min-height:34px;">',
             '            <el-col :span="1"></el-col>',
             '            <template v-if="item.targeted && !item.confirmed">',
             '              <el-col :span="6"><span class="EffectType" :class="effectTagClass(item.id)">{{ t(item.id, item.label) }}</span></el-col>',
@@ -784,19 +906,27 @@
             '          </el-row>',
             '          </template>',
             '        </div>',
-            '        <div v-if="mergedPreview.length > 0" class="bg-purple-light" style="margin-top:6px; padding:8px 10px; border-radius:4px;">',
+            '      </div>',
+            '    </el-col>',
+            '    <el-col :span="7" class="ai-parser-column">',
+            '      <div class="ai-parser-column-header">',
+            '        <b>{{ t(\'ui.aiparser.result.title\', \'整合後效果\') }}</b>',
+            '      </div>',
+            '      <div class="ai-parser-column-scroll themed-scrollbar">',
+            '        <div v-if="mergedPreview.length === 0 && mergedTargetedPreview.length === 0" style="color:#909399;">{{ t(\'ui.aiparser.result.empty\', \'勾選中間的區塊後，這裡會顯示加總後實際要寫入裝備的效果。\') }}</div>',
+            '        <div v-if="mergedPreview.length > 0" class="bg-purple-light" style="margin-bottom:8px; padding:8px 10px; border-radius:4px;">',
             '          <div style="margin-bottom:4px;"><b>{{ t(\'ui.aiparser.mergedpreview.title\', \'套用後加總預覽（勾選區塊相同效果會加總成一筆寫入裝備）：\') }}</b></div>',
             '          <el-row v-for="item in mergedPreview" :key="item.id" :gutter="6" type="flex" align="middle" style="height:30px;">',
-            '            <el-col :span="10"><span class="EffectType" :class="effectTagClass(item.id)">{{ t(item.id, item.label) }}</span></el-col>',
+            '            <el-col :span="12"><span class="EffectType" :class="effectTagClass(item.id)">{{ t(item.id, item.label) }}</span></el-col>',
             '            <el-col :span="2">{{ item.opersymbol }}</el-col>',
-            '            <el-col :span="8">{{ item.value }}</el-col>',
+            '            <el-col :span="6">{{ item.value }}</el-col>',
             '            <el-col :span="4">{{ item.suffixsymbol }}</el-col>',
             '          </el-row>',
             '        </div>',
-            '        <div v-if="mergedTargetedPreview.length > 0" class="bg-purple-light2" style="margin-top:6px; padding:8px 10px; border-radius:4px;">',
+            '        <div v-if="mergedTargetedPreview.length > 0" class="bg-purple-light2" style="margin-bottom:8px; padding:8px 10px; border-radius:4px;">',
             '          <div style="margin-bottom:4px;"><b>{{ t(\'ui.aiparser.targetedpreview.title\', \'指定對象效果加總預覽（技能/種族/體型/階級/屬性，按上方「套用」時一起寫入裝備）：\') }}</b></div>',
             '          <el-row v-for="row in mergedTargetedPreview" :key="row.key" :gutter="6" type="flex" align="middle" style="height:30px;">',
-            '            <el-col :span="10"><span class="EffectType" :class="effectTagClass(row.id)">{{ t(row.id, row.label) }}</span>：{{ row.targetName }}</el-col>',
+            '            <el-col :span="14"><span class="EffectType" :class="effectTagClass(row.id)">{{ t(row.id, row.label) }}</span>：{{ row.targetName }}</el-col>',
             '            <el-col :span="2">{{ row.opersymbol }}</el-col>',
             '            <el-col :span="8">{{ row.value }}{{ row.suffixsymbol }}</el-col>',
             '          </el-row>',

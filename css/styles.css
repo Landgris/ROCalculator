@@ -667,6 +667,48 @@ body.el-popup-parent--hidden {
     color: var(--text-color);
 }
 
+/* AI解析：效果優先的區塊（勾選框 + 條件標籤 + 原文 + 效果列） */
+.ai-parser-block {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+}
+
+.ai-parser-block.is-unchecked {
+    opacity: 0.6;
+}
+
+.ai-parser-block-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.ai-parser-block-conds {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.ai-parser-block-conds .el-tag {
+    height: auto;
+    line-height: 18px;
+    white-space: normal;
+}
+
+.ai-parser-block-source {
+    font-size: 12px;
+    color: #909399;
+    margin: 4px 0 2px 24px;
+    white-space: pre-wrap;
+}
+
+.ai-parser-unmapped {
+    font-size: 12px;
+    color: #909399;
+}
+
 .RaceSelectDialog {
     display: flex;
     flex-direction: column;
