@@ -3,6 +3,12 @@ nav.title,RO 計算機,RO Calculator,Calculadora RO,RO-Rechner,เครื่�
 nav.allsetlist,配置清單,Saved Builds,Configuraciones guardadas,Gespeicherte Builds,บิลด์ที่บันทึกไว้,Builds enregistrés
 nav.savecfg,儲存配置,Save Build,Guardar configuración,Build speichern,บันทึกบิลด์,Enregistrer le build
 nav.loadcfg,讀取配置檔案,Load Build File,Cargar archivo de configuración,Build-Datei laden,โหลดไฟล์บิลด์,Charger un fichier de build
+nav.buildmenu,配置,Builds,Configuraciones,Builds,บิลด์,Builds
+nav.clearall,清空當前頁面,Clear Current Page,Limpiar página actual,Aktuelle Seite leeren,ล้างหน้าปัจจุบัน,Effacer la page actuelle
+nav.undo,上一步,Undo,Deshacer,Rückgängig,ย้อนกลับ,Annuler
+nav.redo,下一步,Redo,Rehacer,Wiederholen,ทำซ้ำ,Rétablir
+ui.autosave.restored,已恢復上次的配置,Restored your last session,Se restauró la última sesión,Letzte Sitzung wiederhergestellt,กู้คืนการตั้งค่าครั้งล่าสุดแล้ว,Dernière session restaurée
+ui.autosave.clearconfirm,確定要清空當前頁面嗎？已儲存的配置清單不受影響。,Clear the current page? Your saved builds will not be affected.,¿Limpiar la página actual? Tus configuraciones guardadas no se verán afectadas.,Aktuelle Seite leeren? Gespeicherte Builds bleiben erhalten.,ล้างหน้าปัจจุบันหรือไม่? บิลด์ที่บันทึกไว้จะไม่ได้รับผลกระทบ,Effacer la page actuelle ? Vos builds enregistrés ne seront pas affectés.
 nav.about,關於,About,Acerca de,Über,เกี่ยวกับ,À propos
 nav.donate,贊助,Donate,Donar,Spenden,สนับสนุน,Faire un don
 nav.thanks,協力,Contributors,Colaboradores,Mitwirkende,ผู้ร่วมพัฒนา,Contributeurs
@@ -618,3 +624,34 @@ ui.skilltree.applyskill,套用,Apply,,,,
 settings.skilltreesource,技能樹資料來源,Skill Tree Data Source,,,,
 settings.skilltreesource.zero,Zero,Zero,,,,
 settings.skilltreesource.standard,標準版(含三轉四轉),Standard (incl. 3rd/4th job),,,,
+ui.compare.title,快速比較,Quick Compare,Comparación rápida,Schnellvergleich,เปรียบเทียบด่วน,Comparaison rapide
+ui.compare.record,記錄比較,Record,Registrar,Erfassen,บันทึก,Enregistrer
+ui.compare.recordtip,記下目前傷害與配置，換裝或調素質後再記一筆來比較,Record current damage and build; change gear or stats then record again to compare,Registra el daño y la configuración actuales; cambia equipo o stats y vuelve a registrar para comparar,Aktuellen Schaden und Build erfassen; nach Änderungen erneut erfassen zum Vergleichen,บันทึกดาเมจและบิลด์ปัจจุบัน เปลี่ยนของหรือสเตตัสแล้วบันทึกอีกครั้งเพื่อเปรียบเทียบ,Enregistrer les dégâts et le build actuels ; modifiez puis enregistrez à nouveau pour comparer
+ui.compare.view,比較,Compare,Comparar,Vergleich,เปรียบเทียบ,Comparer
+ui.compare.metric.primary,傷害,Damage,Daño,Schaden,ดาเมจ,Dégâts
+ui.compare.clear,全部清除,Clear all,Borrar todo,Alle löschen,ล้างทั้งหมด,Tout effacer
+ui.compare.clearconfirm,確定清除所有比較記錄？,Clear all comparison records?,¿Borrar todos los registros?,Alle Vergleichseinträge löschen?,ล้างบันทึกการเปรียบเทียบทั้งหมด?,Effacer tous les enregistrements ?
+ui.compare.baseline,基準,Baseline,Base,Basis,ฐาน,Référence
+ui.compare.setbaseline,設為基準,Set as baseline,Usar como base,Als Basis,ตั้งเป็นฐาน,Définir comme référence
+ui.compare.restore,還原此配置,Restore build,Restaurar,Wiederherstellen,คืนค่าบิลด์นี้,Restaurer
+ui.compare.restored,已還原配置,Build restored,Configuración restaurada,Build wiederhergestellt,คืนค่าบิลด์แล้ว,Build restauré
+ui.compare.delete,刪除,Delete,Eliminar,Löschen,ลบ,Supprimer
+ui.compare.recorded,已記錄,Recorded,Registrado,Erfasst,บันทึกแล้ว,Enregistré
+ui.compare.empty,尚無記錄,No records yet,Sin registros,Noch keine Einträge,ยังไม่มีบันทึก,Aucun enregistrement
+ui.compare.nodps,這些記錄沒有 DPS（ASPD 為 0）,No DPS in these records (ASPD is 0),Sin DPS (ASPD es 0),Kein DPS (ASPD ist 0),ไม่มี DPS (ASPD เป็น 0),Pas de DPS (ASPD = 0)
+ui.compare.emptyhint,在傷害面板按「記錄比較」存下第一筆，調整配置後再記錄一筆即可比較。,"Press ""Record"" in the damage panel to save the first entry, then adjust your build and record again to compare.","Pulsa ""Registrar"" en el panel de daño, ajusta la configuración y registra otra vez para comparar.","Im Schadenspanel ""Erfassen"" drücken, Build anpassen und erneut erfassen.",กด「บันทึก」ในแผงดาเมจ ปรับบิลด์แล้วบันทึกอีกครั้งเพื่อเปรียบเทียบ,"Appuyez sur ""Enregistrer"" dans le panneau des dégâts, modifiez le build puis enregistrez à nouveau."
+ui.compare.hint,◎ 基準　○ 空心＝敵人與基準不同　Δ% 為同技能內相對基準,◎ baseline · ○ hollow = different enemy · Δ% is vs. the baseline of the same skill,◎ base · ○ hueco = enemigo distinto · Δ% respecto a la base de la misma habilidad,◎ Basis · ○ hohl = anderer Gegner · Δ% relativ zur Basis desselben Skills,◎ ฐาน · ○ กลวง = ศัตรูต่างจากฐาน · Δ% เทียบกับฐานของสกิลเดียวกัน,◎ référence · ○ creux = ennemi différent · Δ% par rapport à la référence de la même compétence
+ui.compare.enemymismatch,敵人與基準不同，比較可能沒有意義,Enemy differs from baseline; comparison may be meaningless,El enemigo difiere de la base,Gegner weicht von der Basis ab,ศัตรูต่างจากฐาน การเปรียบเทียบอาจไม่มีความหมาย,Ennemi différent de la référence
+ui.compare.nochange,與上一筆配置相同,Same build as previous,Igual que el anterior,Wie vorheriger Eintrag,เหมือนบันทึกก่อนหน้า,Identique au précédent
+ui.compare.savefail,快速比較記錄儲存失敗（瀏覽器空間不足）,Failed to save comparison records (browser storage full),No se pudo guardar (almacenamiento lleno),Speichern fehlgeschlagen (Speicher voll),บันทึกไม่สำเร็จ (พื้นที่เบราว์เซอร์เต็ม),Échec de l'enregistrement (stockage plein)
+ui.compare.kind.total,總傷(平均),Total (avg),Total (prom.),Gesamt (Ø),รวม (เฉลี่ย),Total (moy.)
+ui.compare.kind.single,傷害(平均),Damage (avg),Daño (prom.),Schaden (Ø),ดาเมจ (เฉลี่ย),Dégâts (moy.)
+ui.compare.kind.critexp,含暴擊期望,Expected (w/ crit),Esperado (con crít.),Erwartet (inkl. Krit),คาดหวัง (รวมคริ),Espéré (avec crit.)
+ui.compare.diff.class,職業,Job,Clase,Klasse,อาชีพ,Classe
+ui.compare.diff.skill,技能,Skill,Habilidad,Skill,สกิล,Compétence
+ui.compare.diff.refine,精煉,Refine,Refinado,Verf.,ตีบวก,Raffinage
+ui.compare.diff.effectchanged,效果變更,effects changed,efectos cambiados,Effekte geändert,เปลี่ยนเอฟเฟกต์,effets modifiés
+ui.compare.diff.enemy,敵人,Enemy,Enemigo,Gegner,ศัตรู,Ennemi
+ui.compare.diff.enemychanged,敵人設定變更,Enemy settings changed,Ajustes del enemigo cambiados,Gegnereinstellungen geändert,เปลี่ยนการตั้งค่าศัตรู,Paramètres de l'ennemi modifiés
+ui.compare.diff.skilloption,技能選項變更,Skill options changed,Opciones de habilidad cambiadas,Skill-Optionen geändert,เปลี่ยนตัวเลือกสกิล,Options de compétence modifiées
+ui.compare.nameph,備註名稱（選填）,Note (optional),Nota (opcional),Notiz (optional),บันทึก (ไม่บังคับ),Note (facultatif)

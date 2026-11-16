@@ -58,11 +58,73 @@
             });
         }
     </script>
-    <link rel='stylesheet' href='./css/styles.css?v=2' />
+    <link rel='stylesheet' href='./css/styles.css?v=10' />
 </head>
 
 <body>
     <div id="App" v-cloak>
+        <!-- 快速比較側邊面板：不擋操作，開著也能繼續換裝／調素質 -->
+        <transition name="qc-slide">
+            <aside v-if="quickCompare.open" class="qc-panel">
+                <div class="qc-head">
+                    <span class="qc-title">{{ t('ui.compare.title', '快速比較') }}</span>
+                    <el-radio-group v-model="quickCompare.metric" size="mini">
+                        <el-radio-button label="primary">{{ t('ui.compare.metric.primary', '傷害') }}</el-radio-button>
+                        <el-radio-button label="dps">DPS</el-radio-button>
+                    </el-radio-group>
+                    <span class="qc-head-actions">
+                        <el-button type="primary" size="mini" icon="el-icon-plus" :disabled="anyDamageApiLoading" @click="onQuickCompareRecord">{{ t('ui.compare.record', '記錄比較') }}</el-button>
+                        <el-button size="mini" icon="el-icon-delete" :disabled="!quickCompare.records.length" @click="onQuickCompareClear" :title="t('ui.compare.clear', '全部清除')"></el-button>
+                        <el-button size="mini" icon="el-icon-close" @click="quickCompare.open = false"></el-button>
+                    </span>
+                </div>
+                <div class="qc-body">
+                    <div v-if="quickCompareAnalysis.series.length > 1" class="qc-legend">
+                        <span v-for="s in quickCompareAnalysis.series" :key="s.key"><i :style="{ background: s.color }"></i>{{ s.name }}</span>
+                    </div>
+                    <div class="qc-chart-wrap" v-html="quickCompareChartSvg" @click="onQuickCompareChartClick"></div>
+                    <div class="qc-hint">{{ t('ui.compare.hint', '◎ 基準　○ 空心＝敵人與基準不同　Δ% 為同技能內相對基準') }}</div>
+                    <div v-if="!quickCompare.records.length" class="qc-emptytext">
+                        {{ t('ui.compare.emptyhint', '在傷害面板按「記錄比較」存下第一筆，調整配置後再記錄一筆即可比較。') }}
+                    </div>
+                    <div v-for="row in quickCompareAnalysis.rows.slice().reverse()" :key="row.rec.id"
+                        class="qc-row" :class="{ 'is-hl': quickCompare.highlightId === row.rec.id }" :data-id="row.rec.id"
+                        @mouseenter="quickCompare.highlightId = row.rec.id" @mouseleave="quickCompare.highlightId = null">
+                        <div class="qc-row-top">
+                            <i class="qc-dot" :style="{ background: row.color }"></i>
+                            <span class="qc-seq">#{{ row.rec.seq }}</span>
+                            <el-input v-model="row.rec.name" size="mini" class="qc-name" :placeholder="t('ui.compare.nameph', '備註名稱（選填）')" @change="saveQuickCompare"></el-input>
+                            <el-tag v-if="row.isBaseline" size="mini" type="warning">{{ t('ui.compare.baseline', '基準') }}</el-tag>
+                            <el-tooltip v-if="row.enemyMismatch" effect="dark" :content="t('ui.compare.enemymismatch', '敵人與基準不同，比較可能沒有意義')" placement="top">
+                                <i class="el-icon-warning qc-warn"></i>
+                            </el-tooltip>
+                        </div>
+                        <div class="qc-nums">
+                            <div>
+                                <span class="qc-k">{{ quickCompareKindLabel(row.rec.primary.kind) }}</span>
+                                <span class="qc-v">{{ row.rec.primary.avg | currency }}</span>
+                                <span v-if="!row.isBaseline && row.dPrimary != null" class="qc-d" :class="row.dPrimary > 0 ? 'up' : (row.dPrimary < 0 ? 'down' : '')">{{ qcPct(row.dPrimary) }}</span>
+                            </div>
+                            <div v-if="row.rec.dps != null">
+                                <span class="qc-k">DPS</span>
+                                <span class="qc-v">{{ row.rec.dps | currency }}</span>
+                                <span v-if="!row.isBaseline && row.dDps != null" class="qc-d" :class="row.dDps > 0 ? 'up' : (row.dDps < 0 ? 'down' : '')">{{ qcPct(row.dDps) }}</span>
+                            </div>
+                        </div>
+                        <div class="qc-meta">{{ row.rec.skillName }} Lv{{ row.rec.skillLevel }} · {{ row.rec.enemyName }}</div>
+                        <div v-if="row.rec.changes && row.rec.changes.length" class="qc-changes">
+                            <span v-for="(c, ci) in row.rec.changes" :key="ci" class="qc-chip">{{ c }}</span>
+                        </div>
+                        <div v-else-if="row.rec.changes" class="qc-changes qc-nochange">{{ t('ui.compare.nochange', '與上一筆配置相同') }}</div>
+                        <div class="qc-actions">
+                            <el-button v-if="!row.isBaseline" type="text" size="mini" icon="el-icon-star-off" @click="onQuickCompareSetBaseline(row.rec)">{{ t('ui.compare.setbaseline', '設為基準') }}</el-button>
+                            <el-button type="text" size="mini" icon="el-icon-refresh-left" :disabled="!row.rec.snapshot" @click="onQuickCompareRestore(row.rec)">{{ t('ui.compare.restore', '還原此配置') }}</el-button>
+                            <el-button type="text" size="mini" icon="el-icon-delete" class="qc-del" @click="onQuickCompareDelete(row.rec)">{{ t('ui.compare.delete', '刪除') }}</el-button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </transition>
 
         <el-dialog :visible.sync="UIPanel['AboutDialog']" v-on:close="ClosePanel('AboutDialog')"
             custom-class="Dialogue-container" width="45%" top="50px" center>
@@ -3230,25 +3292,34 @@
         <!-- header -->
         <div class="ROCalTitle">
             <el-row type="flex" align="middle" justify="end" :gutter="1">
-                <el-col :span="1">
-                </el-col>
                 <el-col :span="2">
-                    <el-button v-on:click="onOpenAllSet" size="mini">
-                        {{ t('nav.allsetlist', '配置清單') }}
-                    </el-button>
-                </el-col>
-                <el-col :span="2">
-                    <el-button v-on:click="onOpenAllSetSave" size="mini">
-                        {{ t('nav.savecfg', '儲存配置') }}
-                    </el-button>
-                </el-col>
-                <el-col :span="2">
+                    <!-- 檔案輸入要放在下拉選單外面：選單內容是點開才渲染的，放裡面 $refs 會拿不到 -->
                     <input style="display:none" ref="fileInputImport" type="file" name="fileInputImport" @change="onLoadFileAllSetSave" >
-                    <el-button v-on:click.stop="openFileExplorer()" size="mini">
-                        {{ t('nav.loadcfg', '讀取配置檔案') }}
-                    </el-button>
+                    <el-dropdown trigger="click" @command="onBuildMenuCommand" size="small" class="build-menu">
+                        <el-button size="small" class="build-menu-btn">
+                            <span>{{ t('nav.buildmenu', '配置') }}</span><i class="el-icon-arrow-down"></i>
+                        </el-button>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="list" icon="el-icon-folder-opened">{{ t('nav.allsetlist', '配置清單') }}</el-dropdown-item>
+                            <el-dropdown-item command="save" icon="el-icon-document-add">{{ t('nav.savecfg', '儲存配置') }}</el-dropdown-item>
+                            <el-dropdown-item command="loadfile" icon="el-icon-upload2">{{ t('nav.loadcfg', '讀取配置檔案') }}</el-dropdown-item>
+                            <el-dropdown-item command="clearall" icon="el-icon-delete" divided class="build-menu-danger">{{ t('nav.clearall', '清空當前頁面') }}</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
                 </el-col>
-                <el-col :span="1">
+                <el-col :span="3">
+                    <el-button-group class="history-btns">
+                        <el-button size="small" icon="el-icon-refresh-left" :disabled="historyUndoCount === 0"
+                            v-on:click="onUndo" :title="t('nav.undo', '上一步') + ' (Ctrl+Z)'">
+                            {{ t('nav.undo', '上一步') }}
+                        </el-button>
+                        <el-button size="small" :disabled="historyRedoCount === 0"
+                            v-on:click="onRedo" :title="t('nav.redo', '下一步') + ' (Ctrl+Y)'">
+                            {{ t('nav.redo', '下一步') }}<i class="el-icon-refresh-right el-icon--right"></i>
+                        </el-button>
+                    </el-button-group>
+                </el-col>
+                <el-col :span="3">
                 </el-col>
                 <el-col :span="6">
                     <div class="effectline grid-content" type="flex" align="middle" justify="space-around">
@@ -5244,6 +5315,18 @@
                         <el-row>
                             <div class="Attribute">
                                 <template v-if="activePanel==='damage'">
+                                    <div class="qc-toolbar">
+                                        <el-tooltip effect="dark" :content="t('ui.compare.recordtip', '記下目前傷害與配置，換裝或調素質後再記一筆來比較')" placement="top">
+                                            <el-button type="primary" size="mini" icon="el-icon-plus" :disabled="anyDamageApiLoading" @click="onQuickCompareRecord">
+                                                {{ t('ui.compare.record', '記錄比較') }}
+                                            </el-button>
+                                        </el-tooltip>
+                                        <el-badge :value="quickCompare.records.length" :hidden="!quickCompare.records.length" type="info">
+                                            <el-button size="mini" icon="el-icon-data-line" @click="quickCompare.open = !quickCompare.open">
+                                                {{ t('ui.compare.view', '比較') }}
+                                            </el-button>
+                                        </el-badge>
+                                    </div>
                                     <div v-show="UIPanel['ATKPanel']" v-loading="apiLoading.atk">
                                         <el-alert v-if="apiError.atk" :title="t('ui.panel.apierror','連線失敗，請稍後再試')" type="error" show-icon :closable="false" style="margin-bottom:8px;"></el-alert>
                                         <el-row class="titlebox" type="flex" align="middle" justify="end"
@@ -7704,6 +7787,9 @@
                 ImportedAllSetData: {},
                 StoreDB_AllSet: [],
                 TempAllSet: {},
+                // 上一步/下一步：只有筆數放 data（給按鈕 disabled 用），快照本體放在非響應式的 historyUndo/historyRedo（見 mounted）
+                historyUndoCount: 0,
+                historyRedoCount: 0,
 
                 EquipText: '',
 
@@ -7715,6 +7801,9 @@
                 TestMode: false,
                 StoreDB_QuickCalc: [],
                 QuickCalc: { formula: '', solution: '', remark: '' },
+                // 快速比較（js/quick_compare.js）：records 存 localStorage 'StoreDB_QuickCompare'，
+                // baselineIds 是「技能 → 被設為基準的記錄 id」，沒設就用該技能的第一筆
+                quickCompare: { open: false, records: [], baselineIds: {}, metric: 'primary', highlightId: null },
 
                 SpecialthanksList: [],
                 DonatethanksList: [],
@@ -11759,6 +11848,8 @@
                     this.onOption();
                 },
                 onOption() {
+                    // 所有設定變動最後都會走到這裡重算，順便排一次自動暫存（有 debounce，連續變動只會存一次）
+                    this.scheduleAutoSave();
                     if (!this.status.classid) {
                         console.log("未選擇職業，跳過計算");
                         return;
@@ -14162,8 +14253,11 @@
                     if (!partId) return;
                     this.$nextTick(() => {
                         const el = document.getElementById('equip-anchor-' + partId);
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        if (!el) return;
+                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // 跳轉後讓該格外框閃一下；先移除 class 並強制 reflow，連續點同一格也能重播動畫
                         el.classList.remove('equip-jump-flash');
+                        void el.offsetWidth;
                         el.classList.add('equip-jump-flash');
                         clearTimeout(el._equipFlashTimer);
                         el._equipFlashTimer = setTimeout(() => el.classList.remove('equip-jump-flash'), 1700);
@@ -14771,60 +14865,160 @@
                     const parsed = JSON.stringify(this.StoreDB_Skill);
                     localStorage.setItem('StoreDB_Skill', parsed);
                 },
-                onOpenAllSetSave() {
-                    this.$set(this.TempAllSet, 'Name', '');
-                    this.$set(this.TempAllSet, 'Equip', this.equipspartlist);
-                    this.$set(this.TempAllSet, 'Weapon', this.weapon);
-                    this.$set(this.TempAllSet, 'SubWeapon', this.subweapon);
-                    this.$set(this.TempAllSet, 'Status', this.status);
-                    this.$set(this.TempAllSet, 'SkillName', this.skill.name);
-                    this.$set(this.TempAllSet, 'Skill', this.skill);
-                    this.$set(this.TempAllSet, 'SkillOption', this.skilloption);
-                    this.$set(this.TempAllSet, 'Option', this.option);
-                    this.$set(this.TempAllSet, 'EnemyName', this.enemyattribute.name);
-                    this.$set(this.TempAllSet, 'Enemy', this.enemyattribute);
-                    this.buildConsumable();
-                    this.$set(this.TempAllSet, 'Consumable', this.StoreDB_Consumable);
-                    this.buildSupportSkill();
-                    this.$set(this.TempAllSet, 'SupportSkill', this.StoreDB_SupportSkill);
-                    this.$set(this.TempAllSet, 'Damage', 0);
-                    this.$set(this.TempAllSet, 'DamageDPS', 0);
-                    this.$set(this.TempAllSet, 'NormalAttackDPS', 0);
-
-                    var _hitnumbervalue = this.EvalFormula(this.skill.hitnumber);
-                    switch (this.skill.DamageTypeIdx) {
-                        case 0:
-                            if(this.attritube['ASPD']!=0){
-                                this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.atkmulti_DPS));
-                            } else if(this.skill.critical){
-                                if( this.computeattribute.SkillDamageCRI_min != this.computeattribute.SkillDamageCRI_max ){
-                                    this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.SkillDamageCRI_min) + " ~ " + this.currencystring(this.computeattribute.SkillDamageCRI_max));
-                                }else{
-                                    this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.SkillDamageCRI_max));
-                                }
-                            }else if(_hitnumbervalue>1||_hitnumbervalue<0){
-                                this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.SkillDamage_min) + " ~ " + this.currencystring(this.computeattribute.SkillDamage_max));
-                            }else{
-                                this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.atkc9_min) + " ~ " + this.currencystring(this.computeattribute.atkc9_max));
-                            }
-                        break;
-                        case 1:
-                            if(this.attritube['ASPD']!=0){
-                                this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.matkmulti_DPS));
-                            }else if(_hitnumbervalue>1||_hitnumbervalue<0){
-                                this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.matkmulti_min) + " ~ " + this.currencystring(this.computeattribute.matkmulti_max));
-                            }else{
-                                this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.matk4_min) + " ~ " + this.currencystring(this.computeattribute.matk4_max));
-                            }
-                        break;
-                        case 2:
-                            if(this.attritube['ASPD']!=0){
-                                this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.DragonBreathDMG_DPS));
-                            }else{
-                                this.$set(this.TempAllSet, 'Damage', this.currencystring(this.computeattribute.DragonBreathDMG));
-                            }
-                        break;
+                // ===== 快速比較（純函式在 js/quick_compare.js） =====
+                loadQuickCompare() {
+                    try {
+                        const saved = JSON.parse(localStorage.getItem('StoreDB_QuickCompare') || 'null');
+                        if (saved && Array.isArray(saved.records)) {
+                            this.quickCompare.records = saved.records;
+                            this.quickCompare.baselineIds = saved.baselineIds || {};
+                        }
+                    } catch (e) {
+                        console.warn('[quick-compare] 讀取失敗', e);
                     }
+                },
+                saveQuickCompare() {
+                    const q = this.quickCompare;
+                    try {
+                        localStorage.setItem('StoreDB_QuickCompare', JSON.stringify({ records: q.records, baselineIds: q.baselineIds }));
+                    } catch (e) {
+                        // 容量不夠時，先把最舊幾筆的完整快照丟掉（只剩數字與差異，不能還原），再試一次
+                        console.warn('[quick-compare] 儲存失敗，移除舊快照後重試', e);
+                        const withSnap = q.records.filter(r => r.snapshot);
+                        withSnap.slice(0, Math.ceil(withSnap.length / 2)).forEach(r => { r.snapshot = null; });
+                        try {
+                            localStorage.setItem('StoreDB_QuickCompare', JSON.stringify({ records: q.records, baselineIds: q.baselineIds }));
+                        } catch (e2) {
+                            this.$message.error(this.t('ui.compare.savefail', '快速比較記錄儲存失敗（瀏覽器空間不足）'));
+                        }
+                    }
+                },
+                // 目前傷害面板的主指標（總傷優先）＋DPS；快速比較與「儲存配置」共用
+                currentDamageMetrics() {
+                    return QuickCompare.pickMetrics({
+                        damageType: this.skill.DamageTypeIdx,
+                        ca: this.computeattribute,
+                        hit: this.EvalFormula(this.skill.hitnumber),
+                        critical: this.skill.critical,
+                        cri: this.attritube['CRI'],
+                        aspd: this.attritube['ASPD'],
+                        skillId: this.skill.id,
+                    });
+                },
+                onQuickCompareRecord() {
+                    if (this.anyDamageApiLoading) return;
+                    const q = this.quickCompare;
+                    const m = this.currentDamageMetrics();
+                    const summary = QuickCompare.buildSummary(this);
+                    const prev = q.records[q.records.length - 1];
+                    const seq = q.records.reduce((mx, r) => Math.max(mx, r.seq || 0), 0) + 1;
+                    const rec = {
+                        id: this._uuid(),
+                        seq,
+                        time: Date.now(),
+                        name: '',
+                        changes: prev ? QuickCompare.diffSummary(prev.summary, summary, this.t) : null, // null = 沒有上一筆可比
+                        damageType: this.skill.DamageTypeIdx,
+                        skillId: this.skill.id || this.skill.name,
+                        skillName: summary.skill.name || this.skill.name,
+                        skillLevel: this.skill.level,
+                        enemyName: summary.enemy,
+                        primary: m.primary,
+                        dps: m.dps,
+                        aspd: this.attritube['ASPD'],
+                        summary,
+                        snapshot: JSON.parse(JSON.stringify(this.buildAllSetSnapshot())),
+                    };
+                    q.records.push(rec);
+                    if (q.records.length > QuickCompare.MAX_RECORDS) {
+                        q.records.splice(0, q.records.length - QuickCompare.MAX_RECORDS);
+                        q.records[0].changes = null; // 上一筆被擠掉了，差異沒有比較對象
+                    }
+                    this.saveQuickCompare();
+                    q.open = true;
+                    this.$message.success(this.t('ui.compare.recorded', '已記錄') + ' #' + seq);
+                },
+                onQuickCompareRestore(rec) {
+                    if (!rec.snapshot) return;
+                    // 走跟「讀取配置」同一個 loader；會觸發 onOption → autosave，所以可以按「上一步」反悔
+                    this.onLoadAllSetSave(JSON.parse(JSON.stringify(rec.snapshot)), true);
+                    this.$message.success(this.t('ui.compare.restored', '已還原配置') + ' #' + rec.seq);
+                },
+                onQuickCompareDelete(rec) {
+                    const q = this.quickCompare;
+                    const i = q.records.indexOf(rec);
+                    if (i < 0) return;
+                    q.records.splice(i, 1);
+                    // 被刪的是某筆的「上一筆」時，差異標籤要跟著重算，否則會顯示跟已不存在記錄的差異
+                    const next = q.records[i];
+                    if (next) {
+                        const before = q.records[i - 1];
+                        next.changes = before ? QuickCompare.diffSummary(before.summary, next.summary, this.t) : null;
+                    }
+                    Object.keys(q.baselineIds).forEach(k => { if (q.baselineIds[k] === rec.id) this.$delete(q.baselineIds, k); });
+                    this.saveQuickCompare();
+                },
+                onQuickCompareSetBaseline(rec) {
+                    this.$set(this.quickCompare.baselineIds, rec.skillId || rec.skillName || '?', rec.id);
+                    this.saveQuickCompare();
+                },
+                onQuickCompareClear() {
+                    this.$confirm(this.t('ui.compare.clearconfirm', '確定清除所有比較記錄？'), '', { type: 'warning' })
+                        .then(() => {
+                            this.quickCompare.records = [];
+                            this.quickCompare.baselineIds = {};
+                            this.saveQuickCompare();
+                        })
+                        .catch(() => {});
+                },
+                onQuickCompareChartClick(ev) {
+                    const g = ev.target.closest && ev.target.closest('.qc-pt');
+                    if (!g) return;
+                    const id = g.getAttribute('data-id');
+                    this.quickCompare.highlightId = id;
+                    const row = this.$el.querySelector('.qc-row[data-id="' + id + '"]');
+                    if (row) row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                },
+                qcPct(p) { return QuickCompare.fmtPct(p); },
+                quickCompareKindLabel(kind) {
+                    if (kind === 'total') return this.t('ui.compare.kind.total', '總傷(平均)');
+                    if (kind === 'critexp') return this.t('ui.compare.kind.critexp', '含暴擊期望');
+                    return this.t('ui.compare.kind.single', '傷害(平均)');
+                },
+                // 目前整套配置的快照（跟「儲存配置」同一份格式，可直接丟給 onLoadAllSetSave 還原）。
+                // 回傳的是對目前狀態的引用，要留存請自行 JSON.stringify / cloneDeep。
+                // 自動暫存（flushAutoSave）和儲存配置（onOpenAllSetSave）共用；之後要做上一步/下一步也從這裡取快照。
+                buildAllSetSnapshot() {
+                    this.buildConsumable();
+                    this.buildSupportSkill();
+                    return {
+                        Name: '',
+                        Equip: this.equipspartlist,
+                        Weapon: this.weapon,
+                        SubWeapon: this.subweapon,
+                        Status: this.status,
+                        SkillName: this.skill.name,
+                        Skill: this.skill,
+                        SkillOption: this.skilloption,
+                        Option: this.option,
+                        EnemyName: this.enemyattribute.name,
+                        Enemy: this.enemyattribute,
+                        Consumable: this.StoreDB_Consumable,
+                        SupportSkill: this.StoreDB_SupportSkill,
+                    };
+                },
+                onOpenAllSetSave() {
+                    const snapshot = this.buildAllSetSnapshot();
+                    Object.keys(snapshot).forEach(k => this.$set(this.TempAllSet, k, snapshot[k]));
+                    // 跟快速比較同一套主指標：有總傷以總傷為主，DPS 另外附上
+                    const m = this.currentDamageMetrics();
+                    const dpsText = m.dps != null ? this.currencystring(Math.round(m.dps)) : 0;
+                    let dmgText = this.quickCompareKindLabel(m.primary.kind) + ' ' + this.currencystring(Math.round(m.primary.avg));
+                    if (m.dps != null) dmgText += ' ｜ DPS ' + dpsText;
+                    this.$set(this.TempAllSet, 'Damage', dmgText);
+                    this.$set(this.TempAllSet, 'DamageDPS', dpsText);
+                    this.$set(this.TempAllSet, 'NormalAttackDPS', this.skill.DamageTypeIdx == 0 && this.attritube['ASPD'] != 0
+                        ? this.currencystring(Math.round(this.computeattribute.normalattack_DPS)) : 0);
                     this.OpenPanel('AllSetDBSaveDialog');
                 },
                 onOpenAllSet() {
@@ -14887,7 +15081,8 @@
                 onLoadAllSetSaveIdx(_dbidx) {
                     this.onLoadAllSetSave(this.StoreDB_AllSet[_dbidx].AllSet);
                 },
-                onLoadAllSetSave(AllsetObject) {
+                // fromAutoSave：開頁面時從自動暫存還原，不算使用者「載入存檔」，不送 GA 統計
+                onLoadAllSetSave(AllsetObject, fromAutoSave = false) {
                     this.skill.name = AllsetObject.SkillName;
                     for (eqi = 0; eqi < this.equipspartlist.length; ++eqi) {
                         var cardnull = (AllsetObject.Equip[eqi]==null)?true:false;
@@ -14953,21 +15148,159 @@
                         this.parseSupportSkill();
                     }
 
-                    // 確保職業 ID 正確讀取
-                    let savedJobId = AllsetObject.Status.classid;
-                    let savedJobLabel = this.classlist.find(job => job.id === savedJobId)?.label || "未知職業";
-                    // 發送事件到 GA
-                    trackEvent("job_selected", "職業選擇", savedJobLabel, "載入存檔");
+                    if (!fromAutoSave) {
+                        // 確保職業 ID 正確讀取
+                        let savedJobId = AllsetObject.Status.classid;
+                        let savedJobLabel = this.classlist.find(job => job.id === savedJobId)?.label || "未知職業";
+                        // 發送事件到 GA
+                        trackEvent("job_selected", "職業選擇", savedJobLabel, "載入存檔");
 
-                    // 確保技能名稱正確讀取
-                    let savedSkillName = this.skill?.name || "未知技能";
-                    // 發送事件到 GA - 技能名稱統計
-                    trackEvent("skill_used", "技能統計", savedSkillName, "載入存檔");
+                        // 確保技能名稱正確讀取
+                        let savedSkillName = this.skill?.name || "未知技能";
+                        // 發送事件到 GA - 技能名稱統計
+                        trackEvent("skill_used", "技能統計", savedSkillName, "載入存檔");
+                    }
 
                     this.CheckParam();
                     this.CombineEquipsAttribute();
                     this.ChangeWeapon();
                     this.ClosePanel('AllSetDBDialog');
+                },
+                // ===== 自動暫存 + 上一步/下一步 =====
+                // 不是每次變動就存：onOption() 只呼叫 scheduleAutoSave() 重設計時器，停手 800ms 後才 flushAutoSave() 一次，
+                // 這時同一份快照同時拿去「記一筆歷史」和「寫 localStorage」。所以連續快速的變動（連點素質+1）會合併成一步。
+                // 另外切走分頁/縮小/關閉/重新整理（visibilitychange、pagehide）時立刻補存，確保最後一刻的變動不會漏。
+                // Zero 模式和一般模式分開存，避免切換模式時載入不存在的職業/技能。
+                // 歷史只放記憶體（JSON 字串，最多 HISTORY_MAX 筆），重新整理就清掉，不寫進 localStorage。
+                autoSaveKey() {
+                    return this.isZeroMode ? 'AutoSave_Zero' : 'AutoSave_Std';
+                },
+                scheduleAutoSave() {
+                    // 正在套用上一步/下一步時，套用過程觸發的 onOption 不算使用者的新變動
+                    if (!this.autoSaveReady || this.historyApplying) return;
+                    clearTimeout(this.autoSaveTimer);
+                    this.autoSaveTimer = setTimeout(() => this.flushAutoSave(), 800);
+                },
+                flushAutoSave() {
+                    clearTimeout(this.autoSaveTimer);
+                    // 還沒還原完（autoSaveReady=false）不能存，不然會用預設值把上次的暫存蓋掉
+                    if (!this.autoSaveReady || this.historyApplying || !this.status.classid) return;
+                    let json;
+                    try {
+                        json = JSON.stringify(this.buildAllSetSnapshot());
+                    } catch (e) {
+                        console.warn('建立快照失敗:', e);
+                        return;
+                    }
+                    this.commitHistory(json);
+                    try {
+                        localStorage.setItem(this.autoSaveKey(), '{"savedAt":' + Date.now() + ',"AllSet":' + json + '}');
+                    } catch (e) {
+                        console.warn('自動暫存失敗:', e);
+                    }
+                },
+                commitHistory(json) {
+                    // 第一份快照只當基準，不算一步
+                    if (this.historyCurrent === null) { this.historyCurrent = json; return; }
+                    if (json === this.historyCurrent) return;  // 實際沒變（例如只是重算觸發了 onOption）
+                    this.historyUndo.push(this.historyCurrent);
+                    if (this.historyUndo.length > 50) this.historyUndo.shift();
+                    this.historyCurrent = json;
+                    this.historyRedo.length = 0;  // 做了新變動，下一步的紀錄就作廢（原地清空：stepHistory 手上拿的是同一個陣列引用）
+                    this.syncHistoryCount();
+                },
+                syncHistoryCount() {
+                    this.historyUndoCount = this.historyUndo.length;
+                    this.historyRedoCount = this.historyRedo.length;
+                },
+                onUndo() { this.stepHistory(this.historyUndo, this.historyRedo); },
+                onRedo() { this.stepHistory(this.historyRedo, this.historyUndo); },
+                stepHistory(from, to) {
+                    if (this.historyApplying) return;
+                    // 停手還不到 800ms 的變動還沒記進歷史，先記下來，上一步才會回到它之前
+                    this.flushAutoSave();
+                    if (!from.length) return;
+                    to.push(this.historyCurrent);
+                    const target = from.pop();
+                    this.historyCurrent = target;
+                    this.syncHistoryCount();
+                    this.historyApplying = true;
+                    try {
+                        this.onLoadAllSetSave(JSON.parse(target), true);
+                    } catch (e) {
+                        console.warn('套用歷史紀錄失敗:', e);
+                    }
+                    // watcher（weapon/enemyattribute…）會在下一個 tick 才觸發 onOption，等它們跑完再解鎖；
+                    // 解鎖後用套用完的實際狀態當新基準，避免讀檔過程的正規化差異被誤判成一筆新變動
+                    setTimeout(() => {
+                        this.historyApplying = false;
+                        try { this.historyCurrent = JSON.stringify(this.buildAllSetSnapshot()); } catch (e) {}
+                        this.flushAutoSave();
+                    }, 0);
+                },
+                onHistoryKeydown(e) {
+                    if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
+                    // 在輸入框裡打字時讓瀏覽器自己的文字復原處理
+                    const el = e.target;
+                    if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+                    const key = e.key.toLowerCase();
+                    if (key === 'z' && !e.shiftKey) { e.preventDefault(); this.onUndo(); }
+                    else if (key === 'y' || (key === 'z' && e.shiftKey)) { e.preventDefault(); this.onRedo(); }
+                },
+                // mounted() 等所有資料檔（職業/技能/消耗品/支援技能/敵方）載入完成後呼叫一次
+                restoreAutoSave() {
+                    let raw = null;
+                    try { raw = localStorage.getItem(this.autoSaveKey()); } catch (e) {}
+                    if (raw) {
+                        try {
+                            const payload = JSON.parse(raw);
+                            if (payload && payload.AllSet && payload.AllSet.Status && payload.AllSet.Status.classid) {
+                                this.onLoadAllSetSave(payload.AllSet, true);
+                                this.$message({
+                                    message: this.t('ui.autosave.restored', '已恢復上次的配置'),
+                                    type: 'success',
+                                    duration: 2500,
+                                });
+                            }
+                        } catch (e) {
+                            // 暫存壞掉就丟掉，用預設值開始，不要讓頁面整個起不來
+                            console.warn('自動暫存還原失敗，已清除:', e);
+                            try { localStorage.removeItem(this.autoSaveKey()); } catch (e2) {}
+                        }
+                    }
+                    this.autoSaveReady = true;
+                    // 還原完的狀態當上一步的起點；等還原觸發的 watcher 跑完再取，取到的才是最終狀態
+                    setTimeout(() => {
+                        if (this.historyCurrent === null && this.status.classid) {
+                            try { this.historyCurrent = JSON.stringify(this.buildAllSetSnapshot()); } catch (e) {}
+                        }
+                    }, 0);
+                },
+                // header「配置」下拉選單
+                onBuildMenuCommand(cmd) {
+                    switch (cmd) {
+                        case 'list': this.onOpenAllSet(); break;
+                        case 'save': this.onOpenAllSetSave(); break;
+                        case 'loadfile': this.openFileExplorer(); break;
+                        case 'clearall': this.onClearAll(); break;
+                    }
+                },
+                onClearAll() {
+                    this.$confirm(
+                        this.t('ui.autosave.clearconfirm', '確定要清空當前頁面嗎？已儲存的配置清單不受影響。'),
+                        this.t('nav.clearall', '清空當前頁面'),
+                        {
+                            confirmButtonText: this.t('ui.common.confirm', '確定'),
+                            cancelButtonText: this.t('ui.common.cancel', '取消'),
+                            type: 'warning'
+                        }
+                    ).then(() => {
+                        // 先關掉自動暫存，避免重新整理觸發的 pagehide 又把目前狀態寫回去
+                        this.autoSaveReady = false;
+                        clearTimeout(this.autoSaveTimer);
+                        try { localStorage.removeItem(this.autoSaveKey()); } catch (e) {}
+                        window.location.reload();
+                    }).catch(() => {});
                 },
                 onSaveFileAllSetSave(_dbidx) {
                     const data = this.utoa(JSON.stringify(this.StoreDB_AllSet[_dbidx].AllSet))
@@ -15074,6 +15407,7 @@
                     // 使用新的裝備數據加載函數（支持版本控制和遷移）
                     this.LoadEquipDB();
                     
+                    this.loadQuickCompare();
                     if (localStorage.getItem('StoreDB_QuickCalc')) {
                         try {
                             this.StoreDB_QuickCalc = JSON.parse(localStorage.getItem('StoreDB_QuickCalc'));
@@ -15127,11 +15461,14 @@
                         this.currentSupportSkillFile = 'supportskills.json';
                     }
 
+                    // 自動暫存還原要等這些資料檔都載完才能做（見 mounted() 的 restoreAutoSave），所以把 promise 收集起來
+                    const initLoads = [];
+
                     // 初始化時載入技能資料
-                    this.loadSkillsFromJSON();
-                    
+                    initLoads.push(this.loadSkillsFromJSON());
+
                     // 初始化時載入支援技能資料
-                    this.loadSupportSkillsFromJSON();
+                    initLoads.push(this.loadSupportSkillsFromJSON());
 
                     this.DefaultDB_SupportSkill.push(
                     
@@ -15141,14 +15478,15 @@
                     this.LoadEnemyDB();
 
                     // 各版本專屬頭目資料（四轉服/樂園）非同步載入，載入完成後附加到 enemylist 後面
-                    this.loadEnemyListFromJSON();
-                    
+                    initLoads.push(this.loadEnemyListFromJSON());
+
                     // 消耗品資料從 JSON 檔案載入
-                    this.loadConsumablesFromJSON();
-                    
+                    initLoads.push(this.loadConsumablesFromJSON());
+
                     // 職業資料從 JSON 檔案載入
-                    this.loadClassesFromJSON();
-                    this.loadClassHpSpFromJSON();
+                    initLoads.push(this.loadClassesFromJSON());
+                    initLoads.push(this.loadClassHpSpFromJSON());
+                    this.initDataLoaded = Promise.allSettled(initLoads);
                     
                     // 載入技能名稱映射
                     this.loadSkillNameMap();
@@ -16336,6 +16674,22 @@
                 },
             },
             computed: {
+                // 任一傷害 API 還在算：快速比較的「記錄」要等數字回來才能按，免得記到舊值
+                anyDamageApiLoading() {
+                    return Object.values(this.apiLoading).some(Boolean);
+                },
+                quickCompareAnalysis() {
+                    return QuickCompare.analyze(this.quickCompare.records, this.quickCompare.baselineIds);
+                },
+                quickCompareChartSvg() {
+                    return QuickCompare.renderChart(this.quickCompareAnalysis, this.quickCompare.metric, {
+                        highlightId: this.quickCompare.highlightId,
+                        baselineText: this.t('ui.compare.baseline', '基準'),
+                        emptyText: this.quickCompare.metric === 'dps'
+                            ? this.t('ui.compare.nodps', '這些記錄沒有 DPS（ASPD 為 0）')
+                            : this.t('ui.compare.empty', '尚無記錄'),
+                    });
+                },
                 // 敵方抗性欄位的顯示順序（敵方面板與編輯敵方 dialog 共用）
                 // 敵方抗性分組（敵方面板與編輯敵方 dialog 共用）：共用在上，下面分物理 / 魔法
                 enemyResistGroups() {
@@ -16586,6 +16940,13 @@
                 }
             },
             mounted() {
+                // 自動暫存狀態（不需響應式，不放 data）
+                this.autoSaveReady = false;
+                this.autoSaveTimer = null;
+                this.historyUndo = [];
+                this.historyRedo = [];
+                this.historyCurrent = null;
+                this.historyApplying = false;
                 this.loadSettings();
                 this.applyTheme();
                 this.loadWelcomeContent();
@@ -16637,9 +16998,14 @@
                 this.onChangeClass();
                 this.onChangeSupportClass();
                 this.OpenPanel('General');
-                window.onbeforeunload = e => {   //關閉 重新整理
-                    return ''
-                };
+                // 原本關閉/重新整理會跳「確定要離開嗎」，改成自動暫存＋下次開啟自動還原。
+                // 離開時補存用 visibilitychange + pagehide：手機切 App、關分頁都會觸發，比 beforeunload 可靠。
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden') this.flushAutoSave();
+                });
+                window.addEventListener('pagehide', () => this.flushAutoSave());
+                document.addEventListener('keydown', e => this.onHistoryKeydown(e));
+                this.initDataLoaded.then(() => this.$nextTick(() => this.restoreAutoSave()));
             }
 
         })
